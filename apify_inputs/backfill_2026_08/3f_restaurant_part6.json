@@ -1,0 +1,825 @@
+{
+  "language": "en",
+  "scrapePlaceDetailPage": true,
+  "maxImages": 5,
+  "maxReviews": 0,
+  "maxQuestions": 0,
+  "scrapeContacts": false,
+  "maximumLeadsEnrichmentRecords": 0,
+  "skipClosedPlaces": false,
+  "startUrls": [
+    {
+      "url": "https://www.google.com/maps/place/Baan+Ice+%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%84%E0%B8%AD%E0%B8%8B%E0%B9%8C+%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B8%9E%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%A7/@13.8159684,100.5599967,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29debc6d0c54b:0x4d07fe7c781fbe0f!8m2!3d13.8159684!4d100.5599967!16s%2Fg%2F11fq_ly1fn?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A1%E0%B8%A3%E0%B8%81%E0%B8%95%E0%B8%AA%E0%B8%A2%E0%B8%B2%E0%B8%A1+%E0%B8%AB%E0%B8%A7%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%82%E0%B8%9A%E0%B8%A3%E0%B8%B2%E0%B8%93+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AA%E0%B8%B0%E0%B8%9E%E0%B8%B2%E0%B8%99%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A15/@13.8283426,100.4877013,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29b3a0ff85c3f:0xa59bad35d8fdab27!8m2!3d13.8283426!4d100.4877013!16s%2Fg%2F11svk7475h?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Blanc+Eatery+%26+Cafe/@13.7481502,100.6464255,17z/data=!3m1!4b1!4m6!3m5!1s0x311d614c72a2325d:0x23c0b4a2b568a905!8m2!3d13.7481502!4d100.6464255!16s%2Fg%2F11j6sh_vl5?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Eat+Me+Bangkok/@13.7628168,100.4998293,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2994c49bc984d:0x37e3eb246f7500cc!8m2!3d13.7628168!4d100.4998293!16s%2Fg%2F11m6t_yfx6?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/One+cc.+Cafe+%26+Craft+beer/@13.810132,100.4382518,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2918afe9333d3:0x60234f8f62933e8a!8m2!3d13.810132!4d100.4382518!16s%2Fg%2F11j94hc7xw?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Yeast+Rustic+Pizza/@13.7477032,100.6237771,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61b22677937f:0xba23780c381b2909!8m2!3d13.7477032!4d100.6237771!16s%2Fg%2F11h41_5t2x?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Saphan+Kwai+Authentic+Basil+Restaurant+Original+Thai+Food/@13.7897404,100.5496901,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29dfcda823c19:0x7e2e8f2523d56f7f!8m2!3d13.7897404!4d100.5496901!16s%2Fg%2F11s80bvf_j?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Chor+Chang+Yok+Krok/@13.6743729,100.6402618,17z/data=!3m1!4b1!4m6!3m5!1s0x311d5fe8ad5b3f61:0x4f276e7b35749e9a!8m2!3d13.6743729!4d100.6402618!16s%2Fg%2F1hc15lwb_?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/A5+Legacy+Beef+Grill+%26+Chill/@13.7425488,100.4469931,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299a9c1b84ca9:0x8acedd7c3e639f6d!8m2!3d13.7425488!4d100.4469931!16s%2Fg%2F11kgg8tm41?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Uzbekistan+Lazzati/@12.9100083,100.8673695,17z/data=!3m1!4b1!4m6!3m5!1s0x3102bdfe3d9f9df7:0xeaef03d279baaec3!8m2!3d12.9100083!4d100.8673695!16s%2Fg%2F11bxc738qx?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Sasi+Bangkok/@13.777414,100.4395253,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2976664fd757b:0x9e68616783f172e2!8m2!3d13.777414!4d100.4395253!16s%2Fg%2F11vhk6980m?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Paella+House+%26+Wine+Bar+by+El+Tapeo/@13.7316892,100.5784014,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f26db28d8ff:0xe363456ea54b6a60!8m2!3d13.7316892!4d100.5784014!16s%2Fg%2F11kbwcv05b?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Yentafo+Kruengsonge+by+A.Mallika+BITEC+Branch/@13.6694549,100.6101543,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a15c95a10df9:0x13efb683a9d15b6a!8m2!3d13.6694549!4d100.6101543!16s%2Fg%2F11krs2rbd3?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Tanommit+Food+Hall/@13.7127098,100.5813723,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f495d15a1b5:0x250faac2db153ab9!8m2!3d13.7127098!4d100.5813723!16s%2Fg%2F11fk9w21dy?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%AB%E0%B8%A5%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%82%E0%B8%81%E0%B9%8B+%E0%B9%82%E0%B8%A0%E0%B8%8A%E0%B8%99%E0%B8%B2/@13.6673563,100.4443833,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a2ca31c602ff:0x80565ac546544a1e!8m2!3d13.6673563!4d100.4443833!16s%2Fg%2F1hc5ggfrv?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/6%2F3%E2%80%8B+Halal+Jim+Chum/@13.7517555,100.6474618,17z/data=!3m1!4b1!4m6!3m5!1s0x311d618e62ea3a89:0xa90553d2c300e773!8m2!3d13.7517555!4d100.6474618!16s%2Fg%2F11lpym99cv?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/SSamthing+Together+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+The+Nine+Rama9/@13.7414089,100.6250379,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61a8857d6be1:0xf69230cc658385f!8m2!3d13.7414089!4d100.6250379!16s%2Fg%2F11vc1hvmtv?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Wok+wayy/@13.815179,100.6326795,17z/data=!3m1!4b1!4m6!3m5!1s0x311d630dddba0e5d:0xbcf2694766f91da9!8m2!3d13.815179!4d100.6326795!16s%2Fg%2F11vfbbjytk?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Swiss+Corner+Restaurant/@13.7759033,100.6763216,17z/data=!3m1!4b1!4m6!3m5!1s0x311d63d826991275:0x5b0c051dcf230df4!8m2!3d13.7759033!4d100.6763216!16s%2Fg%2F1tdp2hv2?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/The+Dawin+Hotel/@13.7383981,100.5532225,17z/data=!3m1!4b1!4m9!3m8!1s0x30e29ee0b7569779:0x4b6333922b7b37a7!5m2!4m1!1i2!8m2!3d13.7383981!4d100.5532225!16s%2Fg%2F1w8w7g2p?authuser=0&hl=en&entry=ttu&g_ep=EgoyMD0x30e29ee0b7569779:0x4b6333922b7b37a7\""
+    },
+    {
+      "url": "https://www.google.com/maps/place/Wattana+3+Beef+Noodles/@13.7910711,100.548599,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29c1762a313ff:0x38e8b8f8bf6feac9!8m2!3d13.7910711!4d100.548599!16s%2Fg%2F1hm4r_y3v?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Flying+Pork+Rice+with+Deep+Fried+Pork/@12.9098972,100.8978963,17z/data=!3m1!4b1!4m6!3m5!1s0x3102959e5f663691:0x76fdf550b3725dc9!8m2!3d12.9098972!4d100.8978963!16s%2Fg%2F11h5lr5t__?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Mango+House+N.8/@13.8666372,100.5905322,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d8125edeca5:0x6fa3795e6f49fe45!8m2!3d13.8666372!4d100.5905322!16s%2Fg%2F11tp4dw00d?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Passionrista+Coffee+%26+Brunch+(Ladprao)/@13.8075508,100.5734716,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d78f1ca5835:0xe5d784ddc02ff0c9!8m2!3d13.8075508!4d100.5734716!16s%2Fg%2F11l5pwnjxl?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Monkey+Suki+%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%84%E0%B8%B3%E0%B9%81%E0%B8%AB%E0%B8%8781/@13.7615689,100.6340172,17z/data=!3m1!4b1!4m6!3m5!1s0x311d615b21681917:0x649ebee21526c667!8m2!3d13.7615689!4d100.6340172!16s%2Fg%2F11x0cltj5t?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/The+Viking+Lasalle+(%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%94%E0%B8%99%E0%B8%95%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%94)/@13.6559497,100.6222518,17z/data=!3m1!4b1!4m6!3m5!1s0x311d5f10b1de4787:0xd6ae818a79adc3c3!8m2!3d13.6559497!4d100.6222518!16s%2Fg%2F11r3mdqfnf?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Ohayo/@13.8190503,100.5961996,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29da1c220ceed:0x91cf45a83c86fa28!8m2!3d13.8190503!4d100.5961996!16s%2Fg%2F12lklbnyf?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Baan+Steak+Tad+(Setthakit+Village)/@13.7255151,100.375062,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2964235162bd5:0xad7dc00fc987a4e5!8m2!3d13.7255151!4d100.375062!16s%2Fg%2F11c70blz8d?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyNS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Wife's/@13.7899893,100.4288103,17z/data=!3m1!4b1!4m6!3m5!1s0x30e290adf973b5ab:0x3b29c61f9c0ac6c6!8m2!3d13.7899893!4d100.4288103!16s%2Fg%2F11b72hnt1n?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Beeru/@13.7732055,100.4922208,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2997a4e7e73f5:0x3a62109ab96da733!8m2!3d13.7732055!4d100.4922208!16s%2Fg%2F11b7cpm4fy?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/T+space/@13.7019266,100.6133358,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f10a3b4eea5:0xa3fafc86ec1be27d!8m2!3d13.7019266!4d100.6133358!16s%2Fg%2F11krdlmk4b?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%99%E0%B8%A0%E0%B8%99%E0%B8%B2%E0%B8%99%E0%B8%B2/@13.8162863,100.6308411,17z/data=!3m1!4b1!4m6!3m5!1s0x311d627cab258999:0x42350a39092fa247!8m2!3d13.8162863!4d100.6308411!16s%2Fg%2F11bx75wgly?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Indigo+Indian+Restaurant/@12.9267443,100.8760257,17z/data=!3m1!4b1!4m6!3m5!1s0x310296124a78f799:0x7f1f66482f9fe32c!8m2!3d12.9267443!4d100.8760257!16s%2Fg%2F11bw4ydbsm?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Bossa+Cafe'/@13.8560666,100.5322012,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29ca71fcf4567:0x631e6cec81c00e2c!8m2!3d13.8560666!4d100.5322012!16s%2Fg%2F1vntgbk2?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/The+Charm+Tree+Steak+and+more/@13.673086,100.3920374,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2bd09297b2f85:0x8ae2a72581f01f17!8m2!3d13.673086!4d100.3920374!16s%2Fg%2F11v5y5b7by?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Heychom+Thai+Dessert+Bar/@13.7459201,100.4912687,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2999720faae7f:0x4a260e3e5587501d!8m2!3d13.7459201!4d100.4912687!16s%2Fg%2F11lslqq9cf?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/We+Hotel+Riverfront/@13.8086592,100.5152278,17z/data=!3m1!4b1!4m9!3m8!1s0x30e29bc1dbbecdb5:0x6c46bc73085fe6ef!5m2!4m1!1i2!8m2!3d13.8086592!4d100.5152278!16s%2Fg%2F11vf4wqf75?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyNS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Bonchon+Central+Rama+2/@13.6633492,100.4369554,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2bd914fd06e91:0x76483266a6ad91e2!8m2!3d13.6633492!4d100.4369554!16s%2Fg%2F11c1l1zgdk?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%82%E0%B8%99%E0%B8%A1%E0%B9%80%E0%B8%AA%E0%B9%89%E0%B8%99%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B8%97%E0%B8%AD%E0%B8%87/@13.7777754,100.5702281,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d07e3de3cd7:0xb9efe2d15517ce5e!8m2!3d13.7777754!4d100.5702281!16s%2Fg%2F11rd9xqr80?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/SALA+31+Cafe+%26+Grill/@13.8262878,100.4732176,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29bb3987e2b3d:0xc65b908fb6bb06ac!8m2!3d13.8262878!4d100.4732176!16s%2Fg%2F11sfqvzb2k?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Tense.bkk+(%E0%B8%81%E0%B8%B2%E0%B8%A5)/@13.7337946,100.500837,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2994756ac7505:0xcd6888229df88f72!8m2!3d13.7337946!4d100.500837!16s%2Fg%2F11rj3v6xhh?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Salad+Factory+-+The+Crystal+SB+Ratchaphruek/@13.8098791,100.4487132,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29a725724fffb:0x31c7cca56dd0c2bd!8m2!3d13.8098791!4d100.4487132!16s%2Fg%2F11fy2qc9jl?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%88%E0%B9%8A+%E0%B9%84%E0%B8%97%E0%B8%A2-%E0%B8%AD%E0%B8%B5%E0%B8%AA%E0%B8%B2%E0%B8%99/@13.7802507,100.6462001,17z/data=!3m1!4b1!4m6!3m5!1s0x311d6300617bf787:0x29bf45c735494ac5!8m2!3d13.7802507!4d100.6462001!16s%2Fg%2F11lthklhj8?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Likhit+Kai+Yang/@13.76114,100.5092818,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29941b525ee03:0x47e205e408124434!8m2!3d13.76114!4d100.5092818!16s%2Fg%2F1v1km9lk?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B9%80%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%A2%E0%B8%B8%E0%B8%98%E0%B8%A2%E0%B8%B2+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B22/@13.6445848,100.5868396,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a1e3bd093247:0x546ebacd4c82eedb!8m2!3d13.6445848!4d100.5868396!16s%2Fg%2F11fm4jrvh8?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Long+Jiu+Lou/@13.6450309,100.5825973,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a14d19968d35:0x8d1c5169536fca57!8m2!3d13.6450309!4d100.5825973!16s%2Fg%2F11ll7vbvbt?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/The+BK+Restaurant/@13.7164045,100.5956366,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f0d817d69c9:0x584f242118517de8!8m2!3d13.7164045!4d100.5956366!16s%2Fg%2F11vyccj8k2?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQxNS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Sherbet+Club+Bangkok/@13.7284538,100.5853892,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29fadf2f8b12d:0xc357b5d34b08f5f7!8m2!3d13.7284538!4d100.5853892!16s%2Fg%2F12llbtm4r?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Ronin+Pizza+%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B8%9E%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%A718/@13.8035813,100.5702243,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d7ec9532281:0x67219f231a94ec27!8m2!3d13.8035813!4d100.5702243!16s%2Fg%2F11s2n2v7j7?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A7%E0%B8%B1%E0%B8%8A%E0%B8%A3+%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%A1%E0%B8%B1%E0%B8%99%E0%B9%84%E0%B8%81%E0%B9%88+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%A0%E0%B8%B2%E0%B8%A7%E0%B8%99%E0%B8%B2/@13.8008629,100.5832937,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d001a31dcf5:0xe608755d4cd306fd!8m2!3d13.8008629!4d100.5832937!16s%2Fg%2F11lmfg0ps0?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Caf%C3%A9+Amazon/@13.8121926,100.5488485,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29c68f3082643:0x6f195af7118e52f2!8m2!3d13.8121926!4d100.5488485!16s%2Fg%2F11c1pbrjr9?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/MK+Restaurants+The+Mall+Bangkapi/@13.7660781,100.6420418,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61f32c18d83f:0x5c8764f0d721ed9a!8m2!3d13.7660781!4d100.6420418!16s%2Fg%2F1tf77kgx?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%84%E0%B8%AE%E0%B9%88+%E0%B8%A3%E0%B8%B2%E0%B9%80%E0%B8%A1%E0%B8%99+(Hai+Ramen)/@13.7436284,100.6285644,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61007a2f30df:0x6fd307d32979f481!8m2!3d13.7436284!4d100.6285644!16s%2Fg%2F11w98byzj2?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Aoba+Shabu+(Phattanakarn)/@13.727232,100.65707,17z/data=!3m1!4b1!4m6!3m5!1s0x311d605310f5f455:0xdebffce1ebcd1de6!8m2!3d13.727232!4d100.65707!16s%2Fg%2F12ls0308l?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Frame+Cafe%26Restaurant+%E0%B8%87%E0%B8%B2%E0%B8%A1%E0%B8%A7%E0%B8%87%E0%B8%A8%E0%B9%8C%E0%B8%A7%E0%B8%B2%E0%B8%99+47/@13.8680281,100.5559207,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d902f6c9113:0xf318c5cef20e52f6!8m2!3d13.8680281!4d100.5559207!16s%2Fg%2F11rypxp4v3?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%99%E0%B8%B7%E0%B8%AD%E0%B8%A2+%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%88%E0%B8%B2%E0%B8%99%E0%B8%94%E0%B9%88%E0%B8%A7%E0%B8%99/@13.8136307,100.5963265,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d333f335151:0x88d2acc5f6253228!8m2!3d13.8136307!4d100.5963265!16s%2Fg%2F11y4ds1nkr?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Feuang+Nara/@13.7236897,100.5299144,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f2d51621289:0x5a4f242499e3ae3b!8m2!3d13.7236897!4d100.5299144!16s%2Fg%2F1hm31cwml?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B8%9E%E0%B8%B5%E0%B9%88%E0%B9%80%E0%B8%A5%E0%B9%87%E0%B8%81+%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B9%81%E0%B8%81%E0%B8%87%E0%B8%AB%E0%B8%B2%E0%B8%94%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88/@13.8247466,100.5945495,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d9c1dbd195b:0x4b7679875a0de716!8m2!3d13.8247466!4d100.5945495!16s%2Fg%2F11j5h2_7y4?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/GO+ROTI+x+CAFE+@+Susco+Square/@13.6510585,100.4893248,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a39f138223fb:0xa39a4aea452dbf67!8m2!3d13.6510585!4d100.4893248!16s%2Fg%2F11q3x9jkx5?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Bruno's+Restaurant+%26+Wine+Bar/@12.9066951,100.8692496,17z/data=!3m1!4b1!4m6!3m5!1s0x3102bdfe5d7390d1:0xdd72344add073a58!8m2!3d12.9066951!4d100.8692496!16s%2Fg%2F1tdms21q?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/CHARM+GARDEN/@13.6688299,100.4664826,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a2eb4a9940ff:0xa78d2041f68c6b09!8m2!3d13.6688299!4d100.4664826!16s%2Fg%2F11f120nhzm?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%9B.%E0%B8%AA%E0%B8%B0%E0%B9%80%E0%B8%95%E0%B9%8A%E0%B8%B0+%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%94%E0%B8%B4%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%98%E0%B9%8C+P.Satay+Pradiphat/@13.7900537,100.5471944,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d26821ade15:0x328fc2bde1aa3a5d!8m2!3d13.7900537!4d100.5471944!16s%2Fg%2F11ldj15v_5?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/The+Yard+Restaurant/@13.7192825,100.5264021,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299e408e78c89:0x9b768258baede021!8m2!3d13.7192825!4d100.5264021!16s%2Fg%2F11gwmclkmf?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Chatuchak+Pork+Leg/@13.8083496,100.5483314,17z/data=!3m1!4b1!4m6!3m5!1s0x30de11417dbd9b85:0x30d04d7370f5ff58!8m2!3d13.8083496!4d100.5483314!16s%2Fg%2F1hc3q4_17?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Lantumsom/@13.8515591,100.605559,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d50fa75b725:0xbcfbebddec4f63de!8m2!3d13.8515591!4d100.605559!16s%2Fg%2F11fy_dpkw6?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Hie+Ming+Crispy+Pork+Belly/@13.7257083,100.4937031,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2998dd0745ceb:0xab2f3efb6a451e51!8m2!3d13.7257083!4d100.4937031!16s%2Fg%2F11s7ztxtv8?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Puradak+The+Mall+Lifestore+Bangkapi/@13.765027,100.6423422,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61262e71c69f:0x41ee5bfc04b51311!8m2!3d13.765027!4d100.6423422!16s%2Fg%2F11wh_72vlr?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Teaw+Roo+Noodles/@13.747133,100.5650231,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29ef04bd08fd9:0x34ee2e4dcdfd2381!8m2!3d13.747133!4d100.5650231!16s%2Fg%2F11bc7109pb?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%95%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B9%81%E0%B8%88%E0%B9%88%E0%B8%A1%E0%B8%88%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B9%8C/@13.629988,100.621735,17z/data=!3m1!4b1!4m6!3m5!1s0x311d5f13499f4921:0x9f61c122204882e8!8m2!3d13.629988!4d100.621735!16s%2Fg%2F11v652jwpn?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyNi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Mae+Sri+Ruen+(The+Mall+LifeStore+Bangkapi)/@13.7669268,100.6418406,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61f32a955409:0xbf875d1232ce4c5c!8m2!3d13.7669268!4d100.6418406!16s%2Fg%2F1hm5mslxq?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Took+Lae+Dee/@13.7500793,100.6075368,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29e3cc8d21771:0x8861ccda5bb5282e!8m2!3d13.7500793!4d100.6075368!16s%2Fg%2F11d_w7d87q?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Homok+Mae+Boon+Ma/@13.7842936,100.5135092,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29be3cddfa7db:0x4f9b9de3fa62933!8m2!3d13.7842936!4d100.5135092!16s%2Fg%2F11b7hm6_lr?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/KFC+Caltex+Theparak+OB/@13.641441,100.604749,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a1cc8ad8b753:0x8f616659c4ca5680!8m2!3d13.641441!4d100.604749!16s%2Fg%2F11j3t_snmg?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%9E%E0%B8%87%E0%B8%A9%E0%B9%8C%E0%B9%80%E0%B8%9E%E0%B8%8A%E0%B8%A3%E0%B8%AB%E0%B8%B1%E0%B8%A7%E0%B8%9B%E0%B8%A5%E0%B8%B2%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B9%84%E0%B8%9F/@13.8540501,100.549189,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29cb92bfaa649:0xd61d3ba878ae950c!8m2!3d13.8540501!4d100.549189!16s%2Fg%2F1ptw68z6m?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Grill+EN+Izakaya/@13.7887306,100.4467944,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29b0056510515:0xedf662a697d7c29d!8m2!3d13.7887306!4d100.4467944!16s%2Fg%2F11x71w7j6n?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Oishi+Ramen/@13.7662961,100.6418808,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61f2cce790c5:0x97a16ca3e21c6899!8m2!3d13.7662961!4d100.6418808!16s%2Fg%2F1tg7zy5m?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/The+Hidden+Lighthouse/@13.7756096,100.6545379,17z/data=!3m1!4b1!4m6!3m5!1s0x311d6363d2b13ed5:0x3b443201402df010!8m2!3d13.7756096!4d100.6545379!16s%2Fg%2F11xlj2cw85?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Buckys+Burgers+n+Buds+-+Open+1pm+to+6am/@12.9128434,100.8635573,17z/data=!3m1!4b1!4m6!3m5!1s0x310295e356b23223:0xd5faf29b4ac08d2a!8m2!3d12.9128434!4d100.8635573!16s%2Fg%2F11vpy1sw72?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Tenjo+Sushi+%26+Yakiniku+BBQ+Premium+Buffet+(Terminal+21+Asok)/@13.737402,100.5606297,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29fbd88ac198f:0x502ee49f0bb3275d!8m2!3d13.737402!4d100.5606297!16s%2Fg%2F11llbkz727?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/KFC+Seacon+Bangkae/@13.7124568,100.4349447,17z/data=!3m1!4b1!4m6!3m5!1s0x30e297ca15d786c3:0xf76b1542109f057b!8m2!3d13.7124568!4d100.4349447!16s%2Fg%2F1hm5nvs7x?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/BBQ+FUSION/@13.6820374,100.5482151,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a1e6c88b6133:0x847bcc5aa6d603fb!8m2!3d13.6820374!4d100.5482151!16s%2Fg%2F11f03sx78k?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%95%E0%B9%89%E0%B8%A1%E0%B9%82%E0%B8%95%E0%B9%89%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%87%E0%B8%9C%E0%B8%B1%E0%B8%81%E0%B8%9A%E0%B8%B8%E0%B9%89%E0%B8%87%E0%B9%82%E0%B8%8A%E0%B8%A7%E0%B9%8C/@13.8103539,100.5914297,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29dbc91561b27:0x364acaaf2c4dc88c!8m2!3d13.8103539!4d100.5914297!16s%2Fg%2F11cn8sjw7p?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Nuan+Somtam/@13.6849657,100.5851265,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a0286d99fe1d:0xf456aad751949581!8m2!3d13.6849657!4d100.5851265!16s%2Fg%2F11bw46vvlc?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Shun+No+Aji+Sushi+Bar/@13.7332752,100.6494273,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61001154d043:0x221904676617d93e!8m2!3d13.7332752!4d100.6494273!16s%2Fg%2F11wtx2956m?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Faan+Rama+3/@13.6730707,100.5345995,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a16b446e4659:0xb52290e020bf5eff!8m2!3d13.6730707!4d100.5345995!16s%2Fg%2F11x2pbzz49?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Wichian+Buri+Roasted+Chicken+(Bangna-Trat+soi+4)/@13.6688743,100.6146293,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a1cf40379a95:0x8bff32d70a7efcfe!8m2!3d13.6688743!4d100.6146293!16s%2Fg%2F11f8hqn18x?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Chao+Xiang+Restaurant+(+%E6%BD%AE%E9%A6%99%E5%A4%A7%E9%85%92%E6%A5%BC+)+-+The+Travellers+Ratchada/@13.7971582,100.5742111,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29c34ca2191b7:0xf8b9939043f4a466!8m2!3d13.7971582!4d100.5742111!16s%2Fg%2F11f3xnkpn5?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%8A%E0%B9%87%E0%B8%87%E0%B8%8B%E0%B8%B4%E0%B8%A1%E0%B8%AD%E0%B8%B5%E0%B9%8A+%E0%B8%AB%E0%B9%89%E0%B8%A7%E0%B8%A2%E0%B8%82%E0%B8%A7%E0%B8%B2%E0%B8%87/@13.7793067,100.5843802,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d70d5e25273:0xef480e7ce3a98834!8m2!3d13.7793067!4d100.5843802!16s%2Fg%2F11tc1c09mn?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Beef+%26+Bone/@13.8151668,100.6326798,17z/data=!3m1!4b1!4m6!3m5!1s0x311d63121f2d4b49:0x50ff18e45b85c300!8m2!3d13.8151668!4d100.6326798!16s%2Fg%2F11yjc9lyk2?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Don+Giovanni+at+Centara+Grand+at+Central+Plaza+Ladprao+Bangkok/@13.8179493,100.5600963,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29c5ba8bf0c0f:0xd6543965169f6ec0!8m2!3d13.8179493!4d100.5600963!16s%2Fg%2F1tfttdv4?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Sea+you/@12.9309276,100.8849983,17z/data=!3m1!4b1!4m6!3m5!1s0x310297d51281ec9f:0x7da419d07c599855!8m2!3d12.9309276!4d100.8849983!16s%2Fg%2F11r7rt2vzd?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Buenos+Mexican+Restaurant/@12.9020188,100.8691987,17z/data=!3m1!4b1!4m6!3m5!1s0x31029769d015d659:0x381edfb27c52a564!8m2!3d12.9020188!4d100.8691987!16s%2Fg%2F11wvfpw3mh?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Dragon+Shabu+by+Giants/@13.7708201,100.6221964,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61fe7eb71419:0x59902d21efc84eb8!8m2!3d13.7708201!4d100.6221964!16s%2Fg%2F11c5z_6rw_?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%AB%E0%B8%99%E0%B8%B7%E0%B8%AD+%E0%B8%81%E0%B8%B2%E0%B8%94%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%A1%E0%B8%B4%E0%B8%99%E0%B8%B4/@13.8420372,100.5330127,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29c9c373c1409:0x9aa30f1805374ff!8m2!3d13.8420372!4d100.5330127!16s%2Fg%2F11dybccmw9?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Bun+Meat+%26+Cheese+Burger+-+Thonglor/@13.7349737,100.5821383,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f23d401dad3:0x2266a75b129684a1!8m2!3d13.7349737!4d100.5821383!16s%2Fg%2F11mxpflj5b?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Home+Cafe+Tha+Tien/@13.745695,100.491253,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29905c5e8a2e9:0x4f43e2a33963b177!8m2!3d13.745695!4d100.491253!16s%2Fg%2F11bxg2y3zz?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/TANTHAI+PIZZA/@13.7257367,100.6338167,17z/data=!3m1!4b1!4m6!3m5!1s0x311d6033cac14f23:0xb4bb74679db5895f!8m2!3d13.7257367!4d100.6338167!16s%2Fg%2F11d_676l35?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Mom's+Restaurant+%26+Guesthouse/@13.7902489,100.5447165,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29c1a0e3bced1:0x5791f1e4a3b9bddb!8m2!3d13.7902489!4d100.5447165!16s%2Fg%2F1hf2sjmct?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Login+Karaoke+%26+Restaurant+%E0%B8%95%E0%B8%AD%E0%B8%A1jv213/@13.8222084,100.6325256,17z/data=!3m1!4b1!4m6!3m5!1s0x311d6288208f5047:0xbbb9143d9b75f23e!8m2!3d13.8222084!4d100.6325256!16s%2Fg%2F11b7vjhry0?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Sunicha+Tumsua/@13.7924923,100.5837983,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29dcf098d2e95:0x67b8d9cdc776a6d4!8m2!3d13.7924923!4d100.5837983!16s%2Fg%2F11b_2g71zv?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Subway+@Thepprasit+Road/@12.9091988,100.8936541,17z/data=!3m1!4b1!4m6!3m5!1s0x310295d384eabec5:0x55c54be4a40673bd!8m2!3d12.9091988!4d100.8936541!16s%2Fg%2F11h0b20f8s?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/The+Moon+Cuisine/@13.7556533,100.5835683,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f000c3867b9:0xf1593cf66354ec65!8m2!3d13.7556533!4d100.5835683!16s%2Fg%2F11mcgcjx3y?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Hasul+(3rd+Floor+The+Mall+Lifestore+Bangkapi)/@13.765507,100.6423895,17z/data=!3m1!4b1!4m6!3m5!1s0x311d6199deed4beb:0xcbe0a6a9f96543e9!8m2!3d13.765507!4d100.6423895!16s%2Fg%2F11vc91h0kd?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Hashi+Japanese+Cuisine/@13.7260076,100.6339437,17z/data=!3m1!4b1!4m6!3m5!1s0x311d617a8f38f50b:0xc90f9b5ab5abaf93!8m2!3d13.7260076!4d100.6339437!16s%2Fg%2F11h5hwb9rp?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%F0%9F%8D%95The+Pocket+Pinsa+Sathon+(Roman-style+Pizza)+-+Delivery+Only/@13.7069026,100.5175728,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299a05f3db64d:0xf4f1dcd375b5c98c!8m2!3d13.7069026!4d100.5175728!16s%2Fg%2F11ftyhpwhw?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/McDonald's+The+Mall+Thaphra/@13.7134981,100.4790567,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29861471607bb:0x4b5bca08eb27e656!8m2!3d13.7134981!4d100.4790567!16s%2Fg%2F1v5ds0z8?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A5%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%81%E0%B8%8B%E0%B9%88%E0%B8%9A+by%E0%B8%AA%E0%B9%89%E0%B8%A1%E0%B8%95%E0%B8%B3%E0%B8%9B%E0%B8%B2%E0%B8%81%E0%B8%88%E0%B8%B1%E0%B8%94/@13.755399,100.4275486,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29735e01ea7df:0xf44f27cf45dc2e6e!8m2!3d13.755399!4d100.4275486!16s%2Fg%2F11ytnlzlt2?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/On+The+Table+@+The+Mall+Bangkapi/@13.7661006,100.6419399,17z/data=!3m1!4b1!4m6!3m5!1s0x311d618d26ff96e1:0xac73a912be729226!8m2!3d13.7661006!4d100.6419399!16s%2Fg%2F11df0x23by?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%AD%E0%B8%A1%E0%B8%A0%E0%B8%B4%E0%B8%A3%E0%B8%A1%E0%B8%A2%E0%B9%8C+Aimbhirom/@13.7250771,100.6584576,17z/data=!3m1!4b1!4m6!3m5!1s0x311d617852924fdf:0x1205fa6e0719938b!8m2!3d13.7250771!4d100.6584576!16s%2Fg%2F11xmxmfkzn?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Banna+Pla+Phao+Rama+5/@13.8294646,100.4902203,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29b069cac3da5:0xebce0e13bc9d06a1!8m2!3d13.8294646!4d100.4902203!16s%2Fg%2F11x5cqvd0b?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Lucky+Suki+Imperial+World+Samrong/@13.6498982,100.5967219,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a1983a552e5d:0x1159afde2910fad1!8m2!3d13.6498982!4d100.5967219!16s%2Fg%2F11y33wc43c?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Pho+Aroi+Home+Pro+Kanlapapruek/@13.6952373,100.436139,17z/data=!3m1!4b1!4m6!3m5!1s0x30e297005e4611d9:0x1a30b1af2fc51c53!8m2!3d13.6952373!4d100.436139!16s%2Fg%2F11xrgr7d04?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%96%E0%B8%B2%E0%B8%99%E0%B8%B5%E0%B8%AB%E0%B8%A1%E0%B9%88%E0%B8%B2%E0%B8%A5%E0%B9%88%E0%B8%B2+(%E0%B9%80%E0%B8%A5%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%87%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87-%E0%B8%AA%E0%B8%B2%E0%B8%A22)/@13.7997994,100.3939873,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2915359fa9e2f:0x737b0cbd27af8644!8m2!3d13.7997994!4d100.3939873!16s%2Fg%2F11vkn75xdv?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyNS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Moomgapao+%E0%B8%A1%E0%B8%B8%E0%B8%A1%E0%B8%81%E0%B8%B0%E0%B9%80%E0%B8%9E%E0%B8%A3%E0%B8%B2+Caltex+%E0%B9%80%E0%B8%9E%E0%B8%8A%E0%B8%A3%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%97%E0%B8%9E/@13.7519908,100.4487058,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2977e033d48d7:0xb0a24b13fe40c9e6!8m2!3d13.7519908!4d100.4487058!16s%2Fg%2F11hzwg1h2w?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%A1%E0%B8%A2%E0%B8%B8%E0%B8%A3%E0%B8%B2+%E0%B8%AB%E0%B8%B1%E0%B8%A7%E0%B8%9B%E0%B8%A5%E0%B8%B2/@13.7807481,100.5300329,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d0045ddf757:0x98a40b657d754a6d!8m2!3d13.7807481!4d100.5300329!16s%2Fg%2F11vpg7b93t?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/RhAp+Alternative+Cuisine/@13.8600087,100.5522691,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29cc8e78c503b:0x7cf0b447fc2ec930!8m2!3d13.8600087!4d100.5522691!16s%2Fg%2F11f3vmrf53?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/AL-Waha+Restaurant+(Halal)/@13.772799,100.6382709,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61f697b95529:0x7ab06f0a61d40ca5!8m2!3d13.772799!4d100.6382709!16s%2Fg%2F1yf4rf0nr?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%95%E0%B9%87%E0%B8%A1%E0%B8%A8%E0%B8%A3%E0%B8%B5%26%E0%B8%9E%E0%B8%B5/@13.7152643,100.7027193,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61044e9945a5:0xd4aaf1e94cb77ece!8m2!3d13.7152643!4d100.7027193!16s%2Fg%2F11fq4f9yj5?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Happy+Times+Bar/@13.6910829,100.6128817,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29ff95f4caabf:0x920c8d70adf9ca9!8m2!3d13.6910829!4d100.6128817!16s%2Fg%2F11f40xxfcx?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/TOMOSASADA+OMAKASE/@13.7400978,100.5574824,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29fb3448bc777:0x740c64bc60dd4613!8m2!3d13.7400978!4d100.5574824!16s%2Fg%2F11l22t88w3?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%94%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B8%A7%E0%B8%B8%E0%B8%92%E0%B8%B4%E0%B8%81%E0%B8%A3/@13.8155212,100.5975077,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29da27a80764b:0xafb0c590524e0cfe!8m2!3d13.8155212!4d100.5975077!16s%2Fg%2F12ll6lt_q?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%82%E0%B8%81%E0%B9%82%E0%B8%A3%E0%B8%95%E0%B8%B5%E0%B8%8A%E0%B8%B2%E0%B8%8A%E0%B8%B1%E0%B8%81+%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2/@12.9097554,100.8976533,17z/data=!3m1!4b1!4m6!3m5!1s0x310295388b6f75bd:0xfc6ed18aec62c4e9!8m2!3d12.9097554!4d100.8976533!16s%2Fg%2F11rf_g11s6?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Rung+Rung+Sea/@13.7185773,100.4685086,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29843c2de580b:0x458ddcc77ef560ea!8m2!3d13.7185773!4d100.4685086!16s%2Fg%2F11f01nsf1k?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%A3%E0%B8%B2%E0%B9%80%E0%B8%A1%E0%B8%87+%E0%B9%82%E0%B8%AD%E0%B8%8A%E0%B8%B4%E0%B8%99/@13.7518225,100.6391165,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61e5e12739ab:0x2cfba86c734a7736!8m2!3d13.7518225!4d100.6391165!16s%2Fg%2F11k42q_wty?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%93+%E0%B8%8A%E0%B8%B8%E0%B8%A1%E0%B8%9E%E0%B8%A3+at+%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%AD%E0%B8%81/@13.7856247,100.6383367,17z/data=!3m1!4b1!4m6!3m5!1s0x311d63fd7d8eb615:0x6bfecfcfee25f04c!8m2!3d13.7856247!4d100.6383367!16s%2Fg%2F11p14z9jdx?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Puk+Potchana/@13.7783176,100.5849929,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29dd7e30764df:0x93baf913457cde4c!8m2!3d13.7783176!4d100.5849929!16s%2Fg%2F1hm3jn4kj?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Central:+The+Original+Store/@13.7245371,100.5161634,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299b87a51b403:0xdaf72b7330834ff2!8m2!3d13.7245371!4d100.5161634!16s%2Fg%2F11j8n0l14v?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Shinkanzen+Sushi+%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%B0+%E0%B8%9E%E0%B8%B2%E0%B8%8B%E0%B8%B4%E0%B9%82%E0%B8%AD+%E0%B8%81%E0%B8%B2%E0%B8%8D%E0%B8%88%E0%B8%99%E0%B8%B2%E0%B8%A0%E0%B8%B4%E0%B9%80%E0%B8%A9%E0%B8%81/@13.7667707,100.4063026,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2979a77df56af:0x7988963c662df7e6!8m2!3d13.7667707!4d100.4063026!16s%2Fg%2F11scfkp97w?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Hippiebar@Rambuttri/@13.7610016,100.4937723,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299638e377e8d:0x744dc62ed38ab2b5!8m2!3d13.7610016!4d100.4937723!16s%2Fg%2F11rj5ldwln?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Goldsmith+Bar/@13.741431,100.5076983,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299c64f1a96a7:0x8eac6741dc7bba16!8m2!3d13.741431!4d100.5076983!16s%2Fg%2F11svm4r7vx?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Shinkanzen+Sushi+%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%B0+%E0%B8%84%E0%B8%A3%E0%B8%B4%E0%B8%AA%E0%B8%95%E0%B8%B1%E0%B8%A5+%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%9E%E0%B8%A4%E0%B8%81%E0%B8%A9%E0%B9%8C/@13.8102403,100.4487222,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29b0057563ce5:0xa25f552a337410d9!8m2!3d13.8102403!4d100.4487222!16s%2Fg%2F11w1qhlg50?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Phaisan+Restaurant/@12.9271863,100.8771358,17z/data=!3m1!4b1!4m6!3m5!1s0x310297c02a904691:0x25796047fb119328!8m2!3d12.9271863!4d100.8771358!16s%2Fg%2F11rz7grtjw?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Smile+Home+%E0%B8%9A%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%A5%E0%B8%B1%E0%B8%9A+%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B9%80%E0%B8%82%E0%B8%99/@13.8815711,100.591479,17z/data=!3m1!4b1!4m6!3m5!1s0x30e28371db5a9eb5:0x498b9ae559977c6e!8m2!3d13.8815711!4d100.591479!16s%2Fg%2F11vlds6bcx?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Shiguma+Japanese+Restaurant+-+Design+Village+Ratchada/@13.7935151,100.5736221,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d332ebfcb63:0xda0d46687548625e!8m2!3d13.7935151!4d100.5736221!16s%2Fg%2F11wn_8v5_v?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B9%80%E0%B8%95%E0%B9%87%E0%B8%81%E0%B8%A5%E0%B8%B8%E0%B8%87%E0%B8%AB%E0%B8%99%E0%B8%A7%E0%B8%94/@13.7981315,100.4475482,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29a0f0301efc5:0xa352e668e98cdac0!8m2!3d13.7981315!4d100.4475482!16s%2Fg%2F11cry0_9zl?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Restaurant+Thai/@13.7563387,100.5636407,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29e8d5468f8af:0x2ba0cc0fcca0fd21!8m2!3d13.7563387!4d100.5636407!16s%2Fg%2F11f3nmfrt3?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%95%E0%B8%B3%E0%B8%96%E0%B8%B2%E0%B8%94+%E0%B8%AD%E0%B8%A3%E0%B8%AD%E0%B8%B8%E0%B8%9A%E0%B8%A5/@13.8304752,100.5699848,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29cfc1c07d903:0xdf0be40db537a55d!8m2!3d13.8304752!4d100.5699848!16s%2Fg%2F11dx8m18gc?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Krua+Ton+Sai/@13.7121255,100.4880183,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2988b1865c83b:0x100ddde865fbdc02!8m2!3d13.7121255!4d100.4880183!16s%2Fg%2F11cn9p2zp0?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Alano+cafe+and+bistro/@13.8141393,100.6234325,17z/data=!3m1!4b1!4m6!3m5!1s0x311d6279a707beb7:0x9a2d14174efa776d!8m2!3d13.8141393!4d100.6234325!16s%2Fg%2F11g8vp8vd8?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Swensen's+Central+Rattanathibet/@13.8668273,100.4958601,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29b2e2b395633:0x66cbb8a109ec86a5!8m2!3d13.8668273!4d100.4958601!16s%2Fg%2F12mm852q5?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B9%88%E0%B8%B2+%E0%B8%A8%E0%B8%B2%E0%B8%A5%E0%B8%B2%E0%B8%81%E0%B8%A5%E0%B8%B2%E0%B8%87+Exotic+Restaurant/@13.8035339,100.3739858,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2916a016ebb5b:0x6be7d7f95ca8ea98!8m2!3d13.8035339!4d100.3739858!16s%2Fg%2F11t_h21t9f?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Mae+Sri+Ruen+(HomePro+Kanlapaphruek)/@13.694975,100.4366506,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2979747499187:0xaf99e4751c26c261!8m2!3d13.694975!4d100.4366506!16s%2Fg%2F11jkylw565?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/CRIMINAL+BURGER/@13.8327055,100.6135483,17z/data=!3m1!4b1!4m6!3m5!1s0x30e283511e74c3f7:0x3c4014ecd29bfbeb!8m2!3d13.8327055!4d100.6135483!16s%2Fg%2F11gf60wrsg?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%95%E0%B8%B3%E0%B9%81%E0%B8%95%E0%B8%81+%E0%B8%9A%E0%B8%A3%E0%B8%A1%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%8A%E0%B8%99%E0%B8%99%E0%B8%B5+%E0%B8%AA%E0%B9%89%E0%B8%A1%E0%B8%95%E0%B8%B3+%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%84%E0%B8%97%E0%B8%A2+%E0%B9%81%E0%B8%81%E0%B8%87%E0%B8%AA%E0%B9%89%E0%B8%A1%E0%B9%83%E0%B8%95%E0%B9%89+%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%A5%E0%B8%B5%E0%B9%89%E0%B8%A2%E0%B8%87+%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%81%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%88%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%99%E0%B8%A1%E0%B8%B2%E0%B8%81/@13.7807395,100.4132695,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29715751f3ecb:0x42cc0bf5c3467c56!8m2!3d13.7807395!4d100.4132695!16s%2Fg%2F11vpt6288s?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B9%80%E0%B8%94%E0%B9%89%E0%B8%87+%E0%B8%99%E0%B8%B2%E0%B8%A2%E0%B8%88%E0%B8%B9%E0%B9%8B/@13.7835474,100.6393126,17z/data=!3m1!4b1!4m6!3m5!1s0x311d6218e192e5b3:0x2ee49c89aa932b85!8m2!3d13.7835474!4d100.6393126!16s%2Fg%2F11h9zz1qh3?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Ung+Chew+Ha/@13.7892759,100.5585094,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29c24bd0b0e1d:0x70467ef62fbb021b!8m2!3d13.7892759!4d100.5585094!16s%2Fg%2F1hf4_flr5?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/KinKung+%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%9A%E0%B8%AD%E0%B8%993/@13.6640549,100.3830975,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2bd18611e688d:0x5ca2f9ebc9e57ce8!8m2!3d13.6640549!4d100.3830975!16s%2Fg%2F11pv08r5gr?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B9%89%E0%B8%A1%E0%B8%95%E0%B8%B3+%E0%B9%84%E0%B8%81%E0%B9%88+BLACK+777/@13.7377606,100.5077515,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299023ab0c665:0xab5a5ee9631a0266!8m2!3d13.7377606!4d100.5077515!16s%2Fg%2F11x924t0fx?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Khanom+Jeen+4+Regions/@13.6492675,100.5970882,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a05d7e739d9b:0x48693e3056e80886!8m2!3d13.6492675!4d100.5970882!16s%2Fg%2F11gdlwdtfq?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B8%AB%E0%B8%A1%E0%B8%B9+x+%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B8%97%E0%B8%B0+%E0%B9%82%E0%B8%8A%E0%B8%84%E0%B8%8A%E0%B8%B1%E0%B8%A24/@13.8037131,100.5910647,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d2928aaf815:0x96ee942a81877bd!8m2!3d13.8037131!4d100.5910647!16s%2Fg%2F11v0bd4tlt?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AA%E0%B9%89%E0%B8%A1%E0%B8%95%E0%B8%B3%E0%B9%80%E0%B8%9E%E0%B8%8A%E0%B8%A3%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B9%8C-%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B9%81%E0%B8%94%E0%B8%87/@13.6647705,100.5253617,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a21895c6e113:0x42dd2c747fc7d8d2!8m2!3d13.6647705!4d100.5253617!16s%2Fg%2F11c0vyrfsn?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Hawa+Pad+Thai+%26+Hoi+Tod+(Fried+Mussel+Pancake)+Halal/@13.7250352,100.5150524,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299544b672b33:0x64852008a866b395!8m2!3d13.7250352!4d100.5150524!16s%2Fg%2F11jscqdx2b?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Hia+Uan+Hakka+Noodle/@13.7492493,100.5157866,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2995d58645abd:0xc2997db216d4fcbe!8m2!3d13.7492493!4d100.5157866!16s%2Fg%2F11s1r0ywwc?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyNS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/KFC+Bus+Terminal+III/@13.8131915,100.5486567,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d46dc542251:0x1a40f393b614cc26!8m2!3d13.8131915!4d100.5486567!16s%2Fg%2F11gt_zskkn?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Fai+Daeng+Signature/@13.6907765,100.6474092,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61a894db9869:0x3b5e8a80afa7150f!8m2!3d13.6907765!4d100.6474092!16s%2Fg%2F11h32ybw7j?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Aunt+Paad+Pad+Kaphrao/@13.7554446,100.486382,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2990a46aac44b:0x8c115dfc79724025!8m2!3d13.7554446!4d100.486382!16s%2Fg%2F11clwn5t_1?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Sanaethai+Thaicuisine/@13.7519968,100.4886077,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2990027023dc1:0xe2b736bc1159f1c2!8m2!3d13.7519968!4d100.4886077!16s%2Fg%2F11ys1cxf0r?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/TA-KE+SUSHI/@13.8444936,100.4575006,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29bb23ac106d5:0x97bdaf5f1111c652!8m2!3d13.8444936!4d100.4575006!16s%2Fg%2F11g4dq9xn5?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A5%E0%B8%B2%E0%B8%8B%E0%B8%B2%E0%B8%A5%E0%B8%99%E0%B8%B4%E0%B8%A2%E0%B8%A1/@13.6618342,100.6032784,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a1c5bda12ddb:0xf425c2d9391df3e8!8m2!3d13.6618342!4d100.6032784!16s%2Fg%2F11l8tty75c?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%88%E0%B8%B9%E0%B9%82%E0%B8%88%E0%B8%A7/@13.8215068,100.6047859,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d26502ec8af:0xa974552a4d75c177!8m2!3d13.8215068!4d100.6047859!16s%2Fg%2F11fjzwlv97?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Lazy+Sol/@13.803354,100.5721094,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d1be5f7cae3:0xce26e97e6380c718!8m2!3d13.803354!4d100.5721094!16s%2Fg%2F11yqk5jvtp?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B8%95%E0%B8%B2%E0%B8%AA%E0%B8%B8%E0%B8%82+%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B8%9E%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%A764/@13.788839,100.593874,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29dc7c475913f:0x683533db9e3841dd!8m2!3d13.788839!4d100.593874!16s%2Fg%2F11nxp2gzss?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/QQ%E9%9D%A2%E9%A6%86%E5%8F%8A%E5%AE%B6%E5%B8%B8%E8%8F%9C+%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%88%E0%B8%B5%E0%B8%99%E0%B8%84%E0%B8%B4%E0%B8%A7%E0%B8%84%E0%B8%B4%E0%B8%A7/@13.7530029,100.6284153,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61dd7e259353:0x911c58915cdc62bf!8m2!3d13.7530029!4d100.6284153!16s%2Fg%2F1ptxpqxkq?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%AD%E0%B8%A5%E0%B8%B4%E0%B8%99/@13.8640705,100.641889,17z/data=!3m1!4b1!4m6!3m5!1s0x311d62b5817cbb97:0xfd17d9d184076bc1!8m2!3d13.8640705!4d100.641889!16s%2Fg%2F11c11kmp7p?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%99%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%9B%E0%B8%B8%E0%B9%8B%E0%B8%A2+%E0%B8%9C%E0%B8%B1%E0%B8%94%E0%B9%84%E0%B8%97%E0%B8%A2+%E0%B8%AB%E0%B8%AD%E0%B8%A2%E0%B8%97%E0%B8%AD%E0%B8%94/@13.7918841,100.6188424,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29df63b3f7fb9:0x5535c8586085c53d!8m2!3d13.7918841!4d100.6188424!16s%2Fg%2F1yj4k3s2_?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%95%E0%B8%B5%E0%B9%8B+%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B9%80%E0%B8%99%E0%B8%B7%E0%B9%89%E0%B8%AD%E0%B8%95%E0%B8%B8%E0%B9%8B%E0%B8%99+%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B8%95%E0%B8%B8%E0%B9%8B%E0%B8%99+%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B9%83%E0%B8%99%E0%B8%95%E0%B8%B8%E0%B9%8B%E0%B8%99/@13.6980475,100.605737,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f9ad7e70101:0x42bece182a977ce0!8m2!3d13.6980475!4d100.605737!16s%2Fg%2F11jmxpqnhh?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Kitti+Duck+Noodles+(On+Nut+Branch)/@13.7090778,100.6184539,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f9a7d805fa9:0x90d3af5ca17bce0e!8m2!3d13.7090778!4d100.6184539!16s%2Fg%2F11w1nk94_r?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Sin+Zab+Esan+%E0%B8%8B%E0%B8%B4%E0%B9%89%E0%B8%99+%E0%B9%81%E0%B8%8B%E0%B9%88%E0%B8%9A%E0%B8%AD%E0%B8%B5%E0%B8%AA%E0%B8%B2%E0%B8%99/@13.7473256,100.6565584,17z/data=!3m1!4b1!4m6!3m5!1s0x311d6105b14be82d:0x81c707fef35b2f94!8m2!3d13.7473256!4d100.6565584!16s%2Fg%2F11y22ccbmy?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Wine+Connection+The+Market+Place+Krungthep+Kreetha/@13.7503297,100.6675427,17z/data=!3m1!4b1!4m6!3m5!1s0x311d613e0ad82dbf:0xd2890714810e21c9!8m2!3d13.7503297!4d100.6675427!16s%2Fg%2F11r_x27dbk?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Kaow+Tom+Khakai/@13.8691031,100.5926776,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d34b4e422a1:0x8e4658d8ff28c878!8m2!3d13.8691031!4d100.5926776!16s%2Fg%2F11f263x8_v?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/U-Taley+seafood+%E5%90%83%E6%B5%B7%E9%B2%9C%EF%BC%8C%E4%BE%86%E5%A6%82%E6%84%8F%E6%B5%B7%E9%B2%9C%E5%BA%97/@13.7826531,100.5994038,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d48fb3979ad:0x822086cbd4b7d7cb!8m2!3d13.7826531!4d100.5994038!16s%2Fg%2F11ll76qh7j?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%88%E0%B9%89%E0%B8%B2%E0%B8%99/@13.7615721,100.5039191,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2996bac590105:0x81813d4c238d4986!8m2!3d13.7615721!4d100.5039191!16s%2Fg%2F11bbrkp84q?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Fufu+Phochana+-+%E0%B8%9F%E0%B8%B9%E0%B8%9F%E0%B8%B9%E2%80%8B%E0%B9%82%E0%B8%A0%E0%B8%8A%E0%B8%99%E0%B8%B2+(%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B9%81%E0%B8%81%E0%B8%87%E0%B9%83%E0%B8%95%E0%B9%89)%E2%80%8B/@13.699245,100.6043665,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f4418b2d3b5:0x37e83d884ad89d5!8m2!3d13.699245!4d100.6043665!16s%2Fg%2F11h5dmhwym?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B9%81%E0%B8%8B%E0%B9%88%E0%B8%9A+%E0%B8%A2%E0%B8%B3%E0%B8%A1%E0%B8%B0%E0%B8%A1%E0%B9%88%E0%B8%A7%E0%B8%87%E0%B8%9B%E0%B8%B9%E0%B8%A1%E0%B9%89%E0%B8%B2+%E0%B9%80%E0%B8%88%E0%B9%89%E0%B8%B2%E0%B9%80%E0%B8%81%E0%B9%88%E0%B8%B2%E0%B8%AA%E0%B8%B0%E0%B8%9E%E0%B8%B2%E0%B8%99%E0%B8%9E%E0%B8%B8%E0%B8%97%E0%B8%98/@13.7323685,100.4949575,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299cf949698f5:0x32ab3071fd83d7f6!8m2!3d13.7323685!4d100.4949575!16s%2Fg%2F11frqcrqrm?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B8%AA%E0%B8%B0%E0%B9%80%E0%B8%95%E0%B9%8A%E0%B8%B0%E0%B8%99%E0%B8%B2%E0%B8%A2%E0%B8%AD%E0%B9%8B%E0%B8%B2+%E0%B8%A8%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%99/@13.7856812,100.5121203,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29be15ca45553:0xd8352b626593cf07!8m2!3d13.7856812!4d100.5121203!16s%2Fg%2F11fy2h2b_p?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Ton+Kam+Poo+Restaurant/@13.7815512,100.531148,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29c003ebf171b:0xd2abce8b8c95da77!8m2!3d13.7815512!4d100.531148!16s%2Fg%2F1q5gngrzb?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%82%E0%B8%95%E0%B9%8A%E0%B8%B0%E0%B9%80%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B8%A7%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B9%80%E0%B8%95%E0%B9%8A%E0%B8%B2%E0%B8%B0+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1+5/@13.8231212,100.4794655,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29b6532aed7d1:0x623902220ffccae7!8m2!3d13.8231212!4d100.4794655!16s%2Fg%2F11sdynghjp?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Zen+Japanese+Restaurant/@13.6980145,100.5376334,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f51afcf35a7:0x3ed407f654963a38!8m2!3d13.6980145!4d100.5376334!16s%2Fg%2F11r8b6_11?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/kitchen+Uncle+Wang/@12.9073118,100.8687102,17z/data=!3m1!4b1!4m6!3m5!1s0x31029667423712cd:0xc6f2bf505b8dd5af!8m2!3d12.9073118!4d100.8687102!16s%2Fg%2F11c5_1nyrh?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B9%89%E0%B8%A1%E0%B8%95%E0%B8%B3%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%81%E0%B8%A1%E0%B9%88+%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B5%E0%B8%AA%E0%B8%B2%E0%B8%99%E0%B8%A3%E0%B8%AA%E0%B9%81%E0%B8%8B%E0%B9%88%E0%B8%9A/@13.8286565,100.491959,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2854d988fbf53:0x94e657d82674a7f7!8m2!3d13.8286565!4d100.491959!16s%2Fg%2F11xs79_n30?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Sit+2+Sis+Restaurant+%26+Ent+Club/@13.7726766,100.572564,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f32ad8a95c5:0x1431ec1ea1a74a2f!8m2!3d13.7726766!4d100.572564!16s%2Fg%2F11k5ywgrzx?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Noodle+Pen+Shop+(%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B8%A2%E0%B8%B2%E0%B8%A2%E0%B9%80%E0%B8%9E%E0%B9%87%E0%B8%8D)/@13.8619685,100.5622709,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29cce335b2263:0x592307c5b8cb0121!8m2!3d13.8619685!4d100.5622709!16s%2Fg%2F11c72v2bfn?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B8%B9%E0%B9%8B+%E0%B8%AD%E0%B8%9A%E0%B9%80%E0%B8%95%E0%B8%B2%E0%B8%96%E0%B9%88%E0%B8%B2%E0%B8%99/@13.7717331,100.5030701,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2998b12279479:0x87847007c1247616!8m2!3d13.7717331!4d100.5030701!16s%2Fg%2F11y5nk_nyx?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%AB%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B9%83%E0%B8%88+(Luer+Jai)/@13.7353391,100.5264186,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299abd1999899:0x1d6c586937d32fd0!8m2!3d13.7353391!4d100.5264186!16s%2Fg%2F11g0h1jtdh?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B8%9B%E0%B9%89%E0%B8%B2%E0%B8%A1%E0%B9%88%E0%B8%AD%E0%B8%A1+%E0%B8%8B.%E0%B8%A0%E0%B8%B9%E0%B8%A1%E0%B8%B4%E0%B8%88%E0%B8%B4%E0%B8%95%E0%B8%A3/@13.7104773,100.5921239,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29fbe0d475fa3:0xd55f51d8d895a346!8m2!3d13.7104773!4d100.5921239!16s%2Fg%2F11g6mvpc_8?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/IPPUDO+The+Mall+Bangkapi/@13.7646497,100.6424303,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61006885a127:0xc8070e93033a69a2!8m2!3d13.7646497!4d100.6424303!16s%2Fg%2F11vlz005b_?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Ya+Lek+(Grandmother+Lek)+Phad+Thai+Hoi+Thod+(Thai+Fried+Noodle+%26+Fried+Mussels)+%5B2nd+branch,+Dinner)/@13.8285764,100.4861196,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29b001843e575:0x65f3ea21f5a39895!8m2!3d13.8285764!4d100.4861196!16s%2Fg%2F11wtbtt3qh?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Tum+Factory+Siam+Square+One/@13.7445184,100.5335009,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f5980ade2cd:0x5e0923ff5e224a63!8m2!3d13.7445184!4d100.5335009!16s%2Fg%2F11rd9vb49x?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%95%E0%B8%B3%E0%B8%AA%E0%B8%A2%E0%B8%B2%E0%B8%A1+%E0%B9%84%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%99%E0%B8%AA%E0%B8%A2%E0%B8%B2%E0%B8%A1+Tam+Siam+Iconsiam/@13.726158,100.5106866,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299df1234c911:0x9f090767a08fac7e!8m2!3d13.726158!4d100.5106866!16s%2Fg%2F11xsg5vs6c?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Cozy+Italia/@13.7383647,100.5574188,17z/data=!3m1!4b1!4m9!3m8!1s0x30e29fcf4c978099:0xcfaa46a732e34ff1!5m2!4m1!1i2!8m2!3d13.7383647!4d100.5574188!16s%2Fg%2F11scv10rcx?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B9%80%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%B2+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+%E0%B9%82%E0%B8%9E%E0%B8%98%E0%B8%B4%E0%B9%8C%E0%B9%81%E0%B8%81%E0%B9%89%E0%B8%A7/@13.8010899,100.6446734,17z/data=!3m1!4b1!4m6!3m5!1s0x311d6308c3c50507:0x9df48a1b5e8ea3cd!8m2!3d13.8010899!4d100.6446734!16s%2Fg%2F11ptj3pxl6?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Mama+Pasta+-+The+Parq/@13.7212846,100.5585005,17z/data=!4m6!3m5!1s0x30e29db6ec2fa653:0xe0ec12ad68112b1b!8m2!3d13.7212846!4d100.5585005!16s%2Fg%2F11jnvjyg9z?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Pae+UAN+Restaurant/@13.7689925,100.5390307,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29eafd97146e5:0xad8a616fa5588f20!8m2!3d13.7689925!4d100.5390307!16s%2Fg%2F1hdztvc5g?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Tho+Plu+Restaurant/@13.8000034,100.5499474,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29c159fb368ed:0x5749883861a6f87!8m2!3d13.8000034!4d100.5499474!16s%2Fg%2F1pzv23842?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/The+Pizza+Company+%E0%B8%A1%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B9%80%E0%B8%81%E0%B9%87%E0%B8%95%E0%B9%80%E0%B8%9E%E0%B8%A5%E0%B8%AA+%E0%B8%94%E0%B8%B8%E0%B8%AA%E0%B8%B4%E0%B8%95/@13.778672,100.508073,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299c34127a21d:0x2039f4fc8ab04c9e!8m2!3d13.778672!4d100.508073!16s%2Fg%2F11h44xhpz7?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E5%B1%85%E9%85%92%E5%B1%8B+%E8%99%B9/@13.723941,100.5647257,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f0522bc4989:0x5a101e70caa832d4!8m2!3d13.723941!4d100.5647257!16s%2Fg%2F11fz9x0bvn?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Yoe+Yar+Restaurant/@13.7355413,100.597792,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f662936f497:0xc8e98587c15cce72!8m2!3d13.7355413!4d100.597792!16s%2Fg%2F11kbtgxv2m?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%8A%E0%B8%B2%E0%B8%A2%E0%B8%AA%E0%B8%B5%E0%B9%88%E0%B8%9A%E0%B8%B0%E0%B8%AB%E0%B8%A1%E0%B8%B5%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B5%E0%B9%8A%E0%B8%A2%E0%B8%A7+%E0%B8%AA%E0%B8%B0%E0%B8%9E%E0%B8%B2%E0%B8%99+99+by+%E0%B8%AD%E0%B9%8A%E0%B8%AD%E0%B8%94/@13.8167069,100.536299,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29c7a37336fab:0xb22568e26d8839ba!8m2!3d13.8167069!4d100.536299!16s%2Fg%2F11c54dfksn?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%97%E0%B8%B1%E0%B8%9A%E0%B8%82%E0%B8%A7%E0%B8%B1%E0%B8%8D/@13.8554556,100.4853773,17z/data=!3m1!4b1!4m6!3m5!1s0x30e285ed6a8b37a3:0x7401b5d9d3197550!8m2!3d13.8554556!4d100.4853773!16s%2Fg%2F11rgzmky1w?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Khon+Chang+Yum+(%E0%B8%85%E0%B8%99%E0%B8%8A%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B8%A2%E0%B8%B3)+Srivara+(%E0%B8%A8%E0%B8%A3%E0%B8%B5%E0%B8%A7%E0%B8%A3%E0%B8%B2)/@13.7684831,100.60522,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29fc8045e6fc9:0xcacc138f52111ab3!8m2!3d13.7684831!4d100.60522!16s%2Fg%2F11wc8dd5bc?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Chocolab+at+SO%2F+Bangkok/@13.7260361,100.543493,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f25b1baa4df:0xef4efc4054c54853!8m2!3d13.7260361!4d100.543493!16s%2Fg%2F11cs267p65?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%B0%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%95%E0%B8%B3+%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2/@12.9313425,100.9082078,17z/data=!3m1!4b1!4m6!3m5!1s0x310295b903d4ebdf:0x964612e17ef50f99!8m2!3d12.9313425!4d100.9082078!16s%2Fg%2F11jkq106g4?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AB%E0%B8%8D%E0%B8%B4%E0%B8%87%E0%B9%81%E0%B8%AB%E0%B8%99%E0%B8%A1%E0%B9%80%E0%B8%99%E0%B8%B7%E0%B8%AD%E0%B8%87/@13.8613549,100.5814276,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d2edecc69fb:0x75c59a66ee160877!8m2!3d13.8613549!4d100.5814276!16s%2Fg%2F11dz_pxb2d?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Taj+View+Authentic+Indian+food/@12.9231132,100.8837517,17z/data=!3m1!4b1!4m6!3m5!1s0x3102960cb7572359:0xb620fca86cbd5e28!8m2!3d12.9231132!4d100.8837517!16s%2Fg%2F11f29xm81c?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Biryani+Junction/@12.9211873,100.878291,17z/data=!3m1!4b1!4m6!3m5!1s0x3102bde60ab36893:0xc00abeeaa1d8ed80!8m2!3d12.9211873!4d100.878291!16s%2Fg%2F11x_vc0hbx?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/McDonald's+Supreme+Complex/@13.7897097,100.5151005,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29be5aafce0f3:0x35ea447ee20dfb75!8m2!3d13.7897097!4d100.5151005!16s%2Fg%2F1pzq2k3bf?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/'@Talat+Phlu+-+Grill+%26+Suki'/@13.7201077,100.4775735,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2998e7b3bba95:0x2327a142dc1793bb!8m2!3d13.7201077!4d100.4775735!16s%2Fg%2F11g0mv_qb5?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQxNS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%AD%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%A7%E0%B9%84%E0%B8%96%E0%B9%88%E0%B8%AA%E0%B8%B8%E0%B8%81%E0%B8%B5%E0%B9%89%E0%B9%82%E0%B8%9A%E0%B8%A3%E0%B8%B2%E0%B8%93/@13.7665924,100.4867129,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299769f2eb15f:0x6106084df95cdf4a!8m2!3d13.7665924!4d100.4867129!16s%2Fg%2F1th89fyl?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/The+Raw+bar+-+Central+Embassy+(at+The+Open+House+6th+Flr)/@13.7437319,100.5466028,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f03d54086b3:0x317376ce9dd1ea24!8m2!3d13.7437319!4d100.5466028!16s%2Fg%2F11ddxtnqw3?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%88%E0%B9%8A%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B8%95%E0%B8%B8%E0%B9%8B%E0%B8%99/@13.8071004,100.55748,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29c469fe3a1eb:0xc1ebe238f8bf2ba9!8m2!3d13.8071004!4d100.55748!16s%2Fg%2F1ptw_z5jb?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Ebisu+Ramen+Ekkamai/@13.7262511,100.584987,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f758864f9df:0xcac6e6e7595826e4!8m2!3d13.7262511!4d100.584987!16s%2Fg%2F11ycgn73z4?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%AD%E0%B8%B2%E0%B9%82%E0%B8%81+%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B8%8A%E0%B8%B2%E0%B8%9A%E0%B8%B9%E0%B8%95%E0%B9%89%E0%B8%A1%E0%B8%A2%E0%B8%B3+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%A5%E0%B8%B5%E0%B8%A2%E0%B8%9A%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%A7%E0%B8%B5%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2/@13.7856709,100.3978233,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2959ca7afaaa7:0xd1e0e80d7b5e26ff!8m2!3d13.7856709!4d100.3978233!16s%2Fg%2F11ncmglrt5?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyNS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Pa+Rey+Restaurant/@13.7667789,100.5811614,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29e87e5d91a59:0x3f9eb9191b636594!8m2!3d13.7667789!4d100.5811614!16s%2Fg%2F1v2dyz4h?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%A5%E0%B9%89%E0%B8%87+%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99%E0%B8%9B%E0%B8%A5%E0%B8%B2/@13.737614,100.4451807,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2982b578ce5cb:0xd6985a2d5fe3062f!8m2!3d13.737614!4d100.4451807!16s%2Fg%2F11c5_vspm4?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/RYSH+Ratchayothin/@13.830049,100.5701787,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29dda284fb71b:0x91b7835f03dd66e4!8m2!3d13.830049!4d100.5701787!16s%2Fg%2F11yyfcvf5n?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%A5%E0%B8%B2%E0%B8%9A%E0%B8%8A%E0%B8%B3%E0%B8%99%E0%B8%B2%E0%B8%8D/@13.7807168,100.5673167,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29c29bc68b5c5:0x69bc75fd50af0a4a!8m2!3d13.7807168!4d100.5673167!16s%2Fg%2F11c31q9mfl?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Mos+Burger+@The+Crystal+SB+Ratchaphruek+%E0%B8%8A%E0%B8%B1%E0%B9%89%E0%B8%991/@13.809452,100.448222,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29b66ef6e7fb7:0x555a9b1953690b9!8m2!3d13.809452!4d100.448222!16s%2Fg%2F11fw8x_0g6?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%80%E0%B8%AD%E0%B8%87/@13.8797414,100.5766304,17z/data=!3m1!4b1!4m6!3m5!1s0x30e283007b30ec1d:0x9668487827cd96d4!8m2!3d13.8797414!4d100.5766304!16s%2Fg%2F11wc0j79vh?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B9%81%E0%B8%9F%E0%B8%AB%E0%B8%A1%E0%B8%B2%E0%B8%A2%E0%B9%80%E0%B8%A5%E0%B8%82+6/@13.8118552,100.5499277,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29decec598133:0x62fe4116daa9dc4b!8m2!3d13.8118552!4d100.5499277!16s%2Fg%2F11lgrjhfz2?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Raja+Indian+food+charan+Sanitwong+soi7%2F1/@13.7367301,100.4708988,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299fa967f01a3:0x2157473317546274!8m2!3d13.7367301!4d100.4708988!16s%2Fg%2F11v5cz1h3_?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%9C%E0%B8%B1%E0%B8%94%E0%B9%84%E0%B8%97%E0%B8%88%E0%B8%B2%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B9%8C+%E0%B8%97%E0%B9%88%E0%B8%B2%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B9%81%E0%B8%94%E0%B8%87/@13.658886,100.5344568,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a1fee357bc99:0x45263dad7748584b!8m2!3d13.658886!4d100.5344568!16s%2Fg%2F11f8lmyv1v?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B9%80%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B8%99%E0%B8%B2%E0%B8%A2%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%87+%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%99/@13.7343457,100.5274102,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2997159044241:0x468089de58056d2!8m2!3d13.7343457!4d100.5274102!16s%2Fg%2F11fjxf8647?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/ChaaChaa+Malatang+(%E0%B8%8A%E0%B8%B2%E0%B8%8A%E0%B8%B2+%E0%B8%AB%E0%B8%A1%E0%B8%B2%E0%B8%A5%E0%B9%88%E0%B8%B2%E0%B8%97%E0%B8%B1%E0%B8%87)+-+%E0%B8%AB%E0%B8%AD%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%84%E0%B9%89%E0%B8%B2/@13.7771785,100.559074,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2990002a76af3:0x437c064c39b59d2e!8m2!3d13.7771785!4d100.559074!16s%2Fg%2F11w_w510d1?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B8%88%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B8%B2/@13.7780817,100.5710868,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f3d641a2303:0x84082fee05c75851!8m2!3d13.7780817!4d100.5710868!16s%2Fg%2F11g2xqt_bh?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%94%E0%B8%B4+%E0%B8%AE%E0%B8%B2%E0%B8%A5%E0%B8%B2%E0%B8%A5+%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%95%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B1%E0%B9%88%E0%B8%87/@13.7198456,100.6609679,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61ded1e038f3:0x1a984d17d39fe27f!8m2!3d13.7198456!4d100.6609679!16s%2Fg%2F11t10plljl?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Dusita+Tokyo+Dip+(+%E0%B9%82%E0%B8%95%E0%B9%80%E0%B8%81%E0%B8%B5%E0%B8%A2%E0%B8%A7+%E0%B8%94%E0%B8%B4%E0%B8%9B+)/@13.8325606,100.4874104,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29b95f7688b75:0x864a9c7e0bedb28f!8m2!3d13.8325606!4d100.4874104!16s%2Fg%2F11mrdw5xy3?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Greyhound+Caf%C3%A9/@13.723964,100.5283592,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29941ecd4262d:0x98e6467d04bc225d!8m2!3d13.723964!4d100.5283592!16s%2Fg%2F11sgbhxllj?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B8%B5%E0%B8%9F%E0%B9%80%E0%B8%9A%E0%B8%AD%E0%B9%81%E0%B8%A3%E0%B8%87%E0%B8%81%E0%B9%8C/@13.8661791,100.4970793,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29b948aa90345:0xeedf8c247edbd8b5!8m2!3d13.8661791!4d100.4970793!16s%2Fg%2F11fk8fr7qv?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Pad+Thai+Wat+Yang/@13.7553605,100.4736075,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299a34bfbb87f:0x2d4fe9bc651e23a6!8m2!3d13.7553605!4d100.4736075!16s%2Fg%2F11csqwp02v?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/GOPIZZA+Lotus's+Sukhumvit+50+%E0%B9%82%E0%B8%81%E0%B8%9E%E0%B8%B4%E0%B8%8B%E0%B8%8B%E0%B9%88%E0%B8%B2+%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%B8%E0%B8%A1%E0%B8%A7%E0%B8%B4%E0%B8%97+50/@13.7050491,100.6005235,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29fdec8a02a6d:0xe03af7a2f7b8de4e!8m2!3d13.7050491!4d100.6005235!16s%2Fg%2F11vjz104p2?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%95%E0%B9%89%E0%B8%A1%E0%B8%AD%E0%B9%89%E0%B8%A7%E0%B8%99%E0%B8%9C%E0%B8%AD%E0%B8%A12+(%E0%B8%A7%E0%B8%87%E0%B9%80%E0%B8%A7%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A15)/@13.8352167,100.4468388,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29ba90fccc4b7:0xdc5be4788b4102eb!8m2!3d13.8352167!4d100.4468388!16s%2Fg%2F11mvxtk6hp?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Delawan/@13.6723969,100.4887659,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a2616a6be965:0xf6b145791c3e6fbb!8m2!3d13.6723969!4d100.4887659!16s%2Fg%2F1pp2ty2mc?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Rosirin+Caf%C3%A9+%26+Bar+%E0%B8%A3%E0%B8%AA%E0%B8%AA%E0%B8%B4%E0%B8%A3%E0%B8%B4%E0%B8%99%E0%B8%97%E0%B9%8C%E0%B8%A3+by+%E0%B9%80%E0%B8%A7%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%83%E0%B8%95%E0%B9%89/@13.7557863,100.4991785,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299007ea8531b:0xcd13f6d21f7fcc5e!8m2!3d13.7557863!4d100.4991785!16s%2Fg%2F11y2my0t2b?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Lai+Rot+(Rama+6)/@13.7796599,100.532723,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29eab6c36a9c5:0xa85cdae2c588b97d!8m2!3d13.7796599!4d100.532723!16s%2Fg%2F1hc88b33_?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/GUGU+Chicken+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+%E0%B8%9B%E0%B8%A3%E0%B8%B5%E0%B8%94%E0%B8%B5+42/@13.7332523,100.5974416,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f518c5787b5:0xb57ed8e2e3433e4c!8m2!3d13.7332523!4d100.5974416!16s%2Fg%2F11nmmkw183?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQxNS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Dynasty+Restaurant,+Centara+Grand+at+Central+Plaza+Ladprao/@13.8179396,100.5601066,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d0a6e299acb:0x449acede473aa660!8m2!3d13.8179396!4d100.5601066!16s%2Fg%2F1pzthftz5?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/The+Bay/@13.6196391,100.4013268,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2bd6749c62103:0x358a5fb3dd671665!8m2!3d13.6196391!4d100.4013268!16s%2Fg%2F11lv33s_j_?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Wander+BKK/@13.7219159,100.5237022,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2990dd94e31d9:0xa0cf2f99dd4c5c24!8m2!3d13.7219159!4d100.5237022!16s%2Fg%2F11h4ym4kdg?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%81%E0%B8%AA%E0%B8%99%E0%B8%AD%E0%B8%A3%E0%B9%88%E0%B8%AD%E0%B8%A2+%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B9%84%E0%B8%81%E0%B9%88%E0%B8%A1%E0%B8%B0%E0%B8%A3%E0%B8%B0/@13.7682896,100.6230927,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61fc5093142f:0xc2d4db9b62187fb!8m2!3d13.7682896!4d100.6230927!16s%2Fg%2F11c61qr51w?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99%E0%B8%9B%E0%B8%A5%E0%B8%B2%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%8A%E0%B8%B2/@13.7309016,100.5066798,17z/data=!3m1!4b1!4m6!3m5!1s0x30e298e0a4fbe9d5:0xfa998bcde67c282f!8m2!3d13.7309016!4d100.5066798!16s%2Fg%2F11fzff2_zj?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Mr.+Bao+MALATANG@Sathupradit+%E0%B8%A1%E0%B8%B4%E0%B8%AA%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B9%80%E0%B8%9B%E0%B9%89%E0%B8%B2+%E0%B8%AB%E0%B8%A1%E0%B8%B2%E0%B8%A5%E0%B9%88%E0%B8%B2%E0%B8%97%E0%B8%B1%E0%B9%88%E0%B8%87+%E9%BA%BB%E8%BE%A3%E7%83%AB+%E9%BA%BB%E8%BE%A3%E9%A6%99%E9%94%85/@13.6977521,100.5319623,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2998064cb7c51:0x2a097ec35f41601e!8m2!3d13.6977521!4d100.5319623!16s%2Fg%2F11ml9gx50s?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B8%88%E0%B8%B1%E0%B9%8A%E0%B8%9A%E0%B9%80%E0%B8%81%E0%B9%8B%E0%B8%B2%E0%B8%81%E0%B8%B6%E0%B9%8A%E0%B8%81/@13.7789019,100.5235884,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2995676cb8149:0x1104f5aa8567b00c!8m2!3d13.7789019!4d100.5235884!16s%2Fg%2F11gbfnxhgg?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Catflaps/@12.914085,100.8623267,17z/data=!3m1!4b1!4m6!3m5!1s0x310297a4d1c8d933:0xd139ccbbfb4717e2!8m2!3d12.914085!4d100.8623267!16s%2Fg%2F11sf0clmsc?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Khao+Sia+Po/@13.7433388,100.5086817,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2992242b86a21:0x56a350de3e1bffd3!8m2!3d13.7433388!4d100.5086817!16s%2Fg%2F1hf2mmrvt?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Vegan+and+Vegetarian+Chana+Songkhram/@13.7621847,100.4941398,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299005b925187:0xc11b493bcb5fd2ad!8m2!3d13.7621847!4d100.4941398!16s%2Fg%2F11vj3764ht?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Nak+Klam+Noodle/@13.7118424,100.5262386,17z/data=!3m1!4b1!4m6!3m5!1s0x30e298ca7fc70cbb:0x3792af570ea23aa!8m2!3d13.7118424!4d100.5262386!16s%2Fg%2F11bxfmsgpv?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Chester's/@13.7249165,100.5587937,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f074a7952fd:0xa1cd6ed051de51b9!8m2!3d13.7249165!4d100.5587937!16s%2Fg%2F11jsmdhxjr?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Steak+Bar+by+Lung+Yai+Charoen+Nakhon+35/@13.7105654,100.5043968,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2995d487870bf:0x41b2bff2de45591e!8m2!3d13.7105654!4d100.5043968!16s%2Fg%2F11rdhv62mr?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%95%E0%B8%B3%E0%B8%96%E0%B8%B2%E0%B8%94+%E0%B9%81%E0%B8%AD%E0%B8%97+%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%94%E0%B9%84%E0%B8%97%E0%B8%A2/@13.7663634,100.623554,17z/data=!3m1!4b1!4m6!3m5!1s0x311d61320ca0778d:0xedeffdbf3f3c83ea!8m2!3d13.7663634!4d100.623554!16s%2Fg%2F11vbp0wp_6?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%82%E0%B8%88%E0%B9%89%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B9%81%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A1+JoeGubglam/@13.7576834,100.5098914,16z/data=!3m1!4b1!4m6!3m5!1s0x30e299dfcb18f069:0xa413aafcfae18078!8m2!3d13.7576834!4d100.5098914!16s%2Fg%2F11h5w_jqp3?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/HAUSU+COFFEE+BAR+%E3%83%8F%E3%82%A6%E3%82%B9/@13.7557785,100.5294686,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29931c5b00adf:0xc86377c830989300!8m2!3d13.7557785!4d100.5294686!16s%2Fg%2F11ygg5nh8f?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Shwe+Kayin+Family/@13.713255,100.594308,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f9d05aadf69:0x1507460746ccc6f4!8m2!3d13.713255!4d100.594308!16s%2Fg%2F11v48pnmx_?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%95%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B1%E0%B9%88%E0%B8%87+%E0%B8%88%E0%B8%A3%E0%B8%B1%E0%B8%8D+13/@13.7389685,100.4545759,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29972a2891e6d:0xa6550bef162b68f2!8m2!3d13.7389685!4d100.4545759!16s%2Fg%2F11sgzk7pmt?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/SOUP+SIP+%7C+Local+Asian+Fusion+Cuisine+%26+Chill/@13.754665,100.5272448,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2997146b34e75:0xa667c12613551aad!8m2!3d13.754665!4d100.5272448!16s%2Fg%2F11wh6cccmh?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%A1%E0%B8%B1%E0%B8%A5%E0%B8%A5%E0%B8%B4%E0%B8%81%E0%B8%B2+%E0%B8%8A%E0%B8%B8%E0%B8%A1%E0%B8%9E%E0%B8%A3+%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AA%E0%B8%A7%E0%B8%B1%E0%B8%AA%E0%B8%94%E0%B8%B4%E0%B8%81%E0%B8%B2%E0%B8%A3+%E0%B8%A8%E0%B8%9E%E0%B8%A1./@13.7680875,100.5307344,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f00799344a1:0xd88739b646e2e828!8m2!3d13.7680875!4d100.5307344!16s%2Fg%2F11yf43cxzq?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Panda+Mala/@13.6854356,100.6113502,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a16c2f1c191b:0x68a47a0868425277!8m2!3d13.6854356!4d100.6113502!16s%2Fg%2F11kbn5l0pt?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B8%95%E0%B9%89%E0%B8%A1%E0%B8%A2%E0%B8%B3+%E0%B8%99%E0%B8%B2%E0%B8%84%E0%B8%99%E0%B8%B4%E0%B8%A7%E0%B8%B2%E0%B8%AA+%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B8%9E%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%A771(%E0%B9%80%E0%B8%88%E0%B9%89%E0%B8%B2%E0%B9%80%E0%B8%81%E0%B9%88%E0%B8%B2+%E0%B8%AE%E0%B8%B5%E0%B9%82%E0%B8%A3%E0%B9%88+)/@13.8012259,100.6069477,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29d92c0e48dd9:0x4a7c6571ae7ad27a!8m2!3d13.8012259!4d100.6069477!16s%2Fg%2F11by_qn5kt?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Teng+Hai/@13.740439,100.5107676,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2999deeb4a031:0x7bc37119f28af67c!8m2!3d13.740439!4d100.5107676!16s%2Fg%2F11spqx_xj8?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B8%A3%E0%B8%B4%E0%B8%A1%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87+%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%9C%E0%B8%B6%E0%B9%89%E0%B8%87/@13.6769446,100.5728718,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2a10072e7c129:0x5919c29abcc7f9d3!8m2!3d13.6769446!4d100.5728718!16s%2Fg%2F11wxcss8nd?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Bonchon+Noen+Plub+Wan/@12.9312296,100.9085628,17z/data=!3m1!4b1!4m6!3m5!1s0x310295ff1e7b8737:0x6e53004e2aa7a05a!8m2!3d12.9312296!4d100.9085628!16s%2Fg%2F11y3p448hq?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Chai+4+Noodle+and+Wonton/@13.7523708,100.5314511,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29ecb65c0eb0b:0x1fc5ef1511372018!8m2!3d13.7523708!4d100.5314511!16s%2Fg%2F11qsftwwq4?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Le+Pla+Daak/@13.7468268,100.5304358,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f8d870799c7:0x2fca57453e92ca86!8m2!3d13.7468268!4d100.5304358!16s%2Fg%2F11fmwsflxc?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3+J%26B/@13.7430435,100.5072362,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299befc43c50f:0x83722d9fecb0e4d1!8m2!3d13.7430435!4d100.5072362!16s%2Fg%2F1q5bsg_y5?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/BAPSANG+-+the+COMMONS+Thonglor/@13.7349737,100.5821383,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f3fe8914279:0xaed968440e41e4fb!8m2!3d13.7349737!4d100.5821383!16s%2Fg%2F11vkttj7_x?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/SEOULCHON+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A12/@13.6641169,100.439133,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2bd335652a48b:0x31a170b28d14331e!8m2!3d13.6641169!4d100.439133!16s%2Fg%2F11f38zbhyv?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/The+Sandwich+Shop/@12.9199744,100.8645135,17z/data=!3m1!4b1!4m6!3m5!1s0x31029532c678bb09:0x4803f95ef77cf177!8m2!3d12.9199744!4d100.8645135!16s%2Fg%2F11w3h0y64c?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/CocoBee+%E0%B8%9E%E0%B8%B8%E0%B8%97%E0%B8%98%E0%B8%A1%E0%B8%93%E0%B8%91%E0%B8%A5%E0%B8%AA%E0%B8%B2%E0%B8%A21/@13.7615068,100.4265895,17z/data=!3m1!4b1!4m6!3m5!1s0x30e297a9d8456101:0x193c3a8f4a307cf7!8m2!3d13.7615068!4d100.4265895!16s%2Fg%2F11f760rmd4?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/LukKaiThong+One+Bangkok/@13.7257011,100.5473512,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f9b98a58183:0x9ca3900b3a43b627!8m2!3d13.7257011!4d100.5473512!16s%2Fg%2F11m5j9v57j?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/SUBWAY+Market+Place+Dusit/@13.7786402,100.5081784,17z/data=!3m1!4b1!4m6!3m5!1s0x30e299004b9fe14d:0x541b03b20e551a9c!8m2!3d13.7786402!4d100.5081784!16s%2Fg%2F11wp0fqz4g?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B9%80%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B8%81%E0%B8%A5%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+Central+Rama+2/@13.6625658,100.4378918,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2bd46d291576f:0xad2958ff94e785e1!8m2!3d13.6625658!4d100.4378918!16s%2Fg%2F11t2sf_5f4?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "url": "https://www.google.com/maps/place/Oho!+Pung+Pong/@13.7538515,100.5392136,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f00322741ef:0xd92f91803161f9a7!8m2!3d13.7538515!4d100.5392136!16s%2Fg%2F11y3rgng3y?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+    }
+  ]
+}

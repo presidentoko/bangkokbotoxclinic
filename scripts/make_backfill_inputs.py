@@ -42,6 +42,13 @@ OUT_DIR = ROOT / "apify_inputs" / "backfill_2026_08"
 # without one falls back to startUrls.
 CHIJ_IN_URL = re.compile(r"!19s(ChI[A-Za-z0-9_\-]+)")
 
+# Some scraped rows have shifted columns — maps_url holding a bare "http" or a
+# phone number. Apify rejects the whole input file on the first bad entry
+# ("Items at positions [...] do not contain valid URLs"), so one corrupt row
+# blocks a 3,000-venue run. Filtered rather than repaired: a row whose columns
+# are shifted cannot be trusted to identify the right venue anyway.
+VALID_URL = re.compile(r"^https?://\S+$")
+
 
 def build_input(place_ids: list[str], start_urls: list[str]) -> dict:
     """Same payload shape make_apify_inputs.py uses, for one actor run."""
@@ -119,7 +126,7 @@ def main() -> int:
         if m:
             ids3.append(m.group(1))
             chij_map[m.group(1)] = r["place_id"]
-        elif r.get("maps_url"):
+        elif VALID_URL.match(r.get("maps_url") or ""):
             urls3.append(r["maps_url"])
     total += write("3_restaurant_photos.json", ids3, urls3, "-> photos + hours on existing pages")
     (OUT_DIR / "3_restaurant_chij_map.json").write_text(
