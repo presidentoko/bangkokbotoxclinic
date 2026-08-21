@@ -126,7 +126,12 @@ function restaurantStop(
     priceLabel: r.price_symbol || null,
     bookUrl: book.url,
     bookProvider: book.provider,
-    bookLabel: `Book on ${book.provider}`,
+    // getAffiliateLink already decides the wording: a direct venue link says
+    // "Book on X", a category search says "Find & book similar". Overwriting
+    // it with "Book on X" promised a booking page for a search result, and
+    // made the day-plan hub (which reads book.label correctly) and these
+    // detail pages disagree about the same link.
+    bookLabel: book.label,
   };
 }
 
@@ -146,7 +151,12 @@ function nicheStop(
     priceLabel: place.price_min_thb > 0 ? `฿${place.price_min_thb.toLocaleString()}` : null,
     bookUrl: book.url,
     bookProvider: book.provider,
-    bookLabel: `Book on ${book.provider}`,
+    // getAffiliateLink already decides the wording: a direct venue link says
+    // "Book on X", a category search says "Find & book similar". Overwriting
+    // it with "Book on X" promised a booking page for a search result, and
+    // made the day-plan hub (which reads book.label correctly) and these
+    // detail pages disagree about the same link.
+    bookLabel: book.label,
   };
 }
 

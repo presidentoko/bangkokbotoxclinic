@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import type { NicheFaq } from "@/lib/niche-content";
@@ -160,7 +161,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function ComparePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const c = COMPARISONS.find((x) => x.slug === slug);
-  if (!c) return <div>Not found</div>;
+  // Was a 200 rendering the words "Not found" — a soft 404.
+  if (!c) notFound();
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">

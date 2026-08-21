@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { NICHES } from "@/lib/niches";
+import { NICHES, loadNicheDb, qualifyingNichePlaces, cityScopeLabel } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 
 export const dynamic = "force-static";
@@ -15,6 +15,11 @@ export default async function OG({ params }: { params: Promise<{ niche: string }
   const { niche } = await params;
   const info = NICHES.find((n) => n.slug === niche);
   if (!info) return new Response("not found", { status: 404 });
+
+  // Same scope the page's own <h1> and <title> use, so the share card and the
+  // page it links to agree.
+  const db = await loadNicheDb(niche as NicheSlug);
+  const scope = cityScopeLabel(qualifyingNichePlaces(niche, db.places));
 
   return new ImageResponse(
     (
@@ -43,7 +48,10 @@ export default async function OG({ params }: { params: Promise<{ niche: string }
             {`Best ${info.label}`}
           </div>
           <div style={{ fontSize: 36, color: "#525252", fontWeight: 600, display: "flex" }}>
-            in Bangkok — Ranked by Real Reviews
+            {/* The page title uses cityScopeLabel and can say Thailand; this
+                said Bangkok regardless, so the share card contradicted the
+                page it was for. */}
+            {`in ${scope} — Ranked by Real Reviews`}
           </div>
         </div>
 

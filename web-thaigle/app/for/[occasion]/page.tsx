@@ -147,7 +147,10 @@ export default async function OccasionPage({ params }: { params: Promise<{ occas
           const n = NICHES.find((x) => x.slug === slug);
           if (!n) return null;
           const db2 = await loadNicheDb(slug as NicheSlug);
-          return { ...n, top: qualifyingNichePlaces(slug, db2.places).slice(0, 5) };
+          // Keep the real size alongside the display slice — reading
+          // .length off the slice made every card advertise "5+ venues".
+          const q = qualifyingNichePlaces(slug, db2.places);
+          return { ...n, top: q.slice(0, 5), totalVenues: q.length };
         })
       ).then((r) => r.filter(Boolean))
     : [];
@@ -291,7 +294,7 @@ export default async function OccasionPage({ params }: { params: Promise<{ occas
                     <span className="text-3xl">{n.icon}</span>
                     <div>
                       <div className="font-black group-hover:text-orange-700 transition">{n.label}</div>
-                      <div className="text-xs text-[var(--muted)]">{n.top.length}+ venues</div>
+                      <div className="text-xs text-[var(--muted)]">{n.totalVenues.toLocaleString()} venues</div>
                     </div>
                   </div>
                   <div className="space-y-1">

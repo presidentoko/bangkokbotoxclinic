@@ -1,4 +1,7 @@
 import { notFound } from "next/navigation";
+import { AdSlot } from "@/components/AdSlot";
+import { LIST_AD_INTERVAL, MIN_ITEMS_FOR_LIST_AD } from "@/lib/ads";
+import { Fragment } from "react";
 import { loadMasterDb, filterByCuisine } from "@/lib/data";
 import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
@@ -223,7 +226,11 @@ export default async function CuisineHub(
             const entry = slugMap[r.id];
             if (!entry) return null;
             return (
-              <a key={r.id} href={restaurantUrl(entry)}
+              <Fragment key={r.id}>
+              {sorted.length >= MIN_ITEMS_FOR_LIST_AD && i > 0 && i % LIST_AD_INTERVAL === 0 && (
+                <AdSlot name="listInline" />
+              )}
+              <a href={restaurantUrl(entry)}
                  className="flex items-center gap-3 p-3 border rounded-lg hover:border-orange-400 transition">
                 <span className="font-bold text-[var(--muted)] w-6 text-sm">#{i + 1}</span>
                 <div className="flex-1 min-w-0">
@@ -232,6 +239,7 @@ export default async function CuisineHub(
                 </div>
                 <div className="text-sm font-semibold text-orange-600 shrink-0">Trust {r.trust_score}</div>
               </a>
+              </Fragment>
             );
           })}
         </div>
