@@ -58,6 +58,32 @@
     { "pattern": "www.bangkokbestclinic.com/*", "zone_name": "bangkokbestclinic.com" }
   ],
 
+  // 2026-08-21: Worker 앞 캐시를 켠다.
+  //
+  // 왜 대시보드 Cache Rules 가 아닌가: Cloudflare 문서상 "캐시는 존이 아니라
+  // Worker 를 따르며, Cache Rules·Page Rules·존 캐시 설정 등 모든 존 레벨
+  // 설정은 Workers 캐싱에 적용되지 않는다". 이 사이트는 Route 로 Worker 가
+  // 직접 응답하므로 대시보드에서 규칙을 만들어도 아무 효과가 없다.
+  // (2026-08-06 가이드는 세 사이트가 전부 Vercel 오리진이던 시절 기준이라
+  //  덴탈에는 더 이상 맞지 않는다.)
+  //
+  // 무엇을 해결하나: 실측상 응답에 cf-cache-status 헤더가 없었다 = HTML 이
+  // 엣지에 전혀 캐시되지 않아 **모든 요청이 Worker 를 돈다**. Workers Free 는
+  // 요청당 CPU 10ms 라 프리렌더 HTML(600~740KB)을 내보내면 넘겨서 error 1102
+  // 503 이 상시 발생했고, GSC 에 5xx 655건으로 쌓였다.
+  // 켜면 Worker 가 캐시의 오리진이 되고 응답의 Cache-Control 이 TTL 을 정한다.
+  // 우리는 이미 s-maxage 를 보내고 있어 추가 코드가 필요 없다.
+  //
+  // 알려진 한계: s-maxage 가 있으면 stale-while-revalidate 가 무효가 된다.
+  // 즉 TTL 만료 후 첫 요청은 여전히 Worker 를 탄다. 그래도 지금은 100% 가
+  // Worker 를 도는 상태라 개선 폭이 크다. stale 서빙까지 되살리려면
+  // s-maxage 를 빼고 cdn-cache-control 로 옮겨야 하는데, 그건 별건으로 둔다.
+  //
+  // 안전장치: /api/* 는 next.config.ts 의 headers() 가 no-store 를 박는다.
+  // 캐시가 인증 응답을 물지 않게 하는 건 이 설정과 반드시 함께 가야 한다.
+  // Wrangler 4.69.0+ 필요 (현재 4.120.0).
+  "cache": { "enabled": true },
+
   "observability": { "enabled": true }
 
   // TODO(검증 후): vercel.json 의 crons 2개를 여기 triggers 로 옮긴다.

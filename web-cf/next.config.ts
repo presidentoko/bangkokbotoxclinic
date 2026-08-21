@@ -260,6 +260,22 @@ async function staleDoctorSlugRedirects() {
 }
 
 const config: NextConfig = {
+  // 2026-08-21: /api/* 는 어떤 계층에서도 캐시되면 안 된다. 실측 결과 admin
+  // 라우트(401)와 lead/partner-signup(405) 응답에 Cache-Control 이 아예 없어서,
+  // 캐시 계층이 붙으면 기본 휴리스틱에 맡겨진다. 덴탈은 Worker 앞 캐시를 켜는
+  // 중이고(wrangler.jsonc 의 cache.enabled), Vercel 쪽도 엣지 캐시가 있으므로
+  // 응답 자체가 캐시 불가임을 명시한다 — 인증 응답이 캐시돼 남에게 나가는 건
+  // 되돌릴 수 없는 사고다.
+  async headers() {
+    return [
+      {
+        source: "/api/:path*",
+        headers: [
+          { key: "Cache-Control", value: "private, no-store, max-age=0, must-revalidate" },
+        ],
+      },
+    ];
+  },
   // master_db.json 큰 사이즈 대비 Edge 런타임 안 씀
   experimental: {
     largePageDataBytes: 4 * 1024 * 1024,
