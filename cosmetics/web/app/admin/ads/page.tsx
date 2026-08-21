@@ -1,7 +1,9 @@
+import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getAdSlots, saveAdSlots, makeAdId } from "@/lib/ads";
 import type { AdType, AdSlot } from "@/lib/ads";
+import { revalidateForSlots } from "@/lib/ad-revalidate";
 import { requireAuth } from "../actions";
 
 export const dynamic = "force-dynamic";
@@ -20,7 +22,11 @@ async function deleteSlot(id: string) {
   "use server";
   await requireAuth();
   const slots = await getAdSlots();
+  const removed = slots.find((s) => s.id === id);
   await saveAdSlots(slots.filter((s) => s.id !== id));
+  // Revalidate using the slot as it was, not as it now isn't — the pages that
+  // need re-rendering are the ones that were showing it.
+  if (removed) await revalidateForSlots([removed]);
 }
 
 async function createSlot(formData: FormData) {
@@ -40,6 +46,7 @@ async function createSlot(formData: FormData) {
     active: formData.get("active") === "on",
   };
   await saveAdSlots([...slots, newSlot]);
+  await revalidateForSlots([newSlot]);
 }
 
 export default async function AdsAdminPage() {
@@ -52,8 +59,11 @@ export default async function AdsAdminPage() {
   return (
     <main className="max-w-3xl mx-auto p-6 font-sans">
       <div className="flex items-center gap-3 mb-6">
-        <a href="/admin" className="text-sm text-gray-500 hover:underline">← Admin</a>
+        <Link href="/admin" className="text-sm text-gray-500 hover:underline">← Admin</Link>
         <h1 className="text-2xl font-bold">Ad Slots</h1>
+        <Link href="/admin/ads/report" className="ml-auto text-sm rounded-lg border px-3 py-1.5 hover:bg-gray-50">
+          Performance
+        </Link>
       </div>
 
       {/* Slot list */}

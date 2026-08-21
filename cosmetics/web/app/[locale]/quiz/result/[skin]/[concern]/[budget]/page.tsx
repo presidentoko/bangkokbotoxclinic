@@ -7,6 +7,7 @@ import { concernLabel, STATIC_LOCALES, localeAlternates } from "@/lib/i18n";
 import { CONCERNS, productSlug, getProduct, siteStats, type Concern } from "@/lib/data";
 import { quizRecommendations, BUDGET_RANGE } from "@/lib/quiz";
 import { getActiveByType } from "@/lib/ads";
+import { AdTracker } from "@/components/AdTracker";
 import { SponsoredBadge } from "@/components/SponsoredBadge";
 import { QuizResultCard } from "@/components/QuizResultCard";
 import { QuizLeadCapture } from "@/components/QuizLeadCapture";
@@ -178,7 +179,8 @@ export default async function QuizResultPage({
       />
 
       {/* Sponsored: Quiz Result Placement */}
-      {quizSponsorProduct && (
+      {quizSponsorProduct && quizSlot && (
+        <AdTracker slotId={quizSlot.id}>
         <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
           <div className="flex items-center gap-2 mb-3">
             <SponsoredBadge locale={loc} />
@@ -208,6 +210,7 @@ export default async function QuizResultPage({
             </a>
           </div>
         </div>
+        </AdTracker>
       )}
 
       <QuizLeadCapture

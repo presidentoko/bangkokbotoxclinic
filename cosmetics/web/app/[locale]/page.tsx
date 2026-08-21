@@ -6,6 +6,7 @@ import { CONCERNS, getRanking, bestSellersAllConcerns, topPicks, hotDeals, siteS
 import { ProductStrip } from "@/components/ProductStrip";
 import { JsonLd } from "@/components/JsonLd";
 import { getActiveByType } from "@/lib/ads";
+import { AdTracker } from "@/components/AdTracker";
 import { SponsoredBadge } from "@/components/SponsoredBadge";
 import { orgLd, websiteLd, faqLd } from "@/lib/schema";
 import { HomeSearchBar } from "@/components/HomeSearchBar";
@@ -248,7 +249,8 @@ export default async function Home({
       </Link>
 
       {/* Sponsored: Homepage Featured */}
-      {featuredProduct && (
+      {featuredProduct && featuredSlot && (
+        <AdTracker slotId={featuredSlot.id}>
         <section className="rounded-xl border-2 border-amber-200 bg-amber-50 p-4">
           <div className="flex gap-4 items-center">
             <div className="relative w-20 h-20 shrink-0 rounded-lg bg-white overflow-hidden">
@@ -273,6 +275,7 @@ export default async function Home({
             </a>
           </div>
         </section>
+        </AdTracker>
       )}
 
       {/* Trending strip */}

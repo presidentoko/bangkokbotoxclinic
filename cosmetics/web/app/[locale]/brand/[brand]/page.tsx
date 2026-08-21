@@ -9,6 +9,7 @@ import {
 import { concernLabel, STATIC_LOCALES, localeAlternates, localeOgImage, type Locale } from "@/lib/i18n";
 import { brandFaqLd, breadcrumbLd, itemListLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
+import { AdvertiseCta } from "@/components/AdvertiseCta";
 import { scoreColor, baht } from "@/lib/format";
 
 const BASE = "https://bangkokfillers.com";
@@ -203,6 +204,8 @@ export default async function BrandPage({
           })}
         </div>
       </section>
+
+      <AdvertiseCta locale={locale} brand={brand} />
 
       {/* JSON-LD */}
       <JsonLd data={brandFaqLd(brand, locale, topProduct.name, topConcern)} />

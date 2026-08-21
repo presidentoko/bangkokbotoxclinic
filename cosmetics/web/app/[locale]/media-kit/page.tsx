@@ -76,21 +76,21 @@ export default async function MediaKit({
   const adOptions = isTh ? [
     {
       tier: "Brand Hub",
-      price: "ติดต่อสอบถาม",
+      price: "เริ่มต้น ฿6,000 / เดือน",
       desc: "หน้าแบรนด์ของคุณโดดเด่นในอันดับต้น — ลิงก์ซื้อตรงจาก Konvy / Shopee",
       features: ["หน้าแบรนด์ dedicated", "FAQ schema กับ AI search", "ลิงก์ affiliate ทุกผลิตภัณฑ์"],
       highlight: false,
     },
     {
       tier: "Concern Sponsor",
-      price: "ติดต่อสอบถาม",
+      price: "เริ่มต้น ฿25,000 / เดือน",
       desc: "สนับสนุนหน้าหมวดสิว ฝ้า ริ้วรอย ฯลฯ — โฆษณาข้างตารางอันดับที่ผู้ซื้อกำลังตัดสินใจ",
       features: ["Banner ในหน้าอันดับ", "Mention ใน FAQ schema", "รายงานผลรายเดือน"],
       highlight: true,
     },
     {
       tier: "Quiz Integration",
-      price: "ติดต่อสอบถาม",
+      price: "฿8,000 / เดือน",
       desc: "ผลิตภัณฑ์ของคุณปรากฏในผลลัพธ์ Quiz ที่แชร์ได้ — ไวรัลได้ในกลุ่มผู้หญิงไทย",
       features: ["Placement ในผลลัพธ์ quiz", "Shareable card มีแบรนด์", "LINE share integration"],
       highlight: false,
@@ -98,21 +98,21 @@ export default async function MediaKit({
   ] : [
     {
       tier: "Brand Hub",
-      price: "Contact us",
+      price: "From ฿6,000 / month",
       desc: "Your brand page featured prominently — direct buy links via Konvy / Shopee.",
       features: ["Dedicated brand page", "FAQ schema for AI search", "Affiliate links on all products"],
       highlight: false,
     },
     {
       tier: "Concern Sponsor",
-      price: "Contact us",
+      price: "From ฿25,000 / month",
       desc: "Sponsor an acne, brightening, anti-aging etc. ranking page — ads next to comparison tables where buyers decide.",
       features: ["Banner on ranking page", "Mention in FAQ schema", "Monthly performance report"],
       highlight: true,
     },
     {
       tier: "Quiz Integration",
-      price: "Contact us",
+      price: "฿8,000 / month",
       desc: "Your products appear in shareable Quiz results — viral potential among Thai women.",
       features: ["Placement in quiz results", "Branded shareable card", "LINE share integration"],
       highlight: false,
@@ -134,11 +134,11 @@ export default async function MediaKit({
   ];
 
   const faqData = isTh ? [
-    { q: "โฆษณากับ BangkokFillers ราคาเท่าไหร่", a: "ราคาขึ้นอยู่กับ placement และระยะเวลา — กรอกแบบฟอร์มที่หน้าติดต่อเราเพื่อรับ proposal" },
+    { q: "โฆษณากับ BangkokFillers ราคาเท่าไหร่", a: "เริ่มต้นที่ ฿6,000 ต่อเดือนสำหรับ Editor’s Pick และสูงสุด ฿35,000 สำหรับ Category Takeover ในหมวดที่มีทราฟฟิกสูง ราคาขึ้นอยู่กับ placement และระยะเวลา — กรอกแบบฟอร์มติดต่อเพื่อรับ proposal ภายใน 48 ชั่วโมง" },
     { q: "BangkokFillers รับสินค้าฟรีแลกรีวิวไหม", a: "ไม่ — อันดับทุกตัวคำนวณจากข้อมูลเท่านั้น ไม่มีการจ่ายเงินเพื่อขึ้นอันดับ ความน่าเชื่อถือคือสิ่งที่เราปกป้อง" },
     { q: "ผู้ชมเป็นใคร", a: "ผู้หญิงไทยที่ค้นหาข้อมูลก่อนซื้อสกินแคร์ — กลุ่มที่ตัดสินใจด้วยข้อมูล ไม่ใช่ influencer" },
   ] : [
-    { q: "How much does advertising with BangkokFillers cost?", a: "Pricing depends on placement and duration — fill in the contact form for a proposal." },
+    { q: "How much does advertising with BangkokFillers cost?", a: "From ฿6,000 a month for an Editor’s Pick up to ฿35,000 for a category takeover on a high-traffic concern. Pricing depends on placement and duration — fill in the contact form and we send a proposal within 48 hours." },
     { q: "Does BangkokFillers accept products in exchange for rankings?", a: "No — all rankings are calculated from data only. Paid rankings don't exist here. Our credibility is our product." },
     { q: "Who is the audience?", a: "Thai women who research before buying skincare — high-intent buyers, not passive scrollers." },
   ];
@@ -244,6 +244,63 @@ export default async function MediaKit({
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Rate card — the five placements the ad system actually books, so a
+          brand can price a plan before writing to us. Anchoring the numbers in
+          public filters out enquiries we would only have to turn down. */}
+      <section className="space-y-5">
+        <h2 className="font-serif-display text-2xl font-semibold text-[#2b2222]">
+          {isTh ? "อัตราค่าโฆษณา" : "Rate card"}
+        </h2>
+        <div className="overflow-x-auto rounded-2xl border border-[#efe1db] bg-white">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-left border-b border-[#f5ecec]">
+                <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-[#c9a86a]">
+                  {isTh ? "ตำแหน่ง" : "Placement"}
+                </th>
+                <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-[#c9a86a]">
+                  {isTh ? "ปรากฏที่" : "Where it appears"}
+                </th>
+                <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-[#c9a86a] text-right whitespace-nowrap">
+                  {isTh ? "ราคา / เดือน" : "Per month"}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {(isTh
+                ? [
+                    ["Category Takeover", "ด้านบนหน้าอันดับของหมวดที่เลือก", "฿25,000 – 35,000"],
+                    ["Homepage Featured", "การ์ดสปอนเซอร์บนหน้าแรก", "฿15,000"],
+                    ["Sponsored Review", "หน้ารีวิวเต็มพร้อมป้ายกำกับ", "฿12,000 – 20,000"],
+                    ["Quiz Result", "ผลลัพธ์แบบทดสอบสภาพผิว", "฿8,000"],
+                    ["Editor’s Pick", "การ์ดในหน้าหมวด ใต้ตารางอันดับ", "฿6,000 – 10,000"],
+                  ]
+                : [
+                    ["Category Takeover", "Top of a chosen concern ranking page", "฿25,000 – 35,000"],
+                    ["Homepage Featured", "Sponsored card on the homepage", "฿15,000"],
+                    ["Sponsored Review", "Full labelled review page", "฿12,000 – 20,000"],
+                    ["Quiz Result", "Skin quiz result screen", "฿8,000"],
+                    ["Editor’s Pick", "Card on a concern page, below the table", "฿6,000 – 10,000"],
+                  ]
+              ).map(([name, where, price], i) => (
+                <tr key={name} className={i > 0 ? "border-t border-[#f5ecec]" : ""}>
+                  <td className="px-5 py-3 font-semibold text-[#2b2222] whitespace-nowrap">{name}</td>
+                  <td className="px-5 py-3 text-neutral-500">{where}</td>
+                  <td className="px-5 py-3 text-right font-semibold text-[#c9a86a] whitespace-nowrap tabular-nums">
+                    {price}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-neutral-400">
+          {isTh
+            ? "ทุกแคมเปญมีป้าย ‘ได้รับการสนับสนุน’ และมีรายงานผลรายเดือน (impression, คลิก, CTR) — อันดับไม่ได้ขายและไม่เคยเปลี่ยนตามผู้สนับสนุน"
+            : "Every campaign carries a Sponsored label and comes with a monthly report — impressions, clicks, CTR. Rankings are not for sale and never move for a sponsor."}
+        </p>
       </section>
 
       {/* Why data-driven */}

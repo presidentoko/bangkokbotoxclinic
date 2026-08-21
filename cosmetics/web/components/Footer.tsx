@@ -81,8 +81,17 @@ export function Footer({ locale }: { locale: Locale }) {
             <Link href={`/${locale}/media-kit`} className="block text-xs text-[#8a7a76] hover:text-amber-600 transition-colors">
               {isTh ? "โฆษณากับเรา" : "Advertise with us"}
             </Link>
+            <Link href={`/${locale}/about`} className="block text-xs text-[#8a7a76] hover:text-rose-500 transition-colors">
+              {isTh ? "เกี่ยวกับเรา" : "About us"}
+            </Link>
             <Link href={`/${locale}/contact`} className="block text-xs text-[#8a7a76] hover:text-rose-500 transition-colors">
               {isTh ? "ติดต่อเรา" : "Contact us"}
+            </Link>
+            <Link href={`/${locale}/privacy`} className="block text-xs text-[#8a7a76] hover:text-rose-500 transition-colors">
+              {isTh ? "ความเป็นส่วนตัว" : "Privacy"}
+            </Link>
+            <Link href={`/${locale}/terms`} className="block text-xs text-[#8a7a76] hover:text-rose-500 transition-colors">
+              {isTh ? "ข้อกำหนด" : "Terms"}
             </Link>
           </div>
         </div>

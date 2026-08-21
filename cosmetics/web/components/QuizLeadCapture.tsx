@@ -65,8 +65,29 @@ export function QuizLeadCapture({ skin, concern, budget, locale }: Props) {
       {state === "error" && (
         <p className="text-xs text-red-600 mt-2">{isTh ? "เกิดข้อผิดพลาด ลองใหม่อีกครั้ง" : "Something went wrong, try again"}</p>
       )}
+      {/* The form stores an email address alongside the quiz answers, so it needs
+          to say so at the point of collection — PDPA requires the notice where
+          consent is given, not buried in a policy page nobody opens. */}
       <p className="text-xs text-rose-400 mt-2">
         {isTh ? "ไม่มีสแปม ยกเลิกได้ตลอด" : "No spam. Unsubscribe anytime."}
+      </p>
+      <p className="text-[11px] leading-relaxed text-rose-400/90 mt-1">
+        {isTh ? (
+          <>
+            เราเก็บอีเมลของคุณพร้อมคำตอบแบบทดสอบเพื่อส่งคำแนะนำที่ตรงกับผิวคุณ ดู
+            <a href={`/${locale}/privacy`} className="underline hover:text-rose-600">
+              นโยบายความเป็นส่วนตัว
+            </a>
+          </>
+        ) : (
+          <>
+            We store your email with your quiz answers to send relevant picks. See our{" "}
+            <a href={`/${locale}/privacy`} className="underline hover:text-rose-600">
+              privacy policy
+            </a>
+            .
+          </>
+        )}
       </p>
     </div>
   );

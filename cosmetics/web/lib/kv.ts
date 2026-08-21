@@ -92,3 +92,29 @@ export async function kvLrange(key: string, start: number, stop: number): Promis
     return [];
   }
 }
+
+export async function kvHincrby(key: string, field: string, by = 1): Promise<void> {
+  const r = await getClient();
+  if (!r) return;
+  try {
+    await r.hIncrBy(key, field, by);
+  } catch {}
+}
+
+export async function kvSadd(key: string, member: string): Promise<void> {
+  const r = await getClient();
+  if (!r) return;
+  try {
+    await r.sAdd(key, member);
+  } catch {}
+}
+
+export async function kvSmembers(key: string): Promise<string[]> {
+  const r = await getClient();
+  if (!r) return [];
+  try {
+    return (await r.sMembers(key)) ?? [];
+  } catch {
+    return [];
+  }
+}

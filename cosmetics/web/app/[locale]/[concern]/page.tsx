@@ -21,6 +21,7 @@ import { STATIC_LOCALES, localeAlternates, t, concernLabel, concernLabelShort, t
 import { itemListLd, concernFaqQas, faqLd, breadcrumbLd, howToLd } from "@/lib/schema";
 import { getFeaturedMap } from "@/lib/adminData";
 import { getActiveByType } from "@/lib/ads";
+import { AdTracker } from "@/components/AdTracker";
 import { SponsoredBadge } from "@/components/SponsoredBadge";
 import { JsonLd } from "@/components/JsonLd";
 import { ComparisonTable } from "@/components/ComparisonTable";
@@ -532,7 +533,8 @@ export default async function ConcernHub({
       )}
 
       {/* Sponsored: Editor's Pick */}
-      {editorsPickProduct && (
+      {editorsPickProduct && editorsPickSlot && (
+        <AdTracker slotId={editorsPickSlot.id}>
         <section className="rounded-xl border border-amber-200 bg-amber-50 p-4 flex gap-4 items-center">
           <div className="relative w-16 h-16 shrink-0 rounded-lg bg-white overflow-hidden">
             <Image
@@ -555,6 +557,7 @@ export default async function ConcernHub({
             {locale === "th" ? "ดูเลย" : "View"}
           </a>
         </section>
+        </AdTracker>
       )}
 
       {/* ── แนะนำสำหรับคุณ / Find your match ──
@@ -589,7 +592,8 @@ export default async function ConcernHub({
       />
 
       {/* Sponsored: Category Takeover */}
-      {takeoverProduct && (
+      {takeoverProduct && takeoverSlot && (
+        <AdTracker slotId={takeoverSlot.id}>
         <section className="rounded-xl border-2 border-amber-300 bg-amber-50 p-4 flex gap-4 items-center">
           <div className="relative w-16 h-16 shrink-0 rounded-lg bg-white overflow-hidden">
             <Image
@@ -612,6 +616,7 @@ export default async function ConcernHub({
             {locale === "th" ? "ดูเลย" : "View"}
           </a>
         </section>
+        </AdTracker>
       )}
 
       {/* FAQ — same Q&A as the FAQPage JSON-LD below, rendered visibly so

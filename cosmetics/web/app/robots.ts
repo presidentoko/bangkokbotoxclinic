@@ -13,6 +13,9 @@ export default function robots(): MetadataRoute.Robots {
         // already 404s these at the routing layer; this just asks nicely).
         disallow: [
           "/admin",
+          // Ad-event beacons and the admin CSV are not pages; crawling them
+          // wastes budget and, in the beacon's case, is rejected anyway.
+          "/api/",
           "/*.php$",
           "/*.env$",
           "/wp-admin",

@@ -50,6 +50,9 @@ function coreEntries(): MetadataRoute.Sitemap {
   out.push(entry(`${BASE}/th/methodology`, 0.6, "monthly"));
   out.push(entry(`${BASE}/th/media-kit`, 0.5, "monthly"));
   out.push(entry(`${BASE}/th/contact`, 0.6, "monthly"));
+  out.push(entry(`${BASE}/th/about`, 0.5, "monthly"));
+  out.push(entry(`${BASE}/th/privacy`, 0.3, "yearly"));
+  out.push(entry(`${BASE}/th/terms`, 0.3, "yearly"));
 
   // Sale events — all 6 event pages render the identical "best deals now" ranking
   // (no per-event data exists to differentiate them) and self-canonicalize onto

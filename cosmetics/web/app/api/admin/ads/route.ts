@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { getAdSlots, saveAdSlots, makeAdId, AdSlot } from "@/lib/ads";
+import { revalidateForSlots } from "@/lib/ad-revalidate";
 
 async function authorized() {
   const pw = process.env.ADMIN_PASSWORD;
@@ -22,7 +23,8 @@ export async function POST(req: NextRequest) {
   const slots = await getAdSlots();
   const newSlot: AdSlot = { ...body, id: makeAdId() };
   await saveAdSlots([...slots, newSlot]);
-  return NextResponse.json(newSlot, { status: 201 });
+  const revalidated = await revalidateForSlots([newSlot]);
+  return NextResponse.json({ ...newSlot, revalidated }, { status: 201 });
 }
 
 // DELETE /api/admin/ads?id=xxx — remove slot
@@ -31,8 +33,10 @@ export async function DELETE(req: NextRequest) {
   const id = new URL(req.url).searchParams.get("id");
   if (!id) return NextResponse.json({ error: "Missing id" }, { status: 400 });
   const slots = await getAdSlots();
+  const removed = slots.find((s) => s.id === id);
   await saveAdSlots(slots.filter((s) => s.id !== id));
-  return NextResponse.json({ ok: true });
+  const revalidated = removed ? await revalidateForSlots([removed]) : null;
+  return NextResponse.json({ ok: true, revalidated });
 }
 
 // PATCH /api/admin/ads?id=xxx — toggle active
@@ -42,6 +46,8 @@ export async function PATCH(req: NextRequest) {
   if (!id) return NextResponse.json({ error: "Missing id" }, { status: 400 });
   const { active } = await req.json();
   const slots = await getAdSlots();
+  const touched = slots.find((s) => s.id === id);
   await saveAdSlots(slots.map((s) => s.id === id ? { ...s, active } : s));
-  return NextResponse.json({ ok: true });
+  const revalidated = touched ? await revalidateForSlots([touched]) : null;
+  return NextResponse.json({ ok: true, revalidated });
 }

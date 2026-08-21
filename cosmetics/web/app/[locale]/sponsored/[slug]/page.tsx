@@ -4,6 +4,7 @@ import { getProduct, productSlug, productIdFromSlug } from "@/lib/data";
 import { affiliateUrl } from "@/lib/affiliate";
 import { getAdSlots } from "@/lib/ads";
 import { SponsoredBadge } from "@/components/SponsoredBadge";
+import { AdTracker } from "@/components/AdTracker";
 import { JsonLd } from "@/components/JsonLd";
 
 export const revalidate = 86400;
@@ -71,6 +72,11 @@ export default async function SponsoredReviewPage({
   const buyUrl = affiliateUrl(p);
   const isTh = loc === "th";
 
+  // The slot this page was sold as — needed so the buy click is attributed to
+  // the campaign in the advertiser's report. A sponsored page can outlive its
+  // slot (the URL stays valid until the next build), so this is optional.
+  const slot = (await getAdSlots()).find((s) => s.productSlug === slug);
+
   const summary =
     p.llm_summary
       ? (isTh || loc === "ar" || loc === "ko" ? p.llm_summary.th : p.llm_summary.en)
@@ -108,14 +114,27 @@ export default async function SponsoredReviewPage({
             <p className="text-sm text-gray-400 line-through">฿{p.list_price_thb}</p>
           )}
         </div>
-        <a
-          href={buyUrl}
-          target="_blank"
-          rel="sponsored noopener"
-          className="rounded-xl bg-rose-600 px-6 py-3 text-white font-semibold"
-        >
-          {isTh ? "ดูราคาล่าสุด" : "Check price"}
-        </a>
+        {slot ? (
+          <AdTracker slotId={slot.id}>
+            <a
+              href={buyUrl}
+              target="_blank"
+              rel="sponsored noopener"
+              className="rounded-xl bg-rose-600 px-6 py-3 text-white font-semibold"
+            >
+              {isTh ? "ดูราคาล่าสุด" : "Check price"}
+            </a>
+          </AdTracker>
+        ) : (
+          <a
+            href={buyUrl}
+            target="_blank"
+            rel="sponsored noopener"
+            className="rounded-xl bg-rose-600 px-6 py-3 text-white font-semibold"
+          >
+            {isTh ? "ดูราคาล่าสุด" : "Check price"}
+          </a>
+        )}
       </div>
 
       <JsonLd data={{

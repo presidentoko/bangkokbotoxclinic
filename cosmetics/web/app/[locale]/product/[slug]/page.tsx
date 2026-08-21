@@ -14,6 +14,7 @@ import {
 import { STATIC_LOCALES, thaiOnlyAlternates, t, toBaseLocale, type Locale } from "@/lib/i18n";
 import { productLd, breadcrumbLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
+import { AdvertiseCta } from "@/components/AdvertiseCta";
 import { AffiliateButton } from "@/components/AffiliateButton";
 import { IngredientDecoder } from "@/components/IngredientDecoder";
 import { ExpandableText } from "@/components/ExpandableText";
@@ -962,6 +963,8 @@ export default async function ProductPage({
           locale={locale}
           pageUrl={pageUrl}
         />
+
+        <AdvertiseCta locale={locale} brand={p.brand} />
 
         <JsonLd data={{
           "@context": "https://schema.org",
