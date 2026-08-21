@@ -132,7 +132,16 @@ def main() -> int:
             # Only when this run is what gave the venue its rating — otherwise
             # we'd replace a score built from reviewer-quality data with one
             # that has no access to it.
-            if supplied_rating:
+            #
+            # Guarded on rating being present. The review-count branch above
+            # sets supplied_rating even when Google returned a count but no
+            # totalScore; recomputing then yields trust_score(None, n) == 0,
+            # and a zero score drops the venue out of every pool in
+            # qualifyingNichePlaces — including the trust_score > 0 fallback.
+            # 63 live yoga-pilates URLs match that shape (rating is None,
+            # review_count <= 10, trust_score > 0) and would have disappeared
+            # from the site on the next merge.
+            if supplied_rating and p.get("rating"):
                 p["trust_score"] = trust_score(p.get("rating"), p.get("review_count"))
 
             if changed:
