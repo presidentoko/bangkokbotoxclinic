@@ -20,7 +20,11 @@ export interface PetFood {
   name_th: string
   animal: Animal
   life_stage: LifeStage
+  /** Pack size. 1.0 on every scraped record — a default, not a measurement —
+   *  so it is only shown where `weight_verified` says a real listing supplied
+   *  it. See petfood/lazada_prices.py. */
   weight_kg: number
+  weight_verified?: boolean
   price_thb: number
   price_per_kg: number
   buy_url: string
@@ -61,6 +65,7 @@ export interface PetFoodLight {
   animal: Animal
   life_stage: LifeStage
   weight_kg: number
+  weight_verified?: boolean
   /** Absent when unknown. No price source is connected yet, so always absent. */
   price_thb?: number
   price_per_kg?: number

@@ -96,7 +96,10 @@ function FoodProductJsonLd({ food, grade, slug }: { food: PetFood; grade: FoodGr
       additionalProperty: [
         food.protein_dm > 0 ? { '@type': 'PropertyValue', name: 'โปรตีน (dry matter)', value: `${food.protein_dm.toFixed(1)}%` } : null,
         food.fat_dm > 0 ? { '@type': 'PropertyValue', name: 'ไขมัน (dry matter)', value: `${food.fat_dm.toFixed(1)}%` } : null,
-        food.weight_kg > 0 ? { '@type': 'PropertyValue', name: 'น้ำหนักบรรจุ', value: `${food.weight_kg} กก.` } : null,
+        // `weight_kg` is 1.0 on all 986 records because the scraper defaulted it,
+        // so this published "น้ำหนักบรรจุ: 1 กก." as structured data on every
+        // product page. Only a pack size read off a real retail listing is a fact.
+        food.weight_verified && food.weight_kg > 0 ? { '@type': 'PropertyValue', name: 'น้ำหนักบรรจุ', value: `${food.weight_kg} กก.` } : null,
         food.price_per_kg > 0 ? { '@type': 'PropertyValue', name: 'ราคาต่อกิโลกรัม', value: `${Math.round(food.price_per_kg)} บาท` } : null,
       ].filter(Boolean),
     } : {}),

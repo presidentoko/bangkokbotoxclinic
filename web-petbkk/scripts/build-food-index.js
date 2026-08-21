@@ -50,6 +50,7 @@ const index = foods.map(f => {
     animal: f.animal,
     life_stage: f.life_stage,
     weight_kg: f.weight_kg,
+    ...(f.weight_verified ? { weight_verified: true } : {}),
     // Omitted when zero rather than shipped as a zero. No price source is
     // wired up yet, so these are 0 on all 986 records — 30 KB of zeroes in
     // every visitor's bundle. Consumers already gate on `> 0`, and `undefined`

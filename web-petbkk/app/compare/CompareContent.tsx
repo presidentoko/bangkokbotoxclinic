@@ -112,7 +112,11 @@ export default function CompareContent() {
                 {f.aafco_meets ? '✓ ผ่าน' : '—'}
               </span>
             ))} />
-            <Row rowIndex={8} label="น้ำหนัก" values={foods.map(f => `${f.weight_kg} kg`)} />
+            {/* Shown only where a retail listing supplied the pack size; the
+                scraped default is 1.0 kg for every product, which rendered a
+                comparison table where every row read "1 kg". */}
+            <Row rowIndex={8} label="น้ำหนัก" values={foods.map(f =>
+              f.weight_verified && f.weight_kg > 0 ? `${f.weight_kg} kg` : '—')} />
             <Row rowIndex={9} label="ซื้อที่" values={foods.map(f => getBuyUrl(f.id) ? (
               <a href={getBuyUrl(f.id)} target="_blank" rel="noopener noreferrer"
                 className="text-blue-500 hover:underline text-xs">ซื้อเลย →</a>

@@ -1,4 +1,12 @@
-"""
+"""SUPERSEDED — do not run. Use petfood/lazada_prices.py instead.
+
+This scraper cannot produce correct prices: it takes min() of the first five
+results of a price-ascending search with no check that any of them are the
+product being priced (the cheapest hit is a sample sachet or a food scoop),
+its price regex matches review and sold counts as readily as prices, it
+divides by a weight_kg that is 1.0 on all 986 records, and it writes to a
+petfood.json the website does not read. Kept only for its VPN worker pattern.
+
 Shopee 최저가 스크래퍼 — VPN SOCKS5 프록시로 병렬 실행
 각 워커가 foods 서브셋을 담당, Shopee 검색에서 최저가 추출
 
@@ -11,6 +19,11 @@ Run:
     python -m petfood.shopee_prices --no-vpn    # VPN 없이 (테스트용)
 """
 from __future__ import annotations
+
+raise SystemExit(
+    "petfood/shopee_prices.py is superseded and would refill the catalogue "
+    "with fabricated prices. Use: python -m petfood.lazada_prices"
+)
 import argparse
 import json
 import math
