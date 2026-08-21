@@ -72,13 +72,13 @@ export function filterFoods(filters: FoodFilters = {}): PetFood[] {
     const q = filters.query.toLowerCase()
     foods = foods.filter(f =>
       f.name_en.toLowerCase().includes(q) ||
-      f.name_th.toLowerCase().includes(q) ||
+      (f.name_th ?? f.name_en).toLowerCase().includes(q) ||
       f.brand.toLowerCase().includes(q)
     )
   }
 
   if (filters.sort === 'price') {
-    return [...foods].sort((a, b) => a.price_per_kg - b.price_per_kg)
+    return [...foods].sort((a, b) => (a.price_per_kg ?? 0) - (b.price_per_kg ?? 0))
   }
   return [...foods].sort(
     (a, b) =>
@@ -100,13 +100,13 @@ export function filterFoodsLight(filters: FoodFilters = {}): PetFoodLight[] {
     const q = filters.query.toLowerCase()
     foods = foods.filter(f =>
       f.name_en.toLowerCase().includes(q) ||
-      f.name_th.toLowerCase().includes(q) ||
+      (f.name_th ?? f.name_en).toLowerCase().includes(q) ||
       f.brand.toLowerCase().includes(q)
     )
   }
 
   if (filters.sort === 'price') {
-    return [...foods].sort((a, b) => a.price_per_kg - b.price_per_kg)
+    return [...foods].sort((a, b) => (a.price_per_kg ?? 0) - (b.price_per_kg ?? 0))
   }
   return [...foods].sort(
     (a, b) =>

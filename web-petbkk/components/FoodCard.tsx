@@ -114,13 +114,24 @@ export default function FoodCard({ food }: { food: PetFoodLight }) {
 
         {/* Stats row */}
         <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-500">
-          <span className="flex items-center gap-1">
-            <span className="text-orange-500">฿</span>
-            <span className="font-semibold text-gray-700">
-              {food.price_per_kg > 0 ? food.price_per_kg.toFixed(0) : '—'}
+          {/* No price source has been wired up yet, so `price_per_kg` is 0 on
+              every record. Rendering "฿ — /กก." on all 986 cards advertised a
+              missing field rather than a fact; show the row only when there is
+              a number behind it. */}
+          {(food.price_per_kg ?? 0) > 0 && (
+            <span className="flex items-center gap-1">
+              <span className="text-orange-500">฿</span>
+              <span className="font-semibold text-gray-700">{(food.price_per_kg ?? 0).toFixed(0)}</span>
+              /กก.
             </span>
-            /กก.
-          </span>
+          )}
+          {food.ing_total > 0 && (
+            <span className="flex items-center gap-1">
+              <span>🧾</span>
+              <span className="font-semibold text-gray-700">{food.ing_total}</span>
+              ส่วนผสม
+            </span>
+          )}
           {food.protein_pct > 0 && (
             <span className="flex items-center gap-1">
               <span>🥩</span>

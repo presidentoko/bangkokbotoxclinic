@@ -3,7 +3,9 @@ import type { Metadata } from 'next'
 import HospitalCard from '@/components/HospitalCard'
 import RelatedGuides from '@/components/RelatedGuides'
 import { getDistrictBySlug, getIndexableDistricts } from '@/lib/districts'
-import { hospitalSlug } from '@/lib/hospitals'
+import { hospitalSlug, toLightHospital } from '@/lib/hospitals'
+import SponsorSlot from '@/components/SponsorSlot'
+import AdSlot from '@/components/AdSlot'
 import type { DistrictData } from '@/lib/districts'
 
 const SITE = 'https://www.thailandpethub.com'
@@ -179,9 +181,15 @@ export default async function DistrictPage({ params }: { params: Promise<{ distr
         </div>
       )}
 
+      {/* Above the list, never inside it: the ranking below is by review score
+          and stays unbuyable. See /advertise. */}
+      <SponsorSlot slot={`district:${d.district.slug}`} className="mb-5" />
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-        {d.hospitals.map(h => <HospitalCard key={h.id} hospital={h} />)}
+        {d.hospitals.map(h => <HospitalCard key={h.id} hospital={toLightHospital(h)} />)}
       </div>
+
+      <AdSlot slot="1234567890" format="inline" />
 
       {d.nearby.length > 0 && (
         <section className="mb-10">

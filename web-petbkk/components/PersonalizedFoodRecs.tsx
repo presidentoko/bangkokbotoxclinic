@@ -10,10 +10,15 @@ export default function PersonalizedFoodRecs() {
   const [profile, setProfile] = useState<PetProfile | null>(null)
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem('petProfile')
-      if (raw) setProfile(JSON.parse(raw) as PetProfile)
-    } catch {}
+    const read = () => {
+      try {
+        const raw = localStorage.getItem('petProfile')
+        setProfile(raw ? (JSON.parse(raw) as PetProfile) : null)
+      } catch {}
+    }
+    read()
+    window.addEventListener('petProfileUpdate', read)
+    return () => window.removeEventListener('petProfileUpdate', read)
   }, [])
 
   const recs = useMemo(() => {

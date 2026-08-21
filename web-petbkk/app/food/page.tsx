@@ -2,6 +2,8 @@ import { Suspense } from 'react'
 import FoodListClient from '@/components/FoodListClient'
 import RecentFoods from '@/components/RecentFoods'
 import RelatedGuides from '@/components/RelatedGuides'
+import AdSlot from '@/components/AdSlot'
+import SponsorSlot from '@/components/SponsorSlot'
 import { loadFoodsLight, getFoodGrade } from '@/lib/petfood'
 
 const FOOD_CATEGORIES = [
@@ -140,10 +142,13 @@ export default function FoodPage() {
         </div>
       </div>
       <KeyFacts />
+      <SponsorSlot slot="page:food" className="mb-5" />
+      <AdSlot slot="1234567893" format="leaderboard" />
       <RecentFoods />
       <Suspense fallback={null}>
         <FoodListClient />
       </Suspense>
+      <AdSlot slot="1234567894" format="inline" />
       <TopGradedFoods />
       {/* The full A-Z directory used to sit here, but /food/dog and /food/cat
           between them already link all 986 products (470 + 516), so it was

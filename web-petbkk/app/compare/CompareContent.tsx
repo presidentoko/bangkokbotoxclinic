@@ -1,5 +1,6 @@
 'use client'
 import { useMemo } from 'react'
+import { getBuyUrl } from '@/lib/foodBuyUrls'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { loadFoodsLight } from '@/lib/petfood'
 import { getFoodGrade } from '@/lib/grading'
@@ -100,7 +101,7 @@ export default function CompareContent() {
               <GradeBar green={f.green_count} yellow={f.yellow_count} red={f.red_count} black={f.black_count} />
             ))} />
             <Row rowIndex={2} label="ราคา/กก." values={foods.map(f => (
-              <span className="font-bold text-orange-600">฿{f.price_per_kg > 0 ? f.price_per_kg.toFixed(0) : '—'}</span>
+              <span className="font-bold text-orange-600">฿{(f.price_per_kg ?? 0) > 0 ? (f.price_per_kg ?? 0).toFixed(0) : '—'}</span>
             ))} />
             <Row rowIndex={3} label="โปรตีน" values={foods.map(f => f.protein_pct > 0 ? `${f.protein_pct}%` : '—')} />
             <Row rowIndex={4} label="ไขมัน"  values={foods.map(f => f.fat_pct > 0    ? `${f.fat_pct}%`     : '—')} />
@@ -112,8 +113,8 @@ export default function CompareContent() {
               </span>
             ))} />
             <Row rowIndex={8} label="น้ำหนัก" values={foods.map(f => `${f.weight_kg} kg`)} />
-            <Row rowIndex={9} label="ซื้อที่" values={foods.map(f => f.buy_url ? (
-              <a href={f.buy_url} target="_blank" rel="noopener noreferrer"
+            <Row rowIndex={9} label="ซื้อที่" values={foods.map(f => getBuyUrl(f.id) ? (
+              <a href={getBuyUrl(f.id)} target="_blank" rel="noopener noreferrer"
                 className="text-blue-500 hover:underline text-xs">ซื้อเลย →</a>
             ) : '—')} />
           </tbody>

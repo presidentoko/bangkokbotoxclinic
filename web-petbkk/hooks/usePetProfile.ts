@@ -16,11 +16,22 @@ export function usePetProfile() {
       // ignore parse errors
     }
     setReady(true)
+
+    // /my-pet writes the same key through the bridge; reflect it live.
+    const read = () => {
+      try {
+        const next = localStorage.getItem(KEY)
+        setProfileState(next ? (JSON.parse(next) as PetProfile) : null)
+      } catch {}
+    }
+    window.addEventListener('petProfileUpdate', read)
+    return () => window.removeEventListener('petProfileUpdate', read)
   }, [])
 
   const saveProfile = useCallback((p: PetProfile) => {
     try {
       localStorage.setItem(KEY, JSON.stringify(p))
+      window.dispatchEvent(new Event('petProfileUpdate'))
     } catch {}
     setProfileState(p)
   }, [])

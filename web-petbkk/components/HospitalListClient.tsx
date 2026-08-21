@@ -1,8 +1,8 @@
 'use client'
 import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { filterHospitals, haversineKm } from '@/lib/hospitals'
-import type { Hospital } from '@/lib/types'
+import { filterHospitalsLight, haversineKm } from '@/lib/hospitalsLight'
+import type { HospitalLight } from '@/lib/types'
 import HospitalCard from '@/components/HospitalCard'
 import NearMeButton from '@/components/NearMeButton'
 import { useLoadMoreSentinel } from '@/hooks/useLoadMoreSentinel'
@@ -20,20 +20,18 @@ export default function HospitalListClient() {
   const initialQuery  = searchParams.get('q') ?? ''
 
   const [query, setQuery]   = useState(initialQuery)
-  const [filters, setFilters] = useState({
-    is_24h:        initialFilter === '24h',
-    has_emergency: initialFilter === 'emergency',
-    has_surgery:   initialFilter === 'surgery',
-  })
+  // Only `is_24h` survives: the other two source fields are constant across all
+  // 496 records, so filtering on them was a no-op either way.
+  const [filters, setFilters] = useState({ is_24h: initialFilter === '24h' })
   const [view, setView]       = useState<'map' | 'list'>('list')
   const [userLoc, setUserLoc] = useState<UserLoc | null>(null)
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
 
   const hospitalsWithDist = useMemo(() => {
-    let result = filterHospitals(filters)
+    let result = filterHospitalsLight(filters)
     if (query.trim()) {
       const q = query.toLowerCase()
-      result = result.filter((h: Hospital) =>
+      result = result.filter((h: HospitalLight) =>
         h.name_th.toLowerCase().includes(q) ||
         h.name_en.toLowerCase().includes(q) ||
         h.address.toLowerCase().includes(q)
@@ -41,10 +39,10 @@ export default function HospitalListClient() {
     }
     if (userLoc) {
       return result
-        .map((h: Hospital) => ({ h, distKm: haversineKm(userLoc.lat, userLoc.lng, h.lat, h.lng) }))
+        .map((h: HospitalLight) => ({ h, distKm: haversineKm(userLoc.lat, userLoc.lng, h.lat, h.lng) }))
         .sort((a: { distKm: number }, b: { distKm: number }) => a.distKm - b.distKm)
     }
-    return result.map((h: Hospital) => ({ h, distKm: undefined as number | undefined }))
+    return result.map((h: HospitalLight) => ({ h, distKm: undefined as number | undefined }))
   }, [filters, query, userLoc])
 
   // A narrowed result set should start from the top again, not keep the
@@ -104,7 +102,7 @@ export default function HospitalListClient() {
       </div>
 
       {view === 'map' ? (
-        <HospitalMap hospitals={hospitalsWithDist.map((x: { h: Hospital }) => x.h)} />
+        <HospitalMap hospitals={hospitalsWithDist.map((x: { h: HospitalLight }) => x.h)} />
       ) : hospitalsWithDist.length === 0 ? (
         <div className="py-16 text-center">
           <p className="text-4xl mb-3">🏥</p>
@@ -114,7 +112,7 @@ export default function HospitalListClient() {
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {visible.map(({ h, distKm }: { h: Hospital; distKm: number | undefined }) => (
+            {visible.map(({ h, distKm }: { h: HospitalLight; distKm: number | undefined }) => (
               <HospitalCard key={h.id} hospital={h} distanceKm={distKm} />
             ))}
           </div>

@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import HospitalListClient from '@/components/HospitalListClient'
 import RelatedGuides from '@/components/RelatedGuides'
+import AdSlot from '@/components/AdSlot'
 import { loadHospitals, hospitalSlug } from '@/lib/hospitals'
 import { getIndexableDistricts } from '@/lib/districts'
 import type { Hospital } from '@/lib/types'
@@ -260,11 +261,13 @@ export default function HospitalPage() {
         ค้นหาโรงพยาบาลสัตว์และคลินิกสัตว์ใกล้คุณ — {all.length} แห่งในกรุงเทพ
       </p>
       <KeyFacts all={all} />
+      <AdSlot slot="1234567891" format="leaderboard" />
       <DistrictIndex />
       <Suspense fallback={null}>
         <HospitalListClient />
       </Suspense>
       <TopRatedList all={all} />
+      <AdSlot slot="1234567892" format="inline" />
       <HospitalDirectory all={all} />
       <RelatedGuides current="hospital" count={4} />
       <HubJsonLd all={all} />

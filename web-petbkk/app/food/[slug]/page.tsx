@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { getFoodBySlug, loadFoods, getFoodGrade, getSimilarFoods, foodSlug } from '@/lib/petfood'
+import { hasPublishableData } from '@/lib/grading'
 import { getFoodReviews } from '@/lib/petreviews'
 import GradeBar from '@/components/GradeBar'
 import IngredientGroups from '@/components/IngredientGroups'
@@ -8,6 +9,7 @@ import ShareCard from '@/components/ShareCard'
 import TrackRecentFood from '@/components/TrackRecentFood'
 import PantipReviews from '@/components/PantipReviews'
 import RelatedGuides from '@/components/RelatedGuides'
+import AdSlot from '@/components/AdSlot'
 import type { Metadata } from 'next'
 import type { FoodGrade, PetFood } from '@/lib/types'
 
@@ -23,7 +25,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!food) return { title: 'ไม่พบสินค้า' }
   const grade = getFoodGrade(food)
   const name = food.name_th || food.name_en
+  // 713 of the 986 products have no ingredient panel, no nutrition figures and
+  // no price — once the fabricated ingredient rows were removed there is
+  // nothing on the page but a brand and a name. They stay reachable and
+  // internally linked, but asking Google to index that many near-empty pages
+  // drags the whole site's quality signal down and is the single most common
+  // reason an ad network rejects a directory.
+  const publishable = hasPublishableData(food)
   return {
+    ...(publishable ? {} : { robots: { index: false, follow: true } }),
     // The root layout's title template already appends "| ThailandPetHub";
     // hardcoding a second brand here produced "… | PetBKK | ThailandPetHub",
     // which pushed the product name out of the truncated SERP title.
@@ -238,21 +248,34 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
             {grade && gradeCfg ? (
               <>
                 <p className="font-bold text-lg" style={{ color: gradeCfg.color }}>เกรด {grade} · {gradeCfg.label}</p>
-                <p className="text-sm text-gray-500">ส่วนประกอบ {total} รายการ · ดีเยี่ยม {food.green_count} รายการ</p>
+                <p className="text-sm text-gray-500">
+                  จัดระดับจากส่วนผสม {total} รายการ
+                  {food.ing_total > total ? ` (จากทั้งหมด ${food.ing_total} รายการบนฉลาก)` : ''}
+                  {' · '}ส่วนผสมคุณภาพดี {food.green_count} รายการ
+                </p>
               </>
             ) : (
-              <p className="text-sm text-gray-400">ยังไม่มีข้อมูลส่วนประกอบ</p>
+              <div>
+                <p className="text-sm font-medium text-gray-600">ยังไม่ให้เกรดอาหารตัวนี้</p>
+                <p className="text-xs text-gray-400 mt-0.5">
+                  {food.ing_total > 0
+                    ? 'อ่านฉลากได้ไม่ครบพอที่จะให้เกรดอย่างมั่นใจ'
+                    : 'ยังไม่มีข้อมูลส่วนประกอบจากผู้ผลิต'}
+                </p>
+              </div>
             )}
           </div>
         </div>
 
-        <GradeBar
-          green={food.green_count}
-          yellow={food.yellow_count}
-          red={food.red_count}
-          black={food.black_count}
-          size="lg"
-        />
+        {total > 0 && (
+          <GradeBar
+            green={food.green_count}
+            yellow={food.yellow_count}
+            red={food.red_count}
+            black={food.black_count}
+            size="lg"
+          />
+        )}
 
         {/* Buy CTA — mirrors the bottom-of-page one so the affiliate link is above the fold */}
         {food.buy_url && (
@@ -298,11 +321,19 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
         </p>
       </section>
 
+      <AdSlot slot="1234567895" format="inline" />
+
       {/* Ingredients section */}
       {food.ingredients.length > 0 && (
         <section className="mb-4">
           <h2 className="text-base font-bold text-gray-900 mb-3">ส่วนประกอบ ({food.ingredients.length} รายการ)</h2>
           <IngredientGroups ingredients={food.ingredients} />
+          <p className="mt-3 text-xs text-gray-400 leading-relaxed">
+            เกรดคำนวณจากลำดับและชนิดของส่วนผสมที่ระบุบนฉลาก โดยนับเฉพาะส่วนผสมที่ระบุแหล่งที่มาชัดเจน
+            วิตามินและแร่ธาตุไม่ถูกนำมาคิดเกรด และจะไม่ให้เกรดหากอ่านฉลากได้ไม่ถึงครึ่ง
+            {' · '}
+            <a href="/ingredients" className="text-orange-600 hover:underline">ดูวิธีอ่านฉลากอาหารสัตว์</a>
+          </p>
         </section>
       )}
 

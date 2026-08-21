@@ -50,9 +50,11 @@ function BestPicksStrip({ animal }: { animal?: Animal }) {
               </div>
               <p className="text-[10px] text-gray-400 uppercase font-medium truncate">{food.brand}</p>
               <p className="text-xs font-semibold text-gray-900 line-clamp-2 leading-tight mt-0.5">{food.name_th || food.name_en}</p>
-              <p className="text-xs text-orange-600 font-bold mt-1.5">
-                {food.price_per_kg > 0 ? `฿${food.price_per_kg.toFixed(0)}/กก.` : ''}
-              </p>
+              {(food.price_per_kg ?? 0) > 0 && (
+                <p className="text-xs text-orange-600 font-bold mt-1.5">
+                  ฿{(food.price_per_kg ?? 0).toFixed(0)}/กก.
+                </p>
+              )}
             </Link>
           )
         })}
@@ -201,6 +203,8 @@ export default function FoodListClient() {
   const hasMore = visibleCount < displayFoods.length
   const hasQuery = query || grade || lifeStage
 
+  const hasPrices = useMemo(() => filterFoodsLight().some(f => (f.price_per_kg ?? 0) > 0), [])
+
   const sentinelRef = useLoadMoreSentinel(() => setVisibleCount(c => c + PAGE_SIZE))
 
   return (
@@ -234,15 +238,20 @@ export default function FoodListClient() {
         <div className="flex-1 min-w-0">
           <GradeFilterBar value={grade} onChange={setGrade} />
         </div>
-        <button
-          onClick={() => setSort(sort === 'price' ? 'score' : 'price')}
-          aria-pressed={sort === 'price'}
-          className={`ml-2 flex-shrink-0 text-xs px-3 py-1.5 rounded-full border transition-colors ${
-            sort === 'price' ? 'bg-orange-500 text-white border-orange-500' : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
-          }`}
-        >
-          💰 ราคา
-        </button>
+        {/* Only offered when there is something to sort by. `price_per_kg` is 0
+            on every record today, so the control used to reorder nothing while
+            looking like a working filter. */}
+        {hasPrices && (
+          <button
+            onClick={() => setSort(sort === 'price' ? 'score' : 'price')}
+            aria-pressed={sort === 'price'}
+            className={`ml-2 flex-shrink-0 text-xs px-3 py-1.5 rounded-full border transition-colors ${
+              sort === 'price' ? 'bg-orange-500 text-white border-orange-500' : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
+            }`}
+          >
+            💰 ราคา
+          </button>
+        )}
       </div>
 
       {displayFoods.length > 0 ? (

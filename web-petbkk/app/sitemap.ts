@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { loadFoods, foodSlug } from '@/lib/petfood'
+import { hasPublishableData } from '@/lib/grading'
 import { loadHospitals, hospitalSlug } from '@/lib/hospitals'
 import { getIndexableDistricts } from '@/lib/districts'
 import { BREEDS } from '@/lib/breeds'
@@ -97,17 +98,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/dog-barking`,              priority: 0.9,  changeFrequency: 'monthly' },
     { url: `${BASE}/checklist`,                priority: 0.7,  changeFrequency: 'weekly'  },
     { url: `${BASE}/contact`,                  priority: 0.5,  changeFrequency: 'yearly'  },
+    { url: `${BASE}/about`,                    priority: 0.6,  changeFrequency: 'monthly' },
+    { url: `${BASE}/privacy`,                  priority: 0.3,  changeFrequency: 'yearly'  },
+    { url: `${BASE}/advertise`,                priority: 0.5,  changeFrequency: 'monthly' },
   ]
 
-  // 176 of the 986 foods have no scraped ingredient list, so their pages carry no
-  // grade — the whole point of the page. Keep them listed but de-prioritised so
-  // crawl budget goes to the 810 that have something to say.
-  const foodPages: MetadataRoute.Sitemap = foods.map(f => ({
-    url: `${BASE}/food/${foodSlug(f)}`,
-    lastModified: parsedDate(f.updated_at),
-    priority: f.ingredients.length > 0 ? 0.7 : 0.4,
-    changeFrequency: 'weekly',
-  }))
+  // Only the 273 products that actually carry data. The other 713 have no
+  // ingredient panel, no nutrition and no price, and their pages set
+  // robots:noindex — listing a noindex URL in a sitemap spends crawl budget to
+  // be told to go away, and reads as a quality signal problem in Search Console.
+  const foodPages: MetadataRoute.Sitemap = foods
+    .filter(hasPublishableData)
+    .map(f => ({
+      url: `${BASE}/food/${foodSlug(f)}`,
+      lastModified: parsedDate(f.updated_at),
+      priority: f.ing_total > 0 ? 0.7 : 0.5,
+      changeFrequency: 'weekly',
+    }))
 
   const districtPages: MetadataRoute.Sitemap = getIndexableDistricts().map(d => ({
     url: `${BASE}/hospital/area/${d.district.slug}`,

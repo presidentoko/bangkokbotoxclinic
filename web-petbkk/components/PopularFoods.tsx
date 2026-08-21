@@ -58,8 +58,8 @@ export default function PopularFoods() {
                   {f.black_count  > 0 && <div className="bg-gray-800"   style={{ flex: f.black_count  }} />}
                 </div>
               )}
-              {f.price_per_kg > 0 && (
-                <p className="text-[10px] text-gray-400 mt-1.5">฿{f.price_per_kg.toFixed(0)}/กก.</p>
+              {(f.price_per_kg ?? 0) > 0 && (
+                <p className="text-[10px] text-gray-400 mt-1.5">฿{(f.price_per_kg ?? 0).toFixed(0)}/กก.</p>
               )}
             </Link>
           )

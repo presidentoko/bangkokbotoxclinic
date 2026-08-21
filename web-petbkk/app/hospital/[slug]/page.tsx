@@ -1,4 +1,6 @@
 import { notFound } from 'next/navigation'
+import { getHours, summarizeHours, toSchemaHours, isAlwaysOpen } from '@/lib/hospitalHours'
+import AdSlot from '@/components/AdSlot'
 import { getHospitalBySlug, loadHospitals, hospitalSlug, hasPreciseCoord } from '@/lib/hospitals'
 import { getHospitalReviews } from '@/lib/petreviews'
 import NearbyHospitals from '@/components/NearbyHospitals'
@@ -40,11 +42,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const title = [titleName, ratingPart, serviceStr].filter(Boolean).join(' · ')
 
   const priceInfo = h.price_consult ? ` · ค่าตรวจ ${h.price_consult.toLocaleString()} บาท` : ''
+  // Put the actual opening hours in the snippet rather than the phrase
+  // "เวลาทำการ". A searcher deciding where to take a sick animal is scanning
+  // for a time, and 442 of the clinics can now show one.
+  const hours = getHours(h.id)
+  const hoursLine = hours ? summarizeHours(hours) : ''
   const description = [
     `${h.name_th}${serviceStr ? ` (${serviceStr})` : ''}`,
     ratingPart,
+    hoursLine,
     h.address,
-  ].filter(Boolean).join(' · ') + `${priceInfo} · ดูแผนที่ เบอร์โทร เวลาทำการ`
+  ].filter(Boolean).join(' · ') + `${priceInfo} · ดูแผนที่ เบอร์โทร เส้นทาง`
 
   const hasEnName = h.name_en && h.name_en !== h.name_th
   const keywords = [h.name_th, ...(hasEnName ? [h.name_en!] : []), 'โรงพยาบาลสัตว์', 'สัตวแพทย์', ...services]
@@ -84,12 +92,19 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 function HospitalFaqJsonLd({ h }: { h: Hospital }) {
+  // 442 clinics have real weekly hours now, so this answer no longer has to
+  // fall back to "please call" — which is what it said on every page that was
+  // not open 24 hours, i.e. most of them.
+  const hours = getHours(h.id)
+  const hoursLine = hours ? summarizeHours(hours) : ''
   const faqs: { q: string; a: string }[] = [
     {
       q: `${h.name_th} เปิดทำการกี่โมง?`,
-      a: h.is_24h
-        ? `${h.name_th} เปิดให้บริการ 24 ชั่วโมง ทุกวัน ไม่มีวันหยุด`
-        : `กรุณาโทรสอบถามเวลาเปิด-ปิดโดยตรง${h.phone ? ` ที่เบอร์ ${h.phone}` : ''}`,
+      a: hoursLine
+        ? `${h.name_th} เปิดทำการ ${hoursLine}`
+        : h.is_24h
+          ? `${h.name_th} เปิดให้บริการ 24 ชั่วโมง ทุกวัน ไม่มีวันหยุด`
+          : `กรุณาโทรสอบถามเวลาเปิด-ปิดโดยตรง${h.phone ? ` ที่เบอร์ ${h.phone}` : ''}`,
     },
     {
       q: `${h.name_th} อยู่ที่ไหน?`,
@@ -179,6 +194,8 @@ function BreadcrumbJsonLd({ name, district }: { name: string; district: { th: st
 }
 
 function LocalBusinessJsonLd({ h, slug }: { h: Hospital; slug: string }) {
+  const hours = getHours(h.id)
+  const schemaHours = hours ? toSchemaHours(hours) : []
   const availableService = []
   // `has_surgery` is hardcoded `True` for every row in petvet/transform.py, so
   // emitting it declared "this clinic performs surgery" to Google on all 503
@@ -223,13 +240,15 @@ function LocalBusinessJsonLd({ h, slug }: { h: Hospital; slug: string }) {
     } : undefined,
     hasMap: precise ? `https://www.google.com/maps?q=${h.lat},${h.lng}` : undefined,
     telephone: h.phone || undefined,
-    openingHours: h.is_24h ? 'Mo-Su 00:00-24:00' : undefined,
-    ...(h.is_24h ? { openingHoursSpecification: {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      opens: '00:00',
-      closes: '23:59',
-    } } : {}),
+    // Real per-day hours for the 442 clinics Places returned them for. The
+    // previous version could only describe the 80 that are open around the
+    // clock, so every other clinic published no hours at all — the single most
+    // asked question about a vet.
+    ...(schemaHours.length > 0
+      ? { openingHoursSpecification: schemaHours }
+      : h.is_24h
+        ? { openingHours: 'Mo-Su 00:00-24:00' }
+        : {}),
     isAccessibleForFree: false,
     currenciesAccepted: 'THB',
     ...(priceRange ? { priceRange } : {}),
@@ -278,6 +297,8 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
     : null
 
   const showEnName = h.name_en && h.name_en !== h.name_th
+  const hours = getHours(h.id)
+  const alwaysOpen = hours ? isAlwaysOpen(hours) : h.is_24h
 
   return (
     <main className="max-w-2xl mx-auto">
@@ -414,6 +435,44 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
           </a>
         )}
       </div>
+
+      {/* Opening hours */}
+      {hours && (
+        <section className="bg-white rounded-xl border p-4 mb-4">
+          <div className="flex items-baseline justify-between gap-3 mb-2">
+            <h2 className="text-base font-bold text-gray-900">เวลาทำการ</h2>
+            {alwaysOpen && (
+              <span className="text-xs font-semibold text-red-600 bg-red-50 border border-red-100 rounded-full px-2 py-0.5">
+                เปิด 24 ชั่วโมง
+              </span>
+            )}
+          </div>
+          {alwaysOpen ? (
+            <p className="text-sm text-gray-700">{h.name_th} เปิดให้บริการตลอด 24 ชั่วโมง ทุกวัน</p>
+          ) : (
+            <dl className="text-sm divide-y divide-gray-100">
+              {hours.text.map(line => {
+                const [day, ...rest] = line.split(':')
+                const value = rest.join(':').trim()
+                const closed = !/\d/.test(value)
+                return (
+                  <div key={line} className="flex items-baseline justify-between gap-4 py-1.5">
+                    <dt className="text-gray-500">{day}</dt>
+                    <dd className={closed ? 'text-gray-400' : 'text-gray-800 font-medium tabular-nums'}>
+                      {value}
+                    </dd>
+                  </div>
+                )
+              })}
+            </dl>
+          )}
+          <p className="mt-2 text-xs text-gray-400">
+            ข้อมูลจาก Google อาจเปลี่ยนแปลงในวันหยุดนักขัตฤกษ์ — กรุณาโทรยืนยันก่อนเดินทาง
+          </p>
+        </section>
+      )}
+
+      <AdSlot slot="1234567896" format="inline" />
 
       {/* Embedded map */}
       {(precise || h.address) && (

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { filterHospitals } from '@/lib/hospitals'
+import { filterHospitals, toLightHospital } from '@/lib/hospitals'
 import HospitalCard from '@/components/HospitalCard'
 import RelatedGuides from '@/components/RelatedGuides'
 
@@ -98,7 +98,7 @@ export default function HospitalEmergencyPage() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-        {hospitals.map(h => <HospitalCard key={h.id} hospital={h} />)}
+        {hospitals.map(h => <HospitalCard key={h.id} hospital={toLightHospital(h)} />)}
       </div>
 
       <a

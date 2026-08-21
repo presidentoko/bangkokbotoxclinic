@@ -1,13 +1,12 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import type * as Leaflet from 'leaflet'
-import type { Hospital } from '@/lib/types'
-import { hospitalSlug } from '@/lib/hospitals'
+import type { HospitalLight } from '@/lib/types'
 import 'leaflet/dist/leaflet.css'
 
 // Pins live in their own LayerGroup so a changed hospital list only swaps the
 // group's contents — rebuilding the map itself would throw away pan/zoom.
-function renderMarkers(L: typeof Leaflet, markers: Leaflet.LayerGroup, hospitals: Hospital[]) {
+function renderMarkers(L: typeof Leaflet, markers: Leaflet.LayerGroup, hospitals: HospitalLight[]) {
   markers.clearLayers()
   hospitals.forEach(h => {
     const color = h.is_24h ? '#ef4444' : '#3b82f6'
@@ -22,13 +21,13 @@ function renderMarkers(L: typeof Leaflet, markers: Leaflet.LayerGroup, hospitals
         `<b>${h.name_th}</b><br>` +
         (h.is_24h ? '⏰ เปิด 24 ชั่วโมง<br>' : '') +
         (h.google_rating ? `⭐ ${h.google_rating}<br>` : '') +
-        `<a href="/hospital/${hospitalSlug(h)}" style="color:#f97316">ดูรายละเอียด →</a>`
+        `<a href="/hospital/${h.slug}" style="color:#f97316">ดูรายละเอียด →</a>`
       )
       .addTo(markers)
   })
 }
 
-export default function HospitalMap({ hospitals }: { hospitals: Hospital[] }) {
+export default function HospitalMap({ hospitals }: { hospitals: HospitalLight[] }) {
   const containerRef  = useRef<HTMLDivElement>(null)
   const mapRef        = useRef<Leaflet.Map | null>(null)
   const markersRef    = useRef<Leaflet.LayerGroup | null>(null)

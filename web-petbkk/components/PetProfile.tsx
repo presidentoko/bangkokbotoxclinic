@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { syncLightProfile } from '@/lib/petProfileBridge'
 
 interface Pet {
   name: string
@@ -45,6 +46,9 @@ export default function PetProfile() {
 
   const save = () => {
     localStorage.setItem('petbkk_pet', JSON.stringify(pet))
+    // Mirror into the light profile the food list and recommendations read;
+    // without this, filling this form personalised nothing.
+    syncLightProfile(pet)
     setSaved(true)
     setEditing(false)
     setTimeout(() => setSaved(false), 2000)

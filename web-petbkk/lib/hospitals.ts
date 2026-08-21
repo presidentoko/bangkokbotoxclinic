@@ -1,6 +1,7 @@
-import type { Hospital, HospitalFilters } from './types'
+import type { Hospital, HospitalFilters, HospitalLight } from './types'
 import rawData from '../data/hospitals.json'
 import { toSlug } from './slugify'
+import { romanizeThai, trimSlug } from './thai'
 
 export function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const R = 6371
@@ -25,11 +26,25 @@ export function loadHospitals(): Hospital[] {
   return cleaned
 }
 
+/**
+ * A hospital's URL segment.
+ *
+ * The place-id fallback used to fire for 188 of the 496 clinics, because their
+ * only name is Thai and `toSlug()` strips non-ASCII down to nothing — leaving
+ * URLs like `/hospital/0x30e2994f708a55310x7ded115b277a88b3`. Transliterating
+ * the Thai name first turns those into `/hospital/rong-phayaban-sat-phraram-4`:
+ * readable, shareable, and carrying the words a Thai searcher actually types.
+ *
+ * A hex id is also explicitly rejected when it arrives via `h.id`, since the
+ * scraper writes the place id there for exactly the same records.
+ */
 function baseHospitalSlug(h: Hospital): string {
   const fromId = toSlug(h.id)
-  if (fromId.length > 5) return fromId
+  if (fromId.length > 5 && !/^0x[0-9a-f]/.test(fromId)) return fromId
   const fromName = toSlug(h.name_en)
   if (fromName.length > 5) return fromName
+  const romanized = trimSlug(romanizeThai(h.name_th || h.name_en))
+  if (romanized.length > 5) return romanized
   return toSlug(h.google_place_id)
 }
 
@@ -55,6 +70,28 @@ function getSlugMap(): WeakMap<Hospital, string> {
 
 export function hospitalSlug(h: Hospital): string {
   return getSlugMap().get(h) ?? baseHospitalSlug(h)
+}
+
+/**
+ * Narrow a full record to the shape `HospitalCard` takes. Server components
+ * hold complete `Hospital` objects; the card is a client component and must not
+ * pull in the slug map to build its own URL.
+ */
+export function toLightHospital(h: Hospital): HospitalLight {
+  return {
+    id: h.id,
+    slug: hospitalSlug(h),
+    name_th: h.name_th,
+    name_en: h.name_en,
+    address: h.address,
+    lat: h.lat,
+    lng: h.lng,
+    phone: h.phone,
+    is_24h: h.is_24h,
+    google_rating: h.google_rating,
+    google_review_count: h.google_review_count,
+    ...(h.district ? { district: h.district } : {}),
+  }
 }
 
 export function getHospitalBySlug(slug: string): Hospital | null {

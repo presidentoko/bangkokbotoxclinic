@@ -1,8 +1,7 @@
 'use client'
 import Link from 'next/link'
 import SaveHospitalButton from '@/components/SaveHospitalButton'
-import type { Hospital } from '@/lib/types'
-import { hospitalSlug } from '@/lib/hospitals'
+import type { HospitalLight } from '@/lib/types'
 
 function ratingColor(rating: number | null): string {
   if (rating == null) return 'bg-gray-200 text-gray-500'
@@ -13,14 +12,17 @@ function ratingColor(rating: number | null): string {
 }
 
 interface Props {
-  hospital: Hospital
+  /** Light row, or any full Hospital widened with a slug. Taking the light
+   *  shape is what keeps `lib/hospitals` — and the whole 483 KB dataset — out
+   *  of this client component's bundle. */
+  hospital: HospitalLight
   distanceKm?: number
 }
 
 export default function HospitalCard({ hospital: h, distanceKm }: Props) {
   return (
     <Link
-      href={`/hospital/${hospitalSlug(h)}`}
+      href={`/hospital/${h.slug}`}
       className="block bg-white rounded-2xl shadow-sm hover:shadow-md border border-gray-100 hover:border-orange-200 transition-all p-4 group"
     >
       {/* Top row: rating circle + name/address + save button */}
@@ -72,16 +74,10 @@ export default function HospitalCard({ hospital: h, distanceKm }: Props) {
         )}
       </div>
 
-      {/* Price + reviews row */}
+      {/* Reviews row. The consultation price used to sit here too, but
+          `price_consult` is null on all 496 records — it rendered nothing while
+          costing 10 KB in every visitor's bundle. */}
       <div className="flex items-center gap-3 text-xs text-gray-500">
-        {h.price_consult != null && (
-          <span>
-            ฿ ค่าปรึกษา{' '}
-            <span className="font-semibold text-gray-700">
-              {h.price_consult.toLocaleString()}
-            </span>
-          </span>
-        )}
         {h.google_review_count != null && h.google_review_count > 0 && (
           <span className="ml-auto">
             ⭐{' '}

@@ -130,14 +130,14 @@ function getRecs(answers: string[]): Rec[] {
   if (budget === 'budget') return pick(
     matches(pool, f => {
       const g = getFoodGrade(f)
-      return (g === 'A' || g === 'B') && f.price_per_kg > 0 && f.price_per_kg <= BUDGET_PER_KG
+      return (g === 'A' || g === 'B') && (f.price_per_kg ?? 0) > 0 && (f.price_per_kg ?? 0) <= BUDGET_PER_KG
     }),
     `คุณภาพดี ราคาต่ำกว่า ฿${BUDGET_PER_KG}/กก.`,
     'ราคาเข้าถึงได้ ส่วนประกอบผ่านเกณฑ์',
   )
 
   if (budget === 'premium') return pick(
-    matches(pool, f => getFoodGrade(f) === 'A' && f.price_per_kg >= BUDGET_PER_KG),
+    matches(pool, f => getFoodGrade(f) === 'A' && (f.price_per_kg ?? 0) >= BUDGET_PER_KG),
     'เกรด A ส่วนประกอบระดับพรีเมียม',
     'เกรดสูงสุดเท่าที่มีในฐานข้อมูล',
   )

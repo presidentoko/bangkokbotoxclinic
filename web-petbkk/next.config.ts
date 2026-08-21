@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next'
+import hospitalRedirects from './data/hospital-redirects.json'
 
 const config: NextConfig = {
   /**
@@ -35,7 +36,21 @@ const config: NextConfig = {
   },
 
   async redirects() {
+    // 187 clinic URLs moved from a raw Google place id
+    // (/hospital/0x30e2994f708a55310x7ded115b277a88b3) to a transliteration of
+    // the Thai name (/hospital/rong-phayaban-sat-siriwech-hawlamphong). The old
+    // URLs are indexed, so each one gets a 308 rather than being left to 404.
+    // Regenerate with: npx tsx scripts/build-hospital-redirects.ts
+    const slugMoves = Object.entries(hospitalRedirects as Record<string, string>).map(
+      ([from, to]) => ({
+        source: `/hospital/${from}`,
+        destination: `/hospital/${to}`,
+        permanent: true,
+      }),
+    )
+
     return [
+      ...slugMoves,
       // /hospital/surgery listed all 503 hospitals, because `has_surgery` is
       // hardcoded true in petvet/transform.py — byte-for-byte the same list as
       // /hospital, which is why Search Console reports 16 pages under

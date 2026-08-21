@@ -7,6 +7,12 @@ const GRADE_CONFIG = {
   red:    { emoji: '🔴', label: 'ส่วนประกอบอันตราย',    textCls: 'text-red-700',    bgCls: 'bg-red-50',     borderCls: 'border-red-200',  pillCls: 'bg-white text-red-700 border-red-300' },
   yellow: { emoji: '🟡', label: 'ส่วนประกอบระวัง',    textCls: 'text-yellow-700', bgCls: 'bg-yellow-50',  borderCls: 'border-yellow-200', pillCls: 'bg-white text-yellow-700 border-yellow-300' },
   green:  { emoji: '🟢', label: 'ส่วนประกอบดี',    textCls: 'text-green-700',  bgCls: 'bg-green-50',   borderCls: 'border-green-200', pillCls: 'bg-white text-green-700 border-green-300' },
+  // Recognised but quality-neutral: vitamins, minerals, amino acids. Shown so
+  // the panel on the page matches the label, but excluded from the grade —
+  // counting a vitamin premix as "ระวัง" penalised complete foods for being
+  // complete, which is how most of the catalogue ended up at grade C.
+  neutral: { emoji: '⚪', label: 'วิตามิน/แร่ธาตุ (ไม่มีผลต่อเกรด)', textCls: 'text-gray-600', bgCls: 'bg-gray-50', borderCls: 'border-gray-200', pillCls: 'bg-white text-gray-600 border-gray-300' },
+  unknown: { emoji: '❔', label: 'ยังไม่ได้จัดระดับ',  textCls: 'text-gray-500',  bgCls: 'bg-gray-50',    borderCls: 'border-gray-200', pillCls: 'bg-white text-gray-500 border-gray-200' },
 } as const
 
 type GradeKey = keyof typeof GRADE_CONFIG
@@ -56,6 +62,8 @@ export default function IngredientGroups({ ingredients }: Props) {
     red:    ingredients.filter(i => i.grade === 'red'),
     yellow: ingredients.filter(i => i.grade === 'yellow'),
     green:  ingredients.filter(i => i.grade === 'green'),
+    neutral: ingredients.filter(i => i.grade === 'neutral'),
+    unknown: ingredients.filter(i => i.grade === 'unknown'),
   }
 
   return (
@@ -65,7 +73,7 @@ export default function IngredientGroups({ ingredients }: Props) {
           ⚠️ มีส่วนประกอบที่ต้องห้าม
         </div>
       )}
-      {(['black', 'red', 'yellow', 'green'] as const).map(grade =>
+      {(['black', 'red', 'yellow', 'green', 'neutral', 'unknown'] as const).map(grade =>
         groups[grade].length > 0
           ? <Group key={grade} grade={grade} items={groups[grade]} />
           : null

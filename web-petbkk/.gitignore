@@ -1,3 +1,10 @@
 .vercel
 # Regenerated from data/petfood.json by scripts/build-food-index.js (predev/prebuild)
 data/petfood-index.json
+
+# Regenerated from data/hospitals.json by scripts/build-hospital-index.ts (predev/prebuild)
+data/hospital-index.json
+# Split out of data/petfood.json by scripts/build-food-index.js (predev/prebuild)
+data/food-buy-urls.json
+# Backup written by petfood/rebuild_ingredients.py
+data/*.json.bak

@@ -7,6 +7,7 @@ import NotificationWatcher from '@/components/NotificationWatcher'
 import GlobalSearch from '@/components/GlobalSearch'
 import MobileNav from '@/components/MobileNav'
 import BottomNav from '@/components/BottomNav'
+import Analytics from '@/components/Analytics'
 import { NAV_PRIMARY, NAV_GROUPS } from '@/lib/navGroups'
 
 export const viewport: Viewport = {
@@ -181,16 +182,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <NewsletterForm />
           </div>
           <p className="mb-2">
-            <a href="/contact" className="hover:text-orange-500 transition-colors">ติดต่อเรา</a>
-            <span className="mx-2">·</span>
-            <a href="/adopt" className="hover:text-green-600 transition-colors text-green-500 font-medium">รับเลี้ยงแทนการซื้อ</a>
-            <span className="mx-2">·</span>
             <a href="/food" className="hover:text-orange-500 transition-colors">ตรวจสอบอาหาร</a>
             <span className="mx-2">·</span>
             <a href="/hospital" className="hover:text-orange-500 transition-colors">หาโรงพยาบาลสัตว์</a>
+            <span className="mx-2">·</span>
+            <a href="/adopt" className="hover:text-green-600 transition-colors text-green-500 font-medium">รับเลี้ยงแทนการซื้อ</a>
+          </p>
+          {/* An ad network checks for these before it approves a site, and a
+              reader checks for them before trusting a directory that ranks
+              things. Both need to be reachable from every page. */}
+          <p className="mb-2">
+            <a href="/about" className="hover:text-orange-500 transition-colors">เกี่ยวกับเรา</a>
+            <span className="mx-2">·</span>
+            <a href="/privacy" className="hover:text-orange-500 transition-colors">นโยบายความเป็นส่วนตัว</a>
+            <span className="mx-2">·</span>
+            <a href="/advertise" className="hover:text-orange-500 transition-colors">ลงโฆษณา</a>
+            <span className="mx-2">·</span>
+            <a href="/contact" className="hover:text-orange-500 transition-colors">ติดต่อเรา</a>
           </p>
           <p>© {new Date().getFullYear()} ThailandPetHub — ข้อมูลเพื่อการศึกษา ไม่ใช่คำแนะนำทางสัตวแพทย์</p>
         </footer>
+        <Analytics />
         <NotificationWatcher />
         <InstallPrompt />
         <CompareTray />

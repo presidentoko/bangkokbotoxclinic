@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { getSavedIds } from '@/lib/savedHospitals'
 import { getSavedFoodIds } from '@/lib/savedFoods'
-import { loadHospitals } from '@/lib/hospitals'
+// Light index, not lib/hospitals: this is a client page and the full
+// dataset would ship 483 KB to render a handful of bookmarked cards.
+import { loadHospitalsLight } from '@/lib/hospitalsLight'
 import { loadFoodsLight, getFoodGrade } from '@/lib/petfood'
 import HospitalCard from '@/components/HospitalCard'
-import type { Hospital, PetFoodLight } from '@/lib/types'
+import type { HospitalLight, PetFoodLight } from '@/lib/types'
 
 const GRADE_STYLES: Record<string, { bg: string; text: string; border: string }> = {
   A: { bg: 'bg-green-50',  text: 'text-green-700',  border: 'border-green-400' },
@@ -19,11 +21,11 @@ const GRADE_LABEL: Record<string, string> = { A:'ดีมาก', B:'ดี', C
 
 export default function SavedPage() {
   const [tab, setTab] = useState<'hospital' | 'food'>('hospital')
-  const [hospitals, setHospitals] = useState<Hospital[]>([])
+  const [hospitals, setHospitals] = useState<HospitalLight[]>([])
   const [foods, setFoods] = useState<PetFoodLight[]>([])
   const [ready, setReady] = useState(false)
 
-  const allHospitals = loadHospitals()
+  const allHospitals = loadHospitalsLight()
   const allFoods = loadFoodsLight()
 
   useEffect(() => {
@@ -147,8 +149,8 @@ export default function SavedPage() {
                         </div>
                       </div>
                       <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-500">
-                        {f.price_per_kg > 0 && (
-                          <span>฿ <span className="font-semibold text-gray-700">{f.price_per_kg.toFixed(0)}</span>/กก.</span>
+                        {(f.price_per_kg ?? 0) > 0 && (
+                          <span>฿ <span className="font-semibold text-gray-700">{(f.price_per_kg ?? 0).toFixed(0)}</span>/กก.</span>
                         )}
                         {f.protein_pct > 0 && (
                           <span>🥩 <span className="font-semibold text-gray-700">{f.protein_pct}%</span> โปรตีน</span>

@@ -23,8 +23,11 @@ function baseFoodSlug(food) {
 const srcPath = path.join(__dirname, '..', 'data', 'petfood.json')
 const outPath = path.join(__dirname, '..', 'data', 'petfood-index.json')
 
+const buyPath = path.join(__dirname, '..', 'data', 'food-buy-urls.json')
+
 const foods = JSON.parse(fs.readFileSync(srcPath, 'utf8'))
 const counts = new Map()
+const buyUrls = {}
 
 const index = foods.map(f => {
   const base = baseFoodSlug(f)
@@ -32,18 +35,27 @@ const index = foods.map(f => {
   counts.set(base, n)
   const slug = n === 1 ? base : `${base}-${n}`
 
+  buyUrls[f.id] = f.buy_url
+
   return {
     id: f.id,
     slug,
     brand: f.brand,
     name_en: f.name_en,
-    name_th: f.name_th,
+    // name_th is byte-identical to name_en on all 986 records — the scraper
+    // never found a separate Thai name. Emitting it twice cost 69 KB; every
+    // consumer already reads `name_th || name_en`, so omitting the duplicate
+    // renders the same and leaves room for real Thai names later.
+    ...(f.name_th && f.name_th !== f.name_en ? { name_th: f.name_th } : {}),
     animal: f.animal,
     life_stage: f.life_stage,
     weight_kg: f.weight_kg,
-    price_thb: f.price_thb,
-    price_per_kg: f.price_per_kg,
-    buy_url: f.buy_url,
+    // Omitted when zero rather than shipped as a zero. No price source is
+    // wired up yet, so these are 0 on all 986 records — 30 KB of zeroes in
+    // every visitor's bundle. Consumers already gate on `> 0`, and `undefined`
+    // fails that test the same way.
+    ...(f.price_thb > 0 ? { price_thb: f.price_thb } : {}),
+    ...(f.price_per_kg > 0 ? { price_per_kg: f.price_per_kg } : {}),
     protein_pct: f.protein_pct,
     fat_pct: f.fat_pct,
     fiber_pct: f.fiber_pct,
@@ -59,12 +71,24 @@ const index = foods.map(f => {
     yellow_count: f.yellow_count,
     red_count: f.red_count,
     black_count: f.black_count,
+    // getFoodGrade() needs both to decide whether the panel is understood well
+    // enough to score at all; without them the client would grade every product
+    // off a handful of recognised rows.
+    neutral_count: f.neutral_count,
+    ing_total: f.ing_total,
     has_ingredients: Array.isArray(f.ingredients) && f.ingredients.length > 0,
   }
 })
 
 fs.writeFileSync(outPath, JSON.stringify(index))
 
+// buy_url is 105 KB and is read by exactly one client page — /compare. Keeping
+// it out of the card index means /food and its category pages stop paying for
+// a field they never render.
+fs.writeFileSync(buyPath, JSON.stringify(buyUrls))
+
 const fullSize = fs.statSync(srcPath).size
 const indexSize = fs.statSync(outPath).size
+const buySize = fs.statSync(buyPath).size
 console.log(`petfood-index.json: ${index.length} items, ${(indexSize / 1024).toFixed(0)}KB (full data is ${(fullSize / 1024).toFixed(0)}KB)`)
+console.log(`food-buy-urls.json: ${(buySize / 1024).toFixed(0)}KB (loaded only by /compare)`)
