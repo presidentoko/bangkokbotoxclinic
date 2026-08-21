@@ -25,6 +25,12 @@ function normalize(s: string): string {
 
 function score(query: string, place: SearchResult): number {
   const q = normalize(query);
+  // normalize() strips everything that isn't alphanumeric, so a query of
+  // "???" arrives here as "". Every name startsWith("") — the caller only
+  // guards query.trim(), so such a query scored all 1,647 places at 90 and
+  // returned five arbitrary ones as confident matches. Reachable from the
+  // homepage search box and from POST /api/resolve-link.
+  if (!q) return 0;
   const name = normalize(place.name);
   const area = normalize(place.area);
   const subtype = normalize(place.subtype);

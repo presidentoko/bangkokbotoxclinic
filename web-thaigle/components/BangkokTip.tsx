@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const TIPS = [
   { emoji: "🚕", tip: "Metered taxis are always cheaper than Grab in Bangkok — look for the green 'TAXI METER' sign on the roof.", category: "Getting around" },
@@ -20,18 +20,33 @@ const TIPS = [
   { emoji: "🍛", tip: "Pad Thai at a proper restaurant = 80–120 THB. If it's 350+ THB you're in tourist-trap territory.", category: "Food" },
 ];
 
-export function BangkokTip() {
-  const [tip, setTip] = useState<typeof TIPS[0] | null>(null);
+
+/**
+ * Pick deterministically from a seed instead of from the clock.
+ *
+ * Both of these components chose their content with Date.now() inside a
+ * useEffect, which meant returning null on the server and inserting a
+ * ~90-140px card after hydration — on the activity detail page, the
+ * restaurant detail page, all four restaurant hubs and /best. That is a
+ * layout shift on the site's highest-traffic templates, and ad slots are
+ * about to be added below them, so the baseline had to be clean first.
+ *
+ * The callers already choose *which* widget to show from the venue id; this
+ * lets them choose the contents the same way. With no seed the first entry is
+ * used, which is still stable across server and client.
+ */
+function pickIndex(seed: string | undefined, length: number): number {
+  if (!seed) return 0;
+  let sum = 0;
+  for (const ch of seed) sum += ch.charCodeAt(0);
+  return sum % length;
+}
+
+export function BangkokTip({ seed }: { seed?: string }) {
+  const tip = TIPS[pickIndex(seed, TIPS.length)];
   const [dismissed, setDismissed] = useState(false);
 
-  useEffect(() => {
-    try {
-      const idx = Math.floor(Date.now() / 86400000) % TIPS.length;
-      setTip(TIPS[idx]);
-    } catch {}
-  }, []);
-
-  if (!tip || dismissed) return null;
+  if (dismissed) return null;
 
   return (
     <div className="mb-6 flex items-start gap-3 p-4 rounded-2xl bg-amber-50 border border-amber-200 relative">

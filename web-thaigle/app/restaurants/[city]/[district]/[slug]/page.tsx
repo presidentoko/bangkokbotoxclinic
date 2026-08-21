@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { notFound } from "next/navigation";
 import { AdSlot } from "@/components/AdSlot";
-import { loadMasterDb } from "@/lib/data";
+import { loadMasterDb, isListable } from "@/lib/data";
 import { getSlugMap, getRestaurantBySlug, getAllRestaurantParams, restaurantUrl } from "@/lib/restaurants";
 import { isThaiScript } from "@/lib/thaiName";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
@@ -11,7 +11,7 @@ import { trustTierLong } from "@/lib/trust";
 import { MapEmbed } from "@/components/MapEmbed";
 import { RatingChart } from "@/components/RatingChart";
 import { TopicCluster } from "@/components/TopicCluster";
-import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
+import { LocalGuideBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { ReportButton } from "@/components/ReportButton";
@@ -115,9 +115,30 @@ export default async function RestaurantPage(
   const widgetPick = [...r.id].reduce((s, c) => s + c.charCodeAt(0), 0) % 3;
 
   // Similar restaurants
-  const similar = db.restaurants
-    .filter((x) => x.id !== r.id && x.city === r.city && x.cuisines.some((c) => r.cuisines.includes(c)))
-    .sort((a, b) => b.trust_score - a.trust_score)
+  // District before city, and a district-only fallback.
+  //
+  // Matching on city alone and sorting globally meant all ~1,067 Bangkok Thai
+  // restaurants linked to the same four venues — a star, not a mesh, so link
+  // equity pooled in four pages and the other thousand got none. And 567
+  // restaurants have no cuisine at all, so `similar` came back empty and the
+  // section vanished, leaving those pages with three breadcrumbs and a quiz
+  // link as their only way onward.
+  const pool = db.restaurants.filter((x) => x.id !== r.id && isListable(x) && x.city === r.city);
+  const sameCuisine = r.cuisines.length > 0
+    ? pool.filter((x) => x.cuisines.some((c) => r.cuisines.includes(c)))
+    : [];
+  const sameDistrict = pool.filter((x) => r.district && x.district === r.district);
+  // Each tier is sorted on its own and then concatenated. Sorting the
+  // concatenation would re-rank everything by trust score and throw the tier
+  // order away, which is the whole point of building them.
+  const byTrust = (list: typeof pool) => [...list].sort((a, b) => b.trust_score - a.trust_score);
+  const similar = [
+    ...byTrust(sameCuisine.filter((x) => r.district && x.district === r.district)),
+    ...byTrust(sameCuisine),
+    ...byTrust(sameDistrict),
+    ...byTrust(pool),
+  ]
+    .filter((x, i, arr) => arr.findIndex((y) => y.id === x.id) === i)
     .slice(0, 4);
 
   const cohort = r.cuisines.length > 0
@@ -238,7 +259,16 @@ export default async function RestaurantPage(
         <div className="flex items-center gap-2 text-sm text-[var(--muted)] mb-4 flex-wrap">
           <span>📍 {districtLabel}, {cityLabel}</span>
           {r.cuisines.slice(0, 2).map((c) => (
-            <span key={c}>{CUISINE_ICONS[c] ?? "🍽️"} {CUISINE_LABELS[c] ?? c}</span>
+            /* Was a dead <span> on all 3,269 pages. The cuisine hub is the
+               natural next page for someone reading a restaurant, and this
+               is the only place on the template that names it. */
+            <a
+              key={c}
+              href={`/restaurants/cuisine/${c}`}
+              className="hover:text-orange-600 hover:underline"
+            >
+              <span aria-hidden>{CUISINE_ICONS[c] ?? "🍽️"}</span> {CUISINE_LABELS[c] ?? c}
+            </a>
           ))}
           <Freshness generatedAt={db.generated_at} />
         </div>
@@ -283,7 +313,7 @@ export default async function RestaurantPage(
           <div>
             <div className="text-3xl font-bold">★ {r.rating}</div>
             <div className="text-sm text-[var(--muted)]">{r.total_reviews.toLocaleString()} reviews</div>
-            <AIVerifiedBadge r={r} />
+            <LocalGuideBadge r={r} />
             <RelativeRanking percentile={percentile} label={cuisineLabel} />
           </div>
         </div>

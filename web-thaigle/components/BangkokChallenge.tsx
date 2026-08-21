@@ -19,23 +19,45 @@ const CHALLENGES = [
   { emoji: "🧘", title: "Morning Zen", desc: "Start the day with a yoga class at sunrise, then meditate at a temple.", reward: "Inner peace seeker", url: "/activities/yoga-pilates" },
 ];
 
-export function BangkokChallenge() {
-  const [challenge, setChallenge] = useState<typeof CHALLENGES[0] | null>(null);
+
+/**
+ * Pick deterministically from a seed instead of from the clock.
+ *
+ * Both of these components chose their content with Date.now() inside a
+ * useEffect, which meant returning null on the server and inserting a
+ * ~90-140px card after hydration — on the activity detail page, the
+ * restaurant detail page, all four restaurant hubs and /best. That is a
+ * layout shift on the site's highest-traffic templates, and ad slots are
+ * about to be added below them, so the baseline had to be clean first.
+ *
+ * The callers already choose *which* widget to show from the venue id; this
+ * lets them choose the contents the same way. With no seed the first entry is
+ * used, which is still stable across server and client.
+ */
+function pickIndex(seed: string | undefined, length: number): number {
+  if (!seed) return 0;
+  let sum = 0;
+  for (const ch of seed) sum += ch.charCodeAt(0);
+  return sum % length;
+}
+
+export function BangkokChallenge({ seed }: { seed?: string }) {
+  const idx = pickIndex(seed, CHALLENGES.length);
+  const challenge = CHALLENGES[idx];
   const [completed, setCompleted] = useState(false);
   const [dismissed, setDismissed] = useState(false);
 
+  // Only the completed *styling* still waits for the client, since that lives
+  // in localStorage. It changes colours, not the box's size, so it costs no
+  // layout shift.
   useEffect(() => {
     try {
-      const idx = Math.floor(Date.now() / 86400000) % CHALLENGES.length;
-      const key = `thaigle_challenge_${idx}`;
-      setChallenge(CHALLENGES[idx]);
-      setCompleted(localStorage.getItem(key) === "done");
+      setCompleted(localStorage.getItem(`thaigle_challenge_${idx}`) === "done");
     } catch {}
-  }, []);
+  }, [idx]);
 
   const markDone = () => {
     try {
-      const idx = Math.floor(Date.now() / 86400000) % CHALLENGES.length;
       localStorage.setItem(`thaigle_challenge_${idx}`, "done");
       setCompleted(true);
       const text = `🏆 I completed the Bangkok Daily Challenge on Thaigle: "${challenge?.title}" ${process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com"}`;
@@ -44,7 +66,7 @@ export function BangkokChallenge() {
     } catch {}
   };
 
-  if (!challenge || dismissed) return null;
+  if (dismissed) return null;
 
   return (
     <div className={`mb-6 rounded-2xl border-2 p-4 relative transition ${completed ? "border-green-400 bg-green-50" : "border-orange-300 bg-gradient-to-br from-orange-50 to-amber-50"}`}>

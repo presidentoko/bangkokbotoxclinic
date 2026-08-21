@@ -178,6 +178,25 @@ export default async function PlaceDetailPage({
   const pageUrl = `${SITE}/activities/${niche}/${encodeURIComponent(slug)}`;
   const openingHours = readOpeningHours(place.opening_hours_json);
 
+  // The third stat tile used to be price, which is populated on 5% of these
+  // pages — so 95% of the highest-traffic template opened with an empty box
+  // in prime position, reading as auto-generated. Hours are on 85%, and
+  // "when is it open" is closer to what a search visitor arrived with.
+  //
+  // The *typical* day rather than today's: this page is statically generated,
+  // so there is no request-time clock to decide what "today" or "open now"
+  // means, and rendering either from the server's date would be wrong for
+  // most readers. A schedule that repeats on at least four days is worth
+  // stating as the venue's hours; anything more irregular is left to the
+  // full table further down.
+  const typicalHours = (() => {
+    if (openingHours.length === 0) return null;
+    const tally = new Map<string, number>();
+    for (const { hours } of openingHours) tally.set(hours, (tally.get(hours) ?? 0) + 1);
+    const [value, count] = [...tally.entries()].sort((a, b) => b[1] - a[1])[0];
+    return count >= 4 && value.length <= 24 ? { value, count } : null;
+  })();
+
   // Whether this page has enough of its own substance to carry an ad.
   //
   // A page that is a name, an address and a map link, wrapped around two ad
@@ -248,12 +267,26 @@ export default async function PlaceDetailPage({
           <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] mt-0.5">{(place.review_count ?? 0).toLocaleString()} reviews</div>
         </div>
         <div className="bg-white border border-[var(--border)] rounded-xl p-3 text-center">
-          <div className="text-lg font-black">
-            {place.price_min_thb > 0 ? `฿${place.price_min_thb.toLocaleString()}` : "—"}
-          </div>
-          <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] mt-0.5">
-            {place.price_unit && place.price_unit !== "unknown" ? `per ${place.price_unit}` : "price"}
-          </div>
+          {place.price_min_thb > 0 ? (
+            <>
+              <div className="text-lg font-black">฿{place.price_min_thb.toLocaleString()}</div>
+              <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] mt-0.5">
+                {place.price_unit && place.price_unit !== "unknown" ? `per ${place.price_unit}` : "price"}
+              </div>
+            </>
+          ) : typicalHours ? (
+            <>
+              <div className="text-sm font-black leading-tight pt-1">{typicalHours.value}</div>
+              <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] mt-1">
+                {typicalHours.count === 7 ? "daily" : `${typicalHours.count} days a week`}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="text-lg font-black">{place.city}</div>
+              <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] mt-0.5">location</div>
+            </>
+          )}
         </div>
       </div>
 

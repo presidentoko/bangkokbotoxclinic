@@ -3,6 +3,7 @@ import { getAllPlacesServer } from "@/lib/places-server";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { CATEGORY_LABEL } from "@/lib/places";
 import type { Category } from "@/lib/places";
+import { PLACE_TREE_INDEXABLE } from "@/lib/placeIndexing";
 
 export const dynamic = "force-static";
 
@@ -11,6 +12,12 @@ export const metadata: Metadata = {
   description:
     "Every Bangkok venue with a Thaigle verification page: restaurants, gyms, spas, cooking classes and wellness studios, checked against real Google review data rather than influencer posts.",
   alternates: { canonical: "/en/place" },
+  // Follows the tree it indexes. The detail pages went noindex (see
+  // PLACE_TREE_INDEXABLE) but this hub kept "index, follow", so the one page
+  // whose entire purpose is to list 1,647 thin pages was still inviting
+  // Google to rank it. follow stays on: the crawler should still walk through
+  // to read each page's own noindex.
+  ...(PLACE_TREE_INDEXABLE ? {} : { robots: { index: false, follow: true } }),
 };
 
 /**

@@ -4,22 +4,37 @@ import type { Restaurant } from "@/lib/types";
 import { sponsoredTier, SPONSORED_BADGE } from "@/lib/sponsored";
 import { FreshnessTime } from "@/components/FreshnessTime";
 
-// AI Verified — Local Guide 비율 기반 "real review" 신뢰도.
-export function AIVerifiedBadge({ r, size = "sm" }: { r: Restaurant; size?: "sm" | "md" }) {
-  if (r.scraped_review_count < 5) return null;
-  const lg = r.local_guide_count;
+/**
+ * Share of sampled reviews written by Google Local Guides.
+ *
+ * This used to render as "AI Verified · {n}% real", which claimed three
+ * things that were not true: no AI is involved, nothing is verified, and the
+ * number is not a proportion of reviews that are genuine. It was
+ * `50 + lgRatio * 50` — a linear rescale of the Local Guide ratio with a
+ * floor of 50%, so the worst venue on the site still advertised "50% real"
+ * and no venue could ever look bad. Presenting that as fake-review detection
+ * is exactly what the misrepresentation policies are about, and the tooltip
+ * underneath already described the real measure correctly.
+ *
+ * Now it shows the ratio it actually computes, named for what it is.
+ */
+export function LocalGuideBadge({ r, size = "sm" }: { r: Restaurant; size?: "sm" | "md" }) {
   const total = r.scraped_review_count;
-  const lgRatio = total > 0 ? lg / total : 0;
-  const verifiedRate = Math.round(50 + lgRatio * 50);
+  if (total < 5) return null;
+  const lg = r.local_guide_count;
+  // With no Local Guides in the sample there is no signal to report, and a
+  // "0%" chip reads as a mark against the venue rather than an absence.
+  if (lg === 0) return null;
+  const pct = Math.round((lg / total) * 100);
   const cls = size === "md" ? "px-3 py-1 text-sm" : "px-2 py-0.5 text-xs";
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full font-semibold whitespace-nowrap ${cls}`}
       style={{ background: "#ecfeff", color: "#155e75" }}
-      title={`${lg} of ${total} scraped reviews are by Google Local Guides — high credibility reviewers.`}
+      title={`${lg} of ${total} sampled reviews are by Google Local Guides — reviewers with a long public review history.`}
     >
       <span aria-hidden>✓</span>
-      AI Verified · {verifiedRate}% real
+      {pct}% Local Guides
     </span>
   );
 }

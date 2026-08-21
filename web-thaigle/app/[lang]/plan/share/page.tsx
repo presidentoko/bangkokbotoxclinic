@@ -4,7 +4,16 @@ import { CATEGORY_COLORS } from "@/lib/plan/store";
 import { localsScoreColor } from "@/lib/localsScoreColor";
 import { placeHref } from "@/lib/placeIndexing";
 
+import { notFound } from "next/navigation";
+
 export const dynamic = "force-dynamic";
+
+// Both routes are force-dynamic, so any first segment reaches them: without
+// this, /wp-admin/plan and /xyz/plan/share answered 200. The sibling
+// app/[lang]/page.tsx hard-404s an unsupported lang for exactly this reason
+// (bot probes); these two were the ones that missed it.
+const SUPPORTED_LANGS = ["th", "en", "ko", "ja", "ru", "ar"];
+
 
 interface SharePageProps {
   params: Promise<{ lang: string }>;
@@ -48,6 +57,7 @@ export async function generateMetadata({ searchParams }: SharePageProps): Promis
 
 export default async function SharePage({ params, searchParams }: SharePageProps) {
   const { lang: rawLang } = await params;
+  if (!SUPPORTED_LANGS.includes(rawLang)) notFound();
   const { d } = await searchParams;
   const items: PlanItem[] = d ? parsePlanItems(d) : [];
 

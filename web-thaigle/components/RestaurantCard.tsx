@@ -1,7 +1,7 @@
 import type { Restaurant } from "@/lib/types";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { TrustBadge } from "./TrustBadge";
-import { AIVerifiedBadge } from "./Badges";
+import { LocalGuideBadge } from "./Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 import type { SlugMap } from "@/lib/restaurants";
 import { restaurantUrl } from "@/lib/restaurants";
@@ -99,7 +99,7 @@ export function RestaurantCard({ r, rank, slugMap }: { r: Restaurant; rank?: num
         <div className="flex items-center justify-between gap-3 mt-3 flex-wrap">
           <TrustBadge score={r.trust_score} size="md" />
           <div className="flex flex-wrap gap-1.5 text-xs justify-end items-center">
-            <AIVerifiedBadge r={r} size="sm" />
+            <LocalGuideBadge r={r} size="sm" />
             {r.cuisines.slice(0, 3).map((c) => (
               <span key={c} className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full inline-flex items-center gap-1 font-medium">
                 <span aria-hidden>{CUISINE_ICONS[c] ?? "🍴"}</span>
