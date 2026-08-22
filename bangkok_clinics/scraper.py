@@ -409,11 +409,52 @@ class SocksDeadError(Exception):
 # 그 상태에서 계속 때리면 산출은 0인데 "서로 다른 IP 690개가 같은 패턴으로
 # 접근" 이라는 신호만 계속 보낸다 — 차단을 더 굳힐 뿐이다. 일정 연속 차단이
 # 쌓이면 전 워커를 함께 쉬게 한다. 성공이 한 건이라도 나오면 즉시 해제.
-BLOCK_STREAK_TRIP = 30          # 연속 차단 몇 건에서 내려갈지
+BLOCK_STREAK_TRIP = 12          # 연속 차단 몇 건에서 내려갈지
 BLOCK_COOLDOWN_SEC = 30 * 60    # 내려간 뒤 쉬는 시간
 _block_lock = threading.Lock()
 _block_streak = 0
 _block_cooldown_until = 0.0
+
+# 2026-08-22: 상태를 디스크에 남긴다. 워치독의 progress_pattern 이
+# `✓ [N]…처리율`(= 한 건 성공 완료)만 진행으로 인정하기 때문에, 전면 차단
+# 구간에는 성공이 0이라 progress_stale_sec=600 이 매번 걸려 이 서비스가
+# 10분마다 통째로 재시작된다(2026-08-21 실측 37회). 메모리에만 두면 그때마다
+# 카운트가 0으로 돌아가 차단기가 영원히 발동하지 못한다 — 실제로 12:13~12:21
+# 구간은 차단 5건에서 워치독에 죽었다.
+# 파일에 남기면 재시작 직후 곧바로 쿨다운을 이어받아 요청을 안 내보낸다.
+# (근본 해결은 watchdog 의 PROG_REVIEW 에 쿨다운 라인을 추가하는 것인데,
+#  그건 watchdog 재시작이 필요해 별건으로 둔다.)
+# 임계는 30 → 12 로 낮춘다. 워커 3개 × 30~60초면 10분 창에 12건은 쌓이지만
+# 30건은 못 쌓는다. 어제 정상 구간에서도 12건 연속 차단은 나온 적이 없다.
+_BLOCK_STATE_FILE: "Path | None" = None
+
+
+def _load_block_state() -> None:
+    """이전 프로세스가 남긴 쿨다운을 이어받는다."""
+    global _block_streak, _block_cooldown_until
+    if not _BLOCK_STATE_FILE or not _BLOCK_STATE_FILE.exists():
+        return
+    try:
+        d = json.loads(_BLOCK_STATE_FILE.read_text(encoding="utf-8"))
+        _block_streak = int(d.get("streak", 0))
+        _block_cooldown_until = float(d.get("until", 0.0))
+    except Exception:
+        return
+    remain = _block_cooldown_until - time.time()
+    if remain > 0:
+        log.warning(f"이전 실행의 차단 쿨다운 이어받음 — {int(remain)}초 남음")
+
+
+def _save_block_state() -> None:
+    if not _BLOCK_STATE_FILE:
+        return
+    try:
+        tmp = _BLOCK_STATE_FILE.with_suffix(".json.tmp")
+        tmp.write_text(json.dumps({"streak": _block_streak,
+                                   "until": _block_cooldown_until}), encoding="utf-8")
+        os.replace(tmp, _BLOCK_STATE_FILE)
+    except Exception:
+        pass
 
 
 def _note_blocked_exit() -> None:
@@ -428,6 +469,7 @@ def _note_blocked_exit() -> None:
                 f"{BLOCK_COOLDOWN_SEC // 60}분 쉰다 (계속 때리면 차단만 굳는다). "
                 f"성공이 나오면 즉시 해제."
             )
+        _save_block_state()
 
 
 def _note_success() -> None:
@@ -437,6 +479,7 @@ def _note_success() -> None:
         if _block_streak or _block_cooldown_until:
             _block_streak = 0
             _block_cooldown_until = 0.0
+            _save_block_state()
 
 
 def _wait_if_blocked(worker_id: int) -> None:
@@ -1791,6 +1834,13 @@ def main():
     # 재수집하는 낭비가 남 (2026-07-11: VPN 장애 + 킥 폭풍으로 하루 재시작 140회
     # × 동일 재시도 큐 = 완료 로그 ~900건이 실제 신규 18건). pid당 3세션까지만
     # 재시도, 이후엔 수집분으로 완료 취급. 리셋: retry_attempts.json 삭제.
+    # 차단 서킷브레이커 상태 파일을 이 실행의 출력 디렉터리에 연결하고,
+    # 이전 프로세스가 남긴 쿨다운이 있으면 이어받는다 (워치독이 10분마다
+    # 재시작시켜도 요청을 다시 내보내지 않게 하는 것이 목적).
+    global _BLOCK_STATE_FILE
+    _BLOCK_STATE_FILE = out_dir / "block_state.json"
+    _load_block_state()
+
     retry_budget_file = out_dir / "retry_attempts.json"
     try:
         retry_attempts: dict[str, int] = json.loads(retry_budget_file.read_text(encoding="utf-8"))
