@@ -1,4 +1,5 @@
 import buyUrls from '../data/food-buy-urls.json'
+import { affiliateUrl } from './affiliate'
 
 /**
  * Shop links, keyed by food id.
@@ -11,5 +12,8 @@ import buyUrls from '../data/food-buy-urls.json'
 const URLS = buyUrls as Record<string, string>
 
 export function getBuyUrl(foodId: string): string | undefined {
-  return URLS[foodId] || undefined
+  const url = URLS[foodId]
+  // Wrapped here rather than at each call site, so no outbound shop link can
+  // be added later that quietly skips monetisation.
+  return url ? affiliateUrl(url, foodId) : undefined
 }

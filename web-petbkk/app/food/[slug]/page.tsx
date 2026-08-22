@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getFoodBySlug, loadFoods, getFoodGrade, getSimilarFoods, foodSlug } from '@/lib/petfood'
 import { hasPublishableData } from '@/lib/grading'
+import { affiliateUrl } from '@/lib/affiliate'
 import { getFoodReviews } from '@/lib/petreviews'
 import GradeBar from '@/components/GradeBar'
 import IngredientGroups from '@/components/IngredientGroups'
@@ -283,7 +284,7 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
         {/* Buy CTA — mirrors the bottom-of-page one so the affiliate link is above the fold */}
         {food.buy_url && (
           <a
-            href={food.buy_url}
+            href={affiliateUrl(food.buy_url, food.id)}
             target="_blank"
             rel="noopener noreferrer sponsored"
             className="mt-4 w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-2xl transition-colors shadow-sm text-sm block"
@@ -355,7 +356,7 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
       {/* Buy button */}
       {food.buy_url && (
         <a
-          href={food.buy_url}
+          href={affiliateUrl(food.buy_url, food.id)}
           target="_blank"
           rel="noopener noreferrer sponsored"
           className="w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-3.5 px-6 rounded-2xl transition-colors shadow-sm text-base block"

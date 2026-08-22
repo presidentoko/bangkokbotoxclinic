@@ -37,13 +37,18 @@ import statistics
 import time
 import unicodedata
 from pathlib import Path
-from urllib.parse import quote_plus
 
 ROOT = Path(__file__).resolve().parent.parent
 FOODS = ROOT / "web-petbkk" / "data" / "petfood.json"
 CHECKPOINT = ROOT / "petfood" / "lazada_prices.json"
 
-SEARCH = "https://www.lazada.co.th/catalog/?q={}"
+# Path search, not query search. Lazada's WAF blocks /catalog/?q=… outright —
+# every request answered with the punish redirect, indefinitely, from a clean
+# residential address. The same site serves /tag/<slug>/ happily, with identical
+# product-card markup, and an arbitrary slug resolves to a product search:
+# /tag/royal-canin-maxi-light-weight-care/ returns forty listings for exactly
+# that product. Anything with a "?" in it is what trips the filter.
+SEARCH = "https://www.lazada.co.th/tag/{}/"
 
 # Alibaba's WAF answers a flagged client with HTTP 200 and a redirect to
 # /_____tmd_____/punish — a 19-byte page, not an error. Left undetected the run
@@ -55,6 +60,25 @@ BLOCK_MARKERS = ("_____tmd_____", "/punish", "captcha", "x5secdata")
 
 class Blocked(RuntimeError):
     """The marketplace is refusing this client, not this query."""
+
+
+def nap(seconds: float, label: str = "") -> None:
+    """Sleep in short steps, printing as it goes.
+
+    Two earlier runs died silently inside a single 30-minute time.sleep() —
+    no traceback, no stderr, having priced nothing. Whatever reaped them, a
+    process that writes to its log every half minute is both likelier to
+    survive and possible to diagnose: the log now shows how far a wait got
+    before it stopped.
+    """
+    end = time.monotonic() + seconds
+    while True:
+        left = end - time.monotonic()
+        if left <= 0:
+            return
+        time.sleep(min(30.0, left))
+        if label and int(left) % 300 < 31:
+            print(f"    {label}: {left/60:.0f} min left", flush=True)
 
 
 UA = (
@@ -146,15 +170,34 @@ STAGE_QUERY = {"puppy": "puppy", "senior": "senior", "adult": ""}
 
 
 def build_query(food: dict) -> str:
-    animal = "dog" if food.get("animal") == "dog" else "cat"
-    stage = STAGE_QUERY.get(food.get("life_stage", ""), "")
-    parts = (
-        brand_tokens(food.get("brand", ""))
-        + model_tokens(food)[:5]
-        + [animal]
-        + ([stage] if stage else [])
-    )
-    return " ".join(dict.fromkeys(p for p in parts if p))
+    """Human-readable label for logs; the fetch uses tag_slugs()."""
+    return " ".join(tag_slugs(food)[0].split("-"))
+
+
+def tag_slugs(food: dict) -> list[str]:
+    """Candidate tag paths, most specific first.
+
+    Not every slug exists — /tag/hills-science-diet-kd-dog/ is a 404 — so the
+    caller walks the list until one resolves. Dropping a token at a time ends at
+    the brand tag, which always exists, and the brand pool is still filtered by
+    the same brand/model/species rules, so a fallback costs precision rather
+    than correctness.
+
+    Only ASCII tokens go in a slug. Thai-named products (Whiskas, Pedigree)
+    fall back to the brand tag, which is what their names would resolve to
+    anyway.
+    """
+    brands = brand_tokens(food.get("brand", ""))
+    models = [t for t in model_tokens(food) if t.isascii() and "/" not in t]
+    out: list[str] = []
+    for n in (4, 3, 2, 1, 0):
+        toks = brands + models[:n]
+        if not toks:
+            continue
+        slug = "-".join(toks)
+        if slug not in out:
+            out.append(slug)
+    return out
 
 
 def parse_weight_kg(title: str) -> float | None:
@@ -312,6 +355,8 @@ def main() -> None:
     ap.add_argument("--max-cooldown", type=float, default=7200.0)
     ap.add_argument("--max-blocks", type=int, default=6,
                     help="consecutive blocks before the run gives up")
+    ap.add_argument("--slug-tries", type=int, default=3,
+                    help="tag slugs to try per product, most specific first")
     ap.add_argument("--ids", nargs="*")
     args = ap.parse_args()
 
@@ -377,12 +422,20 @@ def main() -> None:
             animal = "dog" if food.get("animal") == "dog" else "cat"
             page = session["page"]
             try:
-                page.goto(SEARCH.format(quote_plus(query)),
-                          wait_until="domcontentloaded", timeout=40000)
-                page.wait_for_timeout(2200)
-                if any(m in page.url for m in BLOCK_MARKERS):
-                    raise Blocked(page.url[:100])
-                listings = parse_cards(page, brands, models, animal)
+                # Walk from the most specific tag slug to the brand tag, taking
+                # the first that exists and yields listings. A missing tag is a
+                # 404 with no cards, not an error.
+                listings = []
+                for slug in tag_slugs(food)[:args.slug_tries]:
+                    page.goto(SEARCH.format(slug),
+                              wait_until="domcontentloaded", timeout=40000)
+                    page.wait_for_timeout(2200)
+                    if any(m in page.url for m in BLOCK_MARKERS):
+                        raise Blocked(page.url[:100])
+                    listings = parse_cards(page, brands, models, animal)
+                    if listings:
+                        break
+                    time.sleep(args.delay / 2)
             except Blocked as exc:
                 # Wait it out rather than stop. A block clears on its own, and a
                 # run spanning hours will meet several; exiting on the first one
@@ -398,7 +451,7 @@ def main() -> None:
                 print(f"\n  [{i+1}/{len(targets)}] BLOCKED ({blocks}/{args.max_blocks}): {exc}")
                 print(f"  cooling down {cooldown/60:.0f} min, then retrying this product")
                 open_session()
-                time.sleep(cooldown)
+                nap(cooldown, "cooldown")
                 continue
             except Exception as exc:
                 print(f"  [{i+1}] ERROR {type(exc).__name__} {query[:40]}")
@@ -419,8 +472,14 @@ def main() -> None:
                 if args.verbose:
                     print(f"  [{i}] ✗ {query[:44]:46} ({len(listings)} usable listings)")
 
-            if i % 20 == 0 or i == len(targets):
-                CHECKPOINT.write_text(json.dumps(done, ensure_ascii=False), encoding="utf-8")
+            # Every product, not every twentieth. Three runs in this
+            # environment have been killed silently mid-flight — one of them at
+            # product 19, which threw away twelve prices that had already been
+            # fetched because the first checkpoint write lands at 20. The file
+            # is a few hundred kilobytes; rewriting it each time costs nothing
+            # next to re-fetching work the marketplace rate-limits.
+            CHECKPOINT.write_text(json.dumps(done, ensure_ascii=False), encoding="utf-8")
+            if i % 10 == 0 or i == len(targets):
                 print(f"  … {i}/{len(targets)}  hit={hit} miss={miss}", flush=True)
             time.sleep(args.delay)
 
