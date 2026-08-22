@@ -482,9 +482,18 @@ def _note_success() -> None:
             _save_block_state()
 
 
+# 쿨다운 대기 중 하트비트 주기. watchdog 의 progress_stale_sec 가 600초라,
+# 그보다 충분히 짧게 찍어야 "멈춘 것"으로 오판되지 않는다. watchdog 쪽
+# PROG_REVIEW 가 이 라인을 진행으로 인정하도록 함께 수정했다 — 둘 중 하나만
+# 바꾸면 의미가 없다(패턴만 바꾸면 침묵 구간에 죽고, 하트비트만 찍으면 패턴에
+# 안 걸려 역시 죽는다).
+BLOCK_HEARTBEAT_SEC = 240
+
+
 def _wait_if_blocked(worker_id: int) -> None:
     """쿨다운 중이면 끝날 때까지 대기. 대기 중 성공이 나면 즉시 빠져나온다."""
     announced = False
+    last_beat = 0.0
     while True:
         with _block_lock:
             remain = _block_cooldown_until - time.time()
@@ -492,9 +501,16 @@ def _wait_if_blocked(worker_id: int) -> None:
             if announced:
                 log.info(f"[W{worker_id}] 쿨다운 해제 — 재개")
             return
+        now = time.time()
         if not announced:
             log.warning(f"[W{worker_id}] 차단 쿨다운 대기 {int(remain)}초")
             announced = True
+            last_beat = now
+        elif now - last_beat >= BLOCK_HEARTBEAT_SEC:
+            # 살아 있고 의도적으로 쉬는 중임을 알린다. 없으면 watchdog 이
+            # 10분 침묵을 정체로 보고 프로세스를 죽인다.
+            log.warning(f"[W{worker_id}] 차단 쿨다운 대기 {int(remain)}초")
+            last_beat = now
         time.sleep(min(30, remain))
 
 

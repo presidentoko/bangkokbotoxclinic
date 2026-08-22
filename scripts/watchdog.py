@@ -876,8 +876,20 @@ def build_services() -> list[Service]:
         n_workers="2", grid_n_workers="1")
     spa_phuket_env, massage_phuket_env = _spa_massage_env(
         "phuket", "7.8804", "98.3923", "20000", "../spa_output/phuket")
+    # 2026-08-20 치앙마이 개시: 방콕 spa/massage 완주(review 자연 종료)로
+    # 2084-2087 이 비었다. 기본값(spa 2080-2083)은 가동 중인
+    # bangkok_clinics_review(2080-2082) + dental(2083)과 정면 충돌하므로
+    # 빈 터널 2084-2085 로 오버라이드. 워커 2개 = clinics 3 + dental 1 과
+    # 합쳐 6워커 — chrome 30개 안팎으로 ram_manager 사다리 안에서 돈다
+    # (8워커=40개대는 오늘 하루 종일 pause 스래싱을 유발했다).
+    # 2086-2087 은 여유분. grid 와 review 가 같은 2084-2085 를 쓰는 건
+    # 의도적 — 체인상 grid 가 먼저 완주한 뒤 review 가 도는 순차 구조라
+    # 동시에 겹치지 않는다 (파타야 오버라이드와 동일 패턴).
     spa_chiang_mai_env, massage_chiang_mai_env = _spa_massage_env(
-        "chiang_mai", "18.7883", "98.9853", "20000", "../spa_output/chiang_mai")
+        "chiang_mai", "18.7883", "98.9853", "20000", "../spa_output/chiang_mai",
+        spa_proxy_base="2084", spa_grid_port="2084",
+        massage_proxy_base="2084", massage_grid_port="2085",
+        n_workers="2", grid_n_workers="2")
     spa_koh_samui_env, massage_koh_samui_env = _spa_massage_env(
         "koh_samui", "9.5018", "99.9648", "15000", "../spa_output/koh_samui")
     spa_hua_hin_env, massage_hua_hin_env = _spa_massage_env(
@@ -886,7 +898,15 @@ def build_services() -> list[Service]:
         "krabi", "8.0863", "98.9063", "15000", "../spa_output/krabi")
 
     # progress 패턴 (각 서비스의 "실제 작업 진척" 시그널)
-    PROG_REVIEW = re.compile(r"✓ \[\d+\].*처리율")  # scraper 한 건 완료 라인
+    # scraper 한 건 완료 라인 + "의도적으로 쉬는 중" 라인.
+    # 2026-08-22: 완료 라인만 인정하면, 구글이 출구 IP 를 전면 차단한 구간엔
+    # 성공이 0 이라 정의상 진행이 없고 progress_stale_sec=600 이 매번 걸려
+    # 이 서비스가 10분마다 통째로 재시작된다(그날 60회 이상 실측). 그 상태에서
+    # scraper 의 서킷브레이커가 30분 쉬려 해도 침묵이 곧 사망이라 성립하지 않았다.
+    # 쿨다운 대기 라인(scraper 가 240초마다 갱신)을 진행으로 인정해서
+    # "막혀서 쉬는 중"과 "멈춤"을 구분한다. 프로세스가 진짜 죽으면 is_alive()
+    # 쪽에서 잡히므로 이걸로 감시가 느슨해지지는 않는다.
+    PROG_REVIEW = re.compile(r"(✓ \[\d+\].*처리율|차단 쿨다운 대기)")
     PROG_GRID   = re.compile(r"\| 결과 \d+ 신규 \d+")  # grid 한 점 처리 라인
     # nordvpn_runner 는 평소엔 조용함. 15분 주기 server fetch + READY 가 시그널.
     PROG_VPN    = re.compile(r"(READY|bootstrap 완료|서버 리스트 fetch)")
