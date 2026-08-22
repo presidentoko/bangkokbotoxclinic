@@ -399,6 +399,62 @@ class SocksDeadError(Exception):
     """SOCKS proxy died; workers should catch this and rotate VPN immediately."""
 
 
+# ── 전역 차단 서킷브레이커 (2026-08-21 신설) ────────────────────────────────
+# 출구 IP 차단은 rotate 로 푼다는 게 전제였는데, 그 전제가 깨지는 날이 있다.
+# 2026-08-22 실측: 11시간 동안 서로 다른 서버 510개로 713회 교체했는데 690회가
+# 차단, 성공 3건. 어제는 같은 서버 풀에서 국가별로 11~46% 성공하던 것이 오늘은
+# de/fr/nl/th/kr/tw/hk/ph/vn 전부 0% 였다 — 서버 선택 문제가 아니라 구글이
+# NordVPN 출구를 국가 무관하게 광범위하게 막은 것이라 rotate 로는 못 푼다.
+#
+# 그 상태에서 계속 때리면 산출은 0인데 "서로 다른 IP 690개가 같은 패턴으로
+# 접근" 이라는 신호만 계속 보낸다 — 차단을 더 굳힐 뿐이다. 일정 연속 차단이
+# 쌓이면 전 워커를 함께 쉬게 한다. 성공이 한 건이라도 나오면 즉시 해제.
+BLOCK_STREAK_TRIP = 30          # 연속 차단 몇 건에서 내려갈지
+BLOCK_COOLDOWN_SEC = 30 * 60    # 내려간 뒤 쉬는 시간
+_block_lock = threading.Lock()
+_block_streak = 0
+_block_cooldown_until = 0.0
+
+
+def _note_blocked_exit() -> None:
+    """차단 응답 1건 기록. 임계 넘으면 전 워커 공통 쿨다운을 건다."""
+    global _block_streak, _block_cooldown_until
+    with _block_lock:
+        _block_streak += 1
+        if _block_streak >= BLOCK_STREAK_TRIP and time.time() >= _block_cooldown_until:
+            _block_cooldown_until = time.time() + BLOCK_COOLDOWN_SEC
+            log.error(
+                f"⛔ 연속 차단 {_block_streak}건 — 출구 전체가 막힌 것으로 판단. "
+                f"{BLOCK_COOLDOWN_SEC // 60}분 쉰다 (계속 때리면 차단만 굳는다). "
+                f"성공이 나오면 즉시 해제."
+            )
+
+
+def _note_success() -> None:
+    """성공 1건 기록. 차단 연속 카운트와 쿨다운을 모두 푼다."""
+    global _block_streak, _block_cooldown_until
+    with _block_lock:
+        if _block_streak or _block_cooldown_until:
+            _block_streak = 0
+            _block_cooldown_until = 0.0
+
+
+def _wait_if_blocked(worker_id: int) -> None:
+    """쿨다운 중이면 끝날 때까지 대기. 대기 중 성공이 나면 즉시 빠져나온다."""
+    announced = False
+    while True:
+        with _block_lock:
+            remain = _block_cooldown_until - time.time()
+        if remain <= 0:
+            if announced:
+                log.info(f"[W{worker_id}] 쿨다운 해제 — 재개")
+            return
+        if not announced:
+            log.warning(f"[W{worker_id}] 차단 쿨다운 대기 {int(remain)}초")
+            announced = True
+        time.sleep(min(30, remain))
+
+
 class GotoExhaustedError(Exception):
     """goto 가 retries 번 다 실패 — context rebuild + VPN rotate 필요"""
 
@@ -1470,6 +1526,9 @@ def worker(
                     else:
                         idx, href, retries = task
 
+                    # 전 출구가 막힌 상태면 여기서 함께 쉰다 (위 서킷브레이커 주석 참조)
+                    _wait_if_blocked(worker_id)
+
                     # 직전 작업이 느렸거나 정기 교체 주기 도달 시 먼저 VPN 교체
                     periodic = (task_success_count > 0
                                 and task_success_count % ROTATE_EVERY_TASKS == 0)
@@ -1511,6 +1570,7 @@ def worker(
                             pending_rotate = True
                         task_success_count += 1
                         consec_fail = 0
+                        _note_success()
                         result_queue.put(("ok", (rest, feats, hours, reviews, metas)))
                     except Exception as e:
                         elapsed = time.time() - t0
@@ -1524,6 +1584,8 @@ def worker(
                         # 태워서 새 터널 부팅 실패까지 겹치는 상시 rotate 루프였음.
                         # nordvpn_runner 자체 헬스체크에 있던 것과 같은 종류의
                         # zero-tolerance 즉시재부팅 안티패턴.)
+                        if "blocked exit IP" in str(e):
+                            _note_blocked_exit()
                         if isinstance(e, SocksDeadError) or is_socks_dead_error(str(e)):
                             _rotate_vpn_and_wait(_vpn_idx_for(proxy_port))
                         try: context.close()
