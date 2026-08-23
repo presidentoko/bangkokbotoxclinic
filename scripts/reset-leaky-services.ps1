@@ -1,0 +1,63 @@
+﻿<#
+  Acer/MediaTek 기본 서비스 핸들 누수 자동 정리.
+
+  왜 필요한가 (2026-08-21 규명, 08-23 재측정):
+    mtkbtsvc / AcerSystemCentralService / AcerCentralService 가 핸들을 계속
+    누수한다. 핸들은 커널 nonpaged pool 을 먹는데 이 셋의 WorkingSet 은 1~3MB
+    라 작업관리자·프로세스 목록에서는 완전히 무해해 보인다.
+      2026-08-21: 업타임 8.5일 → 총 핸들 1,186만, nonpaged pool 2.4GB,
+                  여유 RAM 0.6GB → ram_manager 가 스크래퍼를 상시 pause.
+      서비스 재시작 후: 총 핸들 19만, 여유 RAM 1.8GB 로 즉시 회복.
+      2026-08-23: 24시간 만에 다시 273만 (하루 약 250만 증가) → 4~5일이면 재발.
+
+  이 스크립트는 임계를 넘은 서비스만 재시작한다. 넘지 않으면 아무것도 안 한다.
+  관리자 권한 필요(서비스 제어). Task Scheduler 에 SYSTEM 으로 등록해 쓴다.
+#>
+[CmdletBinding()]
+param(
+  # 프로세스 하나가 이 핸들 수를 넘으면 그 서비스만 재시작.
+  # 정상값은 수천 단위라 100만은 "확실히 샜다" 수준이다.
+  [int]$ThresholdHandles = 1000000,
+  [string]$LogPath = "$PSScriptRoot\..\logs\leaky-services.log"
+)
+
+$map = @{
+  'mtkbtsvc'                 = 'MTKBTSVC'
+  'AcerSystemCentralService' = 'ASMSvc'
+  'AcerCentralService'       = 'AASSvc'
+}
+
+function Write-Log([string]$m) {
+  $line = "[{0}] {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $m
+  Write-Output $line
+  try { Add-Content -Path $LogPath -Value $line -Encoding utf8 } catch {}
+}
+
+$total = (Get-Process | Measure-Object Handles -Sum).Sum
+$acted = $false
+
+foreach ($procName in $map.Keys) {
+  $p = Get-Process -Name $procName -ErrorAction SilentlyContinue
+  if (-not $p) { continue }
+  $h = ($p | Measure-Object Handles -Sum).Sum
+  if ($h -lt $ThresholdHandles) { continue }
+  $svc = $map[$procName]
+  Write-Log "$procName 핸들 $('{0:N0}' -f $h) — 임계 $('{0:N0}' -f $ThresholdHandles) 초과, 서비스 '$svc' 재시작"
+  try {
+    Restart-Service -Name $svc -Force -ErrorAction Stop
+    Start-Sleep -Seconds 3
+    $after = (Get-Process -Name $procName -ErrorAction SilentlyContinue | Measure-Object Handles -Sum).Sum
+    Write-Log "  → 완료. 핸들 $('{0:N0}' -f $h) → $('{0:N0}' -f $after)"
+    $acted = $true
+  } catch {
+    Write-Log "  → 실패: $($_.Exception.Message)"
+  }
+}
+
+if ($acted) {
+  $newTotal = (Get-Process | Measure-Object Handles -Sum).Sum
+  $free = (Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory / 1MB
+  Write-Log ("총 핸들 {0:N0} → {1:N0} · 여유 RAM {2:N1} GB" -f $total, $newTotal, $free)
+} else {
+  Write-Log ("임계 미만 — 조치 없음 (총 핸들 {0:N0})" -f $total)
+}
