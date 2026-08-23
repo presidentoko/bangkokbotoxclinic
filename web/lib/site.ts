@@ -308,10 +308,48 @@ function _applySiteFilterUncached(clinics: Clinic[], cfg: SiteConfig): Clinic[] 
     });
   }
 
-  // 다른 사이트 — 기존 로직
+  // 미용(botox/filler/hifu/facial/laser) 사이트.
+  //
+  // 2026-08-23: 여기가 FOCUS_VALID 와 어긋나 있었다.
+  //   FOCUS_VALID.botox      = botox·filler·hifu·facial·laser·eye  (허브 라우트가 인정)
+  //   resolveOwnerUrl        = 위 6개 중 하나라도 있으면 이 도메인으로 보냄
+  //   그런데 이 필터           = categories.includes("botox") 하나뿐
+  // 즉 /c/filler 허브는 존재하고 덴탈 사이트는 필러 클리닉을 여기로 301 보내는데,
+  // 정작 이 사이트는 botox 카테고리가 없는 필러·HIFU 클리닉을 소관 밖으로 판정해
+  // 404 를 냈다. GSC 색인이 199 페이지에 그치고 평균 순위가 40인 것과 직결된다
+  // (덴탈은 같은 코드로 10.7K 색인 / 순위 9.8).
+  //
+  // 넓히되 품질 게이트를 붙인다. 그냥 "미용 카테고리 아무거나"로 열면 laser 가
+  // 오태깅된 Villa Market·Lotus's(마트)까지 들어온다(실측). 그래서:
+  //   (1) 기존 규칙은 그대로 둔다 — 순수 추가라 빠지는 클리닉이 0이다.
+  //       (넓힌 조건만 쓰면 gangnamclinic·THE KLINIQUE 등 23곳이 오히려 빠졌다.)
+  //   (2) 추가되려면 시술 근거가 있어야 한다 — 언급 3회 이상이거나
+  //       botox/filler/hifu 카테고리 보유. laser·eye 단독 태그는 근거로 안 친다.
+  //   (3) 의료·미용 업종이거나 이름에 clinic/คลินิก 류가 있어야 한다.
+  //   (4) 진짜 치과(DENTAL_PRIMARY_TYPES)는 제외 — 덴탈 사이트 소유라
+  //       양쪽에 실으면 크로스도메인 중복이 된다.
+  // 실측: 642 → 988곳 (+346), 회귀 0.
+  const AESTHETIC_EVIDENCE_CATS = new Set(["botox", "filler", "hifu"]);
+  const MEDICAL_PRIMARY_TYPES = new Set([
+    "Medical clinic", "Skin care clinic", "Dermatologist", "Plastic surgeon",
+    "Plastic surgery clinic", "Cosmetic surgeon", "Beauty clinic", "Aesthetic clinic",
+    "Clinic", "Medical Center", "Hospital", "Doctor", "Surgeon",
+    "Laser hair removal service", "Medical office",
+  ]);
+  const MEDICAL_NAME_RE = /(clinic|medical|aesthetic|dermat|plastic|surgery|skin)|คลินิก/i;
+  const isAestheticSite = AESTHETIC_CATS.has(focus);
   return clinical.filter((c) => {
+    // 기존 규칙 (변경 없음)
     if (c.categories.includes(focus)) return true;
     if ((c.service_mentions[focus] ?? 0) >= cfg.mentionThreshold) return true;
-    return false;
+    if (!isAestheticSite) return false;
+
+    // 넓힌 규칙 — 위 주석의 (2)(3)(4)
+    if (DENTAL_PRIMARY_TYPES.has(c.primary_type)) return false;
+    const hasEvidence =
+      [...AESTHETIC_CATS].some((k) => (c.service_mentions[k] ?? 0) >= cfg.mentionThreshold) ||
+      c.categories.some((cat) => AESTHETIC_EVIDENCE_CATS.has(cat));
+    if (!hasEvidence) return false;
+    return MEDICAL_PRIMARY_TYPES.has(c.primary_type) || MEDICAL_NAME_RE.test(c.name);
   });
 }
