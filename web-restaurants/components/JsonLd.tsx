@@ -80,14 +80,20 @@ export function RestaurantJsonLd({ r }: { r: Restaurant }) {
       addressRegion: r.city_label || "Bangkok",
       addressCountry: "TH",
     },
-    aggregateRating: {
+  };
+  // An unrated venue must not publish aggregateRating: ratingValue 0 /
+  // reviewCount 0 is rejected by Google ("Value in property 'ratingCount'
+  // must be positive"), and the rejection invalidates the whole rich result
+  // for the page rather than just the rating.
+  if (r.rating > 0 && r.total_reviews > 0) {
+    data.aggregateRating = {
       "@type": "AggregateRating",
       ratingValue: r.rating,
       reviewCount: r.total_reviews,
       bestRating: 5,
       worstRating: 1,
-    },
-  };
+    };
+  }
   if (r.lat && r.lng) {
     data.geo = { "@type": "GeoCoordinates", latitude: r.lat, longitude: r.lng };
   }
@@ -165,12 +171,14 @@ export function CollectionPageJsonLd({ name, description, url, items }: {
           "@id": `${SITE}/restaurant/${r.id}`,
           name: r.name,
           url: `${SITE}/restaurant/${r.id}`,
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: r.rating,
-            reviewCount: r.total_reviews,
-            bestRating: 5,
-          },
+          ...(r.rating > 0 && r.total_reviews > 0 ? {
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: r.rating,
+              reviewCount: r.total_reviews,
+              bestRating: 5,
+            },
+          } : {}),
           address: {
             "@type": "PostalAddress",
             addressLocality: r.district || r.city_label || "Bangkok",

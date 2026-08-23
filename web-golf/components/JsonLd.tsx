@@ -95,14 +95,22 @@ export function RestaurantJsonLd({ r }: { r: Restaurant }) {
       addressRegion: r.city_label || "Bangkok",
       addressCountry: "TH",
     },
-    aggregateRating: {
+  };
+  // 56 of 641 courses have no reviews yet, and an unconditional aggregateRating
+  // published ratingValue 0 / reviewCount 0 for every one of them. Google
+  // rejects that outright ("Value in property 'ratingCount' must be positive"
+  // — it reports reviewCount under that name), which invalidates the entire
+  // rich result for the page, not just the rating. No reviews means no
+  // aggregateRating.
+  if (r.rating > 0 && r.total_reviews > 0) {
+    data.aggregateRating = {
       "@type": "AggregateRating",
       ratingValue: r.rating,
       reviewCount: r.total_reviews,
       bestRating: 5,
       worstRating: 1,
-    },
-  };
+    };
+  }
   if (r.lat && r.lng) {
     data.geo = { "@type": "GeoCoordinates", latitude: r.lat, longitude: r.lng };
   }
