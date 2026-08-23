@@ -100,6 +100,26 @@ export async function generateMetadata({
   const found = findPlace(id);
   if (!found) return {};
   const summary = placeSummary(found.place, lang);
+  // 2026-08-23: 장소 상세는 en 한 벌만 색인시킨다.
+  //
+  // GSC 실측: 클릭 0 / 노출 17 (3개월) 인데 "크롤 후 미색인" 17,681 이 사이트맵
+  // 17,115 와 사실상 같다 — 구글이 전부 크롤한 뒤 전부 색인을 거부했다.
+  // 이유를 같은 장소의 세 언어를 받아 비교해 확인했다:
+  //   /th 페이지의 태국어 글자 13%, /ko 의 한글 6%,
+  //   세 언어 title 완전 동일, 본문 유사도 en↔th 86% / en↔ko 85%.
+  // 장소 본문의 대부분은 리뷰 인용·주소·수치라 번역되지 않는다. 즉 권위 0 인
+  // 새 도메인이 거의 같은 페이지 1만 7천 개를 내밀고 있었던 셈이고, 이건
+  // 자동 생성 스팸과 구분되지 않는다.
+  //
+  // 그래서 th/ko 장소 페이지는 noindex + canonical→en 으로 내린다. 사이트맵도
+  // en 만 싣는다(app/sitemap.ts). 17,115 → 5,658 로 줄어 "중복 묶음"이 아니라
+  // "고유 페이지 5,658 개"로 보이게 하는 것이 목적이다.
+  // 사용자에게는 그대로 보인다 — 링크를 끊지 않고 색인만 뺀다.
+  //
+  // ⚠️ 되돌릴 시점: en 장소가 실제로 색인되기 시작하면, th 를 **진짜 번역**으로
+  // 채운 뒤 다시 색인시킨다. 태국 현지 스파 검색은 태국어라 th 는 결국 필요하다.
+  // 지금 상태(13%)로 되살리면 같은 문제가 재발한다.
+  const indexable = lang === "en";
   return {
     title: `${found.place.name} — ${SITE.name}`,
     description:
@@ -108,9 +128,10 @@ export async function generateMetadata({
         ? `${found.place.name}: ★${found.place.rating.toFixed(1)} (${found.place.reviewCount} reviews). ${found.place.address}`
         : found.place.address),
     alternates: {
-      canonical: `/${lang}/place/${id}`,
-      languages: hreflangAlternates((l) => `/${l}/place/${id}`),
+      canonical: `/en/place/${id}`,
+      ...(indexable ? { languages: hreflangAlternates((l) => `/${l}/place/${id}`) } : {}),
     },
+    ...(indexable ? {} : { robots: { index: false, follow: true } }),
     openGraph: { url: `${SITE.origin}/${lang}/place/${id}`, siteName: SITE.name, locale: ogLocale(lang), type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };
 }

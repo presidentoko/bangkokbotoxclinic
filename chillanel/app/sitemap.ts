@@ -79,7 +79,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // date is an honest signal there in a way it isn't for 7,800 individual
   // place URLs.
   for (const { place } of relevantPlaces) {
-    entries.push(...entriesFor((l) => `/${l}/place/${place.id}`, { changeFrequency: "weekly", priority: 0.6 }));
+    // 2026-08-23: 장소 상세는 **en 한 벌만** 제출한다 (3언어 → 1언어).
+    // 사이트맵 17,115 개 중 17,681 이 "크롤 후 미색인" 이었다 — 구글이 전부 보고
+    // 전부 거부했다는 뜻이다. 원인은 th/ko 장소 페이지가 사실상 en 의 복제라는
+    // 것(태국어 13% / 한글 6%, 본문 유사도 85~86%, title 3개 언어 동일).
+    // 장소 본문은 리뷰 인용·주소·수치가 대부분이라 언어를 바꿔도 안 바뀐다.
+    // 페이지 자체는 남기되(사용자 링크 유지) 색인 대상에서 빼고 canonical 을
+    // en 으로 모은다 — place/[id]/page.tsx 의 robots/canonical 과 반드시 함께 간다.
+    // 허브(도시·지역·서비스·가이드)는 실제로 번역돼 있으므로 3언어를 유지한다.
+    entries.push({
+      url: `${SITE.origin}/en/place/${place.id}`,
+      changeFrequency: "weekly",
+      priority: 0.6,
+    });
   }
 
   // Mood-keyword pages ("Clean", "Good value", ...) are noindex'd in
