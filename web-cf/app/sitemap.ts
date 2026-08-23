@@ -110,6 +110,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (filterByDistrict(scoped, d).length < 5) continue;
     const slug = d.toLowerCase().replace(/\s+/g, "-");
     items.push({ url: `${SITE}/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
+    // 2026-08-23: 태국어 지역 페이지. 이 사이트 상위 쿼리는 전부 태국어 "내 근처"
+    // 형태이고 그건 지역 의도인데, 태국어 지역 페이지가 없어 영어 제목 페이지에
+    // 착지하고 있었다(CTR 1.1%). 같은 5곳 게이트 안에 있으므로 여기 함께 싣는다.
+    items.push({ url: `${SITE}/th/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.75 });
     for (const s of HUB_SERVICES) {
       const comboCount = scoped.filter(
         (c) =>

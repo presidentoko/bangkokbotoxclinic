@@ -48,7 +48,17 @@ export async function generateMetadata(
   return {
     title: { absolute: `${count} Clinics in ${districtName}, ${cityLabel} — Reviews` },
     description: `${count} clinics in ${districtName}, ${cityLabel} ranked by verified Google review analysis. Trust Score, reviewer credibility, service mentions for each.`,
-    alternates: { canonical: `/d/${district}` },
+    // 2026-08-23: /th/d/[district] 신설과 함께 hreflang 을 상호 선언한다.
+    // 한쪽만 선언하면 클러스터가 성립하지 않아 구글이 통째로 무시한다 —
+    // /c 에서 정확히 그 상태였다(2026-08-20 수정).
+    alternates: {
+      canonical: `/d/${district}`,
+      languages: {
+        "en-US": `/d/${district}`,
+        "th-TH": `/th/d/${district}`,
+        "x-default": `/d/${district}`,
+      },
+    },
     ...(robots && { robots }),
     openGraph: {
       title: `Clinics in ${districtName}, ${cityLabel}`,

@@ -60,6 +60,8 @@ const LOCALIZED_ROUTE_PATTERNS: { pattern: RegExp; langs: Lang[] }[] = [
   // 2026-08-20: /th/c/[service] 는 2026-08-06 에 생겼는데 이 목록이 안 따라와서,
   // 태국어로 보던 사용자가 시술 허브에서 언어를 바꾸면 계속 홈으로 튕겼다.
   { pattern: /^\/c\/[^/]+\/?$/, langs: ["th", "ko"] },
+  // 2026-08-23: /th/d/[district] 신설. ko 판은 없으므로 th 만.
+  { pattern: /^\/d\/[^/]+\/?$/, langs: ["th"] },
 ];
 
 /** 같은 페이지의 다른 언어 버전 URL. 실제로 존재하는 로케일 변형만 경로를
