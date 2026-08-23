@@ -16,9 +16,14 @@
 [CmdletBinding()]
 param(
   # 프로세스 하나가 이 핸들 수를 넘으면 그 서비스만 재시작.
-  # 정상값은 수천 단위라 100만은 "확실히 샜다" 수준이다.
-  [int]$ThresholdHandles = 1000000,
-  [string]$LogPath = "$PSScriptRoot\..\logs\leaky-services.log"
+  # 정상값은 수천 단위다. 100만으로 시작했다가 30만으로 내렸다 —
+  # 2026-08-23 첫 실행에서 mtkbtsvc(148만)만 정리되고 Acer 둘은
+  # 62만/54만이라 건너뛰었는데, 이 둘은 합쳐 하루 110만씩 늘어서
+  # 100만을 기다릴 이유가 없다. 30만이면 매일 확실히 정리된다.
+  [int]$ThresholdHandles = 300000,
+  # SYSTEM 계정으로 실행되므로 상대경로/현재디렉터리에 의존하면 안 된다.
+  # Resolve-Path 로 실제 경로를 확정한다.
+  [string]$LogPath = (Join-Path (Split-Path $PSScriptRoot -Parent) "logs\leaky-services.log")
 )
 
 $map = @{
