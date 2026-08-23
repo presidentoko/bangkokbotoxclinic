@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { isLang, SITE } from "@/lib/site";
@@ -79,6 +80,26 @@ export default async function LangLayout({
         <BottomNav lang={lang} browseHref={browseHref} t={t.nav} />
         <Analytics />
         <SpeedInsights />
+        {/* 2026-08-23: GA4. Vercel Analytics 는 방문수는 주지만 유입 쿼리·전환
+            경로를 안 줘서, 광고주에게 "어떤 검색으로 들어와 무엇을 눌렀는지"를
+            보여줄 수가 없다. 나머지 세 사이트 중 botox·facial 은 이미 GA4 가
+            붙어 있고 이 사이트만 없었다.
+            측정 ID 는 환경변수로만 받는다 — 코드에 박으면 프리뷰/로컬 트래픽까지
+            같은 속성에 섞인다. NEXT_PUBLIC_GA_ID 가 없으면 아무것도 로드하지 않는다. */}
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga-init" strategy="afterInteractive">{`
+              window.dataLayer=window.dataLayer||[];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js',new Date());
+              gtag('config','${process.env.NEXT_PUBLIC_GA_ID}');
+            `}</Script>
+          </>
+        )}
       </body>
     </html>
   );
