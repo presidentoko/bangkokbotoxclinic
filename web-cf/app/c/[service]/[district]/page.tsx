@@ -53,7 +53,18 @@ export async function generateMetadata(
   return {
     title: { absolute: `${label} in ${districtName}, Bangkok — Verified Reviews` },
     description: `${count} verified ${label.toLowerCase()} clinics in ${districtName}, Bangkok ranked by Trust Score. Compare reviews and pick with confidence.`,
-    alternates: { canonical: `/c/${service}/${district}` },
+    // 2026-08-24: 시술이 하나뿐인 사이트에서는 이 페이지가 /d/{district} 의
+    // 근접중복이다. 덴탈 사이트는 소관이 이미 치과라 "치과 필터"가 아무것도
+    // 거르지 못한다 — 실측에서 두 페이지의 클리닉이 100% 동일하고 본문 유사도가
+    // 73~79% 였다. 페이지는 남기되(기존 링크·색인 URL 이 죽지 않게) 순위 신호를
+    // /d/ 로 모은다. /d/ 쪽이 태국어판(/th/d)과 FAQ 를 갖고 있어 더 두껍다.
+    // 보톡스 사이트는 시술이 6개라 이 조합이 실제로 구분되므로 그대로 둔다.
+    alternates: {
+      canonical:
+        (FOCUS_VALID[cfg.focus]?.size ?? 0) === 1
+          ? `/d/${district}`
+          : `/c/${service}/${district}`,
+    },
     ...(robots && { robots }),
   };
 }

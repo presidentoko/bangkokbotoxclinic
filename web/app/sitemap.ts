@@ -113,14 +113,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (filterByDistrict(scoped, d).length < 5) continue;
     const slug = d.toLowerCase().replace(/\s+/g, "-");
     items.push({ url: `${SITE}/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
-    for (const s of HUB_SERVICES) {
-      const comboCount = scoped.filter(
-        (c) =>
-          (c.district || "").toLowerCase().replace(/\s+/g, "-") === slug &&
-          (c.categories || []).includes(s),
-      ).length;
-      if (comboCount < 3) continue;
-      items.push({ url: `${SITE}/c/${s}/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
+    // 2026-08-24: 시술이 하나뿐인 사이트에서는 /c/{service}/{district} 를 제출하지
+    // 않는다. 덴탈 사이트는 소관 자체가 치과라 "치과 필터"가 아무것도 거르지
+    // 못한다 — 라이브 실측에서 /d/{d} 와 /c/dental/{d} 의 클리닉이 100% 동일하고
+    // 본문 유사도가 73~79% 였다(Phaya Thai 91/91, Watthana 79/79, Huai Khwang 46/46).
+    // 그런 쌍을 75개 제출하고 있었다. chillanel 이 근접중복 1만 7천 개로 색인을
+    // 통째로 거부당한 것과 같은 종류의 자해다.
+    // 보톡스 사이트는 FOCUS_VALID 가 6개라 /c/filler/{d} 와 /d/{d} 가 실제로 다르다.
+    if (HUB_SERVICES.length > 1) {
+      for (const s of HUB_SERVICES) {
+        const comboCount = scoped.filter(
+          (c) =>
+            (c.district || "").toLowerCase().replace(/\s+/g, "-") === slug &&
+            (c.categories || []).includes(s),
+        ).length;
+        if (comboCount < 3) continue;
+        items.push({ url: `${SITE}/c/${s}/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
+      }
     }
   }
 
