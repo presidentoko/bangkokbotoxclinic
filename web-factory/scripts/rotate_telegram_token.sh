@@ -57,19 +57,33 @@ printf '%s' "$TOKEN" | npx --yes wrangler pages secret put TELEGRAM_BOT_TOKEN --
 printf '%s' "$CHAT_ID" | npx --yes wrangler pages secret put TELEGRAM_CHAT_ID --project-name=thaisupplyhub
 
 echo "── 3. Vercel 프로젝트"
-# 각 디렉토리의 .vercel/project.json 이 프로젝트·팀을 결정한다.
-for d in web-petbkk web-thaigle "helath check/web" 3rd 2nd web-restaurants chillanel web-golf; do
-  [[ -f "$ROOT/$d/.vercel/project.json" ]] || { echo "  – $d (vercel link 없음, 건너뜀)"; continue; }
-  echo "  → $d"
-  cd "$ROOT/$d"
-  for env in production preview development; do
-    "$VERCEL" env rm TELEGRAM_BOT_TOKEN "$env" --yes >/dev/null 2>&1 || true
-    "$VERCEL" env rm TELEGRAM_CHAT_ID   "$env" --yes >/dev/null 2>&1 || true
-    printf '%s' "$TOKEN"   | "$VERCEL" env add TELEGRAM_BOT_TOKEN "$env" >/dev/null 2>&1 || true
-    printf '%s' "$CHAT_ID" | "$VERCEL" env add TELEGRAM_CHAT_ID   "$env" >/dev/null 2>&1 || true
+# 계정이 여러 개라 팀도 5개로 나뉜다. 토큰 목록을 받아, 프로젝트마다 접근 가능한
+# 토큰을 찾아 쓴다 (어느 토큰이 어느 팀인지 미리 알 필요 없음).
+# 토큰은 VERCEL_TOKENS 환경변수에 콤마로 구분해 넣는다. 절대 레포에 두지 말 것.
+IFS=',' read -ra TOKENS <<< "${VERCEL_TOKENS:-}"
+if [[ ${#TOKENS[@]} -eq 0 || -z "${TOKENS[0]}" ]]; then
+  echo "  ! VERCEL_TOKENS 가 비어 있어 Vercel 은 건너뜁니다."
+  echo "    사용: VERCEL_TOKENS='tok1,tok2' bash $0 '<새토큰>'"
+else
+  for d in web-petbkk web-thaigle "helath check/web" 3rd 2nd web-restaurants chillanel web-golf; do
+    [[ -f "$ROOT/$d/.vercel/project.json" ]] || { echo "  – $d (vercel link 없음, 건너뜀)"; continue; }
+    cd "$ROOT/$d"
+    used=""
+    for T in "${TOKENS[@]}"; do
+      [[ -z "$T" ]] && continue
+      if "$VERCEL" env ls --token="$T" >/dev/null 2>&1; then used="$T"; break; fi
+    done
+    if [[ -z "$used" ]]; then echo "  ✗ $d — 접근 가능한 토큰이 없습니다"; continue; fi
+    echo "  → $d"
+    for env in production preview development; do
+      "$VERCEL" env rm TELEGRAM_BOT_TOKEN "$env" --yes --token="$used" >/dev/null 2>&1 || true
+      "$VERCEL" env rm TELEGRAM_CHAT_ID   "$env" --yes --token="$used" >/dev/null 2>&1 || true
+      printf '%s' "$TOKEN"   | "$VERCEL" env add TELEGRAM_BOT_TOKEN "$env" --token="$used" >/dev/null 2>&1 || true
+      printf '%s' "$CHAT_ID" | "$VERCEL" env add TELEGRAM_CHAT_ID   "$env" --token="$used" >/dev/null 2>&1 || true
+    done
+    echo "    ✓ env 갱신 — 재배포 필요"
   done
-  echo "    ✓ env 갱신 (재배포해야 반영됨: vercel --prod)"
-done
+fi
 
 echo
 echo "완료. 남은 일:"
