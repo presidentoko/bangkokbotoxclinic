@@ -20,13 +20,24 @@ $name = "ResetLeakyOEMServices"
 
 $argStr = '-NoProfile -ExecutionPolicy Bypass -File "' + $script + '"'
 
+# 4시 시작 + 6시간마다 반복(하루 동안) = 04/10/16/22시.
+$trigger = New-ScheduledTaskTrigger -Daily -At 4am
+$trigger.Repetition = (New-ScheduledTaskTrigger -Once -At 4am `
+    -RepetitionInterval (New-TimeSpan -Hours 6) `
+    -RepetitionDuration (New-TimeSpan -Hours 24)).Repetition
+
 $params = @{
 
     TaskName    = $name
 
     Action      = New-ScheduledTaskAction -Execute "powershell.exe" -Argument $argStr
 
-    Trigger     = New-ScheduledTaskTrigger -Daily -At 4am
+    # 2026-08-24: 하루 1회 → 6시간 간격 반복.
+    # 08-24 04:00 실행이 통째로 누락됐고(원인 미상, 스케줄러 이력 로그가 꺼져
+    # 있어 사후 확인 불가) 그 사이 핸들이 265만까지 쌓였다. 하루 1회면 한 번
+    # 놓칠 때 24시간을 잃는다. 임계 미만이면 아무것도 안 하므로 자주 도는 비용은
+    # 사실상 0이다.
+    Trigger     = $trigger
 
     Principal   = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
 

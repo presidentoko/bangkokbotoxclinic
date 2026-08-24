@@ -38,6 +38,14 @@ function Write-Log([string]$m) {
   try { Add-Content -Path $LogPath -Value $line -Encoding utf8 } catch {}
 }
 
+# 2026-08-24: 시작 즉시 한 줄 남긴다.
+# 08-24 04:00 자동 실행이 로그를 하나도 남기지 않았는데, 그때 "돌았지만 임계
+# 미만이라 조치 없음"인지 "아예 시작도 안 함"인지 구분할 수가 없었다
+# (작업 스케줄러 Operational 로그가 꺼져 있어 이력 조회도 불가).
+# 실측: 그 시점 핸들이 726K/933K/817K 로 셋 다 임계(300K)를 넘고 있었으므로
+# 돌았다면 반드시 재시작 로그가 남았어야 한다 → 시작 자체를 못 한 것으로 판단.
+Write-Log ("시작 (실행 계정: {0})" -f [Security.Principal.WindowsIdentity]::GetCurrent().Name)
+
 $total = (Get-Process | Measure-Object Handles -Sum).Sum
 $acted = $false
 
