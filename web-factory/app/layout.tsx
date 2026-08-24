@@ -95,6 +95,7 @@ export default function RootLayout({
               <div>
                 <div className="font-bold text-[var(--fg)] mb-2 text-xs uppercase tracking-wide">Browse</div>
                 <ul className="space-y-1.5">
+                  <li><a href="/oem" className="hover:text-black">OEM / ODM Factories</a></li>
                   <li><a href="/c/manufacturer" className="hover:text-black">Manufacturers</a></li>
                   <li><a href="/c/auto_parts" className="hover:text-black">Auto Parts</a></li>
                   <li><a href="/c/warehouse" className="hover:text-black">Warehouses</a></li>

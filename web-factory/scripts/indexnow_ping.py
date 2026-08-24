@@ -60,6 +60,16 @@ def collect_urls(db: dict) -> list[str]:
         f"{SITE}/th/about",
         f"{SITE}/th/contact",
         f"{SITE}/th/for-suppliers",
+        # OEM/ODM 버티컬 허브 — "cosmetics OEM thailand" 류 buyer-intent 쿼리
+        # 대응 신설 페이지. 빠른 색인이 이 작업 전체의 목적이라 최우선 제출.
+        f"{SITE}/oem",
+        f"{SITE}/oem/cosmetics",
+        f"{SITE}/oem/food-beverage",
+        f"{SITE}/oem/garment-apparel",
+        f"{SITE}/oem/furniture",
+        f"{SITE}/oem/electronics-ems",
+        f"{SITE}/oem/plastic-injection-molding",
+        f"{SITE}/oem/medical-devices",
     ]
     # category (en + ko)
     for c in db.get("category_counts", {}).keys():

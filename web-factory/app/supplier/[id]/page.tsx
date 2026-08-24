@@ -31,6 +31,7 @@ import { ShareButton } from "@/components/ShareButton";
 import { ViewTracker } from "@/components/ViewTracker";
 import { RecentlyViewed } from "@/components/RecentlyViewed";
 import { CopySupplierInfo } from "@/components/CopySupplierInfo";
+import { EmbedBadgeCTA } from "@/components/EmbedBadgeCTA";
 import { SupplierActionBar } from "@/components/SupplierActionBar";
 import type { Metadata } from "next";
 
@@ -711,6 +712,10 @@ export default async function SupplierPage(
               supplierId={r.id}
               verified={!!r.dbd}
             />
+
+            {r.website && (
+              <EmbedBadgeCTA supplierId={r.id} verified={!!r.dbd} />
+            )}
 
             <AdSlot slot="supplier-sidebar" />
 

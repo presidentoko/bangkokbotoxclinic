@@ -7,6 +7,9 @@ import { detectLang, switchLangHref, type Lang } from "@/lib/localeRoutes";
 // 언어 스위처: 현재 path 보존하면서 prefix 만 변경 (/about → /ko/about → /th/about).
 
 const NAV = [
+  // OEM 허브는 아직 EN 만 빌드됐다(lib/oemVerticals.ts) — /compare 와 같은 패턴으로
+  // ko/th 네비에서도 이 EN 페이지로 보낸다(둘 다 없는 ko/th 홈으로 보내는 것보다 낫다).
+  { en: "OEM / ODM",          ko: "OEM/ODM",         th: "OEM/ODM",          href: "/oem", hrefKo: "/oem", hrefTh: "/oem" },
   { en: "Manufacturers",      ko: "제조사",          th: "ผู้ผลิต",          href: "/c/manufacturer", hrefKo: "/ko/c/manufacturer", hrefTh: "/th/c/manufacturer" },
   { en: "Auto Parts",         ko: "자동차 부품",     th: "ชิ้นส่วนยานยนต์",  href: "/c/auto_parts",   hrefKo: "/ko/c/auto_parts",   hrefTh: "/th/c/auto_parts" },
   { en: "Industrial Estates", ko: "산업단지",        th: "นิคมอุตสาหกรรม",   href: "/c/industrial_estate", hrefKo: "/ko/c/industrial_estate", hrefTh: "/th/c/industrial_estate" },

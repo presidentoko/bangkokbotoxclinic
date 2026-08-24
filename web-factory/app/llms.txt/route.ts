@@ -1,6 +1,7 @@
 import { loadMasterDb } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { CATEGORY_LABELS } from "@/lib/types";
+import { OEM_VERTICALS, matchedSuppliers } from "@/lib/oemVerticals";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaisupplyhub.com";
 const BRAND = process.env.NEXT_PUBLIC_BRAND || "Thai Supply Hub";
@@ -123,6 +124,26 @@ export async function GET() {
     lines.push(`- ${bits.join(" · ")}`);
   }
 
+  // OEM/ODM 버티컬 — 답변 엔진이 "cosmetics OEM thailand" 류 질문에 그대로
+  // 인용할 수 있는 단위. MOQ/리드타임/인증까지 한 블록에 있어야 통째로 인용된다.
+  lines.push("", "## OEM/ODM manufacturing, by product category", "");
+  lines.push(
+    "Buyers sourcing private-label or contract manufacturing in Thailand — organized by product, not industry code. Each includes typical MOQ, lead time, and commonly-required certifications."
+  );
+  for (const v of OEM_VERTICALS) {
+    const rows = matchedSuppliers(v, db.suppliers);
+    lines.push("");
+    lines.push(`### ${v.title} (${rows.length} factories)`);
+    lines.push(`URL: ${SITE}/oem/${v.slug}`);
+    lines.push(`- Typical MOQ: ${v.moq}`);
+    lines.push(`- Typical lead time: ${v.leadTime}`);
+    lines.push(`- Common certifications: ${v.certifications.join(", ")}`);
+    const vTop = [...rows].sort((a, b) => b.trust_score - a.trust_score).slice(0, 5);
+    for (const s of vTop) {
+      lines.push(`- ${s.name} — ${s.district || s.city_label} · Trust ${s.trust_score}${s.verified ? " · DBD-verified" : ""}`);
+    }
+  }
+
   lines.push("", "## Browse by category — with top 5 each", "");
   for (const [c, n] of Object.entries(db.category_counts)) {
     lines.push("");
@@ -154,7 +175,7 @@ export async function GET() {
     "## Common sourcing questions answered",
     "",
     "**Q: Who are the top plastic injection molding suppliers in Thailand?**",
-    `A: Plastic injection molding suppliers in Thailand are concentrated in Chon Buri and Rayong (Eastern Seaboard), supplying automotive OEMs (Toyota, Honda) and packaging clients. Most operate Tier 2/3 automotive mold shops or food-grade packaging molding lines. Browse: ${SITE}/c/plastic`,
+    `A: Plastic injection molding suppliers in Thailand are concentrated in Chon Buri and Rayong (Eastern Seaboard), supplying automotive OEMs (Toyota, Honda) and packaging clients. Most operate Tier 2/3 automotive mold shops or food-grade packaging molding lines. Browse: ${SITE}/oem/plastic-injection-molding`,
     "",
     "**Q: What 3PL (third-party logistics) providers operate in Thailand?**",
     `A: Major 3PL providers in Thailand include DHL Supply Chain, Kerry Logistics, Yusen Logistics, Linfox Thailand, and Whale Logistics — all operating near Laem Chabang port and Eastern Seaboard industrial estates. Browse: ${SITE}/c/logistics`,

@@ -181,6 +181,28 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* OEM/ODM CTA — buyers searching "cosmetics OEM thailand" / "plastic injection
+            molding thailand" think in product verticals, not our category taxonomy.
+            lib/oemVerticals.ts covers exactly the product segments our existing
+            /c/[cuisine] categories don't already serve. */}
+        <section className="mb-12">
+          <a
+            href="/oem"
+            className="group flex flex-col sm:flex-row items-center gap-5 p-6 rounded-2xl border border-emerald-200 bg-emerald-50/60 hover:bg-emerald-50 hover:border-emerald-400 transition"
+          >
+            <div className="text-4xl shrink-0">🏭</div>
+            <div className="flex-1 min-w-0 text-center sm:text-left">
+              <h3 className="font-bold text-lg mb-1">Sourcing for private label? Browse OEM/ODM factories by product</h3>
+              <p className="text-sm text-[var(--muted)]">
+                Cosmetics, food & beverage, garment, furniture, electronics, injection molding, medical devices — MOQ, lead time, and certifications for each.
+              </p>
+            </div>
+            <span className="shrink-0 px-5 py-2.5 rounded-lg bg-emerald-700 text-white text-sm font-bold group-hover:bg-emerald-800 transition whitespace-nowrap">
+              Browse OEM factories →
+            </span>
+          </a>
+        </section>
+
         {/* COMPARE CTA — surfaces the shortlist/compare flow, which is otherwise buried past several scrolls */}
         <section className="mb-12">
           <a

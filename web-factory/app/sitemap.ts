@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { isRealEstateSlug } from "@/lib/estates";
+import { OEM_VERTICALS } from "@/lib/oemVerticals";
 import { loadMasterDb } from "@/lib/data";
 import { districtsForBuild, suppliersInDistrict } from "@/lib/districts";
 import { BEST_FOR } from "@/lib/bestFor";
@@ -110,6 +111,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Industrial estate index + 페이지별 — DBD-verified 차별화 surface
   items.push({ url: `${SITE}/estate`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 });
+
+  // OEM/ODM 버티컬 허브 — 제품 검색어(cosmetics OEM, plastic injection molding …)
+  // 대응. 기존 업종 카테고리와 겹치지 않는 세그먼트만 포함(lib/oemVerticals.ts 참고).
+  items.push({ url: `${SITE}/oem`, lastModified: updated, changeFrequency: "weekly", priority: 0.9 });
+  for (const v of OEM_VERTICALS) {
+    items.push({ url: `${SITE}/oem/${v.slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 });
+  }
   const estateSlugs = new Set<string>();
   for (const s of db.suppliers) if (isRealEstateSlug(s.estate_slug)) estateSlugs.add(s.estate_slug!);
   for (const slug of estateSlugs) {
