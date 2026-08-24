@@ -19,6 +19,12 @@
 #   3) 판정 불가(얕은 클론으로 HEAD^ 없음)면 안전하게 빌드한다.
 set -u
 site="${1:-}"
+# 2026-08-24: scripts/ 도 소스로 친다.
+# 빌드 게이트(이 파일)와 build-data 스크립트가 scripts/ 에 있는데 이걸 소스로
+# 안 봐서, 게이트를 고치는 커밋이 **자기 자신을 스킵**했다. 머지 처리 누락을
+# 고친 cad39e6 이 scripts/ 만 건드려 "데이터 전용" 으로 판정됐고, 그래서
+# 보톡스 소관 확대가 여전히 배포되지 않았다.
+# 빌드 동작을 바꾸는 파일이 빌드를 못 태우면 고칠 방법이 없어진다.
 case "$site" in
   botox)  inc=':(top)web'                       exc=':(exclude,top)web/data' ;;
   facial) inc=':(top)thaifacialclinic-portable' exc=':(exclude,top)thaifacialclinic-portable/public/data' ;;
@@ -40,6 +46,9 @@ if git rev-parse --verify -q HEAD^2 >/dev/null; then
 fi
 if ! git diff --quiet HEAD^ HEAD -- "$inc" "$exc"; then
   echo "build: $site 소스 변경 감지"; exit 1
+fi
+if ! git diff --quiet HEAD^ HEAD -- ':(top)scripts'; then
+  echo "build: 빌드 스크립트 변경 감지"; exit 1
 fi
 case "$(date -u +%H)" in
   02|03|04) echo "build: $site 데이터 일일 창(UTC $(date -u +%H)시)"; exit 1 ;;
