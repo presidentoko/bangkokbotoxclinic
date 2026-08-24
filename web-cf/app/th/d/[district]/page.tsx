@@ -15,7 +15,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByDistrict } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
-import { BreadcrumbJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, CollectionPageJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { BookingForm } from "@/components/BookingForm";
 import { applySiteFilter, getSiteConfig, getSiteUrl } from "@/lib/site";
 import type { Metadata } from "next";
@@ -127,6 +127,48 @@ export default async function ThaiDistrictPage(
   const cn = thCity(cityLabel);
   const totalReviews = filtered.reduce((s, c) => s + c.total_reviews, 0);
 
+  // 2026-08-23: 지역 페이지에 FAQ 를 붙인다.
+  //
+  // 실측: /c/dental 은 질문 10개, /th/c/dental 은 3개를 내보내는데 지역 페이지는
+  // 영어·태국어 모두 FAQPage 가 0이었다. 정작 이 사이트에서 트래픽을 만드는
+  // 쿼리("…ใกล้ฉัน")가 착지하는 곳이 지역 페이지다 — 가장 중요한 페이지가 가장
+  // 얇았다(본문 12.7K 자 vs 시술 허브 28.5K 자).
+  //
+  // 답변은 전부 이 지역의 실제 집계에서 만든다. 지어낸 문장을 넣으면 75개 지역이
+  // 서로 같은 페이지가 되어 chillanel 이 당한 중복 판정을 그대로 밟는다.
+  // 가격만은 지역별 데이터가 없어 방콕 전체 기준임을 **문장 안에 명시**한다 —
+  // 지역별인 척하는 순간 그건 거짓말이 된다.
+  const top = filtered[0];
+  const avgRating = filtered.length
+    ? filtered.reduce((s, c) => s + (c.rating || 0), 0) / filtered.length
+    : 0;
+  const faqs = [
+    {
+      q: `${dn}มีคลินิกทันตกรรมกี่แห่ง`,
+      a: `${filtered.length} แห่ง รวบรวมจากรีวิว Google ${totalReviews.toLocaleString()} รายการ${
+        avgRating ? ` คะแนนเฉลี่ย ★${avgRating.toFixed(1)}` : ""
+      }`,
+    },
+    ...(top
+      ? [
+          {
+            q: `คลินิกทำฟัน${dn}ที่คะแนนดีที่สุดคือที่ไหน`,
+            a: `${top.name} — ★${top.rating} จาก ${top.total_reviews.toLocaleString()} รีวิว คะแนนความน่าเชื่อถือ ${Math.round(
+              top.trust_score,
+            )}/100 ซึ่งคำนวณจากจำนวนรีวิว ความสม่ำเสมอของคะแนน และความน่าเชื่อถือของผู้รีวิว`,
+          },
+        ]
+      : []),
+    {
+      q: `ทำฟันใน${dn}ราคาประมาณเท่าไร`,
+      a: `ราคาโดยประมาณของคลินิกในกรุงเทพฯ โดยรวม (ไม่ใช่เฉพาะ${dn}): รากฟันเทียม ฿35,000–80,000 ต่อซี่ · วีเนียร์ ฿12,000–30,000 ต่อซี่ · ครอบฟัน ฿8,000–20,000 · ฟอกสีฟัน ฿4,000–12,000 ราคาจริงขึ้นกับแต่ละคลินิกและความซับซ้อนของเคส ควรสอบถามคลินิกโดยตรง`,
+    },
+    {
+      q: `เลือกคลินิกทำฟันใน${dn}อย่างไร`,
+      a: `หน้านี้เรียงลำดับด้วยคะแนนความน่าเชื่อถือ ไม่ใช่ค่าโฆษณา คะแนนคำนวณจากจำนวนรีวิว การกระจายของคะแนน และประวัติผู้รีวิว จึงลดผลของรีวิวปลอมจำนวนน้อย แนะนำให้ดูทั้งคะแนนและจำนวนรีวิวประกอบกัน`,
+    },
+  ];
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       <BreadcrumbJsonLd
@@ -175,6 +217,19 @@ export default async function ThaiDistrictPage(
       {filtered.length === 0 && (
         <p className="text-[var(--muted)]">ยังไม่มีข้อมูลคลินิกในพื้นที่นี้</p>
       )}
+
+      <FaqJsonLd faqs={faqs} />
+      <section className="mt-12">
+        <h2 className="text-xl font-bold mb-4">คำถามที่พบบ่อย</h2>
+        <div className="space-y-3">
+          {faqs.map((f) => (
+            <details key={f.q} className="rounded-lg border p-4" style={{ borderColor: "var(--border)" }}>
+              <summary className="font-semibold cursor-pointer">{f.q}</summary>
+              <p className="mt-2 text-sm text-[var(--muted)] leading-relaxed">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
 
       <div className="mt-10">
         <BookingForm lang="th" />

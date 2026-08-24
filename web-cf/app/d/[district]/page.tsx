@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { loadMasterDb, filterByDistrict } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
 import { ClinicCardCompact } from "@/components/ClinicCardCompact";
-import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { BookingForm } from "@/components/BookingForm";
 import { CATEGORY_LABELS } from "@/lib/types";
@@ -96,6 +96,43 @@ export default async function DistrictPage(
   }
   const topCats = [...categoryMap.entries()].filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1]);
 
+  // 2026-08-23: 지역 페이지에 FAQ. 실측상 /c/{service} 는 질문 10개를 내보내는데
+  // 지역 페이지는 0이었다 — 정작 "near me" 검색이 착지하는 곳이 여기다
+  // (본문 12.7K 자 vs 시술 허브 28.5K 자). 답변은 전부 이 지역 집계에서 만든다.
+  // 지어낸 문장을 넣으면 75개 지역이 서로 같은 페이지가 된다.
+  // 가격은 지역별 데이터가 없어 방콕 전체 기준임을 문장 안에 명시한다.
+  const topClinic = filtered[0];
+  const districtReviews = filtered.reduce((s, c) => s + c.total_reviews, 0);
+  const avgRating = filtered.length
+    ? filtered.reduce((s, c) => s + (c.rating || 0), 0) / filtered.length
+    : 0;
+  const districtFaqs = [
+    {
+      q: `How many clinics are there in ${districtName}?`,
+      a: `${filtered.length}, ranked from ${districtReviews.toLocaleString()} Google reviews${
+        avgRating ? ` with an average rating of ${avgRating.toFixed(1)}` : ""
+      }.`,
+    },
+    ...(topClinic
+      ? [
+          {
+            q: `Which clinic in ${districtName} scores highest?`,
+            a: `${topClinic.name} — ${topClinic.rating}★ from ${topClinic.total_reviews.toLocaleString()} reviews, Trust Score ${Math.round(
+              topClinic.trust_score,
+            )}/100. The score weighs review volume, rating consistency and reviewer credibility, so a handful of fake reviews moves it very little.`,
+          },
+        ]
+      : []),
+    {
+      q: `What do treatments cost in ${districtName}?`,
+      a: `Typical Bangkok-wide ranges, not specific to ${districtName}: implants ฿35,000–80,000 per tooth, veneers ฿12,000–30,000 per tooth, crowns ฿8,000–20,000, whitening ฿4,000–12,000. Ask the clinic directly — the final price depends on the case.`,
+    },
+    {
+      q: `How is this ranking decided?`,
+      a: `By Trust Score, not by advertising spend. It is computed from review count, rating distribution and reviewer history across all ${filtered.length} clinics listed here.`,
+    },
+  ];
+
   // 인근 지역: 같은 도시에서 클리닉 수 기준 상위 8개 (현재 district 제외)
   const citySlug = filtered[0]?.city_slug;
   const nearbyDistricts = Object.entries(db.district_counts)
@@ -167,6 +204,18 @@ export default async function DistrictPage(
       )}
 
       <div className="my-8">
+        <FaqJsonLd faqs={districtFaqs} />
+        <section className="mt-12">
+          <h2 className="text-xl font-bold mb-4">Frequently asked</h2>
+          <div className="space-y-3">
+            {districtFaqs.map((f) => (
+              <details key={f.q} className="rounded-lg border p-4" style={{ borderColor: "var(--border)" }}>
+                <summary className="font-semibold cursor-pointer">{f.q}</summary>
+                <p className="mt-2 text-sm text-[var(--muted)] leading-relaxed">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
         <BookingForm />
       </div>
 
