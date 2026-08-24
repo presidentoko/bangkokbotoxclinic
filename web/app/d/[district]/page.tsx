@@ -15,6 +15,15 @@ function districtFromSlug(slug: string, all: string[]): string | null {
   return all.find((d) => d.toLowerCase().replace(/\s+/g, "-") === target) ?? null;
 }
 
+// 2026-08-24: revalidate 를 명시한다.
+// 형제 허브는 전부 갖고 있는데(/ 24h, /clinic 30일, /doctor 30일) 여기만
+// 없어서 기본값에 맡겨져 있었다. 라이브에서 이 경로가 항상
+// `x-vercel-cache: STALE` 로 응답한다 — 매 요청이 재검증을 태운다는 뜻이고,
+// 그게 ISR Reads(1.5M/1M)와 Fast Origin Transfer(20GB/10GB) 로 직결된다.
+// 지역 페이지의 내용은 master_db 가 바뀔 때만 달라지고, 그때는 어차피
+// 재배포가 일어나 캐시가 통째로 갈린다. 30일은 클리닉/의사 페이지와 같은 값.
+export const revalidate = 2592000;
+
 // 봇 쓰레기 param(/d/wp-login.php 등)의 온디맨드 렌더+캐시 write 차단
 // (Hobby ISR Writes 한도 누수, 2026-07-11 감사). GSP가 링크 공간 전체 커버.
 export const dynamicParams = false;
