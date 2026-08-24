@@ -15,17 +15,20 @@ export default function robots(): MetadataRoute.Robots {
         // 2026-08-08 에 뺐는데 이 사이트만 남아 있었다.
         disallow: ["/api/", "/dashboard/", "/admin/"],
       },
+      // 2026-08-24: AI 크롤러 차단 (web/web-cf 와 동일 판단).
+      // 계정 전체가 Hobby 한도 네 지표를 모두 초과 중이고, 읽기량 대부분이
+      // 사람이 아닌 크롤러다. crawl-delay 는 대부분 무시되는 비표준 지시어라
+      // "정중한 허용"이 실제로는 무제한 허용이었다.
+      // Googlebot 은 위 `*` 그룹을 따르므로 검색 순위엔 영향이 없다.
       {
         userAgent: ["GPTBot", "ChatGPT-User", "OAI-SearchBot",
                     "PerplexityBot", "Claude-Web", "ClaudeBot",
-                    "Google-Extended", "Applebot", "cohere-ai",
-                    "anthropic-ai", "Gemini-Google"],
-        allow: ["/", "/llms.txt", "/en/", "/sitemap.xml"],
-        // 2026-08-20: 이 그룹엔 disallow 가 없었다. robots.txt 는 가장 구체적인
-        // User-agent 그룹 하나만 적용하므로, AI 크롤러는 위 `*` 그룹을 통째로
-        // 무시하고 /api/·/dashboard/·/admin/ 까지 크롤 허용 상태였다.
-        disallow: ["/api/", "/dashboard/", "/admin/"],
-        crawlDelay: 5,
+                    "Google-Extended", "Applebot-Extended", "cohere-ai",
+                    "anthropic-ai", "Gemini-Google", "CCBot", "Bytespider",
+                    "Amazonbot", "meta-externalagent", "Diffbot",
+                    "FacebookBot", "YouBot", "ImagesiftBot"],
+        disallow: "/",
+        allow: [],
       },
     ],
     sitemap: [`${SITE}/sitemap.xml`],

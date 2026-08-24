@@ -24,20 +24,32 @@ export default function robots(): MetadataRoute.Robots {
         // 공개 링크가 없다.
         disallow: ["/api/", "/dashboard/", "/onboarding/"],
       },
-      // AEO crawlers — explicitly allow + slow rate to be polite
+      // 2026-08-24: AI 크롤러를 차단으로 전환한다.
+      //
+      // 원래는 "정중하게 허용 + crawl-delay 5" 였는데, 실측이 그 전제를 뒤집었다.
+      // ISR Reads 1.5M/월(한도 1M) 인데 사람 클릭은 3개월에 1,690건이다.
+      // 사이트맵 1,705 페이지 기준 페이지당 월 880회, 실제 색인된 199 페이지
+      // 기준이면 7,538회 읽힌 셈 — 사람 트래픽으로는 설명이 안 되는 규모다.
+      // 게다가 crawl-delay 는 대부분의 AI 크롤러가 무시하는 비표준 지시어라
+      // "정중한 허용"이 실제로는 무제한 허용이었다.
+      //
+      // 포기하는 것: ChatGPT·Perplexity 답변에 이 사이트가 인용될 가능성.
+      // 지키는 것: Hobby 한도(ISR Reads·Transfer·Fluid CPU 네 지표 전부 초과 중).
+      // 구글 검색 순위에는 영향이 없다 — Googlebot 은 위 `*` 그룹을 따르고,
+      // Google-Extended 는 Gemini 학습용이라 검색 색인과 무관하다.
+      //
+      // 되돌릴 조건: 유료 플랜으로 올라가거나 ISR Reads 가 한도 아래로 안정되면.
       {
         userAgent: [
           "GPTBot", "ChatGPT-User", "OAI-SearchBot",
           "PerplexityBot", "ClaudeBot", "Claude-Web",
-          "Google-Extended", "Applebot", "cohere-ai",
-          "anthropic-ai", "Gemini-Google",
+          "Google-Extended", "Applebot-Extended", "cohere-ai",
+          "anthropic-ai", "Gemini-Google", "CCBot", "Bytespider",
+          "Amazonbot", "meta-externalagent", "Diffbot", "Omgilibot",
+          "FacebookBot", "Timpibot", "YouBot", "ImagesiftBot",
         ],
-        allow: ["/", "/llms.txt", "/llms-full.txt", "/sitemap-index.xml"],
-        // 2026-08-20: 이 그룹엔 disallow 가 없었다. robots.txt 는 가장 구체적인
-        // User-agent 그룹 하나만 적용하므로 GPTBot 등은 위 `*` 그룹을 통째로
-        // 무시하고 /api/·/dashboard/·/onboarding/ 까지 크롤 허용 상태였다.
-        disallow: ["/api/", "/dashboard/", "/onboarding/"],
-        crawlDelay: 5,
+        disallow: "/",
+        allow: [],
       },
     ],
     sitemap: `${SITE}/sitemap-index.xml`,
