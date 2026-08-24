@@ -25,6 +25,19 @@ case "$site" in
   *) echo "build: unknown site '$site' — 판정 불가라 빌드"; exit 1 ;;
 esac
 git rev-parse --verify -q HEAD^ >/dev/null || { echo "build: HEAD^ 없음(얕은 클론)"; exit 1; }
+
+# 2026-08-24: 머지 커밋이면 무조건 빌드한다.
+# `git diff HEAD^ HEAD` 는 **첫 부모** 기준이라, 다른 브랜치에서 온 변경이
+# 머지로 들어오면 첫 부모 대비로는 안 보인다. 실제로 이것 때문에 보톡스
+# 소관 확대(web/lib/site.ts)가 origin/main 에 올라갔는데도 빌드가 스킵됐다
+# (머지 85d264c: 첫 부모 대비 "변경 없음", 두 번째 부모 대비 "변경 있음").
+# 이 레포는 auto_push_loop 이 diverge 시 fetch+merge 후 푸시하므로 머지 커밋이
+# 일상적으로 생긴다 — 즉 흔한 경로에서 조용히 배포가 누락된다.
+# 교체 전 보톡스 설정에 있던 `HEAD^2 && exit 1` 를 옮겨오지 못한 것이 원인이다.
+if git rev-parse --verify -q HEAD^2 >/dev/null; then
+  echo "build: 머지 커밋 — 첫 부모 diff 로는 판정 불가"
+  exit 1
+fi
 if ! git diff --quiet HEAD^ HEAD -- "$inc" "$exc"; then
   echo "build: $site 소스 변경 감지"; exit 1
 fi
