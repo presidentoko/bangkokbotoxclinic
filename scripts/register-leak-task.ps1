@@ -12,6 +12,20 @@
 
 $ErrorActionPreference = "Stop"
 
+# 2026-08-24: 관리자 권한을 **가장 먼저** 확인하고, 아니면 아무것도 건드리지 않고
+# 끝낸다.
+# 이 스크립트는 기존 작업을 Unregister 한 뒤 Register 한다. 권한이 없으면
+# Unregister 는 되고 Register 만 실패해서 **작업이 통째로 사라진다** — 실제로
+# 두 번 그렇게 날렸다(08-23 내가 비권한 실행, 08-24 사용자 실행).
+# 파괴적 단계 앞에 게이트를 두는 게 맞다.
+$isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()
+           ).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+if (-not $isAdmin) {
+    Write-Host "관리자 권한이 필요합니다. 기존 작업은 건드리지 않고 종료합니다."
+    Write-Host "  PowerShell 을 '관리자로 실행' 한 뒤 다시 실행하세요."
+    exit 1
+}
+
 $script = Join-Path $PSScriptRoot "reset-leaky-services.ps1"
 
 if (-not (Test-Path $script)) { throw "스크립트 없음: $script" }
@@ -55,7 +69,13 @@ if (Get-ScheduledTask -TaskName $name -ErrorAction SilentlyContinue) {
 
 }
 
-Register-ScheduledTask @params | Out-Null
+try {
+    Register-ScheduledTask @params | Out-Null
+} catch {
+    Write-Host "등록 실패: $($_.Exception.Message)"
+    Write-Host "  작업이 없는 상태입니다. 원인을 고친 뒤 이 스크립트를 다시 실행하세요."
+    exit 1
+}
 
 $t = Get-ScheduledTask -TaskName $name
 
