@@ -21,10 +21,25 @@ param(
   # 62만/54만이라 건너뛰었는데, 이 둘은 합쳐 하루 110만씩 늘어서
   # 100만을 기다릴 이유가 없다. 30만이면 매일 확실히 정리된다.
   [int]$ThresholdHandles = 300000,
-  # SYSTEM 계정으로 실행되므로 상대경로/현재디렉터리에 의존하면 안 된다.
-  # Resolve-Path 로 실제 경로를 확정한다.
-  [string]$LogPath = (Join-Path (Split-Path $PSScriptRoot -Parent) "logs\leaky-services.log")
+  # 기본값은 비워두고 아래 본문에서 정한다.
+  # ⚠️ 여기서 $PSScriptRoot 를 쓰면 안 된다 — `powershell -File` 로 실행할 때
+  # param() 기본값 평가 시점에는 비어 있어서 Split-Path 가
+  # "Cannot bind argument to parameter 'Path' because it is an empty string" 으로
+  # 죽는다. 파라미터 바인딩 단계라 로그 한 줄도 못 남기고 끝난다.
+  # 2026-08-23 에 "로그 경로를 절대경로로" 고친다며 이걸 넣었고, 그 결과
+  # 08-24 04:00 예약 실행이 통째로 실패했다(작업은 -File 로 호출한다).
+  # 당시 검증은 `& "경로"` 호출 연산자로 해서 $PSScriptRoot 가 채워져 통과했다 —
+  # 실행 방식이 다르면 다른 결과가 나온다는 걸 놓쳤다.
+  [string]$LogPath = ""
 )
+
+# 스크립트 자신의 위치. -File / 호출연산자 / 점소싱 어느 쪽이든 잡히도록 순서대로 시도.
+$scriptDir = if ($PSScriptRoot) { $PSScriptRoot }
+             elseif ($MyInvocation.MyCommand.Path) { Split-Path $MyInvocation.MyCommand.Path -Parent }
+             else { (Get-Location).Path }
+if (-not $LogPath) {
+    $LogPath = Join-Path (Split-Path $scriptDir -Parent) "logs\leaky-services.log"
+}
 
 $map = @{
   'mtkbtsvc'                 = 'MTKBTSVC'
