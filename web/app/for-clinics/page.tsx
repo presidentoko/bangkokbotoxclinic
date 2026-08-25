@@ -44,6 +44,7 @@ const FAQS = [
 export default async function ForClinicsPage() {
   const cfg = getSiteConfig();
   const db = await loadMasterDb();
+  const reviewTotal = db.clinics.reduce((n, c) => n + (c.total_reviews || 0), 0);
   const totalReviews = db.clinics.reduce((s, c) => s + c.total_reviews, 0);
 
   return (
@@ -107,8 +108,15 @@ export default async function ForClinicsPage() {
           <span className="text-2xl">📊</span>
           <div>
             <p className="font-semibold text-emerald-900">
-              {/* 2.3x = estimated avg monthly visits per indexed clinic, based on Q2 site traffic */}
-              This month: {Math.round(db.total_clinics * 2.3).toLocaleString()}+ visitors searched {cfg.brand}
+              {/* 2026-08-25: 여기 있던 "This month: {total_clinics * 2.3}+ visitors
+                  searched" 를 걷어냈다. 2.3 은 측정값이 아니라 임의 계수였고,
+                  결과가 월 12,625명이었다. 실제 GSC 는 보톡스 3개월 클릭 72건
+                  (월 24건), 덴탈 1,690건(월 563건)이다 — 광고주에게 보여주는
+                  숫자가 실측의 22~500배였다.
+                  트래픽 실측치는 master_db 에 없고 GSC 에만 있으므로, 없는 숫자를
+                  만들지 않고 **우리가 실제로 가진 것**을 말한다. 리뷰 집계 규모는
+                  이 DB 에서 바로 나오고 경쟁자에게 없는 자산이다. */}
+              {reviewTotal.toLocaleString()} Google reviews analysed across {db.total_clinics.toLocaleString()} clinics
             </p>
             <p className="text-sm text-emerald-700">
               Top searches: &quot;{cfg.focus === "dental" ? "dental implant clinic Bangkok" : "botox clinic Bangkok"}&quot;,{" "}

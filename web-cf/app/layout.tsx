@@ -148,7 +148,13 @@ export default function RootLayout({
                 <a href="/doctors" className="hover:text-black">Doctors</a>
                 <a href="/insights" className="hover:text-black">Market Insights</a>
                 <a href="/contact" className="hover:text-black">Contact</a>
-                <a href="https://www.bangkoktopclinic.com/?ref=footer" target="_blank" rel="noopener" className="hover:text-black">For Clinics</a>
+                {/* 2026-08-25: "For Clinics" 가 bangkoktopclinic.com(자매 사이트,
+                    건강검진 가격 비교)으로 나가고 있었다. 이 사이트에는 /for-clinics
+                    가 있고 그게 광고 상품을 파는 유일한 페이지다 — 광고주가 광고를
+                    보려고 누르는 링크가 다른 도메인의 다른 주제로 새고 있었다.
+                    자매 사이트 소개는 SisterSites 컴포넌트가 따로 하므로 여기서
+                    중복으로 내보낼 이유도 없다. */}
+                <a href="/for-clinics" className="hover:text-black">For Clinics</a>
                 <a href="/sitemap.xml" className="hover:text-black">Sitemap</a>
                 <a href="/llms.txt" className="hover:text-black">llms.txt</a>
               </div>
