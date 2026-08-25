@@ -472,6 +472,43 @@ def _note_blocked_exit() -> None:
         _save_block_state()
 
 
+def _record_server_outcome(vpn_idx: int, ok: bool) -> None:
+    """이 포트가 지금 쓰는 출구 서버의 성적을 nordvpn_runner 에 알린다.
+
+    2026-08-25: 서버마다 성적이 극단적으로 갈린다는 걸 로그로 확인했다.
+    08-23 이후 519개 서버 중 93개는 성공 2건 이상(nl1072 는 9승 0패,
+    de1265 6승 0패), 반대로 130개는 2회 이상 시도했는데 성공이 0이다.
+    그런데 pick_server() 는 리스트 순서대로 조건에 맞는 첫 서버를 집을 뿐
+    "이 서버가 실제로 데이터를 가져왔는가" 를 전혀 보지 않는다. 519개를
+    무작위로 도니 평균 35% 로 수렴하는 것이다.
+
+    성공한 서버를 기억해 우대하면 돈을 들이지 않고 성공률을 올릴 수 있다.
+    통신은 이미 있는 파일 방식을 그대로 쓴다(rotate_port_N 과 같은 디렉터리).
+    """
+    try:
+        status = json.loads((_TMPDIR / "vpn_status.json").read_text())
+        host = ""
+        for p_ in status.get("ports", []):
+            if p_.get("idx") == vpn_idx:
+                host = p_.get("server", "")
+                break
+        if not host:
+            return
+        f = _TMPDIR / "vpn_server_scores.json"
+        try:
+            scores = json.loads(f.read_text())
+        except Exception:
+            scores = {}
+        e = scores.setdefault(host, {"ok": 0, "bad": 0})
+        e["ok" if ok else "bad"] += 1
+        tmp = f.with_suffix(".json.tmp")
+        tmp.write_text(json.dumps(scores))
+        os.replace(tmp, f)
+    except Exception:
+        # 성적 기록은 보조 기능이다 — 실패해도 수집을 막지 않는다.
+        pass
+
+
 def _note_success() -> None:
     """성공 1건 기록. 차단 연속 카운트와 쿨다운을 모두 푼다."""
     global _block_streak, _block_cooldown_until
@@ -1630,6 +1667,7 @@ def worker(
                         task_success_count += 1
                         consec_fail = 0
                         _note_success()
+                        _record_server_outcome(_vpn_idx_for(proxy_port), True)
                         result_queue.put(("ok", (rest, feats, hours, reviews, metas)))
                     except Exception as e:
                         elapsed = time.time() - t0
@@ -1645,6 +1683,7 @@ def worker(
                         # zero-tolerance 즉시재부팅 안티패턴.)
                         if "blocked exit IP" in str(e):
                             _note_blocked_exit()
+                            _record_server_outcome(_vpn_idx_for(proxy_port), False)
                         if isinstance(e, SocksDeadError) or is_socks_dead_error(str(e)):
                             _rotate_vpn_and_wait(_vpn_idx_for(proxy_port))
                         try: context.close()

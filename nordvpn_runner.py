@@ -230,15 +230,56 @@ class Runner:
         else:
             log(f"  fetch 전부 실패 — 기존 {len(self.servers)} 서버 유지")
 
+    def _load_scores(self) -> dict:
+        """스크래퍼가 남긴 서버별 성적. 없으면 빈 dict.
+
+        2026-08-25: 구글 차단이 서버마다 완전히 다르게 걸린다는 걸 로그에서
+        확인했다 — 08-23 이후 519개 중 93개는 성공 2건 이상(nl1072 9승 0패),
+        130개는 2회 이상 시도에 성공 0. 그런데 이 함수는 리스트 순서대로
+        조건에 맞는 첫 서버를 집을 뿐이라 90% 서버와 0% 서버를 똑같이 다뤘고,
+        결과가 전체 평균 35% 로 수렴했다.
+        유료 프록시로 가기 전에 무료로 할 수 있는 개선이 이것이다.
+        """
+        try:
+            with open(str(TMPDIR / "vpn_server_scores.json")) as f:
+                return json.load(f)
+        except Exception:
+            return {}
+
+    @staticmethod
+    def _score_rank(entry: dict) -> tuple:
+        """정렬 키. 시도 3회 미만은 '미검증'으로 중간에 둔다 —
+        1승 0패를 9승 0패보다 앞에 두면 표본이 적은 우연을 신뢰하게 된다."""
+        ok = entry.get("ok", 0); bad = entry.get("bad", 0)
+        n = ok + bad
+        if n < 3:
+            return (1, 0.0, 0)          # 미검증: 검증된 우수 서버 다음
+        rate = ok / n
+        if rate >= 0.5:
+            return (0, -rate, -ok)      # 검증된 우수: 성공률 높은 순
+        return (2, -rate, 0)            # 검증된 불량: 맨 뒤
+
     def pick_server(self) -> dict | None:
-        """used_ips + 실패 cooldown 피해서 하나 뽑기. 풀 소진 시 used 리셋."""
+        """used_ips + 실패 cooldown 피해서 하나 뽑기. 풀 소진 시 used 리셋.
+
+        2026-08-25: 실적이 있는 서버를 먼저 본다(_load_scores). 실적이 없거나
+        파일이 없으면 기존 순서 그대로라 동작이 나빠지지 않는다.
+        """
         if not self.servers:
             return None
         now = time.time()
         # 만료된 cooldown 정리
         if self.failed_until:
             self.failed_until = {h: t for h, t in self.failed_until.items() if t > now}
-        for s in self.servers:
+        scores = self._load_scores()
+        if scores:
+            ordered = sorted(
+                self.servers,
+                key=lambda s: self._score_rank(scores.get(s["host"], {})),
+            )
+        else:
+            ordered = self.servers
+        for s in ordered:
             if s["ip"] in self.used_ips:
                 continue
             if self.failed_until.get(s["host"], 0) > now:
