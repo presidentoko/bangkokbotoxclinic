@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -66,6 +67,11 @@ export default async function RolexVsAPPage({ params }: Props) {
           ? 'The world\'s most liquid watch vs the Royal Oak — both trade above retail, but very different in price, character, and buyer pool.'
           : 'นาฬิกาที่สภาพคล่องสูงที่สุดในโลก vs Royal Oak — ทั้งคู่ซื้อขายเหนือราคาปลีก แต่แตกต่างกันมากในด้านราคา บุคลิก และกลุ่มผู้ซื้อ'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['rolex/submariner', 'rolex/daytona', 'audemars-piguet/royal-oak-15500']}
+        locale={locale}
+      />
 
       <div className="grid md:grid-cols-2 gap-6 mb-12">
         <div className="border border-gray-200 rounded-xl p-6">

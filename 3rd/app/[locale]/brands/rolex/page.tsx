@@ -37,7 +37,7 @@ const faqsEn = [
   },
   {
     q: 'Where can I buy pre-owned Rolex in Thailand?',
-    a: 'Reliable sources in Thailand: Vestiaire Collective (international authentication, ships to Thailand), authorized grey market dealers at EmQuartier and Siam Paragon luxury floors, and established watch dealers who specialise in pre-owned luxury watches. Avoid unknown sellers on Carousell Thailand for Rolex — sophisticated fakes are common. Always insist on authentication papers or have the watch checked by an authorised Rolex service centre.',
+    a: 'Reliable sources in Thailand: Vestiaire Collective (international authentication, ships to Thailand), authorized grey market dealers at EmQuartier and Siam Paragon luxury floors, and established watch dealers who specialise in pre-owned luxury watches. Avoid unknown private sellers on Facebook Marketplace and LINE for Rolex — sophisticated fakes are common. Always insist on authentication papers or have the watch checked by an authorised Rolex service centre.',
   },
   {
     q: 'Does Rolex hold value in Thailand long-term?',
@@ -56,7 +56,7 @@ const faqsTh = [
   },
   {
     q: 'ซื้อ Rolex มือสองได้ที่ไหนในไทย?',
-    a: 'แหล่งที่น่าเชื่อถือในไทย: Vestiaire Collective (ตรวจสอบสากล ส่งมาไทยได้) ดีลเลอร์ grey market ที่ได้รับอนุญาตที่ชั้น luxury ของเอ็มควอเทียร์และสยามพารากอน และดีลเลอร์นาฬิกาที่ชำนาญในนาฬิกา luxury มือสอง หลีกเลี่ยงผู้ขายที่ไม่รู้จักบน Carousell ไทยสำหรับ Rolex — ของปลอมที่ซับซ้อนมีให้เห็นทั่วไป ควรยืนยันกระดาษรับรองเสมอหรือให้ศูนย์บริการ Rolex ที่ได้รับอนุญาตตรวจสอบ',
+    a: 'แหล่งที่น่าเชื่อถือในไทย: Vestiaire Collective (ตรวจสอบสากล ส่งมาไทยได้) ดีลเลอร์ grey market ที่ได้รับอนุญาตที่ชั้น luxury ของเอ็มควอเทียร์และสยามพารากอน และดีลเลอร์นาฬิกาที่ชำนาญในนาฬิกา luxury มือสอง หลีกเลี่ยงผู้ขายรายย่อยที่ไม่รู้จักบน Facebook Marketplace และ LINE สำหรับ Rolex — ของปลอมที่ซับซ้อนมีให้เห็นทั่วไป ควรยืนยันกระดาษรับรองเสมอหรือให้ศูนย์บริการ Rolex ที่ได้รับอนุญาตตรวจสอบ',
   },
   {
     q: 'Rolex รักษามูลค่าในไทยได้ในระยะยาวไหม?',

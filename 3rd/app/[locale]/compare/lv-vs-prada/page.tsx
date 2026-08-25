@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -66,6 +67,11 @@ export default async function LVVsPradaTH({ params }: Props) {
           ? 'LV and Prada are both top luxury purchases in Thailand. LV wins on resale liquidity — Neverfull and Speedy are the most liquid bags in Asia. Prada wins on fashion distinction — Saffiano leather and triangle logo have design credibility LV canvas cannot match.'
           : 'LV และ Prada ทั้งคู่เป็นการซื้อของหรูอันดับต้นๆ ในไทย LV ชนะด้านสภาพคล่องมือสอง Neverfull และ Speedy เป็นกระเป๋าที่มีสภาพคล่องสูงสุดในเอเชีย Prada ชนะด้านความโดดเด่นทางแฟชั่น Saffiano และสามเหลี่ยมมีความน่าเชื่อถือด้านการออกแบบที่ canvas LV ทำไม่ได้'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['louis-vuitton/neverfull-mm', 'louis-vuitton/speedy-25', 'prada/galleria-small', 'prada/re-edition-2005']}
+        locale={locale}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

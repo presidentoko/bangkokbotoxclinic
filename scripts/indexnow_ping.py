@@ -139,6 +139,17 @@ SITES = {
             "https://www.chicpreowned.com/en/omega",
             "https://www.chicpreowned.com/th/omega",
             "https://www.chicpreowned.com/en/brands/omega",
+            # 신규 섹션 — 판매자 인텐트("ขาย X ได้เท่าไหร่")와 출처 공개 페이지.
+            # 태국 딜러는 전부 "รับซื้อ"만 광고하고 가격을 안 밝히므로 이 쿼리에는
+            # 정보성 결과가 사실상 없다. 색인 우선 확보가 목적.
+            "https://www.chicpreowned.com/th/sell",
+            "https://www.chicpreowned.com/en/sell",
+            "https://www.chicpreowned.com/th/dealers",
+            "https://www.chicpreowned.com/en/dealers",
+            "https://www.chicpreowned.com/th/sell/rolex",
+            "https://www.chicpreowned.com/th/sell/chanel",
+            "https://www.chicpreowned.com/th/sell/louis-vuitton",
+            "https://www.chicpreowned.com/th/sell/hermes",
         ],
     },
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -64,6 +65,12 @@ export default async function BestBagsUnder3000TH({ params }: Props) {
           ? 'The best value-to-prestige ratio in pre-owned luxury is under $3,000. These six picks are selected for brand recognition in Thailand, resale flexibility in the Bangkok market, and why they make sense as your first or next pre-owned purchase.'
           : 'อัตราส่วนมูลค่าต่อศักดิ์ศรีที่ดีที่สุดใน luxury มือสองอยู่ที่ต่ำกว่า ฿108,000 หกตัวเลือกนี้ถูกคัดสรรเพื่อการรับรู้แบรนด์ในไทย ความยืดหยุ่นในการขายต่อในตลาดกรุงเทพ และเหตุผลที่ควรซื้อเป็นครั้งแรกหรือครั้งถัดไป'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['louis-vuitton/neverfull-mm', 'prada/re-edition-2000']}
+        locale={locale}
+        title={isEn ? 'What these actually cost in Thailand right now' : 'ราคาจริงในไทยตอนนี้'}
+      />
 
       <div className="space-y-5 mb-10">
         {picks.map((p, i) => (

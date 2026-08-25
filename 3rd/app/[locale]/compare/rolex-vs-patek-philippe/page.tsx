@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -66,6 +67,11 @@ export default async function RolexVsPatekPage({ params }: Props) {
           ? 'Both trade above retail on sports models — but Patek commands 3–5× vs Rolex\'s 1.2–1.8×. The right choice depends on your budget and goals.'
           : 'ทั้งคู่ซื้อขายเหนือราคาปลีกในรุ่นกีฬา — แต่ Patek ได้ 3–5 เท่า vs Rolex 1.2–1.8 เท่า การเลือกที่ถูกต้องขึ้นอยู่กับงบประมาณและเป้าหมายของคุณ'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['rolex/daytona', 'rolex/submariner', 'patek-philippe/nautilus-5711']}
+        locale={locale}
+      />
 
       <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-8 text-sm text-amber-900">
         <strong>{isEn ? 'Investment note:' : 'หมายเหตุการลงทุน:'}</strong>

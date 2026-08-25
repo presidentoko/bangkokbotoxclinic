@@ -37,7 +37,7 @@ const faqsEn = [
   },
   {
     q: 'Where can I buy authentic pre-owned Chanel in Thailand?',
-    a: 'The most reliable platforms for Thailand are Vestiaire Collective (international authentication, ships to Thailand), certified luxury resellers in Bangkok (EmQuartier, Central Embassy luxury dealers), and reputable Instagram/Line sellers with established track records. Be very cautious on Carousell Thailand — Chanel fakes are extremely sophisticated and common. Always request authentication certificates.',
+    a: 'The most reliable platforms for Thailand are Vestiaire Collective (international authentication, ships to Thailand), certified luxury resellers in Bangkok (EmQuartier, Central Embassy luxury dealers), and reputable Instagram/Line sellers with established track records. Be very cautious with private-seller listings on Facebook Marketplace and LINE — Chanel fakes are extremely sophisticated and common. Always request authentication certificates.',
   },
   {
     q: 'Caviar or lambskin Chanel — which is better for Thailand\'s climate?',
@@ -56,7 +56,7 @@ const faqsTh = [
   },
   {
     q: 'ซื้อ Chanel มือสองแท้ที่ไหนในไทย?',
-    a: 'แพลตฟอร์มที่น่าเชื่อถือที่สุดในไทยคือ Vestiaire Collective (ตรวจสอบสากล ส่งมาไทยได้) ดีลเลอร์สินค้าหรูในกรุงเทพฯ (เอ็มควอเทียร์, เซ็นทรัล เอ็มบาสซี) และร้านค้าบน Instagram/Line ที่มีประวัติน่าเชื่อถือ ระวังมากบน Carousell ไทย — ของปลอม Chanel มีความซับซ้อนสูงมากและพบได้บ่อย ควรขอใบรับรองการตรวจสอบเสมอ',
+    a: 'แพลตฟอร์มที่น่าเชื่อถือที่สุดในไทยคือ Vestiaire Collective (ตรวจสอบสากล ส่งมาไทยได้) ดีลเลอร์สินค้าหรูในกรุงเทพฯ (เอ็มควอเทียร์, เซ็นทรัล เอ็มบาสซี) และร้านค้าบน Instagram/Line ที่มีประวัติน่าเชื่อถือ ระวังให้มากกับประกาศขายจากผู้ขายรายย่อยบน Facebook Marketplace และ LINE — ของปลอม Chanel ทำได้เนียนมากและพบได้บ่อย ควรขอใบรับรองการตรวจสอบเสมอ',
   },
   {
     q: 'หนัง Caviar หรือ Lambskin เหมาะกับสภาพอากาศไทยมากกว่า?',

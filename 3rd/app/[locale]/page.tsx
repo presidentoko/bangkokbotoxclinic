@@ -267,11 +267,11 @@ export default async function HomePage({ params }: Props) {
         </div>
         <div className="grid sm:grid-cols-3 gap-6">
           {(locale === 'th' ? [
-            { n: '01', title: 'ราคาจริงจากตลาด', desc: 'ดึงข้อมูลราคาทุกสัปดาห์จาก Vestiaire Collective, C2C Thailand และแพลตฟอร์มขายต่อชั้นนำ' },
+            { n: '01', title: 'ราคาจริงจากตลาด', desc: 'อ่านจากประกาศขายจริงของร้านมือสองในไทยทุกสัปดาห์ และใช้ Vestiaire Collective เป็นราคาอ้างอิงต่างประเทศ' },
             { n: '02', title: 'แยกตามสภาพสินค้า', desc: 'ราคาแยกตามเกรดสภาพ — ดีมาก, ดีเยี่ยม, ดี ให้คุณเปรียบเทียบได้อย่างตรงไปตรงมา' },
             { n: '03', title: 'ฟรี ไม่มีผลประโยชน์', desc: 'ไม่มีสัญญา affiliate ที่กระทบข้อมูล เราแค่ติดตามราคาตลาดจริง' },
           ] : [
-            { n: '01', title: 'Real Listings', desc: 'Prices tracked weekly from Vestiaire Collective, eBay, and major Thai resale platforms.' },
+            { n: '01', title: 'Real Listings', desc: 'Read weekly from named Thai dealers’ live listings, with Vestiaire Collective as the international reference.' },
             { n: '02', title: 'Condition-Matched', desc: 'Prices separated by condition so you compare like-for-like — Very Good, Excellent, Good.' },
             { n: '03', title: 'Free & Independent', desc: 'No affiliate deals affecting our data. We just track what the Thai market is actually paying.' },
           ]).map(s => (

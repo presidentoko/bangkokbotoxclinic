@@ -1971,6 +1971,26 @@ def build_services() -> list[Service]:
             progress_stale_sec=604800,  # 7일
             progress_grace_sec=300,
         ),
+        Service(
+            # chicpreowned.com 태국 시장가 스크래퍼 — 태국 딜러 5곳의 공개 상품
+            # API(WooCommerce Store / Shopify products.json)를 읽어
+            # 3rd/data/thai_market.json + price_history.json 갱신 → 커밋 → 배포.
+            #
+            # price_sampler_chic(Vestiaire, USD 환산)과 별개로 도는 이유:
+            # 해외 시세는 태국 시계 시장과 1.5~2배 어긋난다(Datejust 41 실측
+            # 해외환산 ฿579k vs 태국 딜러 ฿399k). 이 서비스가 사이트의 헤드라인
+            # 가격을 담당하고, Vestiaire는 해외 참고가로 격하됐다.
+            #
+            # 주 1회 약 30 요청 — 딜러 서버에 부담 없는 수준.
+            name="thai_market_chic",
+            cmd=["3rd/scraper/thai_market.py", "--loop", "--write", "--ship"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "thai_market_chic.log",
+            progress_pattern=re.compile(r"\[thai_market\]"),
+            progress_stale_sec=604800,  # 7일
+            progress_grace_sec=600,  # 5개 딜러 순회에 수 분 걸림
+        ),
     ]
 
 

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -56,6 +57,11 @@ export default async function ChanelClassicVsBoyTH({ params }: Props) {
           : 'สองกระเป๋า Chanel ที่สำคัญที่สุด Classic Flap ยั่งยืนและ resale แข็งแกร่งกว่า Boy คือ statement piece ที่โดดเด่น นี่คือการเปรียบสำหรับคนไทย'}
       </p>
 
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'chanel/boy-bag-medium']}
+        locale={locale}
+      />
+
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">
           <thead>
@@ -81,8 +87,8 @@ export default async function ChanelClassicVsBoyTH({ params }: Props) {
         <strong>{isEn ? 'Thai market tip:' : 'เคล็ดลับตลาดไทย:'}</strong>
         <span className="ml-2">
           {isEn
-            ? 'Chanel prices at Central Embassy and Siam Paragon Bangkok track global increases annually. Pre-owned Classic Flap prices in Thailand often sell at or above retail for popular colorways (black/beige caviar). Facebook Groups and C2C platforms have the most active Thai Chanel market.'
-            : 'ราคา Chanel ที่ Central Embassy และ Siam Paragon กรุงเทพขึ้นราคาทุกปีตาม global ราคา Classic Flap มือสองในไทยมักขายเท่า retail หรือมากกว่าสำหรับสี popular (ดำ/เบจ caviar) Facebook Groups และแพลตฟอร์ม C2C มีตลาด Chanel ไทยที่คึกคักที่สุด'}
+            ? 'Chanel prices at Central Embassy and Siam Paragon Bangkok track global increases annually. Pre-owned Classic Flap prices in Thailand often sell at or above retail for popular colorways (black/beige caviar). Facebook Groups and Thai resale dealers have the most active Thai Chanel market.'
+            : 'ราคา Chanel ที่ Central Embassy และ Siam Paragon กรุงเทพขึ้นราคาทุกปีตาม global ราคา Classic Flap มือสองในไทยมักขายเท่า retail หรือมากกว่าสำหรับสี popular (ดำ/เบจ caviar) Facebook Groups และร้านมือสองในไทยมีตลาด Chanel ที่คึกคักที่สุด'}
         </span>
       </div>
 

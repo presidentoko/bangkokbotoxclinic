@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -67,6 +68,11 @@ export default async function BottegaVsCelineTH({ params }: Props) {
           ? 'Both brands became synonymous with "quiet luxury" — no visible logos, high craft, understated status. Both have exceptional resale on their hero pieces. Bangkok context and THB prices included.'
           : 'ทั้งสองแบรนด์กลายเป็นคำพ้องความหมายกับ "quiet luxury" ไม่มีโลโก้มองเห็น งานหัตถกรรมสูง สถานะเงียบงาม ทั้งสองมีการขายต่อที่ยอดเยี่ยมบนชิ้นฮีโร่ รวมบริบทกรุงเทพและราคาบาท'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['bottega-veneta/cassette-bag', 'bottega-veneta/mini-pouch', 'celine/ava-mini', 'celine/belt-bag-mini']}
+        locale={locale}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -66,6 +67,11 @@ export default async function RolexVsCartierTH({ params }: Props) {
           ? 'Rolex is the most recognized watch brand globally — precision, status, investment-grade resale. Cartier invented the wristwatch — Parisian jewelry heritage, elegance, dress watch excellence. Both are Swiss. For Thai buyers: Rolex wins on investment and resale; Cartier wins on entry price and jewelry-adjacent prestige.'
           : 'Rolex คือแบรนด์นาฬิกาที่เป็นที่รู้จักมากที่สุดในโลก ความแม่นยำ สถานะ การขายต่อระดับการลงทุน Cartier ประดิษฐ์นาฬิกาข้อมือ มรดกเครื่องประดับปารีส ความหรูหรา ความเป็นเลิศของนาฬิกาออกงาน ทั้งสองเป็นสวิส สำหรับผู้ซื้อชาวไทย Rolex ชนะด้านการลงทุนและขายต่อ Cartier ชนะด้านราคาเริ่มต้นและศักดิ์ศรีระดับเครื่องประดับ'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['rolex/datejust-36', 'rolex/submariner', 'cartier/tank-must', 'cartier/santos-medium']}
+        locale={locale}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

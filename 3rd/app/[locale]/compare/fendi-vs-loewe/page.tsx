@@ -92,11 +92,11 @@ export default async function FendiVsLoeweTH({ params }: Props) {
           {isEn ? <>
             <div className="border-l-4 border-green-400 pl-4"><strong className="text-gray-900">Buy Fendi</strong> if you want high street recognition in Bangkok and love the Baguette's nostalgic shape</div>
             <div className="border-l-4 border-purple-400 pl-4"><strong className="text-gray-900">Buy Loewe</strong> if you want the Puzzle's architectural flair and Jonathan Anderson-era collector appeal</div>
-            <div className="border-l-4 border-blue-400 pl-4"><strong className="text-gray-900">Thai resale:</strong> Both sell well on Carousell TH and Line Market — Fendi faster due to higher recognition</div>
+            <div className="border-l-4 border-blue-400 pl-4"><strong className="text-gray-900">Thai resale:</strong> Both sell well at Thai resale dealers and in LINE seller groups — Fendi faster due to higher recognition</div>
           </> : <>
             <div className="border-l-4 border-green-400 pl-4"><strong className="text-gray-900">ซื้อ Fendi</strong> ถ้าต้องการการจดจำบนถนนในกรุงเทพและชอบทรง Baguette แบบ nostalgia</div>
             <div className="border-l-4 border-purple-400 pl-4"><strong className="text-gray-900">ซื้อ Loewe</strong> ถ้าต้องการ Puzzle ทรงสถาปัตยกรรมและ appeal ของนักสะสมยุค Jonathan Anderson</div>
-            <div className="border-l-4 border-blue-400 pl-4"><strong className="text-gray-900">ขายต่อในไทย:</strong> ทั้งคู่ขายดีบน Carousell TH และ Line Market — Fendi เร็วกว่าเพราะเป็นที่รู้จักมากกว่า</div>
+            <div className="border-l-4 border-blue-400 pl-4"><strong className="text-gray-900">ขายต่อในไทย:</strong> ทั้งคู่ขายดีทั้งที่ร้านมือสองในไทยและในกลุ่มขายบน LINE — Fendi เร็วกว่าเพราะเป็นที่รู้จักมากกว่า</div>
           </>}
         </div>
       </section>

@@ -20,6 +20,7 @@ walking away from a half-finished operation.
 from __future__ import annotations
 
 import subprocess
+from collections.abc import Iterable
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -31,14 +32,18 @@ def _git(*args: str, check: bool = False) -> subprocess.CompletedProcess:
     )
 
 
-def commit_and_push(path: Path | str, message: str) -> bool:
+def commit_and_push(path: Path | str | Iterable[Path | str], message: str) -> bool:
     """Commit `path`, rebase onto origin, push. False if anything went wrong.
+
+    `path` may be one path or several — a scraper that writes both a data file
+    and its history file wants them in one commit, not two.
 
     Returns False rather than raising: a scraper that collected good data should
     not die because the network or a concurrent push got in the way. It must not
     report success either, which is why the caller gets a boolean.
     """
-    _git('add', str(path))
+    paths = [path] if isinstance(path, (str, Path)) else list(path)
+    _git('add', *[str(p) for p in paths])
     if _git('diff', '--cached', '--quiet').returncode == 0:
         print('[git_sync] no changes to commit')
         return True

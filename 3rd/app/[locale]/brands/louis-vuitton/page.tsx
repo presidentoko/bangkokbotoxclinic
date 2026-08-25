@@ -31,7 +31,7 @@ const faqsEn = [
   },
   {
     q: 'Is pre-owned LV a good buy in Thailand?',
-    a: 'Yes — LV is the most liquid luxury brand in Thailand. Pieces sell quickly on Carousell Thailand and Facebook Marketplace. The wide availability of pre-owned LV also means prices are competitive. The Monogram Neverfull is arguably the best-value pre-owned luxury purchase in Thailand: recognisable, durable, practical, and easy to resell.',
+    a: 'Yes — LV is the most liquid luxury brand in Thailand. Pieces sell quickly at Thai resale dealers and on Facebook Marketplace. The wide availability of pre-owned LV also means prices are competitive. The Monogram Neverfull is arguably the best-value pre-owned luxury purchase in Thailand: recognisable, durable, practical, and easy to resell.',
   },
   {
     q: 'How can I tell if a Louis Vuitton bag is real in Thailand?',
@@ -39,7 +39,7 @@ const faqsEn = [
   },
   {
     q: 'What is the cheapest Louis Vuitton pre-owned in Thailand?',
-    a: 'LV card holders and small accessories start from approximately ฿6,000–฿12,000 in very good condition. The Pochette Accessoires is the most affordable pre-owned bag, starting around ฿18,000. The Speedy 25 and 30 start from ฿22,000–฿35,000 depending on condition. All prices reflect Carousell Thailand and Vestiaire listings.',
+    a: 'LV card holders and small accessories start from approximately ฿6,000–฿12,000 in very good condition. The Pochette Accessoires is the most affordable pre-owned bag, starting around ฿18,000. The Speedy 25 and 30 start from ฿22,000–฿35,000 depending on condition. All prices reflect live listings at Thai resale dealers and on Vestiaire Collective.',
   },
 ]
 
@@ -50,7 +50,7 @@ const faqsTh = [
   },
   {
     q: 'LV มือสองคุ้มค่าที่จะซื้อในไทยไหม?',
-    a: 'คุ้มมาก — LV เป็นแบรนด์ luxury ที่มีสภาพคล่องสูงที่สุดในไทย ชิ้นงานขายได้รวดเร็วบน Carousell Thailand และ Facebook Marketplace ความพร้อมของ LV มือสองที่หลากหลายทำให้ราคาแข่งขันได้ Neverfull Monogram อาจเป็นการซื้อ luxury มือสองที่คุ้มค่าที่สุดในไทย: เป็นที่รู้จัก ทนทาน ใช้งานได้ดี และขายต่อง่าย',
+    a: 'คุ้มมาก — LV เป็นแบรนด์ luxury ที่มีสภาพคล่องสูงที่สุดในไทย ชิ้นงานขายออกเร็วทั้งที่ร้านมือสองในไทยและบน Facebook Marketplace ความพร้อมของ LV มือสองที่หลากหลายทำให้ราคาแข่งขันได้ Neverfull Monogram อาจเป็นการซื้อ luxury มือสองที่คุ้มค่าที่สุดในไทย: เป็นที่รู้จัก ทนทาน ใช้งานได้ดี และขายต่อง่าย',
   },
   {
     q: 'วิธีดูกระเป๋า Louis Vuitton ของแท้ในไทย?',
@@ -58,7 +58,7 @@ const faqsTh = [
   },
   {
     q: 'Louis Vuitton มือสองราคาถูกที่สุดในไทยเริ่มที่เท่าไหร่?',
-    a: 'Card holder และอุปกรณ์เสริมขนาดเล็กของ LV เริ่มต้นประมาณ ฿6,000–฿12,000 ในสภาพดีมาก Pochette Accessoires เป็นกระเป๋ามือสองที่ราคาเข้าถึงได้มากที่สุด เริ่มต้นประมาณ ฿18,000 Speedy 25 และ 30 เริ่มต้นที่ ฿22,000–฿35,000 ขึ้นอยู่กับสภาพ ราคาทั้งหมดอ้างอิงจากประกาศใน Carousell Thailand และ Vestiaire',
+    a: 'Card holder และอุปกรณ์เสริมขนาดเล็กของ LV เริ่มต้นประมาณ ฿6,000–฿12,000 ในสภาพดีมาก Pochette Accessoires เป็นกระเป๋ามือสองที่ราคาเข้าถึงได้มากที่สุด เริ่มต้นประมาณ ฿18,000 Speedy 25 และ 30 เริ่มต้นที่ ฿22,000–฿35,000 ขึ้นอยู่กับสภาพ ราคาทั้งหมดอ้างอิงจากประกาศขายจริงของร้านมือสองในไทยและ Vestiaire Collective',
   },
 ]
 

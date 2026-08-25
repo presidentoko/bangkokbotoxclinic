@@ -99,8 +99,8 @@ export default async function MiuMiuTH({ params }: Props) {
         <strong>{isEn ? 'Where to find in Bangkok:' : 'หาซื้อที่ไหนในกรุงเทพ:'}</strong>
         <span className="ml-2">
           {isEn
-            ? 'Miu Miu Wander is well-known in Thailand. Look on Facebook Group "กระเป๋าแบรนด์มือสอง", Line Market, and Carousell TH. Authenticate hardware logo and interior date code before buying.'
-            : 'Wander เป็นที่รู้จักในไทย หาได้จาก Facebook Group "กระเป๋าแบรนด์มือสอง", Line Market และ Carousell TH ตรวจโลโก้ hardware และ date code ภายในก่อนซื้อเสมอ'}
+            ? 'Miu Miu Wander is well-known in Thailand. Look on Facebook Group "กระเป๋าแบรนด์มือสอง", Line Market, and Thai resale dealers such as UsedBrand88 and Brandname Voyage. Authenticate hardware logo and interior date code before buying.'
+            : 'Wander เป็นที่รู้จักในไทย หาได้จาก Facebook Group "กระเป๋าแบรนด์มือสอง", Line Market และร้านมือสองในไทยอย่าง UsedBrand88 และ Brandname Voyage ตรวจโลโก้ hardware และ date code ภายในก่อนซื้อเสมอ'}
         </span>
       </div>
 

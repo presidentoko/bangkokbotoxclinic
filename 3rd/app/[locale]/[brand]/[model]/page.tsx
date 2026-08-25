@@ -21,6 +21,8 @@ import { AffiliateCTA } from '@/components/AffiliateCTA'
 import { ShareButton } from '@/components/ShareButton'
 import { RecentlyViewed } from '@/components/RecentlyViewed'
 import { TrackPageView } from '@/components/TrackPageView'
+import { ThaiMarketPanel } from '@/components/ThaiMarketPanel'
+import { marketPrice, getThaiEntry } from '@/lib/thai-market'
 
 const BASE = 'https://www.chicpreowned.com'
 const YEAR = 2026
@@ -93,7 +95,7 @@ function getFAQs(item: Item, locale: string) {
           q: `How much does a used ${item.model} cost in Thailand?`,
           a: vg
             ? `A used ${item.model} in Very Good condition typically costs between ${formatPriceTHB(vg.min)} and ${formatPriceTHB(vg.max)} on the Thai secondary market. Prices vary by colour, hardware, and condition.`
-            : `Prices for a used ${item.model} vary depending on condition, colourway, and hardware finish. Check Carousell TH and C2C.in.th for current listings.`,
+            : `Prices for a used ${item.model} vary depending on condition, colourway, and hardware finish. Compare asking prices across several Thai dealers before committing — the same model can differ by more than half between shops.`,
         },
         {
           q: 'Which condition should I buy?',
@@ -111,7 +113,7 @@ function getFAQs(item: Item, locale: string) {
         },
         {
           q: `Where is the best place to buy a used ${item.model} in Thailand?`,
-          a: `The top platforms for buying a used ${item.model} in Thailand are Carousell TH (largest selection), Facebook Marketplace TH (direct seller deals), and C2C.in.th (authenticated listings). Always request original receipts and authentication cards.`,
+          a: `Buy from an established Thai resale dealer with a physical shop and a public catalogue — you can inspect the bag before paying and the price is on the record. Compare at least three, then ask for the original receipt and authentication card.`,
         },
         {
           q: "What's the difference between Excellent, Very Good, and Good condition?",
@@ -130,7 +132,7 @@ function getFAQs(item: Item, locale: string) {
           q: `กระเป๋า${item.model}มือสองราคาเท่าไหร่?`,
           a: vg
             ? `กระเป๋า ${item.model} สภาพดีมากในไทยราคาอยู่ที่ประมาณ ${formatPriceTHB(vg.min)} ถึง ${formatPriceTHB(vg.max)} ราคาขึ้นอยู่กับสี อุปกรณ์โลหะ และสภาพสินค้า`
-            : `ราคากระเป๋า ${item.model} มือสองขึ้นอยู่กับสภาพ สี และอุปกรณ์โลหะ ดูราคาปัจจุบันได้ที่ Carousell TH และ C2C.in.th`,
+            : `ราคากระเป๋า ${item.model} มือสองขึ้นอยู่กับสภาพ สี และอุปกรณ์โลหะ ควรเทียบราคาตั้งขายจากร้านไทยหลายร้านก่อนตัดสินใจ — รุ่นเดียวกันต่างกันได้เกินเท่าตัว`,
         },
         {
           q: 'ควรเลือกซื้อสภาพไหนดี?',
@@ -148,7 +150,7 @@ function getFAQs(item: Item, locale: string) {
         },
         {
           q: `ซื้อกระเป๋า${item.model}มือสองที่ไหนดีในไทย?`,
-          a: `แพลตฟอร์มที่ดีที่สุดในการซื้อกระเป๋า ${item.model} มือสองในไทยคือ Carousell TH (ตัวเลือกมากที่สุด) Facebook Marketplace TH (ซื้อตรงจากผู้ขาย) และ C2C.in.th (รายการที่ผ่านการรับรอง) ขอใบเสร็จต้นฉบับและบัตรรับรองทุกครั้ง`,
+          a: `ควรซื้อจากร้านมือสองในไทยที่มีหน้าร้านจริงและเปิดเผยแคตตาล็อกออนไลน์ — ดูของก่อนจ่ายเงินได้ และราคามีบันทึกไว้ ควรเทียบอย่างน้อย 3 ร้าน แล้วขอใบเสร็จต้นฉบับกับบัตรรับรองความแท้`,
         },
         {
           q: 'สภาพ Excellent, Very Good และ Good แตกต่างกันอย่างไร?',
@@ -172,7 +174,7 @@ function getFAQs(item: Item, locale: string) {
           q: `How much does a used ${item.model} cost in Thailand?`,
           a: vg
             ? `A used ${item.model} in Very Good condition typically sells for ${formatPriceTHB(vg.min)} to ${formatPriceTHB(vg.max)} on the Thai pre-owned market. Prices vary by reference number, bracelet type, and whether the watch comes with box and papers.`
-            : `Used ${item.model} prices vary by reference number, condition, and accessories. Check current listings on Carousell TH and C2C.in.th.`,
+            : `Used ${item.model} prices vary by reference number, condition, and whether it comes with box and papers. Compare the current asking prices at several Thai watch dealers.`,
         },
         {
           q: `What should I check when buying a used ${item.model}?`,
@@ -209,7 +211,7 @@ function getFAQs(item: Item, locale: string) {
           q: `นาฬิกา${item.model}มือสองในไทยราคาเท่าไหร่?`,
           a: vg
             ? `นาฬิกา ${item.model} สภาพดีมากในไทยราคาอยู่ที่ ${formatPriceTHB(vg.min)} ถึง ${formatPriceTHB(vg.max)} ราคาขึ้นอยู่กับรหัสรุ่น ประเภทสาย และครบชุดหรือไม่`
-            : `ราคา ${item.model} มือสองขึ้นอยู่กับรหัสรุ่น สภาพ และอุปกรณ์ประกอบ ดูราคาปัจจุบันได้ที่ Carousell TH และ C2C.in.th`,
+            : `ราคา ${item.model} มือสองขึ้นอยู่กับรหัสรุ่น สภาพ และการมีกล่องใบครบ ควรเทียบราคาตั้งขายจากร้านนาฬิกามือสองในไทยหลายร้าน`,
         },
         {
           q: `ซื้อนาฬิกา${item.model}มือสองควรดูอะไร?`,
@@ -252,7 +254,7 @@ function getFAQs(item: Item, locale: string) {
       },
       {
         q: `Where is the best place to buy pre-owned ${item.brand} in Thailand?`,
-        a: `Carousell TH, Facebook Marketplace TH, and C2C.in.th are the top platforms for pre-owned ${item.brand} in Thailand.`,
+        a: `Established Thai resale dealers with physical shops and public catalogues are the most reliable route for pre-owned ${item.brand} — you can inspect before paying and compare asking prices across shops.`,
       },
     ]
   }
@@ -269,7 +271,7 @@ function getFAQs(item: Item, locale: string) {
     },
     {
       q: `ซื้อ${item.brand}มือสองที่ไหนดีในไทย?`,
-      a: `Carousell TH Facebook Marketplace TH และ C2C.in.th เป็นแพลตฟอร์มที่ดีที่สุดสำหรับสินค้า ${item.brand} มือสองในไทย`,
+      a: `ร้านมือสองในไทยที่มีหน้าร้านจริงและเปิดเผยแคตตาล็อกออนไลน์ เป็นช่องทางที่น่าเชื่อถือที่สุดสำหรับสินค้า ${item.brand} มือสอง — ดูของก่อนจ่ายเงินและเทียบราคาหลายร้านได้`,
     },
   ]
 }
@@ -297,8 +299,15 @@ export default async function ModelPage({ params }: Props) {
 
   // Product + AggregateOffer schema
   const allPrices = Object.values(item.price_ranges).filter(Boolean) as PriceRange[]
-  const lowPrice = allPrices.length ? Math.min(...allPrices.map(r => r.min)) : 0
-  const highPrice = allPrices.length ? Math.max(...allPrices.map(r => r.max)) : 0
+  // The figure this page stands behind — Thai dealer listings where they
+  // exist, the international dataset otherwise. Everything below reads this
+  // rather than price_ranges directly, so the headline, the schema and the
+  // share text cannot drift apart from each other.
+  const market = marketPrice(item)
+  const thaiEntry = getThaiEntry(item.slug)
+
+  const lowPrice = market?.range?.min ?? (allPrices.length ? Math.min(...allPrices.map(r => r.min)) : 0)
+  const highPrice = market?.range?.max ?? (allPrices.length ? Math.max(...allPrices.map(r => r.max)) : 0)
 
   const productSchema = {
     '@context': 'https://schema.org',
@@ -311,7 +320,9 @@ export default async function ModelPage({ params }: Props) {
       priceCurrency: 'THB',
       lowPrice,
       highPrice,
-      offerCount: item.price_samples.length,
+      // Count the offers this figure is actually built from, not the whole
+      // sample history: with Thai data that is the live dealer listings.
+      offerCount: market?.n ?? item.price_samples.length,
       availability: 'https://schema.org/InStock',
       url: `${BASE}/${locale}/${item.slug}`,
     },
@@ -358,8 +369,12 @@ export default async function ModelPage({ params }: Props) {
     inLanguage: locale === 'th' ? 'th-TH' : 'en-US',
   }
   const shareTitle = `Used ${item.brand} ${item.model} — Price in Thailand`
-  const shareText = vg
-    ? `Pre-owned ${item.brand} ${item.model}: avg ${formatPriceTHB(getAvgPrice(vg))} on Carousell TH`
+  // Said "on Carousell TH" for a year. Nothing on this site has ever come
+  // from Carousell — name the source the number really has, or none.
+  const shareText = market
+    ? market.basis === 'thai'
+      ? `Pre-owned ${item.brand} ${item.model}: ${formatPriceTHB(market.value)} at Thai dealers`
+      : `Pre-owned ${item.brand} ${item.model}: around ${formatPriceTHB(market.value)}`
     : `Pre-owned ${item.brand} ${item.model} prices in Thailand`
 
   return (
@@ -368,7 +383,7 @@ export default async function ModelPage({ params }: Props) {
         slug={item.slug}
         brand={item.brand}
         model={item.model}
-        priceText={vg ? formatPriceTHB(getAvgPrice(vg)) : '–'}
+        priceText={market ? formatPriceTHB(market.value) : '–'}
       />
       <script
         type="application/ld+json"
@@ -404,10 +419,14 @@ export default async function ModelPage({ params }: Props) {
 
       {/* Price Hero */}
       {(() => {
-        const headline = headlinePrice(item.price_ranges)
-        const vg = headline?.range ?? null
-        const savingsPct = vg && item.retail_price_thb > 0
-          ? Math.round(((item.retail_price_thb - (vg.min + vg.max) / 2) / item.retail_price_thb) * 100)
+        // The headline is whatever describes the Thai market best. Where Thai
+        // dealers list this exact reference, that is their median; otherwise
+        // it falls back to the international dataset and the label says so.
+        // Leading with the international figure is what put 579,000-767,000
+        // THB on a Datejust 41 that sells here for 399,000.
+        const vg = market?.range ?? null
+        const savingsPct = market && item.retail_price_thb > 0
+          ? Math.round(((item.retail_price_thb - market.value) / item.retail_price_thb) * 100)
           : null
         const vestiaire = `https://www.vestiairecollective.com/search/?q=${encodeURIComponent(item.brand + ' ' + item.model)}`
         const ebay = `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(item.brand + ' ' + item.model)}`
@@ -418,10 +437,19 @@ export default async function ModelPage({ params }: Props) {
           very_good: locale === 'th' ? 'สภาพดีมาก' : 'Very Good',
           good: locale === 'th' ? 'สภาพดี' : 'Good',
         }
-        const gradeText = gradeLabel[headline?.condition ?? 'very_good']
-        const priceLabel = locale === 'th'
-          ? `ราคาตลาดปัจจุบัน — ${gradeText}`
-          : `Current Market Price — ${gradeText} Condition`
+        const gradeText = gradeLabel[market?.condition ?? 'very_good']
+        const priceLabel =
+          market?.basis === 'thai'
+            ? (locale === 'th'
+              ? `ราคาตลาดไทย — จากร้านไทย ${market.n} รายการ`
+              : `Thai Market Price — ${market.n} dealer listings`)
+            : market?.basis === 'thai_family'
+              ? (locale === 'th'
+                ? `ราคาร้านไทย — ${market.familyLabel} ทุกขนาด ${market.n} รายการ`
+                : `Thai Dealers — ${market.familyLabel}, all sizes, ${market.n} listings`)
+              : (locale === 'th'
+                ? `ราคาอ้างอิงต่างประเทศ — ${gradeText}`
+                : `International Reference — ${gradeText} Condition`)
         const shopLabel = locale === 'th' ? 'ช้อปบน Vestiaire →' : 'Shop on Vestiaire →'
         const searchLabel = locale === 'th' ? 'ค้นหาบน eBay' : 'Search eBay'
         const savingsLabel = (pct: number) => locale === 'th' ? `ประหยัด ~${pct}% จากราคาใหม่` : `~${pct}% below retail`
@@ -434,8 +462,21 @@ export default async function ModelPage({ params }: Props) {
             {vg ? (
               <>
                 <div className="flex items-baseline gap-3 mb-2">
-                  <span className="text-4xl font-light">{formatPriceTHB(getAvgPrice(vg))}</span>
+                  {market!.basis === 'thai_family' && market!.range ? (
+                    <span className="text-3xl font-light">
+                      {formatPriceTHB(market!.range.min)} – {formatPriceTHB(market!.range.max)}
+                    </span>
+                  ) : (
+                    <span className="text-4xl font-light">{formatPriceTHB(market!.value)}</span>
+                  )}
                 </div>
+                {market!.basis === 'thai_family' && (
+                  <p className="text-[#C8A97E] text-xs mb-2 leading-relaxed max-w-xl">
+                    {locale === 'th'
+                      ? `ร้านไทยมักไม่ระบุขนาดในชื่อสินค้า ช่วงนี้จึงครอบคลุม ${market!.familyLabel} ทุกขนาด ไม่ใช่ ${item.model} โดยเฉพาะ (กลาง ${formatPriceTHB(market!.value)})`
+                      : `Thai dealers rarely put the size in the title, so this covers every ${market!.familyLabel} they listed rather than the ${item.model} alone (median ${formatPriceTHB(market!.value)}).`}
+                  </p>
+                )}
                 {savingsPct !== null && savingsPct > 0 && (
                   <p className="text-[#6EBF8B] text-sm mb-1">
                     {savingsLabel(savingsPct)} ({formatPriceTHB(item.retail_price_thb)} {locale === 'th' ? 'ราคาใหม่' : 'new'})
@@ -546,6 +587,28 @@ export default async function ModelPage({ params }: Props) {
           lastUpdated: tCommon('last_updated', { date: item.last_updated }),
         }}
       />
+      <div id="thai-market">
+        <ThaiMarketPanel item={item} locale={locale} />
+      </div>
+
+      {/* The other half of this query. Someone reading a price is as likely to
+          own one as to want one, and the sell page is invisible to crawlers
+          unless the buy page points at it. */}
+      {thaiEntry && (
+        <div className="my-6 p-4 bg-[#F5F0E8] border border-[#E8E2D9] flex flex-wrap items-center justify-between gap-3">
+          <p className="text-sm text-[#6B6052]">
+            {locale === 'th'
+              ? `มี ${item.model} อยู่แล้วและอยากขาย?`
+              : `Already own a ${item.model}?`}
+          </p>
+          <Link
+            href={`/${locale}/sell/${item.slug}`}
+            className="shrink-0 px-4 py-2 border border-[#1A1A1A] text-[#1A1A1A] text-xs tracking-wide hover:bg-[#1A1A1A] hover:text-white transition-colors"
+          >
+            {locale === 'th' ? 'ดูว่าขายได้เท่าไหร่ →' : 'See what yours is worth →'}
+          </Link>
+        </div>
+      )}
       <PriceHistory samples={item.price_samples} locale={locale} />
       <ConditionGuide locale={locale} />
 
@@ -575,7 +638,7 @@ export default async function ModelPage({ params }: Props) {
         </section>
       )}
 
-      <AffiliateCTA item={item} ctaLabel={tCommon('cta_carousell')} />
+      <AffiliateCTA item={item} ctaLabel={tCommon('cta_thai_listings')} locale={locale} />
 
       {/* AdSense slot — middle */}
       <div className="my-6" />
@@ -630,17 +693,25 @@ export default async function ModelPage({ params }: Props) {
 
       {/* Mobile sticky CTA bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E8E2D9] p-3 flex gap-2 sm:hidden z-50">
-        <a
-          href={item.affiliate_links?.carousell
-            ? item.affiliate_links.carousell + '?utm_source=chicpreowned.com&utm_medium=referral&utm_campaign=price-guide'
-            : `https://www.carousell.co.th/search/${encodeURIComponent(item.brand + ' ' + item.model)}/?utm_source=chicpreowned.com&utm_medium=referral&utm_campaign=price-guide`
-          }
-          target="_blank"
-          rel="noopener noreferrer sponsored"
-          className="flex-1 bg-[#1A1A1A] text-white text-sm font-medium rounded py-2.5 text-center"
-        >
-          {tCommon('cta_carousell')}
-        </a>
+        {/* Was a link to carousell.co.th, which does not resolve. Send people
+            to the listings on this page, or to the dealers if there are none. */}
+        {thaiEntry?.listings.length ? (
+          <a
+            href="#thai-market"
+            className="flex-1 bg-[#1A1A1A] text-white text-sm font-medium rounded py-2.5 text-center"
+          >
+            {locale === 'th'
+              ? `ดูราคาร้านไทย ${thaiEntry.listings.length} รายการ`
+              : `See ${thaiEntry.listings.length} Thai listings`}
+          </a>
+        ) : (
+          <Link
+            href={`/${locale}/dealers`}
+            className="flex-1 bg-[#1A1A1A] text-white text-sm font-medium rounded py-2.5 text-center"
+          >
+            {locale === 'th' ? 'ร้านที่เราติดตามราคา' : 'Dealers we track'}
+          </Link>
+        )}
       </div>
     </>
   )

@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const faqsEn = [
   {
     q: 'Where can I buy pre-owned Dior in Thailand?',
-    a: 'The most reliable platforms for authenticated pre-owned Dior in Thailand are Vestiaire Collective (ships internationally with authentication), Carousell Thailand (local, more affordable, less authentication), and dedicated luxury resellers in Bangkok such as those in Emporium and Central Embassy. Always request an authenticity card or certificate.',
+    a: 'The most reliable platforms for authenticated pre-owned Dior in Thailand are Vestiaire Collective (ships internationally with authentication), established Thai resale dealers with public catalogues such as UsedBrand88 and Brandname Voyage (local, more affordable, and you can inspect the bag in person), and dedicated luxury resellers in Bangkok such as those in Emporium and Central Embassy. Always request an authenticity card or certificate.',
   },
   {
     q: 'How do I authenticate a Lady Dior bought in Thailand?',
@@ -35,7 +35,7 @@ const faqsEn = [
   },
   {
     q: 'Are pre-owned Dior prices cheaper in Thailand than abroad?',
-    a: 'Pre-owned Dior prices in Thailand (THB) often track closely with international USD prices converted at current exchange rates. Local Carousell listings can be 10–20% cheaper than Vestiaire due to lower overhead, but authentication risk is higher. Japanese pre-owned platforms (Mercari JP, brand resellers) sometimes offer better value including shipping.',
+    a: 'Pre-owned Dior prices in Thailand (THB) often track closely with international USD prices converted at current exchange rates. Listings at Thai dealers are already quoted in baht with no cross-border shipping or import duty on top, which is often what makes them look cheaper than Vestiaire. Japanese pre-owned platforms (Mercari JP, brand resellers) sometimes offer better value including shipping.',
   },
   {
     q: 'Which Dior bag is most popular in the Thai pre-owned market?',
@@ -46,7 +46,7 @@ const faqsEn = [
 const faqsTh = [
   {
     q: 'ซื้อ Dior มือสองในไทยได้ที่ไหน?',
-    a: 'แพลตฟอร์มที่น่าเชื่อถือที่สุดสำหรับ Dior มือสองในไทยคือ Vestiaire Collective (ส่งระหว่างประเทศพร้อมการตรวจสอบความแท้), Carousell ไทย (ในประเทศ ราคาถูกกว่า แต่การตรวจสอบน้อยกว่า) และร้านค้า luxury reseller ในกรุงเทพฯ เช่น ในเอ็มโพเรียมและเซ็นทรัล เอ็มบาสซี ควรขอใบรับรองความแท้ทุกครั้ง',
+    a: 'แพลตฟอร์มที่น่าเชื่อถือที่สุดสำหรับ Dior มือสองในไทยคือ Vestiaire Collective (ส่งระหว่างประเทศพร้อมการตรวจสอบความแท้), ร้านมือสองในไทยที่มีหน้าร้านจริงและแคตตาล็อกออนไลน์ อย่าง UsedBrand88 และ Brandname Voyage (ในประเทศ ราคาถูกกว่า และดูของจริงได้) และร้านค้า luxury reseller ในกรุงเทพฯ เช่น ในเอ็มโพเรียมและเซ็นทรัล เอ็มบาสซี ควรขอใบรับรองความแท้ทุกครั้ง',
   },
   {
     q: 'วิธีตรวจสอบ Lady Dior ที่ซื้อในไทยว่าของแท้ไหม?',
@@ -54,7 +54,7 @@ const faqsTh = [
   },
   {
     q: 'ราคา Dior มือสองในไทยถูกกว่าต่างประเทศไหม?',
-    a: 'ราคา Dior มือสองในไทย (บาท) มักใกล้เคียงกับราคา USD ระหว่างประเทศที่แปลงตามอัตราแลกเปลี่ยนปัจจุบัน ประกาศใน Carousell ในประเทศอาจถูกกว่า Vestiaire 10–20% เนื่องจากต้นทุนต่ำกว่า แต่ความเสี่ยงด้านการตรวจสอบสูงกว่า แพลตฟอร์มมือสองของญี่ปุ่นบางครั้งให้ราคาที่ดีกว่ารวมค่าส่ง',
+    a: 'ราคา Dior มือสองในไทย (บาท) มักใกล้เคียงกับราคา USD ระหว่างประเทศที่แปลงตามอัตราแลกเปลี่ยนปัจจุบัน ราคาที่ร้านมือสองในไทยตั้งขายเป็นเงินบาทอยู่แล้ว ไม่มีค่าส่งข้ามประเทศและภาษีนำเข้าบวกเพิ่ม จึงมักดูถูกกว่า Vestiaire แพลตฟอร์มมือสองของญี่ปุ่นบางครั้งให้ราคาที่ดีกว่ารวมค่าส่ง',
   },
   {
     q: 'กระเป๋า Dior รุ่นไหนขายดีที่สุดในตลาดมือสองไทย?',

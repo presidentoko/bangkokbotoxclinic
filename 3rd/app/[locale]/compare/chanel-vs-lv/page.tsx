@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -139,6 +140,11 @@ export default async function ChanelVsLvPage({ params }: Props) {
           : 'Chanel และ LV ครองตลาด luxury มือสองในกรุงเทพฯ การรักษามูลค่าที่ยอดเยี่ยมของ Chanel (80–95%) มาพร้อมกับราคาเริ่มต้นที่สูงกว่าและซัพพลายที่จำกัด LV เข้าถึงได้ง่ายกว่าที่ 65–75% มาดูวิธีตัดสินใจ'}
       </p>
 
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'chanel/boy-bag-medium', 'louis-vuitton/neverfull-mm', 'louis-vuitton/speedy-25']}
+        locale={locale}
+      />
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-14">
         {renderItems(chanelItems, 'Chanel', isEn ? '80–95% retained' : 'รักษามูลค่า 80–95%')}
         {renderItems(lvItems, 'Louis Vuitton', isEn ? '65–75% retained' : 'รักษามูลค่า 65–75%')}
@@ -155,7 +161,7 @@ export default async function ChanelVsLvPage({ params }: Props) {
           </div>
           <div className="border-l-2 border-[#E8E2D9] pl-4">
             <p className="font-medium text-[#1A1A1A] mb-1">{isEn ? 'Availability' : 'ความพร้อมจำหน่าย'}</p>
-            <p>{isEn ? 'LV has far greater supply on Carousell TH and Vestiaire. Chanel requires more patience and often sells within hours of listing.' : 'LV มีซัพพลายมากกว่ามากใน Carousell TH และ Vestiaire Chanel ต้องใช้ความอดทนมากกว่าและมักขายหมดภายในไม่กี่ชั่วโมงหลังลงประกาศ'}</p>
+            <p>{isEn ? 'LV has far greater supply at Thai resale dealers and on Vestiaire. Chanel requires more patience and often sells within hours of listing.' : 'LV มีของให้เลือกมากกว่ามากทั้งที่ร้านมือสองในไทยและบน Vestiaire Chanel ต้องใช้ความอดทนมากกว่าและมักขายหมดภายในไม่กี่ชั่วโมงหลังลงประกาศ'}</p>
           </div>
           <div className="border-l-2 border-[#E8E2D9] pl-4">
             <p className="font-medium text-[#1A1A1A] mb-1">{isEn ? 'Entry Price' : 'ราคาเริ่มต้น'}</p>

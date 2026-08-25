@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -59,6 +60,12 @@ export default async function ChanelPriceHistoryTH({ params }: Props) {
           ? 'Classic Flap M/L rose from ฿195,000 in 2019 to ฿357,000 in 2025 — a 83% increase. Here\'s every hike and what it means for Thai pre-owned buyers.'
           : 'Classic Flap M/L เพิ่มจาก 195,000 บาท ในปี 2562 เป็น 357,000 บาท ในปี 2568 — ขึ้น 83% นี่คือการขึ้นราคาทุกครั้งและความหมายสำหรับผู้ซื้อมือสองชาวไทย'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'chanel/classic-flap-mini', 'chanel/boy-bag-medium', 'chanel/19-bag-small']}
+        locale={locale}
+        title={isEn ? 'Where the Thai resale market sits today' : 'ตลาดมือสองไทยอยู่ตรงไหนวันนี้'}
+      />
 
       <section className="mb-10">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">

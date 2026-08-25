@@ -39,7 +39,7 @@ const faqsEn = [
   },
   {
     q: 'Where is the best place to buy pre-owned Gucci in Bangkok?',
-    a: 'Carousell Thailand has the largest local selection of Gucci pre-owned at negotiable prices. Vestiaire Collective offers internationally authenticated pieces shipping to Thailand. For in-person browsing, luxury resellers in Emporium Shopping Centre and Siam Paragon basement often carry authenticated Gucci.',
+    a: 'Thai resale dealers such as UsedBrand88 and Brandname Voyage carry the largest local selection of pre-owned Gucci, at negotiable prices. Vestiaire Collective offers internationally authenticated pieces shipping to Thailand. For in-person browsing, luxury resellers in Emporium Shopping Centre and Siam Paragon basement often carry authenticated Gucci.',
   },
 ]
 
@@ -58,7 +58,7 @@ const faqsTh = [
   },
   {
     q: 'ซื้อ Gucci มือสองที่ไหนดีในกรุงเทพฯ?',
-    a: 'Carousell Thailand มีสินค้า Gucci มือสองในประเทศมากที่สุดในราคาที่ต่อรองได้ Vestiaire Collective มีชิ้นที่ผ่านการตรวจสอบระดับนานาชาติและส่งถึงไทย สำหรับการดูสินค้าด้วยตัวเอง ร้าน luxury reseller ในเอ็มโพเรียมและชั้นใต้ดินสยามพารากอนมักมี Gucci ที่ผ่านการรับรอง',
+    a: 'ร้านมือสองในไทยอย่าง UsedBrand88 และ Brandname Voyage มีสินค้า Gucci มือสองในประเทศให้เลือกมากที่สุด และต่อรองราคาได้ Vestiaire Collective มีชิ้นที่ผ่านการตรวจสอบระดับนานาชาติและส่งถึงไทย สำหรับการดูสินค้าด้วยตัวเอง ร้าน luxury reseller ในเอ็มโพเรียมและชั้นใต้ดินสยามพารากอนมักมี Gucci ที่ผ่านการรับรอง',
   },
 ]
 

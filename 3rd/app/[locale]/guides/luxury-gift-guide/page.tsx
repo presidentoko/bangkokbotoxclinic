@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getItemsUnderBudget, getAvgPrice, formatPriceTHB } from '@/lib/data'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -151,6 +152,12 @@ export default async function LuxuryGiftGuidePage({ params }: Props) {
       <p className="text-sm text-[#8C7355] mb-12">
         {isEn ? `Updated ${PRICE_YEAR}` : 'อัปเดตมิถุนายน 2025'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/classic-card-holder', 'louis-vuitton/card-holder']}
+        locale={locale}
+        title={isEn ? 'What these gifts cost in Thailand right now' : 'ของขวัญเหล่านี้ราคาเท่าไหร่ในไทยตอนนี้'}
+      />
 
       {tier1.length > 0 && (
         <section className="mb-14">

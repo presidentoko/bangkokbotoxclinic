@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getItemBySlug, getAvgPrice, formatPriceTHB } from '@/lib/data'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -163,6 +164,11 @@ export default async function BestBagsForWorkPage({ params }: Props) {
       <p className="text-sm text-[#8C7355] mb-12">
         {isEn ? `Updated ${PRICE_YEAR}` : 'อัปเดตมิถุนายน 2025'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['prada/galleria-small', 'gucci/ophidia-gg-medium']}
+        locale={locale}
+      />
 
       <section className="mb-12">
         <h2

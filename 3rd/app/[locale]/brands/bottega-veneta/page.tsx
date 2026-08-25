@@ -31,11 +31,11 @@ const faqsEn = [
   },
   {
     q: 'What is the best Bottega Veneta bag to buy pre-owned in Thailand?',
-    a: 'The Jodie Small and Cassette Bag are the most popular BV pre-owned picks in Thailand. The Jodie offers casual versatility and the intrecciato craftsmanship is clearly visible. The Cassette with its bold plate clasp is more structured. Both are available on Carousell Thailand and international platforms at 40–60% of retail.',
+    a: 'The Jodie Small and Cassette Bag are the most popular BV pre-owned picks in Thailand. The Jodie offers casual versatility and the intrecciato craftsmanship is clearly visible. The Cassette with its bold plate clasp is more structured. Both turn up at Thai resale dealers and on international platforms at 40–60% of retail.',
   },
   {
     q: 'Is Bottega Veneta popular in the Thai luxury market?',
-    a: 'Yes — BV has grown significantly in Thailand since the Daniel Lee era (2018–2021). The brand resonates with Thai buyers who appreciate quiet luxury without overt logos. Bangkok boutiques have strong BV sales, and the pre-owned market in Thailand reflects this with steady demand on Carousell and LINE groups.',
+    a: 'Yes — BV has grown significantly in Thailand since the Daniel Lee era (2018–2021). The brand resonates with Thai buyers who appreciate quiet luxury without overt logos. Bangkok boutiques have strong BV sales, and the pre-owned market in Thailand reflects this with steady demand at local resale dealers and in LINE groups.',
   },
   {
     q: 'What colorways hold value best for BV in Thailand?',
@@ -50,11 +50,11 @@ const faqsTh = [
   },
   {
     q: 'กระเป๋า Bottega Veneta รุ่นไหนควรซื้อมือสองในไทย?',
-    a: 'Jodie Small และ Cassette Bag เป็นตัวเลือก BV มือสองที่ได้รับความนิยมมากที่สุดในไทย Jodie มีความหลากหลายในการใช้งานและแสดงฝีมือ intrecciato ได้ชัดเจน Cassette ที่มีที่กดแบบแผ่นมีโครงสร้างมากกว่า ทั้งคู่มีจำหน่ายใน Carousell ไทยและแพลตฟอร์มระหว่างประเทศที่ 40–60% ของราคาใหม่',
+    a: 'Jodie Small และ Cassette Bag เป็นตัวเลือก BV มือสองที่ได้รับความนิยมมากที่สุดในไทย Jodie มีความหลากหลายในการใช้งานและแสดงฝีมือ intrecciato ได้ชัดเจน Cassette ที่มีที่กดแบบแผ่นมีโครงสร้างมากกว่า ทั้งคู่หาซื้อได้จากร้านมือสองในไทยและแพลตฟอร์มต่างประเทศที่ 40–60% ของราคาใหม่',
   },
   {
     q: 'Bottega Veneta ได้รับความนิยมในตลาด luxury ไทยไหม?',
-    a: 'ใช่ — BV เติบโตอย่างมากในไทยตั้งแต่ยุค Daniel Lee (2018–2021) แบรนด์ตอบสนองผู้ซื้อชาวไทยที่ชื่นชอบ quiet luxury โดยไม่มีโลโก้ที่โดดเด่น บูติกในกรุงเทพฯ มียอดขาย BV ที่แข็งแกร่ง และตลาดมือสองในไทยสะท้อนสิ่งนี้ด้วยความต้องการที่สม่ำเสมอบน Carousell และกลุ่ม LINE',
+    a: 'ใช่ — BV เติบโตอย่างมากในไทยตั้งแต่ยุค Daniel Lee (2018–2021) แบรนด์ตอบสนองผู้ซื้อชาวไทยที่ชื่นชอบ quiet luxury โดยไม่มีโลโก้ที่โดดเด่น บูติกในกรุงเทพฯ มียอดขาย BV ที่แข็งแกร่ง และตลาดมือสองในไทยสะท้อนสิ่งนี้ด้วยความต้องการที่สม่ำเสมอทั้งที่ร้านรับซื้อ-ฝากขายและในกลุ่ม LINE',
   },
   {
     q: 'สีไหนรักษามูลค่าได้ดีที่สุดสำหรับ BV ในไทย?',

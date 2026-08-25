@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { formatPriceTHB } from '@/lib/data'
 import { getBrandStats } from '@/lib/brand-stats'
+import { getThaiBrand } from '@/lib/thai-market'
 
 /**
  * Answers "what does this brand actually cost in Thailand" above the grid.
@@ -53,6 +54,20 @@ export function BrandPriceSummary({
         : `highest ${s.aboveRetail[0].item.model} +${s.aboveRetail[0].premiumPct}%`,
     })
   }
+  // What the Thai shops themselves are carrying, alongside our tracked models.
+  // The quartiles rather than the extremes: a maison's shelf runs from card
+  // holders to grand complications, so its min and max describe nothing.
+  const thaiBrand = getThaiBrand(brandSlug)
+  if (thaiBrand) {
+    cards.push({
+      label: th ? 'ที่ร้านไทยตั้งขายจริง' : 'On Thai dealers’ shelves',
+      value: `${formatPriceTHB(thaiBrand.p25)} – ${formatPriceTHB(thaiBrand.p75)}`,
+      note: th
+        ? `ช่วงราคาส่วนใหญ่จาก ${thaiBrand.n} ประกาศ ทุกประเภทสินค้า`
+        : `where most of ${thaiBrand.n} listings sit, across every item type`,
+    })
+  }
+
   if (!cards.length) return null
 
   return (
@@ -109,8 +124,18 @@ export function BrandPriceSummary({
 
       <p className="text-xs text-[#9C8B7A] mt-3">
         {th
-          ? `คำนวณจากประกาศขายจริง ${s.sampleCount.toLocaleString()} รายการใน ${s.tracked} รุ่น · อัปเดต ${s.updated}`
-          : `Computed from ${s.sampleCount.toLocaleString()} tracked listings across ${s.tracked} models · updated ${s.updated}`}
+          ? `คำนวณจากประกาศขายจริง ${s.sampleCount.toLocaleString()} รายการใน ${s.tracked} รุ่น · อัปเดต ${s.updated} · `
+          : `Computed from ${s.sampleCount.toLocaleString()} tracked listings across ${s.tracked} models · updated ${s.updated} · `}
+        <Link href={`/${locale}/dealers`} className="underline hover:text-[#6B6052]">
+          {th ? 'แหล่งข้อมูล' : 'sources'}
+        </Link>
+      </p>
+
+      <p className="text-sm text-[#6B6052] mt-4">
+        {th ? 'มี ' : 'Own one? '}
+        <Link href={`/${locale}/sell/${brandSlug}`} className="underline hover:text-[#8C7355]">
+          {th ? `${s.brandName} อยู่แล้วอยากขาย?` : `See what your ${s.brandName} is worth`}
+        </Link>
       </p>
     </section>
   )

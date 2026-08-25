@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -66,6 +67,11 @@ export default async function ChanelVsCelineTH({ params }: Props) {
           ? 'Both French luxury houses — completely opposite design philosophies. Chanel is maximum logo. Celine is maximum understatement. For Thai buyers: Chanel wins on investment and resale; Celine wins on design credibility and entry price.'
           : 'ทั้งสองเมซองหรูฝรั่งเศส ปรัชญาการออกแบบตรงกันข้ามโดยสิ้นเชิง Chanel โลโก้สูงสุด Celine ความเรียบง่ายสูงสุด สำหรับผู้ซื้อชาวไทย Chanel ชนะด้านการลงทุนและมือสอง Celine ชนะด้านความน่าเชื่อถือด้านการออกแบบและราคาเริ่มต้น'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'chanel/boy-bag-medium', 'celine/ava-mini', 'celine/belt-bag-mini']}
+        locale={locale}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

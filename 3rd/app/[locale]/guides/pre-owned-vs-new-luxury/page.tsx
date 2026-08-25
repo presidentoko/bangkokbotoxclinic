@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -54,6 +55,12 @@ export default async function PreOwnedVsNewTH({ params }: Props) {
         {isEn ? 'Thailand\'s luxury market is unique — import duty on new goods, strong grey market, and a very active pre-owned community. Here\'s when pre-owned wins.'
           : 'ตลาด luxury ไทยไม่เหมือนที่อื่น — ภาษีนำเข้าของใหม่ Grey market แข็งแกร่ง และชุมชนมือสองที่คึกคัก นี่คือเมื่อไหรที่มือสองชนะ'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'louis-vuitton/neverfull-mm', 'rolex/submariner']}
+        locale={locale}
+        title={isEn ? 'What pre-owned actually costs in Thailand' : 'มือสองราคาเท่าไหร่จริงในไทย'}
+      />
 
       <section className="mb-10">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">{isEn ? 'Price Comparison (THB 2025)' : 'เปรียบราคา (บาท 2025)'}</h2>

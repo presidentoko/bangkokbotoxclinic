@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -56,6 +57,11 @@ export default async function ChanelVsBVTH({ params }: Props) {
         {isEn ? 'Loud vs quiet luxury — maximum recognition vs no-logo intrecciato weave. Which is the better pre-owned buy for Thai buyers?'
           : 'Luxury ดัง vs หรูเงียบ — การรับรู้สูงสุด vs ถักลายไม่มีโลโก้ อันไหนเป็นการซื้อมือสองที่ดีกว่าสำหรับคนไทย?'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'chanel/boy-bag-medium', 'bottega-veneta/cassette-bag', 'bottega-veneta/mini-pouch']}
+        locale={locale}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

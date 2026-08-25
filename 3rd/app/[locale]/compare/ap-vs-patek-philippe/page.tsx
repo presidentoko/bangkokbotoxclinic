@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPriceTHB } from '@/lib/data'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -63,6 +64,11 @@ export default async function APvsPatekTH({ params }: Props) {
           ? 'Both above retail. Both designed by Gerald Genta. The Royal Oak and Nautilus share DNA — here\'s how they differ in the Thai market.'
           : 'ทั้งคู่ขายเกิน retail ทั้งคู่ออกแบบโดย Gerald Genta Royal Oak และ Nautilus มีต้นกำเนิดเดียวกัน — นี่คือสิ่งที่แตกต่างในตลาดไทย'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['audemars-piguet/royal-oak-15500', 'patek-philippe/nautilus-5711']}
+        locale={locale}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

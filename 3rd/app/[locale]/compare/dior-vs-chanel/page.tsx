@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const faqsEn = [
   {
     q: 'Does Chanel or Dior hold value better in Thailand?',
-    a: 'Chanel holds value better globally and in Thailand. Classic Flap and Boy Bag typically retain 80–95% of retail. Pre-owned Dior retains 50–70% on classic models (Lady Dior, Saddle). In the Thai market, Chanel supply is more limited which can push prices higher on Carousell Thailand.',
+    a: 'Chanel holds value better globally and in Thailand. Classic Flap and Boy Bag typically retain 80–95% of retail. Pre-owned Dior retains 50–70% on classic models (Lady Dior, Saddle). In the Thai market, Chanel supply is more limited which can push prices higher at Thai resale dealers.',
   },
   {
     q: 'Is pre-owned Dior more affordable than Chanel in Thailand?',
@@ -46,7 +47,7 @@ const faqsEn = [
 const faqsTh = [
   {
     q: 'Chanel หรือ Dior รักษามูลค่าได้ดีกว่าในไทย?',
-    a: 'Chanel รักษามูลค่าได้ดีกว่าทั้งในระดับโลกและในไทย Classic Flap และ Boy Bag มักรักษาไว้ 80–95% ของราคาใหม่ Dior มือสองรักษาไว้ 50–70% สำหรับรุ่นคลาสสิก (Lady Dior, Saddle) ในตลาดไทย ซัพพลาย Chanel มีจำกัดกว่าซึ่งอาจดันราคาขึ้นบน Carousell ไทย',
+    a: 'Chanel รักษามูลค่าได้ดีกว่าทั้งในระดับโลกและในไทย Classic Flap และ Boy Bag มักรักษาไว้ 80–95% ของราคาใหม่ Dior มือสองรักษาไว้ 50–70% สำหรับรุ่นคลาสสิก (Lady Dior, Saddle) ในตลาดไทย ซัพพลาย Chanel มีจำกัดกว่าซึ่งอาจดันราคาที่ร้านมือสองในไทยให้สูงขึ้น',
   },
   {
     q: 'Dior มือสองถูกกว่า Chanel ในไทยไหม?',
@@ -159,6 +160,12 @@ export default async function DiorVsChanelThPage({ params }: Props) {
           : 'Chanel รักษามูลค่าได้ดีกว่า (80–95%) แต่ราคาสูงกว่ามาก Dior นำเสนอดีไซน์ luxury อันเป็นเอกลักษณ์ที่การรักษามูลค่า 50–70% และราคาเริ่มต้นที่ต่ำกว่ามาก ในไทย ทั้งสองแบรนด์มีตัวแทนที่ดีในตลาดมือสองของกรุงเทพฯ'}
       </p>
 
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'chanel/boy-bag-medium']}
+        locale={locale}
+        title={isEn ? 'Chanel at Thai dealer prices right now' : 'ราคา Chanel ที่ร้านไทยตั้งขายตอนนี้'}
+      />
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-14">
         {renderItems(diorItems, 'dior', isEn ? `${diorStats.avgRetentionPct}% retained` : `รักษามูลค่า ${diorStats.avgRetentionPct}%`)}
         {renderItems(chanelItems, 'chanel', isEn ? `${chanelStats.avgRetentionPct}% retained` : `รักษามูลค่า ${chanelStats.avgRetentionPct}%`)}
@@ -179,7 +186,7 @@ export default async function DiorVsChanelThPage({ params }: Props) {
           </div>
           <div className="border-l-2 border-[#E8E2D9] pl-4">
             <p className="font-medium text-[#1A1A1A] mb-1">{isEn ? 'Thai Market Availability' : 'ความพร้อมจำหน่ายในตลาดไทย'}</p>
-            <p>{isEn ? 'Both available on Carousell Thailand. Dior has wider local selection. Chanel is more sought-after and sells faster.' : 'ทั้งสองมีจำหน่ายใน Carousell ไทย Dior มีตัวเลือกในประเทศที่กว้างกว่า Chanel เป็นที่ต้องการมากกว่าและขายได้เร็วกว่า'}</p>
+            <p>{isEn ? 'Both available at Thai resale dealers. Dior has wider local selection. Chanel is more sought-after and sells faster.' : 'ทั้งสองหาซื้อได้ที่ร้านมือสองในไทย Dior มีตัวเลือกในประเทศที่กว้างกว่า Chanel เป็นที่ต้องการมากกว่าและขายได้เร็วกว่า'}</p>
           </div>
         </div>
       </section>

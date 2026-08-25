@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPriceTHB } from '@/lib/data'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -58,6 +59,11 @@ export default async function LVVsCelineTH({ params }: Props) {
           ? 'LV is monogram-forward with massive Thai market demand; Céline (Philo era) is minimalist with a niche but dedicated following. Very different dynamics for Thai buyers.'
           : 'LV มีโลโก้ชัดเจนและความต้องการตลาดไทยสูงมาก Céline (ยุค Philo) เป็นมินิมัลด้วยผู้ติดตามที่เฉพาะแต่ทุ่มเท พลวัตต่างกันมากสำหรับคนไทย'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['louis-vuitton/neverfull-mm', 'louis-vuitton/speedy-25', 'celine/ava-mini', 'celine/belt-bag-mini']}
+        locale={locale}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

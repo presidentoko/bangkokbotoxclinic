@@ -132,3 +132,6 @@ web-cf/.open-next-stale-*/
 # petfood price run artefacts
 petfood/lazada_prices.log
 logs/leaky-services.log
+
+# Raw dealer sweep — 3MB of upstream catalogue, recomputed on every run
+3rd/scraper/.cache/

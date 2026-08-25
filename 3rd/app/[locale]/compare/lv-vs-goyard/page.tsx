@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -67,6 +68,12 @@ export default async function LVvsGoyardTH({ params }: Props) {
           ? 'Both use printed canvas as their signature material. Both are Paris houses. But LV is the most recognized luxury brand on earth; Goyard is the intentionally obscure alternative. The choice reveals your relationship with visibility.'
           : 'ทั้งคู่ใช้ผ้าพิมพ์เป็นวัสดุเด่น ทั้งคู่เป็นเมซองปารีส แต่ LV คือแบรนด์หรูที่มีคนรู้จักมากที่สุดในโลก Goyard คือทางเลือกที่ตั้งใจไม่เป็นที่รู้จัก การเลือกเผยถึงความสัมพันธ์ของคุณกับการมองเห็น'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['louis-vuitton/neverfull-mm', 'louis-vuitton/speedy-25']}
+        locale={locale}
+        title={isEn ? 'Louis Vuitton at Thai dealer prices right now' : 'ราคา Louis Vuitton ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

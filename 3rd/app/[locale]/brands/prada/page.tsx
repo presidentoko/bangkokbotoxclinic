@@ -31,7 +31,7 @@ const faqsEn = [
   },
   {
     q: 'Where can I buy pre-owned Prada in Bangkok?',
-    a: "Bangkok has a growing pre-owned luxury scene. Check Carousell Thailand for local listings, luxury resellers in Siam Paragon and Emporium, and LINE group marketplaces. For authenticated pieces with guarantees, Vestiaire Collective ships to Thailand within 1–2 weeks.",
+    a: "Bangkok has a growing pre-owned luxury scene. Check Thai resale dealers such as UsedBrand88 and Brandname Voyage for local listings, luxury resellers in Siam Paragon and Emporium, and LINE group marketplaces. For authenticated pieces with guarantees, Vestiaire Collective ships to Thailand within 1–2 weeks.",
   },
   {
     q: 'Which Prada bag is most popular in Thailand?',
@@ -50,7 +50,7 @@ const faqsTh = [
   },
   {
     q: 'ซื้อ Prada มือสองในกรุงเทพฯ ได้ที่ไหน?',
-    a: 'กรุงเทพฯ มีตลาด luxury มือสองที่เติบโตขึ้น ตรวจสอบ Carousell ไทยสำหรับรายการในประเทศ ร้านค้า luxury reseller ใน Siam Paragon และ Emporium และกลุ่มซื้อขาย LINE สำหรับสินค้าที่ผ่านการตรวจสอบพร้อมการรับประกัน Vestiaire Collective ส่งถึงไทยภายใน 1–2 สัปดาห์',
+    a: 'กรุงเทพฯ มีตลาด luxury มือสองที่เติบโตขึ้น ลองดูร้านมือสองในไทยอย่าง UsedBrand88 และ Brandname Voyage สำหรับสินค้าในประเทศ ร้านค้า luxury reseller ใน Siam Paragon และ Emporium และกลุ่มซื้อขาย LINE สำหรับสินค้าที่ผ่านการตรวจสอบพร้อมการรับประกัน Vestiaire Collective ส่งถึงไทยภายใน 1–2 สัปดาห์',
   },
   {
     q: 'กระเป๋า Prada รุ่นไหนได้รับความนิยมมากที่สุดในไทย?',

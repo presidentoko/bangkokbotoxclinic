@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -68,6 +69,12 @@ export default async function RolexVsTudorTH({ params }: Props) {
           ? 'Tudor was created by Rolex\'s founder in 1926 as an accessible alternative. Both use the same Oystersteel — but resale performance is dramatically different. Bangkok boutique context and THB pricing included.'
           : 'Tudor ถูกสร้างโดยผู้ก่อตั้ง Rolex ในปี 1926 เป็นทางเลือกที่เข้าถึงได้มากกว่า ทั้งคู่ใช้ Oystersteel เดียวกัน แต่ผลการขายต่อแตกต่างกันอย่างมาก รวมบริบทบูทีคกรุงเทพและราคาบาท'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['rolex/submariner', 'rolex/datejust-36']}
+        locale={locale}
+        title={isEn ? 'Rolex at Thai dealer prices right now' : 'ราคา Rolex ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

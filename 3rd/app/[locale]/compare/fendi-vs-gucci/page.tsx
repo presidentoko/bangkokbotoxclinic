@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -69,6 +70,12 @@ export default async function FendiVsGucciTH({ params }: Props) {
           ? 'Both Italian luxury giants with century-long histories. In the pre-owned market, Fendi\'s consistent LVMH-era positioning gives it a slight edge over Gucci, which has been volatile through creative director changes since 2019.'
           : 'ทั้งสองยักษ์ใหญ่หรูอิตาลีที่มีประวัติศาสตร์นานหนึ่งศตวรรษ ในตลาดมือสอง การวางตำแหน่งที่สม่ำเสมอในยุค LVMH ของ Fendi ให้ข้อได้เปรียบเล็กน้อยเหนือ Gucci ที่ผันผวนผ่านการเปลี่ยนผู้อำนวยการสร้างสรรค์ตั้งแต่ปี 2019'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['gucci/horsebit-1955-small-bag', 'gucci/jackie-1961-small', 'gucci/ophidia-gg-medium']}
+        locale={locale}
+        title={isEn ? 'Gucci at Thai dealer prices right now' : 'ราคา Gucci ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

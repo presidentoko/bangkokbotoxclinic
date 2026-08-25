@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -93,6 +94,11 @@ export default async function LvAlmaVsSpeedyTH({ params }: Props) {
           ? 'Both are Louis Vuitton icons with nearly a century of history. The Alma is rigid Art Deco architecture; the Speedy is relaxed barrel freedom. The decision ultimately comes down to structure preference and whether you need a shoulder strap.'
           : 'ทั้งสองเป็นสัญลักษณ์ของ Louis Vuitton ที่มีประวัติศาสตร์เกือบหนึ่งศตวรรษ Alma คือสถาปัตยกรรม Art Deco แข็งแรง Speedy คือความอิสระทรงถังผ่อนคลาย การตัดสินใจขึ้นอยู่กับความชอบโครงสร้างและว่าต้องการสายสะพายไหล่หรือไม่'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['louis-vuitton/alma-bb', 'louis-vuitton/speedy-25']}
+        locale={locale}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

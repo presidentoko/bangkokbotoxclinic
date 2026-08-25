@@ -8,18 +8,21 @@ export function EmailCapture({ locale }: { locale: string }) {
   const copy = {
     en: {
       title: 'Weekly Price Updates',
-      desc: 'Get notified when prices drop. No spam, unsubscribe anytime.',
+      // Promises only what exists. There is no scheduled mail job on this
+      // site, so "get notified when prices drop" was an alert nobody could
+      // ever have received.
+      desc: 'Leave your email for the weekly Thai price update. No spam, unsubscribe anytime.',
       placeholder: 'your@email.com',
       btn: 'Notify me',
-      done: "You're on the list ✓",
+      done: "Saved — you're on the list ✓",
       error: 'Something went wrong. Try again.',
     },
     th: {
       title: 'อัปเดตราคาทุกสัปดาห์',
-      desc: 'รับแจ้งเตือนเมื่อราคาลดลง ไม่มีสแปม ยกเลิกได้ทุกเมื่อ',
+      desc: 'ฝากอีเมลไว้เพื่อรับอัปเดตราคาตลาดไทยรายสัปดาห์ ไม่มีสแปม ยกเลิกได้ทุกเมื่อ',
       placeholder: 'อีเมลของคุณ',
       btn: 'แจ้งฉัน',
-      done: 'คุณอยู่ในรายการแล้ว ✓',
+      done: 'บันทึกแล้ว ✓',
       error: 'เกิดข้อผิดพลาด ลองใหม่อีกครั้ง',
     },
   }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -67,6 +68,12 @@ export default async function HermesVsGoyardTH({ params }: Props) {
           ? 'Both Paris maisons founded within 16 years of each other. Both serve ultra-discerning buyers. But the buyer profile, investment case, and resale market are fundamentally different.'
           : 'ทั้งสองเมซองปารีสก่อตั้งห่างกัน 16 ปี ทั้งคู่รับใช้ผู้ซื้อที่เลือกสรรสูงสุด แต่โปรไฟล์ผู้ซื้อ กรณีการลงทุน และตลาดขายต่อต่างกันโดยพื้นฐาน'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['hermes/evelyne-tpm', 'hermes/garden-party-36']}
+        locale={locale}
+        title={isEn ? 'Hermes at Thai dealer prices right now' : 'ราคา Hermes ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -143,6 +144,12 @@ export default async function RolexVsOmegaPage({ params }: Props) {
           ? 'Two legendary Swiss watch brands — very different pre-owned stories. Rolex often commands prices above retail; Omega offers genuine savings of 40–60%. Understanding the difference helps you decide based on your goals.'
           : 'สองแบรนด์นาฬิกาสวิสระดับตำนาน — แต่เรื่องราวมือสองต่างกันมาก Rolex มักมีราคาสูงกว่าราคาใหม่ Omega ให้ส่วนลดจริง 40–60% การเข้าใจความแตกต่างนี้ช่วยให้คุณตัดสินใจตามเป้าหมายของตัวเอง'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['rolex/submariner', 'rolex/datejust-36', 'rolex/daytona']}
+        locale={locale}
+        title={isEn ? 'Rolex at Thai dealer prices right now' : 'ราคา Rolex ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-14">
         {renderItems(rolexItems, 'Rolex', isEn ? 'Often above retail' : 'มักสูงกว่าราคาใหม่')}

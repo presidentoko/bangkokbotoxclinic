@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -69,6 +70,11 @@ export default async function ApRoyalOakVsNautilusTH({ params }: Props) {
           ? 'Both designed by Gerald Genta and both define "integrated bracelet steel sports luxury." But they serve different buyers — and their investment profiles differ significantly. The Nautilus 5711/1A is arguably the most valuable production watch of the modern era; the Royal Oak is the category inventor.'
           : 'ทั้งสองออกแบบโดย Gerald Genta และทั้งสองนิยาม "ความหรูหราด้านกีฬาสแตนเลสพร้อมสาย integrated" แต่รับใช้ผู้ซื้อที่แตกต่างกัน และโปรไฟล์การลงทุนของพวกเขาต่างกันอย่างมีนัยสำคัญ Nautilus 5711/1A อาจเป็นนาฬิกาผลิตที่มีค่าที่สุดในยุคสมัยใหม่ Royal Oak คือผู้ประดิษฐ์หมวดหมู่'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['audemars-piguet/royal-oak-15500', 'patek-philippe/nautilus-5711']}
+        locale={locale}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

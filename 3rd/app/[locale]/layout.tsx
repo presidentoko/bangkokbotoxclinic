@@ -53,6 +53,10 @@ export default async function LocaleLayout({ children, params }: Props) {
     { href: `/${locale}/handbags`, label: t('nav_handbags') },
     { href: `/${locale}/watches`, label: t('nav_watches') },
     { href: `/${locale}/brands`, label: locale === 'th' ? 'แบรนด์' : 'Brands' },
+    // Seller intent gets a top-level slot: it is a different visitor with a
+    // different question, and the pages behind it are invisible to crawlers
+    // if nothing links to them.
+    { href: `/${locale}/sell`, label: locale === 'th' ? 'ขายของ' : 'Sell' },
     { href: `/${locale}/value-guide`, label: locale === 'th' ? 'คู่มือมูลค่า' : 'Value Guide' },
     { href: `/${locale}/guides`, label: t('nav_guides') },
     { href: `/${locale}/clothing`, label: t('nav_clothing') },
@@ -84,7 +88,15 @@ export default async function LocaleLayout({ children, params }: Props) {
           <EmailCapture locale={locale} />
           <footer className="border-t border-[#E8E2D9] mt-16">
             <div className="max-w-5xl mx-auto px-6 py-6 text-sm text-[#9C8B7A]">
-              <p>{t('footer_disclaimer')}</p>
+              {/* The disclaimer makes a provenance claim; this is the link that
+                  lets a reader check it. Previously it named two platforms that
+                  do not exist. */}
+              <p>
+                {t('footer_disclaimer')}{' '}
+                <a href={`/${locale}/dealers`} className="underline hover:text-[#6B6052]">
+                  {locale === 'th' ? 'ดูแหล่งข้อมูลราคา' : 'See our price sources'}
+                </a>
+              </p>
               <p className="mt-1">{t('footer_copyright', { year: new Date().getFullYear() })}</p>
             </div>
           </footer>

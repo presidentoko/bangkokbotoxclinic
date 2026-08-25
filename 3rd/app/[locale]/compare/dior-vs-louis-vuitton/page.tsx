@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -61,6 +62,12 @@ export default async function DiorVsLVTH({ params }: Props) {
           ? 'LV and Dior are both LVMH houses. LV has the wider reach and more liquid pre-owned market. Dior has stronger fashion credibility and royal associations. For Thai buyers: LV is easier to buy and sell; Dior is for fashion-first shoppers.'
           : 'LV และ Dior ทั้งคู่เป็นเมซองในกลุ่ม LVMH LV มีการเข้าถึงที่กว้างกว่าและตลาดมือสองที่มีสภาพคล่องมากกว่า Dior มีความน่าเชื่อถือด้านแฟชั่นที่แข็งแกร่งกว่าและเชื่อมโยงราชวงศ์ สำหรับผู้ซื้อชาวไทย LV ซื้อและขายง่ายกว่า Dior เหมาะสำหรับนักช้อปที่เน้นแฟชั่น'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['louis-vuitton/neverfull-mm', 'louis-vuitton/speedy-25', 'louis-vuitton/pochette-metis']}
+        locale={locale}
+        title={isEn ? 'Louis Vuitton at Thai dealer prices right now' : 'ราคา Louis Vuitton ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

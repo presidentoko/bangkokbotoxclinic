@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -31,7 +32,7 @@ const faqsEn = [
   },
   {
     q: 'Is the Loewe Puzzle available pre-owned in Thailand?',
-    a: 'Yes, but supply is limited on local platforms. Carousell Thailand occasionally has Puzzle listings. Vestiaire Collective has better Loewe selection and ships to Thailand. Expect to pay ฿35,000–฿75,000 for a Puzzle Small in Very Good condition.',
+    a: 'Yes, but supply is limited on local platforms. Thai resale dealers occasionally have Puzzle listings. Vestiaire Collective has better Loewe selection and ships to Thailand. Expect to pay ฿35,000–฿75,000 for a Puzzle Small in Very Good condition.',
   },
   {
     q: 'Which brand is better for the quiet luxury aesthetic in Thailand?',
@@ -50,7 +51,7 @@ const faqsTh = [
   },
   {
     q: 'มี Loewe Puzzle มือสองในไทยไหม?',
-    a: 'มี แต่ซัพพลายจำกัดบนแพลตฟอร์มในประเทศ Carousell ไทยมีประกาศ Puzzle เป็นครั้งคราว Vestiaire Collective มีตัวเลือก Loewe ที่ดีกว่าและส่งถึงไทย คาดว่าจะจ่าย ฿35,000–฿75,000 สำหรับ Puzzle Small สภาพ Very Good',
+    a: 'มี แต่ซัพพลายจำกัดบนแพลตฟอร์มในประเทศ ร้านมือสองในไทยมี Puzzle เข้ามาเป็นครั้งคราว Vestiaire Collective มีตัวเลือก Loewe ที่ดีกว่าและส่งถึงไทย คาดว่าจะจ่าย ฿35,000–฿75,000 สำหรับ Puzzle Small สภาพ Very Good',
   },
   {
     q: 'แบรนด์ไหนเหมาะกับ aesthetic ของ quiet luxury ในไทยมากกว่า?',
@@ -160,6 +161,12 @@ export default async function BottegaVsLoeweThPage({ params }: Props) {
           ? "Both Bottega Veneta and Loewe define the quiet luxury aesthetic — logo-free craftsmanship over brand signaling. In Thailand, BV has an established pre-owned market. Loewe is gaining momentum with the Puzzle bag emerging as a cult favourite."
           : "ทั้ง Bottega Veneta และ Loewe นิยาม aesthetic ของ quiet luxury — ฝีมือที่ปราศจากโลโก้มากกว่าการส่งสัญญาณแบรนด์ ในไทย BV มีตลาดมือสองที่มั่นคง Loewe กำลังได้รับแรงผลักดันโดยมี Puzzle bag กลายเป็นที่ชื่นชอบอย่างสุดๆ"}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['bottega-veneta/cassette-bag', 'bottega-veneta/mini-pouch']}
+        locale={locale}
+        title={isEn ? 'Bottega Veneta at Thai dealer prices right now' : 'ราคา Bottega Veneta ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-14">
         {renderItems(bvItems, 'bottega-veneta', 'Bottega Veneta', isEn ? `${bvStats.avgRetentionPct}% retained` : `รักษามูลค่า ${bvStats.avgRetentionPct}%`)}

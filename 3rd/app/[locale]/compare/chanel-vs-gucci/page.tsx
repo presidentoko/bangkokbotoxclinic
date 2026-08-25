@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -61,6 +62,11 @@ export default async function ChanelVsGucciTH({ params }: Props) {
           ? 'Two of the most recognized luxury brands in Thailand. Chanel is the stronger investment and holds value at or above retail. Gucci is far more accessible with strong brand recognition — ideal if you want the luxury look at a lower entry price.'
           : 'สองแบรนด์หรูที่เป็นที่รู้จักมากที่สุดในไทย Chanel เป็นการลงทุนที่แข็งแกร่งกว่าและคงมูลค่าได้เท่าหรือเกินราคาร้าน Gucci เข้าถึงได้มากกว่ามากพร้อมการรับรู้แบรนด์แข็งแกร่ง เหมาะถ้าต้องการความหรูในราคาเริ่มต้นต่ำกว่า'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'chanel/boy-bag-medium', 'gucci/horsebit-1955-small-bag', 'gucci/jackie-1961-small']}
+        locale={locale}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

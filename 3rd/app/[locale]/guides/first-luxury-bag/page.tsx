@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getItemBySlug, getAvgPrice, formatPriceTHB } from '@/lib/data'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -47,7 +48,7 @@ const faqsEn = [
   },
   {
     q: 'Can I resell a pre-owned luxury bag I bought in Thailand?',
-    a: 'Yes, Carousell TH and Facebook Marketplace Thailand have active luxury resale communities.',
+    a: 'Yes — Facebook Marketplace Thailand and LINE seller groups have active luxury resale communities, and Thai resale dealers buy pieces outright or take them on consignment.',
   },
 ]
 
@@ -70,7 +71,7 @@ const faqsTh = [
   },
   {
     q: 'ขายต่อกระเป๋า Luxury มือสองที่ซื้อในไทยได้ไหม?',
-    a: 'ได้ — Carousell TH และ Facebook Marketplace ไทยมีชุมชนขายต่อสินค้า Luxury ที่คึกคัก',
+    a: 'ได้ — Facebook Marketplace ไทยและกลุ่มขายบน LINE มีชุมชนขายต่อสินค้า Luxury ที่คึกคัก และร้านมือสองในไทยก็รับซื้อขาดหรือรับฝากขายให้ได้',
   },
 ]
 
@@ -149,6 +150,11 @@ export default async function FirstLuxuryBagPage({ params }: Props) {
         {isEn ? `Updated ${PRICE_YEAR}` : 'อัปเดตมิถุนายน 2025'}
       </p>
 
+      <ThaiPriceCallout
+        slugs={['louis-vuitton/speedy-25', 'louis-vuitton/neverfull-mm', 'chanel/classic-flap-medium']}
+        locale={locale}
+      />
+
       {/* Section 1: Why buy pre-owned */}
       <section className="mb-12">
         <h2
@@ -163,7 +169,7 @@ export default async function FirstLuxuryBagPage({ params }: Props) {
               Bangkok boutiques carry full-price inventory with long waitlists for popular models. The pre-owned market offers 20–40% savings versus boutique retail — on the same authenticated pieces.
             </p>
             <p>
-              Vestiaire Collective ships directly to Thailand with buyer protection, making it the safest way to buy internationally authenticated luxury. Local platforms like Carousell Thailand add even more options at competitive prices.
+              Vestiaire Collective ships directly to Thailand with buyer protection, making it the safest way to buy internationally authenticated luxury. Established Thai resale dealers add more options locally at competitive prices, with the piece in front of you before you pay.
             </p>
           </div>
         ) : (
@@ -172,7 +178,7 @@ export default async function FirstLuxuryBagPage({ params }: Props) {
               บูติคในกรุงเทพฯ มีสินค้าราคาเต็มพร้อมคิวรอนาน สำหรับรุ่นยอดนิยม ตลาดมือสองช่วยประหยัด 20–40% เมื่อเทียบกับราคาบูติค — บนชิ้นงานที่ผ่านการตรวจสอบเหมือนกัน
             </p>
             <p>
-              Vestiaire Collective ส่งตรงถึงไทยพร้อมระบบคุ้มครองผู้ซื้อ ทำให้เป็นวิธีที่ปลอดภัยที่สุดในการซื้อ Luxury ระดับสากล Carousell Thailand ยังเพิ่มตัวเลือกในราคาที่แข่งขันได้
+              Vestiaire Collective ส่งตรงถึงไทยพร้อมระบบคุ้มครองผู้ซื้อ ทำให้เป็นวิธีที่ปลอดภัยที่สุดในการซื้อ Luxury ระดับสากล ส่วนร้านมือสองในไทยก็เพิ่มตัวเลือกในประเทศในราคาที่แข่งขันได้ และได้เห็นของจริงก่อนจ่ายเงิน
             </p>
           </div>
         )}
@@ -244,9 +250,9 @@ export default async function FirstLuxuryBagPage({ params }: Props) {
               </p>
             </div>
             <div className="border-l-2 border-[#E8E2D9] pl-4">
-              <p className="font-medium text-[#1A1A1A] mb-1">Carousell Thailand</p>
+              <p className="font-medium text-[#1A1A1A] mb-1">Thai resale dealers</p>
               <p className="text-sm leading-relaxed">
-                Largest local marketplace. Widest selection, negotiable prices. Filter for verified sellers and always meet in a safe location.
+                Shops such as UsedBrand88 and Brandname Voyage keep a physical storefront and a public online catalogue. Prices are negotiable and you can inspect the bag before you pay.
               </p>
             </div>
           </div>
@@ -259,9 +265,9 @@ export default async function FirstLuxuryBagPage({ params }: Props) {
               </p>
             </div>
             <div className="border-l-2 border-[#E8E2D9] pl-4">
-              <p className="font-medium text-[#1A1A1A] mb-1">Carousell Thailand</p>
+              <p className="font-medium text-[#1A1A1A] mb-1">ร้านมือสองในไทย</p>
               <p className="text-sm leading-relaxed">
-                ตลาดในประเทศที่ใหญ่ที่สุด มีสินค้าให้เลือกมาก ราคาต่อรองได้ กรองผู้ขายที่ได้รับการยืนยันและนัดรับของในสถานที่ปลอดภัย
+                ร้านอย่าง UsedBrand88 และ Brandname Voyage มีหน้าร้านจริงและแคตตาล็อกออนไลน์ให้ดูราคา ต่อรองได้ และเข้าไปดูของจริงก่อนจ่ายเงินได้
               </p>
             </div>
           </div>

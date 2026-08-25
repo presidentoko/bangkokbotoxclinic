@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -54,6 +55,12 @@ export default async function ChanelSizeGuideThailand({ params }: Props) {
         {isEn ? 'Mini vs Small vs M/L vs Maxi — THB prices, dimensions, and which size works best in Bangkok\'s heat.'
           : 'Mini vs Small vs M/L vs Maxi — ราคาบาท ขนาด และขนาดไหนที่ใช้งานได้ดีที่สุดในความร้อนของกรุงเทพ'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-mini', 'chanel/mini-rectangular-flap', 'chanel/classic-flap-medium']}
+        locale={locale}
+        title={isEn ? 'What each size costs in Thailand right now' : 'แต่ละไซซ์ราคาเท่าไหร่ในไทยตอนนี้'}
+      />
 
       <section className="mb-10">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -56,6 +57,12 @@ export default async function ChanelVsDiorPage({ params }: Props) {
         {isEn ? 'Two pillars of French fashion — Chanel\'s investment-grade pricing vs Dior\'s accessible luxury.'
           : 'สองเสาหลักของแฟชั่นฝรั่งเศส — ราคาระดับการลงทุนของ Chanel vs ความหรูหราที่เข้าถึงได้ของ Dior'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'chanel/boy-bag-medium']}
+        locale={locale}
+        title={isEn ? 'Chanel at Thai dealer prices right now' : 'ราคา Chanel ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="grid md:grid-cols-2 gap-6 mb-12">
         <div className="border border-gray-200 rounded-xl p-6">

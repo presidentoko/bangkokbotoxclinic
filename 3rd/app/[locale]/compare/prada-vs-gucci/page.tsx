@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -31,7 +32,7 @@ const faqsEn = [
   },
   {
     q: 'Which brand has better pre-owned availability in Thailand?',
-    a: 'Gucci has slightly better supply in Thailand — it\'s more frequently listed on Carousell Thailand and in Bangkok luxury resale shops. Prada is well-represented but with fewer listings. Both are available through Vestiaire Collective shipping to Thailand.',
+    a: 'Gucci has slightly better supply in Thailand — it turns up more often in the catalogues of Thai resale dealers and Bangkok luxury resale shops. Prada is well-represented but with fewer listings. Both are available through Vestiaire Collective shipping to Thailand.',
   },
   {
     q: 'Is Prada nylon worth buying pre-owned in Thailand\'s climate?',
@@ -50,7 +51,7 @@ const faqsTh = [
   },
   {
     q: 'แบรนด์ไหนมีสินค้ามือสองพร้อมจำหน่ายมากกว่าในไทย?',
-    a: 'Gucci มีซัพพลายในไทยมากกว่าเล็กน้อย มีประกาศบน Carousell ไทยและร้านค้า luxury resale ในกรุงเทพฯ บ่อยกว่า Prada มีตัวแทนที่ดีแต่ประกาศน้อยกว่า ทั้งสองมีจำหน่ายผ่าน Vestiaire Collective ที่ส่งถึงไทย',
+    a: 'Gucci มีซัพพลายในไทยมากกว่าเล็กน้อย มีให้เห็นในแคตตาล็อกของร้านมือสองในไทยและร้าน luxury resale ในกรุงเทพฯ บ่อยกว่า Prada มีตัวแทนที่ดีแต่ประกาศน้อยกว่า ทั้งสองมีจำหน่ายผ่าน Vestiaire Collective ที่ส่งถึงไทย',
   },
   {
     q: 'ไนลอนของ Prada คุ้มค่ากับการซื้อมือสองในสภาพอากาศไทยไหม?',
@@ -155,9 +156,14 @@ export default async function PradaVsGucciThPage({ params }: Props) {
 
       <p className="text-[#6B6052] mb-10 leading-relaxed max-w-2xl">
         {isEn
-          ? "Prada excels on durability — Saffiano leather is nearly indestructible. Gucci offers more variety and a stronger streetwear crossover. In Thailand, both brands have established pre-owned markets with good supply on Carousell Thailand."
-          : "Prada โดดเด่นด้านความทนทาน — หนัง Saffiano แทบไม่สึกหรอ Gucci มีความหลากหลายมากกว่าและครอสโอเวอร์สู่โลก streetwear ได้แข็งแกร่งกว่า ในไทย ทั้งสองแบรนด์มีตลาดมือสองที่มั่นคงพร้อมซัพพลายที่ดีบน Carousell ไทย"}
+          ? "Prada excels on durability — Saffiano leather is nearly indestructible. Gucci offers more variety and a stronger streetwear crossover. In Thailand, both brands have established pre-owned markets with good supply at Thai resale dealers."
+          : "Prada โดดเด่นด้านความทนทาน — หนัง Saffiano แทบไม่สึกหรอ Gucci มีความหลากหลายมากกว่าและครอสโอเวอร์สู่โลก streetwear ได้แข็งแกร่งกว่า ในไทย ทั้งสองแบรนด์มีตลาดมือสองที่มั่นคงและมีของให้เลือกมากที่ร้านมือสองในไทย"}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['prada/galleria-small', 'prada/re-edition-2005', 'gucci/horsebit-1955-small-bag', 'gucci/ophidia-gg-medium']}
+        locale={locale}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-14">
         {renderItems(pradaItems, 'prada', isEn ? `${pradaStats.avgRetentionPct}% retained` : `รักษามูลค่า ${pradaStats.avgRetentionPct}%`)}

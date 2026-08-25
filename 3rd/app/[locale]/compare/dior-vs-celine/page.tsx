@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPriceTHB } from '@/lib/data'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -63,6 +64,12 @@ export default async function DiorVsCelineTH({ params }: Props) {
           ? 'Two Parisian giants, very different vibes. Dior is embellished and romantic; Céline (Philo era) built a cult of minimalism. Both have strong pre-owned markets in Thailand.'
           : 'สองยักษ์ปารีส สไตล์ต่างกันมาก Dior โรแมนติกและประดับตกแต่ง Céline (ยุค Philo) สร้างลัทธินิยมมินิมัล ทั้งคู่มีตลาดมือสองแข็งแกร่งในไทย'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['celine/ava-mini', 'celine/belt-bag-mini']}
+        locale={locale}
+        title={isEn ? 'Celine at Thai dealer prices right now' : 'ราคา Celine ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

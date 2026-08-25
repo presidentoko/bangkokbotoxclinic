@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -149,6 +150,11 @@ export default async function ChanelVsHermesPage({ params }: Props) {
           ? 'The two most investment-grade luxury brands in Thailand — both trade above retail on the secondary market. Chanel is more accessible with entry from ฿80,000; Hermès Birkins start from ฿250,000 used. Here is how to decide between them.'
           : 'สองแบรนด์ luxury ที่เป็นการลงทุนมากที่สุดในไทย — ทั้งคู่ซื้อขายเกินราคาใหม่ในตลาดมือสอง Chanel เข้าถึงได้มากกว่าโดยเริ่มต้นที่ ฿80,000 Hermès Birkin เริ่มต้นที่ ฿250,000 มือสอง นี่คือวิธีตัดสินใจระหว่างทั้งสอง'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'chanel/boy-bag-medium', 'hermes/evelyne-tpm', 'hermes/garden-party-36']}
+        locale={locale}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-14">
         {renderItems(chanelItems, 'Chanel', 'From ฿80k · 5–30% above retail', 'เริ่มที่ ฿80k · เกินราคาใหม่ 5–30%')}

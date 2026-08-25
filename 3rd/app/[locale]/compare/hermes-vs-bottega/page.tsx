@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -149,6 +150,11 @@ export default async function HermesVsBottegaPage({ params }: Props) {
           ? 'Both are the ultimate quiet luxury brands — no logos, no branding, pure material and craft. But they behave very differently on the secondary market. Hermès trades above retail (20–80% premium); Bottega Veneta trades below (50–70% of retail). Here is what that means for buyers in Thailand.'
           : 'ทั้งคู่เป็นแบรนด์ quiet luxury สูงสุด — ไม่มีโลโก้ ไม่มีการสร้างแบรนด์ บริสุทธิ์ด้วยวัสดุและงานฝีมือ แต่ทั้งคู่ประพฤติตัวแตกต่างกันมากในตลาดมือสอง Hermès ซื้อขายเกินราคาใหม่ (พรีเมียม 20–80%) Bottega Veneta ซื้อขายต่ำกว่า (50–70% ของราคาใหม่) นี่คือความหมายสำหรับผู้ซื้อในไทย'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['hermes/evelyne-tpm', 'hermes/garden-party-36', 'bottega-veneta/cassette-bag', 'bottega-veneta/mini-pouch']}
+        locale={locale}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-14">
         {renderItems(hermesItems, 'Hermès', '20–80% above retail', 'เกินราคาใหม่ 20–80%', true)}

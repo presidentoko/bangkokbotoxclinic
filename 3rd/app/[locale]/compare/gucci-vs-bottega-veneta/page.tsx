@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -66,6 +67,11 @@ export default async function GucciVsBVTH({ params }: Props) {
           ? 'Two Italian houses with opposite philosophies. Gucci maximizes logo visibility. Bottega has zero visible branding — the intrecciato weave is the statement. Bottega holds value better; Gucci offers more entry-price variety for Thai buyers.'
           : 'สองเมซองอิตาเลียนที่มีปรัชญาตรงกันข้าม Gucci เน้นโลโก้สูงสุด Bottega ไม่มีตราสินค้าที่มองเห็น — ลายทอ intrecciato คือความโดดเด่น Bottega คงมูลค่าได้ดีกว่า Gucci มีความหลากหลายด้านราคาเริ่มต้นสำหรับผู้ซื้อชาวไทย'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['gucci/horsebit-1955-small-bag', 'gucci/jackie-1961-small', 'bottega-veneta/cassette-bag', 'bottega-veneta/mini-pouch']}
+        locale={locale}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

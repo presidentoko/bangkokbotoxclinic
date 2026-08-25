@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -29,14 +30,14 @@ export default async function HowToBuyPreOwnedOnlineTH({ params }: Props) {
     { n: '1', title: 'Know the retail price first', body: 'Before shopping pre-owned, check the current retail price in Thailand (boutique or brand website). Pre-owned should be 30–80% of retail. A Chanel Classic Flap listed at ฿420,000 pre-owned vs ฿388,800 retail? Walk away.' },
     { n: '2', title: 'Understand condition grades', body: 'Excellent = minimal signs of use. Very Good = light wear. Good = visible wear. Never pay Excellent prices for Good condition. Request photos of corners, hardware, interior, datecode, and hologram/serial card.' },
     { n: '3', title: 'Request serial and datecodes', body: 'Chanel: white authenticity chip card (newer) or black hologram sticker (older). LV: date code stamped inside (e.g., TH0062). Hermès: blind stamp inside flap. Rolex: reference and serial engraved on case. No code = no buy.' },
-    { n: '4', title: 'Verify the seller on Thai platforms', body: 'On Carousell Thailand, LINE OA shops, or Facebook Marketplace: check account age, review count, response speed. For unknown sellers request video call + real-time photos. Scammers reuse the same set of 5 stock photos across listings.' },
+    { n: '4', title: 'Verify the seller on Thai platforms', body: 'On LINE OA shops, Facebook Marketplace, or any dealer you have not bought from before: check account age, review count, response speed. For unknown sellers request video call + real-time photos. Scammers reuse the same set of 5 stock photos across listings.' },
     { n: '5', title: 'Use protected payment methods', body: 'Bank transfer with seller\'s ID attached (Thai law requires ID for high-value sales). Credit card through Lazada/Shopee luxury section has 15-day protection. Avoid PromptPay to unknown accounts — no recourse after transfer.' },
     { n: '6', title: 'Authenticate immediately on arrival', body: 'Authentication services in Bangkok: Authenticate First (สยามพารากอน), or ship to international authenticators. Budget ฿700–฿1,800. If the seller refuses authentication requests before purchase, assume counterfeit.' },
   ] : [
     { n: '1', title: 'รู้ราคาร้านก่อน', body: 'ก่อนช้อปมือสอง ตรวจสอบราคาร้านปัจจุบันในไทย (บูติกหรือเว็บไซต์แบรนด์) มือสองควรอยู่ที่ 30–80% ของราคาร้าน Chanel Classic Flap ที่ลงราคา ฿420,000 มือสองเมื่อเทียบกับ ฿388,800 ราคาร้าน? หนีได้เลย' },
     { n: '2', title: 'เข้าใจเกรดสภาพ', body: 'Excellent = ร่องรอยการใช้งานน้อยมาก Very Good = รอยสึกเล็กน้อย Good = รอยสึกที่มองเห็นได้ อย่าจ่ายราคา Excellent สำหรับสภาพ Good ขอภาพมุม hardware ด้านใน datecode และการ์ด/สติกเกอร์ hologram' },
     { n: '3', title: 'ขอ serial และ datecode', body: 'Chanel: บัตรตรวจสอบความถูกต้องสีขาว (รุ่นใหม่) หรือสติกเกอร์ hologram สีดำ (รุ่นเก่า) LV: date code ประทับในตัว (เช่น TH0062) Hermès: ตราประทับอยู่ด้านในฝา Rolex: reference และ serial แกะสลักที่เคส ไม่มีรหัส = ไม่ซื้อ' },
-    { n: '4', title: 'ตรวจสอบผู้ขายบนแพลตฟอร์มไทย', body: 'บน Carousell ไทย LINE OA shops หรือ Facebook Marketplace ตรวจสอบอายุบัญชี จำนวนรีวิว ความเร็วในการตอบ สำหรับผู้ขายที่ไม่รู้จัก ขอวิดีโอคอล + ภาพถ่ายเรียลไทม์ มิจฉาชีพใช้ชุดรูปภาพ stock 5 ใบเดียวกันในหลายลิสต์' },
+    { n: '4', title: 'ตรวจสอบผู้ขายบนแพลตฟอร์มไทย', body: 'บน LINE OA shops, Facebook Marketplace หรือร้านที่ยังไม่เคยซื้อ ให้ตรวจสอบอายุบัญชี จำนวนรีวิว ความเร็วในการตอบ สำหรับผู้ขายที่ไม่รู้จัก ขอวิดีโอคอล + ภาพถ่ายเรียลไทม์ มิจฉาชีพใช้ชุดรูปภาพ stock 5 ใบเดียวกันในหลายลิสต์' },
     { n: '5', title: 'ใช้วิธีชำระเงินที่ได้รับการคุ้มครอง', body: 'โอนเงินผ่านธนาคารพร้อมแนบบัตรประชาชนของผู้ขาย (กฎหมายไทยกำหนดให้แสดง ID สำหรับการขายมูลค่าสูง) บัตรเครดิตผ่าน Lazada/Shopee มีการคุ้มครอง 15 วัน หลีกเลี่ยง PromptPay ให้บัญชีที่ไม่รู้จัก ไม่มีทางแก้ไขหลังโอน' },
     { n: '6', title: 'ตรวจสอบความถูกต้องทันทีเมื่อได้รับ', body: 'บริการตรวจสอบในกรุงเทพ: ร้านตรวจสอบที่สยามพารากอน หรือส่งให้ผู้ตรวจสอบนานาชาติ งบประมาณ ฿700–฿1,800 หากผู้ขายปฏิเสธการตรวจสอบก่อนซื้อ ให้สันนิษฐานว่าเป็นของปลอม' },
   ]
@@ -56,9 +57,15 @@ export default async function HowToBuyPreOwnedOnlineTH({ params }: Props) {
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn
-          ? 'The pre-owned luxury market in Thailand is growing 25% per year — but counterfeits are everywhere. Six rules that eliminate 95% of the risk and help you buy safely on Carousell, LINE shops, Facebook Marketplace, and pre-owned boutiques in Bangkok.'
-          : 'ตลาดของหรูมือสองในไทยเติบโต 25% ต่อปี แต่ของปลอมมีอยู่ทุกที่ หกกฎที่ช่วยลดความเสี่ยง 95% และช่วยให้คุณซื้อได้อย่างปลอดภัยบน Carousell ร้าน LINE Facebook Marketplace และร้านมือสองในกรุงเทพ'}
+          ? 'The pre-owned luxury market in Thailand is growing 25% per year — but counterfeits are everywhere. Six rules that eliminate 95% of the risk and help you buy safely from LINE shops, Facebook Marketplace, and pre-owned boutiques in Bangkok.'
+          : 'ตลาดของหรูมือสองในไทยเติบโต 25% ต่อปี แต่ของปลอมมีอยู่ทุกที่ หกกฎที่ช่วยลดความเสี่ยง 95% และช่วยให้คุณซื้อได้อย่างปลอดภัยจากร้าน LINE, Facebook Marketplace และร้านมือสองในกรุงเทพ'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'rolex/submariner', 'hermes/evelyne-tpm']}
+        locale={locale}
+        title={isEn ? 'Know the market price before you buy' : 'รู้ราคาตลาดก่อนกดซื้อ'}
+      />
 
       <div className="space-y-4 mb-10">
         {steps.map((s) => (

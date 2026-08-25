@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -63,6 +64,11 @@ export default async function LVMonogramVsDamierTH({ params }: Props) {
           ? 'Louis Vuitton has three main canvas patterns. All use coated canvas — the specific pattern affects resale demand, care requirements, and who the bag appeals to.'
           : 'Louis Vuitton มีลายผ้าหลักสามแบบ ทั้งหมดใช้ผ้าเคลือบ — ลายเฉพาะส่งผลต่อความต้องการมือสอง การดูแล และใครที่กระเป๋าดึงดูด'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['louis-vuitton/neverfull-mm', 'louis-vuitton/speedy-25']}
+        locale={locale}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

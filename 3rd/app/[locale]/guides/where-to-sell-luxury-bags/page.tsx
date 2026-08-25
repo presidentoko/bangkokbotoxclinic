@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -14,8 +15,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ? `Where to Sell Pre-Owned Luxury Bags in Thailand ${PRICE_YEAR} | ChicPreowned`
       : `ขายกระเป๋า Luxury มือสองที่ไหนดีในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'Platform comparison for Thai luxury sellers: Carousell TH, LINE Shopping, Shopee, Vestiaire Collective, LuxeStreet TH — fees, reach, and payout compared.'
-      : 'เปรียบเทียบแพลตฟอร์มสำหรับผู้ขาย luxury ในไทย: Carousell, LINE Shopping, Shopee, Vestiaire, LuxeStreet TH — ค่าธรรมเนียม, การเข้าถึง และรายได้',
+      ? 'Platform comparison for Thai luxury sellers: Thai resale dealers, LINE Shopping, Shopee and Vestiaire Collective — fees, reach, and payout compared.'
+      : 'เปรียบเทียบช่องทางสำหรับผู้ขาย luxury ในไทย: ร้านมือสองในไทย, LINE Shopping, Shopee และ Vestiaire — ค่าธรรมเนียม, การเข้าถึง และรายได้',
     alternates: {
       canonical: `${BASE}/${locale}/${SLUG}`,
       languages: {
@@ -29,17 +30,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const platforms = [
   {
-    name: 'Carousell Thailand',
-    feeEn: 'Free listing, ~3–5% for promoted',
-    feeTh: 'ลงประกาศฟรี ~3–5% สำหรับโปรโมต',
-    reachEn: 'Largest local reach in Thailand',
-    reachTh: 'การเข้าถึงในประเทศมากที่สุดในไทย',
-    payoutEn: 'Negotiated directly with buyer',
-    payoutTh: 'ต่อรองตรงกับผู้ซื้อ',
-    prosEn: 'No seller fees on standard listings. Large local audience. Fast transactions.',
-    prosTh: 'ไม่มีค่าธรรมเนียมผู้ขายในประกาศมาตรฐาน ผู้ชมในประเทศจำนวนมาก ธุรกรรมรวดเร็ว',
-    consEn: 'No authentication. Counterfeit risk for buyers reduces trust.',
-    consTh: 'ไม่มีการตรวจสอบ ความเสี่ยงของสินค้าปลอมทำให้ความน่าเชื่อถือลดลง',
+    name: 'Thai resale dealers',
+    feeEn: 'No listing fee — they buy outright or take consignment',
+    feeTh: 'ไม่มีค่าลงประกาศ — รับซื้อขาดหรือรับฝากขาย',
+    reachEn: 'Walk-in and online-catalogue buyers in Thailand',
+    reachTh: 'ลูกค้าหน้าร้านและลูกค้าที่ดูแคตตาล็อกออนไลน์ในไทย',
+    payoutEn: 'On the spot if they buy outright; after the sale on consignment',
+    payoutTh: 'รับเงินทันทีถ้าขายขาด หรือรับหลังขายได้ถ้าฝากขาย',
+    prosEn: 'Fastest way to turn a bag into cash. The shop inspects it and carries the authentication risk itself. Dealers such as UsedBrand88 and Brandname Voyage publish their asking prices, so you can see what your bag resells for before you walk in.',
+    prosTh: 'เป็นวิธีเปลี่ยนกระเป๋าเป็นเงินสดที่เร็วที่สุด ร้านตรวจสภาพและรับความเสี่ยงเรื่องของแท้เอง ร้านอย่าง UsedBrand88 และ Brandname Voyage เปิดราคาขายไว้ให้ดู จึงพอเทียบได้ก่อนเดินเข้าร้านว่ากระเป๋าของคุณขายต่อได้เท่าไร',
+    consEn: 'An outright buy-back price sits well below what the shop then asks. Terms differ from shop to shop, so compare a few.',
+    consTh: 'ราคารับซื้อขาดต่ำกว่าราคาที่ร้านนำไปตั้งขายพอสมควร เงื่อนไขต่างกันไปในแต่ละร้าน ควรเทียบหลายร้าน',
     best: 'best-local',
   },
   {
@@ -84,30 +85,12 @@ const platforms = [
     consTh: 'ค่าคอมมิชชันสูง รอรับเงินนานกว่า ชิ้นงานต้องส่งเพื่อตรวจสอบ',
     best: 'best-value',
   },
-  {
-    name: 'LuxeStreet TH',
-    feeEn: '10–12% consignment commission',
-    feeTh: 'ค่าคอมมิชชัน consignment 10–12%',
-    reachEn: 'Local Thai luxury buyers',
-    reachTh: 'ผู้ซื้อ luxury ไทยในประเทศ',
-    payoutEn: 'Bank transfer after sale',
-    payoutTh: 'โอนธนาคารหลังขาย',
-    prosEn: 'Local expertise. Physical showroom in Bangkok. Authentication included.',
-    prosTh: 'ความเชี่ยวชาญในประเทศ ห้องแสดงสินค้าในกรุงเทพฯ รวมการตรวจสอบ',
-    consEn: 'Smaller buyer pool than Vestiaire. May take longer to sell.',
-    consTh: 'กลุ่มผู้ซื้อเล็กกว่า Vestiaire อาจใช้เวลานานกว่าในการขาย',
-    best: 'best-local-auth',
-  },
 ]
 
 const faqsEn = [
   {
     q: 'What is the best platform to sell luxury bags in Thailand?',
-    a: "It depends on the bag's value. For high-value pieces (Chanel, Hermès above ฿100,000), Vestiaire Collective or LuxeStreet TH gives better prices despite higher commission. For mid-range bags and accessories under ฿50,000, Carousell Thailand offers the fastest sales with no fees. Shopee is best for small accessories where volume matters.",
-  },
-  {
-    q: 'How much commission does Carousell Thailand charge for luxury bags?',
-    a: 'Standard listings on Carousell Thailand are free. Promoted listings cost ฿50–฿200 per boost. There is no success fee on standard listings — you keep 100% of the sale price. Buyers pay what you list, and payment is typically via PromptPay or cash on meetup.',
+    a: "It depends on the bag's value. For high-value pieces (Chanel, Hermès above ฿100,000), Vestiaire Collective often reaches a wider pool of buyers despite its higher commission. For mid-range bags and accessories under ฿50,000, a Thai resale dealer who buys outright is the fastest way to get paid. Shopee is best for small accessories where volume matters.",
   },
   {
     q: 'Is it safe to sell luxury bags on LINE Shopping in Thailand?',
@@ -122,11 +105,7 @@ const faqsEn = [
 const faqsTh = [
   {
     q: 'แพลตฟอร์มไหนดีที่สุดสำหรับขายกระเป๋า luxury ในไทย?',
-    a: 'ขึ้นอยู่กับมูลค่ากระเป๋า สำหรับชิ้นมูลค่าสูง (Chanel, Hermès เกิน ฿100,000) Vestiaire Collective หรือ LuxeStreet TH ให้ราคาดีกว่าแม้ค่าคอมมิชชันจะสูงกว่า สำหรับกระเป๋าราคากลางและอุปกรณ์เสริมต่ำกว่า ฿50,000 Carousell Thailand ขายได้เร็วที่สุดโดยไม่มีค่าธรรมเนียม Shopee เหมาะที่สุดสำหรับอุปกรณ์เสริมขนาดเล็กที่ต้องการปริมาณ',
-  },
-  {
-    q: 'Carousell Thailand เก็บค่าคอมมิชชันเท่าไหร่สำหรับกระเป๋า luxury?',
-    a: 'ประกาศมาตรฐานบน Carousell Thailand ฟรี ประกาศโปรโมตราคา ฿50–฿200 ต่อการบูสต์ ไม่มีค่าธรรมเนียมความสำเร็จในประกาศมาตรฐาน — คุณได้รับ 100% ของราคาขาย ผู้ซื้อจ่ายตามที่คุณตั้งราคา และการชำระเงินมักผ่าน PromptPay หรือเงินสดเมื่อนัดพบ',
+    a: 'ขึ้นอยู่กับมูลค่ากระเป๋า สำหรับชิ้นมูลค่าสูง (Chanel, Hermès เกิน ฿100,000) Vestiaire Collective เข้าถึงผู้ซื้อได้กว้างกว่าแม้ค่าคอมมิชชันจะสูงกว่า สำหรับกระเป๋าราคากลางและอุปกรณ์เสริมต่ำกว่า ฿50,000 การขายขาดให้ร้านมือสองในไทยได้เงินเร็วที่สุด Shopee เหมาะที่สุดสำหรับอุปกรณ์เสริมขนาดเล็กที่ต้องการปริมาณ',
   },
   {
     q: 'ขายกระเป๋า luxury บน LINE Shopping ในไทยปลอดภัยไหม?',
@@ -183,6 +162,12 @@ export default async function WhereToSellPage({ params }: Props) {
         {isEn ? 'Platform comparison for Thai sellers — fees, reach, and payout' : 'เปรียบเทียบแพลตฟอร์มสำหรับผู้ขายในไทย — ค่าธรรมเนียม การเข้าถึง และรายได้'}
       </p>
 
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'hermes/evelyne-tpm', 'gucci/ophidia-gg-medium']}
+        locale={locale}
+        title={isEn ? 'What Thai shops resell these for' : 'ราคาที่ร้านไทยขายต่อตอนนี้'}
+      />
+
       <section className="mb-14">
         <div className="space-y-6">
           {platforms.map(p => (
@@ -223,9 +208,9 @@ export default async function WhereToSellPage({ params }: Props) {
         </h2>
         <div className="space-y-3 text-sm text-[#6B6052]">
           <p>{'→ '}{isEn ? 'Hermès / Chanel above ฿100k: Vestiaire Collective for authentication premium.' : 'Hermès / Chanel เกิน ฿100k: Vestiaire Collective เพื่อ premium จากการตรวจสอบ'}</p>
-          <p>{'→ '}{isEn ? 'LV / Gucci ฿20k–฿80k: Carousell Thailand for speed, or Vestiaire for price.' : 'LV / Gucci ฿20k–฿80k: Carousell Thailand เพื่อความเร็ว หรือ Vestiaire เพื่อราคา'}</p>
-          <p>{'→ '}{isEn ? 'Accessories and SLGs under ฿20k: Shopee or Carousell Thailand.' : 'อุปกรณ์เสริมและ SLG ต่ำกว่า ฿20k: Shopee หรือ Carousell Thailand'}</p>
-          <p>{'→ '}{isEn ? 'Want local Bangkok buyers only: LuxeStreet TH for in-person consignment.' : 'ต้องการผู้ซื้อในกรุงเทพฯ เท่านั้น: LuxeStreet TH สำหรับ consignment แบบพบตัว'}</p>
+          <p>{'→ '}{isEn ? 'LV / Gucci ฿20k–฿80k: a Thai resale dealer for speed, or Vestiaire for price.' : 'LV / Gucci ฿20k–฿80k: ร้านมือสองในไทยเพื่อความเร็ว หรือ Vestiaire เพื่อราคา'}</p>
+          <p>{'→ '}{isEn ? 'Accessories and SLGs under ฿20k: Shopee or LINE Shopping.' : 'อุปกรณ์เสริมและ SLG ต่ำกว่า ฿20k: Shopee หรือ LINE Shopping'}</p>
+          <p>{'→ '}{isEn ? 'Want to hand it over in person in Bangkok: consign with a Thai resale dealer.' : 'อยากส่งมอบด้วยตัวเองในกรุงเทพฯ: ฝากขายกับร้านมือสองในไทย'}</p>
         </div>
       </section>
 

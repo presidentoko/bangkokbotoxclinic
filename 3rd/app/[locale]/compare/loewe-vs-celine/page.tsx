@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -66,6 +67,12 @@ export default async function LoeweVsCelineTH({ params }: Props) {
           ? 'Two quiet luxury powerhouses, both LVMH, both minimal. Loewe under Jonathan Anderson is the brand for people who care about craft. Celine under Phoebe Philo defined effortless minimalism. For Bangkok buyers: Philo-era Celine holds value best; Loewe Puzzle is consistent. Era matters enormously when buying Celine.'
           : 'สองพลังแห่ง quiet luxury ทั้ง LVMH ทั้ง minimal Loewe ภายใต้ Jonathan Anderson คือแบรนด์สำหรับคนที่ใส่ใจงานฝีมือ Celine ภายใต้ Phoebe Philo นิยาม minimalism ที่ไม่ต้องพยายาม สำหรับผู้ซื้อกรุงเทพ Celine ยุค Philo รักษามูลค่าได้ดีที่สุด Loewe Puzzle สม่ำเสมอ ยุคสมัยมีความสำคัญอย่างมากเมื่อซื้อ Celine'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['celine/ava-mini', 'celine/belt-bag-mini']}
+        locale={locale}
+        title={isEn ? 'Celine at Thai dealer prices right now' : 'ราคา Celine ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

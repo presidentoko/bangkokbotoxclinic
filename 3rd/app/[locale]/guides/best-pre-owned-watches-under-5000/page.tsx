@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -62,6 +63,11 @@ export default async function WatchesUnder5kTH({ params }: Props) {
           ? 'The sweet spot for pre-owned — significant retail savings, accessible prices, proven movements. All five picks include Bangkok market context and THB pricing.'
           : 'จุดที่ดีที่สุดสำหรับมือสอง การประหยัดราคาร้านอย่างมีนัยสำคัญ ราคาเข้าถึงได้ เคลื่อนไหวที่ได้รับการพิสูจน์แล้ว ทั้งห้าตัวเลือกรวมบริบทตลาดกรุงเทพและราคาบาท'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['rolex/datejust-36', 'cartier/santos-medium']}
+        locale={locale}
+      />
 
       <div className="space-y-6 mb-12">
         {picks.map(p => (

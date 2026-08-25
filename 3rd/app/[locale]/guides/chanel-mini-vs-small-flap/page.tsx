@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -58,6 +59,11 @@ export default async function ChanelMiniVsSmallTH({ params }: Props) {
           ? 'The most common Chanel size question in Thailand. Mini is the bag for photos and evenings. Small is the bag for daily life. They look similar in photos but differ completely in what you can actually carry. Price difference: ฿82,000–฿135,000 pre-owned.'
           : 'คำถามขนาด Chanel ที่พบบ่อยที่สุดในไทย Mini คือกระเป๋าสำหรับถ่ายรูปและงานเลี้ยง Small คือกระเป๋าสำหรับชีวิตประจำวัน ดูคล้ายกันในรูปแต่ต่างกันโดยสิ้นเชิงในสิ่งที่ใส่ได้จริง ราคาต่าง: ฿82,000–฿135,000 มือสอง'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-mini', 'chanel/mini-rectangular-flap', 'chanel/classic-flap-medium']}
+        locale={locale}
+      />
 
       <div className="space-y-4 mb-10">
         {sizes.map((s, i) => (

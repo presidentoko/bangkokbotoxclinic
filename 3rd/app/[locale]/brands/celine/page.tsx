@@ -31,7 +31,7 @@ const faqsEn = [
   },
   {
     q: 'Where can I buy pre-owned Celine in Thailand?',
-    a: 'Vestiaire Collective is the most reliable source for authenticated Philo-era Celine shipping to Thailand. Carousell Thailand has local listings at more competitive prices but with higher authentication risk. Dedicated luxury resellers in Emporium and Icon Siam occasionally stock Celine.',
+    a: 'Vestiaire Collective is the most reliable source for authenticated Philo-era Celine shipping to Thailand. Established Thai resale dealers list locally at more competitive prices, though authentication practice varies from shop to shop. Dedicated luxury resellers in Emporium and Icon Siam occasionally stock Celine.',
   },
   {
     q: 'Is the Celine Luggage Tote a good investment in Thailand?',
@@ -50,7 +50,7 @@ const faqsTh = [
   },
   {
     q: 'ซื้อ Celine มือสองในไทยได้ที่ไหน?',
-    a: 'Vestiaire Collective เป็นแหล่งที่น่าเชื่อถือที่สุดสำหรับ Celine ยุค Philo ที่ผ่านการตรวจสอบและส่งถึงไทย Carousell Thailand มีประกาศในประเทศในราคาที่แข่งขันได้แต่ความเสี่ยงในการตรวจสอบสูงกว่า ร้าน luxury reseller ในเอ็มโพเรียมและไอคอนสยามบางครั้งมี Celine ด้วย',
+    a: 'Vestiaire Collective เป็นแหล่งที่น่าเชื่อถือที่สุดสำหรับ Celine ยุค Philo ที่ผ่านการตรวจสอบและส่งถึงไทย ร้านมือสองในไทยมีสินค้าในประเทศในราคาที่แข่งขันได้ แต่มาตรฐานการตรวจสอบความแท้ต่างกันไปในแต่ละร้าน ร้าน luxury reseller ในเอ็มโพเรียมและไอคอนสยามบางครั้งมี Celine ด้วย',
   },
   {
     q: 'Celine Luggage Tote คุ้มแก่การลงทุนในไทยไหม?',

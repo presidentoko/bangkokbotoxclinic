@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -56,6 +57,12 @@ export default async function PradaVsMiuMiuTH({ params }: Props) {
         {isEn ? 'Same designer, same parent group — but very different audiences. Which is the better pre-owned buy for Thai buyers in 2025?'
           : 'นักออกแบบเดียวกัน กลุ่มบริษัทเดียวกัน แต่ผู้ชมต่างกันมาก อันไหนเป็นการซื้อมือสองที่ดีกว่าสำหรับคนไทยในปี 2025?'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['prada/re-edition-2000', 'prada/re-edition-2005', 'prada/galleria-small']}
+        locale={locale}
+        title={isEn ? 'Prada at Thai dealer prices right now' : 'ราคา Prada ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

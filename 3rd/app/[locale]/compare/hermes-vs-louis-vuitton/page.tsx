@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -58,6 +59,11 @@ export default async function HermesVsLVPage({ params }: Props) {
         {isEn ? "The world's most exclusive bag vs the world's most recognisable — two entirely different markets."
           : 'กระเป๋าที่เอกสิทธิ์ที่สุดในโลก vs ที่รู้จักมากที่สุดในโลก — สองตลาดที่แตกต่างกันโดยสิ้นเชิง'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['hermes/evelyne-tpm', 'hermes/garden-party-36', 'louis-vuitton/neverfull-mm', 'louis-vuitton/speedy-25']}
+        locale={locale}
+      />
 
       <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-10 text-sm text-amber-900">
         <strong>{isEn ? 'Investment note:' : 'หมายเหตุการลงทุน:'}</strong>

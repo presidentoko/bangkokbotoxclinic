@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -139,6 +140,11 @@ export default async function LvVsGucciPage({ params }: Props) {
           ? 'Two of the most sought-after luxury brands in Bangkok — but which gives better value pre-owned? LV retains 65–75% of its retail price; Gucci typically 50–65%. Here\'s how they compare item by item.'
           : 'สองแบรนด์ที่ต้องการมากที่สุดในกรุงเทพฯ — แต่อันไหนคุ้มกว่าเมื่อซื้อมือสอง? LV รักษามูลค่าไว้ 65–75% ของราคาใหม่ Gucci ประมาณ 50–65% มาดูการเปรียบเทียบรายไอเทม'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['louis-vuitton/neverfull-mm', 'louis-vuitton/speedy-25', 'gucci/horsebit-1955-small-bag', 'gucci/ophidia-gg-medium']}
+        locale={locale}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-14">
         {renderItems(lvItems, 'Louis Vuitton', isEn ? '65–75% retained' : 'รักษามูลค่า 65–75%')}

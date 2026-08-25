@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -66,6 +67,12 @@ export default async function SaintLaurentVsCelinePage({ params }: Props) {
           ? 'Two distinct visions of French fashion — both strong on Thailand\'s secondary market.'
           : 'สองวิสัยทัศน์ที่แตกต่างของแฟชั่นฝรั่งเศส — ทั้งคู่แข็งแกร่งในตลาดมือสองไทย'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['celine/ava-mini', 'celine/belt-bag-mini']}
+        locale={locale}
+        title={isEn ? 'Celine at Thai dealer prices right now' : 'ราคา Celine ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="grid md:grid-cols-2 gap-6 mb-12">
         <div className="border border-gray-200 rounded-xl p-6">

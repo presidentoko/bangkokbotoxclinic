@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -56,6 +57,11 @@ export default async function RolexRefGuideThailand({ params }: Props) {
         {isEn ? 'Decode any Rolex reference and find the current THB market price for each.'
           : 'ถอดรหัสเลขอ้างอิง Rolex และหาราคาตลาดปัจจุบันเป็นบาทสำหรับแต่ละรุ่น'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['rolex/datejust-41', 'rolex/submariner', 'rolex/gmt-master-ii', 'rolex/daytona']}
+        locale={locale}
+      />
 
       <section className="mb-10">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">

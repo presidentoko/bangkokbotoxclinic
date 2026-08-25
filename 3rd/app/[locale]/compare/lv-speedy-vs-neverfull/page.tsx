@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -69,6 +70,11 @@ export default async function LvSpeedyVsNeverfullTH({ params }: Props) {
           ? 'The two most recognisable LV bags globally — both excellent pre-owned investments. The Speedy is a structured handheld; the Neverfull is the definitive open tote. Bangkok context (MBK, Chatuchak security) and THB prices included.'
           : 'กระเป๋า LV ที่โดดเด่นที่สุดสองใบในโลก ทั้งสองเป็นการลงทุนมือสองที่ยอดเยี่ยม Speedy คือกระเป๋าถือมีโครงสร้าง Neverfull คือโทตเปิดที่เป็นนิยาม รวมบริบทกรุงเทพ (ความปลอดภัย MBK, จตุจักร) และราคาบาท'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['louis-vuitton/speedy-25', 'louis-vuitton/neverfull-mm']}
+        locale={locale}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

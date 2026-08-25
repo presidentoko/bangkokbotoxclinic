@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -40,6 +41,11 @@ export default async function WatchGuideThailandPage({ params }: Props) {
         {isEn ? 'Complete buying guide — authentication, pricing in THB, and where to find good deals in Bangkok.'
           : 'คู่มือซื้อฉบับสมบูรณ์ — การตรวจสอบความแท้ ราคาเป็นบาท และที่หาดีลดีๆ ในกรุงเทพ'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['rolex/submariner', 'rolex/datejust-36']}
+        locale={locale}
+      />
 
       <section className="mb-10">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getAllItems, getAvgPrice, formatPriceTHB } from '@/lib/data'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -114,6 +115,12 @@ export default async function LuxuryBagsAsInvestmentsPage({ params }: Props) {
       <p className="text-[#8C7355] text-sm mb-10">
         {isEn ? `Based on ${rankedItems.length} tracked models with live price data` : `จากข้อมูล ${rankedItems.length} รุ่นที่ติดตามราคาจริง`}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'louis-vuitton/neverfull-mm', 'rolex/submariner', 'rolex/daytona']}
+        locale={locale}
+        title={isEn ? 'What the Thai market pays today' : 'ตลาดไทยจ่ายเท่าไหร่วันนี้'}
+      />
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed max-w-2xl">

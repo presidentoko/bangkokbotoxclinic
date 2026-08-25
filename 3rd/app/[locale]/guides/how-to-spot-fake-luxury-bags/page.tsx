@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -105,11 +106,11 @@ const faqsEn = [
   },
   {
     q: 'How common are fake luxury bags in Thailand?',
-    a: "Counterfeit luxury bags are extremely common in Thailand, particularly at markets like MBK, Chatuchak, and Patpong. The sophistication ranges from obvious fakes to 'super fakes' that can fool inexperienced buyers. Even on Carousell Thailand, fake listings appear regularly. Never assume a low price means a bargain — it almost always means a fake.",
+    a: "Counterfeit luxury bags are extremely common in Thailand, particularly at markets like MBK, Chatuchak, and Patpong. The sophistication ranges from obvious fakes to 'super fakes' that can fool inexperienced buyers. Even on Facebook Marketplace and LINE, fake listings appear regularly. Never assume a low price means a bargain — it almost always means a fake.",
   },
   {
     q: 'Can I get a refund if I bought a fake luxury bag in Thailand?',
-    a: "If you bought from Vestiaire Collective or another platform with buyer protection, you can dispute the sale and receive a refund. For private market purchases on Carousell or Line, recourse depends on payment method — PromptPay transfers are very difficult to reverse. Always use a payment method with buyer protection (credit card, platform escrow) for high-value purchases.",
+    a: "If you bought from Vestiaire Collective or another platform with buyer protection, you can dispute the sale and receive a refund. For private-seller purchases on Facebook Marketplace or LINE, recourse depends on payment method — PromptPay transfers are very difficult to reverse. Always use a payment method with buyer protection (credit card, platform escrow) for high-value purchases.",
   },
   {
     q: 'What is the most counterfeited luxury brand in Thailand?',
@@ -124,11 +125,11 @@ const faqsTh = [
   },
   {
     q: 'กระเป๋า luxury ปลอมพบบ่อยแค่ไหนในไทย?',
-    a: 'กระเป๋า luxury ปลอมพบเห็นได้ทั่วไปมากในไทย โดยเฉพาะที่ตลาดอย่าง MBK, จตุจักร และพัฒน์พงศ์ ความซับซ้อนมีตั้งแต่ของปลอมที่เห็นได้ชัดไปจนถึง "super fakes" ที่หลอกผู้ซื้อที่ไม่มีประสบการณ์ได้ แม้แต่บน Carousell Thailand ประกาศปลอมก็ปรากฏขึ้นบ่อยครั้ง อย่าสันนิษฐานว่าราคาต่ำหมายถึงราคาดี — มักหมายถึงของปลอมเสมอ',
+    a: 'กระเป๋า luxury ปลอมพบเห็นได้ทั่วไปมากในไทย โดยเฉพาะที่ตลาดอย่าง MBK, จตุจักร และพัฒน์พงศ์ ความซับซ้อนมีตั้งแต่ของปลอมที่เห็นได้ชัดไปจนถึง "super fakes" ที่หลอกผู้ซื้อที่ไม่มีประสบการณ์ได้ แม้แต่บน Facebook Marketplace และ LINE ประกาศของปลอมก็โผล่ขึ้นมาบ่อยครั้ง อย่าสันนิษฐานว่าราคาต่ำหมายถึงราคาดี — มักหมายถึงของปลอมเสมอ',
   },
   {
     q: 'ขอเงินคืนได้ไหมถ้าซื้อกระเป๋า luxury ปลอมในไทย?',
-    a: 'ถ้าซื้อจาก Vestiaire Collective หรือแพลตฟอร์มอื่นที่มีการคุ้มครองผู้ซื้อ คุณสามารถโต้แย้งการขายและรับเงินคืน สำหรับการซื้อจากตลาดเอกชนบน Carousell หรือ Line การเยียวยาขึ้นอยู่กับวิธีการชำระเงิน การโอน PromptPay ยากมากที่จะกลับคืน ควรใช้วิธีการชำระเงินที่มีการคุ้มครองผู้ซื้อ (บัตรเครดิต, escrow ของแพลตฟอร์ม) สำหรับการซื้อมูลค่าสูง',
+    a: 'ถ้าซื้อจาก Vestiaire Collective หรือแพลตฟอร์มอื่นที่มีการคุ้มครองผู้ซื้อ คุณสามารถโต้แย้งการขายและรับเงินคืน สำหรับการซื้อจากผู้ขายรายย่อยบน Facebook Marketplace หรือ LINE การเยียวยาขึ้นอยู่กับวิธีการชำระเงิน การโอน PromptPay ยากมากที่จะกลับคืน ควรใช้วิธีการชำระเงินที่มีการคุ้มครองผู้ซื้อ (บัตรเครดิต, escrow ของแพลตฟอร์ม) สำหรับการซื้อมูลค่าสูง',
   },
   {
     q: 'แบรนด์ luxury ไหนที่ถูกปลอมแปลงมากที่สุดในไทย?',
@@ -172,6 +173,12 @@ export default async function HowToSpotFakePage({ params }: Props) {
       <p className="text-[#8C7355] text-sm mb-10">
         {isEn ? 'Brand-specific authentication guide for pre-owned buyers in Thailand' : 'คู่มือตรวจสอบความแท้รายแบรนด์สำหรับผู้ซื้อมือสองในไทย'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'louis-vuitton/neverfull-mm', 'gucci/ophidia-gg-medium', 'hermes/evelyne-tpm']}
+        locale={locale}
+        title={isEn ? 'What the real thing costs in Thailand' : 'ของแท้ราคาเท่าไหร่ในไทย'}
+      />
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed max-w-2xl">

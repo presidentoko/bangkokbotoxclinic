@@ -10,6 +10,11 @@ export interface StaticPage {
 
 export const STATIC_PAGES: StaticPage[] = [
   { path: '', changeFrequency: 'weekly', priority: 1.0 },
+  // Seller intent. Thai dealers all advertise "รับซื้อ" and none of them
+  // publishes a price, so these queries have no informational result to
+  // land on — high priority because the competition is a contact form.
+  { path: '/sell', changeFrequency: 'weekly', priority: 0.9 },
+  { path: '/dealers', changeFrequency: 'weekly', priority: 0.7 },
   { path: '/handbags', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/watches', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/clothing', changeFrequency: 'weekly', priority: 0.9 },

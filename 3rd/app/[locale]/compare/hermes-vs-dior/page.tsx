@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -66,6 +67,12 @@ export default async function HermesVsDiorTH({ params }: Props) {
           ? 'Hermès is the investment play — Birkin has never lost value. Dior is the fashion play — Lady Dior gives haute couture association at a fraction of Hermès prices. For Thai buyers: Hermès for wealth preservation, Dior for fashion-first access.'
           : 'Hermès คือการลงทุน — Birkin ไม่เคยขาดทุน Dior คือแฟชั่น — Lady Dior ให้ความเชื่อมโยง haute couture ในราคาเศษเสี้ยวของ Hermès สำหรับผู้ซื้อชาวไทย Hermès สำหรับรักษามูลค่าทรัพย์สิน Dior สำหรับการเข้าถึงแฟชั่น'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['hermes/evelyne-tpm', 'hermes/garden-party-36']}
+        locale={locale}
+        title={isEn ? 'Hermes at Thai dealer prices right now' : 'ราคา Hermes ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

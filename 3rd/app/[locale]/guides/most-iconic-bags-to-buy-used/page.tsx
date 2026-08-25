@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -67,6 +68,11 @@ export default async function IconicBagsTH({ params }: Props) {
           ? 'Pre-owned buys are strongest when the piece itself is iconic — recognized globally, proven value retention, deep resale market. These 10 bags meet all three criteria.'
           : 'การซื้อมือสองดีที่สุดเมื่อชิ้นนั้นเป็นไอคอน — รู้จักทั่วโลก มูลค่าได้รับการพิสูจน์ ตลาดขายต่อลึก 10 กระเป๋าเหล่านี้ตอบสนองเกณฑ์ทั้งสาม'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'chanel/boy-bag-medium', 'louis-vuitton/neverfull-mm', 'louis-vuitton/speedy-25']}
+        locale={locale}
+      />
 
       <div className="space-y-4 mb-10">
         {bags.map(b => (

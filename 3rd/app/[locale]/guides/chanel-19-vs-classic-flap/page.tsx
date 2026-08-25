@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -69,6 +70,11 @@ export default async function Chanel19VsClassicFlapTH({ params }: Props) {
           ? 'Both are extraordinary investments — but with very different market dynamics. The Classic Flap is the established S-Tier investment; the Chanel 19 is a newer design with exceptional early-stage retention and better everyday wearability. Bangkok context and THB prices included.'
           : 'ทั้งสองเป็นการลงทุนที่ยอดเยี่ยม แต่มีพลวัตตลาดต่างกันมาก Classic Flap คือการลงทุน S-Tier ที่มั่นคง Chanel 19 คือการออกแบบใหม่กว่าที่มีอัตราการรักษามูลค่าในช่วงต้นที่ยอดเยี่ยมและความสะดวกในการสวมใส่ประจำวันที่ดีกว่า รวมบริบทกรุงเทพและราคาบาท'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/19-bag-small', 'chanel/classic-flap-medium']}
+        locale={locale}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

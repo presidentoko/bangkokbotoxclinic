@@ -35,7 +35,7 @@ const faqsEn = [
   },
   {
     q: 'Where can I buy authentic Hermès pre-owned in Thailand?',
-    a: 'Vestiaire Collective is the most secure platform for authenticated Hermès shipping to Thailand. Certified local dealers in Bangkok (Emporium, Central Embassy area) also stock authenticated pieces. Be extremely cautious on Carousell Thailand — Hermès is the most counterfeited brand in Thailand and fakes are sophisticated.',
+    a: 'Vestiaire Collective is the most secure platform for authenticated Hermès shipping to Thailand. Certified local dealers in Bangkok (Emporium, Central Embassy area) also stock authenticated pieces. Be extremely cautious with private sellers on Facebook Marketplace and LINE — Hermès is the most counterfeited brand in Thailand and fakes are sophisticated.',
   },
   {
     q: 'Is it worth buying Hermès pre-owned if prices are above retail?',
@@ -54,7 +54,7 @@ const faqsTh = [
   },
   {
     q: 'ซื้อ Hermès มือสองแท้ได้ที่ไหนในไทย?',
-    a: 'Vestiaire Collective เป็นแพลตฟอร์มที่ปลอดภัยที่สุดสำหรับ Hermès ที่ผ่านการตรวจสอบและส่งถึงไทย ดีลเลอร์ในกรุงเทพฯ (แถวเอ็มโพเรียม, เซ็นทรัล เอ็มบาสซี) ก็มีชิ้นที่ผ่านการตรวจสอบ ระวังมากบน Carousell Thailand — Hermès เป็นแบรนด์ที่ถูกปลอมแปลงมากที่สุดในไทยและของปลอมมีความซับซ้อนสูง',
+    a: 'Vestiaire Collective เป็นแพลตฟอร์มที่ปลอดภัยที่สุดสำหรับ Hermès ที่ผ่านการตรวจสอบและส่งถึงไทย ดีลเลอร์ในกรุงเทพฯ (แถวเอ็มโพเรียม, เซ็นทรัล เอ็มบาสซี) ก็มีชิ้นที่ผ่านการตรวจสอบ ระวังให้มากกับผู้ขายรายย่อยบน Facebook Marketplace และ LINE — Hermès เป็นแบรนด์ที่ถูกปลอมแปลงมากที่สุดในไทยและของปลอมมีความซับซ้อนสูง',
   },
   {
     q: 'คุ้มไหมที่จะซื้อ Hermès มือสองในราคาที่เกินของใหม่?',

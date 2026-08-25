@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -59,6 +60,12 @@ export default async function SLVsGucciTH({ params }: Props) {
           ? 'Both are iconic European houses. SL is currently in a stable, cool phase; Gucci is in creative transition. For pre-owned value, SL is safer; for iconic pieces, Gucci\'s Michele era wins.'
           : 'ทั้งคู่เป็นเมซองยุโรปที่มีชื่อเสียง SL อยู่ในช่วงคงที่และเย็น Gucci อยู่ในช่วงเปลี่ยนผ่านด้านความคิดสร้างสรรค์ สำหรับมูลค่ามือสอง SL ปลอดภัยกว่า สำหรับชิ้นไอคอน ยุค Michele ของ Gucci ชนะ'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['gucci/horsebit-1955-small-bag', 'gucci/jackie-1961-small', 'gucci/ophidia-gg-medium']}
+        locale={locale}
+        title={isEn ? 'Gucci at Thai dealer prices right now' : 'ราคา Gucci ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

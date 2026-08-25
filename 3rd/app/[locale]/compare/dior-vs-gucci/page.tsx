@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -66,6 +67,12 @@ export default async function DiorVsGucciTH({ params }: Props) {
           ? 'Dior is Parisian couture — the Lady Dior carries 80 years of New Look DNA. Gucci is Florentine creative maximalism with the longest Italian luxury history of any handbag house. For Thai buyers: Dior edges Gucci on consistent resale; Gucci wins on entry price flexibility and creative range.'
           : 'Dior คือ couture ปารีส Lady Dior มี DNA New Look 80 ปี Gucci คือความสร้างสรรค์แบบฟลอเรนซ์พร้อมประวัติศาสตร์หรูอิตาลียาวนานที่สุดของบ้านกระเป๋าใด สำหรับผู้ซื้อชาวไทย Dior เหนือกว่า Gucci ในการขายต่อที่สม่ำเสมอ Gucci ชนะด้านความยืดหยุ่นราคาเริ่มต้นและขอบเขตสร้างสรรค์'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['gucci/horsebit-1955-small-bag', 'gucci/jackie-1961-small', 'gucci/ophidia-gg-medium']}
+        locale={locale}
+        title={isEn ? 'Gucci at Thai dealer prices right now' : 'ราคา Gucci ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

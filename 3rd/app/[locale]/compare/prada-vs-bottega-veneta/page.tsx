@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -66,6 +67,11 @@ export default async function PradaVsBVTH({ params }: Props) {
           ? 'Both are Italian houses that champion restraint — but differently. Prada has the triangle logo and intellectual aesthetic. Bottega Veneta has the Intrecciato weave and zero branding. Prada goes lower on entry; BV holds stronger resale. Two of the best pre-owned value plays in Italian luxury for Thai buyers.'
           : 'ทั้งสองเป็นบ้านอิตาลีที่ยึดถือความเรียบง่าย แต่แตกต่างกัน Prada มีโลโก้รูปสามเหลี่ยมและสุนทรียศาสตร์ทางปัญญา Bottega Veneta มีลาย Intrecciato และ zero branding Prada ราคาเริ่มต้นต่ำกว่า BV ขายต่อแข็งแกร่งกว่า สองตัวเลือกมูลค่ามือสองที่ดีที่สุดใน luxury อิตาลีสำหรับผู้ซื้อชาวไทย'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['prada/galleria-small', 'prada/re-edition-2005', 'bottega-veneta/cassette-bag', 'bottega-veneta/mini-pouch']}
+        locale={locale}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

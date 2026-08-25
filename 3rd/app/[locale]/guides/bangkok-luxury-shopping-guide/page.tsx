@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -13,8 +14,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: isEn ? 'Bangkok Luxury Pre-Owned Shopping Guide 2025 | ChicPreowned' : 'คู่มือช้อปปิ้ง Luxury มือสองในกรุงเทพ 2025 | ChicPreowned',
     description: isEn
-      ? `Where to buy pre-owned luxury bags and watches in Bangkok ${PRICE_YEAR} — Carousell, Line Market, Chatuchak, Siam, and trusted dealers.`
-      : `ที่ซื้อกระเป๋าและนาฬิกา luxury มือสองในกรุงเทพ ${PRICE_YEAR} — Carousell, Line Market, จตุจักร, สยาม และดีลเลอร์ที่น่าเชื่อถือ`,
+      ? `Where to buy pre-owned luxury bags and watches in Bangkok ${PRICE_YEAR} — Thai resale dealers, Line Market, Chatuchak, Siam, and Facebook groups.`
+      : `ที่ซื้อกระเป๋าและนาฬิกา luxury มือสองในกรุงเทพ ${PRICE_YEAR} — ร้านมือสองในไทย, Line Market, จตุจักร, สยาม และกลุ่ม Facebook`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -41,18 +42,24 @@ export default async function BangkokLuxuryShoppingGuide({ params }: Props) {
           : 'ที่หา luxury มือสองแท้ๆ ในกรุงเทพ — แพลตฟอร์มออนไลน์ ตลาด และดีลเลอร์ที่น่าเชื่อถือ'}
       </p>
 
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'louis-vuitton/neverfull-mm', 'rolex/datejust-36']}
+        locale={locale}
+        title={isEn ? 'What Bangkok dealers are asking right now' : 'ราคาที่ร้านในกรุงเทพตั้งขายตอนนี้'}
+      />
+
       <section className="mb-10">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
           {isEn ? 'Online Platforms (Best for Price Comparison)' : 'แพลตฟอร์มออนไลน์ (ดีที่สุดสำหรับเปรียบเทียบราคา)'}
         </h2>
         <div className="space-y-4">
           {(isEn ? [
-            { name: 'Carousell Thailand', url: 'carousell.com/th', desc: 'Largest C2C platform for pre-owned luxury in Thailand. Active sellers, wide selection. Buyer beware: no authentication service — inspect carefully or meet in person.', rating: '★★★★☆' },
+            { name: 'Thai resale dealers (UsedBrand88, Brandname Voyage)', url: 'usedbrand88.com · brandnamevoyage.com', desc: 'Established shops with a physical storefront and a public online catalogue. They buy and inspect stock in-house, price in baht, and let you see the piece before you pay. The Thai prices on this site are read from dealers like these.', rating: '★★★★☆' },
             { name: 'Line Market / Line Shopping', url: 'shop.line.me', desc: 'Heavily used by Thai resellers for luxury goods. Many professional dealers operate here. Chat-based negotiation is standard.', rating: '★★★★☆' },
             { name: 'Facebook Marketplace Groups', url: 'facebook.com', desc: '"กระเป๋าแบรนด์เนมมือสอง" groups. Huge volume, active community. Many reputable dealers post here first. Group admins sometimes verify sellers.', rating: '★★★☆☆' },
             { name: 'Vestiaire Collective TH', url: 'vestiairecollective.com', desc: 'Authentication service included. More expensive than local platforms (10–15% premium) but lower fraud risk. Best for international brands.', rating: '★★★★★' },
           ] : [
-            { name: 'Carousell Thailand', url: 'carousell.com/th', desc: 'แพลตฟอร์ม C2C ที่ใหญ่ที่สุดสำหรับ luxury มือสองในไทย ผู้ขายหลากหลาย ระวัง: ไม่มีบริการตรวจสอบความแท้ — ตรวจสอบอย่างละเอียดหรือนัดพบตัวต่อตัว', rating: '★★★★☆' },
+            { name: 'ร้านมือสองในไทย (UsedBrand88, Brandname Voyage)', url: 'usedbrand88.com · brandnamevoyage.com', desc: 'ร้านที่มีหน้าร้านจริงและมีแคตตาล็อกออนไลน์ให้ดูราคา รับซื้อ-ฝากขายและตรวจสภาพเองก่อนลงขาย ตั้งราคาเป็นเงินบาท และดูของจริงได้ก่อนจ่ายเงิน ราคาฝั่งไทยบนเว็บนี้อ่านมาจากร้านกลุ่มนี้', rating: '★★★★☆' },
             { name: 'Line Market / Line Shopping', url: 'shop.line.me', desc: 'ดีลเลอร์ไทยใช้มากสำหรับสินค้า luxury ดีลเลอร์มืออาชีพจำนวนมากดำเนินงานที่นี่ การเจรจาผ่านแชทเป็นเรื่องปกติ', rating: '★★★★☆' },
             { name: 'กลุ่ม Facebook Marketplace', url: 'facebook.com', desc: 'กลุ่ม "กระเป๋าแบรนด์เนมมือสอง" มีปริมาณมาก ชุมชนที่กระตือรือร้น ดีลเลอร์ที่มีชื่อเสียงหลายรายโพสต์ที่นี่ก่อน แอดมินกลุ่มบางครั้งตรวจสอบผู้ขาย', rating: '★★★☆☆' },
             { name: 'Vestiaire Collective TH', url: 'vestiairecollective.com', desc: 'รวมบริการตรวจสอบความแท้ แพงกว่าแพลตฟอร์มในประเทศ (เพิ่ม 10–15%) แต่ความเสี่ยงการฉ้อโกงต่ำกว่า ดีที่สุดสำหรับแบรนด์ระดับนานาชาติ', rating: '★★★★★' },

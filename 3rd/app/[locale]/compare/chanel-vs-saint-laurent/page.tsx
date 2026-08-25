@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { ThaiPriceCallout } from '@/components/ThaiPriceCallout'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -59,6 +60,12 @@ export default async function ChanelVsSLTH({ params }: Props) {
           ? 'Both are Parisian. Both hold value. But they are for different buyers. Chanel is the investment — you may actually make money. Saint Laurent is the style play — you get French luxury at a fraction of the price. For Thai buyers, the choice is budget and intent.'
           : 'ทั้งคู่มาจากปารีส ทั้งคู่คงมูลค่า แต่เหมาะกับผู้ซื้อต่างกัน Chanel คือการลงทุน — คุณอาจทำกำไรจริงๆ Saint Laurent คือตัวเลือกสไตล์ — คุณได้ความหรูฝรั่งเศสในราคาเพียงเสี้ยว สำหรับผู้ซื้อชาวไทย ขึ้นอยู่กับงบประมาณและเจตนา'}
       </p>
+
+      <ThaiPriceCallout
+        slugs={['chanel/classic-flap-medium', 'chanel/boy-bag-medium']}
+        locale={locale}
+        title={isEn ? 'Chanel at Thai dealer prices right now' : 'ราคา Chanel ที่ร้านไทยตั้งขายตอนนี้'}
+      />
 
       <div className="overflow-x-auto mb-10">
         <table className="w-full text-sm border-collapse">

@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
-import { getAllItems, getAllBrands } from '@/lib/data'
+import { getAllItems, getAllBrands, toBrandSlug } from '@/lib/data'
 import { STATIC_PAGES } from '@/lib/site-pages'
+import { getThaiEntry, getThaiMeta } from '@/lib/thai-market'
 
 const BASE = 'https://www.chicpreowned.com'
 
@@ -63,6 +64,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Model pages
   for (const item of items) {
     entries.push(...localizedEntries(`/${item.slug}`, 'weekly', 0.9, item.last_updated || DATA_DATE))
+  }
+
+  // Sell pages exist only where there is Thai dealer data to answer with,
+  // so they are listed from the same source that decides whether the page
+  // gets built at all — a sitemap entry for a 404 is worse than no entry.
+  const { generated } = getThaiMeta()
+  const sellBrands = new Set<string>()
+  for (const item of items) {
+    if (!getThaiEntry(item.slug)) continue
+    sellBrands.add(toBrandSlug(item.brand))
+    entries.push(...localizedEntries(`/sell/${item.slug}`, 'weekly', 0.8, generated))
+  }
+  for (const brand of sellBrands) {
+    entries.push(...localizedEntries(`/sell/${brand}`, 'weekly', 0.7, generated))
   }
 
   const seen = new Set<string>()

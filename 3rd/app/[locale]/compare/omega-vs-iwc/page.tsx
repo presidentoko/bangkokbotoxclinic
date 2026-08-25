@@ -37,7 +37,7 @@ export default async function OmegaVsIWCTH({ params }: Props) {
     { label: 'Entry price (pre-owned)', omega: `Seamaster 300M: $2,800–$4,500 (${formatPriceTHB(2800)}–${formatPriceTHB(4500)})`, iwc: `Pilot's Mark XX: $2,200–$3,500 (${formatPriceTHB(2200)}–${formatPriceTHB(3500)})` },
     { label: 'Resale value', omega: 'Seamaster: 60–80% of retail. Speedmaster (limited): 80–120%+.', iwc: 'Pilot\'s Chrono: 55–70% of retail. Portofino: 45–60%.' },
     { label: 'Investment case', omega: 'Stronger. Moonwatch is a genuine collector icon. Seamaster very liquid.', iwc: 'Moderate. Lacks iconic collector anchors of Omega. More fashion than investment.' },
-    { label: 'Bangkok context', omega: `Omega boutiques at Central Chidlom, Siam Paragon. Very liquid on Carousell Thailand. ${formatPriceTHB(2800)}+ entry for pre-owned.`, iwc: `IWC at Gaysorn. Less common in Bangkok secondary market. ${formatPriceTHB(2200)}+ pre-owned entry.` },
+    { label: 'Bangkok context', omega: `Omega boutiques at Central Chidlom, Siam Paragon. Very liquid through Bangkok pre-owned watch dealers. ${formatPriceTHB(2800)}+ entry for pre-owned.`, iwc: `IWC at Gaysorn. Less common in Bangkok secondary market. ${formatPriceTHB(2200)}+ pre-owned entry.` },
   ] : [
     { label: 'ก่อตั้ง', omega: 'La Chaux-de-Fonds 1848', iwc: 'Schaffhausen 1868 ผู้ผลิตนาฬิกาสวิสรายใหญ่เพียงรายเดียวในสวิตเซอร์แลนด์ที่พูดภาษาเยอรมัน' },
     { label: 'กลุ่ม', omega: 'Swatch Group ~700,000 เรือนต่อปี', iwc: 'Richemont Group ~170,000 เรือนต่อปี เฉพาะเจาะจงกว่า' },
@@ -45,7 +45,7 @@ export default async function OmegaVsIWCTH({ params }: Props) {
     { label: 'ราคาเริ่มต้น (มือสอง)', omega: `Seamaster 300M: $2,800–$4,500 (${formatPriceTHB(2800)}–${formatPriceTHB(4500)})`, iwc: `Pilot's Mark XX: $2,200–$3,500 (${formatPriceTHB(2200)}–${formatPriceTHB(3500)})` },
     { label: 'มูลค่าขายต่อ', omega: 'Seamaster: 60–80% ราคาร้าน Speedmaster (limited): 80–120%+', iwc: 'Pilot\'s Chrono: 55–70% ราคาร้าน Portofino: 45–60%' },
     { label: 'คุณค่าการลงทุน', omega: 'แข็งแกร่งกว่า Moonwatch เป็น icon ของนักสะสมที่แท้จริง Seamaster เป็น liquid มาก', iwc: 'ปานกลาง ขาด anchor ของนักสะสม iconic ของ Omega แฟชั่นมากกว่าการลงทุน' },
-    { label: 'บริบทกรุงเทพ', omega: `บูทีค Omega ที่ Central Chidlom, Siam Paragon มาก liquid บน Carousell Thailand เริ่มต้น ${formatPriceTHB(2800)}+ มือสอง`, iwc: `IWC ที่ Gaysorn ตลาดรองกรุงเทพน้อยกว่า เริ่มต้น ${formatPriceTHB(2200)}+ มือสอง` },
+    { label: 'บริบทกรุงเทพ', omega: `บูทีค Omega ที่ Central Chidlom, Siam Paragon สภาพคล่องสูงที่ร้านนาฬิกามือสองในกรุงเทพฯ เริ่มต้น ${formatPriceTHB(2800)}+ มือสอง`, iwc: `IWC ที่ Gaysorn ตลาดรองกรุงเทพน้อยกว่า เริ่มต้น ${formatPriceTHB(2200)}+ มือสอง` },
   ]
 
   return (
