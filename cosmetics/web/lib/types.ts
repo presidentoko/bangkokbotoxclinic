@@ -43,4 +43,17 @@ export interface MasterDb {
   oral_rankings?: Record<string, RankingEntry[]>;
   makeup_rankings?: Record<string, RankingEntry[]>;
 }
-export interface IngredientEntry { th_name: string; en_name: string; aliases: string[]; role: string; concern_efficacy: Record<string, number>; safety_flags: string[]; mechanism_th: string; mechanism_en: string; typical_pct: string; evidence_note?: string; sources: string[]; }
+export interface IngredientEntry {
+  th_name: string; en_name: string; aliases: string[]; role: string;
+  concern_efficacy: Record<string, number>; safety_flags: string[];
+  mechanism_th: string; mechanism_en: string; typical_pct: string;
+  evidence_note?: string; evidence_note_th?: string; sources: string[];
+  /** Common alternate Thai transliterations searched for this ingredient
+   * (e.g. "ไนอะซินาไมด์" alongside the canonical "ไนอาซินาไมด์") — surfaced
+   * in the intro copy so both spellings appear in the page text. */
+  alt_th_names?: string[];
+  /** Pairing guidance for well-documented actives only; omitted where no
+   * established interaction exists (most extracts/emollients/additives). */
+  combo_good_th?: string; combo_good_en?: string;
+  combo_avoid_th?: string; combo_avoid_en?: string;
+}

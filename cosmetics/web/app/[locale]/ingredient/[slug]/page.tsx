@@ -7,9 +7,12 @@ import {
   productsWithIngredient,
   productSlug,
   effectiveConcerns,
+  generatedAt,
+  pantipMentionsForIngredient,
 } from "@/lib/data";
 import { STATIC_LOCALES, localeAlternates, localeOgImage, t, concernLabel, SAFETY_FLAG_LABELS, type Locale } from "@/lib/i18n";
 import { ingredientLd, faqLd } from "@/lib/schema";
+import { ingredientNarrative } from "@/lib/ingredient-narrative";
 import { JsonLd } from "@/components/JsonLd";
 import Link from "next/link";
 
@@ -79,11 +82,17 @@ export default async function IngredientPage({
 
   const isTh = locale === "th";
   const name = isTh ? ing.th_name : ing.en_name;
-  const mech = isTh ? ing.mechanism_th : ing.mechanism_en;
   const prods = productsWithIngredient(ing.inci);
   const url = `https://bangkokfillers.com/${locale}/ingredient/${slug}`;
   const concerns = effectiveConcerns(ing.concern_efficacy);
   const concernNames = concerns.map((c) => concernLabel(locale, c.concern));
+  const narrative = ingredientNarrative(ing, locale, prods.length, concernNames);
+  const comboGood = isTh ? ing.combo_good_th : ing.combo_good_en;
+  const comboAvoid = isTh ? ing.combo_avoid_th : ing.combo_avoid_en;
+  const pantipMentions = pantipMentionsForIngredient(ing, 5);
+  const visibleProds = prods.slice(0, 12);
+  const restProds = prods.slice(12, 40);
+  const lastVerified = generatedAt().slice(0, 10);
 
   return (
     <article className="prose space-y-8 max-w-3xl overflow-hidden">
@@ -97,34 +106,31 @@ export default async function IngredientPage({
           <p className="text-sm text-neutral-500">
             {isTh ? "หรือเรียกว่า: " : "Also known as: "}
             {ing.aliases.join(", ")}
+            {isTh && ing.alt_th_names && ing.alt_th_names.length > 0 && `, ${ing.alt_th_names.join(", ")}`}
+          </p>
+        )}
+        {lastVerified && (
+          <p className="text-xs text-neutral-400">
+            {isTh ? `ข้อมูลอัปเดตล่าสุด: ${lastVerified}` : `Last verified: ${lastVerified}`}
           </p>
         )}
       </header>
 
-      {/* ── Mechanism lead (AEO — the same sentence answers the on-page FAQ below) ── */}
+      {/* ── Expanded narrative (AEO — answers "what is X" in full, not two sentences) ── */}
       <div className="not-prose rounded-xl bg-rose-50 border border-rose-100 p-5 text-sm text-rose-900 max-w-2xl space-y-3">
         <p className="font-medium">
           {isTh ? `${ing.th_name} คืออะไร?` : `What is ${ing.en_name}?`}
         </p>
-        <p className="leading-relaxed">{mech}</p>
-        {ing.evidence_note && (
-          <p className="leading-relaxed text-rose-700">
-            {isTh ? "หลักฐานทางวิทยาศาสตร์: " : "Evidence: "}
-            {ing.evidence_note}
+        {narrative.map((para, i) => (
+          <p key={i} className="leading-relaxed">
+            {para}
           </p>
-        )}
-        {concernNames.length > 0 && (
-          <p className="leading-relaxed">
-            {isTh
-              ? `เหมาะสำหรับ: ${concernNames.join(", ")} — พบได้ในผลิตภัณฑ์ ${prods.length} รายการในฐานข้อมูลของเรา`
-              : `Best for: ${concernNames.join(", ")} — found in ${prods.length} products in our database`}
-          </p>
-        )}
+        ))}
       </div>
 
       {/* ── Stat row: concentration + safety ── */}
       <div className="not-prose flex flex-wrap gap-3">
-        {ing.typical_pct && (
+        {ing.typical_pct && ing.typical_pct !== "n/a" && (
           <div className="flex items-center gap-3 rounded-2xl border border-[#efe1db] bg-white px-4 sm:px-5 py-4 shadow-sm shadow-rose-100 w-fit max-w-full">
             <span className="text-xs uppercase tracking-widest text-[#c9a86a]">
               {isTh ? "ความเข้มข้นทั่วไป" : "Typical concentration"}
@@ -175,6 +181,54 @@ export default async function IngredientPage({
         </section>
       )}
 
+      {/* ── Pairing guidance — only for actives with established interactions ── */}
+      {(comboGood || comboAvoid) && (
+        <section className="not-prose space-y-3">
+          <h2 className="font-serif-display text-lg sm:text-xl font-semibold text-neutral-800">
+            {isTh ? `ใช้ร่วมกับส่วนผสมอื่นอย่างไร` : `Combining with other ingredients`}
+          </h2>
+          <div className="space-y-2 max-w-2xl">
+            {comboGood && (
+              <p className="flex items-start gap-2 text-sm text-neutral-700 leading-relaxed">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>{comboGood}</span>
+              </p>
+            )}
+            {comboAvoid && (
+              <p className="flex items-start gap-2 text-sm text-neutral-700 leading-relaxed">
+                <span className="text-amber-500 mt-0.5">⚠</span>
+                <span>{comboAvoid}</span>
+              </p>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* ── What Pantip says — real forum mentions, not authored Q&A ── */}
+      {pantipMentions.length > 0 && (
+        <section className="not-prose space-y-3">
+          <h2 className="font-serif-display text-lg sm:text-xl font-semibold text-neutral-800">
+            {isTh ? "คนไทยพูดถึงส่วนผสมนี้ใน Pantip อย่างไร" : "What Thai users say about this on Pantip"}
+          </h2>
+          <div className="space-y-3">
+            {pantipMentions.map((m, i) => (
+              <a
+                key={i}
+                href={`https://pantip.com/topic/${m.topicId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-2xl border border-[#f5e6d3] bg-[#fffaf5] px-5 py-4 shadow-sm hover:border-amber-300 hover:bg-amber-50 transition-colors"
+              >
+                <p className="text-sm text-neutral-700 leading-relaxed line-clamp-3">&ldquo;{m.text.trim()}&rdquo;</p>
+                <p className="mt-2 text-xs text-amber-600 font-medium">
+                  {m.author ? `${m.author} · ` : ""}Pantip.com
+                </p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* ── Products with this ingredient ── */}
       {prods.length > 0 && (
         <section className="not-prose space-y-4">
@@ -183,7 +237,7 @@ export default async function IngredientPage({
             <span className="ml-2 text-sm font-normal text-neutral-400">({prods.length})</span>
           </h2>
           <div className="flex flex-wrap gap-2 overflow-hidden">
-            {prods.slice(0, 30).map((p) => (
+            {visibleProds.map((p) => (
               <Link
                 key={p.product_id}
                 href={`/${locale}/product/${productSlug(p)}`}
@@ -193,6 +247,25 @@ export default async function IngredientPage({
               </Link>
             ))}
           </div>
+          {restProds.length > 0 && (
+            <details className="group">
+              <summary className="cursor-pointer text-sm text-rose-500 font-medium list-none inline-flex items-center gap-1">
+                {isTh ? `ดูอีก ${restProds.length} รายการ` : `Show ${restProds.length} more`}
+                <span className="transition-transform group-open:rotate-180">▾</span>
+              </summary>
+              <div className="flex flex-wrap gap-2 overflow-hidden mt-3">
+                {restProds.map((p) => (
+                  <Link
+                    key={p.product_id}
+                    href={`/${locale}/product/${productSlug(p)}`}
+                    className="inline-flex items-center rounded-full border border-[#efe1db] bg-white px-3 py-1 text-xs text-rose-600 font-medium hover:bg-rose-50 hover:border-rose-300 transition-colors shadow-sm max-w-full break-words"
+                  >
+                    {p.brand} {p.name}
+                  </Link>
+                ))}
+              </div>
+            </details>
+          )}
         </section>
       )}
 
@@ -218,10 +291,25 @@ export default async function IngredientPage({
       <JsonLd
         data={faqLd([
           {
-            q: isTh ? `${name} คืออะไร` : `What is ${name}?`,
-            a: mech,
+            q:
+              isTh && ing.alt_th_names && ing.alt_th_names.length > 0
+                ? `${name} (หรือ ${ing.alt_th_names.join(", ")}) คืออะไร`
+                : isTh
+                  ? `${name} คืออะไร`
+                  : `What is ${name}?`,
+            a: narrative.join(" "),
           },
-          ...(ing.typical_pct ? [{
+          ...(ing.safety_flags?.length > 0 ? [{
+            q: isTh ? `${name} มีข้อควรระวังอะไรบ้าง` : `What are the safety concerns with ${name}?`,
+            a: isTh
+              ? ing.safety_flags.map((f) => SAFETY_FLAG_LABELS[f]?.th ?? f).join(" ")
+              : ing.safety_flags.map((f) => SAFETY_FLAG_LABELS[f]?.en ?? f).join(" "),
+          }] : []),
+          ...(comboGood || comboAvoid ? [{
+            q: isTh ? `${name} ใช้ร่วมกับส่วนผสมอื่นได้ไหม` : `Can ${name} be combined with other ingredients?`,
+            a: [comboGood, comboAvoid].filter(Boolean).join(" "),
+          }] : []),
+          ...(ing.typical_pct && ing.typical_pct !== "n/a" ? [{
             q: isTh
               ? `ควรใช้ ${name} ความเข้มข้นเท่าไหร่`
               : `What concentration of ${name} should I use?`,

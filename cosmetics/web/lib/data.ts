@@ -120,6 +120,54 @@ export function productsWithIngredient(inci: string): Product[] {
   return allProducts().filter((p) => p.ingredient_analysis.some((a) => a.inci === inci));
 }
 
+const QUESTION_MARKERS = ["ไหม", "หรือ", "ยังไง", "อย่างไร", "?", "ดีกว่า", "ตัวไหน"];
+
+/**
+ * Pantip snippets (across all products) that mention this ingredient by any
+ * of its known Thai/English names. These are real forum text, not authored
+ * Q&A — snippets containing a question marker are surfaced first since
+ * they read most naturally as "what people are actually asking". Deduped
+ * by topic_id so the same thread doesn't appear twice.
+ */
+export function pantipMentionsForIngredient(
+  ing: IngredientEntry & { inci: string },
+  limit = 5
+): { text: string; topicId: string; author?: string; productName: string }[] {
+  const needles = [ing.th_name, ing.en_name, ing.inci, ...(ing.alt_th_names ?? []), ...(ing.aliases ?? [])]
+    .filter(Boolean)
+    .map((s) => s.toLowerCase());
+  if (needles.length === 0) return [];
+
+  const seen = new Set<string>();
+  const hits: { text: string; topicId: string; author?: string; productName: string; isQuestion: boolean }[] = [];
+
+  for (const p of allProducts()) {
+    for (const s of p.pantip?.snippets ?? []) {
+      const lower = s.text.toLowerCase();
+      if (!needles.some((n) => lower.includes(n))) continue;
+      // One card per Pantip thread — different products can carry different
+      // excerpt windows from the same topic_id, which reads as a near-duplicate.
+      if (seen.has(s.topic_id)) continue;
+      seen.add(s.topic_id);
+      hits.push({
+        text: s.text,
+        topicId: s.topic_id,
+        author: s.author,
+        productName: p.name,
+        isQuestion: QUESTION_MARKERS.some((m) => s.text.includes(m)),
+      });
+    }
+  }
+
+  hits.sort((a, b) => Number(b.isQuestion) - Number(a.isQuestion));
+  return hits.slice(0, limit).map((h) => ({
+    text: h.text,
+    topicId: h.topicId,
+    author: h.author,
+    productName: h.productName,
+  }));
+}
+
 // concern_efficacy scores each concern 0-3; 0 means "not effective for this",
 // not "unknown" or "applicable" — callers must filter it out, not just take
 // every key, or they'll assert efficacy the data explicitly says is zero.
