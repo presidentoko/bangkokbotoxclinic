@@ -140,33 +140,45 @@ export const NICHE_FAQS: Record<NicheSlug, NicheFaq[]> = {
   ],
 };
 
-export const NICHE_INTRO: Record<NicheSlug, { headline: string; sub: string }> = {
+/**
+ * Hub headline and standfirst, per niche.
+ *
+ * `subject` rather than a whole headline, and a `sub` that carries no count:
+ * both the place and the number have to come from the data the page is
+ * actually rendering. The previous version hardcoded them and every one had
+ * drifted — each headline said "in Bangkok" for niches that are half
+ * upcountry (spa is 51% Bangkok, cooking 43%), and the subs claimed "296
+ * classes" against 264 real pages, "284 studios" against a different number
+ * again. The page composes `Best {subject} in {scope}` from cityScopeLabel()
+ * and prints the qualifying count itself, so neither can drift again.
+ */
+export const NICHE_INTRO: Record<NicheSlug, { subject: string; sub: string }> = {
   "muay-thai": {
-    headline: "Best Muay Thai Gyms in Bangkok",
-    sub: "Train where locals train. 381 gyms ranked by real Google reviews — no tourist traps.",
+    subject: "Muay Thai Gyms",
+    sub: "Train where locals train — ranked by real Google reviews, no tourist traps.",
   },
   "spa": {
-    headline: "Best Spas & Thai Massage in Bangkok",
-    sub: "2,000+ spas ranked by verified reviews. From ฿200 street massage to premium wellness retreats.",
+    subject: "Spas & Thai Massage",
+    sub: "From ฿200 street massage to premium wellness retreats, ranked by verified reviews.",
   },
   "wellness": {
-    headline: "Best Wellness Centers in Bangkok",
+    subject: "Wellness Centers",
     sub: "Float tanks, infrared sauna, meditation, detox — ranked by real reviews.",
   },
   "yoga-pilates": {
-    headline: "Best Yoga & Pilates Studios in Bangkok",
-    sub: "Drop-in classes, monthly memberships, hot yoga — 284 studios ranked.",
+    subject: "Yoga & Pilates Studios",
+    sub: "Drop-in classes, monthly memberships and hot yoga, ranked by real reviews.",
   },
   "cooking": {
-    headline: "Best Thai Cooking Classes in Bangkok",
-    sub: "Learn to cook Pad Thai, Green Curry & more. 296 classes ranked by travelers.",
+    subject: "Thai Cooking Classes",
+    sub: "Learn to cook Pad Thai, Green Curry and more — ranked by the travellers who took them.",
   },
   "coworking": {
-    headline: "Best Coworking Spaces in Bangkok",
-    sub: "Fast WiFi, great coffee, AC — 98 spaces ranked for digital nomads and expats.",
+    subject: "Coworking Spaces",
+    sub: "Fast WiFi, good coffee, real aircon — ranked for digital nomads and expats.",
   },
   "diving": {
-    headline: "Best Diving in & near Bangkok",
-    sub: "Day trips, PADI courses & snorkeling — 119 operators ranked by real divers.",
+    subject: "Diving",
+    sub: "Day trips, PADI courses and snorkeling — ranked by real divers.",
   },
 };

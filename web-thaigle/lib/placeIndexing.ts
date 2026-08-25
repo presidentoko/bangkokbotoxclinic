@@ -48,10 +48,30 @@ export const BLOCKED_PLACE_LANGS: Lang[] = PLACE_LANGS.filter(
   (l) => !INDEXABLE_PLACE_LANGS.includes(l)
 );
 
-/** robots.txt Disallow entries for the non-indexable language trees. */
-export const BLOCKED_PLACE_PATHS: string[] = BLOCKED_PLACE_LANGS.map(
-  (l) => `/${l}/place/`
-);
+/**
+ * robots.txt Disallow entries for the place tree — now empty, deliberately.
+ *
+ * `/th/place/` and `/ko/place/` were disallowed to hold crawl volume down.
+ * The GSC export for 2026-06-20..08-22 shows what that produced: `/ko/place/`
+ * is the site's single largest source of impressions (1,962, including the
+ * top page at 948) while being a tree Google is forbidden to fetch. Blocked
+ * URLs still get indexed from links — as URLs, with no content, ranking on
+ * nothing and consolidating into nothing.
+ *
+ * Every page in this tree now carries an instruction: a canonical to the
+ * venue's `/activities` page where one exists (lib/placeCanonical.ts, 1,225
+ * of 1,647), and `noindex` for the remainder. Both instructions live in the
+ * page's own head, and a crawler that is not allowed to fetch the page never
+ * reads either one. Disallow is the wrong tool whenever the goal is for
+ * Google to *learn* something about a URL; it is only right for URLs nothing
+ * links to.
+ *
+ * The original cost argument is also gone: this route is force-static with
+ * dynamicParams=false and performs no ISR writes, so the crawl it invites is
+ * static-file transfer, not the ISR read/write overage that prompted the
+ * 2026-07-26 block.
+ */
+export const BLOCKED_PLACE_PATHS: string[] = [];
 
 /**
  * Strips non-ASCII characters out of a place slug.

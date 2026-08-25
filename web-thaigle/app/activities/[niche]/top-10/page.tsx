@@ -37,8 +37,10 @@ export async function generateMetadata({
   const info = NICHES.find((n) => n.slug === niche);
   if (!info) return {};
   const db = await loadNicheDb(niche as NicheSlug);
-  const top = qualifyingNichePlaces(niche, db.places).slice(0, 10);
-  const scope = cityScopeLabel(top);
+  const qualifying = qualifyingNichePlaces(niche, db.places);
+  const top = qualifying.slice(0, 10);
+  // The pool, not the winners — see the note in the component below.
+  const scope = cityScopeLabel(qualifying);
   return {
     title: `Top 10 ${info.label} in ${scope} (2026) — Ranked by Real Reviews`,
     description: `The 10 best ${info.label.toLowerCase()} in ${scope}, ranked by Trust Score from real Google reviews. No paid placements. Prices, tips, and Klook booking.`,
@@ -67,12 +69,17 @@ export default async function NicheTop10Page({
   const db = await loadNicheDb(niche as NicheSlug);
   // Same gate as [niche]/[slug]'s generateStaticParams — otherwise entries
   // here link to detail pages that were never generated.
-  const top10 = qualifyingNichePlaces(niche, db.places).slice(0, 10);
-  const scope = cityScopeLabel(top10);
+  const qualifying = qualifyingNichePlaces(niche, db.places);
+  const top10 = qualifying.slice(0, 10);
+  // Scope of the pool these 10 were selected from, not of the 10 themselves.
+  // Reading it off the winners produced "Top 10 Spas in Bangkok" for a
+  // ranking drawn from every spa in Thailand — the same mismatch the niche
+  // hub had.
+  const scope = cityScopeLabel(qualifying);
   const klookMap = await buildKlookIndex(top10.map((p) => p.id));
   // db.total is the raw scraped count, not the number of pages that
   // actually exist for thin-data niches like spa — see lib/niches.ts.
-  const rankedCount = qualifyingNichePlaces(niche, db.places).length;
+  const rankedCount = qualifying.length;
 
   const intro = NICHE_INTRO[niche as NicheSlug];
   const faqs = NICHE_FAQS[niche as NicheSlug] ?? [];

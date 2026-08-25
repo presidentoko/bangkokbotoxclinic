@@ -38,6 +38,7 @@ import { PhotoHints } from "@/components/PhotoHints";
 import { KlookBanner } from "@/components/KlookBanner";
 import { NearbyThings } from "@/components/NearbyThings";
 import { SeasonalTip } from "@/components/SeasonalTip";
+import { VenueBadge } from "@/components/VenueBadge";
 import { upscaleGooglePhoto, isLikelyAvatarThumbnail } from "@/lib/googlePhotoSize";
 
 export const dynamic = "force-static";
@@ -389,6 +390,8 @@ export default async function PlaceDetailPage({
           </div>
         </section>
       )}
+
+      <VenueBadge niche={niche} slug={slug} pageUrl={pageUrl} placeName={place.name} />
 
       {/* First ad sits below the venue's own facts and above the reviews:
           past the point where a search visitor has been answered, so it

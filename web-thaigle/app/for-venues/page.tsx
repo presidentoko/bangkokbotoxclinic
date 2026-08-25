@@ -81,6 +81,27 @@ export default async function ForVenuesPage() {
         </div>
       </section>
 
+      {/* Free badge — the only offering here with no price, on purpose. It's
+          how a venue links back to its own ranking, which is the outreach
+          hook: "you're already ranked, here's proof for your own site." */}
+      <section className="mb-16 bg-white border border-[var(--border)] rounded-2xl p-8">
+        <div className="flex items-start gap-4 flex-col md:flex-row md:items-center justify-between">
+          <div>
+            <div className="text-xs font-bold uppercase tracking-wider text-green-700 mb-1">Free — no strings attached</div>
+            <h2 className="text-2xl font-bold mb-2">Get your "Ranked on Thaigle" badge</h2>
+            <p className="text-sm text-[var(--muted)] max-w-md">
+              Every ranked venue gets a free embeddable badge showing its rank and rating — updates itself, no account needed. Find your venue's page and copy the code at the bottom.
+            </p>
+          </div>
+          <a
+            href="/activities"
+            className="shrink-0 inline-block bg-black text-white py-3 px-6 rounded-xl font-bold hover:bg-gray-800 transition active:scale-95"
+          >
+            Find your venue →
+          </a>
+        </div>
+      </section>
+
       <section className="space-y-8 mb-16">
         <Offering
           tag="01 — Featured"

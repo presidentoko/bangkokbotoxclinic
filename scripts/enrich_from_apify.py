@@ -58,7 +58,7 @@ def main() -> int:
 
     closed: list[str] = []
     totals = {"photos": 0, "rating": 0, "review_count": 0, "address": 0,
-              "phone": 0, "website": 0, "hours": 0}
+              "phone": 0, "website": 0, "hours": 0, "reviews": 0}
 
     for path in sorted(NICHE_DIR.glob("*.json")):
         db = json.loads(path.read_text(encoding="utf-8"))
@@ -122,6 +122,55 @@ def main() -> int:
                     totals[field if field in totals else "address"] += 1
                     changed = True
 
+            # Review bodies. The 2026-08 run set maxReviews: 0, so 1,756 spa
+            # venues (and 428 yoga, 87 coworking, 80 diving) carry a rating and
+            # a review *count* with no review text at all. Two things depend on
+            # the text specifically: "<venue> reviews" queries, which rank at
+            # positions 5-8 against pages containing no reviews, and the second
+            # ad slot on the detail template, which is gated on prose being
+            # present so the page isn't the made-for-advertising shape.
+            #
+            # English only. The niche datasets already hold Thai review text
+            # from an earlier pass, and these pages are the English tree — a
+            # Thai body under an English heading reads as scraped filler, and
+            # is also not what the query that found the page was written in.
+            if not p.get("reviews_sample"):
+                reviews = []
+                # Prefer Google's English translation over the original.
+                #
+                # These pages are the English tree, and 900 of the 2,262
+                # reviews in the first export are not English originals — Thai,
+                # Korean, Chinese, Japanese, Hebrew. Every one of them ships a
+                # populated `textTranslated`, so taking `text` first would put
+                # Korean under an English heading on a page targeting English
+                # queries. `text` remains the fallback: English reviews have
+                # nothing to translate and leave `textTranslated` null.
+                for rv in (r.get("reviews") or []):
+                    original = (rv.get("text") or "").strip()
+                    translated = (rv.get("textTranslated") or "").strip()
+                    text = translated or original
+                    # Ratings with no written review at all: 420 of the first
+                    # export. Nothing to show, and an empty card is worse than
+                    # one fewer card.
+                    if not text:
+                        continue
+                    reviews.append({
+                        "source": "google",
+                        "reviewer": (rv.get("name") or rv.get("reviewerName") or "").strip() or "Google user",
+                        "rating": rv.get("stars") if rv.get("stars") is not None else rv.get("rating"),
+                        "date": rv.get("publishedAtDate") or rv.get("publishAt") or "",
+                        "text": text,
+                    })
+                if reviews:
+                    p["reviews_sample"] = reviews[:5]
+                    if not p.get("top_review_text"):
+                        p["top_review_text"] = reviews[0]["text"]
+                    badges = p.get("source_badges") or {}
+                    badges["reviews"] = len(reviews)
+                    p["source_badges"] = badges
+                    totals["reviews"] += 1
+                    changed = True
+
             if not p.get("opening_hours_json") and (r.get("openingHours") or []):
                 p["opening_hours_json"] = json.dumps(
                     {h.get("day"): h.get("hours") for h in r["openingHours"] if h.get("day")},
@@ -163,9 +212,10 @@ def main() -> int:
                 )
                 path.write_text(json.dumps(db, ensure_ascii=False, indent=1), encoding="utf-8")
 
-    print(f"\n[apify] filled — photos {totals['photos']}, rating {totals['rating']}, "
-          f"review_count {totals['review_count']}, address {totals['address']}, "
-          f"phone {totals['phone']}, website {totals['website']}, hours {totals['hours']}")
+    # Built from `totals` rather than a hand-written field list: the list had
+    # already fallen behind once, and a merge that silently reports nothing for
+    # the field the run was paid to collect is how a wasted run goes unnoticed.
+    print("\n[apify] filled — " + ", ".join(f"{k} {v}" for k, v in totals.items()))
     if closed:
         print(f"\n[apify] closure reports from Google ({len(closed)}):")
         for c in sorted(closed):

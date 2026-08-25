@@ -315,13 +315,22 @@ export async function generateMetadata({
   if (!info) return {};
   const db = await loadNicheDb(niche as NicheSlug);
   const intro = NICHE_INTRO[niche as NicheSlug];
-  const scope = cityScopeLabel(qualifyingNichePlaces(niche, db.places).slice(0, 60));
   // db.total is the raw scraped count — for niches like spa where most
   // records have no rating/price/review/photo at all, that count is far
   // higher than the number of pages that actually get built (qualifying
   // count), so a "2000 Ranked" title claim above 58 real pages is a false
   // freshness/inventory claim, not just an off-by-a-little rounding.
-  const rankedCount = qualifyingNichePlaces(niche, db.places).length;
+  const qualifying = qualifyingNichePlaces(niche, db.places);
+  const rankedCount = qualifying.length;
+  // Scope has to be read off the same set the count describes. Reading it off
+  // `.slice(0, 60)` produced "Best Spa & Massage in Bangkok 2026 — 2251
+  // Ranked": the 60 highest Trust Scores are 60%+ Bangkok, but the 2,251
+  // venues the page actually lists are only 51% Bangkok, so the title claimed
+  // a city the page does not deliver. It also put the hub in Google's way for
+  // "spa bangkok" (709 impressions, avg. position 50) — a query that should
+  // land on /activities/spa/city/bangkok, which is a genuinely Bangkok-only
+  // page and currently sits at position 87 behind its own parent.
+  const scope = cityScopeLabel(qualifying);
   return {
     title: `Best ${info.label} in ${scope} 2026 — ${rankedCount} Ranked by Real Reviews`,
     description: `Find the best ${info.label.toLowerCase()} in ${scope} in 2026. ${rankedCount} venues ranked by Trust Score from real Google reviews — prices, tips, and Klook booking. No paid picks.`,
@@ -361,8 +370,12 @@ export default async function NichePage({
   // MUST stay in sync with generateStaticParams() in [niche]/[slug] — every
   // card below links to a detail page, so ranking off the ungated
   // topNichePlaces() emitted 58 dead /activities/spa/* links on this page.
-  const top = qualifyingNichePlaces(niche, db.places).slice(0, 60);
-  const scope = cityScopeLabel(top);
+  const qualifying = qualifyingNichePlaces(niche, db.places);
+  const top = qualifying.slice(0, 60);
+  // Off the full set, not `top` — the H1, the Top-10 link and the JSON-LD all
+  // read this, and they have to name the same place the <title> does. See the
+  // note in generateMetadata.
+  const scope = cityScopeLabel(qualifying);
   const klookMap = await buildKlookIndex(top.map((p) => p.id));
   const cityLinks = nicheCityCounts(niche, db.places);
   // Bangkok areas sit a level below the city split. They carry the bulk of the
@@ -372,7 +385,7 @@ export default async function NichePage({
   const areaLinks = nicheAreaCounts(niche, db.places);
   // See generateMetadata above — db.total is the raw scraped count and can
   // wildly overstate how many pages actually exist for thin-data niches.
-  const rankedCount = qualifyingNichePlaces(niche, db.places).length;
+  const rankedCount = qualifying.length;
   const topReddit = community?.top_reddit?.slice(0, 4) ?? [];
   const topNaver = community?.top_naver?.slice(0, 3) ?? [];
   const planType = info.planType;
@@ -392,10 +405,10 @@ export default async function NichePage({
             <span className="text-4xl">{info.icon}</span>
             <div>
               <h1 className="text-3xl md:text-4xl font-black tracking-tight leading-tight">
-                {NICHE_INTRO[niche as NicheSlug]?.headline ?? `Best ${info.label} in ${scope}`}
+                Best {NICHE_INTRO[niche as NicheSlug]?.subject ?? info.label} in {scope}
               </h1>
               <p className="text-sm text-[var(--muted)] mt-1">
-                {NICHE_INTRO[niche as NicheSlug]?.sub ?? `${rankedCount} venues · ranked by real reviews`}
+                {rankedCount.toLocaleString()} venues · {NICHE_INTRO[niche as NicheSlug]?.sub ?? "ranked by real reviews"}
               </p>
             </div>
           </div>
@@ -467,6 +480,27 @@ export default async function NichePage({
               <span className="text-[var(--muted)] tabular-nums text-xs">{count}</span>
             </a>
           ))}
+        </div>
+      )}
+
+      {/* "boutique spa bangkok" + "boutique spa and wellness bangkok" pulled
+          828 impressions / 0 clicks over three months with nothing to land
+          on. This is the one link into that page from anywhere on the spa
+          tree. */}
+      {niche === "spa" && (
+        <div className="mb-6 flex flex-wrap gap-2">
+          <a
+            href="/activities/spa/boutique"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-orange-300 bg-orange-50 text-orange-800 text-sm font-bold hover:bg-orange-100 transition"
+          >
+            💆 Boutique spas only (4.7★+, independent)
+          </a>
+          <a
+            href="/activities/spa/rating-report"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm font-bold hover:border-orange-400 transition"
+          >
+            📊 Rating report — why 4.5★ stopped meaning anything
+          </a>
         </div>
       )}
 

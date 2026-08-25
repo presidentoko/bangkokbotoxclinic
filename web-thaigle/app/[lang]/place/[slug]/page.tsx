@@ -8,6 +8,7 @@ import {
 import type { Lang, Place } from "@/lib/places";
 import { getPlaceServer, getAllPlaceSlugsServer } from "@/lib/places-server";
 import { INDEXABLE_PLACE_LANGS, PLACE_TREE_INDEXABLE } from "@/lib/placeIndexing";
+import { activityForPlace } from "@/lib/placeCanonical";
 import { AddToPlanButton } from "@/components/AddToPlanButton";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { PopularTimes } from "@/components/PopularTimes";
@@ -47,6 +48,26 @@ export async function generateMetadata({
   // lib/data.ts slugify) — canonical/hreflang require RFC-3986-encoded
   // paths, unlike plain <a href> which browsers percent-encode themselves.
   const encodedSlug = encodeURIComponent(slug);
+
+  // Where the same venue has a full /activities page, point at it instead of
+  // hiding this one with noindex — see lib/placeCanonical.ts. hreflang goes
+  // with it: a cluster is only valid on the canonical URL, and advertising
+  // one here would tell Google these pages are the originals after the
+  // canonical has just said they are not.
+  const activity = await activityForPlace(slug);
+  if (activity) {
+    return {
+      title: `${t.name} — ${place.subtype} · ${place.area}`,
+      description: desc,
+      alternates: { canonical: activity.path },
+      openGraph: {
+        title: `${t.name} · ${place.subtype} · ${place.area}`,
+        description: desc,
+        ...(isSelfHosted(place.hero.src) ? { images: [`${SITE}${place.hero.src}`] } : {}),
+      },
+    };
+  }
+
   const canonical = `/${lang}/place/${encodedSlug}`;
 
   return {
@@ -147,6 +168,7 @@ export default async function PlacePage({
   const place = await getPlaceServer(slug, lang as Lang);
   if (!place) notFound();
 
+  const activity = await activityForPlace(slug);
   const t = place.i18n[lang as Lang] ?? place.i18n["en"];
   // Some scraped places carry lat:0/lng:0 (missing geocode) — that resolves
   // to a real point in the Gulf of Guinea, so treat it as "no coordinates".
@@ -264,6 +286,23 @@ export default async function PlacePage({
             {place.sources.sourceNames.join(" · ")} — influencer/sponsored posts excluded
           </p>
         </section>
+
+        {/* The canonical target, as a link a reader can actually take. The
+            full venue page carries hours, reviews, photos and booking, none
+            of which exist here, and the link is also what lets a crawler
+            reach the canonical rather than only being told about it. */}
+        {activity && (
+          <a
+            href={activity.path}
+            className="flex items-center justify-between gap-3 mb-5 rounded-xl border border-[var(--border)] px-4 py-3 hover:border-orange-400 transition"
+          >
+            <span className="text-sm">
+              <span className="font-bold">Full profile for {t.name}</span>
+              <span className="block text-xs text-[var(--muted)]">Hours, reviews, photos and booking</span>
+            </span>
+            <span className="text-orange-500 shrink-0">→</span>
+          </a>
+        )}
 
         {/* 6. CTA ROW */}
         <div className="flex items-center gap-3 flex-wrap">

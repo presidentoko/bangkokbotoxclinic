@@ -205,6 +205,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const n of NICHES) {
     items.push({ url: `${SITE}/activities/${n.slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.88 });
   }
+  items.push({
+    url: `${SITE}/activities/spa/boutique`,
+    lastModified: updated,
+    changeFrequency: "weekly" as const,
+    priority: 0.85,
+  });
+  items.push({
+    url: `${SITE}/activities/spa/rating-report`,
+    lastModified: updated,
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  });
   // Top-10 article pages per niche
   for (const n of NICHES) {
     items.push({

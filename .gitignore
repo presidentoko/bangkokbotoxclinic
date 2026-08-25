@@ -129,6 +129,11 @@ web-cf/outreach_*.csv
 web-cf/data/.crisis_state.json
 web-cf/.open-next-stale-*/
 
+# Badge-outreach lists: business contact addresses collected from venues' own
+# sites by web-thaigle/scripts/badge_outreach_list.py. Regenerable at any time,
+# and contact data does not belong in version history.
+web-thaigle/data/outreach/
+
 # petfood price run artefacts
 petfood/lazada_prices.log
 logs/leaky-services.log

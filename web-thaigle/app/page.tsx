@@ -13,6 +13,7 @@ import { SponsoredHero } from "@/components/SponsoredHero";
 import { GUIDES } from "@/lib/guides";
 import { NICHES, loadNicheDb, qualifyingNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
+import { nicheAreaCounts } from "@/lib/areas";
 import { SurpriseMe } from "@/components/SurpriseMe";
 import type { SurpriseVenue } from "@/components/SurpriseMe";
 import { BangkokTip } from "@/components/BangkokTip";
@@ -104,6 +105,7 @@ export default async function HomePage() {
     })),
   ]);
   const top = sortWithSponsored(topByTrust(db.restaurants, 50));
+  const spaAreas = nicheAreaCounts("spa", (await loadNicheDb("spa")).places).slice(0, 6);
 
   // Build SurpriseMe venue pool
   const surpriseVenues: SurpriseVenue[] = [
@@ -567,6 +569,34 @@ export default async function HomePage() {
               </a>
             ))}
           </div>
+
+          {/* Spa by area, straight off the homepage.
+              These pages exist to catch queries that already earn impressions
+              with nothing to land on ("wellness spa sukhumvit", 691 in three
+              months) but the only route to them was hub → area chip, so the
+              site's highest-authority page was two clicks away from its most
+              targeted pages. */}
+          {spaAreas.length > 0 && (
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="text-sm text-[var(--muted)]">Spa &amp; massage by area:</span>
+              {spaAreas.map(({ area, count }) => (
+                <a
+                  key={area.slug}
+                  href={`/activities/spa/area/${area.slug}`}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--border)] bg-white text-sm font-medium hover:border-orange-400 hover:bg-orange-50 hover:text-orange-700 transition"
+                >
+                  {area.label}
+                  <span className="text-[var(--muted)] tabular-nums text-xs">{count}</span>
+                </a>
+              ))}
+              <a
+                href="/activities/spa/boutique"
+                className="inline-flex items-center px-3 py-1.5 rounded-full border border-orange-300 bg-orange-50 text-orange-800 text-sm font-bold hover:bg-orange-100 transition"
+              >
+                Boutique spas
+              </a>
+            </div>
+          )}
         </section>
 
         {/* Revenue block — was ~85% down the page after a long stack of
