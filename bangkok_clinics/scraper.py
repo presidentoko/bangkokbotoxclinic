@@ -490,7 +490,11 @@ def _record_server_outcome(vpn_idx: int, ok: bool) -> None:
         host = ""
         for p_ in status.get("ports", []):
             if p_.get("idx") == vpn_idx:
-                host = p_.get("server", "")
+                # vpn_status.json 의 server 는 "nl1253.nordvpn.com (186.247.163.8:443)"
+                # 형식이다. 러너의 pick_server 는 s["host"](순수 호스트명)로 조회하므로
+                # 괄호 앞부분만 써야 매칭된다 — 통째로 쓰면 키가 영원히 안 맞아
+                # 성적이 쌓여도 선택에 반영되지 않는다(2026-08-25 첫 기록에서 발견).
+                host = (p_.get("server", "") or "").split(" ")[0].strip()
                 break
         if not host:
             return
