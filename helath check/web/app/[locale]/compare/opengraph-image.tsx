@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { CATEGORIES, catLabel, type Locale } from "@/lib/i18n";
+import { getStatsForHome } from "@/lib/db";
 
 export const runtime = "nodejs";
 export const size = { width: 1200, height: 630 };
@@ -18,6 +19,8 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
   // English category labels for the ar locale's OG image only; the page
   // itself stays fully Arabic.
   const loc = (locale === "ar" ? "en" : locale) as Locale;
+  const stats = await getStatsForHome();
+  const n = Math.floor(stats.hospitalCount / 10) * 10;
 
   return new ImageResponse(
     (
@@ -67,8 +70,8 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
           borderTop: "1px solid rgba(255,255,255,0.25)", paddingTop: 24,
         }}>
           {[
-            { val: "235+", label: "Hospitals" },
-            { val: "18", label: "Cities" },
+            { val: `${n}+`, label: "Hospitals" },
+            { val: String(stats.cityCount), label: "Cities" },
             { val: "6", label: "Languages" },
             { val: "฿0", label: "Paid rankings" },
           ].map(({ val, label }) => (

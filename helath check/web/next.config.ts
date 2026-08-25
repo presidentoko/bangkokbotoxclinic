@@ -24,6 +24,69 @@ const EMPTY_CATEGORIES = CATEGORIES.filter((cat) => {
   );
 });
 
+/**
+ * First path segments Google indexed that were never locales.
+ *
+ * `app/[locale]` used to accept any string, so a spell of bad internal links
+ * and a sister-site template left whole copies of the site parked under these
+ * prefixes — "/&/guide/mri-scan-cost-bangkok",
+ * "/dental-clinic-marketing/hospital/vejthani",
+ * "/privacy-policy/compare?category=women". All hard 404s now, and together
+ * they still hold 25 clicks and ~2,300 impressions in the 2026-08-25 Search
+ * Console export, more than several real sections of the site.
+ *
+ * The path after the prefix is always a genuine route, so it 308s to the /en
+ * copy. The value here is where the *bare* prefix goes, which is not always
+ * /en: "faq" and "privacy-policy" are page names as well as junk prefixes, and
+ * someone landing on /privacy-policy wants the privacy page.
+ *
+ * "&" is a literal path segment, not a query string. path-to-regexp treats it
+ * as a literal, so it needs no escaping.
+ */
+const JUNK_LOCALE_PREFIXES: Record<string, string> = {
+  "&": "/en",
+  "dental-clinic-marketing": "/en",
+  "hair-transplant-clinic-marketing": "/en",
+  "services": "/en",
+  "blog": "/en",
+  "category": "/en",
+  "faq": "/en/faq",
+  "privacy-policy": "/en/privacy",
+};
+
+/**
+ * Cities with a /city page but no hospital behind it.
+ *
+ * The route pre-renders all 22 CITY_SLUGS while the catalogue only covers
+ * five, so seventeen of them answer 200 with "No packages found" — a soft 404
+ * that the home page's city grid and the footer both link into. Every one of
+ * them has a real guide page, so send the request there instead of to an empty
+ * table. Derived from the data rather than listed, so restoring a city's
+ * hospitals removes its redirect automatically.
+ */
+const CITY_TO_GUIDE: Record<string, string> = {
+  "bangkok": "bangkok", "chiang-mai": "chiang-mai", "phuket": "phuket",
+  "pattaya": "pattaya", "hua-hin": "hua-hin", "ko-samui": "koh-samui",
+  "krabi": "krabi", "chiang-rai": "chiang-rai", "hat-yai": "hat-yai",
+  "khon-kaen": "khon-kaen", "koh-chang": "koh-chang", "udon-thani": "udon-thani",
+  "korat": "korat", "ayutthaya": "ayutthaya", "chon-buri": "chon-buri",
+  "nakhon-si-thammarat": "nakhon-si-thammarat", "lampang": "lampang",
+  "nakhon-pathom": "nakhon-pathom", "rayong": "rayong",
+  "surat-thani": "surat-thani", "phitsanulok": "phitsanulok", "trang": "trang",
+};
+
+const CITIES_WITH_PACKAGES = new Set(
+  data.packages
+    .filter((p) => p.price != null && parseFloat(p.price) > 0)
+    .map((p) => data.hospitals.find((h) => h.id === p.hospital_id)?.city)
+    .filter((c): c is string => !!c)
+    .map((c) => c.toLowerCase().replace(/\s+/g, "-")),
+);
+
+const EMPTY_CITIES = Object.keys(CITY_TO_GUIDE).filter(
+  (slug) => !CITIES_WITH_PACKAGES.has(slug),
+);
+
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
@@ -70,6 +133,21 @@ const nextConfig: NextConfig = {
         { source: `/:locale/compare/${cat}`, destination: "/:locale/compare", permanent: true },
         { source: `/:locale/checkup/${cat}`, destination: "/:locale/compare", permanent: true },
       ]),
+      // Non-locale first segments — see JUNK_LOCALE_PREFIXES above. These run
+      // before middleware, so the hospital rescue never sees a junk locale.
+      // The bare-prefix rule has to come first: ":path*" matches zero segments
+      // too, so "/faq" would otherwise be caught by the wildcard and land on
+      // "/en" instead of the FAQ page.
+      ...Object.entries(JUNK_LOCALE_PREFIXES).flatMap(([prefix, bare]) => [
+        { source: `/${prefix}`, destination: bare, permanent: true },
+        { source: `/${prefix}/:path*`, destination: "/en/:path*", permanent: true },
+      ]),
+      // Cities whose /city page has nothing to list — see EMPTY_CITIES above.
+      ...EMPTY_CITIES.map((slug) => ({
+        source: `/:locale/city/${slug}`,
+        destination: `/:locale/guide/${CITY_TO_GUIDE[slug]}-health-checkup`,
+        permanent: true,
+      })),
     ];
   },
   async headers() {

@@ -516,6 +516,7 @@ export async function getStatsForHome(): Promise<{
   jciCount: number;
   packageCount: number;
   hospitalCount: number;
+  cityCount: number;
 }> {
   // Count what a visitor can actually see. `data.hospitals.length` includes
   // rows whose only listings were dropped as non-diagnostic, and
@@ -526,10 +527,12 @@ export async function getStatsForHome(): Promise<{
     return p !== null && p > 0;
   });
   const hospitalsWithPrices = new Set(priced.map((r) => r.hospital_slug));
+  const cities = new Set(priced.map((r) => r.city).filter((c): c is string => !!c));
   return {
     jciCount: data.hospitals.filter((h) => h.jci === 1).length,
     packageCount: priced.length,
     hospitalCount: hospitalsWithPrices.size,
+    cityCount: cities.size,
   };
 }
 

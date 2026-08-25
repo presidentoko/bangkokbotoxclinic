@@ -1538,7 +1538,7 @@ const GUIDES: Record<string, Guide> = {
           "Bangkok Pattaya Hospital (BDMS) — largest hospital in the Eastern Seaboard, most comprehensive packages, JCI certified",
           "Pattaya International Hospital — popular with European expats, English service, competitive mid-range packages",
           "Phyathai Sriracha Hospital — JCI accredited, slightly south of Pattaya, excellent executive range",
-          "Bangkok Hospital Chonburi — BDMS group, modern facility, good for day-trip check-ups from Pattaya",
+          "Samitivej Chonburi Hospital — Samitivej/BDMS group, 181 beds, modern facility, good for day-trip check-ups from Pattaya",
           "Chonburi Hospital — government hospital, very low prices for basic check-ups, longer waiting times",
         ],
       },
@@ -1590,7 +1590,6 @@ const GUIDES: Record<string, Guide> = {
           "Bangkok Hospital Hua Hin (BDMS) — part of Thailand's largest hospital group, full executive range, English-speaking staff",
           "San Paulo Hospital Hua Hin — central location, good value mid-range packages, popular with European expats",
           "Hua Hin Hospital — government hospital, very affordable basic check-ups but limited English",
-          "Vichaivej Hospital Hua Hin — mid-range private hospital, good standard and executive packages",
         ],
       },
       {
@@ -1637,8 +1636,8 @@ const GUIDES: Record<string, Guide> = {
     description: "Health check-up in Udon Thani: hospitals, prices, and tips for expats, retirees, and medical tourists visiting Northern Isan.",
     intro: "Udon Thani is home to a large expat retiree community and sits close to the Laos border, making it a convenient health check-up destination for both foreign residents and cross-border visitors from Vientiane. The city has several well-equipped private hospitals at affordable prices.",
     sections: [
-      { heading: "Health check-up costs in Udon Thani", content: "Private hospital check-up packages in Udon Thani range from ฿1,800 to ฿28,000. Bangkok Hospital Udon Thani is the premium option with English services; AEK Udon International and Ram Udon offer lower-priced alternatives.", list: ["Basic: ฿1,800 – ฿4,000", "Standard: ฿4,500 – ฿9,000", "Executive: ฿10,000 – ฿22,000", "Senior: ฿14,000 – ฿25,000"] },
-      { heading: "Best hospitals in Udon Thani", content: "Bangkok Hospital Udon Thani has the strongest English-language capability and digital result delivery. For budget-conscious visitors, Udon Thani Ram Hospital offers standard packages starting from ฿2,500 with same-day results.", list: ["Bangkok Hospital Udon Thani – expat-friendly, English staff", "Udon Thani Ram Hospital – affordable, same-day results", "AEK Udon International – popular with Lao cross-border patients"] },
+      { heading: "Health check-up costs in Udon Thani", content: "Private hospital check-up packages in Udon Thani range from ฿1,800 to ฿28,000. Bangkok Hospital Udon is the premium option with English services; Aek Udon International and North Eastern Wattana offer lower-priced alternatives.", list: ["Basic: ฿1,800 – ฿4,000", "Standard: ฿4,500 – ฿9,000", "Executive: ฿10,000 – ฿22,000", "Senior: ฿14,000 – ฿25,000"] },
+      { heading: "Best hospitals in Udon Thani", content: "Bangkok Hospital Udon (180 beds, the 29th hospital in the Bangkok Hospital group) has the strongest English-language capability and digital result delivery. Aek Udon International is the largest private hospital in the province at 350 beds and runs a 24-hour international office.", list: ["Bangkok Hospital Udon – expat-friendly, English staff, 180 beds", "Aek Udon International Hospital – 350 beds, 24h international office, popular with Lao cross-border patients", "North Eastern Wattana Hospital – established 1985, affordable local option"] },
     ],
     faqs: [
       { q: "Is Udon Thani convenient for Laos visitors to get a health check-up?", a: "Yes. Udon Thani is only 55 km from the Nong Khai–Vientiane Friendship Bridge. Many Lao residents cross the border for medical care, and Bangkok Hospital Udon Thani has Lao-speaking coordinators." },
@@ -1665,8 +1664,9 @@ const GUIDES: Record<string, Guide> = {
     description: "Health check-up in Hat Yai: best hospitals, prices, and tips for Malaysian and Singaporean medical tourists visiting Southern Thailand.",
     intro: "Hat Yai is Southern Thailand's largest city and a major medical tourism hub driven by Malaysian and Singaporean cross-border visitors seeking lower-cost private hospital care. Thai private hospitals in Hat Yai offer prices 30–60% below comparable Malaysian private hospitals, with English and Malay staff available.",
     sections: [
-      { heading: "Why Malaysian visitors choose Hat Yai for health check-ups", content: "The Padang Besar or Sadao border crossings make Hat Yai easily accessible from Northern Malaysia. Bangkok Hospital Hat Yai actively targets Malaysian patients with Malay-language staff, MyCC payment acceptance, and hotel partnerships.", list: ["30–60% savings vs Malaysian private hospitals", "Malay-speaking staff at major hospitals", "JCI-level standards at Bangkok Hospital Hat Yai", "Same-day results for most packages"] },
-      { heading: "Health check-up costs in Hat Yai", content: "Prices range from ฿1,800 for a basic panel to ฿35,000 for a full executive package. Bangkok Hospital Hat Yai is the premium option; Hatyai Hospital and Hat Yai Ram offer more affordable alternatives.", list: ["Basic: ฿1,800 – ฿5,000", "Standard: ฿5,000 – ฿12,000", "Executive: ฿12,000 – ฿32,000", "Senior: ฿15,000 – ฿30,000"] },
+      { heading: "Why Malaysian visitors choose Hat Yai for health check-ups", content: "The Padang Besar or Sadao border crossings make Hat Yai easily accessible from Northern Malaysia. Bangkok Hospital Hat Yai actively targets Malaysian patients with Malay-language staff and hotel partnerships.", list: ["30–60% savings vs Malaysian private hospitals", "Malay-speaking staff at major hospitals", "Bangkok Hospital Hat Yai is HA-accredited (Thailand's national hospital standard)", "Same-day results for most packages"] },
+      { heading: "Health check-up costs in Hat Yai", content: "Prices range from ฿1,800 for a basic panel to ฿35,000 for a full executive package. Bangkok Hospital Hat Yai (400 beds, opened 1997) is the premium option; Hatyai Hospital and Songklanagarind Hospital offer more affordable alternatives.", list: ["Basic: ฿1,800 – ฿5,000", "Standard: ฿5,000 – ฿12,000", "Executive: ฿12,000 – ฿32,000", "Senior: ฿15,000 – ฿30,000"] },
+      { heading: "Hospitals in Hat Yai", content: "Three hospitals cover the range:", list: ["Bangkok Hospital Hat Yai — private, 400 beds, the most experienced with Malaysian and Singaporean patients", "Hatyai Hospital — regional government hospital (founded 1957), lowest prices, longest queues", "Songklanagarind Hospital — Prince of Songkla University teaching hospital, strong specialist depth"] },
     ],
     faqs: [
       { q: "Do Hat Yai hospitals accept Malaysian ringgit?", a: "Most Hat Yai hospitals accept credit cards and some have arrangements for MYR acceptance or currency exchange on-site. Bangkok Hospital Hat Yai is most experienced with Malaysian patients." },
@@ -1680,7 +1680,7 @@ const GUIDES: Record<string, Guide> = {
     intro: "Koh Samui has two international-grade private hospitals — Samui International Hospital (SIH) and Bangkok Hospital Samui — both offering health check-up packages for tourists, expats, and island residents. Getting a check-up on Samui eliminates the need to travel to the mainland for routine screening.",
     sections: [
       { heading: "Health check-up costs on Koh Samui", content: "Prices on Samui are 10–20% higher than equivalent packages in Chiang Mai or Bangkok due to island operating costs. However, they remain far below Western pricing. Basic packages start at ฿2,500.", list: ["Basic: ฿2,500 – ฿6,000", "Standard: ฿6,000 – ฿14,000", "Executive: ฿14,000 – ฿32,000", "Senior: ฿15,000 – ฿28,000", "Heart screening: ฿18,000 – ฿30,000"] },
-      { heading: "Samui International Hospital vs Bangkok Hospital Samui", content: "SIH (established 1996) is larger with 60 beds and offers hyperbaric oxygen therapy unavailable elsewhere on the island. Bangkok Hospital Samui (opened 2008) leverages the BDMS network for air ambulance transfer and specialist referrals to Bangkok. Both offer English and multilingual services.", list: ["SIH: larger facility, hyperbaric chamber, longer track record", "BH Samui: BDMS network, air ambulance, digital health records"] },
+      { heading: "Samui International Hospital vs Bangkok Hospital Samui", content: "SIH (established 1997) is larger with 60 beds and offers hyperbaric oxygen therapy unavailable elsewhere on the island. Bangkok Hospital Samui (opened 2004) leverages the BDMS network for air ambulance transfer and specialist referrals to Bangkok. Both offer English and multilingual services.", list: ["SIH: larger facility, hyperbaric chamber, longer track record", "BH Samui: BDMS network, air ambulance, digital health records"] },
     ],
     faqs: [
       { q: "Can I get a health check-up during a holiday on Koh Samui?", a: "Yes. Both hospitals offer same-day appointments and half-day package completion. An executive check-up starts at 7 AM and results are ready by early afternoon, leaving the rest of the day free." },
@@ -5247,7 +5247,7 @@ const GUIDES: Record<string, Guide> = {
         heading: "Hat Yai: the medical hub for Malaysian visitors",
         content: "Hat Yai in Songkhla Province, Southern Thailand, is only 90 minutes by road from Penang and 5 hours from KL. Key facts for Malaysian medical tourists:",
         list: [
-          "Hat Yai Ram Hospital and Bangkok Hospital Hat Yai are the main private hospitals — both offer check-up packages from ฿1,800",
+          "Bangkok Hospital Hat Yai (400 beds) is the main private hospital, with Hatyai Hospital and Songklanagarind Hospital as government alternatives — packages from ฿1,800",
           "Many hospitals in Hat Yai have Malay-speaking staff and accept Thai Baht / Malaysian Ringgit",
           "Hat Yai is 80km from the Malaysian border at Sadao — day trips for medical care are common",
           "Bus service from Penang to Hat Yai: ~RM 50, 5–6 hours. Budget airlines (AirAsia, Firefly) from KL or Penang: from RM 80–200",
@@ -5472,7 +5472,7 @@ const GUIDES: Record<string, Guide> = {
 
   "rayong-health-checkup": {
     title: "Rayong Health Check-Up Guide (2026)",
-    description: "Health check-up hospitals in Rayong, Thailand. Bangkok Hospital Rayong, Camillian, and more. Prices from ฿1,500.",
+    description: "Health check-up hospitals in Rayong, Thailand. Bangkok Hospital Rayong, Sri Rayong, and more. Prices from ฿1,500.",
     intro: "Rayong is an industrial province on the Eastern Seaboard, 180km east of Bangkok, known for the Map Ta Phut petrochemical complex and beautiful beaches along the Gulf of Thailand. Bangkok Hospital Rayong leads the city's private healthcare market, serving both the industrial workforce and tourists passing through to Ko Samet.",
     sections: [
       {
@@ -5491,9 +5491,8 @@ const GUIDES: Record<string, Guide> = {
         heading: "Best hospitals for health check-ups in Rayong",
         content: "Rayong has several hospitals serving its industrial and tourist population:",
         list: [
-          "Bangkok Hospital Rayong — top tier, interpreter service, full range of packages, GPS: 12.683°N 101.280°E",
-          "Phyathai Rayong Hospital — BDMS affiliate, mid-tier, good standard and executive packages",
-          "Camillian Hospital Rayong — Catholic mission hospital, affordable, strong reputation for basic to standard checks",
+          "Bangkok Hospital Rayong — top tier, interpreter service, full range of packages, on Sang Chan Neramitr Road",
+          "Sri Rayong Hospital — 195-bed BDMS private hospital in Mueang Rayong, good standard and executive packages",
           "Rayong Hospital — government hospital, lowest prices, longer wait times",
         ],
       },
@@ -5528,10 +5527,9 @@ const GUIDES: Record<string, Guide> = {
         heading: "Best hospitals in Surat Thani for health check-ups",
         content: "Main hospital options:",
         list: [
-          "Bangkok Hospital Surat Thani — BDMS flagship in the province, English-speaking staff, interpreter",
-          "Taksin Hospital — mid-tier private, popular with local professionals, women's health packages",
-          "Surat Thani Hospital — government hospital, most affordable, longer waiting",
-          "Kasemrad Surat Thani — private, competitive pricing, standard packages",
+          "Thaksin Hospital — the city's established private hospital (1983), popular with the expat community, women's health packages",
+          "Surat Thani Hospital — regional government hospital, most affordable, longer waiting",
+          "Bangkok Hospital Surat — BDMS branch, English-speaking staff, interpreter service",
         ],
       },
     ],
@@ -5566,10 +5564,9 @@ const GUIDES: Record<string, Guide> = {
         heading: "Best hospitals in Phitsanulok for health check-ups",
         content: "Options in Phitsanulok:",
         list: [
-          "Bangkok Hospital Phitsanulok — top private hospital in the province, English available, full range",
-          "Buddhachinaraj Hospital — large government teaching hospital, very affordable, public patients",
-          "Phitsanulok Ram Hospital — established private, mid-tier, good standard packages",
-          "Phitsanulok Hospital — government, lowest prices, long waiting times",
+          "Pitsanuvej Hospital — JCI accredited, 150 beds, the lower North's first private hospital (1982), full range",
+          "Buddhachinaraj Phitsanulok Hospital — large government teaching hospital, very affordable, long queues",
+          "Ruamphat Pitsanulok Hospital — mid-tier private, good standard packages",
         ],
       },
     ],
@@ -5584,8 +5581,8 @@ const GUIDES: Record<string, Guide> = {
 
   "trang-health-checkup": {
     title: "Trang Health Check-Up Guide (2026)",
-    description: "Health check-up hospitals in Trang, southern Thailand. Bangkok Hospital Trang and other options. Prices from ฿1,300.",
-    intro: "Trang is a laid-back provincial capital in the Andaman coast region, famous for dim sum breakfast culture, pristine offshore islands, and the Trang Vegetarian Festival. Bangkok Hospital Trang leads the private healthcare market in the province, serving locals and the increasing number of visitors exploring the quieter Andaman alternatives to Krabi and Phuket.",
+    description: "Health check-up hospitals in Trang, southern Thailand. Wattanapat Hospital Trang and other options. Prices from ฿1,300.",
+    intro: "Trang is a laid-back provincial capital in the Andaman coast region, famous for dim sum breakfast culture, pristine offshore islands, and the Trang Vegetarian Festival. Wattanapat Hospital leads the private healthcare market in the province, serving locals and the increasing number of visitors exploring the quieter Andaman alternatives to Krabi and Phuket.",
     sections: [
       {
         heading: "Health check-up prices in Trang",
@@ -5603,9 +5600,8 @@ const GUIDES: Record<string, Guide> = {
         heading: "Best hospitals in Trang for health check-ups",
         content: "Main options in Trang:",
         list: [
-          "Bangkok Hospital Trang — BDMS flagship in Trang, highest standard, English available",
+          "Wattanapat Hospital Trang — the province's main private hospital, 120 beds, over 50 years in Trang",
           "Trang Hospital — government hospital, cheapest, longer wait times",
-          "Wattanaphet Hospital — established private, mid-tier, reliable for standard packages",
         ],
       },
     ],
@@ -6877,11 +6873,11 @@ const GUIDES: Record<string, Guide> = {
         heading: "Best hospitals in Chon Buri for health check-ups",
         content: "Main hospitals serving the Chon Buri / Pattaya area:",
         list: [
-          "Bangkok Pattaya Hospital — largest in the area, full specialist centre, widest package range, strong international patient unit",
-          "Phyathai Sriracha Hospital — excellent standard and executive packages, serves Sriracha industrial zone",
-          "Pattaya Memorial Hospital — competitive mid-tier packages, central Pattaya location",
-          "Bangkok Hospital Pattaya (second branch) — BDMS, very high standard, specialist care",
-          "Sawang Fa Hospital — more affordable, good for basic and standard packages",
+          "Bangkok Hospital Pattaya — largest in the area, JCI since 2006, full specialist centre, strong international patient unit",
+          "Phyathai Sriracha Hospital — JCI accredited, 220 beds, serves the Sriracha industrial zone",
+          "Samitivej Sriracha Hospital — 184 beds, has a dedicated Japanese hospital wing for EEC expatriates",
+          "Samitivej Chonburi Hospital — 181 beds in Ban Suan, the leading option in Chonburi city itself",
+          "Pattaya Memorial Hospital — 80 beds, competitive mid-tier packages, central Pattaya location",
         ],
       },
     ],
@@ -6949,15 +6945,15 @@ const GUIDES: Record<string, Guide> = {
         heading: "Best hospitals in Ayutthaya for health check-ups",
         content: "Ayutthaya's private hospitals:",
         list: [
-          "Krung Sri Hospital — largest private hospital in Ayutthaya, widest package range",
-          "Ayutthaya Hospital — major government facility, cheapest option, long queues",
-          "Bangkok Hospital Ayutthaya — BDMS branch, highest standard, English service",
-          "Theppakorn Hospital — mid-tier private, good for standard packages",
+          "Rajthanee Hospital — the province's largest private hospital group (SET-listed), widest package range, on Rojana Road",
+          "Rajthanee Rojana Hospital — 100 beds, sister hospital in the Bang Pa-in industrial area",
+          "Phra Nakhon Si Ayutthaya Hospital — the main government facility, cheapest option, long queues",
+          "Karunvej Ayutthaya Hospital — mid-tier private on the Asia Highway, good for standard packages",
         ],
       },
     ],
     faqs: [
-      { q: "Can I combine a health check-up day trip with sightseeing in Ayutthaya?", a: "Yes — most check-up packages take 3–5 hours. Arrive at 7–8am fasting, complete the check-up by noon, then visit the temples in the afternoon. Bangkok Hospital Ayutthaya is conveniently located near the train station. Results are ready same day for most tests." },
+      { q: "Can I combine a health check-up day trip with sightseeing in Ayutthaya?", a: "Yes — most check-up packages take 3–5 hours. Arrive at 7–8am fasting, complete the check-up by noon, then visit the temples in the afternoon. Rajthanee Hospital on Rojana Road is a short drive from the historic park. Results are ready same day for most tests." },
     ],
     relatedLinks: [
       { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
@@ -6984,10 +6980,9 @@ const GUIDES: Record<string, Guide> = {
         heading: "Best hospitals in Nakhon Si Thammarat",
         content: "Main hospital options in NST:",
         list: [
-          "Bangkok Hospital Nakhon Si Thammarat — BDMS branch, highest standard, full package range",
-          "Maharaj Nakhon Si Thammarat Hospital — major government hospital, cheaper, longer wait",
-          "Nawamin Hospital — established private, mid-tier pricing",
-          "Thaksin Hospital — mid-size private, standard packages, competitive pricing",
+          "Nakharin Hospital — the city's established private hospital, on Ratchadamnoen Road, mid-tier pricing",
+          "Maharaj Nakhon Si Thammarat Hospital — 844-bed regional government hospital, cheaper, longer wait",
+          "Walailak University Hospital — teaching hospital in Tha Sala, modern equipment, academic backing",
         ],
       },
     ],
@@ -7003,16 +6998,15 @@ const GUIDES: Record<string, Guide> = {
 
   "koh-chang-health-checkup": {
     title: "Health Check-Up in Koh Chang — Prices, Hospitals & Packages (2026)",
-    description: "Compare health check-up packages at hospitals in and near Koh Chang, Thailand's second-largest island. Nearest facilities in Trat. Basic packages from ฿2,500.",
-    intro: "Koh Chang island itself has limited medical infrastructure — for anything beyond basic care, visitors use Trat Province on the mainland (30 minutes by ferry). Trat Hospital and Bang Phloi Hospital offer basic and standard health check-up packages for tourists. For comprehensive or executive packages, Bangkok Hospital Chanthaburi (1.5 hours away) or Bangkok Pattaya Hospital (3 hours) are better options.",
+    description: "Compare health check-up packages at hospitals on Koh Chang and in nearby Trat, Thailand's second-largest island. Basic packages from ฿2,500.",
+    intro: "Koh Chang has had a full hospital on the island since 2015 — Koh Chang International Hospital, on White Sand Beach, run by Bangkok Hospital Trat under the BDMS network — so most visitors no longer need the ferry to Trat for a standard check-up. Trat Hospital on the mainland (30 minutes by ferry) remains the cheapest basic option, and Bangkok Hospital Chanthaburi (1.5 hours away) is worth the trip for executive packages with a wider specialist range.",
     sections: [
       {
         heading: "Health check-up options near Koh Chang",
         content: "Practical options depending on your budget and requirements:",
         list: [
-          "Koh Chang International Clinic — on-island, for basic tests and consultation only",
-          "Trat Hospital — government facility in Trat town, cheapest, basic check-up packages ฿2,500+",
-          "Bang Phloi Hospital Trat — mid-tier private, better for annual check-ups, ฿3,000–฿8,000",
+          "Koh Chang International Hospital — on-island (White Sand Beach), full hospital since 2015 under Bangkok Hospital Trat/BDMS, offers basic and standard health check-up programs plus 24-hour emergency care",
+          "Trat Hospital — government facility in Trat town (mainland), cheapest, basic check-up packages ฿2,500+",
           "Bangkok Hospital Chanthaburi — 90 min drive, full executive packages from ฿15,000 (recommended for comprehensive screening)",
         ],
       },
@@ -7021,14 +7015,14 @@ const GUIDES: Record<string, Guide> = {
         content: "Planning advice for island visitors:",
         list: [
           "Book the Bangkok Hospital Chanthaburi executive package in advance — it fills up weeks ahead",
-          "On-island clinics are for basic blood tests or repeat medication only — not for real health check-ups",
+          "Koh Chang International Hospital covers basic and standard packages on-island; for executive packages with cancer markers or specialist consultation, plan the trip to the mainland",
           "The ferry to Trat mainland takes 45 minutes from Koh Chang Pier (Ban Dan Ao)",
           "Most check-up packages at Trat hospitals give same-day results for basic blood panels",
         ],
       },
     ],
     faqs: [
-      { q: "Is there a hospital on Koh Chang for health check-ups?", a: "Koh Chang has international clinics for basic care and minor emergencies, but no full hospital offering comprehensive health check-up packages. For a proper annual health screening with blood tests, ECG, ultrasound, and doctor consultation, take the 45-minute ferry to Trat and visit Bang Phloi Hospital or Trat Hospital." },
+      { q: "Is there a hospital on Koh Chang for health check-ups?", a: "Yes — Koh Chang International Hospital on White Sand Beach has operated as a full hospital since 2015 (run by Bangkok Hospital Trat/BDMS) and offers basic and standard health check-up programs on the island. For executive packages with cancer markers, cardiac imaging, or specialist consultation, take the 45-minute ferry to Trat and visit Trat Hospital, or continue to Bangkok Hospital Chanthaburi." },
     ],
     relatedLinks: [
       { href: "/en/guide/pattaya-health-checkup", label: "Pattaya health check-up guide" },
@@ -7055,15 +7049,13 @@ const GUIDES: Record<string, Guide> = {
         heading: "Best hospitals in Lampang for health check-ups",
         content: "Main options in Lampang:",
         list: [
-          "Bangkok Hospital Lampang — BDMS branch, highest standard, English service, full package range",
-          "Lampang Hospital — large government hospital, cheapest prices, longer queue",
-          "Muanng Lampang Hospital — established mid-tier private, reliable for standard packages",
-          "Lampangkosol Hospital — smaller private, competitive for basic and standard tiers",
+          "Khelang Nakorn-Ram Hospital — the city's main private hospital, on Phahonyothin Road, full package range",
+          "Lampang Hospital — 743-bed regional government hospital, cheapest prices, longer queue",
         ],
       },
     ],
     faqs: [
-      { q: "Should I get a health check-up in Lampang or Chiang Mai?", a: "If you are already in Lampang, it is worth getting your check-up there — Bangkok Hospital Lampang offers comparable quality to Bangkok Hospital Chiang Mai at 15–25% lower prices. If you are based in Chiang Mai, the extra travel to Lampang is not usually worthwhile unless you have specific time savings." },
+      { q: "Should I get a health check-up in Lampang or Chiang Mai?", a: "If you are already in Lampang, Khelang Nakorn-Ram is worth using — provincial private hospitals price 15–25% below Chiang Mai for an equivalent panel. If you are based in Chiang Mai, the extra travel to Lampang is not usually worthwhile: Chiang Mai has more hospitals, more package tiers, and stronger English service." },
     ],
     relatedLinks: [
       { href: "/en/guide/chiang-mai-health-checkup", label: "Chiang Mai health check-up guide" },
@@ -7090,15 +7082,14 @@ const GUIDES: Record<string, Guide> = {
         heading: "Best hospitals in Nakhon Pathom",
         content: "Main hospital options:",
         list: [
-          "Nakhon Pathom Hospital — government facility, cheapest but long queue",
-          "Bangkok Hospital Nakhon Pathom — BDMS branch, highest standard, full package range, English service",
-          "Vejthani Nakhon Pathom — mid-tier private, competitive pricing for executive packages",
-          "Pinklao Nakhon Pathom Hospital — reliable for standard and basic packages",
+          "Nakhon Pathom Hospital — 860-bed regional government facility, cheapest but long queue",
+          "Bangkok Hospital Sanamchan — BDMS branch on Phetkasem Road, highest standard, strong cardiac centre, English service",
+          "Bangkok Christian Hospital Nakhon Pathom — mid-tier private, reliable for standard and basic packages",
         ],
       },
     ],
     faqs: [
-      { q: "Is Nakhon Pathom worth the trip from Bangkok for a health check-up?", a: "If you want to avoid Bangkok hospital queues and can reach Nakhon Pathom easily (45-min train from Thonburi or 1-hour drive on Route 4), it is a practical option. Bangkok Hospital Nakhon Pathom has the same BDMS quality as Bangkok Hospital in the capital, at roughly similar prices — the main benefit is shorter wait times and easier parking." },
+      { q: "Is Nakhon Pathom worth the trip from Bangkok for a health check-up?", a: "If you want to avoid Bangkok hospital queues and can reach Nakhon Pathom easily (45-min train from Thonburi or 1-hour drive on Route 4), it is a practical option. Bangkok Hospital Sanamchan is in the same BDMS network as Bangkok Hospital in the capital, at roughly similar prices — the main benefit is shorter wait times and easier parking." },
     ],
     relatedLinks: [
       { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
@@ -7213,6 +7204,27 @@ export default async function GuidePage({
             )}
           </section>
         ))}
+
+        {/* The price bands in these guides are editorial orientation, not
+            scraped rows: they were written per city, not derived from
+            checkup_db.json, and several provinces in them have no hospital in
+            the catalogue at all. The comparison tables elsewhere on the site
+            are the real, sourced prices — so say which is which rather than
+            letting a reader assume a guide range carries the same provenance
+            as a package listing. */}
+        {guide.sections.some((s) => /price|cost/i.test(s.heading)) && (
+          <aside className="rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-900">
+            <p className="font-semibold mb-1">About the price ranges on this page</p>
+            <p className="leading-relaxed">
+              The bands above are typical market ranges for orientation, not quotes, and
+              hospitals change their packages often. Every price we publish with a hospital
+              name attached is transcribed from that hospital&apos;s own listing or from a Thai
+              booking platform — those are on the{" "}
+              <Link href={`/${locale}/compare`} className="underline font-medium">comparison pages</Link>.
+              Confirm the current price with the hospital before you travel.
+            </p>
+          </aside>
+        )}
       </article>
 
       {guide.faqs.length > 0 && (

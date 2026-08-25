@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { getStatsForHome } from "@/lib/db";
 
 export const runtime = "nodejs";
 export const size = { width: 1200, height: 630 };
@@ -32,6 +33,8 @@ export default async function Image({
     title: "Health Check-Up in Bangkok",
     subtitle: "Compare real prices from every hospital",
   };
+  const stats = await getStatsForHome();
+  const n = Math.floor(stats.hospitalCount / 10) * 10;
 
   return new ImageResponse(
     (
@@ -63,7 +66,7 @@ export default async function Image({
           borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 24,
         }}>
           <div style={{ display: "flex", gap: 32 }}>
-            {[["235+", "Hospitals"], ["฿0", "Paid rankings"], ["6", "Languages"]].map(([v, l]) => (
+            {[[`${n}+`, "Hospitals"], ["฿0", "Paid rankings"], ["6", "Languages"]].map(([v, l]) => (
               <div key={l} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 <span style={{ fontSize: 26, fontWeight: 800, color: "white" }}>{v}</span>
                 <span style={{ fontSize: 12, color: "rgba(255,255,255,0.55)" }}>{l}</span>

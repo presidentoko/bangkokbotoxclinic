@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { catLabel, type Locale } from "@/lib/i18n";
+import { getStatsForHome } from "@/lib/db";
 
 export const runtime = "nodejs";
 export const size = { width: 1200, height: 630 };
@@ -35,6 +36,8 @@ export default async function Image({
   const label = catLabel(loc, type);
   const icon = CAT_ICONS[type] ?? "🏥";
   const [dark, mid] = CAT_COLORS[type] ?? ["#1e3a5f", "#1d6fa4"];
+  const stats = await getStatsForHome();
+  const n = Math.floor(stats.hospitalCount / 10) * 10;
 
   return new ImageResponse(
     (
@@ -64,7 +67,7 @@ export default async function Image({
           borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 28,
         }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-            <span style={{ display: "flex", fontSize: 28, fontWeight: 800, color: "white" }}>235+</span>
+            <span style={{ display: "flex", fontSize: 28, fontWeight: 800, color: "white" }}>{`${n}+`}</span>
             <span style={{ display: "flex", fontSize: 12, color: "rgba(255,255,255,0.6)" }}>Hospitals</span>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>

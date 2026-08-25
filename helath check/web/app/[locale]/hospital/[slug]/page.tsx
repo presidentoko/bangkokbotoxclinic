@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
-import { type Locale, catLabel, localeAlternates } from "@/lib/i18n";
+import { type Locale, catLabel, localeAlternates, t, fmt } from "@/lib/i18n";
 import { getHospital, getAllHospitalSlugs, getHospitalReviews, getPriceHistoryBatch, type PackageRow, type ReviewRow } from "@/lib/db";
 import { SLUG_REDIRECTS } from "@/lib/slug-redirects";
 import { Sparkline } from "@/app/components/Sparkline";
@@ -42,15 +42,27 @@ export async function generateMetadata({
   try {
     const hospital = await getHospital(slug);
     if (!hospital) return {};
-    const minPrice = hospital.min_price ? ` Packages from ฿${parseFloat(hospital.min_price).toLocaleString()}.` : "";
+    const loc = locale as Locale;
     const cityLabel = hospital.city || "Bangkok";
+    const vars = { name: hospital.name, city: cityLabel, n: hospital.package_count };
+    // The title and description are what a searcher actually reads in the
+    // result. This page declares a self-referencing canonical per locale now,
+    // so an English snippet under an Arabic URL would undercut the whole
+    // reason for having the Arabic URL.
+    const minPrice = hospital.min_price
+      ? fmt(loc, "hosp_meta_from", { price: parseFloat(hospital.min_price).toLocaleString() })
+      : "";
     return {
-      title: `${hospital.name} Health Check-Up Packages & Prices — ${cityLabel}`,
-      description: `Compare all health check-up packages at ${hospital.name}, ${cityLabel}, Thailand.${hospital.jci ? " JCI accredited." : ""}${minPrice} ${hospital.package_count} packages compared.`,
+      title: fmt(loc, "hosp_meta_title", vars),
+      description:
+        fmt(loc, "hosp_meta_desc", vars) +
+        (hospital.jci ? t(loc, "hosp_meta_jci") : "") +
+        minPrice,
       alternates: localeAlternates(locale, `/hospital/${slug}`),
       openGraph: {
-        title: `${hospital.name} — ${cityLabel} Health Check-Up Packages`,
-        description: `Real prices for ${hospital.name} health check-up packages in ${cityLabel}. ${hospital.jci ? "JCI accredited hospital." : ""}`,
+        title: fmt(loc, "hosp_og_title", vars),
+        description:
+          fmt(loc, "hosp_og_desc", vars) + (hospital.jci ? t(loc, "hosp_meta_jci") : ""),
         url: `${BASE}/${locale}/hospital/${slug}`,
       },
     };
@@ -161,12 +173,12 @@ function PackageCard({ pkg, locale, history }: { pkg: PackageRow; locale: string
           rel="nofollow noopener noreferrer"
           className="bg-blue-600 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-blue-700 transition-colors"
         >
-          Book / Enquire
+          {t(locale as Locale, "book_now")}
         </a>
         {pkg.source_url && (
           <a href={pkg.source_url} target="_blank" rel="nofollow noopener noreferrer"
             className="text-sm text-blue-600 hover:underline px-2 py-2">
-            View on hospital site →
+            {t(locale as Locale, "hosp_view_site")}
           </a>
         )}
       </div>
@@ -180,6 +192,7 @@ export default async function HospitalPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
+  const loc = locale as Locale;
 
   // Deliberately unguarded: a DB outage must throw (→ 500, which crawlers
   // retry and Next never caches) rather than fall through to notFound(). A
@@ -224,9 +237,9 @@ export default async function HospitalPage({
       <HospitalTracker hospital={{ slug: hospital.slug, name: hospital.name, city: hospital.city, minPrice: hospital.min_price ? parseFloat(hospital.min_price) : null }} />
       {/* Breadcrumb */}
       <nav className="text-sm text-slate-400 mb-6 flex items-center gap-2 flex-wrap">
-        <Link href={`/${locale}`} className="hover:text-blue-600">Home</Link>
+        <Link href={`/${locale}`} className="hover:text-blue-600">{t(loc, "nav_home")}</Link>
         <span>›</span>
-        <Link href={`/${locale}/hospital`} className="hover:text-blue-600">Hospitals</Link>
+        <Link href={`/${locale}/hospital`} className="hover:text-blue-600">{t(loc, "nav_hospitals")}</Link>
         {hospital.city && (
           <>
             <span>›</span>
@@ -264,7 +277,7 @@ export default async function HospitalPage({
                       rel="nofollow noopener noreferrer"
                       className="text-blue-600 hover:underline whitespace-nowrap"
                     >
-                      Directions ↗
+                      {t(loc, "hosp_directions")}
                     </a>
                   </>
                 )}
@@ -278,7 +291,7 @@ export default async function HospitalPage({
             <div className="flex flex-wrap items-center gap-3 mt-3">
               {hospital.jci === 1 && (
                 <span className="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-lg uppercase">
-                  JCI Accredited
+                  {t(loc, "hosp_jci")}
                 </span>
               )}
               {hospital.rating && (
@@ -291,7 +304,7 @@ export default async function HospitalPage({
             </div>
             {hospital.min_price && (
               <p className="mt-3 text-slate-700">
-                Packages from <strong className="text-blue-700 text-lg">฿{parseFloat(hospital.min_price).toLocaleString()}</strong>
+                {t(loc, "hosp_from")} <strong className="text-blue-700 text-lg">฿{parseFloat(hospital.min_price).toLocaleString()}</strong>
               </p>
             )}
           </div>
@@ -306,7 +319,7 @@ export default async function HospitalPage({
           check-up, and the one thing a price list can't answer. */}
       {hospital.opening_hours && hospital.opening_hours.length > 0 && (
         <div className="bg-white border border-slate-200 rounded-xl p-6 mb-8">
-          <h2 className="font-bold text-slate-800 mb-3">Opening hours</h2>
+          <h2 className="font-bold text-slate-800 mb-3">{t(loc, "hosp_hours")}</h2>
           <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1.5 text-sm">
             {hospital.opening_hours.map((oh) => (
               <div key={oh.day} className="flex justify-between gap-4 border-b border-slate-100 py-1">
@@ -329,24 +342,24 @@ export default async function HospitalPage({
           )}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
             {hospital.founded_year && (
-              <div><span className="text-slate-400">Founded</span><br /><span className="font-semibold text-slate-800">{hospital.founded_year}</span></div>
+              <div><span className="text-slate-400">{t(loc, "hosp_founded")}</span><br /><span className="font-semibold text-slate-800">{hospital.founded_year}</span></div>
             )}
             {hospital.bed_count && (
-              <div><span className="text-slate-400">Beds</span><br /><span className="font-semibold text-slate-800">{hospital.bed_count.toLocaleString()}</span></div>
+              <div><span className="text-slate-400">{t(loc, "hosp_beds")}</span><br /><span className="font-semibold text-slate-800">{hospital.bed_count.toLocaleString()}</span></div>
             )}
             {hospital.accreditations && (
-              <div><span className="text-slate-400">Accreditations</span><br /><span className="font-semibold text-slate-800">{hospital.accreditations}</span></div>
+              <div><span className="text-slate-400">{t(loc, "hosp_accred")}</span><br /><span className="font-semibold text-slate-800">{hospital.accreditations}</span></div>
             )}
             {hospital.website && (
-              <div><span className="text-slate-400">Website</span><br /><a href={hospital.website} target="_blank" rel="nofollow noopener noreferrer" className="font-semibold text-blue-600 hover:underline truncate block">{hospital.website.replace(/^https?:\/\//, "")}</a></div>
+              <div><span className="text-slate-400">{t(loc, "hosp_website")}</span><br /><a href={hospital.website} target="_blank" rel="nofollow noopener noreferrer" className="font-semibold text-blue-600 hover:underline truncate block">{hospital.website.replace(/^https?:\/\//, "")}</a></div>
             )}
             {hospital.email && (
-              <div><span className="text-slate-400">Email</span><br /><a href={`mailto:${hospital.email}`} className="font-semibold text-blue-600 hover:underline">{hospital.email}</a></div>
+              <div><span className="text-slate-400">{t(loc, "hosp_email")}</span><br /><a href={`mailto:${hospital.email}`} className="font-semibold text-blue-600 hover:underline">{hospital.email}</a></div>
             )}
           </div>
           {hospital.specialties && (
             <div className="mt-4 pt-4 border-t border-slate-100">
-              <span className="text-slate-400 text-sm">Specialties: </span>
+              <span className="text-slate-400 text-sm">{t(loc, "hosp_specialties")} </span>
               <span className="text-slate-700 text-sm">{hospital.specialties}</span>
             </div>
           )}
@@ -370,15 +383,15 @@ export default async function HospitalPage({
 
       {hospital.packages.length === 0 && (
         <div className="text-center py-12 text-slate-400">
-          <p className="text-lg mb-2">No packages scraped yet for this hospital.</p>
-          <p className="text-sm">Check back soon — we update weekly.</p>
+          <p className="text-lg mb-2">{t(loc, "hosp_no_packages")}</p>
+          <p className="text-sm">{t(loc, "hosp_check_back")}</p>
         </div>
       )}
 
       {/* Reviews */}
       {reviews.length > 0 && (
         <div className="bg-white border border-slate-200 rounded-xl p-6 mb-8">
-          <h2 className="text-lg font-bold text-slate-800 mb-4">Patient Reviews</h2>
+          <h2 className="text-lg font-bold text-slate-800 mb-4">{t(loc, "hosp_reviews")}</h2>
           <div className="space-y-4">
             {reviews.map((r) => (
               <div key={r.id} className="border-b border-slate-100 last:border-0 pb-4 last:pb-0">
@@ -399,7 +412,7 @@ export default async function HospitalPage({
 
       {/* Compare CTA */}
       <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 mb-8">
-        <p className="text-sm font-semibold text-slate-700 mb-1">Compare with another hospital</p>
+        <p className="text-sm font-semibold text-slate-700 mb-1">{t(loc, "hosp_compare_with")}</p>
         <p className="text-xs text-slate-400 mb-3">Side-by-side package comparison — prices, inclusions, JCI status.</p>
         <Link
           href={`/${locale}/compare-hospitals?a=${hospital.slug}&b=bumrungrad-international-hospital`}
@@ -431,20 +444,20 @@ export default async function HospitalPage({
             href={`/${locale}/compare`}
             className="bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-center"
           >
-            Compare all hospitals →
+            {t(loc, "hosp_compare_all")}
           </Link>
           <Link
             href={`/${locale}/enquiry`}
             className="border border-blue-200 text-blue-700 font-semibold px-5 py-2.5 rounded-xl hover:bg-blue-50 transition-colors text-center"
           >
-            Ask for a recommendation
+            {t(loc, "hosp_ask_rec")}
           </Link>
         </div>
       </div>
 
       {/* Related guides */}
       <div className="mt-8">
-        <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">Health check-up guides</h2>
+        <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">{t(loc, "hosp_guides")}</h2>
         <div className="flex flex-wrap gap-2">
           {[
             { href: `/${locale}/guide/what-is-included-checkup`, label: "What's included in each package" },
@@ -465,9 +478,9 @@ export default async function HospitalPage({
       {hospital.city && (
         <div className="mt-4 p-4 bg-slate-50 rounded-xl border border-slate-100 text-sm">
           <Link href={`/${locale}/city/${hospital.city.toLowerCase().replace(/\s+/g, "-")}`} className="font-semibold text-blue-600 hover:underline">
-            Compare all hospitals in {hospital.city} →
+            {fmt(loc, "hosp_city_link", { city: hospital.city })}
           </Link>
-          <span className="text-slate-400 ms-2">See prices from every hospital in {hospital.city}</span>
+          <span className="text-slate-400 ms-2">{fmt(loc, "hosp_city_sub", { city: hospital.city })}</span>
         </div>
       )}
 

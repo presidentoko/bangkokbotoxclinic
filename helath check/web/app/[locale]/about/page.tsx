@@ -29,7 +29,7 @@ export default async function AboutPage({
 }) {
   const { locale } = await params;
 
-  let stats = { hospitalCount: 235, packageCount: 2353, jciCount: 9 };
+  let stats = { hospitalCount: 117, packageCount: 853, jciCount: 8, cityCount: 5 };
   try {
     stats = await getStatsForHome();
   } catch {

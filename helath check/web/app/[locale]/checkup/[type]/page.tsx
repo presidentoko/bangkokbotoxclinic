@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { type Locale, catLabel, CATEGORIES, localeAlternates } from "@/lib/i18n";
 import { permanentRedirect } from "next/navigation";
-import { getCheckupCombos, getPackagesByCategory, type PackageRow } from "@/lib/db";
+import { getCheckupCombos, getPackagesByCategory, getStatsForHome, type PackageRow } from "@/lib/db";
 // PackageRow used for type annotation below
 
 // Static — see the note in app/[locale]/page.tsx.
@@ -37,9 +37,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, type } = await params;
   const label = catLabel(locale as Locale, type);
+  const stats = await getStatsForHome();
+  const n = Math.floor(stats.hospitalCount / 10) * 10;
   return {
     title: `${label} Health Check-Up in Thailand — Compare Prices (2026)`,
-    description: `Compare ${label.toLowerCase()} health check-up packages across Thailand. Real prices from 235+ hospitals in Bangkok, Chiang Mai, Phuket and more. JCI-accredited options available.`,
+    description: `Compare ${label.toLowerCase()} health check-up packages across Thailand. Real prices from ${n}+ hospitals in Bangkok, Chiang Mai, Phuket and more. JCI-accredited options available.`,
     alternates: localeAlternates(locale, `/checkup/${type}`),
   };
 }

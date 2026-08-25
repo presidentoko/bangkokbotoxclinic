@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { getStatsForHome } from "@/lib/db";
 
 export const runtime = "nodejs";
 export const size = { width: 1200, height: 630 };
@@ -25,6 +26,8 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     emoji: "📋",
     tag: "Health Guide",
   };
+  const stats = await getStatsForHome();
+  const n = Math.floor(stats.hospitalCount / 10) * 10;
 
   return new ImageResponse(
     (
@@ -51,7 +54,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             {meta.title}
           </div>
           <div style={{ display: "flex", color: "rgba(255,255,255,0.75)", fontSize: "24px" }}>
-            2026 · Real prices from 235+ Thailand hospitals
+            {`2026 · Real prices from ${n}+ Thailand hospitals`}
           </div>
         </div>
       </div>

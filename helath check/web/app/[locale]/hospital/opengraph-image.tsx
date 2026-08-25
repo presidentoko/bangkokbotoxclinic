@@ -1,27 +1,37 @@
 import { ImageResponse } from "next/og";
-import { getStatsForHome } from "@/lib/db";
+import { getStatsForHome, getCities } from "@/lib/db";
 
 export const runtime = "nodejs";
 export const alt = "Health check-up hospitals in Thailand";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const CITIES = [
-  { name: "Bangkok", count: "150+" },
-  { name: "Chiang Mai", count: "25+" },
-  { name: "Phuket", count: "20+" },
-  { name: "Pattaya", count: "15+" },
-  { name: "Hua Hin", count: "8+" },
-  { name: "Ko Samui", count: "6+" },
+// Fallback only — real coverage is fetched below. Kept in sync with
+// getCities(): this dataset's hospitals are Bangkok, Chiang Mai, Phuket,
+// Samut Sakhon, and Phitsanulok only. Pattaya/Hua Hin/Ko Samui used to be
+// listed here with invented counts even though the catalogue has never
+// covered them — don't add a city back to this list without a hospital
+// row backing it.
+const FALLBACK_CITIES = [
+  { name: "Bangkok", count: "100+" },
+  { name: "Chiang Mai", count: "5+" },
+  { name: "Phuket", count: "5+" },
 ];
 
 export default async function OgImage() {
-  let hospitalCount = 235;
-  let jciCount = 0;
+  let hospitalCount = 117;
+  let jciCount = 8;
+  let cityCount = 5;
+  let cities: { name: string; count: string }[] = FALLBACK_CITIES;
   try {
     const s = await getStatsForHome();
     if (s.hospitalCount) hospitalCount = s.hospitalCount;
     if (s.jciCount) jciCount = s.jciCount;
+    if (s.cityCount) cityCount = s.cityCount;
+    const real = await getCities();
+    if (real.length) {
+      cities = real.slice(0, 6).map((c) => ({ name: c.city, count: String(c.count) }));
+    }
   } catch { /* ignore */ }
 
   return new ImageResponse(
@@ -54,7 +64,7 @@ export default async function OgImage() {
 
         {/* City pills */}
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginBottom: "24px" }}>
-          {CITIES.map((c) => (
+          {cities.map((c) => (
             <div key={c.name} style={{
               display: "flex",
               background: "rgba(255,255,255,0.12)",
@@ -76,7 +86,7 @@ export default async function OgImage() {
             </div>
           )}
           <div style={{ display: "flex", flexDirection: "column", background: "rgba(255,255,255,0.12)", borderRadius: "10px", padding: "12px 20px", color: "white" }}>
-            <div style={{ display: "flex", fontSize: "26px", fontWeight: "800" }}>18</div>
+            <div style={{ display: "flex", fontSize: "26px", fontWeight: "800" }}>{cityCount}</div>
             <div style={{ display: "flex", fontSize: "11px", opacity: 0.7 }}>Cities</div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", background: "rgba(255,255,255,0.12)", borderRadius: "10px", padding: "12px 20px", color: "white" }}>

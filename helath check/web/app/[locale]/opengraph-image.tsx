@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { getStatsForHome } from "@/lib/db";
 
 export const runtime = "nodejs";
 export const size = { width: 1200, height: 630 };
@@ -6,14 +7,20 @@ export const contentType = "image/png";
 
 export default async function Image({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  const stats = await getStatsForHome();
+  // Rounded down so the claim stays true as the catalogue grows or shrinks
+  // between deploys, instead of a number frozen at whatever it was when this
+  // copy was last hand-edited (this stat sat at "235+" for weeks after the
+  // 2026-08-17 rebuild cut the real count to 117).
+  const n = Math.floor(stats.hospitalCount / 10) * 10;
 
   const taglines: Record<string, string> = {
-    en: "Compare Real Prices · No Ads · 235+ Hospitals",
-    zh: "比较真实价格 · 无广告 · 235家以上医院",
-    ja: "実際の価格を比較 · 広告なし · 235以上の病院",
-    th: "เปรียบเทียบราคาจริง · ไม่มีโฆษณา · โรงพยาบาล 235+",
-    ko: "실제 가격 비교 · 광고 없음 · 235개+ 병원",
-    ar: "قارن الأسعار الحقيقية · بدون إعلانات · 235+ مستشفى",
+    en: `Compare Real Prices · No Ads · ${n}+ Hospitals`,
+    zh: `比较真实价格 · 无广告 · ${n}家以上医院`,
+    ja: `実際の価格を比較 · 広告なし · ${n}以上の病院`,
+    th: `เปรียบเทียบราคาจริง · ไม่มีโฆษณา · โรงพยาบาล ${n}+`,
+    ko: `실제 가격 비교 · 광고 없음 · ${n}개+ 병원`,
+    ar: `قارن الأسعار الحقيقية · بدون إعلانات · ${n}+ مستشفى`,
   };
 
   const headings: Record<string, string> = {
@@ -71,8 +78,8 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
         {/* Bottom stats */}
         <div style={{ display: "flex", gap: "32px" }}>
           {[
-            { num: "235+", label: "Hospitals" },
-            { num: "18", label: "Cities" },
+            { num: `${n}+`, label: "Hospitals" },
+            { num: String(stats.cityCount), label: "Cities" },
             { num: "6", label: "Languages" },
             { num: "0", label: "Paid rankings" },
           ].map(({ num, label }) => (
