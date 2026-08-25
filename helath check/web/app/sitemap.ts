@@ -28,7 +28,7 @@ const CITY_SLUGS = [
   "bangkok", "chiang-mai", "phuket", "pattaya", "hua-hin", "ko-samui",
   "krabi", "chiang-rai", "hat-yai", "khon-kaen", "koh-chang", "udon-thani",
   "korat", "ayutthaya", "chon-buri", "nakhon-si-thammarat", "lampang", "nakhon-pathom",
-  "rayong", "surat-thani", "phitsanulok", "trang", "samut-sakhon",
+  "rayong", "surat-thani", "phitsanulok", "trang", "samut-sakhon", "trat",
 ];
 
 const SEGMENT_SLUGS = [

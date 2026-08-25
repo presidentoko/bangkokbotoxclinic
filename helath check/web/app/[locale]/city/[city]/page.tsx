@@ -32,6 +32,12 @@ const CITY_SLUGS: Record<string, string> = {
   "surat-thani": "Surat Thani",
   "phitsanulok": "Phitsanulok",
   "trang": "Trang",
+  // Added 2026-08-26, when the re-scrape gave both a hospital with priced
+  // packages. Without an entry here the route does not pre-render the city at
+  // all, so /city/trat answered 404 while its hospital sat in the sitemap —
+  // the mirror image of the seventeen cities that had a page and no hospital.
+  "trat": "Trat",
+  "samut-sakhon": "Samut Sakhon",
 };
 
 export async function generateStaticParams() {
