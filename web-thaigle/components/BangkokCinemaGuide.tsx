@@ -1,39 +1,36 @@
+// Checked against each cinema's own site and current press, 2026-08-27. Prices
+// are the published range at that date and move with promotions, so they are
+// written as approximate and the reader is sent to the operator to confirm.
+// The fourth entry that used to sit here — "EGV Gold Class (Siam Discovery)",
+// with a price, a seat layout and a booking tip — has been closed for years;
+// Paragon's exclusivity deal shut it. Nothing in the build could catch that.
 const CINEMAS = [
   {
-    name: "IMAX at SF World Cinema (Central World)",
+    name: "SF World Cinema (CentralWorld)",
     emoji: "🎥",
-    area: "Central World 7F, Ratchaprasong BTS",
-    price: "IMAX ฿380–550, Standard ฿180–280",
-    format: "IMAX, 4DX, ScreenX, Standard",
-    why: "Bangkok's most central cinema complex. 15 screens including Thailand's biggest IMAX screen. 4DX (seats move) and ScreenX (3-screen wrap-around) for immersive experiences.",
-    tip: "Book via sfcinemacity.com or their app — online seats often cheaper than walk-up. Row J or K center is optimal for IMAX. Arrive 10 min early for seat selection.",
+    area: "CentralWorld, Chidlom / Siam BTS",
+    price: "IMAX around ฿380–550, standard around ฿180–280",
+    format: "IMAX, World MAX, First Class, Bed Cinema, standard",
+    why: "Bangkok's most central multiplex — 15 screens over three floors, including an IMAX and the 24m × 9m World MAX screen. First Class and Bed Cinema are the premium tiers.",
+    tip: "Book on sfcinemacity.com or the SF app; online seats are often cheaper than the counter. Centre rows are worth the extra for IMAX.",
   },
   {
     name: "Paragon Cineplex (Siam Paragon)",
     emoji: "👑",
     area: "Siam Paragon 5F, Siam BTS",
-    price: "Standard ฿200–320, Platinum ฿600–900, Enigma (private room) from ฿10,000",
-    format: "Standard, Platinum, Enigma (private screening room for groups)",
-    why: "Bangkok's most luxurious cinema. Platinum class: wide reclining seats, table service, full-menu dining during film. Enigma: private 3–7 seat rooms for total privacy.",
-    tip: "Platinum seats include meal service — order before the film starts (15 min window). Enigma rooms are perfect for corporate events or special date nights.",
+    price: "Standard around ฿200–320, Platinum around ฿600–900, Enigma around ฿4,000 per couple",
+    format: "Standard, Platinum, Enigma",
+    why: "Bangkok's most luxurious multiplex. Platinum is a wide recliner with table service. Enigma is a 35-seat auditorium of reclining sofa beds — 15 couple beds and one triple — with butler service, not a set of private rooms.",
+    tip: "Enigma sells out and is worth booking well ahead; the price covers the VIP lounge, a cocktail, a soft drink, food and popcorn. Platinum meal orders close about 15 minutes after the film starts.",
   },
   {
     name: "House Samyan (Samyan Mitrtown)",
     emoji: "🏠",
-    area: "Samyan Mitrtown Mall, Sam Yan MRT",
-    price: "Standard ฿180–280, House Klass ฿600",
-    format: "Art-house and independent films alongside mainstream",
-    why: "Bangkok's best cinema for quality film selection. Strong programming of international art-house, Hong Kong cinema, and documentary films. The cinephile's choice.",
-    tip: "Check their programming on housesamyan.com. Often the only Bangkok cinema showing non-Hollywood films. Loyalty card saves ฿20/ticket after 10 visits.",
-  },
-  {
-    name: "EGV Gold Class (Siam Discovery)",
-    emoji: "🛋️",
-    area: "Siam Discovery, Siam BTS",
-    price: "Gold Class ฿700–900 (includes food + drink voucher)",
-    format: "Gold Class recliner pairs only — romantic cinema experience",
-    why: "Recliner pair seats with electronic controls. Good-quality food menu. Serves wine and cocktails. More intimate than Paragon Platinum for a date or anniversary.",
-    tip: "Book specific pair seats online — all seats are pairs. No single-seat option. White wine and cheese board is the most popular order.",
+    area: "Samyan Mitrtown 5F, Sam Yan MRT",
+    price: "Around ฿160",
+    format: "Art-house and independent films, three screens",
+    why: "The successor to House RCA and still Bangkok's best programming — festival titles, Asian independents and documentaries that no multiplex carries. Screens seat 200, 140 and 100.",
+    tip: "Check the schedule on housesamyan.com before you go; the line-up turns over fast. Everything screens in the original language with subtitles.",
   },
 ];
 
