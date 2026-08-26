@@ -17,7 +17,7 @@ const STADIUMS = [
     schedule: "Tuesday, Friday, Saturday — doors open 6pm",
     why: "Muay Thai's most prestigious venue. Fighters who win here are considered champions. Higher-level fights than Rajadamnern on average.",
     tip: "Newer facility (moved to new location 2012). Same traditional atmosphere. Take Grab from BTS Victory Monument.",
-    buy: "Stadium box office. Online at muaytailumpinee.net. Tourist tickets often 2× Thai price at window — negotiate politely.",
+    buy: "Stadium box office. Online at lumpineemuaythai.com. Tourist tickets often 2× Thai price at window — negotiate politely.",
   },
 ];
 

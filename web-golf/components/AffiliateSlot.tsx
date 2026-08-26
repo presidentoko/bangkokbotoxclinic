@@ -25,7 +25,7 @@ export function AffiliateInline({ category, district }: {
         </div>
         <span className="text-xs text-[var(--muted)]">English/Korean caddy · packages · transfer</span>
       </div>
-      <div className="grid sm:grid-cols-3 gap-2">
+      <div className={`grid gap-2 ${sawasdee ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
         <a
           href={golfsavers}
           target="_blank"
@@ -41,21 +41,26 @@ export function AffiliateInline({ category, district }: {
           </div>
           <span className="text-emerald-600 group-hover:translate-x-1 transition shrink-0">→</span>
         </a>
-        <a
-          href={sawasdee}
-          target="_blank"
-          rel="noopener sponsored nofollow"
-          className="group flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-white border border-[var(--border)] hover:border-blue-400 hover:shadow-md transition"
-        >
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-500 to-blue-700 flex items-center justify-center text-white font-bold text-sm shrink-0">S</div>
-            <div className="min-w-0">
-              <div className="font-bold text-sm">Sawasdee Golf</div>
-              <div className="text-xs text-[var(--muted)]">Korean tour packages</div>
+        {/* Only rendered once a real partner URL is configured — see
+            sawasdeeSearch(). The hard-coded fallback it used to carry pointed
+            at a domain that does not exist. */}
+        {sawasdee && (
+          <a
+            href={sawasdee}
+            target="_blank"
+            rel="noopener sponsored nofollow"
+            className="group flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-white border border-[var(--border)] hover:border-blue-400 hover:shadow-md transition"
+          >
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-500 to-blue-700 flex items-center justify-center text-white font-bold text-sm shrink-0">S</div>
+              <div className="min-w-0">
+                <div className="font-bold text-sm">Sawasdee Golf</div>
+                <div className="text-xs text-[var(--muted)]">Korean tour packages</div>
+              </div>
             </div>
-          </div>
-          <span className="text-blue-600 group-hover:translate-x-1 transition shrink-0">→</span>
-        </a>
+            <span className="text-blue-600 group-hover:translate-x-1 transition shrink-0">→</span>
+          </a>
+        )}
         <a
           href={klook}
           target="_blank"

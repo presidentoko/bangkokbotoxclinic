@@ -29,7 +29,7 @@ const TOURS = [
     duration: "3 hours (evening)",
     why: "Old Bangkok by bike after dark when streets empty. Temple illuminations, canal paths, avoiding daytime traffic.",
     route: "Grand Palace → Wat Arun → canal paths → Khao San → Sanam Luang",
-    bookAt: "cobratours.co.th or viator. Group size 4–14.",
+    bookAt: "viator.com, or book direct with the operator. Group size 4–14.",
     tip: "Wear light clothing — Bangkok evenings still warm. River breeze makes it pleasant. Bring small bag only.",
   },
 ];

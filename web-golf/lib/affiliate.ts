@@ -59,11 +59,32 @@ export function golfsaversSearch(query: string): string {
   return direct.toString();
 }
 
-export function sawasdeeSearch(query: string): string {
-  const direct = new URL("https://www.sawasdeebangkokgolf.com/search/");
+/**
+ * Returns null unless a real partner URL is configured.
+ *
+ * The fallback used to be https://www.sawasdeebangkokgolf.com/search/, which
+ * does not resolve — the domain has never existed. It was rendered on every
+ * city, cuisine and comparison page inside a card headed "Booking partners ·
+ * sponsored", above a line promising a commission on bookings made through it.
+ * A dead link is bad; a dead link presented as a commercial partnership is a
+ * claim about a relationship with a company that is not there.
+ *
+ * The closest real operator is sawadeegolf.com — different spelling, and it
+ * states plainly that it sells no tee times and takes no commission, so it is
+ * not a substitute. Rather than delete the slot and lose the wiring, the
+ * partner now appears only once NEXT_PUBLIC_SAWASDEE_URL_TEMPLATE (or an
+ * affiliate id plus NEXT_PUBLIC_SAWASDEE_BASE) names somewhere real.
+ */
+export function sawasdeeSearch(query: string): string | null {
+  const base = process.env.NEXT_PUBLIC_SAWASDEE_BASE || "";
+  if (SAWASDEE_T) {
+    const target = base ? `${base.replace(/\/$/, "")}/search/?query=${encodeURIComponent(query)}` : "";
+    return wrapRedirect(SAWASDEE_T, target, { q: query });
+  }
+  if (!base) return null;
+  const direct = new URL(`${base.replace(/\/$/, "")}/search/`);
   direct.searchParams.set("query", query);
   if (SAWASDEE_ID) direct.searchParams.set("aff", SAWASDEE_ID);
-  if (SAWASDEE_T) return wrapRedirect(SAWASDEE_T, direct.toString(), { q: query });
   return direct.toString();
 }
 

@@ -6,7 +6,7 @@ const MARKETS = [
     area: "Mo Chit BTS / Chatuchak MRT",
     open: "Sat–Sun 9am–6pm",
     why: "World's largest weekend market — 15,000 stalls. Everything from plants to vintage clothing to antiques to street food to pets. Navigating it is half the fun.",
-    tip: "Section 2–4 for vintage/clothing. Section 8 for art. Section 22 for food. Download chatuchak-map.com before you go.",
+    tip: "Section 2–4 for vintage/clothing. Section 8 for art. Section 22 for food. Grab a paper section map at the Kamphaeng Phet MRT gate, or screenshot the section grid before you go — phone signal inside the market is unreliable.",
     budget: "฿100 entry street food, ฿200–2,000 for clothes/goods",
   },
   {

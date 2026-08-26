@@ -17,7 +17,7 @@ const SALONS = [
     type: "International chain, consistent quality",
     why: "Most reliable quality for international visitors. All stylists trained at Toni & Guy Academy. Consistent results regardless of location.",
     best: "Color services, balayage, Brazilian blow-dry, any complex services",
-    book: "toniandguy.co.th or walk-in. Less busy Mon–Wed.",
+    book: "toniandguy.com or walk-in. Less busy Mon–Wed.",
   },
   {
     name: "Local Thai Barbershop",

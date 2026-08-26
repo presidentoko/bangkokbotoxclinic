@@ -6,7 +6,7 @@ const CINEMAS = [
     price: "IMAX ฿380–550, Standard ฿180–280",
     format: "IMAX, 4DX, ScreenX, Standard",
     why: "Bangkok's most central cinema complex. 15 screens including Thailand's biggest IMAX screen. 4DX (seats move) and ScreenX (3-screen wrap-around) for immersive experiences.",
-    tip: "Book via sf-cinema.com or their app — online seats often cheaper than walk-up. Row J or K center is optimal for IMAX. Arrive 10 min early for seat selection.",
+    tip: "Book via sfcinemacity.com or their app — online seats often cheaper than walk-up. Row J or K center is optimal for IMAX. Arrive 10 min early for seat selection.",
   },
   {
     name: "Paragon Cineplex (Siam Paragon)",
@@ -24,7 +24,7 @@ const CINEMAS = [
     price: "Standard ฿180–280, House Klass ฿600",
     format: "Art-house and independent films alongside mainstream",
     why: "Bangkok's best cinema for quality film selection. Strong programming of international art-house, Hong Kong cinema, and documentary films. The cinephile's choice.",
-    tip: "Check their programming on housecinesociety.com. Often the only Bangkok cinema showing non-Hollywood films. Loyalty card saves ฿20/ticket after 10 visits.",
+    tip: "Check their programming on housesamyan.com. Often the only Bangkok cinema showing non-Hollywood films. Loyalty card saves ฿20/ticket after 10 visits.",
   },
   {
     name: "EGV Gold Class (Siam Discovery)",
