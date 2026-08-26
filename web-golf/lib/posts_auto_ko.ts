@@ -173,7 +173,7 @@ Google 공개 리뷰 데이터로 계산했어요 — 별점, 리뷰 수, 리뷰
 - **3. North Park Golf Driving Range** — 신뢰점수 84, ★ 4.2 (리뷰 689건) · 위치: Lak Si · [홈페이지](https://www.facebook.com/NorthparkDrivingRange/#.com/pages/North-Park-Driving-Range/182683651759945). 리뷰 키워드: 가성비 좋음, 관리 잘됨.
 - **4. Never Fore Golf Center** — 신뢰점수 83, ★ 4.9 (리뷰 149건) · 위치: Sathon · [홈페이지](https://www.facebook.com/share/1A5nDYUmYy/?mibextid=wwXIfr). 리뷰 키워드: 가성비 좋음, 회원제 분위기.
 - **5. Phothalai Driving Range** — 신뢰점수 83, ★ 4.7 (리뷰 201건) · 위치: Bang Kapi · [홈페이지](http://www.phothalaibangkok.com/). 리뷰 키워드: 식사 좋음, 회원제 분위기.
-- **6. 42Tee-Off Driving Range** — 신뢰점수 82, ★ 3.8 (리뷰 915건) · 한국 골퍼 추천 · 위치: Khlong Toei · [홈페이지](http://www.42tee-off.com/). 리뷰 키워드: 비싼 편, 가성비 좋음.
+- **6. 42Tee-Off Driving Range** — 신뢰점수 82, ★ 3.8 (리뷰 915건) · 한국 골퍼 추천 · 위치: Khlong Toei · [홈페이지](https://42teeoff.com/). 리뷰 키워드: 비싼 편, 가성비 좋음.
 - **7. Tom Dingwall Golf Academy (Suk 24)** — 신뢰점수 82, ★ 4.9 (리뷰 107건) · 한국 골퍼 추천 · 위치: Khlong Toei · [홈페이지](http://www.tomdingwallgolf.com/). 리뷰 키워드: 챔피언십급, 난이도 있음. 네이버 블로그 후기 1건.
 - **8. The Bangna Golf Driving Range** — 신뢰점수 81, ★ 4.1 (리뷰 432건) · 위치: Bang Na · [지도](https://www.google.com/maps/search/?api=1&query=The%20Bangna%20Golf%20Driving%20Range&query_place_id=ChIJqaqqbxSg4jARaH3wrvd-GDw). 리뷰 키워드: 가성비 좋음, 식사 좋음.
 - **9. Srinagarindra Driving Range** — 신뢰점수 80, ★ 4.3 (리뷰 248건) · 한국 골퍼 추천 · 위치: Prawet · [홈페이지](https://www.facebook.com/SGdrivingrange). 리뷰 키워드: 가성비 좋음, 비싼 편.
@@ -275,7 +275,7 @@ Google 공개 리뷰 데이터로 계산했어요 — 별점, 리뷰 수, 리뷰
 - **6. Phuket Country Club - Old Course สนามกอล์ฟ ภูเก็ตคันทรีคลับ เฟส 1** — 신뢰점수 82, ★ 4.2 (리뷰 446건) · 위치: Kathu District · [홈페이지](http://www.phuketcountryclub.com/). 리뷰 키워드: 가성비 좋음, 난이도 있음.
 - **7. Red Mountain GC Clubhouse** — 신뢰점수 81, ★ 4.6 (리뷰 178건) · 위치: Kathu District · [홈페이지](https://www.mbkgolf.com/red-mountain/). 리뷰 키워드: 난이도 있음, 경치 좋음.
 - **8. Mission Hills Phuket Golf Resort & Spa** — 신뢰점수 81, ★ 4.0 (리뷰 556건) · 위치: Thalang District · [홈페이지](https://www.missionhillsphuket.com/). 리뷰 키워드: 경치 좋음, 비싼 편.
-- **9. The Par Phuket** — 신뢰점수 80, ★ 4.2 (리뷰 313건) · 위치: Kathu District · [홈페이지](http://the-par-phuket.zoombookdirect.com/?utm_source=googlemybusiness&utm_medium=organic&utm_campaign=google_my_business). 리뷰 키워드: 식사 좋음, 챔피언십급.
+- **9. The Par Phuket** — 신뢰점수 80, ★ 4.2 (리뷰 313건) · 위치: Kathu District. 리뷰 키워드: 식사 좋음, 챔피언십급.
 - **10. Golfhub Phuket** — 신뢰점수 79, ★ 5.0 (리뷰 53건) · 위치: Thalang District · [홈페이지](https://www.golfhubphuket.com/). 리뷰 키워드: 경치 좋음, 챔피언십급.
 
 ## 푸켓 라운드 가기 전에 알아두면 좋은 것
@@ -467,7 +467,7 @@ Google 공개 리뷰 데이터로 계산했어요 — 별점, 리뷰 수, 리뷰
 ## 방콕 골프 클럽 TOP 10
 
 - **1. LENGOLF** — 신뢰점수 92, ★ 5.0 (리뷰 642건) · 위치: Pathum Wan · [홈페이지](http://www.len.golf/). 리뷰 키워드: 가성비 좋음, 대회급 코스.
-- **2. Rajpruek Club** — 신뢰점수 88, ★ 4.5 (리뷰 1,345건) · 위치: Lak Si · [홈페이지](http://www.rajpruek.com/). 리뷰 키워드: 경치 좋음, 회원제 분위기.
+- **2. Rajpruek Club** — 신뢰점수 88, ★ 4.5 (리뷰 1,345건) · 위치: Lak Si. 리뷰 키워드: 경치 좋음, 회원제 분위기.
 - **3. Windsor Park & Golf Club** — 신뢰점수 86, ★ 4.1 (리뷰 1,473건) · 한국 골퍼 추천 · 위치: Nong Chok · [홈페이지](http://www.windsorgolf.co.th/). 리뷰 키워드: 난이도 있음, 경치 좋음.
 - **4. SO GOLF สาขา ชาน แอท ดิ อเวนิว แจ้งวัฒนะ** — 신뢰점수 84, ★ 5.0 (리뷰 161건) · 위치: Lak Si · [홈페이지](https://www.facebook.com/profile.php?id=61578489999178). 리뷰 키워드: 회원제 분위기.
 - **5. Never Fore Golf Center** — 신뢰점수 83, ★ 4.9 (리뷰 149건) · 위치: Sathon · [홈페이지](https://www.facebook.com/share/1A5nDYUmYy/?mibextid=wwXIfr). 리뷰 키워드: 가성비 좋음, 회원제 분위기.
@@ -756,7 +756,7 @@ Google 공개 리뷰 데이터로 계산했어요 — 별점, 리뷰 수, 리뷰
 
 ## 나콘빠톰 골프장 TOP 8
 
-- **1. Nikanti Golf Club** — 신뢰점수 91, ★ 4.7 (리뷰 1,622건) · 한국 골퍼 추천 · 위치: Mueang Nakhon Pathom District · [홈페이지](https://www.nikantigolfclub.com/). 리뷰 키워드: 난이도 있음, 챔피언십급. 네이버 블로그 후기 1건.
+- **1. Nikanti Golf Club** — 신뢰점수 91, ★ 4.7 (리뷰 1,622건) · 한국 골퍼 추천 · 위치: Mueang Nakhon Pathom District. 리뷰 키워드: 난이도 있음, 챔피언십급. 네이버 블로그 후기 1건.
 - **2. Dynasty Golf & Country Club Co., Ltd.** — 신뢰점수 86, ★ 4.5 (리뷰 844건) · 위치: Bang Len District · [홈페이지](https://dynastygolfclub.com/). 리뷰 키워드: 경치 좋음, 난이도 있음.
 - **3. Suwan Golf & Country Club** — 신뢰점수 86, ★ 4.4 (리뷰 956건) · 위치: Nakhon Chai Si District · [홈페이지](http://www.suwangolf.com/). 리뷰 키워드: 관리 잘됨, 난이도 있음.
 - **4. GolfPeaks** — 신뢰점수 85, ★ 5.0 (리뷰 207건) · 위치: Phutthamonthon District · [홈페이지](https://www.facebook.com/profile.php?id=61571081742431&mibextid=ZbWKwL). 리뷰 키워드: 회원제 분위기.

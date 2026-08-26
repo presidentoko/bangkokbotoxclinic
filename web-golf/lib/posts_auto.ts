@@ -105,7 +105,7 @@ Trust Score is computed from public Google review data — rating, review count,
 - **3. North Park Golf Driving Range** — Trust 84, ★ 4.2 (689 reviews) in Lak Si · [facebook.com](https://www.facebook.com/NorthparkDrivingRange/#.com/pages/North-Park-Driving-Range/182683651759945). Reviewers mention: affordable, well maintained.
 - **4. Never Fore Golf Center** — Trust 83, ★ 4.9 (149 reviews) in Sathon · [facebook.com](https://www.facebook.com/share/1A5nDYUmYy/?mibextid=wwXIfr). Reviewers mention: affordable, members only.
 - **5. Phothalai Driving Range** — Trust 83, ★ 4.7 (201 reviews) in Bang Kapi · [phothalaibangkok.com](http://www.phothalaibangkok.com/). Reviewers mention: good food, members only.
-- **6. 42Tee-Off Driving Range** — Trust 82, ★ 3.8 (915 reviews) in Khlong Toei · [42tee-off.com](http://www.42tee-off.com/). Reviewers mention: expensive, affordable.
+- **6. 42Tee-Off Driving Range** — Trust 82, ★ 3.8 (915 reviews) in Khlong Toei · [42teeoff.com](https://42teeoff.com/). Reviewers mention: expensive, affordable.
 - **7. Tom Dingwall Golf Academy (Suk 24)** — Trust 82, ★ 4.9 (107 reviews) in Khlong Toei · [tomdingwallgolf.com](http://www.tomdingwallgolf.com/). Reviewers mention: championship, challenging.
 - **8. The Bangna Golf Driving Range** — Trust 81, ★ 4.1 (432 reviews) in Bang Na · [Maps](https://www.google.com/maps/search/?api=1&query=The%20Bangna%20Golf%20Driving%20Range&query_place_id=ChIJqaqqbxSg4jARaH3wrvd-GDw). Reviewers mention: affordable, good food.
 - **9. Srinagarindra Driving Range** — Trust 80, ★ 4.3 (248 reviews) in Prawet · [facebook.com](https://www.facebook.com/SGdrivingrange). Reviewers mention: affordable, expensive.
@@ -306,7 +306,7 @@ Trust Score is computed from public Google review data — rating, review count,
 - **6. Phuket Country Club - Old Course สนามกอล์ฟ ภูเก็ตคันทรีคลับ เฟส 1** — Trust 82, ★ 4.2 (446 reviews) in Kathu District · [phuketcountryclub.com](http://www.phuketcountryclub.com/). Reviewers mention: affordable, challenging.
 - **7. Red Mountain GC Clubhouse** — Trust 81, ★ 4.6 (178 reviews) in Kathu District · [mbkgolf.com](https://www.mbkgolf.com/red-mountain/). Reviewers mention: challenging, scenic.
 - **8. Mission Hills Phuket Golf Resort & Spa** — Trust 81, ★ 4.0 (556 reviews) in Thalang District · [missionhillsphuket.com](https://www.missionhillsphuket.com/). Reviewers mention: scenic, expensive.
-- **9. The Par Phuket** — Trust 80, ★ 4.2 (313 reviews) in Kathu District · [the-par-phuket.zoombookdirect.com](http://the-par-phuket.zoombookdirect.com/?utm_source=googlemybusiness&utm_medium=organic&utm_campaign=google_my_business). Reviewers mention: good food, championship.
+- **9. The Par Phuket** — Trust 80, ★ 4.2 (313 reviews) in Kathu District. Reviewers mention: good food, championship.
 - **10. Golfhub Phuket** — Trust 79, ★ 5.0 (53 reviews) in Thalang District · [golfhubphuket.com](https://www.golfhubphuket.com/). Reviewers mention: scenic, championship.
 
 ## Local snapshot
@@ -419,7 +419,7 @@ Trust Score is computed from public Google review data — rating, review count,
 ## Top 10 Golf Clubs in Bangkok
 
 - **1. LENGOLF** — Trust 92, ★ 5.0 (642 reviews) in Pathum Wan · [len.golf](http://www.len.golf/). Reviewers mention: affordable, tournament ready.
-- **2. Rajpruek Club** — Trust 88, ★ 4.5 (1,345 reviews) in Lak Si · [rajpruek.com](http://www.rajpruek.com/). Reviewers mention: scenic, members only.
+- **2. Rajpruek Club** — Trust 88, ★ 4.5 (1,345 reviews) in Lak Si. Reviewers mention: scenic, members only.
 - **3. Windsor Park & Golf Club** — Trust 86, ★ 4.1 (1,473 reviews) in Nong Chok · [windsorgolf.co.th](http://www.windsorgolf.co.th/). Reviewers mention: challenging, scenic.
 - **4. SO GOLF สาขา ชาน แอท ดิ อเวนิว แจ้งวัฒนะ** — Trust 84, ★ 5.0 (161 reviews) in Lak Si · [facebook.com](https://www.facebook.com/profile.php?id=61578489999178). Reviewers mention: members only.
 - **5. Never Fore Golf Center** — Trust 83, ★ 4.9 (149 reviews) in Sathon · [facebook.com](https://www.facebook.com/share/1A5nDYUmYy/?mibextid=wwXIfr). Reviewers mention: affordable, members only.
@@ -612,7 +612,7 @@ Trust Score is computed from public Google review data — rating, review count,
 
 ## Top 8 Golf Courses in Nakhon Pathom
 
-- **1. Nikanti Golf Club** — Trust 91, ★ 4.7 (1,622 reviews) in Mueang Nakhon Pathom District · [nikantigolfclub.com](https://www.nikantigolfclub.com/). Reviewers mention: challenging, championship.
+- **1. Nikanti Golf Club** — Trust 91, ★ 4.7 (1,622 reviews) in Mueang Nakhon Pathom District. Reviewers mention: challenging, championship.
 - **2. Dynasty Golf & Country Club Co., Ltd.** — Trust 86, ★ 4.5 (844 reviews) in Bang Len District · [dynastygolfclub.com](https://dynastygolfclub.com/). Reviewers mention: scenic, challenging.
 - **3. Suwan Golf & Country Club** — Trust 86, ★ 4.4 (956 reviews) in Nakhon Chai Si District · [suwangolf.com](http://www.suwangolf.com/). Reviewers mention: well maintained, challenging.
 - **4. GolfPeaks** — Trust 85, ★ 5.0 (207 reviews) in Phutthamonthon District · [facebook.com](https://www.facebook.com/profile.php?id=61571081742431&mibextid=ZbWKwL). Reviewers mention: members only.
