@@ -531,8 +531,37 @@ def _note_success() -> None:
 BLOCK_HEARTBEAT_SEC = 240
 
 
+# 쿨다운 중 정찰 간격. 전 워커 합쳐 이 간격마다 1건만 통과시킨다.
+PROBE_INTERVAL_SEC = 300
+_probe_lock = threading.Lock()
+_last_probe = 0.0
+
+
+def _try_take_probe_slot() -> bool:
+    """쿨다운 중 정찰 1건을 가져갈 수 있으면 True.
+
+    2026-08-25: 차단기와 서버 성적 수집이 서로를 막고 있었다.
+    성적 기반 선택은 "어떤 출구가 되는지" 데이터가 있어야 작동하는데, 차단기가
+    30분씩 전 워커를 재우니 시도 자체가 없어 성적이 안 쌓인다 — 45분에 시도 2건.
+    설치는 됐는데 학습이 안 되는 상태였다.
+
+    그래서 쿨다운 중에도 5분에 1건은 통과시킨다. 목적이 둘이다:
+      (1) 성적 데이터를 계속 모아 어떤 서버가 살아있는지 파악
+      (2) 전면 차단이 풀렸는지 감지 — 성공하면 _note_success 가 쿨다운을 즉시 해제
+    요청량은 시간당 12건으로, 차단 이전 정상 구간(시간당 수십~수백)의 극히
+    일부라 차단을 굳힐 수준이 아니다. 잠그는 것과 완전히 눈 감는 것은 다르다.
+    """
+    global _last_probe
+    with _probe_lock:
+        now = time.time()
+        if now - _last_probe >= PROBE_INTERVAL_SEC:
+            _last_probe = now
+            return True
+    return False
+
+
 def _wait_if_blocked(worker_id: int) -> None:
-    """쿨다운 중이면 끝날 때까지 대기. 대기 중 성공이 나면 즉시 빠져나온다."""
+    """쿨다운 중이면 대기. 성공이 나오면 즉시, 정찰 차례면 1건 통과."""
     announced = False
     last_beat = 0.0
     while True:
@@ -541,6 +570,9 @@ def _wait_if_blocked(worker_id: int) -> None:
         if remain <= 0:
             if announced:
                 log.info(f"[W{worker_id}] 쿨다운 해제 — 재개")
+            return
+        if _try_take_probe_slot():
+            log.info(f"[W{worker_id}] 정찰 1건 (쿨다운 {int(remain)}초 남음)")
             return
         now = time.time()
         if not announced:
