@@ -1,5 +1,12 @@
 import type { NextConfig } from "next";
 
+const securityHeaders = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+];
+
 const config: NextConfig = {
   trailingSlash: false,
   async redirects() {
@@ -32,6 +39,37 @@ const config: NextConfig = {
   },
   experimental: {
     largePageDataBytes: 4 * 1024 * 1024,
+  },
+  async headers() {
+    return [
+      {
+        // Cloudflare fronts Vercel on this domain and returns
+        // `cf-cache-status: DYNAMIC` for HTML, so every request reaches Vercel
+        // and bills an ISR read while `x-vercel-cache` reports HIT. Next's
+        // default `public, max-age=0, must-revalidate` reads to a shared cache
+        // as "do not store"; `s-maxage` is what makes the edge eligible to
+        // hold a copy. An hour is far inside the 7-day `revalidate` most pages
+        // here already use, so nothing goes staler than it does today.
+        //
+        // Half the fix — responses stay DYNAMIC until a Cloudflare Cache Rule
+        // marks HTML cacheable.
+        source: "/(.*)",
+        headers: [
+          ...securityHeaders,
+          { key: "Cache-Control", value: "public, max-age=0, s-maxage=3600, stale-while-revalidate=604800" },
+        ],
+      },
+      {
+        // After the blanket rule so it wins on the duplicate key. /api/contact
+        // is a form submission — a shared cache would serve one sender's
+        // response to the next and the message would never be delivered.
+        source: "/api/(.*)",
+        headers: [
+          ...securityHeaders,
+          { key: "Cache-Control", value: "no-store, must-revalidate" },
+        ],
+      },
+    ];
   },
 };
 
