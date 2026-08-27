@@ -29,6 +29,19 @@ export function generateStaticParams() {
 // and are unaffected by this.
 export const dynamicParams = false;
 
+// 2026-08-27: 이 사이트에는 revalidate 가 한 페이지도 없었다(12개 라우트 전부).
+// 그래서 모든 응답이 `Cache-Control: public, max-age=0, must-revalidate` 로
+// 나가고, 브라우저와 CDN 이 매 요청마다 되물어본다. 그게 그대로
+// ISR Reads(1.5M / 한도 1M)와 Fast Origin Transfer(12.4GB / 한도 10GB)다 —
+// 페이지 5,799개에 페이지당 258회 읽힌 셈이다.
+//
+// 되물어볼 이유가 없다: 데이터는 배포로만 바뀌고(하루 0.9회, 재배포되면
+// 캐시가 통째로 갈린다) dynamicParams=false 라 전 페이지가 정적 생성이다.
+// 30일은 클리닉 사이트들의 clinic/doctor 페이지와 같은 값이다.
+// 레이아웃에 두면 하위 라우트 전체에 적용된다 — 개별 페이지가 더 짧은 값을
+// 선언하면 그쪽이 이긴다.
+export const revalidate = 2592000;
+
 // This is the real root layout for every content page (everything except
 // the bare "/" redirect -- see app/(root)/layout.tsx). Owning <html> here
 // means `lang` is set correctly per static page at build time instead of
