@@ -115,7 +115,24 @@ export default async function HospitalsPage({
         ))}
       </div>
 
-      <HospitalSearch hospitals={hospitals} locale={locale} />
+      {/* Only the six fields the search box reads. Passing the whole
+          HospitalSummary serialised all 321 hospitals into the RSC payload
+          twice over — once for this component and once for the server-rendered
+          list below — and made this page 703 kB, of which 477 kB was that
+          payload. Every crawler fetch of it billed Fast Origin Transfer at
+          five times the weight of any other page on the site. */}
+      <HospitalSearch
+        hospitals={hospitals.map((h) => ({
+          slug: h.slug,
+          name: h.name,
+          city: h.city,
+          area: h.area,
+          jci: h.jci,
+          min_price: h.min_price,
+          package_count: h.package_count,
+        }))}
+        locale={locale}
+      />
 
       {hospitals.length === 0 ? (
         <p className="text-slate-400">No hospitals yet.</p>
