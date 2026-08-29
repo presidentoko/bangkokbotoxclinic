@@ -3,8 +3,9 @@ import type { Metadata } from 'next'
 import HospitalListClient from '@/components/HospitalListClient'
 import RelatedGuides from '@/components/RelatedGuides'
 import AdSlot from '@/components/AdSlot'
-import { loadBangkokHospitals, hospitalSlug } from '@/lib/hospitals'
+import { loadBangkokHospitals, loadHospitals, hospitalSlug } from '@/lib/hospitals'
 import { getIndexableDistricts } from '@/lib/districts'
+import { CITY_META, type CityKey } from '@/lib/cityHub'
 import type { Hospital } from '@/lib/types'
 
 const SITE = 'https://www.thailandpethub.com'
@@ -192,6 +193,31 @@ function DistrictIndex() {
   )
 }
 
+/** Cross-links to the three city hubs added alongside Bangkok's own directory. */
+function OtherCities() {
+  const all = loadHospitals()
+  const cities = (Object.keys(CITY_META) as CityKey[]).map(key => ({
+    key, th: CITY_META[key].th, slug: CITY_META[key].slug,
+    count: all.filter(h => h.city === key).length,
+  }))
+  return (
+    <section className="mb-8">
+      <h2 className="text-base font-bold text-gray-800 mb-1">เมืองอื่น</h2>
+      <div className="flex flex-wrap gap-2">
+        {cities.map(c => (
+          <a
+            key={c.key}
+            href={`/hospital/${c.slug}`}
+            className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-medium text-gray-700 hover:border-orange-300 hover:text-orange-600 transition-colors"
+          >
+            {c.th} <span className="text-gray-400">{c.count}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 /** Ranked shortlist, server-rendered so it is visible to crawlers and to models. */
 function TopRatedList({ all }: { all: Hospital[] }) {
   const top = topRated(all, 10)
@@ -262,6 +288,7 @@ export default function HospitalPage() {
       </p>
       <KeyFacts all={all} />
       <AdSlot slot="1234567891" format="leaderboard" />
+      <OtherCities />
       <DistrictIndex />
       <Suspense fallback={null}>
         <HospitalListClient />

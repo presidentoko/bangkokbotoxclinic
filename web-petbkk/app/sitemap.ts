@@ -3,6 +3,7 @@ import { loadFoods, foodSlug } from '@/lib/petfood'
 import { hasPublishableData } from '@/lib/grading'
 import { loadHospitals, hospitalSlug } from '@/lib/hospitals'
 import { getIndexableDistricts } from '@/lib/districts'
+import { CITY_META } from '@/lib/cityHub'
 import { BREEDS } from '@/lib/breeds'
 
 const BASE = 'https://www.thailandpethub.com'
@@ -125,6 +126,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }))
 
+  const cityHubPages: MetadataRoute.Sitemap = Object.values(CITY_META).map(c => ({
+    url: `${BASE}/hospital/${c.slug}`,
+    lastModified: BUILD_DATE,
+    changeFrequency: 'weekly' as const,
+    priority: 0.85,
+  }))
+
   const hospitalPages: MetadataRoute.Sitemap = hospitals.map(h => ({
     url: `${BASE}/hospital/${hospitalSlug(h)}`,
     lastModified: parsedDate(h.updated_at),
@@ -143,6 +151,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticPages.map(p => ({ lastModified: BUILD_DATE, ...p })),
     ...foodPages,
     ...districtPages,
+    ...cityHubPages,
     ...hospitalPages,
     ...breedPages,
   ]

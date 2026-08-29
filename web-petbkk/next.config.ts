@@ -69,6 +69,14 @@ const config: NextConfig = {
       { source: '/hospital/phra-khanong-veterinary', destination: '/hospital', permanent: true },
       { source: '/hospital/%E0%B8%84%E0%B8%A5%E0%B8%99%E0%B8%81%E0%B8%AA%E0%B8%95%E0%B8%A7%E0%B9%80%E0%B8%A5%E0%B8%A2%E0%B8%87-458', destination: '/hospital', permanent: true },
       { source: '/hospital/%E0%B8%84%E0%B8%A5%E0%B8%99%E0%B8%81%E0%B8%A3%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%AA%E0%B8%95%E0%B8%A7%E0%B9%80%E0%B8%AB%E0%B8%A1%E0%B8%A2%E0%B8%A7%E0%B8%AA%E0%B9%82%E0%B8%A1%E0%B8%AA%E0%B8%A3-meow-samosorn-vet-clinic', destination: '/hospital', permanent: true },
+
+      // Same drop, from the Chiang Mai/Pattaya/Phuket backfill: delisted or
+      // closed permanently per Google. (A second "animal-clinic" was also
+      // dropped here, but that exact slug is already redirected above.)
+      { source: '/hospital/patong-veterinarian-clinic', destination: '/hospital', permanent: true },
+      { source: '/hospital/hug-me-animal-hospital-phuket-%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5%E0%B8%AA%E0%B8%95%E0%B8%A7%E0%B8%AE%E0%B8%81%E0%B8%A1', destination: '/hospital', permanent: true },
+      { source: '/hospital/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5%E0%B8%AA%E0%B8%95%E0%B8%A7%E0%B8%94%E0%B8%9A%E0%B8%81-dibuk-pet-hospital', destination: '/hospital', permanent: true },
+      { source: '/hospital/animal-hospital-3', destination: '/hospital', permanent: true },
     ]
   },
 }

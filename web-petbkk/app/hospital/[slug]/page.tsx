@@ -384,11 +384,18 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
           <span className="mt-0.5 text-gray-400">📍</span>
           <span className="text-gray-700">{h.address}</span>
         </div>
-        {district && (
+        {district ? (
           <div className="flex items-center gap-2">
             <span className="text-gray-400">🗺️</span>
             <a href={`/hospital/area/${district.slug}`} className="text-blue-600 hover:underline">
               ดูโรงพยาบาลสัตว์อื่นในเขต{district.th}
+            </a>
+          </div>
+        ) : h.city !== 'bangkok' && (
+          <div className="flex items-center gap-2">
+            <span className="text-gray-400">🗺️</span>
+            <a href={`/hospital/${h.city}`} className="text-blue-600 hover:underline">
+              ดูโรงพยาบาลสัตว์อื่นใน{CITY_LABEL[h.city].th}
             </a>
           </div>
         )}

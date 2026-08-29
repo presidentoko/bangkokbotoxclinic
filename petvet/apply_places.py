@@ -7,7 +7,12 @@ What it changes, and why each is safe:
 
   lat / lng   Replaced outright. The stored values are grid probe points (92% of
               records share a coordinate); the API values are the clinics'.
-              Guarded by a Bangkok bounding box.
+              Guarded by distance from the grid point that discovered the
+              record, not a fixed city box — a hardcoded Bangkok bounding box
+              here would silently reject every real coordinate for Chiang Mai,
+              Pattaya and Phuket once those cities existed in the dataset,
+              exactly the geofence bug already found and fixed in
+              scraper_grid.py's is_in_bangkok().
   address     Replaced with `formattedAddress`, which carries the เขต and a
               postcode. The scraped `address_hint` was a listing fragment — 149
               had a leading " · ", 9 were empty, 24 had a postcode.
@@ -40,7 +45,20 @@ ROOT = Path(__file__).resolve().parent.parent
 HOSPITALS = ROOT / "web-petbkk" / "data" / "hospitals.json"
 CHECKPOINT = ROOT / "petvet" / "places_backfill.json"
 
-BKK = (13.49, 14.00, 100.32, 100.95)  # lat_min, lat_max, lng_min, lng_max
+# A real clinic is always close to the grid point that found it — the grid
+# scan only searches within its own city radius, so the discovering point
+# already pins the general area regardless of which city it is. Beyond this
+# distance the API most likely matched the wrong place (a same-named branch
+# in another city, e.g.) rather than the coordinate being merely imprecise.
+MAX_DRIFT_KM = 40.0
+
+
+def haversine_km(lat1: float, lng1: float, lat2: float, lng2: float) -> float:
+    from math import atan2, cos, radians, sin, sqrt
+    r = 6371.0
+    dlat, dlng = radians(lat2 - lat1), radians(lng2 - lng1)
+    a = sin(dlat / 2) ** 2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlng / 2) ** 2
+    return r * 2 * atan2(sqrt(a), sqrt(1 - a))
 
 # Google renders a round-the-clock place as "วันจันทร์: เปิด 24 ชั่วโมง".
 # Note it is "เปิด 24", not "เปิดตลอด 24" — the latter matches nothing.
@@ -111,9 +129,14 @@ def main() -> None:
         loc = r.get("location")
         if loc:
             lat, lng = loc["latitude"], loc["longitude"]
-            if BKK[0] < lat < BKK[1] and BKK[2] < lng < BKK[3]:
+            drift = haversine_km(h["lat"], h["lng"], lat, lng)
+            if drift <= MAX_DRIFT_KM:
                 h["lat"], h["lng"] = lat, lng
                 stats["coord"] += 1
+            else:
+                stats["coord_rejected"] = stats.get("coord_rejected", 0) + 1
+                print(f"  rejecting coord for {h['name_en'][:40]}: "
+                      f"{drift:.0f} km from its grid point (place may be mismatched)")
 
         addr = r.get("formattedAddress")
         if addr:
