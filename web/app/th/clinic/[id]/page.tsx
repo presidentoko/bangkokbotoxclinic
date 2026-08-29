@@ -9,6 +9,7 @@ import type { Metadata } from "next";
 import ClinicPage, { generateStaticParams as parentGSP } from "../../../clinic/[id]/page";
 import { loadMasterDb, getClinicById } from "@/lib/data";
 import { getSiteUrl, getSiteConfig, applySiteFilter, resolveOwnerUrl, safeEncodeURIComponent } from "@/lib/site";
+import { hasKoPage } from "@/lib/ko-cap";
 
 const SITE = getSiteUrl();
 
@@ -22,7 +23,10 @@ export const generateStaticParams = parentGSP;
 export async function generateMetadata(
   { params }: { params: Promise<{ id: string }> }
 ): Promise<Metadata> {
+  // 2026-08-29: /ko/clinic/{id} 는 상위 200곳만 존재한다(KO_PRERENDER).
+  // 없는 페이지를 hreflang 으로 광고하면 구글이 가져가서 404 를 받는다.
   const { id } = await params;
+  const koExists = await hasKoPage(id);
   const db = await loadMasterDb();
   const c = getClinicById(db.clinics, id);
   if (!c) return { title: "ไม่พบคลินิก" };
@@ -54,7 +58,8 @@ export async function generateMetadata(
         languages: {
           "en-US": `${SITE}/clinic/${c.id}`,
           "th-TH": `${SITE}/th/clinic/${c.id}`,
-          "ko-KR": `${SITE}/ko/clinic/${c.id}`,
+          // 캡 밖 클리닉은 ko 페이지가 실재하지 않는다 — 광고하면 404 를 낳는다.
+          ...(koExists && { "ko-KR": `${SITE}/ko/clinic/${c.id}` }),
           "x-default": `${SITE}/clinic/${c.id}`,
         },
       }),

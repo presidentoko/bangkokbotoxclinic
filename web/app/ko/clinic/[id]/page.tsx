@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import ClinicPage from "../../../clinic/[id]/page";
 import { loadMasterDb, getClinicById } from "@/lib/data";
 import { getSiteUrl, getSiteConfig, applySiteFilter, resolveOwnerUrl } from "@/lib/site";
+import { KO_PRERENDER } from "@/lib/ko-cap";
 
 const SITE = getSiteUrl();
 
@@ -23,7 +24,6 @@ export const revalidate = 2592000;
 // /th 는 유지한다 — 이 사이트의 GSC 상위 검색어가 전부 태국어라 실익이 크다.
 // 반면 /ko 는 사이트맵에 홈 1개만 올라가 있었고 트래픽도 미미했다. 그래서
 // 상위 KO_PRERENDER 개만 빌드하고 나머지는 요청 시점에 판단한다(아래 참고).
-const KO_PRERENDER = 200;
 
 // 2026-08-17 GSC 감사: KO_PRERENDER 밖 클리닉은 실재하는데(영문판 200 정상)
 // 404였다 — dynamicParams=true + 요청 시점 redirect()로 고치려 했으나

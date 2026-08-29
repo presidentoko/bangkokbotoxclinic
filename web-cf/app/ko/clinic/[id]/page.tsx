@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import ClinicPage from "../../../clinic/[id]/page";
 import { loadMasterDb, getClinicById } from "@/lib/data";
 import { getSiteUrl, getSiteConfig, applySiteFilter, resolveOwnerUrl } from "@/lib/site";
+import { KO_PRERENDER } from "@/lib/ko-cap";
 
 const SITE = getSiteUrl();
 
@@ -25,7 +26,6 @@ export const dynamicParams = false;
 // 상위 KO_PRERENDER 개만 빌드하고 나머지는 dynamicParams=false 에 따라 404 로 둔다
 // — 어차피 색인된 적이 없어 잃을 순위가 없고, 봇이 무작위 id 를 두드려도
 // ISR write 가 생기지 않는다(그게 dynamicParams=false 를 쓰는 이유다).
-const KO_PRERENDER = 200;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();

@@ -25,6 +25,7 @@ import { extractPriceEstimates } from "@/lib/priceEstimates";
 import { applySiteFilter, getSiteConfig, getSiteUrl, resolveOwnerUrl, safeEncodeURIComponent, FOCUS_VALID } from "@/lib/site";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import { hasKoPage } from "@/lib/ko-cap";
 
 // resolveOwnerUrl 은 lib/site.ts 로 이동 — doctor/[slug] 도 동일 가드 사용.
 
@@ -77,7 +78,10 @@ export async function generateStaticParams() {
 export async function generateMetadata(
   { params }: { params: Promise<{ id: string }> }
 ): Promise<Metadata> {
+  // 2026-08-29: /ko/clinic/{id} 는 상위 200곳만 존재한다(KO_PRERENDER).
+  // 없는 페이지를 hreflang 으로 광고하면 구글이 가져가서 404 를 받는다.
   const { id } = await params;
+  const koExists = await hasKoPage(id);
   const db = await loadMasterDb();
   const c = getClinicById(db.clinics, id);
   if (!c) return { title: "Clinic not found" };
@@ -110,7 +114,8 @@ export async function generateMetadata(
         languages: {
           "en-US": `/clinic/${c.id}`,
           "th-TH": `/th/clinic/${c.id}`,
-          "ko-KR": `/ko/clinic/${c.id}`,
+          // 캡 밖 클리닉은 ko 페이지가 실재하지 않는다 — 광고하면 404 를 낳는다.
+          ...(koExists && { "ko-KR": `/ko/clinic/${c.id}` }),
           "x-default": `/clinic/${c.id}`,
         },
       }),
