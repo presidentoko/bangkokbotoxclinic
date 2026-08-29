@@ -11,6 +11,16 @@ import type { Metadata } from 'next'
 import type { Hospital } from '@/lib/types'
 import { districtForHospital } from '@/lib/districts'
 
+// Grid-scanned cities beyond Bangkok. Used everywhere this page previously
+// hardcoded "Bangkok"/"กรุงเทพมหานคร" as the only possible city, which would
+// have published that literal address for a real Chiang Mai or Phuket clinic.
+const CITY_LABEL: Record<Hospital['city'], { th: string; en: string; region: string }> = {
+  bangkok:   { th: 'กรุงเทพมหานคร', en: 'Bangkok',   region: 'กรุงเทพมหานคร' },
+  chiangmai: { th: 'เชียงใหม่',     en: 'Chiang Mai', region: 'เชียงใหม่' },
+  pattaya:   { th: 'พัทยา',         en: 'Pattaya',    region: 'ชลบุรี' },
+  phuket:    { th: 'ภูเก็ต',         en: 'Phuket',     region: 'ภูเก็ต' },
+}
+
 export const dynamicParams = false
 
 export function generateStaticParams() {
@@ -223,12 +233,12 @@ function LocalBusinessJsonLd({ h, slug }: { h: Hospital; slug: string }) {
       '@type': 'PostalAddress',
       ...(h.address ? { streetAddress: h.address } : {}),
       addressCountry: 'TH',
-      addressLocality: h.district ? `เขต${h.district}` : 'Bangkok',
-      addressRegion: 'กรุงเทพมหานคร',
+      addressLocality: h.district ? `เขต${h.district}` : CITY_LABEL[h.city].th,
+      addressRegion: CITY_LABEL[h.city].region,
     },
     areaServed: h.district
       ? { '@type': 'Place', name: `เขต${h.district} กรุงเทพมหานคร` }
-      : { '@type': 'City', name: 'Bangkok', alternateName: 'กรุงเทพมหานคร' },
+      : { '@type': 'City', name: CITY_LABEL[h.city].en, alternateName: CITY_LABEL[h.city].th },
     ...(h.website ? { sameAs: [h.website] } : {}),
     // Only published for the 40 records with a coordinate of their own. The
     // other 463 carry the grid probe point, and feeding Google a GeoCoordinates
@@ -288,7 +298,7 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
   const precise = hasPreciseCoord(h)
   const mapsQuery = precise
     ? `${h.lat},${h.lng}`
-    : encodeURIComponent([h.name_en || h.name_th, h.address, 'Bangkok'].filter(Boolean).join(' '))
+    : encodeURIComponent([h.name_en || h.name_th, h.address, CITY_LABEL[h.city].en].filter(Boolean).join(' '))
   const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapsQuery}`
   const mapEmbedUrl = `https://maps.google.com/maps?q=${mapsQuery}&z=${precise ? 16 : 15}&output=embed`
   const pantipReview = getHospitalReviews(h.id)

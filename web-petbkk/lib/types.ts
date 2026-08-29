@@ -106,9 +106,21 @@ export interface Hospital {
   google_review_count: number | null
   google_place_id: string
   updated_at: string
-  /** Thai khet parsed out of the Places API address. Present on 342 of 496. */
+  /** Thai khet parsed out of the Places API address. Present on 342 of 496
+   *  Bangkok records; irrelevant outside Bangkok, since other provinces use
+   *  เขต's rural/urban counterpart อำเภอ, which nothing here parses for yet. */
   district?: string
   website?: string
+  /** Grid-scan origin city. Bangkok records predate this field and carry
+   *  `'bangkok'` explicitly rather than being left undefined, so a consumer
+   *  can never mistake "not yet tagged" for "not Bangkok" — every record has
+   *  an opinion. Anything that renders Bangkok-specific copy (the hub page,
+   *  the 24h/emergency pages, the เขต district pages) must filter on this
+   *  before using `loadHospitals()`; skipping that filter is what would
+   *  publish "โรงพยาบาลสัตว์ในกรุงเทพ 985 แห่ง" once Chiang Mai, Pattaya and
+   *  Phuket records exist in the same file.
+   */
+  city: 'bangkok' | 'chiangmai' | 'pattaya' | 'phuket'
 }
 
 /**

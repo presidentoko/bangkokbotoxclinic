@@ -86,8 +86,16 @@ function SiteJsonLd() {
         url: SITE_URL,
         logo: { '@type': 'ImageObject', url: `${SITE_URL}/icon.svg` },
         description:
-          'ฐานข้อมูลอาหารสัตว์เลี้ยงและโรงพยาบาลสัตว์ในกรุงเทพ พร้อมการวิเคราะห์ส่วนผสมและเกรดอาหาร',
-        areaServed: { '@type': 'City', name: 'Bangkok', alternateName: 'กรุงเทพมหานคร' },
+          'ฐานข้อมูลอาหารสัตว์เลี้ยงและโรงพยาบาลสัตว์ในกรุงเทพ เชียงใหม่ พัทยา และภูเก็ต พร้อมการวิเคราะห์ส่วนผสมและเกรดอาหาร',
+        // Was Bangkok-only; the hospital directory now also covers Chiang Mai,
+        // Pattaya and Phuket (see petvet/merge_cities.py), so the
+        // organization's own areaServed claim needs to say so too.
+        areaServed: [
+          { '@type': 'City', name: 'Bangkok', alternateName: 'กรุงเทพมหานคร' },
+          { '@type': 'City', name: 'Chiang Mai', alternateName: 'เชียงใหม่' },
+          { '@type': 'City', name: 'Pattaya', alternateName: 'พัทยา' },
+          { '@type': 'City', name: 'Phuket', alternateName: 'ภูเก็ต' },
+        ],
         knowsAbout: [
           'อาหารสัตว์เลี้ยง', 'ส่วนผสมอาหารสุนัข', 'ส่วนผสมอาหารแมว',
           'โรงพยาบาลสัตว์กรุงเทพ', 'คลินิกสัตว์ 24 ชั่วโมง',

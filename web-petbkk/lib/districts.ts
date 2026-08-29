@@ -1,5 +1,5 @@
 import type { Hospital } from './types'
-import { haversineKm, loadHospitals, hospitalSlug } from './hospitals'
+import { haversineKm, loadBangkokHospitals, hospitalSlug } from './hospitals'
 
 /**
  * Bangkok khet landing pages.
@@ -82,7 +82,7 @@ let cache: DistrictData[] | null = null
 
 function buildAll(): DistrictData[] {
   if (cache) return cache
-  const all = loadHospitals()
+  const all = loadBangkokHospitals()
 
   cache = DISTRICTS.map(district => {
     const hospitals = all

@@ -19,10 +19,15 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
-import { loadHospitals, hospitalSlug } from '../lib/hospitals'
+import { loadBangkokHospitals, hospitalSlug } from '../lib/hospitals'
 import type { HospitalLight } from '../lib/types'
 
-const index: HospitalLight[] = loadHospitals().map(h => ({
+// Bangkok only: this index feeds the search/filter widget on the /hospital hub
+// page, which is Bangkok-scoped copy end to end ("โรงพยาบาลสัตว์ในกรุงเทพ").
+// Chiang Mai, Pattaya and Phuket clinics now share hospitals.json but have no
+// hub of their own yet; indexing them here would surface them in a search box
+// that claims to be Bangkok-only.
+const index: HospitalLight[] = loadBangkokHospitals().map(h => ({
   id: h.id,
   slug: hospitalSlug(h),
   name_th: h.name_th,

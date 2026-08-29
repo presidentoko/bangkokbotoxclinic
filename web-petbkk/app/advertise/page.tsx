@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { loadHospitals } from '@/lib/hospitals'
+import { loadHospitals, loadBangkokHospitals } from '@/lib/hospitals'
 import { loadFoods } from '@/lib/petfood'
 import { getIndexableDistricts } from '@/lib/districts'
 
@@ -78,7 +78,12 @@ function Card({ p }: { p: Placement }) {
  * are true right now. Numbers go in once there is a full month behind them.
  */
 export default function AdvertisePage() {
-  const hospitals = loadHospitals()
+  // The placements below (district sponsor slots, the 24h/emergency pages) are
+  // all Bangkok-scoped product, so the headline count matches what is actually
+  // sellable today rather than the full multi-city dataset.
+  const hospitals = loadBangkokHospitals()
+  const totalHospitals = loadHospitals()
+  const otherCities = totalHospitals.length - hospitals.length
   const foods = loadFoods()
   const districts = getIndexableDistricts()
 
@@ -96,6 +101,10 @@ export default function AdvertisePage() {
         และเครื่องมือตรวจสอบอาหารสัตว์เลี้ยง {foods.length.toLocaleString()} รายการ
         ผู้อ่านของเราคือ<strong>เจ้าของสัตว์เลี้ยงที่กำลังหาข้อมูลเพื่อตัดสินใจอยู่ตอนนั้น</strong> —
         หาคลินิกใกล้บ้าน หาที่รักษาตอนกลางคืน หรือกำลังเลือกอาหารให้น้อง
+        {otherCities > 0 && (
+          <> ฐานข้อมูลกำลังขยายไปอีก {otherCities} แห่งในเชียงใหม่ พัทยา และภูเก็ต
+          พื้นที่โฆษณาสำหรับเมืองเหล่านี้จะเปิดตามหลัง</>
+        )}
       </p>
 
       <section className="mb-8">

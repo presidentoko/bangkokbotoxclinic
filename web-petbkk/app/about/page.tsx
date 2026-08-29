@@ -28,6 +28,10 @@ function Stat({ value, label }: { value: string; label: string }) {
  * catalogue). A directory that hides its gaps invites a reader to trust a
  * figure it cannot support; saying so is what makes the rest credible.
  */
+const CITY_TH: Record<string, string> = {
+  bangkok: 'กรุงเทพฯ', chiangmai: 'เชียงใหม่', pattaya: 'พัทยา', phuket: 'ภูเก็ต',
+}
+
 export default function AboutPage() {
   const foods = loadFoods()
   const hospitals = loadHospitals()
@@ -36,6 +40,12 @@ export default function AboutPage() {
   const open24 = hospitals.filter(h => h.is_24h)
   const rated = hospitals.filter(h => h.google_rating != null)
   const districts = getIndexableDistricts()
+  const byCity = Object.entries(
+    hospitals.reduce<Record<string, number>>((acc, h) => {
+      acc[h.city] = (acc[h.city] ?? 0) + 1
+      return acc
+    }, {})
+  ).sort((a, b) => b[1] - a[1])
 
   return (
     <main className="max-w-2xl mx-auto">
@@ -47,28 +57,36 @@ export default function AboutPage() {
 
       <h1 className="text-2xl font-black text-gray-900 mb-2">เกี่ยวกับ ThailandPetHub</h1>
       <p className="text-sm text-gray-600 leading-relaxed mb-5">
-        ThailandPetHub เป็นฐานข้อมูลสาธารณะสำหรับเจ้าของสัตว์เลี้ยงในกรุงเทพฯ
+        ThailandPetHub เป็นฐานข้อมูลสาธารณะสำหรับเจ้าของสัตว์เลี้ยงในไทย
         เรารวบรวม<strong>โรงพยาบาลและคลินิกสัตว์ {hospitals.length} แห่ง</strong>{' '}
-        พร้อมที่อยู่ เบอร์โทร เวลาทำการ และคะแนนรีวิว
+        ใน{byCity.map(([c]) => CITY_TH[c] ?? c).join(' · ')}
+        {' '}พร้อมที่อยู่ เบอร์โทร เวลาทำการ และคะแนนรีวิว
         และ<strong>วิเคราะห์ส่วนประกอบอาหารสัตว์เลี้ยงที่ขายในไทย</strong>{' '}
         เพื่อให้เปรียบเทียบได้ว่าฉลากบอกอะไรบ้าง — ใช้งานฟรีทั้งหมด ไม่ต้องสมัครสมาชิก
       </p>
 
-      <dl className="grid grid-cols-4 gap-2 mb-8">
+      <dl className="grid grid-cols-4 gap-2 mb-4">
         <Stat value={hospitals.length.toLocaleString()} label="โรงพยาบาล/คลินิก" />
         <Stat value={open24.length.toString()} label="เปิด 24 ชม." />
-        <Stat value={districts.length.toString()} label="เขตที่มีข้อมูล" />
+        <Stat value={districts.length.toString()} label="เขตในกรุงเทพ" />
         <Stat value={foods.length.toLocaleString()} label="อาหารในฐานข้อมูล" />
       </dl>
+
+      <p className="text-xs text-gray-400 mb-8">
+        แยกตามเมือง: {byCity.map(([c, n]) => `${CITY_TH[c] ?? c} ${n.toLocaleString()}`).join(' · ')}
+      </p>
 
       <section className="mb-8">
         <h2 className="text-base font-bold text-gray-900 mb-2">ข้อมูลมาจากไหน</h2>
         <div className="text-sm text-gray-600 leading-relaxed space-y-2">
           <p>
-            <strong>โรงพยาบาลสัตว์</strong> — ข้อมูลพื้นฐาน (ชื่อ ที่อยู่ พิกัด เบอร์โทร เวลาทำการ
-            คะแนนและจำนวนรีวิว) ดึงจาก Google Places API และตรวจสอบซ้ำเป็นระยะ
-            ปัจจุบันมี {rated.length} แห่งที่มีคะแนนรีวิว
-            และ {hospitals.filter(h => h.website).length} แห่งที่มีเว็บไซต์หรือเพจอย่างเป็นทางการ
+            <strong>โรงพยาบาลสัตว์</strong> — ชื่อ คะแนนและจำนวนรีวิวมาจากการค้นหาบน Google Maps
+            ทุกเมือง ปัจจุบันมี {rated.length} แห่งที่มีคะแนนรีวิว
+            สำหรับ<strong>กรุงเทพฯ</strong> เราตรวจสอบซ้ำผ่าน Google Places API เพิ่มอีกขั้น
+            เพื่อยืนยันพิกัด ที่อยู่เต็ม เบอร์โทร และเวลาทำการรายวัน —
+            {' '}{hospitals.filter(h => h.website).length} แห่งมีเว็บไซต์หรือเพจอย่างเป็นทางการ
+            {' '}ส่วน<strong>เชียงใหม่ พัทยา และภูเก็ต</strong> ยังอยู่ระหว่างตรวจสอบขั้นนี้
+            พิกัดของบางแห่งจึงอาจคลาดเคลื่อนจากตำแหน่งจริงในระดับกิโลเมตร
             เราไม่ได้เก็บค่ารักษา เพราะราคาขึ้นกับอาการและไม่มีแหล่งข้อมูลกลางที่เชื่อถือได้
           </p>
           <p>

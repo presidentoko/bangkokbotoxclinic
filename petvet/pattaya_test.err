@@ -1,0 +1,189 @@
+2026-08-24 15:28:23,682 [INFO] 검색 쿼리: 'à¹‚à¸£à¸‡à¸žà¸¢à¸²à¸šà¸²à¸¥à¸ªà¸±à¸•à¸§à¹Œ' (tag=th_vet) | checkpoint=discovered_places.th_vet.checkpoint
+2026-08-24 15:28:23,683 [INFO] Base 포인트: 133개 (center 12.9236,100.8825, zones=[(3000, 500)])
+2026-08-24 15:28:23,683 [INFO] 기존 발견: 0개 | 처리된 좌표: 0개
+2026-08-24 15:28:23,683 [INFO] 처리 대기: 133개 base point
+2026-08-24 15:28:23,683 [INFO] Grid 워커: 3개 (포트 2080~2082)
+2026-08-24 15:28:25,955 [WARNING] [W0] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_SOCKS_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:28:25,957 [INFO] [W0] VPN rotate 요청 (old=fr1231.nordvpn.com (187.13.197.227:443))
+2026-08-24 15:28:27,971 [WARNING] [W1] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_PROXY_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:28:27,973 [INFO] [W1] VPN rotate 요청 (old=fr1246.nordvpn.com (187.14.106.164:443))
+2026-08-24 15:28:33,686 [INFO] ★ 진행: processed=0 | pending=130 | active=3 | subdivide=0 | 식당=0 | 속도=0.0/분 | ETA 0.0분
+2026-08-24 15:28:37,370 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:28:37,378 [INFO] [W2] (12.92360,100.88712) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:28:37,971 [INFO] [W0] VPN rotated → fr1310.nordvpn.com (187.15.115.228:443)
+2026-08-24 15:28:39,217 [WARNING] [W0] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_SOCKS_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:28:39,236 [INFO] [W0] VPN rotate 요청 (old=fr1310.nordvpn.com (187.15.115.228:443))
+2026-08-24 15:28:39,260 [WARNING] [W2] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_SOCKS_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:28:39,262 [INFO] [W2] VPN rotate 요청 (old=de1156.nordvpn.com (212.23.215.17:443))
+2026-08-24 15:28:43,690 [INFO] ★ 진행: processed=1 | pending=129 | active=3 | subdivide=0 | 식당=0 | 속도=3.0/분 | ETA 43.0분
+2026-08-24 15:28:45,239 [INFO] [W0] VPN rotated → fr1210.nordvpn.com (187.14.106.63:443)
+2026-08-24 15:28:53,687 [INFO]   ✓ 체크포인트 저장 (processed=1, 식당 0)
+2026-08-24 15:28:53,691 [INFO] ★ 진행: processed=1 | pending=129 | active=3 | subdivide=0 | 식당=0 | 속도=2.0/분 | ETA 64.5분
+2026-08-24 15:29:03,049 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:29:03,056 [INFO] [W0] (12.91970,100.88019) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:29:03,692 [INFO] ★ 진행: processed=2 | pending=128 | active=3 | subdivide=0 | 식당=0 | 속도=3.0/분 | ETA 42.7분
+2026-08-24 15:29:13,693 [INFO] ★ 진행: processed=2 | pending=128 | active=3 | subdivide=0 | 식당=0 | 속도=2.4/분 | ETA 53.3분
+2026-08-24 15:29:13,749 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:29:13,762 [INFO] [W0] (12.91970,100.88481) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:29:13,762 [WARNING] [W0] 연속 0건 → VPN rotate
+2026-08-24 15:29:13,763 [INFO] [W0] VPN rotate 요청 (old=fr1210.nordvpn.com (187.14.106.63:443))
+2026-08-24 15:29:14,002 [WARNING] [W1] VPN rotate 타임아웃
+2026-08-24 15:29:16,209 [WARNING] [W1] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_PROXY_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:29:16,211 [INFO] [W1] VPN rotate 요청 (old=fr1246.nordvpn.com (187.14.106.164:443))
+2026-08-24 15:29:23,688 [INFO]   ✓ 체크포인트 저장 (processed=3, 식당 0)
+2026-08-24 15:29:23,694 [INFO] ★ 진행: processed=3 | pending=128 | active=2 | subdivide=0 | 식당=0 | 속도=3.0/분 | ETA 42.7분
+2026-08-24 15:29:25,280 [WARNING] [W2] VPN rotate 타임아웃
+2026-08-24 15:29:33,694 [INFO] ★ 진행: processed=3 | pending=128 | active=2 | subdivide=0 | 식당=0 | 속도=2.6/분 | ETA 49.8분
+2026-08-24 15:29:38,042 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:29:38,053 [INFO] [W2] (12.92779,100.89068) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:29:38,053 [WARNING] [W2] 연속 0건 → VPN rotate
+2026-08-24 15:29:38,055 [INFO] [W2] VPN rotate 요청 (old=de1198.nordvpn.com (45.150.175.2:443))
+2026-08-24 15:29:43,696 [INFO] ★ 진행: processed=4 | pending=128 | active=1 | subdivide=0 | 식당=0 | 속도=3.0/분 | ETA 42.7분
+2026-08-24 15:29:48,223 [INFO] [W1] VPN rotated → ph20.nordvpn.com (187.13.195.174:443)
+2026-08-24 15:29:53,692 [INFO]   ✓ 체크포인트 저장 (processed=4, 식당 0)
+2026-08-24 15:29:53,697 [INFO] ★ 진행: processed=4 | pending=128 | active=1 | subdivide=0 | 식당=0 | 속도=2.7/분 | ETA 48.0분
+2026-08-24 15:29:56,782 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:29:56,797 [INFO] [W1] (12.93101,100.88775) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:29:59,809 [WARNING] [W0] VPN rotate 타임아웃
+2026-08-24 15:30:00,003 [WARNING] [W0] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_SOCKS_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:30:00,005 [INFO] [W0] VPN rotate 요청 (old=fr1210.nordvpn.com (187.14.106.63:443))
+2026-08-24 15:30:03,698 [INFO] ★ 진행: processed=5 | pending=126 | active=2 | subdivide=0 | 식당=0 | 속도=3.0/분 | ETA 42.0분
+2026-08-24 15:30:05,473 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:30:05,509 [INFO] [W1] (12.93254,100.88361) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:30:05,509 [WARNING] [W1] 연속 0건 → VPN rotate
+2026-08-24 15:30:05,511 [INFO] [W1] VPN rotate 요청 (old=ph20.nordvpn.com (187.13.195.174:443))
+2026-08-24 15:30:13,699 [INFO] ★ 진행: processed=6 | pending=126 | active=1 | subdivide=0 | 식당=0 | 속도=3.3/분 | ETA 38.5분
+2026-08-24 15:30:23,694 [INFO]   ✓ 체크포인트 저장 (processed=6, 식당 0)
+2026-08-24 15:30:23,700 [INFO] ★ 진행: processed=6 | pending=126 | active=1 | subdivide=0 | 식당=0 | 속도=3.0/분 | ETA 42.0분
+2026-08-24 15:30:24,070 [WARNING] [W2] VPN rotate 타임아웃
+2026-08-24 15:30:33,700 [INFO] ★ 진행: processed=6 | pending=125 | active=2 | subdivide=0 | 식당=0 | 속도=2.8/분 | ETA 45.1분
+2026-08-24 15:30:37,542 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:30:37,548 [INFO] [W2] (12.92957,100.87558) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:30:43,701 [INFO] ★ 진행: processed=7 | pending=124 | active=2 | subdivide=0 | 식당=0 | 속도=3.0/분 | ETA 41.3분
+2026-08-24 15:30:46,047 [WARNING] [W0] VPN rotate 타임아웃
+2026-08-24 15:30:48,226 [WARNING] [W0] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_PROXY_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:30:48,227 [INFO] [W0] VPN rotate 요청 (old=nl819.nordvpn.com (178.239.173.235:443))
+2026-08-24 15:30:48,448 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:30:48,465 [INFO] [W2] (12.92576,100.87353) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:30:48,465 [WARNING] [W2] 연속 0건 → VPN rotate
+2026-08-24 15:30:48,466 [INFO] [W2] VPN rotate 요청 (old=de1198.nordvpn.com (45.150.175.2:443))
+2026-08-24 15:30:51,530 [WARNING] [W1] VPN rotate 타임아웃
+2026-08-24 15:30:51,743 [WARNING] [W1] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_SOCKS_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:30:51,747 [INFO] [W1] VPN rotate 요청 (old=ph20.nordvpn.com (187.13.195.174:443))
+2026-08-24 15:30:53,698 [INFO]   ✓ 체크포인트 저장 (processed=8, 식당 0)
+2026-08-24 15:30:53,703 [INFO] ★ 진행: processed=8 | pending=123 | active=2 | subdivide=0 | 식당=0 | 속도=3.2/분 | ETA 38.4분
+2026-08-24 15:31:03,704 [INFO] ★ 진행: processed=8 | pending=123 | active=2 | subdivide=0 | 식당=0 | 속도=3.0/분 | ETA 41.0분
+2026-08-24 15:31:13,705 [INFO] ★ 진행: processed=8 | pending=123 | active=2 | subdivide=0 | 식당=0 | 속도=2.8/분 | ETA 43.6분
+2026-08-24 15:31:23,707 [INFO] ★ 진행: processed=8 | pending=123 | active=2 | subdivide=0 | 식당=0 | 속도=2.7/분 | ETA 46.1분
+2026-08-24 15:31:33,708 [INFO] ★ 진행: processed=8 | pending=123 | active=2 | subdivide=0 | 식당=0 | 속도=2.5/분 | ETA 48.7분
+2026-08-24 15:31:34,248 [WARNING] [W0] VPN rotate 타임아웃
+2026-08-24 15:31:34,485 [WARNING] [W2] VPN rotate 타임아웃
+2026-08-24 15:31:36,405 [WARNING] [W0] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_PROXY_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:31:36,406 [INFO] [W0] VPN rotate 요청 (old=nl819.nordvpn.com (178.239.173.235:443))
+2026-08-24 15:31:37,766 [WARNING] [W1] VPN rotate 타임아웃
+2026-08-24 15:31:39,937 [WARNING] [W1] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_PROXY_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:31:39,939 [INFO] [W1] VPN rotate 요청 (old=nl1039.nordvpn.com (185.229.190.57:443))
+2026-08-24 15:31:43,709 [INFO] ★ 진행: processed=8 | pending=122 | active=3 | subdivide=0 | 식당=0 | 속도=2.4/분 | ETA 50.8분
+2026-08-24 15:31:45,612 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:31:45,620 [INFO] [W2] (12.91466,100.88361) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:31:45,695 [WARNING] [W2] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_SOCKS_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:31:45,697 [INFO] [W2] VPN rotate 요청 (old=de1198.nordvpn.com (45.150.175.2:443))
+2026-08-24 15:31:53,700 [INFO]   ✓ 체크포인트 저장 (processed=9, 식당 0)
+2026-08-24 15:31:53,710 [INFO] ★ 진행: processed=9 | pending=121 | active=3 | subdivide=0 | 식당=0 | 속도=2.6/분 | ETA 47.1분
+2026-08-24 15:32:01,705 [INFO] [W2] VPN rotated → fr1179.nordvpn.com (187.13.202.101:443)
+2026-08-24 15:32:03,711 [INFO] ★ 진행: processed=9 | pending=121 | active=3 | subdivide=0 | 식당=0 | 속도=2.5/분 | ETA 49.3분
+2026-08-24 15:32:06,434 [INFO] [W0] VPN rotated → nl1230.nordvpn.com (186.247.78.3:443)
+2026-08-24 15:32:13,386 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:32:13,396 [INFO] [W2] (12.92360,100.89636) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:32:13,396 [WARNING] [W2] 연속 0건 → VPN rotate
+2026-08-24 15:32:13,397 [INFO] [W2] VPN rotate 요청 (old=fr1179.nordvpn.com (187.13.202.101:443))
+2026-08-24 15:32:13,712 [INFO] ★ 진행: processed=10 | pending=121 | active=2 | subdivide=0 | 식당=0 | 속도=2.6/분 | ETA 46.4분
+2026-08-24 15:32:23,704 [INFO]   ✓ 체크포인트 저장 (processed=10, 식당 0)
+2026-08-24 15:32:23,713 [INFO] ★ 진행: processed=10 | pending=121 | active=2 | subdivide=0 | 식당=0 | 속도=2.5/분 | ETA 48.4분
+2026-08-24 15:32:25,992 [WARNING] [W1] VPN rotate 타임아웃
+2026-08-24 15:32:26,580 [WARNING]     goto timeout (try 1)
+2026-08-24 15:32:28,172 [WARNING] [W1] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_PROXY_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:32:28,173 [INFO] [W1] VPN rotate 요청 (old=nl1039.nordvpn.com (185.229.190.57:443))
+2026-08-24 15:32:28,641 [WARNING] [W0] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_SOCKS_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:32:28,643 [INFO] [W0] VPN rotate 요청 (old=nl1230.nordvpn.com (186.247.78.3:443))
+2026-08-24 15:32:33,714 [INFO] ★ 진행: processed=10 | pending=121 | active=2 | subdivide=0 | 식당=0 | 속도=2.4/분 | ETA 50.4분
+2026-08-24 15:32:43,716 [INFO] ★ 진행: processed=10 | pending=121 | active=2 | subdivide=0 | 식당=0 | 속도=2.3/분 | ETA 52.4분
+2026-08-24 15:32:53,717 [INFO] ★ 진행: processed=10 | pending=121 | active=2 | subdivide=0 | 식당=0 | 속도=2.2/분 | ETA 54.5분
+2026-08-24 15:32:59,416 [WARNING] [W2] VPN rotate 타임아웃
+2026-08-24 15:33:03,719 [INFO] ★ 진행: processed=10 | pending=120 | active=3 | subdivide=0 | 식당=0 | 속도=2.1/분 | ETA 56.0분
+2026-08-24 15:33:08,231 [INFO] [W1] VPN rotated → de1474.nordvpn.com (187.13.10.115:443)
+2026-08-24 15:33:11,144 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:33:11,165 [INFO] [W2] (12.93491,100.89008) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:33:11,232 [WARNING] [W2] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_SOCKS_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:33:11,234 [INFO] [W2] VPN rotate 요청 (old=fr1179.nordvpn.com (187.13.202.101:443))
+2026-08-24 15:33:13,720 [INFO] ★ 진행: processed=11 | pending=119 | active=3 | subdivide=0 | 식당=0 | 속도=2.3/분 | ETA 52.3분
+2026-08-24 15:33:14,661 [WARNING] [W0] VPN rotate 타임아웃
+2026-08-24 15:33:16,838 [WARNING] [W0] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_PROXY_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:33:16,838 [INFO] [W0] VPN rotate 요청 (old=fr1218.nordvpn.com (187.13.201.201:443))
+2026-08-24 15:33:20,094 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:33:20,099 [INFO] [W1] (12.93670,100.88590) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:33:23,705 [INFO]   ✓ 체크포인트 저장 (processed=12, 식당 0)
+2026-08-24 15:33:23,721 [INFO] ★ 진행: processed=12 | pending=118 | active=3 | subdivide=0 | 식당=0 | 속도=2.4/분 | ETA 49.2분
+2026-08-24 15:33:30,721 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:33:30,734 [INFO] [W1] (12.93354,100.87311) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:33:30,734 [WARNING] [W1] 연속 0건 → VPN rotate
+2026-08-24 15:33:30,736 [INFO] [W1] VPN rotate 요청 (old=de1474.nordvpn.com (187.13.10.115:443))
+2026-08-24 15:33:33,722 [INFO] ★ 진행: processed=13 | pending=118 | active=2 | subdivide=0 | 식당=0 | 속도=2.5/분 | ETA 46.9분
+2026-08-24 15:33:43,723 [INFO] ★ 진행: processed=13 | pending=118 | active=2 | subdivide=0 | 식당=0 | 속도=2.4/분 | ETA 48.4분
+2026-08-24 15:33:53,708 [INFO]   ✓ 체크포인트 저장 (processed=13, 식당 0)
+2026-08-24 15:33:53,726 [INFO] ★ 진행: processed=13 | pending=118 | active=2 | subdivide=0 | 식당=0 | 속도=2.4/분 | ETA 49.9분
+2026-08-24 15:33:57,254 [WARNING] [W2] VPN rotate 타임아웃
+2026-08-24 15:33:57,401 [WARNING] [W2] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_SOCKS_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:33:57,402 [INFO] [W2] VPN rotate 요청 (old=fr1179.nordvpn.com (187.13.202.101:443))
+2026-08-24 15:34:02,859 [WARNING] [W0] VPN rotate 타임아웃
+2026-08-24 15:34:02,990 [WARNING] [W0] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_SOCKS_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:34:02,992 [INFO] [W0] VPN rotate 요청 (old=fr1218.nordvpn.com (187.13.201.201:443))
+2026-08-24 15:34:03,727 [INFO] ★ 진행: processed=13 | pending=118 | active=2 | subdivide=0 | 식당=0 | 속도=2.3/분 | ETA 51.4분
+2026-08-24 15:34:06,994 [INFO] [W0] VPN rotated → de1497.nordvpn.com (187.40.44.219:443)
+2026-08-24 15:34:13,729 [INFO] ★ 진행: processed=13 | pending=118 | active=2 | subdivide=0 | 식당=0 | 속도=2.2/분 | ETA 53.0분
+2026-08-24 15:34:16,791 [WARNING] [W1] VPN rotate 타임아웃
+2026-08-24 15:34:23,729 [INFO] ★ 진행: processed=13 | pending=117 | active=3 | subdivide=0 | 식당=0 | 속도=2.2/분 | ETA 54.0분
+2026-08-24 15:34:27,905 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:34:27,913 [INFO] [W0] (12.92138,100.86882) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:34:27,974 [WARNING] [W0] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_SOCKS_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:34:27,976 [INFO] [W0] VPN rotate 요청 (old=de1497.nordvpn.com (187.40.44.219:443))
+2026-08-24 15:34:29,340 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:34:29,344 [INFO] [W1] (12.91717,100.87031) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:34:33,730 [INFO] ★ 진행: processed=15 | pending=115 | active=3 | subdivide=0 | 식당=0 | 속도=2.4/분 | ETA 47.3분
+2026-08-24 15:34:39,967 [INFO]     스크롤 4회로 끝까지 로드
+2026-08-24 15:34:39,974 [INFO] [W1] (12.91122,100.87693) step=500m | 결과 0 신규 0 (0%중복) | 누적 0
+2026-08-24 15:34:39,974 [WARNING] [W1] 연속 0건 → VPN rotate
+2026-08-24 15:34:39,975 [INFO] [W1] VPN rotate 요청 (old=de1474.nordvpn.com (187.13.10.115:443))
+2026-08-24 15:34:43,423 [WARNING] [W2] VPN rotate 타임아웃
+2026-08-24 15:34:43,731 [INFO] ★ 진행: processed=16 | pending=115 | active=2 | subdivide=0 | 식당=0 | 속도=2.5/분 | ETA 45.5분
+2026-08-24 15:34:45,599 [WARNING] [W2] SOCKS dead → 즉시 rotate: Page.goto: net::ERR_PROXY_CONNECTION_FAILED at https://www.google.com/maps/searc
+2026-08-24 15:34:45,599 [INFO] [W2] VPN rotate 요청 (old=de1301.nordvpn.com (149.88.102.212:443))
+2026-08-24 15:34:53,711 [INFO]   ✓ 체크포인트 저장 (processed=16, 식당 0)
+2026-08-24 15:34:53,731 [INFO] ★ 진행: processed=16 | pending=115 | active=2 | subdivide=0 | 식당=0 | 속도=2.5/분 | ETA 46.7분
+2026-08-24 15:35:03,732 [INFO] ★ 진행: processed=16 | pending=115 | active=2 | subdivide=0 | 식당=0 | 속도=2.4/분 | ETA 47.9분
+2026-08-24 15:35:03,991 [INFO] [W0] VPN rotated → fr1149.nordvpn.com (187.14.107.196:443)
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EPIPE: broken pipe, write
+    at Socket._write (node:internal/net:63:18)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at PipeTransport.send (C:\Users\yn\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\driver\package\lib\protocol\transport.js:51:21)
+    at dispatcherConnection.onmessage (C:\Users\yn\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\driver\package\lib\cli\driver.js:59:57)
+    at DispatcherConnection.sendEvent (C:\Users\yn\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\driver\package\lib\server\dispatchers\dispatcher.js:178:10)
+    at BrowserContextDispatcher._dispatchEvent (C:\Users\yn\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\driver\package\lib\server\dispatchers\dispatcher.js:108:22)
+    at CRBrowserContext.<anonymous> (C:\Users\yn\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\driver\package\lib\server\dispatchers\browserContextDispatcher.js:147:12)
+    at CRBrowserContext.emit (node:events:518:28)
+Emitted 'error' event on Socket instance at:
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  errno: -4047,
+  syscall: 'write',
+  code: 'EPIPE'
+}
+
+Node.js v22.11.0

@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import HospitalListClient from '@/components/HospitalListClient'
 import RelatedGuides from '@/components/RelatedGuides'
 import AdSlot from '@/components/AdSlot'
-import { loadHospitals, hospitalSlug } from '@/lib/hospitals'
+import { loadBangkokHospitals, hospitalSlug } from '@/lib/hospitals'
 import { getIndexableDistricts } from '@/lib/districts'
 import type { Hospital } from '@/lib/types'
 
@@ -12,8 +12,8 @@ const SITE = 'https://www.thailandpethub.com'
 // Counted from the dataset rather than typed in: the hardcoded "503 แห่ง"
 // survived a backfill that dropped 7 permanently-closed and delisted clinics,
 // and a title that overstates the list is the kind of mismatch Google notices.
-const TOTAL = loadHospitals().length
-const OPEN_24H = loadHospitals().filter(h => h.is_24h).length
+const TOTAL = loadBangkokHospitals().length
+const OPEN_24H = loadBangkokHospitals().filter(h => h.is_24h).length
 
 export const metadata: Metadata = {
   title: `โรงพยาบาลสัตว์ในกรุงเทพ — ${TOTAL} แห่ง ค้นหาใกล้คุณ เปิด 24 ชม.`,
@@ -252,7 +252,7 @@ function HospitalDirectory({ all }: { all: Hospital[] }) {
 }
 
 export default function HospitalPage() {
-  const all = loadHospitals()
+  const all = loadBangkokHospitals()
 
   return (
     <main>

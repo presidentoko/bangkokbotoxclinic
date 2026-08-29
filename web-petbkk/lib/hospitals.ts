@@ -27,6 +27,20 @@ export function loadHospitals(): Hospital[] {
 }
 
 /**
+ * Bangkok only. `/hospital`, `/hospital/24h`, `/hospital/emergency` and the
+ * เขต-district pages all print Bangkok-specific copy ("โรงพยาบาลสัตว์ในกรุงเทพ
+ * N แห่ง") and count on their data being Bangkok-only; once Chiang Mai,
+ * Pattaya and Phuket records share the same file, calling `loadHospitals()`
+ * from any of those pages would fold another city's clinics into a count and
+ * a claim that says "Bangkok". Detail-page generation and the sitemap are
+ * deliberately NOT filtered — every city's clinics still get their own
+ * indexable page, just not (yet) a city-specific hub.
+ */
+export function loadBangkokHospitals(): Hospital[] {
+  return loadHospitals().filter(h => h.city === 'bangkok')
+}
+
+/**
  * A hospital's URL segment.
  *
  * The place-id fallback used to fire for 188 of the 496 clinics, because their
@@ -98,8 +112,10 @@ export function getHospitalBySlug(slug: string): Hospital | null {
   return loadHospitals().find(h => hospitalSlug(h) === slug) ?? null
 }
 
+// Both current callers (/hospital/24h, /hospital/emergency) print Bangkok-only
+// copy, so this filters from loadBangkokHospitals() rather than all cities.
 export function filterHospitals(filters: HospitalFilters = {}): Hospital[] {
-  let list = loadHospitals()
+  let list = loadBangkokHospitals()
   if (filters.is_24h) list = list.filter(h => h.is_24h)
   if (filters.has_emergency) list = list.filter(h => h.has_emergency)
   if (filters.has_surgery) list = list.filter(h => h.has_surgery)
