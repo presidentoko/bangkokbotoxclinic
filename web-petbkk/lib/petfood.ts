@@ -40,12 +40,25 @@ let slugMap: WeakMap<PetFood, string> | null = null
 function getSlugMap(): WeakMap<PetFood, string> {
   if (slugMap) return slugMap
   const map = new WeakMap<PetFood, string>()
-  const counts = new Map<string, number>()
+  // A per-base counter isn't enough: it assumes "base-2" is free just because
+  // this is the second product whose base collapsed to "base" — it doesn't
+  // check whether some unrelated product's own id already equals that exact
+  // string. The hospital directory hit exactly this after city expansion (see
+  // lib/hospitals.ts's getSlugMap), so it's fixed here too before a future
+  // catalogue addition triggers the same silent double-booking. Tracking
+  // every slug already handed out and skipping past one that's taken —
+  // whatever the reason — makes collisions structurally impossible.
+  const taken = new Set<string>()
   for (const food of loadFoods()) {
     const base = baseFoodSlug(food)
-    const n = (counts.get(base) ?? 0) + 1
-    counts.set(base, n)
-    map.set(food, n === 1 ? base : `${base}-${n}`)
+    let slug = base
+    let n = 2
+    while (taken.has(slug)) {
+      slug = `${base}-${n}`
+      n += 1
+    }
+    taken.add(slug)
+    map.set(food, slug)
   }
   slugMap = map
   return map

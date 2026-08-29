@@ -71,12 +71,26 @@ let slugMap: WeakMap<Hospital, string> | null = null
 function getSlugMap(): WeakMap<Hospital, string> {
   if (slugMap) return slugMap
   const map = new WeakMap<Hospital, string>()
-  const counts = new Map<string, number>()
+  // A per-base counter isn't enough: it assumes "base-2" is free just because
+  // this is the second record whose base collapsed to "base". City expansion
+  // broke that assumption for real — a Chiang Mai and a Bangkok "Animal
+  // Clinic" pushed the counter to "animal-clinic-2", and a Phuket clinic
+  // separately had the literal id "animal-clinic-2", so its own (unrelated)
+  // base already equalled that counter output. Tracking every slug already
+  // handed out, and skipping past one that's taken regardless of *why* it's
+  // taken, is what makes collisions structurally impossible rather than just
+  // less likely.
+  const taken = new Set<string>()
   for (const h of loadHospitals()) {
     const base = baseHospitalSlug(h)
-    const n = (counts.get(base) ?? 0) + 1
-    counts.set(base, n)
-    map.set(h, n === 1 ? base : `${base}-${n}`)
+    let slug = base
+    let n = 2
+    while (taken.has(slug)) {
+      slug = `${base}-${n}`
+      n += 1
+    }
+    taken.add(slug)
+    map.set(h, slug)
   }
   slugMap = map
   return map
