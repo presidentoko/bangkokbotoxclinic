@@ -30,6 +30,33 @@ export default function robots(): MetadataRoute.Robots {
         disallow: "/",
         allow: [],
       },
+      // 2026-08-29: 상업용 SEO/백링크 크롤러 차단.
+      //
+      // 08-24 에 AI 크롤러 21종을 막았는데 SEO 크롤러는 그대로 열려 있었다.
+      // 얘들은 "사이트 전체를 반복해서 훑는 것"이 상품이라 AI 크롤러보다
+      // 공격적이다. 실측: 사이트맵 2,368 페이지에 ISR Reads 1.4M/30일 =
+      // 페이지당 하루 20회. 같은 기간 사람 클릭은 하루 20회 수준이다.
+      // Fast Origin Transfer 18.13GB 도 같은 요청을 바이트로 센 것이다
+      // (18.13GB / 1.4M = 12.95KB, 이 사이트 평균 페이지 무게와 일치).
+      //
+      // 이들을 막아서 잃는 것: 없다. 검색 트래픽을 보내주지 않는다 —
+      // 남의 사이트 백링크를 파는 상업 도구다.
+      //
+      // 일부러 안 막은 것 (진짜 검색엔진이라 트래픽 원천이다):
+      //   Googlebot, Bingbot, DuckDuckBot, YandexBot, Sogou, Baiduspider,
+      //   그리고 **Yeti (네이버)** — 2026-08-28 에 네 사이트 전부 네이버
+      //   소유확인을 붙였다. Yeti 를 막으면 그 작업이 통째로 무의미해진다.
+      {
+        userAgent: [
+          "AhrefsBot", "SemrushBot", "MJ12bot", "DotBot", "rogerbot",
+          "DataForSeoBot", "BLEXBot", "Barkrowler", "serpstatbot",
+          "SeekportBot", "ZoominfoBot", "MegaIndex.ru", "AwarioBot",
+          "AwarioSmartBot", "SEOkicks", "Screaming Frog SEO Spider",
+          "LinkpadBot", "SiteAuditBot", "PetalBot",
+        ],
+        disallow: "/",
+        allow: [],
+      },
     ],
     sitemap: [`${SITE}/sitemap.xml`],
     host: SITE,
