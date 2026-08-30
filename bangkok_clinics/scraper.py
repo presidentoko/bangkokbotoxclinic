@@ -56,8 +56,21 @@ ROTATE_EVERY_TASKS = 8       # 2026-08-31: 15→8. 강등은 출구 활동량에
 # 2대가 1,223건 전수 실패(성공 0)하는 동안 교체가 한 번도 일어나지 않았고,
 # watchdog 이 600초마다 kick → 재시작만 5시간에 60회 반복했다.
 CONSEC_FAIL_ROTATE = 5
-EMPTY_MAP_RETRIES = 2        # 2026-08-31: 빈 지도 시 같은 출구 재시도 횟수
+EMPTY_MAP_RETRIES = 1        # 2026-08-31: 빈 지도 시 같은 페이지 재시도(쿠키 초기화) 횟수
+EMPTY_MAP_CTX_RETRIES = 2    # 2026-08-31: 그래도 빈 지도면 VPN 회전 없이 컨텍스트만 새로 만들어 재시도하는 횟수
 EMPTY_MAP_RETRY_DELAY = 4.0  # 초
+# 2026-08-31: 컨텍스트 초기 쿠키. 빈 지도 재시도 때도 이 상태로 되돌린다 —
+# 실패 직후 '새 컨텍스트 + 이 쿠키'는 50% 정상인데 같은 컨텍스트 재시도는 0% 였다.
+# 구글이 세션에 심은 NID/__Secure-STRP 가 강등 상태를 물고 있는 것으로 본다.
+INITIAL_COOKIES = [
+        {"name": "CONSENT", "value": "PENDING+987",
+         "domain": ".google.com", "path": "/"},
+        {"name": "SOCS", "value": "CAISHAgDEhJnd3NfMjAyMzA1MDEtMF9SQzIaAmVuIAEaBgiA_LyaBg",
+         "domain": ".google.com", "path": "/"},
+        {"name": "NID", "value": "511=consent_ok",
+         "domain": ".google.com", "path": "/"},
+    ]
+
 
 # ── 큐 고갈 시 정상 종료 ──────────────────────────────────────
 # 큐가 이만큼 연속으로 비어 있고(진행 중 작업 0건 포함) 새로 들어오는 것도
@@ -802,7 +815,12 @@ def get_restaurant_full(
         except Exception:
             pass
         if "/maps/place//" in current_url and _attempt < EMPTY_MAP_RETRIES:
-            log.info(f"  빈 지도 — 같은 출구에서 재시도 {_attempt + 1}/{EMPTY_MAP_RETRIES}")
+            log.info(f"  빈 지도 — 쿠키 초기화 후 같은 출구에서 재시도 {_attempt + 1}/{EMPTY_MAP_RETRIES}")
+            try:
+                page.context.clear_cookies()
+                page.context.add_cookies(INITIAL_COOKIES)
+            except Exception as _e:
+                log.warning(f"  쿠키 초기화 실패: {_e}")
             safe_sleep(EMPTY_MAP_RETRY_DELAY)
             continue
         break
@@ -1588,14 +1606,7 @@ def worker(
             viewport={"width": 1280, "height": 800},
             extra_http_headers={"Accept-Language": "en-US,en;q=0.9"},
         )
-        ctx.add_cookies([
-            {"name": "CONSENT", "value": "PENDING+987",
-             "domain": ".google.com", "path": "/"},
-            {"name": "SOCS", "value": "CAISHAgDEhJnd3NfMjAyMzA1MDEtMF9SQzIaAmVuIAEaBgiA_LyaBg",
-             "domain": ".google.com", "path": "/"},
-            {"name": "NID", "value": "511=consent_ok",
-             "domain": ".google.com", "path": "/"},
-        ])
+        ctx.add_cookies(INITIAL_COOKIES)
         ctx.add_init_script("""
             Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
             Object.defineProperty(navigator, 'plugins', {
@@ -1646,6 +1657,9 @@ def worker(
                 pending_rotate = False  # 직전 작업이 느렸으면 True → 다음 작업 전 rotate
                 task_success_count = 0  # 이 워커가 성공한 누적 작업 수 (정기 rotate 트리거)
                 consec_fail = 0  # 연속 실패/스킵 — 차단된 출구 IP 탈출용
+                # 2026-08-31: href 별 빈 지도 횟수. 실측: 실패 직후 같은 출구에서 새 컨텍스트로
+                # 열면 약 50% 정상 — 회전(비쌈, 터널 실패 동반)보다 먼저 이걸 쓴다.
+                _empty_map_hits: dict[str, int] = {}
 
                 while True:
                     # get 직전에 idle, 작업을 받으면 busy. 루프 위로 돌아오는
@@ -1729,10 +1743,17 @@ def worker(
                         # 태워서 새 터널 부팅 실패까지 겹치는 상시 rotate 루프였음.
                         # nordvpn_runner 자체 헬스체크에 있던 것과 같은 종류의
                         # zero-tolerance 즉시재부팅 안티패턴.)
+                        _soft_retry = False
                         if "blocked exit IP" in str(e):
-                            _note_blocked_exit()
-                            _record_server_outcome(_vpn_idx_for(proxy_port), False)
-                        if isinstance(e, SocksDeadError) or is_socks_dead_error(str(e)):
+                            _empty_map_hits[href] = _empty_map_hits.get(href, 0) + 1
+                            if _empty_map_hits[href] <= EMPTY_MAP_CTX_RETRIES:
+                                _soft_retry = True
+                                log.info(f"[W{worker_id}] #{idx} 빈 지도 — 회전 없이 컨텍스트 재생성 후 재시도 "
+                                         f"{_empty_map_hits[href]}/{EMPTY_MAP_CTX_RETRIES}")
+                            else:
+                                _note_blocked_exit()
+                                _record_server_outcome(_vpn_idx_for(proxy_port), False)
+                        if not _soft_retry and (isinstance(e, SocksDeadError) or is_socks_dead_error(str(e))):
                             _rotate_vpn_and_wait(_vpn_idx_for(proxy_port))
                         try: context.close()
                         except Exception: pass
@@ -1759,7 +1780,9 @@ def worker(
                                 result_queue.put(("error", str(e)))
                                 break  # inner loop 탈출 → outer except가 없으면 pw 재시작
                         # 재시도 (큐에 되돌려 아무 워커나 집게)
-                        if retries + 1 < MAX_TASK_RETRIES:
+                        if _soft_retry:
+                            task_queue.put((idx, href, retries))   # 예산 안 깎음
+                        elif retries + 1 < MAX_TASK_RETRIES:
                             task_queue.put((idx, href, retries + 1))
                             log.info(f"[W{worker_id}] #{idx} 재큐잉 (try {retries+2})")
                         else:
