@@ -62,7 +62,11 @@ SOCKS_HEALTH_INTERVAL = 300  # 5분마다 살아있는 포트도 SOCKS 실제 �
 # 태국에서 잘 연결되는 서버 우선. hostname 앞 2자리 국가코드 기준.
 # 실측 성공률(2026-06): tw=24%, th=23%, fr=22%, vn=21%, de=20%, hk=20%, nl=19%
 # 제거: sg/jp/au(반복 실패), gb=12%/my=13%(낮은 성공률)
-_PREFER_CC = {"tw", "th", "fr", "vn", "de", "hk", "nl", "kr", "id", "ph"}
+# 2026-08-31: 선호국 해제. 실측으로 국가는 성공률과 무관했고(아시아 25% < 비아시아 30%),
+# 이 집합이 풀을 8,052개 중 1,103개(13%)로 좁혀 같은 출구를 하루 5회씩 돌려 쓰게 했다.
+# 구글의 강등은 출구 활동량에 반응하므로 풀은 넓을수록 좋다. 6월(성공률 100%)엔
+# 하루 고유 출구 4,000개, 재사용 1.6회였다. 비우면 random.shuffle 순서 그대로 쓴다.
+_PREFER_CC: set[str] = set()
 
 def _country_code(host: str) -> str:
     """sg629.nordvpn.com → 'sg'"""
@@ -220,13 +224,19 @@ class Runner:
             log(f"  {p}: {added} 신규 (중복 IP dedup 후)")
         if merged:
             random.shuffle(merged)
-            # 아시아 서버를 앞으로 (태국에서 연결 성공률 높음)
+            # 선호 국가를 앞으로. 이름과 달리 아시아 전용이 아니다 —
+            # _PREFER_CC 에 fr/de/nl 이 들어 있고 수량상 그 셋이 대부분이다.
+            # (2026-08-28: 로그가 이걸 "아시아 N개 우선" 이라고 찍어서
+            #  아시아 노드가 우선되는 줄 알고 엉뚱한 진단을 했다.)
+            # 실측 성공률: hk 37% ph 35% vn 34% nl 33% de 30% fr 29%
+            #              kr 27% id 16% tw 16% th 3%  (전체 29%)
+            # 아시아 25% < 비아시아 30% 라 아시아 고정은 오히려 손해다.
             preferred = [s for s in merged if _country_code(s["host"]) in _PREFER_CC]
             fallback  = [s for s in merged if _country_code(s["host"]) not in _PREFER_CC]
             self.servers = preferred + fallback
             self.used_ips.clear()
             self.last_refresh = time.time()
-            log(f"총 {len(self.servers)} 서버 확보 (아시아 {len(preferred)}개 우선)")
+            log(f"총 {len(self.servers)} 서버 확보 (선호국 {len(preferred)}개 우선)")
         else:
             log(f"  fetch 전부 실패 — 기존 {len(self.servers)} 서버 유지")
 
@@ -271,14 +281,24 @@ class Runner:
         # 만료된 cooldown 정리
         if self.failed_until:
             self.failed_until = {h: t for h, t in self.failed_until.items() if t > now}
-        scores = self._load_scores()
-        if scores:
-            ordered = sorted(
-                self.servers,
-                key=lambda s: self._score_rank(scores.get(s["host"], {})),
-            )
-        else:
-            ordered = self.servers
+        # 2026-08-28: 점수 정렬을 껐다. 이 정렬(08-25 도입)이 스루풋을 깎은
+        # 장본인이다.
+        #
+        # 실측: '검증된 우수'(3회+ 성공률 50%+) 조건을 만족하는 서버가 742개
+        # 기록 중 단 8개다. 정렬이 그 8개를 항상 앞으로 끌어와서, 최근 spawn
+        # 861회가 고유 호스트 391개(전체 8,070개의 4.8%)에 몰렸고 상위는
+        # de1264x22 fr1264x21 nl1171x21 de1214x20 ... 로 같은 출구를 하루
+        # 20번씩 재사용했다. 와이파이 재접속 직후 부트스트랩 4포트도 전부
+        # 이 8개에서 나왔다.
+        #
+        # 구글 차단은 출구 IP 단위다. 같은 IP 를 반복해서 쓰는 건 차단을
+        # 자초하는 것이고, 그게 로테이션의 존재 이유를 지운다.
+        # 일별 성공률이 이를 따라간다: 08-23 40%(도입 전) -> 08-25 27%
+        # -> 08-26 12% -> 08-28 18%.
+        #
+        # 점수 파일은 계속 쌓인다 - 진단용으로는 쓸모가 있다(국가별 성공률을
+        # 이걸로 뽑았다). 선택에만 반영하지 않는다.
+        ordered = self.servers
         for s in ordered:
             if s["ip"] in self.used_ips:
                 continue

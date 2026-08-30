@@ -47,7 +47,7 @@ log = logging.getLogger(__name__)
 MAX_TASK_RETRIES = 2         # 작업 1건당 최대 재시도 횟수 (초과 시 포기)
 SLOW_THRESHOLD_SEC = 120     # 1건 처리 시간이 이 이상이면 다음 작업 전 VPN 교체
 ROTATE_TIMEOUT_SEC = 90      # vpn_runner가 새 터널을 올릴 때까지 최대 대기 (45→90, NordVPN 일부 서버 boot 30s+)
-ROTATE_EVERY_TASKS = 15      # 이 주기(성공 건수)마다 워커가 정기적으로 VPN 교체
+ROTATE_EVERY_TASKS = 8       # 2026-08-31: 15→8. 강등은 출구 활동량에 반응한다(실측) — 실패 전에 선제 교체
 # 2026-08-07: 연속 실패/스킵이 이만큼 쌓이면 성공 여부와 무관하게 VPN 교체.
 # 이게 없으면 출구 IP 가 구글에 소프트 차단됐을 때 워커가 영구히 갇힌다 —
 # periodic 교체는 task_success_count(성공 시에만 증가)에 묶여 있어 성공이 0이면
@@ -56,6 +56,8 @@ ROTATE_EVERY_TASKS = 15      # 이 주기(성공 건수)마다 워커가 정기�
 # 2대가 1,223건 전수 실패(성공 0)하는 동안 교체가 한 번도 일어나지 않았고,
 # watchdog 이 600초마다 kick → 재시작만 5시간에 60회 반복했다.
 CONSEC_FAIL_ROTATE = 5
+EMPTY_MAP_RETRIES = 2        # 2026-08-31: 빈 지도 시 같은 출구 재시도 횟수
+EMPTY_MAP_RETRY_DELAY = 4.0  # 초
 
 # ── 큐 고갈 시 정상 종료 ──────────────────────────────────────
 # 큐가 이만큼 연속으로 비어 있고(진행 중 작업 0건 포함) 새로 들어오는 것도
@@ -409,8 +411,8 @@ class SocksDeadError(Exception):
 # 그 상태에서 계속 때리면 산출은 0인데 "서로 다른 IP 690개가 같은 패턴으로
 # 접근" 이라는 신호만 계속 보낸다 — 차단을 더 굳힐 뿐이다. 일정 연속 차단이
 # 쌓이면 전 워커를 함께 쉬게 한다. 성공이 한 건이라도 나오면 즉시 해제.
-BLOCK_STREAK_TRIP = 12          # 연속 차단 몇 건에서 내려갈지
-BLOCK_COOLDOWN_SEC = 30 * 60    # 내려간 뒤 쉬는 시간
+BLOCK_STREAK_TRIP = 30          # 2026-08-31: 12→30. 빈 지도는 확률적 강등(12~50%)이지 확정 차단이 아니다
+BLOCK_COOLDOWN_SEC = 3 * 60     # 2026-08-31: 30분→3분. 30분 전역 정지가 처리량을 0으로 눌렀다(08-22~30 실측)
 _block_lock = threading.Lock()
 _block_streak = 0
 _block_cooldown_until = 0.0
@@ -532,7 +534,7 @@ BLOCK_HEARTBEAT_SEC = 240
 
 
 # 쿨다운 중 정찰 간격. 전 워커 합쳐 이 간격마다 1건만 통과시킨다.
-PROBE_INTERVAL_SEC = 300
+PROBE_INTERVAL_SEC = 20   # 2026-08-31: 300→20. 쿨다운 중에도 절반 속도로는 돈다
 _probe_lock = threading.Lock()
 _last_probe = 0.0
 
@@ -768,32 +770,42 @@ def _extract_about_features(page: Page, place_id: str) -> list[RestaurantFeature
 def get_restaurant_full(
     page: Page, maps_url: str
 ) -> tuple[Restaurant | None, list[RestaurantFeature], list[RestaurantHours]]:
-    if not goto_with_retry(page, add_hl_en(maps_url), retries=3, delay=3.0):
-        _set_skip_reason("goto_failed")
-        return None, [], []
-    safe_sleep(2.0)
-    # F7nice(별점+리뷰수) 렌더링 대기
-    try:
-        page.wait_for_selector("div.F7nice", timeout=20000)
-        # 괄호(리뷰수) 까지 로드되는지 짧게 대기 — 없는 식당도 있으므로 실패는 무시
+    # 2026-08-31: 빈 지도(/maps/place//)는 출구 차단이 아니라 구글의 확률적 강등이다.
+    # 실패 직후 같은 출구에서 다시 열면 약 절반이 정상으로 온다(실측 8건). 그래서
+    # 회전으로 올리기 전에 같은 출구에서 EMPTY_MAP_RETRIES 회 더 연다.
+    # 회전은 비싸다 — 하루 5,500 spawn 중 3,000 이 터널 실패였다.
+    for _attempt in range(EMPTY_MAP_RETRIES + 1):
+        if not goto_with_retry(page, add_hl_en(maps_url), retries=3, delay=3.0):
+            _set_skip_reason("goto_failed")
+            return None, [], []
+        safe_sleep(2.0)
+        # F7nice(별점+리뷰수) 렌더링 대기
         try:
-            page.wait_for_function(
-                "() => { const el = document.querySelector('div.F7nice'); "
-                "return el && el.innerText && el.innerText.includes('('); }",
-                timeout=8000,
-            )
+            page.wait_for_selector("div.F7nice", timeout=20000)
+            # 괄호(리뷰수) 까지 로드되는지 짧게 대기 — 없는 식당도 있으므로 실패는 무시
+            try:
+                page.wait_for_function(
+                    "() => { const el = document.querySelector('div.F7nice'); "
+                    "return el && el.innerText && el.innerText.includes('('); }",
+                    timeout=8000,
+                )
+            except Exception:
+                pass
+        except Exception:
+            log.warning(f"  F7nice 미로드 → 추가 대기")
+            safe_sleep(3.0)
+
+        current_url = page.url
+        name = ""
+        try:
+            name = page.locator("h1").first.inner_text(timeout=5000).strip()
         except Exception:
             pass
-    except Exception:
-        log.warning(f"  F7nice 미로드 → 추가 대기")
-        safe_sleep(3.0)
-
-    current_url = page.url
-    name = ""
-    try:
-        name = page.locator("h1").first.inner_text(timeout=5000).strip()
-    except Exception:
-        pass
+        if "/maps/place//" in current_url and _attempt < EMPTY_MAP_RETRIES:
+            log.info(f"  빈 지도 — 같은 출구에서 재시도 {_attempt + 1}/{EMPTY_MAP_RETRIES}")
+            safe_sleep(EMPTY_MAP_RETRY_DELAY)
+            continue
+        break
     if is_dead_tunnel_page_name(name):
         raise SocksDeadError(f"dead tunnel page detected: {name[:80]!r}")
     if not name or name == "Results":
