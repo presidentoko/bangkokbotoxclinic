@@ -787,6 +787,7 @@ def get_restaurant_full(
     # 실패 직후 같은 출구에서 다시 열면 약 절반이 정상으로 온다(실측 8건). 그래서
     # 회전으로 올리기 전에 같은 출구에서 EMPTY_MAP_RETRIES 회 더 연다.
     # 회전은 비싸다 — 하루 5,500 spawn 중 3,000 이 터널 실패였다.
+    log.info(f"  URL {maps_url[:200]}")  # 2026-08-31 진단: 실패한 href 를 밖에서 재현하기 위해
     for _attempt in range(EMPTY_MAP_RETRIES + 1):
         if not goto_with_retry(page, add_hl_en(maps_url), retries=3, delay=3.0):
             _set_skip_reason("goto_failed")
@@ -1757,10 +1758,23 @@ def worker(
                             _rotate_vpn_and_wait(_vpn_idx_for(proxy_port))
                         try: context.close()
                         except Exception: pass
+                        # 2026-08-31 02:00 실측: 같은 출구·같은 시각에 워커는 빈 지도, 밖에서 띄운 새
+                        # 브라우저 프로세스는 정상. 같은 프로세스의 새 컨텍스트는 50%, 새 프로세스는
+                        # 100% — 강등이 브라우저 프로세스에 묶여 있다. 빈 지도면 컨텍스트가 아니라
+                        # 프로세스를 새로 띄운다 (아래 rebuild 실패 경로와 같은 코드).
+                        if _soft_retry:
+                            try: browser.close()
+                            except Exception: pass
+                            browser = None
                         try:
+                            if browser is None:
+                                raise RuntimeError("empty-map: browser relaunch")
                             context, page = _build_context(browser)
                         except Exception as e2:
-                            log.warning(f"[W{worker_id}] context rebuild 실패, browser 재시작: {e2}")
+                            if browser is None:
+                                log.info(f"[W{worker_id}] 빈 지도 — 브라우저 프로세스 재시작")
+                            else:
+                                log.warning(f"[W{worker_id}] context rebuild 실패, browser 재시작: {e2}")
                             try: browser.close()
                             except Exception: pass
                             try:
