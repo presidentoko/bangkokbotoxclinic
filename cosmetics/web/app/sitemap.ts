@@ -12,6 +12,7 @@ import {
 } from "@/lib/data";
 
 import { currentSaleEvent } from "@/lib/sale";
+import { hasTrendingData } from "@/lib/trending";
 
 const BASE = "https://bangkokfillers.com";
 const NOW = new Date();
@@ -45,6 +46,11 @@ function coreEntries(): MetadataRoute.Sitemap {
 
   // Static core pages
   out.push(entry(`${BASE}/th/quiz`, 0.8, "monthly"));
+  // Only submitted while the Pantip collector has something; the page 404s
+  // when it does not, and a sitemap entry pointing at a 404 burns crawl budget.
+  if (hasTrendingData()) {
+    out.push(entry(`${BASE}/th/trending`, 0.7, "weekly"));
+  }
   out.push(entry(`${BASE}/th/brand`, 0.8, "weekly"));
   out.push(entry(`${BASE}/th/ingredient`, 0.7, "monthly"));
   out.push(entry(`${BASE}/th/methodology`, 0.6, "monthly"));

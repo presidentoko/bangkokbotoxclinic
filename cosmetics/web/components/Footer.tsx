@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { t, type Locale } from "@/lib/i18n";
+import { hasTrendingData } from "@/lib/trending";
 import { generatedAt } from "@/lib/data";
 import { currentSaleEvent } from "@/lib/sale";
 
@@ -56,6 +57,14 @@ export function Footer({ locale }: { locale: Locale }) {
             <Link href={`/${locale}/brand`} className="block text-xs text-[#8a7a76] hover:text-rose-500 transition-colors">
               {isTh ? "แบรนด์ทั้งหมด" : "All brands"}
             </Link>
+            {/* Only linked while the Pantip collector has something — the page
+                404s when it does not, and a sitewide link to a 404 is worse
+                than no link. */}
+            {hasTrendingData() && (
+              <Link href={`/${locale}/trending`} className="block text-xs text-[#8a7a76] hover:text-rose-500 transition-colors">
+                {isTh ? "กำลังถูกพูดถึงใน Pantip" : "Discussed on Pantip"}
+              </Link>
+            )}
             <Link href={`/${locale}/ingredient`} className="block text-xs text-[#8a7a76] hover:text-rose-500 transition-colors">
               {isTh ? "คู่มือส่วนผสม" : "Ingredient guide"}
             </Link>

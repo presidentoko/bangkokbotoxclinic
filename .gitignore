@@ -143,3 +143,7 @@ logs/leaky-services.log
 
 # Cached Thai FDA web-service responses (regenerable; see scripts/build_fda_registry.py)
 cosmetics/web/scripts/.fda_cache/
+
+# Pantip trend collector's rolling thread state (regenerable; grows daily).
+# Matches how cosmetics/state/ is already left untracked.
+cosmetics/output/pantip_trending_state.json

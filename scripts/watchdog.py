@@ -1947,6 +1947,23 @@ def build_services() -> list[Service]:
             progress_grace_sec=120,
         ),
         Service(
+            # bangkokfillers.com Pantip 화제 수집기 — 브랜드명(영문+태국어)으로
+            # Pantip 검색 → 90일 롤링 윈도우로 cosmetics/web/data/trending.json 갱신.
+            # 스크립트가 내부에서 --interval(기본 24h) sleep 루프를 돌아 상시 생존한다.
+            #
+            # 배포는 하지 않는다. 배포 1회가 ISR writes 약 14K 를 쓰고 월 예산이
+            # 200K(≈월 14회)라서 배포 판단은 cosmetics/auto_deploy.py 한 곳에만
+            # 있어야 한다. 여기서는 데이터 파일만 갱신하고 다음 정기 배포에 실린다.
+            name="pantip_trending",
+            cmd=["-m", "cosmetics.pantip_trending", "--watch", "--interval", "86400"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "pantip_trending.log",
+            progress_pattern=re.compile(r"\[pantip_trending\]"),
+            progress_stale_sec=172800,  # 48h — 24h 주기 안에 반드시 찍혀야 함
+            progress_grace_sec=600,
+        ),
+        Service(
             # secondluxuryitems.com 주간 가격 샘플러 — Vestiaire Collective 검색 →
             # 2nd/data/items_db.json price_samples/price_ranges 갱신 → git push.
             # 스크립트 내부에서 168h(7일) sleep 루프 → 프로세스 상시 생존, watchdog은 PID만 감시.
