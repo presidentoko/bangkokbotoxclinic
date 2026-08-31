@@ -1799,6 +1799,15 @@ def worker(
                         elif retries + 1 < MAX_TASK_RETRIES:
                             task_queue.put((idx, href, retries + 1))
                             log.info(f"[W{worker_id}] #{idx} 재큐잉 (try {retries+2})")
+                        elif "blocked exit IP" in str(e):
+                            # 2026-08-31 아침 실측: 빈 지도로 반복 실패하는 href 는 집 IP
+                            # 에서도 5/6 이 빈 지도 — 출구 문제가 아니라 사실상 죽은 URL 이다.
+                            # 그런데 08-20 설계("차단은 예산을 안 깎는다") 때문에 이런 href 가
+                            # 영원히 큐 앞에 남았다: 산 것은 완료돼 떠나고 죽은 것만 쌓이는
+                            # 체(sieve). 재시도 소진 시 skip 으로 보내 예산(3세션)을 깎는다 —
+                            # 진짜 일시 차단이었다면 다음 세션 두 번 안에 살아난다.
+                            log.warning(f"[W{worker_id}] #{idx} 빈 지도 재시도 소진 → 예산 차감 skip")
+                            result_queue.put(("skip", (href, "empty_map_exhausted")))
                         else:
                             log.warning(f"[W{worker_id}] #{idx} 재시도 소진 → 포기")
                             result_queue.put(("error", str(e)))
@@ -2084,6 +2093,12 @@ def main():
         task_q.put((idx_counter[0], href))
         enqueued_hrefs.add(href)
 
+    # 2026-08-31: 셔플. 완료된 href 는 큐를 떠나고 죽은 href 는 남아, 결정적
+    # 순서로는 매 재시작마다 같은 죽은 앞부분(idx 1~40)만 갈았다 — 08-31 새벽
+    # 실측: 실패 idx 중앙값 76, 완료 idx 는 42 이후에만. 유일하게 재시작 없이
+    # 1시간 45분 달린 07:14~08:59 구간만 앞부분을 통과해 57% 를 냈다.
+    import random as _random
+    _random.shuffle(filtered_hrefs)
     for href in filtered_hrefs:
         _enqueue(href)
 
@@ -2185,7 +2200,7 @@ def main():
                 skip_href, skip_reason = payload
                 skipped_hrefs.add(skip_href)  # 세션 내 재큐잉 방지 (메모리)
                 # 실제로 한 번 시도해서 못 건진 경우 — 여기서만 예산을 깎는다.
-                # 차단 출구(/maps/place//)는 SocksDeadError 로 빠지므로 여기 안 온다.
+                # (2026-08-31: 빈 지도 재시도 소진분도 empty_map_exhausted 로 여기 온다.)
                 _skip_pid = _retry_pid_by_href.get(skip_href)
                 if _skip_pid:
                     _bump_retry(_skip_pid)

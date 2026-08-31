@@ -906,7 +906,10 @@ def build_services() -> list[Service]:
     # 쿨다운 대기 라인(scraper 가 240초마다 갱신)을 진행으로 인정해서
     # "막혀서 쉬는 중"과 "멈춤"을 구분한다. 프로세스가 진짜 죽으면 is_alive()
     # 쪽에서 잡히므로 이걸로 감시가 느슨해지지는 않는다.
-    PROG_REVIEW = re.compile(r"(✓ \[\d+\].*처리율|차단 쿨다운 대기)")
+    # 2026-08-31: 실패/스킵도 진행이다. 완료·쿨다운만 인정하니 죽은 href 구간을
+    # 가는 동안(실패만 발생) "정체"로 오판해 600초마다 재시작했고, 재시작이 큐를
+    # 죽은 앞부분으로 되돌려 완료가 영영 안 나오는 루프가 됐다 (08-31 새벽 6회/2.5h).
+    PROG_REVIEW = re.compile(r"(✓ \[\d+\].*처리율|차단 쿨다운 대기|#\d+ (완료|실패|스킵))")
     PROG_GRID   = re.compile(r"\| 결과 \d+ 신규 \d+")  # grid 한 점 처리 라인
     # nordvpn_runner 는 평소엔 조용함. 15분 주기 server fetch + READY 가 시그널.
     PROG_VPN    = re.compile(r"(READY|bootstrap 완료|서버 리스트 fetch)")
