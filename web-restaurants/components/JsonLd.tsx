@@ -4,6 +4,7 @@ import type { Restaurant } from "@/lib/types";
 import { getSiteConfig } from "@/lib/site";
 import { CUISINE_LABELS } from "@/lib/types";
 import { deriveLocalityFromAddress } from "@/lib/locality";
+import { getVerdict } from "@/lib/verdict";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.snsstopper.com";
 const BRAND = getSiteConfig().brand;
@@ -62,12 +63,19 @@ export function BreadcrumbJsonLd({ items }: { items: { name: string; url: string
 
 export function RestaurantJsonLd({ r }: { r: Restaurant }) {
   const locality = r.district || deriveLocalityFromAddress(r.address);
+  const verdict = getVerdict(r);
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
     "@id": `${SITE}/restaurant/${r.id}`,
     name: r.name,
     url: `${SITE}/restaurant/${r.id}`,
+    // The verdict, in the field an answer engine actually quotes. Google's own
+    // panel already carries the name, address and star average, so repeating
+    // them here wins nothing; the recent-vs-older comparison is the one fact
+    // about this venue that exists nowhere else, which is what makes it worth
+    // citing.
+    description: verdict.reason,
     // Real venue photos outrank our generated OG card for rich-result
     // eligibility when we have them; fall back to the generated card.
     image: r.photos.length > 0

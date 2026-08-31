@@ -1,5 +1,6 @@
 import { loadMasterDb, filterByCuisine, filterByDistrict, slugify } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
+import { VERDICT_HUBS } from "@/lib/verdict";
 import { CUISINE_LABELS } from "@/lib/types";
 import { GUIDES } from "@/lib/guides";
 import { loadAllSlugs } from "@/lib/famous-vs-good";
@@ -70,6 +71,14 @@ export async function GET() {
 
   for (const c of BEST_FOR) {
     items.push({ url: `${SITE}/best/${c.slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 });
+  }
+
+  // The verdict hubs are the pages nothing else on the web can duplicate, so
+  // they get the same priority as famous-vs-good rather than the 0.85 the
+  // criterion pages carry.
+  items.push({ url: `${SITE}/verdict`, lastModified: updated, changeFrequency: "weekly", priority: 0.9 });
+  for (const h of VERDICT_HUBS) {
+    items.push({ url: `${SITE}/verdict/${h.slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.9 });
   }
 
   // /c/[cuisine]/[district] pages notFound() when a cuisine has zero

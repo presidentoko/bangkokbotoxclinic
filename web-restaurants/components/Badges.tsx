@@ -3,22 +3,35 @@
 import type { Restaurant } from "@/lib/types";
 import { sponsoredTier, SPONSORED_BADGE } from "@/lib/sponsored";
 
-// AI Verified — Local Guide 비율 기반 "real review" 신뢰도.
+// Local Guide 비율 — 리뷰어가 실제로 얼마나 믿을 만한지.
+//
+// This used to render `50 + lgRatio * 50`, so a venue with zero Local Guides
+// among its reviewers displayed "50% real" — a number with no referent, floored
+// so it always looked reassuring. Publishing an invented statistic next to a
+// checkmark is worse than publishing nothing. It now shows the real ratio, and
+// shows nothing at all when the sample is too small to state one.
 export function AIVerifiedBadge({ r, size = "sm" }: { r: Restaurant; size?: "sm" | "md" }) {
-  if (r.scraped_review_count < 5) return null;
-  const lg = r.local_guide_count;
   const total = r.scraped_review_count;
-  const lgRatio = total > 0 ? lg / total : 0;
-  const verifiedRate = Math.round(50 + lgRatio * 50);
+  // Below this, the ratio swings wildly on a single reviewer and means nothing.
+  if (total < 10) return null;
+  const lg = r.local_guide_count;
+  const lgPct = Math.round((lg / total) * 100);
+  // A low ratio is a real finding, but it isn't a "verified" badge — say it
+  // plainly rather than dressing it up with a checkmark.
+  const strong = lgPct >= 40;
   const cls = size === "md" ? "px-3 py-1 text-sm" : "px-2 py-0.5 text-xs";
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full font-semibold whitespace-nowrap ${cls}`}
-      style={{ background: "#ecfeff", color: "#155e75" }}
-      title={`${lg} of ${total} scraped reviews are by Google Local Guides — high credibility reviewers.`}
+      style={
+        strong
+          ? { background: "#ecfeff", color: "#155e75" }
+          : { background: "#f8fafc", color: "#475569" }
+      }
+      title={`${lg} of the ${total} recent reviews we analysed were written by Google Local Guides — reviewers with a long, public review history.`}
     >
-      <span aria-hidden>✓</span>
-      AI Verified · {verifiedRate}% real
+      <span aria-hidden>{strong ? "✓" : "·"}</span>
+      {lgPct}% Local Guides
     </span>
   );
 }

@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { loadMasterDb, getRestaurantById, topByTrust, slugify } from "@/lib/data";
 import { deriveLocalityFromAddress } from "@/lib/locality";
+import { getVerdict } from "@/lib/verdict";
+import { VerdictPanel } from "@/components/Verdict";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import type { Restaurant } from "@/lib/types";
 import { BreadcrumbJsonLd, RestaurantJsonLd } from "@/components/JsonLd";
@@ -46,15 +48,26 @@ export async function generateMetadata(
   const locality = r.district || deriveLocalityFromAddress(r.address);
   const place = locality ? `${locality}, ${city}` : city;
   const kind = primaryCuisine ? `${primaryCuisine} Restaurant` : "Restaurant";
-  // Lead with the keywords people actually search — name, cuisine, area —
-  // instead of burying them behind our own "Trust Score" jargon. The layout
-  // title template already appends "| SNS Stopper"; don't add a second pipe
-  // segment here or every restaurant page's <title> runs ~95+ chars and gets
-  // truncated in the SERP.
-  const title = `${r.name} — ${kind} in ${place}`;
-  const description = `${r.name}, a ${cuisines || "restaurant"} spot in ${place}. Trust Score ${r.trust_score.toFixed(0)}/100 from ${r.total_reviews.toLocaleString()} real Google reviews — no influencer bias, just the data.`;
+  const verdict = getVerdict(r);
+  // Every impression this site gets is someone searching a venue's name after
+  // seeing it on Instagram or TikTok, and we surface around position 10 — below
+  // Google's own panel, the venue's IG, and the big directories. We will not win
+  // that fight on the name. What we can do is be the only result whose title
+  // answers the question they actually have ("is this real or is it bait?"),
+  // and rank for the skeptical phrasings nobody else targets.
+  //
+  // Titles here are `absolute`, which drops the layout's "| SNS Stopper"
+  // suffix. Measured over the whole database that suffix pushed 40% of these
+  // titles past the ~60 characters Google renders, and the part that fell off
+  // the end was the verdict — the only reason any of this beats the nine
+  // results above us. The brand is nobody's search term yet; it still appears
+  // in the visible URL, the OG card and the JSON-LD.
+  const title = verdict.kind === "thin_data"
+    ? `${r.name} — ${kind} in ${place}`
+    : verdict.headline;
+  const description = `${verdict.reason} ${r.name} is a ${cuisines || "restaurant"} in ${place}. We read the reviews so you don't have to — no influencer bias, no paid placements.`;
   return {
-    title,
+    title: { absolute: title },
     description,
     alternates: {
       canonical: `/restaurant/${id}`,
@@ -66,7 +79,7 @@ export async function generateMetadata(
       },
     },
     openGraph: {
-      title: `${r.name} — ${kind} in ${place}`,
+      title,
       description,
       url: `/restaurant/${id}`,
       type: "article",
@@ -74,7 +87,7 @@ export async function generateMetadata(
     },
     twitter: {
       card: "summary_large_image",
-      title: `${r.name} — ${kind} in ${place}`,
+      title,
       description,
     },
   };
@@ -251,6 +264,13 @@ export default async function RestaurantPage(
 
         <div className="mt-4 max-w-md">
           <CommunityButtons restaurantId={r.id} />
+        </div>
+
+        {/* The reason this visitor is here: they saw the place somewhere and
+            want to know whether it's real. Answer above the fold, before the
+            score breakdowns they didn't ask for. */}
+        <div className="mt-5">
+          <VerdictPanel r={r} />
         </div>
 
         {r.cuisines.length > 0 && (

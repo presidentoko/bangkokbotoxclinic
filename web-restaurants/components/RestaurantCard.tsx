@@ -3,6 +3,7 @@ import type { Restaurant } from "@/lib/types";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { TrustBadge } from "./TrustBadge";
 import { AIVerifiedBadge } from "./Badges";
+import { VerdictChip } from "./Verdict";
 import { sponsoredTier } from "@/lib/sponsored";
 import { CommunityButtons } from "./CommunityButtons";
 import { SaveButton } from "./SaveButton";
@@ -93,6 +94,9 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
         <div className="flex items-center justify-between gap-3 mt-3 flex-wrap">
           <TrustBadge score={r.trust_score} size="md" />
           <div className="flex flex-wrap gap-1.5 text-xs justify-end items-center">
+            {/* Leads the badge row: it's the only one that answers a question
+                the visitor actually arrived with. */}
+            <VerdictChip r={r} size="sm" />
             <AIVerifiedBadge r={r} size="sm" />
             {r.cuisines.slice(0, 3).map((c) => (
               <span key={c} className="bg-[var(--accent-light)] text-[var(--accent)] px-2 py-0.5 rounded-full inline-flex items-center gap-1 font-medium">
