@@ -432,7 +432,21 @@ async def run_browser_session(
                 queue.task_done()
                 continue
 
-            page = await context.new_page()
+            # new_page() has to sit inside its own guard, not above the
+            # try/finally below. When the browser dies underneath us (Chromium
+            # exiting mid-run raises TargetClosedError here) the item has
+            # already been taken off the queue, and the finally: that calls
+            # task_done() hasn't been entered yet — so that slot's completion
+            # is never recorded. amain() waits on queue.join(), which only
+            # returns once every put() has a matching task_done(), so a single
+            # one of these crashes leaves the run unable to ever finish.
+            try:
+                page = await context.new_page()
+            except Exception as e:
+                state["failed"] += 1
+                log.error(f"[W{idx}] new_page failed: {type(e).__name__}: {e}")
+                queue.task_done()
+                raise
             t0 = time.time()
             try:
                 photos = await scrape_one(page, place_id, name, maps_url, top_n)
