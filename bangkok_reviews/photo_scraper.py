@@ -55,6 +55,7 @@ import logging
 import random
 import re
 import sys
+import tempfile
 import time
 from pathlib import Path
 
@@ -123,7 +124,13 @@ TARGET_HEIGHT = 600
 # Hard-coded SOCKS5 port. 2080 = grid scanner port (idle since grid finished).
 # Ports 2081-2087 are reserved for the live review scraper and MUST NOT be
 # touched by this script. Not exposed via CLI to prevent accidental changes.
-SOCKS_PORT = 2080
+BASE_SOCKS_PORT = 2080
+SOCKS_PORT = BASE_SOCKS_PORT
+
+# Where nordvpn_runner.py watches for rotate_port_<idx> markers. Must match the
+# runner's own TMPDIR (it uses tempfile.gettempdir() too) or rotation requests
+# land in a directory nothing reads — see rotate_vpn() below.
+TMPDIR = Path(tempfile.gettempdir())
 
 
 # === Helpers ===============================================================
@@ -562,13 +569,25 @@ async def worker(
 def rotate_vpn(port: int):
     """
     Signal nordvpn_runner.py to rotate the tunnel for this port.
-    The runner watches /tmp/rotate_port_<idx> for changes (file-based IPC).
+
+    The runner watches `tempfile.gettempdir()/rotate_port_<idx>` (see the
+    marker loop in nordvpn_runner.py). This used to write a literal
+    "/tmp/rotate_port_<idx>", which on Windows is C:\\tmp\\ — a directory the
+    runner never looks at, and usually one that does not exist, so the write
+    raised and the bare `except: pass` swallowed it.
+
+    The effect was that rotation never happened even once. When port 2080's
+    tunnel dropped, wait_for_vpn() would ask for a rotation nothing received,
+    poll a dead port for three minutes, sleep five, and repeat — which is
+    exactly the multi-day stall this scraper kept ending up in.
     """
-    idx = port - 2080
+    idx = port - BASE_SOCKS_PORT
+    marker = TMPDIR / f"rotate_port_{idx}"
     try:
-        Path(f"/tmp/rotate_port_{idx}").write_text(str(time.time()))
-    except Exception:
-        pass
+        marker.write_text(str(time.time()))
+    except Exception as e:
+        # Loud on purpose: silence here is what hid the bug for weeks.
+        log.warning(f"could not signal VPN rotation via {marker}: {e}")
 
 
 # === Entry point ===========================================================
