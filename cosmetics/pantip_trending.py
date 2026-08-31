@@ -157,7 +157,11 @@ def build_brand_index(db: dict, brand_th: dict[str, str]) -> dict[str, str]:
             n = _norm(b)
             if len(n) >= 4:
                 idx[n] = b
-        if th and _norm(th) not in _AMBIGUOUS_TH:
+        # Thai spellings shorter than five characters are substrings of ordinary
+        # words far more often than they are brand mentions: "คีน" (KENE) matched
+        # a football thread through "สิวะ", "ศศิ" (SASI) matched the volleyball
+        # player ศศิภาพร. Those brands are still reachable by their Latin name.
+        if th and _norm(th) not in _AMBIGUOUS_TH and len(_norm(th).replace(" ", "")) >= 5:
             idx[_norm(th)] = b
             idx[_norm(th).replace(" ", "")] = b
     return idx

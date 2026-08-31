@@ -38,6 +38,17 @@ DESCRIPTOR_STEMS = [
     "มั่นใจ", "แผล", "โกลว์", "และ", "ผลิตภัณฑ์", "เสริมอาหาร", "ทุกมุม",
 ]
 
+# A mined string that is an ordinary Thai descriptor is not a brand name.
+# "Mee" mined to "แพ้ง่าย" ("sensitive/allergic"), which then shipped as
+# "Mee (แพ้ง่าย) ดีไหม?" on the live brand page and, once the Pantip collector
+# started matching on these spellings, filed every "sensitive skin" thread
+# under the brand Mee.
+_NOT_A_BRAND = {
+    "แพ้ง่าย", "ผิวแพ้ง่าย", "ผิวมัน", "ผิวแห้ง", "ผิวผสม", "ผิวหน้า",
+    "หน้าใส", "ผิวขาว", "ธรรมชาติ", "สิว", "ฝ้า", "กระ", "รอยดำ",
+    "ครีม", "เซรั่ม", "โลชั่น", "กันแดด", "ของแท้", "ราคาถูก", "รีวิว",
+}
+
 BLOCK = {
     # text after จาก was a material / ingredient / country, not the brand
     "PWP", "So Glam", "Happy To The Skin", "ISNTREE", "benutra", "GPO+",
@@ -186,8 +197,13 @@ for k, v in OVERRIDE.items():
     if k in by_brand:
         final[k] = v
 
-# Drop any entry that is identical to the English brand or empty.
-final = {k: v.strip() for k, v in final.items() if v.strip()}
+# Drop entries that are empty, identical to the English brand, or an ordinary
+# Thai descriptor rather than a name.
+final = {
+    k: v.strip()
+    for k, v in final.items()
+    if v.strip() and v.strip() not in _NOT_A_BRAND and v.strip().lower() != k.strip().lower()
+}
 
 json.dump(final, open(OUT, "w", encoding="utf-8"),
           ensure_ascii=False, indent=1, sort_keys=True)
