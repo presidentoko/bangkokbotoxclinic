@@ -16,6 +16,7 @@ import {
 import { STATIC_LOCALES, thaiOnlyAlternates, t, toBaseLocale, concernLabel, type Locale } from "@/lib/i18n";
 import { productLd, breadcrumbLd, faqLd } from "@/lib/schema";
 import { thaiAlias } from "@/lib/thai-names";
+import { fdaRecord, originLabel, type FdaRecord } from "@/lib/fda";
 import { productVerdict, productFaqs, cleanName } from "@/lib/product-verdict";
 import { JsonLd } from "@/components/JsonLd";
 import { FaqSection } from "@/components/FaqSection";
@@ -621,6 +622,76 @@ function ShouldYouBuyModule({
 }
 
 /* ─────────────────────────────────────────
+   MODULE 0c — Thai FDA notification check
+   The one check a marketplace listing cannot reproduce. Rendered only when
+   scripts/build_fda_registry.py resolved this product to a notification;
+   a product with no record shows nothing, because absence means our name
+   matcher failed, not that the product is unregistered.
+───────────────────────────────────────── */
+function FdaModule({
+  fda,
+  locale,
+}: {
+  fda: FdaRecord;
+  locale: Locale;
+}) {
+  const isTh = locale === "th";
+  const tone = fda.active
+    ? "border-emerald-200 bg-emerald-50"
+    : "border-amber-200 bg-amber-50";
+  return (
+    <section className="space-y-3">
+      <h2 className="font-serif-display text-lg font-semibold text-neutral-800">
+        {isTh ? "ตรวจสอบเลขที่จดแจ้ง อย." : "Thai FDA notification"}
+      </h2>
+      <div className={`rounded-2xl border ${tone} px-5 py-4 space-y-2`}>
+        <p className="text-sm font-semibold text-neutral-900 flex items-center gap-2">
+          <span aria-hidden="true">{fda.active ? "✓" : "⚠"}</span>
+          <span>
+            {isTh
+              ? `เลขที่ใบรับจดแจ้ง ${fda.lcnno} · สถานะ ${fda.status}`
+              : `Notification ${fda.lcnno} · status ${fda.status}`}
+          </span>
+        </p>
+        <dl className="text-sm text-neutral-700 space-y-1">
+          <div className="flex gap-2">
+            <dt className="shrink-0 text-[#8a7a76]">{isTh ? "ชื่อที่จดแจ้ง:" : "Notified as:"}</dt>
+            <dd>{fda.notified_name_en || fda.notified_name_th}</dd>
+          </div>
+          {fda.holder && (
+            <div className="flex gap-2">
+              <dt className="shrink-0 text-[#8a7a76]">{isTh ? "ผู้จดแจ้ง:" : "Held by:"}</dt>
+              <dd>{fda.holder}</dd>
+            </div>
+          )}
+          {fda.type_allow && (
+            <div className="flex gap-2">
+              <dt className="shrink-0 text-[#8a7a76]">{isTh ? "ประเภท:" : "Type:"}</dt>
+              <dd>{originLabel(fda.type_allow, locale)}</dd>
+            </div>
+          )}
+        </dl>
+        {fda.url && (
+          <a
+            href={fda.url}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="inline-block text-sm font-semibold text-rose-600 hover:text-rose-700 underline underline-offset-2"
+          >
+            {isTh ? "ตรวจสอบที่เว็บไซต์ อย. →" : "Verify on the FDA site →"}
+          </a>
+        )}
+        <p className="text-xs text-[#8a7a76] leading-relaxed">
+          {isTh
+            ? "เราจับคู่จากชื่อผลิตภัณฑ์กับฐานข้อมูลจดแจ้งของ อย. เลขที่ที่ใช้อ้างอิงได้จริงคือเลขที่พิมพ์บนกล่องสินค้า โปรดตรวจสอบอีกครั้งก่อนซื้อ"
+            : "Matched by product name against the Thai FDA notification database. The authoritative number is the one printed on the package — check it before you buy."}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────
    MODULE 4 — Dual-verified badge
 ───────────────────────────────────────── */
 function DualVerifiedBadge({
@@ -871,8 +942,9 @@ export default async function ProductPage({
     flagLabels,
     pricePos: pricePosition(p),
   };
+  const fda = fdaRecord(p.product_id);
   const verdict = productVerdict(verdictInput);
-  const faqs = productFaqs(verdictInput, verdict, concernNames);
+  const faqs = productFaqs(verdictInput, verdict, concernNames, fda);
 
   return (
     <>
@@ -991,6 +1063,11 @@ export default async function ProductPage({
             MODULE 0b — SHOULD YOU BUY IT?
         ══════════════════════════════════════ */}
         <ShouldYouBuyModule name={cleanName(p.name)} verdict={verdict} locale={locale} />
+
+        {/* ══════════════════════════════════════
+            MODULE 0c — THAI FDA NOTIFICATION
+        ══════════════════════════════════════ */}
+        {fda && <FdaModule fda={fda} locale={locale} />}
 
         {/* ══════════════════════════════════════
             SCORE BREAKDOWN

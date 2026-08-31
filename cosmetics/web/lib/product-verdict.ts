@@ -2,6 +2,7 @@ import type { Product } from "./types";
 import type { Locale } from "./i18n";
 import { concernLabel } from "./i18n";
 import { productTypeThai, productTypeEnglish, thaiAlias } from "./thai-names";
+import { fdaFaqAnswer, type FdaRecord } from "./fda";
 
 /**
  * The "should I actually buy this?" layer.
@@ -138,7 +139,8 @@ export function productVerdict({
 export function productFaqs(
   input: VerdictInput,
   verdict: ProductVerdict,
-  concernNames: string[]
+  concernNames: string[],
+  fda?: FdaRecord
 ): { q: string; a: string }[] {
   const { p, locale, totalScore, actives, flagLabels } = input;
   const isTh = locale === "th";
@@ -215,7 +217,19 @@ export function productFaqs(
           : `Reading the ingredient list, we found none of the comedogenic, fragrance, alcohol or irritant flags we check for.`,
   });
 
-  // 6 — Pantip. Answers the "<product> pantip" query shape directly.
+  // 6 — Thai FDA notification. This is the "<product> ปลอม" / "อย. เลขที่"
+  // query, which no marketplace listing can answer. Only emitted when a
+  // notification was actually resolved — silence, never a warning, otherwise.
+  if (fda) {
+    out.push({
+      q: isTh
+        ? `${name} มี อย. ไหม เลขที่จดแจ้งอะไร?`
+        : `Is ${name} registered with the Thai FDA?`,
+      a: fdaFaqAnswer(fda, name, locale),
+    });
+  }
+
+  // 7 — Pantip. Answers the "<product> pantip" query shape directly.
   const mentions = p.pantip?.mention_count ?? 0;
   const threads = p.pantip?.thread_count ?? 0;
   if (mentions > 0) {

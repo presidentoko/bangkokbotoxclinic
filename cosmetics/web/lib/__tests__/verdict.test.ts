@@ -8,6 +8,7 @@ import {
 import { parseVolumeMl, pricePerMl, pricePosition, allProducts } from "../data";
 import { productVerdict, productFaqs, type VerdictInput } from "../product-verdict";
 import { faqLd } from "../schema";
+import { fdaRecord, fdaCoverage, fdaFaqAnswer } from "../fda";
 import type { Product } from "../types";
 
 describe("thai-names", () => {
@@ -162,5 +163,59 @@ describe("product FAQs", () => {
     const ld = faqLd(faqs) as { mainEntity: { name: string }[] };
     expect(ld.mainEntity).toHaveLength(faqs.length);
     expect(ld.mainEntity.map((m) => m.name)).toEqual(faqs.map((f) => f.q));
+  });
+});
+
+describe("Thai FDA notification", () => {
+  const withFda = allProducts().find((p) => fdaRecord(p.product_id));
+
+  it("resolves a notification for a meaningful share of the catalogue", () => {
+    // Recall was deliberately traded for precision; guard the floor so a
+    // future matcher change cannot quietly gut the feature.
+    expect(fdaCoverage()).toBeGreaterThan(400);
+    expect(fdaCoverage()).toBeLessThanOrEqual(allProducts().length);
+  });
+
+  it("carries a registration number, a status and an FDA link", () => {
+    const r = fdaRecord(withFda!.product_id)!;
+    expect(r.lcnno).toMatch(/\d/);
+    expect(r.status.length).toBeGreaterThan(0);
+    expect(r.url).toMatch(/^https:\/\/cosmetica\.fda\.moph\.go\.th\//);
+    // The entity decoding bug that produced &amp; in the query string.
+    expect(r.url).not.toContain("&amp;");
+  });
+
+  it("marks only 'คงอยู่' as an in-force notification", () => {
+    for (const p of allProducts()) {
+      const r = fdaRecord(p.product_id);
+      if (r) expect(r.active).toBe(r.status.startsWith("คงอยู่"));
+    }
+  });
+
+  it("never states a product is unregistered — absence renders nothing", () => {
+    const none = allProducts().find((p) => !fdaRecord(p.product_id))!;
+    const faqs = productFaqs(inputFor(none), productVerdict(inputFor(none)), ["สิว"], undefined);
+    expect(faqs.some((f) => f.q.includes("อย."))).toBe(false);
+    expect(faqs.some((f) => f.a.includes("ไม่ได้จดแจ้ง"))).toBe(false);
+  });
+
+  it("adds the อย. question only when a record exists", () => {
+    const r = fdaRecord(withFda!.product_id)!;
+    const input = inputFor(withFda!);
+    const faqs = productFaqs(input, productVerdict(input), ["สิว"], r);
+    const q = faqs.find((f) => f.q.includes("อย."));
+    expect(q).toBeDefined();
+    expect(q!.a).toContain(r.lcnno);
+    // The caveat must survive: we matched on name, the box is authoritative.
+    expect(q!.a).toContain("กล่อง");
+  });
+
+  it("does not claim an expired notification is in force", () => {
+    const expired = allProducts()
+      .map((p) => fdaRecord(p.product_id))
+      .find((r) => r && !r.active)!;
+    const a = fdaFaqAnswer(expired, "X", "th");
+    expect(a).toContain(expired.status);
+    expect(a).not.toContain("คงอยู่");
   });
 });

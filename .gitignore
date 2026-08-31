@@ -140,3 +140,6 @@ logs/leaky-services.log
 
 # Raw dealer sweep — 3MB of upstream catalogue, recomputed on every run
 3rd/scraper/.cache/
+
+# Cached Thai FDA web-service responses (regenerable; see scripts/build_fda_registry.py)
+cosmetics/web/scripts/.fda_cache/
