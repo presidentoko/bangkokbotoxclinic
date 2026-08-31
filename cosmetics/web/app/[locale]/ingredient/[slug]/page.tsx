@@ -14,6 +14,7 @@ import { STATIC_LOCALES, localeAlternates, localeOgImage, t, concernLabel, SAFET
 import { ingredientLd, faqLd } from "@/lib/schema";
 import { ingredientNarrative } from "@/lib/ingredient-narrative";
 import { JsonLd } from "@/components/JsonLd";
+import { FaqSection } from "@/components/FaqSection";
 import Link from "next/link";
 
 const BASE = "https://bangkokfillers.com";
@@ -93,6 +94,59 @@ export default async function IngredientPage({
   const visibleProds = prods.slice(0, 12);
   const restProds = prods.slice(12, 40);
   const lastVerified = generatedAt().slice(0, 10);
+
+  // Built once, used twice — rendered by <FaqSection> and serialised as
+  // FAQPage JSON-LD. These answers previously existed only in the schema:
+  // structured data describing content the page never showed.
+  const faqs = [
+          {
+            q:
+              isTh && ing.alt_th_names && ing.alt_th_names.length > 0
+                ? `${name} (หรือ ${ing.alt_th_names.join(", ")}) คืออะไร`
+                : isTh
+                  ? `${name} คืออะไร`
+                  : `What is ${name}?`,
+            a: narrative.join(" "),
+          },
+          ...(ing.safety_flags?.length > 0 ? [{
+            q: isTh ? `${name} มีข้อควรระวังอะไรบ้าง` : `What are the safety concerns with ${name}?`,
+            a: isTh
+              ? ing.safety_flags.map((f) => SAFETY_FLAG_LABELS[f]?.th ?? f).join(" ")
+              : ing.safety_flags.map((f) => SAFETY_FLAG_LABELS[f]?.en ?? f).join(" "),
+          }] : []),
+          ...(comboGood || comboAvoid ? [{
+            q: isTh ? `${name} ใช้ร่วมกับส่วนผสมอื่นได้ไหม` : `Can ${name} be combined with other ingredients?`,
+            a: [comboGood, comboAvoid].filter(Boolean).join(" "),
+          }] : []),
+          ...(ing.typical_pct && ing.typical_pct !== "n/a" ? [{
+            q: isTh
+              ? `ควรใช้ ${name} ความเข้มข้นเท่าไหร่`
+              : `What concentration of ${name} should I use?`,
+            a: isTh
+              ? `ความเข้มข้นที่แนะนำสำหรับ ${name} คือ ${ing.typical_pct} — ดูฉลากผลิตภัณฑ์และค่อยๆ เพิ่มความเข้มข้นเพื่อลดโอกาสระคายเคือง`
+              : `The typical effective concentration for ${name} is ${ing.typical_pct}. Check the product label and increase gradually to minimise irritation.`,
+          }] : []),
+          ...(concernNames.length > 0 ? [{
+            q: isTh
+              ? `${name} เหมาะกับปัญหาผิวอะไร`
+              : `What skin concerns does ${name} help with?`,
+            a: isTh
+              ? `${name} เหมาะกับปัญหา: ${concernNames.join(", ")} — พบได้ใน ${prods.length} ผลิตภัณฑ์ในฐานข้อมูล BangkokFillers`
+              : `${name} is effective for: ${concernNames.join(", ")} — found in ${prods.length} products in the BangkokFillers database.`,
+          }] : []),
+          {
+            q: isTh
+              ? `ผลิตภัณฑ์ไหนที่มี ${name}`
+              : `Which products contain ${name}?`,
+            a: isTh
+              ? prods.length > 0
+                ? `มีผลิตภัณฑ์ ${prods.length} รายการในฐานข้อมูล BangkokFillers ที่มี ${name} ได้แก่ ${prods.slice(0,3).map(p => p.name).join(", ")}${prods.length > 3 ? ` และอีก ${prods.length - 3} รายการ` : ""}`
+                : `ยังไม่มีผลิตภัณฑ์ในฐานข้อมูลที่มีส่วนผสมนี้`
+              : prods.length > 0
+                ? `There are ${prods.length} products in the BangkokFillers database containing ${name}, including ${prods.slice(0,3).map(p => p.name).join(", ")}${prods.length > 3 ? ` and ${prods.length - 3} more` : ""}.`
+                : `No products in the database currently contain this ingredient.`,
+          },
+        ];
 
   return (
     <article className="prose space-y-8 max-w-3xl overflow-hidden">
@@ -288,57 +342,9 @@ export default async function IngredientPage({
       )}
 
       <JsonLd data={ingredientLd(ing, url, locale)} />
-      <JsonLd
-        data={faqLd([
-          {
-            q:
-              isTh && ing.alt_th_names && ing.alt_th_names.length > 0
-                ? `${name} (หรือ ${ing.alt_th_names.join(", ")}) คืออะไร`
-                : isTh
-                  ? `${name} คืออะไร`
-                  : `What is ${name}?`,
-            a: narrative.join(" "),
-          },
-          ...(ing.safety_flags?.length > 0 ? [{
-            q: isTh ? `${name} มีข้อควรระวังอะไรบ้าง` : `What are the safety concerns with ${name}?`,
-            a: isTh
-              ? ing.safety_flags.map((f) => SAFETY_FLAG_LABELS[f]?.th ?? f).join(" ")
-              : ing.safety_flags.map((f) => SAFETY_FLAG_LABELS[f]?.en ?? f).join(" "),
-          }] : []),
-          ...(comboGood || comboAvoid ? [{
-            q: isTh ? `${name} ใช้ร่วมกับส่วนผสมอื่นได้ไหม` : `Can ${name} be combined with other ingredients?`,
-            a: [comboGood, comboAvoid].filter(Boolean).join(" "),
-          }] : []),
-          ...(ing.typical_pct && ing.typical_pct !== "n/a" ? [{
-            q: isTh
-              ? `ควรใช้ ${name} ความเข้มข้นเท่าไหร่`
-              : `What concentration of ${name} should I use?`,
-            a: isTh
-              ? `ความเข้มข้นที่แนะนำสำหรับ ${name} คือ ${ing.typical_pct} — ดูฉลากผลิตภัณฑ์และค่อยๆ เพิ่มความเข้มข้นเพื่อลดโอกาสระคายเคือง`
-              : `The typical effective concentration for ${name} is ${ing.typical_pct}. Check the product label and increase gradually to minimise irritation.`,
-          }] : []),
-          ...(concernNames.length > 0 ? [{
-            q: isTh
-              ? `${name} เหมาะกับปัญหาผิวอะไร`
-              : `What skin concerns does ${name} help with?`,
-            a: isTh
-              ? `${name} เหมาะกับปัญหา: ${concernNames.join(", ")} — พบได้ใน ${prods.length} ผลิตภัณฑ์ในฐานข้อมูล BangkokFillers`
-              : `${name} is effective for: ${concernNames.join(", ")} — found in ${prods.length} products in the BangkokFillers database.`,
-          }] : []),
-          {
-            q: isTh
-              ? `ผลิตภัณฑ์ไหนที่มี ${name}`
-              : `Which products contain ${name}?`,
-            a: isTh
-              ? prods.length > 0
-                ? `มีผลิตภัณฑ์ ${prods.length} รายการในฐานข้อมูล BangkokFillers ที่มี ${name} ได้แก่ ${prods.slice(0,3).map(p => p.name).join(", ")}${prods.length > 3 ? ` และอีก ${prods.length - 3} รายการ` : ""}`
-                : `ยังไม่มีผลิตภัณฑ์ในฐานข้อมูลที่มีส่วนผสมนี้`
-              : prods.length > 0
-                ? `There are ${prods.length} products in the BangkokFillers database containing ${name}, including ${prods.slice(0,3).map(p => p.name).join(", ")}${prods.length > 3 ? ` and ${prods.length - 3} more` : ""}.`
-                : `No products in the database currently contain this ingredient.`,
-          },
-        ])}
-      />
+      <FaqSection faqs={faqs} locale={locale} />
+
+      <JsonLd data={faqLd(faqs)} />
     </article>
   );
 }
