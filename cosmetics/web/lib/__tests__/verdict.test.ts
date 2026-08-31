@@ -219,3 +219,77 @@ describe("Thai FDA notification", () => {
     expect(a).not.toContain("คงอยู่");
   });
 });
+
+describe("makeup scoring", () => {
+  // build_master_db leaves total_score at 0 for every makeup product and
+  // scores them through makeup_score instead. Reading the concern score
+  // published "0/100" for all 57 of them.
+  const makeup = allProducts().filter((p) => p.makeup_category);
+
+  it("every makeup product really does have a zero concern score", () => {
+    expect(makeup.length).toBeGreaterThan(0);
+    for (const p of makeup) {
+      expect(Object.values(p.total_score ?? {}).every((v) => v === 0)).toBe(true);
+      // 4 of the 57 score 0 as well — each has no reviews at all, which the
+      // verdict reports as "not enough reviews" rather than as a 0/100 rating.
+      if ((p.konvy_review_count ?? 0) > 0) {
+        expect(p.makeup_score ?? 0).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("states the makeup score, not the zero concern score", () => {
+    const p = makeup.find((x) => (x.makeup_score ?? 0) > 0)!;
+    const score = Math.round(p.makeup_score ?? 0);
+    const v = productVerdict(inputFor(p, { isMakeup: true, totalScore: score, actives: [] }));
+    expect(v.buyIf).toContain(`${score}/100`);
+    expect(v.buyIf).not.toContain("0/100");
+  });
+
+  it("does not describe makeup as a skincare product without actives", () => {
+    const v = productVerdict(inputFor(makeup[0], { isMakeup: true, actives: [] }));
+    expect(v.buyIf).toContain("เครื่องสำอางแต่งหน้า");
+  });
+
+  it("drops the concern-fit question for makeup", () => {
+    const input = inputFor(makeup[0], { isMakeup: true, actives: [] });
+    const faqs = productFaqs(input, productVerdict(input), ["ลดเลือนริ้วรอย"]);
+    expect(faqs.some((f) => f.q.includes("เหมาะกับปัญหาผิว"))).toBe(false);
+  });
+});
+
+describe("unscored products", () => {
+  // A score of 0 in this catalogue always comes from having no reviews, never
+  // from a bad rating. Publishing "0/100" would read as a verdict.
+  const unscored = allProducts().filter(
+    (p) =>
+      (p.konvy_review_count ?? 0) === 0 &&
+      (p.makeup_category
+        ? (p.makeup_score ?? 0) === 0
+        : Object.values(p.total_score ?? {}).every((v) => v === 0))
+  );
+
+  it("says there is not enough data instead of scoring zero", () => {
+    expect(unscored.length).toBeGreaterThan(0);
+    const input = inputFor(unscored[0], { totalScore: 0, actives: [] });
+    const v = productVerdict(input);
+    expect(v.buyIf).not.toContain("0/100");
+    expect(v.buyIf).toContain("ยังไม่มีรีวิวมากพอ");
+    const faqs = productFaqs(input, v, []);
+    expect(faqs[0].a).not.toContain("0/100");
+  });
+});
+
+describe("no self-contradicting score claims", () => {
+  it("omits the ingredient score when it is zero but actives were found", () => {
+    // Oral supplements carry zinc/vitamin C (credited with acne evidence in the
+    // ingredient DB) while ingredient_score[acne] is 0, which produced
+    // "contains evidence-backed actives ... and scores 0/100 on ingredients".
+    const p = allProducts()[0];
+    const v = productVerdict(inputFor(p, { ingredientScore: 0 }));
+    expect(v.buyIf).toContain("สารออกฤทธิ์");
+    expect(v.buyIf).not.toContain("0/100");
+    const withScore = productVerdict(inputFor(p, { ingredientScore: 72 }));
+    expect(withScore.buyIf).toContain("72/100");
+  });
+});

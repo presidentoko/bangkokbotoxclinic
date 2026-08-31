@@ -46,6 +46,8 @@ export interface VerdictInput {
   actives: KeyActive[];
   flagLabels: string[];
   pricePos: PricePos | null;
+  /** Makeup is scored on a different axis — see `isMakeup` handling below. */
+  isMakeup?: boolean;
 }
 
 export interface ProductVerdict {
@@ -74,20 +76,50 @@ export function productVerdict({
   actives,
   flagLabels,
   pricePos,
+  isMakeup,
 }: VerdictInput): ProductVerdict {
   const isTh = locale === "th";
   const cl = concernLabel(locale, concern);
+  // 5 products score 0 — every one of them because it has no reviews yet, not
+  // because it was judged badly. Presenting that as "0/100" reads as a verdict.
+  const scored = totalScore > 0;
   const activeNames = actives
     .slice(0, 3)
     .map((a) => (isTh ? a.th_name : a.en_name))
     .filter(Boolean);
 
   // ── Buy if ──────────────────────────────────────────────────────────────
+  // Makeup never enters a concern ranking: build_master_db leaves total_score
+  // and ingredient_score at zero for all 57 of them and scores them through
+  // makeup_score (reviews + value + an SPF bonus) instead. Reading the concern
+  // score here would tell a shopper a NARS concealer rates 0/100, and framing
+  // it as "a basic product rather than a strong active" misdescribes what
+  // makeup is for.
   let buyIf: string;
-  if (activeNames.length > 0) {
+  if (!scored) {
     buyIf = isTh
-      ? `คุณกำลังมองหาตัวช่วยเรื่อง${cl} — สูตรนี้มี${activeNames.join(", ")} ซึ่งเป็นสารออกฤทธิ์ที่มีหลักฐานรองรับสำหรับปัญหานี้ และได้คะแนนส่วนผสม ${ingredientScore}/100`
-      : `You are shopping for ${cl.toLowerCase()} — this formula contains ${activeNames.join(", ")}, actives with published evidence for that concern, and scores ${ingredientScore}/100 on ingredients`;
+      ? `คุณอยากดูข้อมูลส่วนผสมและราคาก่อนตัดสินใจ — ผลิตภัณฑ์นี้ยังไม่มีรีวิวมากพอที่เราจะให้คะแนนได้`
+      : `You want to read the ingredients and price before deciding — this product does not yet have enough reviews for us to score it`;
+  } else if (isMakeup) {
+    buyIf = isTh
+      ? `คุณกำลังเลือกเครื่องสำอางแต่งหน้า — ตัวนี้ได้ ${totalScore}/100 จากคะแนนรีวิวผู้ใช้จริงและความคุ้มค่าต่อปริมาณ (เครื่องสำอางแต่งหน้าไม่ถูกจัดอันดับด้วยคะแนนส่วนผสมเหมือนสกินแคร์)`
+      : `You are choosing colour cosmetics — this scores ${totalScore}/100 on real user reviews and value per ml (makeup is not ranked on the ingredient score used for skincare)`;
+  } else if (activeNames.length > 0) {
+    // The ingredient score and the actives list can disagree: an oral
+    // supplement carrying zinc and vitamin C reads ingredient_score 0 for acne
+    // while the ingredient DB credits both with acne evidence. Quoting both in
+    // one sentence produced "contains evidence-backed actives ... and scores
+    // 0/100 on ingredients". Only cite the score when it says something.
+    const scoreClause = isTh
+      ? ingredientScore > 0
+        ? ` และได้คะแนนส่วนผสม ${ingredientScore}/100`
+        : ""
+      : ingredientScore > 0
+        ? `, and scores ${ingredientScore}/100 on ingredients`
+        : "";
+    buyIf = isTh
+      ? `คุณกำลังมองหาตัวช่วยเรื่อง${cl} — สูตรนี้มี${activeNames.join(", ")} ซึ่งเป็นสารออกฤทธิ์ที่มีหลักฐานรองรับสำหรับปัญหานี้${scoreClause}`
+      : `You are shopping for ${cl.toLowerCase()} — this formula contains ${activeNames.join(", ")}, actives with published evidence for that concern${scoreClause}`;
   } else {
     buyIf = isTh
       ? `คุณต้องการผลิตภัณฑ์ดูแลผิวพื้นฐานมากกว่าตัวยาออกฤทธิ์แรง — สูตรนี้ได้คะแนนรวม ${totalScore}/100 โดยไม่ได้พึ่งสารออกฤทธิ์เข้มข้น`
@@ -142,7 +174,7 @@ export function productFaqs(
   concernNames: string[],
   fda?: FdaRecord
 ): { q: string; a: string }[] {
-  const { p, locale, totalScore, actives, flagLabels } = input;
+  const { p, locale, totalScore, actives, flagLabels, isMakeup } = input;
   const isTh = locale === "th";
   const name = cleanName(p.name);
   // The Thai spelling belongs in the first question — the one that carries the
@@ -156,9 +188,13 @@ export function productFaqs(
   out.push({
     q: isTh ? `${label} ดีไหม?` : `Is ${name} any good?`,
     a: [
-      isTh
-        ? `${name} ได้คะแนนรวม ${totalScore}/100 จากการให้คะแนนของ BangkokFillers`
-        : `${name} scores ${totalScore}/100 in the BangkokFillers rating`,
+      totalScore > 0
+        ? isTh
+          ? `${name} ได้คะแนนรวม ${totalScore}/100 จากการให้คะแนนของ BangkokFillers`
+          : `${name} scores ${totalScore}/100 in the BangkokFillers rating`
+        : isTh
+          ? `${name} ยังไม่มีรีวิวมากพอให้ BangkokFillers ให้คะแนน`
+          : `${name} does not yet have enough reviews for a BangkokFillers score`,
       isTh ? `ควรซื้อถ้า${verdict.buyIf}` : `Buy it if ${verdict.buyIf}`,
       verdict.skipIf
         ? isTh
@@ -193,8 +229,9 @@ export function productFaqs(
     });
   }
 
-  // 4 — fit
-  if (concernNames.length > 0) {
+  // 4 — fit. Skipped for makeup: concern_seeds carries a leftover value
+  // ("antiaging" on a concealer) that the makeup scorer never acts on.
+  if (concernNames.length > 0 && !isMakeup) {
     out.push({
       q: isTh ? `${name} เหมาะกับปัญหาผิวแบบไหน?` : `What skin concerns is ${name} for?`,
       a: isTh

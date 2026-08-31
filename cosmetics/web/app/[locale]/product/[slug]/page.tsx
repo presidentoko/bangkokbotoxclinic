@@ -75,7 +75,12 @@ export async function generateMetadata({
     Array.isArray(p.concern_seeds)
       ? p.concern_seeds[0]
       : String(p.concern_seeds || "").split("|")[0] || "acne";
-  const totalScoreMeta = Math.round(p.total_score?.[concern] ?? 0);
+  // All 57 makeup products carry total_score 0 across every concern and are
+  // scored through makeup_score instead (see lib/types.ts). Reading the
+  // concern score here published "0/100" for every one of them.
+  const totalScoreMeta = p.makeup_category
+    ? Math.round(p.makeup_score ?? 0)
+    : Math.round(p.total_score?.[concern] ?? 0);
   const priceMeta = p.price_thb ? `฿${Math.round(p.price_thb).toLocaleString()}` : "";
   const alias = thaiAlias(p);
   const cleanedName = cleanName(p.name);
@@ -155,15 +160,32 @@ export async function generateMetadata({
   };
 }
 
+/**
+ * Takes the score already resolved by the caller rather than re-reading
+ * total_score[concern], which is zero for all 57 makeup products and made this
+ * line say "ได้คะแนนรวม 0/100" directly under a badge reading 45.
+ */
 function fallbackSummary(
-  p: { name: string; total_score?: Record<string, number>; konvy_review_count: number },
+  p: { name: string; konvy_review_count: number; makeup_category?: string | null },
   locale: Locale,
-  concern: string
+  score: number
 ) {
-  const sc = (p.total_score?.[concern] ?? 0).toFixed(0);
-  return locale === "th"
-    ? `${p.name} ได้คะแนนรวม ${sc}/100 จากส่วนผสมและรีวิว ${p.konvy_review_count} รายการ`
-    : `${p.name} scores ${sc}/100 from its ingredients and ${p.konvy_review_count} reviews.`;
+  const isTh = locale === "th";
+  if (score <= 0) {
+    return isTh
+      ? `${p.name} ยังไม่มีรีวิวมากพอที่จะให้คะแนน — ดูส่วนผสมและราคาด้านล่าง`
+      : `${p.name} does not yet have enough reviews to score — see the ingredients and price below.`;
+  }
+  const basis = p.makeup_category
+    ? isTh
+      ? "รีวิวผู้ใช้จริงและความคุ้มค่า"
+      : "real user reviews and value"
+    : isTh
+      ? "ส่วนผสมและรีวิว"
+      : "its ingredients and reviews";
+  return isTh
+    ? `${p.name} ได้คะแนนรวม ${score}/100 จาก${basis} ${p.konvy_review_count} รายการ`
+    : `${p.name} scores ${score}/100 from ${basis} across ${p.konvy_review_count} reviews.`;
 }
 
 /* ─────────────────────────────────────────
@@ -907,9 +929,12 @@ export default async function ProductPage({
       : String(p.concern_seeds).split("|")[0]) || "acne";
 
   const baseLoc = toBaseLocale(locale);
-  const summary = p.llm_summary?.[baseLoc] || fallbackSummary(p, baseLoc, concern);
   const pageUrl = `https://bangkokfillers.com/${locale}/product/${slug}`;
-  const totalScore = Math.round(p.total_score?.[concern] ?? 0);
+  const isMakeup = Boolean(p.makeup_category);
+  const totalScore = isMakeup
+    ? Math.round(p.makeup_score ?? 0)
+    : Math.round(p.total_score?.[concern] ?? 0);
+  const summary = p.llm_summary?.[baseLoc] || fallbackSummary(p, baseLoc, totalScore);
   const ingredientScore = Math.round(p.ingredient_score?.[concern] ?? 0);
   const hasDiscount = p.discount_pct > 0;
   const description = typeof p.description === "string" ? p.description.trim() : "";
@@ -941,6 +966,7 @@ export default async function ProductPage({
     actives,
     flagLabels,
     pricePos: pricePosition(p),
+    isMakeup,
   };
   const fda = fdaRecord(p.product_id);
   const verdict = productVerdict(verdictInput);
@@ -1011,9 +1037,12 @@ export default async function ProductPage({
                 <span
                   className={`text-5xl sm:text-6xl font-black tabular-nums leading-none ${scoreColor(totalScore)}`}
                 >
-                  {totalScore}
+                  {/* A 0 here always means "no reviews yet", never "rated zero". */}
+                  {totalScore > 0 ? totalScore : "—"}
                 </span>
-                <span className="text-lg text-neutral-400 font-medium">/100</span>
+                {totalScore > 0 && (
+                  <span className="text-lg text-neutral-400 font-medium">/100</span>
+                )}
               </div>
 
               {/* One-line verdict */}
@@ -1077,22 +1106,39 @@ export default async function ProductPage({
             {locale === "th" ? "รายละเอียดคะแนน" : "Score Breakdown"}
           </h2>
           <div className="rounded-2xl border border-[#efe1db] bg-white px-5 py-4 space-y-4 shadow-sm shadow-rose-100">
+            {/* Makeup is not scored on ingredients — that bar reads a field the
+                makeup scorer leaves at zero, so showing it claimed a 0/100
+                ingredient rating for products that were never rated on it. */}
+            {!isMakeup && (
+              <ScoreBar
+                label={locale === "th" ? "ส่วนผสม · 45%" : "Ingredients · 45%"}
+                value={ingredientScore}
+              />
+            )}
             <ScoreBar
-              label={locale === "th" ? "ส่วนผสม · 45%" : "Ingredients · 45%"}
-              value={ingredientScore}
-            />
-            <ScoreBar
-              label={locale === "th" ? "รีวิว · 45%" : "Reviews · 45%"}
+              label={
+                locale === "th"
+                  ? `รีวิว · ${isMakeup ? "70%" : "45%"}`
+                  : `Reviews · ${isMakeup ? "70%" : "45%"}`
+              }
               value={p.review_score ?? 0}
             />
             <ScoreBar
-              label={locale === "th" ? "คุ้มค่า · 10%" : "Value · 10%"}
+              label={
+                locale === "th"
+                  ? `คุ้มค่า · ${isMakeup ? "30%" : "10%"}`
+                  : `Value · ${isMakeup ? "30%" : "10%"}`
+              }
               value={p.value_score ?? 0}
             />
             <p className="text-xs text-neutral-400 pt-1">
-              {locale === "th"
-                ? "คะแนนรวม = ส่วนผสม×45% + รีวิว×45% + คุ้มค่า×10%"
-                : "Total score = Ingredients×45% + Reviews×45% + Value×10%"}
+              {isMakeup
+                ? locale === "th"
+                  ? "คะแนนเครื่องสำอางแต่งหน้า = รีวิว×70% + คุ้มค่า×30% (+5 ถ้ามีค่า SPF) ไม่ใช้คะแนนส่วนผสมแบบสกินแคร์"
+                  : "Makeup score = Reviews×70% + Value×30%, +5 when the product carries an SPF. It does not use the ingredient score applied to skincare."
+                : locale === "th"
+                  ? "คะแนนรวม = ส่วนผสม×45% + รีวิว×45% + คุ้มค่า×10%"
+                  : "Total score = Ingredients×45% + Reviews×45% + Value×10%"}
             </p>
           </div>
         </section>
