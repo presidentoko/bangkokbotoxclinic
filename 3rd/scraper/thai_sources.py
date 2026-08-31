@@ -42,6 +42,7 @@ import json
 import re
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 
 UA = (
@@ -126,8 +127,25 @@ def _get(url: str) -> str:
 
 # Only https images are kept: the pages that show them are https, and a http
 # thumbnail would be blocked as mixed content rather than merely ugly.
+#
+# The path is percent-encoded on the way in. These shops upload files named in
+# Thai, so six of the 228 image URLs carry raw UTF-8 — one of them an emoji:
+#
+#     .../Chanel-19-Size-26-Lambskin-Microchip-Full-Set-🇹🇭-1-300x300.jpg
+#     .../Classic-10-Caviar-GHW-Microchip-Full-Set-มีใบตรวจเลข-1-2-300x300.jpg
+#
+# Browsers encode those themselves, so they render; anything else fetching the
+# page — a crawler, a proxy, an image indexer — is not guaranteed to, and these
+# are the only photographs the site has. `safe='/%'` keeps path separators and
+# leaves any escape the shop already wrote alone rather than encoding its %.
 def _https(url: object) -> str:
-    return url if isinstance(url, str) and url.startswith('https://') else ''
+    if not isinstance(url, str) or not url.startswith('https://'):
+        return ''
+    parts = urllib.parse.urlsplit(url)
+    return urllib.parse.urlunsplit(
+        (parts.scheme, parts.netloc, urllib.parse.quote(parts.path, safe='/%'),
+         parts.query, parts.fragment)
+    )
 
 
 def _woo_image(product: dict) -> str:

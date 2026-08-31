@@ -5,7 +5,8 @@
     python 3rd/scraper/thai_market.py --write    # write the data files
     python 3rd/scraper/thai_market.py --write --ship   # ...then commit + deploy
 
-Run weekly. The whole sweep is about 30 HTTP requests.
+Run weekly. About 30 catalogue requests, plus one HEAD per published listing
+photograph — roughly 260 requests in total, spread one second apart.
 
 Output is two files:
 
@@ -24,6 +25,8 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
@@ -45,7 +48,7 @@ from thai_match import (  # noqa: E402
     variant_listings,
 )
 from thai_vocab import vocabulary  # noqa: E402
-from thai_sources import fetch_all  # noqa: E402
+from thai_sources import UA, fetch_all  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / 'data' / 'items_db.json'
@@ -180,6 +183,57 @@ def build(items: list[dict], listings: list[dict]) -> dict:
     return {'items': by_item, 'brands': by_brand, 'vocabulary': vocab}
 
 
+def verify_images(built: dict) -> int:
+    """Drop listing photographs that no longer load. Returns how many went.
+
+    These are the only pictures on the site, so a broken one costs more than a
+    missing one: the reason they are here at all is to let somebody who saw a
+    bag on TikTok confirm it is the same bag, and a browser's broken-image icon
+    beside a price does the opposite. The panel already renders a plain tile
+    when there is no photograph, which is the honest fallback.
+
+    Seven of 228 published URLs were dead on 2026-08-31 — a shop had deleted
+    the media while its product records still pointed at it. Not a resizing
+    artefact: the full-size originals were gone too, so there is nothing to
+    fall back to and the only correct move is to publish no photograph.
+
+    This is a HEAD per published image, roughly 230 of them, once a week. It is
+    the largest part of the sweep's request budget and it is worth it.
+    """
+    urls = sorted({
+        l['image']
+        for entry in built['items'].values()
+        for l in entry['listings']
+        if l.get('image')
+    })
+    if not urls:
+        return 0
+
+    def alive(url: str) -> tuple[str, bool]:
+        req = urllib.request.Request(url, method='HEAD', headers={
+            'User-Agent': UA,
+            # Sent deliberately: a shop reading its logs should see who is
+            # linking to it. See thai_sources.
+            'Referer': 'https://www.chicpreowned.com/',
+        })
+        try:
+            with urllib.request.urlopen(req, timeout=20) as r:
+                return url, r.status == 200 and r.headers.get('Content-Type', '').startswith('image/')
+        except Exception:  # noqa: BLE001 - unreachable is indistinguishable from gone, and both mean "do not show it"
+            return url, False
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        dead = {url for url, ok in pool.map(alive, urls) if not ok}
+
+    if dead:
+        for entry in built['items'].values():
+            for l in entry['listings']:
+                if l.get('image') in dead:
+                    l['image'] = ''
+    print(f'[thai] images: {len(urls) - len(dead)}/{len(urls)} load, dropped {len(dead)}')
+    return len(dead)
+
+
 def update_history(built: dict, today: str) -> dict:
     """Append this run's medians. One point per run, oldest dropped past the cap."""
     if HISTORY_PATH.exists():
@@ -239,6 +293,7 @@ def main() -> int:
         return 1
 
     built = build(items, listings)
+    verify_images(built)
     payload = {
         'generated': today,
         'listing_count': len(listings),
