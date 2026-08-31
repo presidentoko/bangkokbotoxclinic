@@ -15,6 +15,17 @@
 # ASCII only. A previous version used an em dash, which the console wrote in a
 # legacy code page and PowerShell then failed to parse.
 
+# -StartAt picks which city to begin with. Needed because a finished city does
+# not necessarily go quiet: Bangkok kept yielding 4 files a round from a handful
+# of place_ids whose "/" sanitises to a filename the pending check doesn't
+# recognise, and each of those resets the stall counter. Left alone it would
+# have held the queue on a city with 881 of 881 places already collected while
+# Pattaya sat at 5 of 1,137.
+param(
+    [ValidateSet("Bangkok", "Pattaya")]
+    [string]$StartAt = "Bangkok"
+)
+
 $ErrorActionPreference = "Continue"
 $base = "C:\Users\yn\Desktop\Work\0_main\deliverable\deliverable"
 $STALL_LIMIT = 3
@@ -67,10 +78,14 @@ function Invoke-City {
 
 Set-Location "$base\bangkok_reviews"
 
-Invoke-City -Label "Bangkok" `
-    -InputCsv "output/restaurants.csv" `
-    -OutDir   "output/photos" `
-    -LogFile  "output/photo.log"
+if ($StartAt -eq "Bangkok") {
+    Invoke-City -Label "Bangkok" `
+        -InputCsv "output/restaurants.csv" `
+        -OutDir   "output/photos" `
+        -LogFile  "output/photo.log"
+} else {
+    Write-Host "=== Skipping Bangkok (-StartAt Pattaya) ==="
+}
 
 Invoke-City -Label "Pattaya" `
     -InputCsv "../pattaya/output/restaurants.csv" `
