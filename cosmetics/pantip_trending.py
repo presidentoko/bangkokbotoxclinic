@@ -131,6 +131,25 @@ def _norm(s: str) -> str:
     return re.sub(r"\s+", " ", (s or "")).strip().lower()
 
 
+_TRAILING_PAREN = re.compile(r"\s*\([^)]*\)\s*$")
+
+
+def match_key(s: str) -> str:
+    """Punctuation-insensitive form used on both sides of a brand lookup.
+
+    Thai posters drop the punctuation a brand puts in its own name: the thread
+    "ใช้Clean clearแล้วสิวเห่อ" is about Clean & Clear, but a literal search for
+    "clean & clear" never finds it. The same gap hides SK-II written "SK II",
+    ACNE-AID as "ACNE AID" and Jula's Herb as "Julas Herb".
+
+    A trailing parenthetical is dropped as well, so "Dr.PONG (Skincare)"
+    reduces to what a poster would actually type.
+    """
+    s = _TRAILING_PAREN.sub("", (s or "").strip())
+    s = re.sub(r"[^0-9a-zA-Zก-๙]+", " ", s.lower())
+    return re.sub(r"\s+", " ", s).strip()
+
+
 def _tokens(s: str) -> set[str]:
     s = re.sub(r"[^a-z0-9ก-๙]+", " ", (s or "").lower())
     return {w for w in s.split() if len(w) > 1}
@@ -146,17 +165,28 @@ def load_catalogue() -> tuple[dict, dict[str, str]]:
 
 
 def build_brand_index(db: dict, brand_th: dict[str, str]) -> dict[str, str]:
-    """Search string -> canonical brand, for both spellings."""
+    """Search string -> canonical brand, for both spellings.
+
+    Keys are punctuation-insensitive (see match_key) and are indexed both with
+    and without spaces, so "SK-II" is found whether a poster writes "SK II" or
+    "SKII". A key two different brands share — "Dr.PONG (Skincare)" and
+    "Dr.PONG (Supplement)" both reduce to "dr pong" — is dropped rather than
+    guessed at; those brands remain reachable by their Thai spelling.
+    """
     idx: dict[str, str] = {}
+    collisions: set[str] = set()
     for p in db["products"].values():
         b = (p.get("brand") or "").strip()
         if not b:
             continue
         th = brand_th.get(b)
         if b not in _AMBIGUOUS_BRANDS:
-            n = _norm(b)
-            if len(n) >= 4:
-                idx[n] = b
+            n = match_key(b)
+            if len(n.replace(" ", "")) >= 4:
+                for k in (n, n.replace(" ", "")):
+                    if idx.get(k, b) != b:
+                        collisions.add(k)
+                    idx[k] = b
         # Thai spellings shorter than five characters are substrings of ordinary
         # words far more often than they are brand mentions: "คีน" (KENE) matched
         # a football thread through "สิวะ", "ศศิ" (SASI) matched the volleyball
@@ -164,6 +194,8 @@ def build_brand_index(db: dict, brand_th: dict[str, str]) -> dict[str, str]:
         if th and _norm(th) not in _AMBIGUOUS_TH and len(_norm(th).replace(" ", "")) >= 5:
             idx[_norm(th)] = b
             idx[_norm(th).replace(" ", "")] = b
+    for k in collisions:
+        idx.pop(k, None)
     return idx
 
 
@@ -297,12 +329,15 @@ def attribute(threads, brand_idx, prod_idx):
     by_brand: dict[str, list[dict]] = defaultdict(list)
     by_product: dict[str, list[dict]] = defaultdict(list)
     for t in threads:
-        blob = _norm(f"{t['title']} {t.get('snippet','')}")
+        raw = f"{t['title']} {t.get('snippet','')}"
+        blob = _norm(raw)
         if not has_cosmetics_context(blob):
             continue                        # right brand, wrong subject
+        keyed = match_key(raw)
+        keyed_nospace = keyed.replace(" ", "")
         blob_toks = _tokens(blob)
         for needle, brand in brand_idx.items():
-            if needle not in blob:
+            if needle not in keyed and needle not in keyed_nospace:
                 continue
             by_brand[brand].append(t)
             for toks, pid in prod_idx.get(brand, []):
