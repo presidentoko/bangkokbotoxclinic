@@ -84,9 +84,22 @@ export function ComparisonCard({
               </svg>
               {seed.ig_signal ?? "Frequently tagged on social"}
             </span>
+            {seed.evidence_quote && (
+              // The receipt. Everything else on this side of the card is our
+              // summary of the feed; this is a diner's own words, unedited.
+              <blockquote className="text-xs text-[var(--fg)] italic border-l-2 border-pink-200 pl-2 mt-1.5">
+                &ldquo;{seed.evidence_quote}&rdquo;
+              </blockquote>
+            )}
             {seed.tag_count !== null && (
               <p className="text-xs text-[var(--muted)] pl-1">
                 {seed.tag_count.toLocaleString()} tagged posts
+              </p>
+            )}
+            {seed.mention_count != null && seed.mention_count > 0 && (
+              <p className="text-xs text-[var(--muted)] pl-1">
+                {seed.mention_count.toLocaleString()} review
+                {seed.mention_count === 1 ? "" : "s"} mention social media or the hype
               </p>
             )}
           </div>

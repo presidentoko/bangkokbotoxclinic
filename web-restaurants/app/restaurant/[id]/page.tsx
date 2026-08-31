@@ -318,9 +318,24 @@ export default async function RestaurantPage(
                     <span aria-hidden>📸</span>
                     {seedMatch.ig_signal}
                   </div>
+                  {seedMatch.evidence_quote && (
+                    // A diner's own sentence, verbatim. "What the feed says"
+                    // is only worth putting next to our data if the reader can
+                    // see who said it and check it.
+                    <blockquote className="text-sm italic border-l-2 border-pink-200 pl-2.5">
+                      &ldquo;{seedMatch.evidence_quote}&rdquo;
+                    </blockquote>
+                  )}
                   {seedMatch.tag_count !== null && (
                     <p className="text-xs text-[var(--muted)] pl-1">
                       {seedMatch.tag_count.toLocaleString()} tagged posts
+                    </p>
+                  )}
+                  {seedMatch.mention_count != null && seedMatch.mention_count > 0 && (
+                    <p className="text-xs text-[var(--muted)] pl-1">
+                      {seedMatch.mention_count.toLocaleString()} review
+                      {seedMatch.mention_count === 1 ? "" : "s"} of this place mention
+                      social media or the hype
                     </p>
                   )}
                 </div>

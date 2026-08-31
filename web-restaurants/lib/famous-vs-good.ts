@@ -18,8 +18,23 @@ export const GAP_THRESHOLD_HIGH = 85;
 // ── Types ─────────────────────────────────────────────────────────────────────
 export type IgSeedEntry = {
   name: string;
+  /** Short chip label. Must stay short — it renders inside a rounded pill. */
   ig_signal: string | null;
+  /**
+   * Count of Instagram posts tagged at the venue. Null for every entry we did
+   * not get from a tagged-post export, which is all of them — do not reuse this
+   * for any other kind of count. It renders literally as "N tagged posts", so a
+   * review-mention count parked here would be published as a false statistic.
+   */
   tag_count: number | null;
+  /**
+   * A reviewer's own sentence, quoted verbatim, for entries derived from the
+   * review corpus (scripts/fvg-derive.mjs). This is what makes the "the feed
+   * says" claim checkable instead of asserted.
+   */
+  evidence_quote?: string | null;
+  /** How many reviews of this venue mention social media or the hype. */
+  mention_count?: number | null;
   place_id: string | null;
   district: string | null;
   city: string;
@@ -172,6 +187,65 @@ export async function loadFamousVsGoodCollection(
 export async function loadAllSlugs(): Promise<string[]> {
   const seeds = await loadIgSeed();
   return Array.from(new Set(seeds.map((s) => s.category)));
+}
+
+// ── Per-category copy ─────────────────────────────────────────────────────────
+//
+// The page used to build its heading by title-casing the slug, which works for
+// "bangkok-cafes" and produces nonsense for anything else ("Social Famous
+// Ranked by Real Data"). It also hard-coded café wording into the FAQ. Both
+// break the moment a category isn't a café list, so each category states its
+// own copy — including how its venues were chosen, which differs by category
+// and is the part a reader is most entitled to know.
+
+export type CategoryMeta = {
+  /** Noun phrase that reads correctly inside a sentence. */
+  label: string;
+  title: string;
+  description: string;
+  /** Answer to "how did these places get on this list?" */
+  selection: string;
+};
+
+const FALLBACK_SELECTION =
+  "A manually curated seed list of venues that appear frequently in Bangkok café content on Instagram. We never invent engagement numbers — we only report what we can verify.";
+
+export const CATEGORY_META: Record<string, CategoryMeta> = {
+  "bangkok-cafes": {
+    label: "Bangkok cafés",
+    title: "Instagram Famous vs Actually Good: Bangkok Cafés Ranked by Real Data",
+    description:
+      "The Bangkok cafés that fill your feed, ranked by Trust Score from verified Google reviews. Which ones hold up, and which are a backdrop with a coffee menu.",
+    selection: FALLBACK_SELECTION,
+  },
+  "social-famous": {
+    label: "restaurants people found through Instagram and TikTok",
+    title: "Found It on TikTok? Here's What the Reviews Actually Say",
+    description:
+      "Restaurants whose own reviewers say they came because of Instagram or TikTok — scored against the Google reviews they earned after everyone arrived.",
+    selection:
+      "These are venues where reviewers say, in their own words, that Instagram or TikTok is why they came, or that the place is somewhere you go to photograph. Every entry shows the sentence it came from. Reviewer self-promotion and the restaurants' own social-media offers are filtered out, and no venue is listed on a count we cannot show you.",
+  },
+  "hype-check": {
+    label: "restaurants reviewers call overrated",
+    title: "Overrated? What the Reviews Say About Bangkok & Pattaya's Hyped Restaurants",
+    description:
+      "Restaurants whose reviewers use the word overrated — checked against the Trust Score their full review history actually supports. Sometimes the crowd is wrong about the crowd.",
+    selection:
+      "These are venues where reviewers themselves say the reputation outran the restaurant — \"not worth the hype\", \"overrated\". Every entry shows the sentence it came from. A minority opinion is not a verdict, which is why each venue is still scored on its whole review history rather than on the complaint.",
+  },
+};
+
+export function getCategoryMeta(slug: string): CategoryMeta {
+  const known = CATEGORY_META[slug];
+  if (known) return known;
+  const label = slug.replace(/-/g, " ");
+  return {
+    label,
+    title: `Instagram Famous vs Actually Good: ${label} Ranked by Real Data`,
+    description: `${label} that trend on social media, ranked by Trust Score from verified Google reviews.`,
+    selection: FALLBACK_SELECTION,
+  };
 }
 
 // ── Hidden gems ────────────────────────────────────────────────────────────────

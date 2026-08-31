@@ -9,7 +9,8 @@
     "lint": "next lint",
     "verdict:audit": "node scripts/verdict-audit.mjs",
     "fvg:audit": "node scripts/fvg-audit.mjs",
-    "fvg:ingest": "node scripts/fvg-ingest.mjs"
+    "fvg:ingest": "node scripts/fvg-ingest.mjs",
+    "fvg:derive": "node scripts/fvg-derive.mjs"
   },
   "dependencies": {
     "@upstash/redis": "^1.38.0",

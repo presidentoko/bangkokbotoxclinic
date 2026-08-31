@@ -5,6 +5,7 @@ import {
   loadAllSlugs,
   loadHiddenGems,
   GAP_THRESHOLD_HIGH,
+  getCategoryMeta,
 } from "@/lib/famous-vs-good";
 import { GapList } from "@/components/GapList";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -22,23 +23,21 @@ export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
   const { slug } = await params;
-  const label = slug
-    .replace(/-/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  const meta = getCategoryMeta(slug);
   return {
-    title: `Instagram Famous vs Actually Good: ${label} Ranked by Real Data (2026)`,
-    description: `We analyzed ${label} that trend on Instagram and ranked them by Trust Score from verified Google reviews. Find out which are overrated and which actually deliver — based on real data, not sponsored posts.`,
+    title: meta.title,
+    description: meta.description,
     alternates: { canonical: `/famous-vs-good/${slug}` },
     openGraph: {
-      title: `Instagram Famous vs Actually Good: ${label}`,
-      description: `Social buzz vs real review credibility. ${label} ranked by Trust Score from Google review analysis.`,
+      title: meta.title,
+      description: meta.description,
       url: `/famous-vs-good/${slug}`,
       type: "article",
     },
     twitter: {
       card: "summary_large_image",
-      title: `Instagram Famous vs Actually Good: ${label}`,
-      description: `Social hype vs verified review data. ${label} ranked by Trust Score — no influencer fluff.`,
+      title: meta.title,
+      description: meta.description,
     },
   };
 }
@@ -68,9 +67,8 @@ export default async function FamousVsGoodSlugPage(
   const M = belowThreshold.length;
   const X = Math.round(thresholds.bigGapThreshold);
 
-  const label = slug
-    .replace(/-/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  const meta = getCategoryMeta(slug);
+  const label = meta.label;
 
   const itemListItems = matched.map((e) => ({
     name: e.restaurant!.name,
@@ -80,16 +78,16 @@ export default async function FamousVsGoodSlugPage(
   // Fix 2: FAQ JSON-LD text uses real N, M, X values so schema and visible text match
   const FAQS = [
     {
-      q: "Are Bangkok's Instagram-famous cafés actually good?",
-      a: `Of ${N} ${label.toLowerCase()} we analyzed, ${M} score below ${X} on SNS Stopper's Trust Score — derived from ${totalReviews.toLocaleString()} verified Google reviews. Some hold up; many don't.`,
+      q: `Are these ${label} actually good?`,
+      a: `Of the ${N} we analysed, ${M} score below ${X} on SNS Stopper's Trust Score — derived from ${totalReviews.toLocaleString()} verified Google reviews. Some hold up; many don't.`,
     },
     {
       q: "What is a Trust Score?",
       a: "Trust Score (0–100) combines Google rating (50%), review volume log-scaled (40%), Local Guide reviewer ratio (10%), and reviewer authority (5%). It measures how statistically reliable a restaurant's reputation is — not just how high the star rating is.",
     },
     {
-      q: "How do you determine if a café is Instagram-famous?",
-      a: "Phase 1 uses a manually curated seed list of venues that appear frequently in Bangkok café Instagram content. Phase 2 integrates Outscraper Instagram data for tagged-post counts. We never invent engagement numbers — only report what we can verify.",
+      q: "How did these places get on this list?",
+      a: meta.selection,
     },
     {
       q: "How fresh is the data?",

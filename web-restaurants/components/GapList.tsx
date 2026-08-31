@@ -7,7 +7,7 @@ import { ComparisonCard } from "@/components/ComparisonCard";
 
 const INITIAL_SHOW = 20;
 
-type Tab = "biggest_gaps" | "holds_up" | "hidden_gems";
+type Tab = "biggest_gaps" | "holds_up" | "in_between" | "hidden_gems";
 
 function HiddenGemCard({ r, rank }: { r: Restaurant; rank: number }) {
   return (
@@ -88,6 +88,7 @@ export function GapList({
   const [tab, setTab] = useState<Tab>("biggest_gaps");
   const [shownGaps, setShownGaps] = useState(INITIAL_SHOW);
   const [shownHolds, setShownHolds] = useState(INITIAL_SHOW);
+  const [shownBetween, setShownBetween] = useState(INITIAL_SHOW);
   const [shownGems, setShownGems] = useState(INITIAL_SHOW);
 
   const matched = entries.filter((e) => e.restaurant !== null);
@@ -100,10 +101,17 @@ export function GapList({
   const holdsUp = matched
     .filter((e) => e.gap === "holds_up")
     .sort((a, b) => b.restaurant!.trust_score - a.restaurant!.trust_score);
+  // Everything between the two thresholds had no tab at all, so it appeared
+  // nowhere: 18 of 36 venues on one collection, 11 of 21 on another. The page
+  // counted them in its headline stat and then never showed them.
+  const inBetween = matched
+    .filter((e) => e.gap === "decent")
+    .sort((a, b) => b.restaurant!.trust_score - a.restaurant!.trust_score);
 
   const tabs: { id: Tab; label: string; count: number }[] = [
     { id: "biggest_gaps", label: "Biggest gaps", count: bigGaps.length },
     { id: "holds_up", label: "Hype that holds up", count: holdsUp.length },
+    { id: "in_between", label: "In between", count: inBetween.length },
     { id: "hidden_gems", label: "Hidden gems", count: hiddenGems.length },
   ];
 
@@ -129,7 +137,11 @@ export function GapList({
         ))}
       </div>
 
-      {tab === "biggest_gaps" && (
+      {/* Every panel is rendered and hidden with an attribute rather than
+          swapped in and out of the tree. Conditional rendering left only the
+          active tab in the prerendered HTML, so a collection of 36 venues
+          shipped 5 of them to a crawler and hid the rest behind a click. */}
+      <div hidden={tab !== "biggest_gaps"}>
         <div className="grid gap-4 sm:grid-cols-2">
           {bigGaps.length === 0 ? (
             <div className="col-span-2 bg-white border border-[var(--border)] rounded-xl p-6 text-center">
@@ -153,9 +165,9 @@ export function GapList({
             </>
           )}
         </div>
-      )}
+      </div>
 
-      {tab === "holds_up" && (
+      <div hidden={tab !== "holds_up"}>
         <div className="grid gap-4 sm:grid-cols-2">
           {holdsUp.length === 0 ? (
             <p className="text-[var(--muted)] col-span-2">No &quot;holds up&quot; entries found.</p>
@@ -172,12 +184,37 @@ export function GapList({
             </>
           )}
         </div>
-      )}
+      </div>
 
-      {tab === "hidden_gems" && (
+      <div hidden={tab !== "in_between"}>
+        <p className="text-sm text-[var(--muted)] mb-4">
+          Neither a let-down nor a standout. These score between{" "}
+          {Math.round(thresholds.bigGapThreshold)} and{" "}
+          {Math.round(thresholds.holdsUpThreshold)} — good enough to be worth your
+          time, not so good that the queue is the point.
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {inBetween.length === 0 ? (
+            <p className="text-[var(--muted)] col-span-2">Nothing lands in between here.</p>
+          ) : (
+            <>
+              {inBetween.slice(0, shownBetween).map((e, i) => (
+                <ComparisonCard key={e.seed.name} entry={e} rank={i + 1} />
+              ))}
+              <ShowMore
+                shown={shownBetween}
+                total={inBetween.length}
+                onShow={() => setShownBetween((n) => n + INITIAL_SHOW)}
+              />
+            </>
+          )}
+        </div>
+      </div>
+
+      <div hidden={tab !== "hidden_gems"}>
         <div>
           <p className="text-sm text-[var(--muted)] mb-4">
-            These Bangkok cafés score {hiddenGemThreshold}+ on Trust Score but rarely appear on your social feed.
+            These score {hiddenGemThreshold}+ on Trust Score but rarely appear on your social feed.
           </p>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {hiddenGems.length === 0 ? (
@@ -196,7 +233,7 @@ export function GapList({
             )}
           </div>
         </div>
-      )}
+      </div>
     </section>
   );
 }
