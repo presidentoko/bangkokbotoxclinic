@@ -27,8 +27,13 @@ Products the matcher cannot resolve are simply absent from the output, and the
 site shows nothing for them. Absence here means "we could not confirm", never
 "unregistered", and the UI must not imply otherwise.
 
-Known limit: the service returns at most 1,000 rows per query, so very large
-brands may be truncated. That costs recall only.
+The service returns at most 1,000 rows per query, and the search is a
+case-insensitive substring match on the notified name. A brand as large as
+Eucerin or NIVEA therefore comes back truncated, silently hiding records — the
+first pass found nothing at all for Smooth E, yet querying "BABYFACE FOAM"
+returns SMOOTH E BABYFACE FOAM immediately. So a second pass re-queries each
+still-unmatched product with contiguous word windows drawn from its own name,
+which slips under the cap.
 
 Re-run after a master_db refresh:  python scripts/build_fda_registry.py
 """
@@ -138,6 +143,39 @@ def match(name, rows):
     return (rs[0], len(rs)), "ok"
 
 
+
+def windows(name, limit=3):
+    """Contiguous word windows from a product name, longest first.
+
+    The FDA search is a substring match, so a window has to be words that sit
+    next to each other in the notified title. Volumes, pack counts and the
+    listing's own artefacts are stripped first, and the brand word is skipped
+    as a starting point because a bare brand is what already hit the row cap.
+    """
+    n = re.sub(r"\([^)]*\)", " ", (name or ""))
+    n = re.sub(r"\[[^\]]*\]", " ", n)
+    n = NOISE.sub(" ", n)
+    words = [w for w in re.split(r"[^A-Za-z0-9+]+", n) if w and not w.isdigit()]
+    out = []
+    for size in (4, 3, 2):
+        for i in range(1, max(1, len(words) - size + 1)):
+            w = words[i:i + size]
+            if len(w) < size:
+                continue
+            if all(x.lower() in GENERIC for x in w):
+                continue
+            out.append(" ".join(w))
+    seen, uniq = set(), []
+    for w in out:
+        k = w.lower()
+        if k not in seen:
+            seen.add(k)
+            uniq.append(w)
+        if len(uniq) >= limit:
+            break
+    return uniq
+
+
 def main():
     db = json.load(open(DB, encoding="utf-8"))
     prods = db["products"]
@@ -159,6 +197,22 @@ def main():
             truncated.append(brand)
         for pid, p in items:
             res, why = match(p["name"], rows)
+            if not res:
+                # Second pass: the brand query may have been truncated at the
+                # 1,000-row cap. Re-ask with windows taken from this product's
+                # own name, which returns a much smaller result set.
+                extra = []
+                for w in windows(p["name"]):
+                    try:
+                        extra.extend(parse(fetch(w)))
+                    except (urllib.error.URLError, TimeoutError, OSError):
+                        continue
+                if extra:
+                    res2, why2 = match(p["name"], rows + extra)
+                    if res2:
+                        res, why = res2, "ok-window"
+                    else:
+                        why = why2
             reasons[why] += 1
             if not res:
                 continue
