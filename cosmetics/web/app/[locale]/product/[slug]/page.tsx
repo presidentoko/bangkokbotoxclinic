@@ -10,10 +10,15 @@ import {
   similarProducts,
   keyIngredients,
   cheaperAlternatives,
+  pricePosition,
+  CONCERNS,
 } from "@/lib/data";
-import { STATIC_LOCALES, thaiOnlyAlternates, t, toBaseLocale, type Locale } from "@/lib/i18n";
-import { productLd, breadcrumbLd } from "@/lib/schema";
+import { STATIC_LOCALES, thaiOnlyAlternates, t, toBaseLocale, concernLabel, type Locale } from "@/lib/i18n";
+import { productLd, breadcrumbLd, faqLd } from "@/lib/schema";
+import { thaiAlias } from "@/lib/thai-names";
+import { productVerdict, productFaqs, cleanName } from "@/lib/product-verdict";
 import { JsonLd } from "@/components/JsonLd";
+import { FaqSection } from "@/components/FaqSection";
 import { AdvertiseCta } from "@/components/AdvertiseCta";
 import { AffiliateButton } from "@/components/AffiliateButton";
 import { IngredientDecoder } from "@/components/IngredientDecoder";
@@ -70,22 +75,60 @@ export async function generateMetadata({
       ? p.concern_seeds[0]
       : String(p.concern_seeds || "").split("|")[0] || "acne";
   const totalScoreMeta = Math.round(p.total_score?.[concern] ?? 0);
+  const priceMeta = p.price_thb ? `฿${Math.round(p.price_thb).toLocaleString()}` : "";
+  const alias = thaiAlias(p);
+  const cleanedName = cleanName(p.name);
+  // The old title led with "รีวิว ส่วนผสม" — words that put the page in direct
+  // competition with Konvy/Shopee/Lazada/Watsons on the bare product-name
+  // query, which a site with no backlink profile cannot win. "ดีไหม" is the
+  // modifier a Thai shopper adds when they are checking a claim before buying,
+  // and no marketplace listing can answer it, so that is the query shape this
+  // page is actually competitive on. The Thai brand spelling rides along
+  // because 987 of 1,003 product names are Latin-only (see lib/thai-names.ts).
   const title =
     locale === "th"
-      ? `${p.name} — รีวิว ส่วนผสม คะแนน ${totalScoreMeta}/100`
-      : `${p.name} — Score ${totalScoreMeta}/100, Reviews & Ingredients`;
-  const rawDesc = typeof p.description === "string" ? p.description.trim() : "";
+      ? [
+          `${cleanedName} ดีไหม?`,
+          alias,
+          "รีวิว Pantip + ส่วนผสม",
+          priceMeta,
+        ]
+          .filter(Boolean)
+          .join(" ")
+      : `${cleanedName} — Worth It? Score ${totalScoreMeta}/100, Reviews & Ingredients`;
   // Key active ingredient for this concern (first one with efficacy > 0)
   const keyActive = p.ingredient_analysis?.find(
     (a: { concern_efficacy?: Record<string, number>; inci: string }) =>
       (a.concern_efficacy?.[concern] ?? 0) > 0
   )?.inci ?? "";
-  const priceStr = p.price_thb ? `฿${Math.round(p.price_thb).toLocaleString()}` : "";
-  const description = rawDesc
-    ? rawDesc.slice(0, 155)
-    : locale === "th"
-      ? `${p.name}${priceStr ? ` (${priceStr})` : ""} ได้คะแนน ${totalScoreMeta}/100 จากส่วนผสม${keyActive ? ` (${keyActive})` : ""} และรีวิว ${p.konvy_review_count} รายการ`
-      : `${p.name}${priceStr ? ` (${priceStr})` : ""} scores ${totalScoreMeta}/100${keyActive ? ` · Key active: ${keyActive}` : ""}. Based on ${p.konvy_review_count} real reviews.`;
+  const priceStr = priceMeta;
+  // The description used to be `rawDesc.slice(0, 155)` — the manufacturer's own
+  // marketing blurb, i.e. the exact copy every marketplace listing already
+  // shows. As a search snippet it gave a shopper no reason to pick us over
+  // Konvy. Lead with what only this page has (an independent score, the flag
+  // check, the Pantip count) and keep the vendor blurb as the tail.
+  const mentions = p.pantip?.mention_count ?? 0;
+  const description =
+    locale === "th"
+      ? [
+          `${cleanedName}${alias ? ` (${alias})` : ""} ดีไหม?`,
+          `คะแนนอิสระ ${totalScoreMeta}/100 จากส่วนผสม${keyActive ? ` (${keyActive})` : ""}`,
+          `รีวิว ${p.konvy_review_count.toLocaleString()} รายการ`,
+          mentions > 0 ? `${mentions} ความเห็นจาก Pantip` : "",
+          priceStr,
+        ]
+          .filter(Boolean)
+          .join(" · ")
+          .slice(0, 158)
+      : [
+          `Is ${cleanedName} worth it?`,
+          `Independent score ${totalScoreMeta}/100${keyActive ? ` · Key active: ${keyActive}` : ""}`,
+          `${p.konvy_review_count.toLocaleString()} reviews`,
+          priceStr,
+        ]
+          .filter(Boolean)
+          .join(" · ")
+          .slice(0, 158);
   // The English page reuses the (Thai-language) `p.description` body copy verbatim
   // whenever no `llm_summary.en` exists — which is every product today — making
   // /en/product/* near-duplicates of /th/product/*. Keep them crawlable (so the
@@ -440,6 +483,26 @@ const FLAG_COPY: Record<
   },
 };
 
+/** Unique caution flags across the formula, keyed flag → contributing INCIs.
+ *  Shared so the verdict block, the FAQ answers and the Heads-up chips can
+ *  never disagree about what was flagged. */
+function collectFlags(
+  p: { ingredient_analysis: { inci: string; safety_flags: string[] }[] },
+  concern: string
+): Map<string, string[]> {
+  const flagMap = new Map<string, string[]>();
+  for (const a of p.ingredient_analysis) {
+    for (const f of a.safety_flags) {
+      // concern-aware: only show comedogenic for acne products
+      if (f === "comedogenic" && concern !== "acne") continue;
+      if (!(f in FLAG_COPY)) continue;
+      if (!flagMap.has(f)) flagMap.set(f, []);
+      flagMap.get(f)!.push(a.inci);
+    }
+  }
+  return flagMap;
+}
+
 function HeadsUpModule({
   p,
   concern,
@@ -449,19 +512,7 @@ function HeadsUpModule({
   concern: string;
   locale: Locale;
 }) {
-  // Collect unique flags across all ingredients
-  const flagMap = new Map<string, string[]>(); // flag → [inci, ...]
-  for (const a of p.ingredient_analysis) {
-    for (const f of a.safety_flags) {
-      const known = Object.keys(FLAG_COPY);
-      // concern-aware: only show comedogenic for acne products
-      if (f === "comedogenic" && concern !== "acne") continue;
-      if (known.includes(f)) {
-        if (!flagMap.has(f)) flagMap.set(f, []);
-        flagMap.get(f)!.push(a.inci);
-      }
-    }
-  }
+  const flagMap = collectFlags(p, concern);
 
   if (flagMap.size === 0) {
     // Show a soft positive note
@@ -507,6 +558,64 @@ function HeadsUpModule({
           .map(([flag, incis]) => `${locale === "th" ? FLAG_COPY[flag].th : FLAG_COPY[flag].en}: ${incis.join(", ")}`)
           .join(" · ")}
       </p>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────
+   MODULE 0b — Should you buy it?
+   The page's answer to "<product> ดีไหม", stated before any of the
+   supporting detail. Placed directly under the verdict card so the answer
+   is above the fold on a phone.
+───────────────────────────────────────── */
+function ShouldYouBuyModule({
+  name,
+  verdict,
+  locale,
+}: {
+  name: string;
+  verdict: { buyIf: string; skipIf: string | null; priceNote: string | null };
+  locale: Locale;
+}) {
+  const isTh = locale === "th";
+  return (
+    <section className="space-y-3">
+      <h2 className="font-serif-display text-lg font-semibold text-neutral-800">
+        {isTh ? `${name} ดีไหม? สรุปสั้น ๆ` : `Is ${name} worth it? The short answer`}
+      </h2>
+      <div className="rounded-2xl border border-[#efe1db] bg-white shadow-sm shadow-rose-100 divide-y divide-[#f5ebe7]">
+        <div className="flex gap-3 px-5 py-4">
+          <span aria-hidden="true" className="text-emerald-600 shrink-0">✓</span>
+          <p className="text-sm text-neutral-700 leading-relaxed">
+            <span className="font-semibold text-neutral-900">
+              {isTh ? "ควรซื้อถ้า " : "Buy it if "}
+            </span>
+            {verdict.buyIf}
+          </p>
+        </div>
+        {verdict.skipIf && (
+          <div className="flex gap-3 px-5 py-4">
+            <span aria-hidden="true" className="text-amber-600 shrink-0">⚠</span>
+            <p className="text-sm text-neutral-700 leading-relaxed">
+              <span className="font-semibold text-neutral-900">
+                {isTh ? "ข้ามไปถ้า " : "Skip it if "}
+              </span>
+              {verdict.skipIf}
+            </p>
+          </div>
+        )}
+        {verdict.priceNote && (
+          <div className="flex gap-3 px-5 py-4">
+            <span aria-hidden="true" className="text-[#c9a86a] shrink-0">฿</span>
+            <p className="text-sm text-neutral-700 leading-relaxed">
+              <span className="font-semibold text-neutral-900">
+                {isTh ? "ราคาเทียบตลาด " : "Price vs the market "}
+              </span>
+              {verdict.priceNote}
+            </p>
+          </div>
+        )}
+      </div>
     </section>
   );
 }
@@ -734,6 +843,37 @@ export default async function ProductPage({
   const hasDiscount = p.discount_pct > 0;
   const description = typeof p.description === "string" ? p.description.trim() : "";
 
+  // ── "Should you buy it?" — the answer to "<product> ดีไหม" ──────────────
+  const alias = baseLoc === "th" ? thaiAlias(p) : undefined;
+  const actives = keyIngredients(p, concern, 3);
+  const flagLabels = Array.from(collectFlags(p, concern).keys()).map((f) =>
+    baseLoc === "th" ? FLAG_COPY[f].th : FLAG_COPY[f].en
+  );
+  // The concerns this product is actually catalogued under — `concern_seeds`,
+  // the same field the page's primary `concern` is taken from. Deriving them
+  // from total_score instead would list every concern the scorer happened to
+  // emit a non-zero number for, which is most of them.
+  const concernNames = (
+    Array.isArray(p.concern_seeds)
+      ? p.concern_seeds
+      : String(p.concern_seeds ?? "").split("|")
+  )
+    .map((c) => c.trim())
+    .filter((c) => CONCERNS.includes(c as (typeof CONCERNS)[number]))
+    .map((c) => concernLabel(baseLoc, c));
+  const verdictInput = {
+    p,
+    locale: baseLoc,
+    concern,
+    totalScore,
+    ingredientScore,
+    actives,
+    flagLabels,
+    pricePos: pricePosition(p),
+  };
+  const verdict = productVerdict(verdictInput);
+  const faqs = productFaqs(verdictInput, verdict, concernNames);
+
   return (
     <>
       {/* ── Main content — bottom-padding on mobile to clear sticky bar ── */}
@@ -772,6 +912,15 @@ export default async function ProductPage({
               <h1 className="font-serif-display text-2xl sm:text-3xl font-semibold text-neutral-900 leading-snug">
                 {p.name}
               </h1>
+
+              {/* Thai spelling. 987 of 1,003 product names are Latin-only, so
+                  without this line a shopper searching "นาทูรี่ ดีไหม" after
+                  seeing the product in a Thai clip has nothing to match. */}
+              {alias && (
+                <p className="text-sm text-[#8a7a76]">
+                  {locale === "th" ? `หรือที่เรียกกันว่า ${alias}` : alias}
+                </p>
+              )}
 
               {/* Favorite button */}
               <FavoriteButton
@@ -837,6 +986,11 @@ export default async function ProductPage({
             )}
           </div>
         </div>
+
+        {/* ══════════════════════════════════════
+            MODULE 0b — SHOULD YOU BUY IT?
+        ══════════════════════════════════════ */}
+        <ShouldYouBuyModule name={cleanName(p.name)} verdict={verdict} locale={locale} />
 
         {/* ══════════════════════════════════════
             SCORE BREAKDOWN
@@ -946,6 +1100,11 @@ export default async function ProductPage({
         <CheaperAlternativesModule p={p} concern={concern} locale={locale} />
 
         {/* ══════════════════════════════════════
+            MODULE 8 — FAQ (mirrors the FAQPage JSON-LD below)
+        ══════════════════════════════════════ */}
+        <FaqSection faqs={faqs} locale={locale} />
+
+        {/* ══════════════════════════════════════
             MODULE 7 — SHARE CARD
         ══════════════════════════════════════ */}
         <ShareCard
@@ -976,6 +1135,9 @@ export default async function ProductPage({
           "url": pageUrl,
         }} />
         <JsonLd data={productLd(p, pageUrl)} />
+        {/* Same `faqs` array the FaqModule above renders — the answers are on
+            the page, which is what FAQPage requires. */}
+        {faqs.length > 0 && <JsonLd data={faqLd(faqs)} />}
         <JsonLd data={breadcrumbLd([
           { name: "BangkokFillers", url: `https://bangkokfillers.com/${locale}` },
           { name: concern.charAt(0).toUpperCase() + concern.slice(1), url: `https://bangkokfillers.com/${locale}/${concern}` },

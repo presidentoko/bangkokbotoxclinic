@@ -3,6 +3,7 @@ import ingredientDb from "@/data/ingredient_db.json";
 import type { MasterDb, Product, RankingEntry, IngredientEntry } from "./types";
 import { slugify, productSlug, productIdFromSlug } from "./format";
 import { CONCERNS, type Concern } from "./quiz-config";
+import { productTypeKey } from "./thai-names";
 
 const db = master as unknown as MasterDb;
 const ingDb = ingredientDb as unknown as Record<string, IngredientEntry>;
@@ -171,6 +172,75 @@ export function pantipMentionsForIngredient(
 // concern_efficacy scores each concern 0-3; 0 means "not effective for this",
 // not "unknown" or "applicable" — callers must filter it out, not just take
 // every key, or they'll assert efficacy the data explicitly says is zero.
+// ---------------------------------------------------------------------------
+// Price position — how this product's ฿/ml compares to others of the same form
+// ---------------------------------------------------------------------------
+
+/** "30ml" | "100 g" | "2pcs" -> millilitres (grams treated as ml). */
+export function parseVolumeMl(volume: string | undefined): number | null {
+  if (!volume) return null;
+  const m = /([\d.]+)\s*(ml|g)\b/i.exec(volume);
+  if (!m) return null;
+  const n = parseFloat(m[1]);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+export function pricePerMl(p: Product): number | null {
+  const ml = parseVolumeMl(p.volume);
+  if (!ml || !p.price_thb) return null;
+  return p.price_thb / ml;
+}
+
+let peerCache: Map<string, number[]> | null = null;
+
+function peerPricesPerMl(typeKey: string): number[] {
+  if (!peerCache) {
+    peerCache = new Map();
+    for (const q of allProducts()) {
+      const k = productTypeKey(q.name);
+      const v = pricePerMl(q);
+      if (!k || v === null) continue;
+      const arr = peerCache.get(k);
+      if (arr) arr.push(v);
+      else peerCache.set(k, [v]);
+    }
+    for (const arr of peerCache.values()) arr.sort((a, b) => a - b);
+  }
+  return peerCache.get(typeKey) ?? [];
+}
+
+/**
+ * Where this product sits on price among products of the *same form*.
+ *
+ * The peer group is per form on purpose. An earlier ranking compared every
+ * product against one catalogue-wide ฿/ml median, which is how a 400ml body
+ * lotion ended up beating serums on "value" — a 400ml tub is always cheaper
+ * per ml than a 30ml serum without being better value at all.
+ *
+ * Returns null when the volume is unparseable (68 products carry no volume) or
+ * when the form has too few peers for a median to mean anything.
+ */
+export function pricePosition(p: Product): {
+  perMl: number;
+  medianPerMl: number;
+  cheaperThanPct: number;
+  peerCount: number;
+} | null {
+  const key = productTypeKey(p.name);
+  const perMl = pricePerMl(p);
+  if (!key || perMl === null) return null;
+  const peers = peerPricesPerMl(key);
+  if (peers.length < 8) return null;
+  const median = peers[Math.floor(peers.length / 2)];
+  const cheaperThan = peers.filter((v) => v > perMl).length;
+  return {
+    perMl,
+    medianPerMl: median,
+    cheaperThanPct: Math.round((cheaperThan / peers.length) * 100),
+    peerCount: peers.length,
+  };
+}
+
 export function effectiveConcerns(concernEfficacy: Record<string, number> | undefined): { concern: Concern; score: number }[] {
   return Object.entries(concernEfficacy ?? {})
     .filter(([c, score]) => score > 0 && CONCERNS.includes(c as Concern))

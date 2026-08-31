@@ -276,9 +276,11 @@ export function howToLd(opts: {
   };
 }
 
-export function brandFaqLd(brand: string, locale: Locale, topProductName: string, topConcern: string) {
+/** Brand-page Q&A. Exported so the page can render the same array it puts in
+ *  JSON-LD — see components/FaqSection. */
+export function brandFaqs(brand: string, locale: Locale, topProductName: string, topConcern: string): { q: string; a: string }[] {
   const isTh = locale === "th";
-  const qas: { q: string; a: string }[] = isTh ? [
+  return isTh ? [
     {
       q: `${brand} ตัวไหนดีที่สุดในไทย`,
       a: `${topProductName} ได้รับคะแนนสูงสุดจากผลิตภัณฑ์ ${brand} ในไทย คำนวณจากส่วนผสม 45% รีวิวจริง 45% และความคุ้มค่า 10%`,
@@ -313,5 +315,8 @@ export function brandFaqLd(brand: string, locale: Locale, topProductName: string
       a: `See the ${brand} brand page on BangkokFillers for products filtered by acne, brightening, anti-aging, pores, oil control, and sensitive skin.`,
     },
   ];
-  return faqLd(qas);
+}
+
+export function brandFaqLd(brand: string, locale: Locale, topProductName: string, topConcern: string) {
+  return faqLd(brandFaqs(brand, locale, topProductName, topConcern));
 }

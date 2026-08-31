@@ -7,7 +7,9 @@ import {
   productSlug, getRanking, type Concern, CONCERNS,
 } from "@/lib/data";
 import { concernLabel, STATIC_LOCALES, localeAlternates, localeOgImage, type Locale } from "@/lib/i18n";
-import { brandFaqLd, breadcrumbLd, itemListLd } from "@/lib/schema";
+import { brandFaqs, brandFaqLd, breadcrumbLd, itemListLd } from "@/lib/schema";
+import { FaqSection } from "@/components/FaqSection";
+import { brandThai } from "@/lib/thai-names";
 import { JsonLd } from "@/components/JsonLd";
 import { AdvertiseCta } from "@/components/AdvertiseCta";
 import { scoreColor, baht } from "@/lib/format";
@@ -33,11 +35,14 @@ export async function generateMetadata({
   if (!brand) return {};
   const isTh = locale === "th";
   const stats = brandStats(brand);
+  // Thai shoppers search the brand in Thai script ("ยูเซอริน ดีไหม"), and the
+  // brand field in master_db is Latin-only. Same gap the product pages had.
+  const brandTh = isTh ? brandThai(brand) : undefined;
   const title = isTh
-    ? `${brand} สกินแคร์ไทย — ${stats.count} ผลิตภัณฑ์ จัดอันดับโดยข้อมูล`
+    ? `${brand}${brandTh ? ` (${brandTh})` : ""} ดีไหม? รีวิว ${stats.count} ผลิตภัณฑ์ จัดอันดับโดยข้อมูล`
     : `${brand} Skincare in Thailand — ${stats.count} products ranked by data`;
   const description = isTh
-    ? `ผลิตภัณฑ์ ${brand} ${stats.count} รายการ จัดอันดับด้วยคะแนนส่วนผสม รีวิวจาก Konvy และ Watsons ราคาตั้งแต่ ${baht(stats.minPrice)}`
+    ? `${brand}${brandTh ? ` หรือ ${brandTh}` : ""} ดีไหม? เราจัดอันดับ ${stats.count} รายการด้วยคะแนนส่วนผสม รีวิวจาก Konvy และ Watsons ราคาตั้งแต่ ${baht(stats.minPrice)}`
     : `${stats.count} ${brand} products ranked by ingredient science, Konvy & Watsons reviews. Prices from ${baht(stats.minPrice)}.`;
   const url = `${BASE}/${locale}/brand/${brandSlugParam}`;
   return {
@@ -101,6 +106,9 @@ export default async function BrandPage({
         <h1 className="font-serif-display text-3xl sm:text-4xl font-semibold text-[#2b2222]">
           {brand}
         </h1>
+        {isTh && brandThai(brand) && (
+          <p className="text-sm text-[#8a7a76]">หรือที่เรียกกันว่า {brandThai(brand)}</p>
+        )}
         <p className="text-neutral-500 text-sm max-w-prose">
           {isTh
             ? `${stats.count} ผลิตภัณฑ์ · คะแนนเฉลี่ย ${Math.round(stats.avgScore)}/100 · ราคา ${baht(stats.minPrice)} – ${baht(stats.maxPrice)}`
@@ -204,6 +212,10 @@ export default async function BrandPage({
           })}
         </div>
       </section>
+
+      {/* These four Q&As were emitted as FAQPage JSON-LD on all 275 brand
+          pages while appearing nowhere in the markup. Render them. */}
+      <FaqSection faqs={brandFaqs(brand, locale, topProduct.name, topConcern)} locale={locale} />
 
       <AdvertiseCta locale={locale} brand={brand} />
 
