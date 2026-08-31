@@ -150,6 +150,17 @@ SITES = {
             "https://www.chicpreowned.com/th/sell/chanel",
             "https://www.chicpreowned.com/th/sell/louis-vuitton",
             "https://www.chicpreowned.com/th/sell/hermes",
+            # Dealer shorthand, defined in Thai. The shops write "Full Set",
+            # "GHW", "Holo", "Classic 10" in English and their buyers search
+            # in Thai — a query with no Thai-language answer anywhere.
+            "https://www.chicpreowned.com/th/dealer-terms",
+            "https://www.chicpreowned.com/en/dealer-terms",
+            # Re-crawl targets: these now carry a price card image and the
+            # dealer's own name for the size in the title.
+            "https://www.chicpreowned.com/th/chanel/classic-flap-medium",
+            "https://www.chicpreowned.com/th/chanel/boy-bag-medium",
+            "https://www.chicpreowned.com/th/chanel/19-bag-small",
+            "https://www.chicpreowned.com/th/rolex/datejust-41",
         ],
     },
 }

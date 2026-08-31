@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og'
-import { getItemBySlug, formatPriceTHB, getAvgPrice } from '@/lib/data'
+import { getItemBySlug, formatPriceTHB } from '@/lib/data'
+import { marketPrice, getThaiAliases, getThaiMeta } from '@/lib/thai-market'
 
 export const runtime = 'nodejs'
 // How often the image may be regenerated. Does not currently affect the
@@ -10,14 +11,61 @@ export const alt = 'ราคา pre-owned luxury ในไทย'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
+/**
+ * The item's price, as a card.
+ *
+ * This is the only picture the site owns. It is the social preview, it is the
+ * `image` on the page's Product schema, and it is rendered on the page itself
+ * — one artefact doing three jobs, which is the only reason a site with no
+ * photography has anything for an image search to find.
+ *
+ * It reads `marketPrice()`, the same function the page headline reads. It used
+ * to read `price_ranges.very_good` instead, which is the Vestiaire figure: the
+ * card for the Classic Flap Medium went out at 196,500 THB while the page it
+ * linked to said 259,000. A share card that contradicts its own page is worse
+ * than no share card, because it is the half that travels.
+ */
 export default async function Image({ params }: { params: Promise<{ locale: string; brand: string; model: string }> }) {
   const { locale, brand, model } = await params
   const item = getItemBySlug(brand, model)
-
-  const vg = item?.price_ranges.very_good
-  const priceText = vg ? formatPriceTHB(getAvgPrice(vg)) : 'ดูราคาในหน้า'
-  const title = item ? `${item.brand} ${item.model}` : 'Pre-Owned Luxury'
   const isTH = locale === 'th'
+
+  if (!item) {
+    return new ImageResponse(
+      (
+        <div style={{ background: '#0a0a0a', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 48, fontFamily: 'sans-serif' }}>
+          chicpreowned.com
+        </div>
+      ),
+      size
+    )
+  }
+
+  const market = marketPrice(item)
+  const aliases = getThaiAliases(item.slug)
+  const { generated } = getThaiMeta()
+  const title = `${item.brand} ${item.model}`
+
+  // The label has to match where the number came from. Calling a converted
+  // dollar figure "the Thai market price" is the exact claim this pipeline
+  // was built to stop the site making.
+  const thai = market?.basis === 'thai'
+  const family = market?.basis === 'thai_family'
+  const kicker = thai
+    ? (isTH ? 'ราคาที่ร้านไทยตั้งขาย' : 'Asking prices at Thai dealers')
+    : family
+      ? (isTH ? `${market?.familyLabel} ทุกขนาด ที่ร้านไทย` : `${market?.familyLabel}, all sizes, Thai dealers`)
+      : (isTH ? 'ราคาตลาดสากล แปลงเป็นบาท' : 'International market, converted to baht')
+
+  const priceText = market ? formatPriceTHB(market.value) : '—'
+  const rangeText = market?.range
+    ? `${formatPriceTHB(market.range.min)} – ${formatPriceTHB(market.range.max)}`
+    : ''
+  const basisText = market
+    ? (thai || family
+        ? (isTH ? `จาก ${market.n} ประกาศจริง · อัปเดต ${generated}` : `${market.n} live listings · updated ${generated}`)
+        : (isTH ? `จาก ${market.n} รายการอ้างอิง` : `${market.n} reference listings`))
+    : ''
 
   return new ImageResponse(
     (
@@ -29,38 +77,57 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          padding: '60px 72px',
+          padding: '56px 72px',
           fontFamily: 'sans-serif',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ color: '#ffffff', fontSize: '20px', fontWeight: 600 }}>
+          <div style={{ display: 'flex', color: '#ffffff', fontSize: '20px', fontWeight: 600 }}>
             chicpreowned.com
           </div>
-          <div style={{ color: '#555', fontSize: '20px' }}>·</div>
-          <div style={{ color: '#888', fontSize: '18px' }}>
+          <div style={{ display: 'flex', color: '#555', fontSize: '20px' }}>·</div>
+          <div style={{ display: 'flex', color: '#888', fontSize: '18px' }}>
             {isTH ? 'ราคาของมือสองในไทย' : 'Pre-Owned Price Guide Thailand'}
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <div style={{ color: '#888', fontSize: '22px', fontWeight: 500 }}>
-            {isTH ? 'มือสอง · สภาพดี' : 'Second-Hand · Very Good Condition'}
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', color: '#B8954A', fontSize: '21px', fontWeight: 500, marginBottom: '14px' }}>
+            {kicker}
           </div>
-          <div style={{ color: '#ffffff', fontSize: '54px', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-1.5px' }}>
-            {isTH ? `${title} มือสอง` : `Used ${title}`}
+          <div style={{ display: 'flex', color: '#ffffff', fontSize: '50px', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-1.5px', marginBottom: '6px' }}>
+            {title}
           </div>
-          <div style={{ color: '#e0e0e0', fontSize: '38px', fontWeight: 500 }}>
-            {priceText}
+
+          {/* The notation the reader is actually holding. Someone who came
+              from a reseller's post knows "Classic 10" and has never seen the
+              words "Classic Flap Medium". */}
+          {aliases.length > 0 && (
+            <div style={{ display: 'flex', color: '#8C8171', fontSize: '22px', marginBottom: '14px' }}>
+              {isTH ? 'ร้านไทยเรียก ' : 'Thai dealers call it '}
+              {aliases.map(a => a.name).join(' / ')}
+            </div>
+          )}
+
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '18px' }}>
+            <div style={{ display: 'flex', color: '#ffffff', fontSize: '58px', fontWeight: 600 }}>
+              {priceText}
+            </div>
+            {rangeText && (
+              <div style={{ display: 'flex', color: '#9C8B7A', fontSize: '26px' }}>
+                {rangeText}
+              </div>
+            )}
           </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div style={{ color: '#555', fontSize: '18px' }}>
-            {isTH ? 'อัปเดตทุกสัปดาห์จากข้อมูลจริง' : 'Updated weekly from live listings'}
+          <div style={{ display: 'flex', color: '#666', fontSize: '18px' }}>
+            {basisText}
           </div>
-          <div style={{ flex: 1 }} />
+          <div style={{ display: 'flex', flex: 1 }} />
           <div style={{
+            display: 'flex',
             background: '#ffffff',
             color: '#000000',
             fontSize: '18px',

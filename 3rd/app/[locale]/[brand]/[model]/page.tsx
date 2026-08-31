@@ -22,7 +22,7 @@ import { ShareButton } from '@/components/ShareButton'
 import { RecentlyViewed } from '@/components/RecentlyViewed'
 import { TrackPageView } from '@/components/TrackPageView'
 import { ThaiMarketPanel } from '@/components/ThaiMarketPanel'
-import { marketPrice, getThaiEntry } from '@/lib/thai-market'
+import { marketPrice, getThaiEntry, getThaiAliases, getThaiMeta } from '@/lib/thai-market'
 
 const BASE = 'https://www.chicpreowned.com'
 const YEAR = 2026
@@ -45,14 +45,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const item = getItemBySlug(brand, model)
   if (!item) return {}
   const t = await getTranslations({ locale, namespace: 'common' })
-  const vg = headlinePrice(item.price_ranges)?.range ?? null
   const otherLocale = locale === 'en' ? 'th' : 'en'
-  const title = t('page_title_model', { brand: item.brand, model: item.model, year: YEAR })
+
+  // The snippet has to quote the price the page leads with. Reading
+  // `price_ranges` here published the Vestiaire figure into the one line
+  // Google actually shows: the Datejust 41 offered itself in the results as
+  // "฿579,000–฿767,000" and then opened on ฿399,000. `marketPrice()` is the
+  // single decision point for that number and there is no reason for the
+  // metadata to hold a second opinion.
+  const market = marketPrice(item)
+  const band = market?.range ?? headlinePrice(item.price_ranges)?.range ?? null
+
+  // The dealer's notation, in the title, for the query that carries it. A
+  // Thai buyer copies "Classic 10" out of a reseller's post; nothing on this
+  // site answered to that string until now, and no international competitor
+  // uses it at all.
+  const aliases = getThaiAliases(item.slug)
+  const modelLabel = aliases.length > 0
+    ? `${item.model} (${aliases.map(a => a.name).join(' / ')})`
+    : item.model
+
+  const title = t('page_title_model', { brand: item.brand, model: modelLabel, year: YEAR })
   const description = t('page_meta_model', {
     brand: item.brand,
     model: item.model,
-    min: vg ? formatPriceTHB(vg.min) : '฿–',
-    max: vg ? formatPriceTHB(vg.max) : '฿–',
+    min: band ? formatPriceTHB(band.min) : '฿–',
+    max: band ? formatPriceTHB(band.max) : '฿–',
   })
   return {
     title,
@@ -304,6 +322,8 @@ export default async function ModelPage({ params }: Props) {
   // rather than price_ranges directly, so the headline, the schema and the
   // share text cannot drift apart from each other.
   const market = marketPrice(item)
+  const thaiAliases = getThaiAliases(item.slug)
+  const thaiGenerated = getThaiMeta().generated
   const thaiEntry = getThaiEntry(item.slug)
 
   const lowPrice = market?.range?.min ?? (allPrices.length ? Math.min(...allPrices.map(r => r.min)) : 0)
@@ -314,7 +334,19 @@ export default async function ModelPage({ params }: Props) {
     '@type': 'Product',
     name: `Used ${item.brand} ${item.model}`,
     brand: { '@type': 'Brand', name: item.brand },
-    description: `Pre-owned ${item.brand} ${item.model} — second-hand prices in Thailand`,
+    description: locale === 'th'
+      ? `${item.brand} ${item.model} มือสอง — ราคาตลาดมือสองในไทย`
+      : `Pre-owned ${item.brand} ${item.model} — second-hand prices in Thailand`,
+    // Google will not build a product rich result without one, so for as long
+    // as this field was absent the page could not earn a thumbnail on a mobile
+    // results page at any position. The price card is ours, generated from the
+    // same figure the page leads with, and lives on this domain — which is
+    // also what makes it indexable as an image, unlike the dealers' hotlinked
+    // photographs further down the page.
+    image: `${BASE}/${locale}/${item.slug}/opengraph-image`,
+    // The notation Thai shops use for this size, declared as what it is: an
+    // alternate name for the same product.
+    ...(thaiAliases.length > 0 && { alternateName: thaiAliases.map(a => a.name) }),
     offers: {
       '@type': 'AggregateOffer',
       priceCurrency: 'THB',
@@ -590,6 +622,39 @@ export default async function ModelPage({ params }: Props) {
       <div id="thai-market">
         <ThaiMarketPanel item={item} locale={locale} />
       </div>
+
+      {/* The price as a picture.
+          This is the only image the site owns, and it is here rather than
+          only in the <head> for a specific reason: a page's Open Graph image
+          is never crawled as page content, so a site whose sole graphic lives
+          in a meta tag has nothing at all in Google Images — which is where a
+          phone-shaped search for a bag someone saw on TikTok actually lands.
+          Rendered on the page it is indexable, and it is the same file the
+          share preview uses, generated from the same figure the headline
+          shows. Plain <img> and eager sizing: it is one request to our own
+          origin and it must not shift the page. */}
+      {market && (
+        <figure className="my-8">
+          <img
+            src={`/${locale}/${item.slug}/opengraph-image`}
+            alt={
+              locale === 'th'
+                ? `ราคา ${item.brand} ${item.model} มือสองในไทย — ${formatPriceTHB(market.value)}`
+                : `Used ${item.brand} ${item.model} price in Thailand — ${formatPriceTHB(market.value)}`
+            }
+            width={1200}
+            height={630}
+            loading="lazy"
+            decoding="async"
+            className="w-full h-auto border border-[#E8E2D9]"
+          />
+          <figcaption className="mt-2 text-xs text-[#9C8B7A]">
+            {locale === 'th'
+              ? `บันทึกภาพนี้เพื่อแชร์ราคาได้เลย · อัปเดต ${thaiGenerated}`
+              : `Save or share this price card · updated ${thaiGenerated}`}
+          </figcaption>
+        </figure>
+      )}
 
       {/* The other half of this query. Someone reading a price is as likely to
           own one as to want one, and the sell page is invisible to crawlers

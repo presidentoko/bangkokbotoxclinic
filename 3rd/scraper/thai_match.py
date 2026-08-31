@@ -155,22 +155,59 @@ def matches(listing_norm: str, needles: list[str], tokens: list[str]) -> bool:
 # be adjacent rather than two loose tokens — "mini" plus a stray "7" pulled in
 # a "Messenger Bag 7.5”", which is not a Mini Flap at any price.
 
-ALIAS_PATTERNS: dict[str, re.Pattern] = {
-    slug: re.compile(pattern)
-    for slug, pattern in {
-        'chanel/classic-flap-medium': r'classic\s?10\b',
-        'chanel/classic-flap-small': r'classic\s?9\b',
-        'chanel/classic-flap-jumbo': r'\bjumbo\b|classic\s?12\b',
-        'chanel/classic-flap-mini': r'mini\s?7\b',
-        'chanel/mini-rectangular-flap': r'mini\s?8\b',
-        'chanel/mini-rectangular-classic-flap': r'mini\s?8\b',
-        'chanel/boy-bag-medium': r'boy\s?10\b',
-        'chanel/boy-bag-small': r'boy\s?8\b',
-        'chanel/coco-handle-small': r'coco\s?9\b',
-        'chanel/19-bag-small': r'\b19\s?(?:size\s?)?26\b',
-        'chanel/19-bag-medium': r'\b19\s?(?:size\s?)?30\b',
-    }.items()
+# Pattern and display name come out of one table on purpose. The name is not
+# decoration: it goes on the model page, because the dealer's notation is what
+# a buyer actually has in hand. They read "Classic 10" on a reseller's post and
+# search that, not "Classic Flap Medium" — so the page has to contain both, and
+# the two can never be allowed to drift apart into separate lists.
+# Every name below was read off a live listing at least once. That is the bar,
+# and it is not a formality: a first draft of this table also carried
+# 'Classic 9', 'Classic 12', '19 26' and 'Mini7', all of which look exactly
+# like the real notation and none of which any dealer has ever written. The
+# site would have been telling Thai readers that shops use words they do not.
+#
+# `thai_market.py` filters these again against each sweep before publishing,
+# so a notation that stops appearing stops being claimed.
+_ALIASES: dict[str, tuple[str, tuple[str, ...]]] = {
+    'chanel/classic-flap-medium': (r'classic\s?10\b', ('Classic 10',)),
+    'chanel/classic-flap-small': (r'classic\s?9\b', ('Classic 9',)),
+    'chanel/classic-flap-jumbo': (r'\bjumbo\b|classic\s?12\b', ('Jumbo',)),
+    'chanel/classic-flap-mini': (r'mini\s?7\b', ('Mini 7',)),
+    'chanel/mini-rectangular-flap': (r'mini\s?8\b', ('Mini 8', 'Mini8')),
+    'chanel/mini-rectangular-classic-flap': (r'mini\s?8\b', ('Mini 8', 'Mini8')),
+    'chanel/boy-bag-medium': (r'boy\s?10\b', ('Boy 10',)),
+    'chanel/boy-bag-small': (r'boy\s?8\b', ('Boy 8',)),
+    'chanel/coco-handle-small': (r'coco\s?9\b', ('Coco 9', 'Coco 9.5')),
+    'chanel/19-bag-small': (r'\b19\s?(?:size\s?)?26\b', ('19 Size 26',)),
+    'chanel/19-bag-medium': (r'\b19\s?(?:size\s?)?30\b', ('19 Size 30',)),
 }
+
+ALIAS_PATTERNS: dict[str, re.Pattern] = {
+    slug: re.compile(pattern) for slug, (pattern, _) in _ALIASES.items()
+}
+
+#: What a Thai dealer calls this item, for the page to show and be found by.
+ALIAS_LABELS: dict[str, list[str]] = {
+    slug: list(names) for slug, (_, names) in _ALIASES.items()
+}
+
+
+def observed_aliases(slug: str, listings: list[dict]) -> list[dict]:
+    """The notations for `slug` that this sweep actually saw, with counts.
+
+    A label is a claim about how Thai shops write things, so it is checked
+    against the shops rather than against the table it came from. Matching is
+    deliberately loose about the space — dealers write both "Mini 8" and
+    "Mini8" — and the count travels to the page so the claim carries its own
+    evidence.
+    """
+    out = []
+    for name in ALIAS_LABELS.get(slug, []):
+        pattern = re.compile(re.escape(name).replace(r'\ ', r'\s?'), re.I)
+        count = sum(1 for l in listings if pattern.search(l.get('title') or ''))
+        if count:
+            out.append({'name': name, 'count': count})
+    return out
 
 
 # --- accessories wearing a bag's name --------------------------------------
@@ -206,7 +243,42 @@ _EXCLUSIONS: dict[str, tuple[str, ...]] = {
 }
 
 
+# --- exotic skins ----------------------------------------------------------
+#
+# A crocodile Jumbo is not an expensive Classic Flap, it is a different
+# market. One listing — "Super Rare Chanel Jumbo in Shiny Deep Purple
+# Crocodile Leather Comes Full Set with CITES", 669,000 — was two thirds of
+# the Jumbo's three-listing sample and dragged its published range up to a
+# number no calfskin Jumbo has ever fetched.
+#
+# The corpus holds six listings mentioning an exotic and only two are exotic
+# goods. The other four are the reason this rule is narrow rather than a word
+# list:
+#
+#   "...Black Dial Black Alligator Strap 20"      a watch's strap
+#   "...White Dial Black Alligator Leather 39mm"  also a watch's strap
+#   "YSL CROCODILE EMBOSSED WOC BAG", 29,900      calfskin pressed to look it
+#
+# So watches are exempt outright — on a watch the exotic is nearly always the
+# strap, and a strap does not move the watch into another price class — and an
+# embossed or printed imitation is not an exotic at all.
+_EXOTIC = re.compile(
+    r'\bcites\b'
+    r'|\bgenuine\s+\w*\s*(crocodile|alligator|python|ostrich|lizard)'
+    r'|\b(crocodile|alligator|python|ostrich|lizard)\s+(leather|skin)\b'
+)
+_NOT_REALLY_EXOTIC = re.compile(r'\bembossed\b|\bprint(ed)?\b|\bstamp(ed)?\b|\bstrap\b')
+
+
+def _is_exotic(listing_norm: str, category: str) -> bool:
+    if category == 'watches':
+        return False
+    return bool(_EXOTIC.search(listing_norm)) and not _NOT_REALLY_EXOTIC.search(listing_norm)
+
+
 def _is_wrong_kind(listing_norm: str, category: str) -> bool:
+    if _is_exotic(listing_norm, category):
+        return True
     return any(term in listing_norm for term in _EXCLUSIONS.get(category, ()))
 
 

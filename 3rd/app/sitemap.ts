@@ -61,9 +61,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push(...localizedEntries(`/${brand.slug}`, 'weekly', 0.7, brandDate))
   }
 
-  // Model pages
+  // Model pages, each carrying its price card.
+  //
+  // The <image:image> entry is the only route by which these get discovered
+  // at all. This site owns no photography, so its entire presence in image
+  // search rests on one generated card per page — and an image that exists
+  // solely inside a rendered PNG route is not something a crawler stumbles
+  // over. It gets found because the sitemap says where it is.
   for (const item of items) {
-    entries.push(...localizedEntries(`/${item.slug}`, 'weekly', 0.9, item.last_updated || DATA_DATE))
+    entries.push(
+      ...localizedEntries(`/${item.slug}`, 'weekly', 0.9, item.last_updated || DATA_DATE).map(
+        entry => ({ ...entry, images: [`${entry.url}/opengraph-image`] })
+      )
+    )
   }
 
   // Sell pages exist only where there is Thai dealer data to answer with,

@@ -36,6 +36,33 @@ export interface ThaiListing {
   url: string
   source: string
   in_stock: boolean
+  /**
+   * The dealer's own thumbnail, served from the dealer's own domain. Empty
+   * when the shop published none.
+   *
+   * These are the only photographs on the site, and they matter more than
+   * their size suggests: someone who saw a bag on TikTok cannot tell from a
+   * column of numbers whether it is the same bag. Hotlinked deliberately —
+   * the file stays on the shop's server, beside the shop's name and a link
+   * to the shop's listing, and our referrer rides along so the shop can see
+   * the traffic arriving.
+   */
+  image?: string
+}
+
+/** What Thai dealers write instead of the maison's own name for a size. */
+export interface ThaiAlias {
+  name: string
+  /** Listings in the latest sweep using it — the evidence for the claim. */
+  count: number
+}
+
+/** One piece of dealer shorthand, defined. See scraper/thai_vocab.py. */
+export interface ThaiTerm {
+  term: string
+  en: string
+  th: string
+  count: number
 }
 
 export interface ThaiEntry {
@@ -50,6 +77,13 @@ export interface ThaiEntry {
   by_condition?: Partial<Record<Condition, ThaiSummary>>
   sources: string[]
   listings: ThaiListing[]
+  /**
+   * The shop's notation for this exact size, where it differs from the
+   * maison's. A Thai buyer arrives holding "Classic 10" off a reseller's
+   * Instagram post, not "Classic Flap Medium", so the page has to answer to
+   * both. Only notations seen in the latest sweep appear.
+   */
+  aliases?: ThaiAlias[]
 }
 
 export interface ThaiBrand {
@@ -84,6 +118,7 @@ interface MarketFile {
   sources: ThaiSource[]
   items: Record<string, ThaiEntry>
   brands: Record<string, ThaiBrand>
+  vocabulary?: ThaiTerm[]
 }
 
 const data = market as unknown as MarketFile
@@ -102,6 +137,31 @@ export function getThaiSources(): ThaiSource[] {
 
 export function getThaiMeta() {
   return { generated: data.generated, listingCount: data.listing_count }
+}
+
+/** Dealer shorthand attested in the latest sweep, commonest first. */
+export function getThaiVocabulary(): ThaiTerm[] {
+  return data.vocabulary ?? []
+}
+
+/** The dealer notations for an item, or an empty list. */
+export function getThaiAliases(slug: string): ThaiAlias[] {
+  return data.items[slug]?.aliases ?? []
+}
+
+/**
+ * Every listing photograph we hold for an item, newest sweep only.
+ *
+ * Deduplicated by URL: two dealers occasionally stock what is visibly the
+ * same piece, and the same picture twice reads as a rendering bug.
+ */
+export function getThaiImages(slug: string): ThaiListing[] {
+  const seen = new Set<string>()
+  return (data.items[slug]?.listings ?? []).filter(l => {
+    if (!l.image || seen.has(l.image)) return false
+    seen.add(l.image)
+    return true
+  })
 }
 
 export function sourceLabel(id: string): string {
@@ -239,7 +299,13 @@ interface HistoryPoint {
   brands: Record<string, number>
 }
 
-const points = (history as { points: HistoryPoint[] }).points ?? []
+// Through `unknown` on purpose. TypeScript types an imported JSON file from
+// its literal contents, so the moment two weekly points carried different
+// item keys — which is the normal case, since dealers stock different things
+// each week — it inferred a union with optional members and refused the
+// direct cast. The runtime shape is Record<string, number>; the compiler is
+// describing this week's data, not the file's contract.
+const points = (history as unknown as { points: HistoryPoint[] }).points ?? []
 
 export interface TrendPoint {
   date: string

@@ -41,8 +41,10 @@ from thai_match import (  # noqa: E402
     norm,
     summarise,
     summarise_brand,
+    observed_aliases,
     variant_listings,
 )
+from thai_vocab import vocabulary  # noqa: E402
 from thai_sources import fetch_all  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -58,6 +60,9 @@ CACHE_PATH = ROOT / 'scraper' / '.cache' / 'thai_listings.json'
 # a copy of the dealer's shop.
 SHOWN_LISTINGS = 6
 HISTORY_POINTS = 104  # two years of weekly runs
+# Share of the previous run's item coverage below which a sweep is read as
+# an outage rather than a result. See the check in main().
+COVERAGE_FLOOR = 0.70
 
 
 def _slug_brand(brand: str) -> str:
@@ -131,6 +136,8 @@ def build(items: list[dict], listings: list[dict]) -> dict:
                     'url': l['url'],
                     'source': l['source'],
                     'in_stock': l['in_stock'],
+                    # Stays on the dealer's server; see thai_sources._woo_image.
+                    'image': l.get('image') or '',
                 }
                 for l in shown
             ],
@@ -143,6 +150,11 @@ def build(items: list[dict], listings: list[dict]) -> dict:
             family_hits += 1
         if by_condition:
             entry['by_condition'] = by_condition
+        # What the shops call this, when they call it something else. The
+        # buyer arrives holding the dealer's word, not the maison's.
+        aliases = observed_aliases(item['slug'], variant_matches or family_matches)
+        if aliases:
+            entry['aliases'] = aliases
         by_item[item['slug']] = entry
 
     # Brand-level: every listing of that brand, whatever model. This is what
@@ -159,8 +171,13 @@ def build(items: list[dict], listings: list[dict]) -> dict:
                 sources=sorted({l['source'] for l in hits}),
             )
 
+    # The shorthand the listings are written in, for the glossary page. Only
+    # terms this sweep actually saw survive — see thai_vocab.
+    vocab = vocabulary(listings)
+
     print(f'[thai] variant-level: {variant_hits} items, family-level: {family_hits}, brands: {len(by_brand)}')
-    return {'items': by_item, 'brands': by_brand}
+    print(f'[thai] vocabulary: {len(vocab)} terms attested in this sweep')
+    return {'items': by_item, 'brands': by_brand, 'vocabulary': vocab}
 
 
 def update_history(built: dict, today: str) -> dict:
@@ -231,6 +248,46 @@ def main() -> int:
 
     covered = len(built['items'])
     print(f'[thai] {covered}/{len(items)} catalogue items have a Thai figure')
+
+    # A dealer timing out is not a reason to unpublish two dozen prices.
+    #
+    # The `len(ok) < 2` check above is too coarse to catch this. On
+    # 2026-08-31 brandnamevoyage — 2,000 of the 2,879 listings — dropped out
+    # of a sweep while the other four answered fine. Four of five dealers
+    # looks healthy, so the run wrote anyway and Thai coverage fell from 48
+    # items to 22: half the pages silently reverting to converted dollar
+    # prices, which is the failure this whole pipeline exists to fix.
+    #
+    # Shrinking is normal in small amounts — dealers sell things. A third of
+    # the catalogue vanishing in a week is an outage, and the right response
+    # to an outage is to keep serving yesterday's good data.
+    if OUT_PATH.exists():
+        previous = json.loads(OUT_PATH.read_text(encoding='utf-8'))
+        was = len(previous.get('items', {}))
+        if was and covered < was * COVERAGE_FLOOR:
+            # Name the cause, not just the symptom. The first version of this
+            # message only listed dealers that returned nothing, so when
+            # brandnamevoyage came back with 300 of its 2,000 listings it
+            # printed "Silent dealers: none reported" — accurate and useless.
+            # A shop can answer and still be two thirds missing.
+            silent = [r['id'] for r in reports if not r['ok']]
+            truncated = [r['id'] for r in reports if r['ok'] and not r.get('complete', True)]
+            before = {s['id']: s.get('listings', 0) for s in previous.get('sources', [])}
+            shrunk = [
+                f"{r['id']} {before[r['id']]}->{r['listings']}"
+                for r in reports
+                if r['ok'] and before.get(r['id'], 0) > r['listings'] * 2
+            ]
+            print(
+                f'[thai] coverage fell {was} -> {covered} items '
+                f'({covered / was:.0%} of the last run, floor {COVERAGE_FLOOR:.0%}) — '
+                f'treating as an outage, not a result.'
+            )
+            for label, ids in (('silent', silent), ('truncated', truncated), ('shrunk', shrunk)):
+                if ids:
+                    print(f'[thai]   {label}: {", ".join(ids)}')
+            print('[thai] leaving existing data untouched')
+            return 1
 
     if not args.write:
         print('[thai] dry run — pass --write to save')

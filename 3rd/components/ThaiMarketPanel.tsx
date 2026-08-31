@@ -32,6 +32,8 @@ export function ThaiMarketPanel({ item, locale }: { item: Item; locale: string }
   const isVariant = !!entry.variant
   const trend = thaiTrend(item.slug)
   const dealerCount = entry.sources.length
+  const aliases = entry.aliases ?? []
+  const aliasTotal = aliases.reduce((n, a) => n + a.count, 0)
 
   return (
     <section className="my-8 border border-[#B8954A]/40 bg-[#FDFBF7]">
@@ -48,6 +50,25 @@ export function ThaiMarketPanel({ item, locale }: { item: Item; locale: string }
             : `From live listings at ${dealerCount} Thai ${dealerCount === 1 ? 'dealer' : 'dealers'} · updated ${generated}`}
         </p>
       </div>
+
+      {/* What the shops call it. A reader who got here from a reseller's
+          Instagram post is holding the dealer's word for the size, and until
+          this line existed the site never once printed it — the notation was
+          known to the matcher and invisible to the visitor. */}
+      {aliases.length > 0 && (
+        <p className="px-5 pt-3 text-sm text-[#6B6052]">
+          {th ? 'ร้านไทยเรียกรุ่นนี้ว่า ' : 'Thai dealers call this '}
+          {aliases.map((a, i) => (
+            <span key={a.name}>
+              {i > 0 && (th ? ' หรือ ' : ' or ')}
+              <strong className="font-medium text-[#1A1A1A]">{a.name}</strong>
+            </span>
+          ))}
+          {th
+            ? ` — พบใน ${aliasTotal} ประกาศจากการเก็บข้อมูลรอบล่าสุด`
+            : ` — seen on ${aliasTotal} listing${aliasTotal === 1 ? '' : 's'} in the latest sweep.`}
+        </p>
+      )}
 
       <div className="px-5 py-5">
         {isVariant ? (
@@ -126,20 +147,52 @@ export function ThaiMarketPanel({ item, locale }: { item: Item; locale: string }
           </p>
           <ul className="px-5 py-3 divide-y divide-[#F0EBE3]">
             {entry.listings.map(listing => (
-              <li key={listing.url} className="py-2.5 flex items-baseline gap-3">
+              <li key={listing.url} className="py-3 flex items-center gap-3">
+                {/* Hotlinked, never copied: the file is served by the dealer,
+                    next to the dealer's name and a link to their listing.
+                    A plain <img> on purpose — routing these through
+                    next/image would bill every thumbnail against the
+                    project's image-optimisation allowance to reprocess a
+                    picture the shop has already sized for us. Width and
+                    height are set so a slow dealer does not shift the page
+                    under the reader, and the tile keeps its own background
+                    so a dead URL leaves a blank square rather than a broken
+                    icon. */}
+                {listing.image ? (
+                  <a
+                    href={listing.url}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="shrink-0 block w-14 h-14 bg-[#F3EFE8] overflow-hidden"
+                  >
+                    <img
+                      src={listing.image}
+                      alt={`${item.brand} ${item.model} — ${sourceLabel(listing.source)}`}
+                      width={56}
+                      height={56}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-14 h-14 object-cover"
+                    />
+                  </a>
+                ) : (
+                  <span className="shrink-0 block w-14 h-14 bg-[#F3EFE8]" aria-hidden />
+                )}
+                <div className="min-w-0 flex-1">
+                  <a
+                    href={listing.url}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="text-sm text-[#6B6052] hover:text-[#8C7355] underline decoration-[#E8E2D9] underline-offset-2"
+                  >
+                    <span className="line-clamp-2">{listing.title}</span>
+                  </a>
+                  <p className="text-xs text-[#9C8B7A] mt-0.5">
+                    {sourceLabel(listing.source)}
+                  </p>
+                </div>
                 <span className="text-sm font-medium text-[#1A1A1A] shrink-0 tabular-nums">
                   {formatPriceTHB(listing.price)}
-                </span>
-                <a
-                  href={listing.url}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                  className="text-sm text-[#6B6052] hover:text-[#8C7355] underline decoration-[#E8E2D9] underline-offset-2 min-w-0"
-                >
-                  <span className="line-clamp-1">{listing.title}</span>
-                </a>
-                <span className="text-xs text-[#9C8B7A] shrink-0 ml-auto hidden sm:inline">
-                  {sourceLabel(listing.source)}
                 </span>
               </li>
             ))}

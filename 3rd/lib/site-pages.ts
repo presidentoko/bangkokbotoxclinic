@@ -15,6 +15,10 @@ export const STATIC_PAGES: StaticPage[] = [
   // land on — high priority because the competition is a contact form.
   { path: '/sell', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/dealers', changeFrequency: 'weekly', priority: 0.7 },
+  // The dealers write their listings in English shorthand and their buyers
+  // search in Thai. Nothing in Thai defines these words, so this page has
+  // effectively no competition for the query it answers.
+  { path: '/dealer-terms', changeFrequency: 'weekly', priority: 0.8 },
   { path: '/handbags', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/watches', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/clothing', changeFrequency: 'weekly', priority: 0.9 },

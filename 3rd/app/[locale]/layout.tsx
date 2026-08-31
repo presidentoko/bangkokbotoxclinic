@@ -96,6 +96,10 @@ export default async function LocaleLayout({ children, params }: Props) {
                 <a href={`/${locale}/dealers`} className="underline hover:text-[#6B6052]">
                   {locale === 'th' ? 'ดูแหล่งข้อมูลราคา' : 'See our price sources'}
                 </a>
+                {' · '}
+                <a href={`/${locale}/dealer-terms`} className="underline hover:text-[#6B6052]">
+                  {locale === 'th' ? 'คำย่อในประกาศขาย แปลว่าอะไร' : 'What listing jargon means'}
+                </a>
               </p>
               <p className="mt-1">{t('footer_copyright', { year: new Date().getFullYear() })}</p>
             </div>
