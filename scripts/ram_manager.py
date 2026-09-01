@@ -27,8 +27,16 @@ ROOT = Path(__file__).parent.parent
 RUN  = ROOT / "run"
 
 # pause 는 여유가 적은 순으로, resume 은 충분한 순으로 — 사이를 벌려 히스테리시스.
+# 2026-09-01: bangkok_review 를 2.0 에서 1.2 로 내렸다. 사용자 지시 —
+# "램을 1G 남길 때까지 쓰자". 2.0 은 이 머신에서 지나치게 보수적이라, 여유가
+# 1.2~2.0 사이일 때 식당 스크래퍼를 멈춰 세워두고 메모리를 놀렸다.
+#
+# 1.0 이 아니라 1.2 인 이유: 이 파일 맨 위 주석이 기록하듯 여유 0.3GB 대에서는
+# OS 가 프로세스를 임의로 죽인다(2026-08-09 실측). pause 판정과 실제 정지
+# 사이에 한 틱(60초)이 있고 그 사이 브라우저가 더 뜰 수 있어, 바닥에서
+# 0.9GB 는 남겨둬야 그 구간에 안 빠진다.
 PAUSE_THRESHOLDS = [
-    ("bangkok_review",         2.0),
+    ("bangkok_review",         1.2),
     ("pattaya_review",         1.5),
     ("spa_review_pattaya",     1.5),
     ("dental_review_bangkok",  1.2),
@@ -58,7 +66,7 @@ RESUME_THRESHOLDS = [
     ("dental_review_bangkok",  3.0),
     ("spa_review_pattaya",     3.5),
     ("pattaya_review",         3.5),
-    ("bangkok_review",         3.2),
+    ("bangkok_review",         2.4),
 ]
 
 
