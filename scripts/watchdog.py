@@ -594,7 +594,7 @@ def build_services() -> list[Service]:
         "CITY_RADIUS_M": "30000",
         "CITY_OUTPUT_DIR": "output",
         # 2026-09-01: 2→1. 총 5워커(클리닉3 + 파타야식당1 + 여기1)가 여유 1.0GB 선이다.
-        "N_WORKERS": "1",
+        "N_WORKERS": "2",
         # 원래 배정은 2080-2081 이지만 그 두 슬롯이 실질적으로 죽어 있다.
         # nordvpn_runner 로그에서 최근 구간 기준 spawn/READY 가
         #   2080: 533/184   2081: 515/158   2082: 505/169
@@ -606,7 +606,7 @@ def build_services() -> list[Service]:
         # 그 전까지 방콕 식당은 건강한 2086-2087 로 옮긴다. massage_review_*
         # 배정 구간이지만 전부 pause 상태라 지금은 비어 있다. massage 를 다시
         # 켤 때는 여기와 충돌하므로 둘 중 하나를 옮길 것.
-        "PROXY_PORT_BASE": "2085",
+        "PROXY_PORT_BASE": "2082",
         # 방콕 그리드는 34,412곳까지 돌았고, 그중 review_count==0 인 10,696곳은
         # "아직 못 읽음"이 아니라 사실상 리뷰가 거의 없는 곳이다. 통과시키면
         # 큐가 18,238곳이 되고 절반 이상을 열어보고 버린다(약 9일). 진짜 대상
@@ -622,7 +622,7 @@ def build_services() -> list[Service]:
         # 클리닉 3 + 여기 1. 여유가 생기면 2~3 으로 올려도 포트는 이미 확보돼
         # 있다(식당 블록 2085-2087).
         "N_WORKERS": "1",
-        "PROXY_PORT_BASE": "2087",
+        "PROXY_PORT_BASE": "2084",
     }
     chiang_mai_env = {
         "CITY_LAT": "18.7883",
@@ -805,7 +805,7 @@ def build_services() -> list[Service]:
         # 잡으면 식당(2워커)에 연속 2포트를 줄 수 없다. 워커당 940MB 이므로
         # 하나 줄이면 약 0.9GB 도 함께 풀린다. clinics 2080-2081,
         # 식당 2082-2083, 2084 는 예비.
-        "N_WORKERS": "4",
+        "N_WORKERS": "2",
         "PROXY_PORT_BASE": "2080",
         "SEARCH_TAG": "en",
         "CITY_LAT": "13.7462890",
@@ -992,7 +992,7 @@ def build_services() -> list[Service]:
             # 앞 3개의 spawn 이 많은 건 리뷰 워커가 차단당할 때마다 회전시켜서지
             # 불량이라서가 아니다. 계정 한도에 걸렸다면 뒤쪽이 더 나빠야 하는데
             # 정반대다. AUTH_FAILED / too many / limit 로그도 전 기간 0건이다.
-            cmd=["nordvpn_runner.py", "--ports", "8", "--base-port", "2080",
+            cmd=["nordvpn_runner.py", "--ports", "5", "--base-port", "2080",
                  "--auth", "nordvpn/auth.txt", "--proto", "mixed"],
             cwd=ROOT,
             env_extra={},
