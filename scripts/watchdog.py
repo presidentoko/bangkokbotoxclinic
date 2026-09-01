@@ -583,6 +583,11 @@ def log(msg: str):
 
 
 def build_services() -> list[Service]:
+    # 2026-09-01: 터널 8개를 두 블록으로 나눈다 — 사용자 요청.
+    #   클리닉 2080-2084 (bangkok_clinics 2080-2082, pattaya_clinics 2083, 2084 예비)
+    #   식당   2085-2087 (아래 도시 env 들이 공유. 동시에 한두 개만 켜는 전제)
+    # 블록을 안 나누면 두 파이프라인이 같은 출구를 동시에 두드려 차단을 자초한다.
+    # _validate_proxy_ports 는 범위만 보고 서비스 간 충돌은 검사하지 않는다.
     bangkok_env = {
         "CITY_LAT": "13.7462890",
         "CITY_LNG": "100.5346890",
@@ -600,7 +605,7 @@ def build_services() -> list[Service]:
         # 그 전까지 방콕 식당은 건강한 2086-2087 로 옮긴다. massage_review_*
         # 배정 구간이지만 전부 pause 상태라 지금은 비어 있다. massage 를 다시
         # 켤 때는 여기와 충돌하므로 둘 중 하나를 옮길 것.
-        "PROXY_PORT_BASE": "2083",
+        "PROXY_PORT_BASE": "2082",
         # 방콕 그리드는 34,412곳까지 돌았고, 그중 review_count==0 인 10,696곳은
         # "아직 못 읽음"이 아니라 사실상 리뷰가 거의 없는 곳이다. 통과시키면
         # 큐가 18,238곳이 되고 절반 이상을 열어보고 버린다(약 9일). 진짜 대상
@@ -612,8 +617,11 @@ def build_services() -> list[Service]:
         "CITY_LNG": "100.8825",
         "CITY_RADIUS_M": "20000",
         "CITY_OUTPUT_DIR": "../pattaya/output",
-        "N_WORKERS": "2",
-        "PROXY_PORT_BASE": "2082",
+        # 2026-09-01: RAM 상한. 실측 워커당 940MB, 여유 3.3GB → 총 4워커가 한계다.
+        # 클리닉 3 + 여기 1. 여유가 생기면 2~3 으로 올려도 포트는 이미 확보돼
+        # 있다(식당 블록 2085-2087).
+        "N_WORKERS": "1",
+        "PROXY_PORT_BASE": "2084",
     }
     chiang_mai_env = {
         "CITY_LAT": "18.7883",
@@ -715,7 +723,11 @@ def build_services() -> list[Service]:
         # 동작 확인됨 (Windows Playwright sync API 멀티스레드 launch 이슈로 추정).
         # 1워커로 낮춰서 확실히 진행되게 함 — 처리량은 줄지만 완전 정지보다 나음.
         "N_WORKERS": "1",
-        "PROXY_PORT_BASE": "2080",
+        "PROXY_PORT_BASE": "2083",   # 2026-09-01: 2080→2083.
+        # bangkok_clinics_review 가 2080-2082 를 쓰는데 여기도 2080 이었다.
+        # _validate_proxy_ports 는 "터널 범위 안인가"만 보고 서비스 간 충돌은
+        # 검사하지 않는다 — 같은 출구를 두 스크래퍼가 동시에 두드리면 차단을
+        # 자초한다(2026-08-20 기록).
     }
     phuket_clinics_env = {
         "SEARCH_QUERY": "clinic",
@@ -784,10 +796,15 @@ def build_services() -> list[Service]:
         # chrome-headless-shell 246개까지 폭증, ram-guard 하드리밋(90) 초과로
         # 7분마다 전체 kill → 재기동 스래싱 (throughput 사실상 0). 전 서비스
         # 워커를 1~3개로 줄이고 포트를 2080-2087 8개에 고르게 분산.
-        "N_WORKERS": "2",   # 2026-09-01: 3→2. 이 머신의 NordVPN 몫은 터널 5개인데
-        # 이 서비스가 3개를 독점해 나머지 스크래퍼가 2개로 눌렸다. 2개로
-        # 줄이면 2082~2084 세 개가 비어 다른 작업을 동시에 돌릴 수 있다.
-        # 브라우저도 워커당 약 480MB 라 RAM 도 그만큼 돌려준다.
+        # 2026-09-01: 터널 8개(2080-2087)를 되찾았지만 상한은 RAM 이다.
+        # 실측 워커당 940MB(정상 가동 상태) — 480MB 는 갓 띄운 직후 값이라
+        # 계획에 쓰면 안 된다. 여유 3.3GB 기준 총 4워커가 한계다.
+        # 여기 3 + pattaya_clinics 1 = 4.
+        # 2026-09-01(2): 3 -> 2. 터널이 5개(2080-2084)뿐인데 clinics 가 3개를
+        # 잡으면 식당(2워커)에 연속 2포트를 줄 수 없다. 워커당 940MB 이므로
+        # 하나 줄이면 약 0.9GB 도 함께 풀린다. clinics 2080-2081,
+        # 식당 2082-2083, 2084 는 예비.
+        "N_WORKERS": "2",
         "PROXY_PORT_BASE": "2080",
         "SEARCH_TAG": "en",
         "CITY_LAT": "13.7462890",
@@ -943,9 +960,14 @@ def build_services() -> list[Service]:
         # 10개 포트에 고르게 퍼졌고 "특정 서버가 불량"처럼 보였지만 계정
         # 레벨 신호였다. 그래서 계정 한도인 8로 내렸다.
         #
-        # 2026-09-01: 8도 여전히 과다였다. 계정 한도는 8이 맞지만 그중 3개를
-        # 다른 곳에서 쓰고 있어 이 머신 몫은 5개다. 증상은 위와 같은 모양인데
-        # 이번엔 무작위가 아니라 뒤쪽 3슬롯에 고정으로 나타났다:
+        # 2026-09-01(정정): 위 "이 머신 몫은 5개" 판정은 틀렸다. spawn 횟수를
+        # 건강도로 오독한 것이다. READY 비율로 보면 뒤쪽 슬롯이 오히려 더 좋다:
+        #   2080 6960/2763 39%   2083 389/193 49%   2085 308/169 54%
+        #   2081 4572/1631 35%   2084 408/179 43%   2086 447/196 43%
+        #   2082 4336/1495 34%                      2087 445/199 44%
+        # 앞 3개의 spawn 이 많은 건 리뷰 워커가 차단당할 때마다 회전시켜서지
+        # 불량이라서가 아니다. AUTH_FAILED·한도 초과 로그도 0건이다. 8로 되돌린다.
+        # (아래는 오독의 근거였던 원본 수치 — 기록용으로 남긴다)
         #   2080: spawn 533 / READY 184    2083: 60 / 25
         #   2081: spawn 515 / READY 158    2084: 41 / 20
         #   2082: spawn 505 / READY 169    2085: 28 / 20
@@ -959,7 +981,7 @@ def build_services() -> list[Service]:
         # 2080-2084 안으로 옮겼다.
         Service(
             name="nordvpn_runner",
-            cmd=["nordvpn_runner.py", "--ports", "5", "--base-port", "2080",
+            cmd=["nordvpn_runner.py", "--ports", "8", "--base-port", "2080",
                  "--auth", "nordvpn/auth.txt", "--proto", "mixed"],
             cwd=ROOT,
             env_extra={},
