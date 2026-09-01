@@ -47,6 +47,7 @@ import re
 import shutil
 import ssl
 import time
+import urllib.parse
 import urllib.request
 
 from petfood.ingredient_grades import grade_ingredient
@@ -320,6 +321,37 @@ def life_stage_of(name: str) -> str:
     return "adult"
 
 
+def record_id(p: dict, name: str) -> str:
+    """A readable ASCII id, which becomes the product's URL on the site.
+
+    Most permalinks are already clean ("perfecta-vet-hypoallergenic-dog"), but
+    some carry percent-encoded Thai ("2-%e0%b9%81%e0%b8%96%e0%b8%a1-1-pawganic-
+    organic-dog-cracker"). Taking the last path segment verbatim and handing it
+    to the site's slugifier turned those escapes into runs of hex —
+    "tlps-nekko-gold-e0b980e0b899e0b987e0b881..." — which is a working URL and
+    an unreadable one.
+
+    So: decode the escapes, drop what is not ASCII, and fall back to the Latin
+    words in the product title. The site separately requires ASCII slugs, since
+    Thai ones 404'd there before.
+
+    Dropping the Thai then makes the readable part ambiguous — every "Nekko
+    Gold" variant whose flavour is written only in Thai reduces to the same
+    "nekko-gold", which collapsed 553 products onto 435 ids. The id is the key
+    for review lookups, saved items and affiliate tracking, so it has to be
+    unique per product; the shop's own numeric product id is appended to
+    guarantee that without giving up readability.
+    """
+    raw = (p.get("permalink") or "").rstrip("/").rsplit("/", 1)[-1]
+    decoded = urllib.parse.unquote(raw)
+    slug = re.sub(r"[^a-z0-9]+", "-", decoded.lower()).strip("-")
+    # A slug of only separators and digits ("2-1") says nothing; prefer the name.
+    if len(re.sub(r"[^a-z]", "", slug)) < 4:
+        slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+    shop_id = str(p.get("id") or "")
+    return f"tlps-{slug}"[:110].strip("-") + f"-{shop_id}"
+
+
 def build_record(p: dict) -> dict | None:
     name = html.unescape(p.get("name") or "").strip()
     if not name or DISCONTINUED in name:
@@ -364,9 +396,8 @@ def build_record(p: dict) -> dict | None:
         if key in counts:
             counts[key] += 1
 
-    slug = (p.get("permalink") or "").rstrip("/").rsplit("/", 1)[-1]
     return {
-        "id": f"tlps-{slug or p.get('id')}"[:120].lower(),
+        "id": record_id(p, name),
         "brand": brand,
         "name_en": name,
         "name_th": name,
