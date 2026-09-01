@@ -1,0 +1,795 @@
+{
+ "generated_at": "2026-09-01 08:46",
+ "note": "check_websites.py + recheck_websites.py 로 2회 확인해 두 번 다 실패한 URL. rebuild_master_db.py 의 finalize() 가 매 리빌드마다 적용한다 — master_db 를 직접 고치면 apify 머지의 PRESERVE_IF_EMPTY 때문에 다음 리빌드에서 되살아난다. watch 는 아직 제거하지 않는다 — 다음 실행에서 또 실패하면 승격.",
+ "replace": {
+  "https://suksunsteel.com/": "http://www.suksunsteel.com/",
+  "http://www.masterkool-ccs.com/": "https://www.masterkool-ccs.com/",
+  "http://www.auto-achieve.com/": "https://auto-achieve.com/",
+  "http://www.goecoltd.com/": "https://goecoltd.com/",
+  "http://www.plastomer.co.th/": "https://plastomer.co.th/",
+  "http://www.rdc.co.th/%20%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A%E0%B8%94%E0%B8%B5%E0%B8%A1%E0%B8%B2%E0%B8%81%20%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%AD%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B9%80%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B8%A7%20%E0%B8%A3%E0%B8%9B%E0%B8%A0%E0%B8%94%E0%B8%B9%E0%B9%80%E0%B8%AB%E0%B8%A2%E0%B8%B5%E0%B8%A2%E0%B8%94%E0%B8%84%E0%B8%99%E0%B8%A1%E0%B8%B2%E0%B8%81%E0%B8%9E%E0%B8%B9%E0%B8%94%E0%B8%88%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%9E%E0%B8%A3%E0%B8%B2%E0%B8%B0%20%E0%B8%95%E0%B8%A3%E0%B8%87%E0%B8%9B%E0%B9%89%E0%B8%AD%E0%B8%A1%202%20%E0%B8%84%E0%B8%99": "http://www.rdc.co.th/",
+  "http://www.msan.co.th/": "https://msan.co.th/",
+  "https://revo.estate/arco-2/": "https://revo.estate/",
+  "http://unicorp.yellowpages.co.th/": "https://unicorp.yellowpages.co.th/",
+  "http://npotransport.co.th/C5V2+W78%20%E0%B8%95%E0%B8%B3%E0%B8%9A%E0%B8%A5%20%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%8B%E0%B8%B4%E0%B8%94%20%E0%B8%AD%E0%B8%B3%E0%B9%80%E0%B8%A0%E0%B8%AD%E0%B8%9E%E0%B8%99%E0%B8%B1%E0%B8%AA%E0%B8%99%E0%B8%B4%E0%B8%84%E0%B8%A1%20%E0%B8%8A%E0%B8%A5%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5%2020140": "http://npotransport.co.th/",
+  "http://surteckariya.jp/,%20https://surtecplamex.ers.cloud/": "http://surteckariya.jp/",
+  "https://www.merry.com.tw/index.aspx?lang=US": "https://www.merry.com.tw/",
+  "https://www.honeywell.com/th/en": "https://www.honeywell.com/",
+  "http://www.scgjwd.com/": "https://www.scgjwd.com/",
+  "http://www.xn--12cb0a0bf7cth4a4c0a5df4a7a1lye3a.com/": "https://www.xn--12cb0a0bf7cth4a4c0a5df4a7a1lye3a.com/",
+  "http://www.cpac.co.th/": "https://www.cpac.co.th/",
+  "http://www.hosoda-jp.co.jp/bangkok.html": "http://www.hosoda-jp.co.jp/",
+  "http://www.megalasersteel.com/": "https://www.megalasersteel.com/",
+  "https://www.otcdaihenasia.com/en/index/?utm_source=google&utm_medium=gbp&utm_campaign=local-search": "https://www.otcdaihenasia.com/",
+  "http://www.world-knitting.com/web/html/about_us.html": "http://www.world-knitting.com/",
+  "https://smartthailogi.com/": "https://www.smartthailogi.com/",
+  "http://cpac.co.th/": "https://cpac.co.th/",
+  "http://www.komatsu-ec.co.jp/thai/index.html": "http://www.komatsu-ec.co.jp/",
+  "http://www.innovativegloves.net/": "https://www.innovativegloves.net/",
+  "http://bestspeedlaser.yellowpages.co.th/": "https://bestspeedlaser.yellowpages.co.th/",
+  "http://www.ok-garment.com/%E0%B8%99%E0%B8%99%20%E0%B8%99%E0%B8%99%E0%B8%A3%20%E0%B8%99%20%E0%B8%A2%20%E0%B8%99": "http://www.ok-garment.com/",
+  "http://www.xn--42cfie8eyhza9n.com/": "https://www.xn--42cfie8eyhza9n.com/",
+  "http://www.thaihua.com/v5/th/thr-group/factory-str-product/chalung-factory-cl": "http://www.thaihua.com/",
+  "https://www.scginternational.com/th": "https://www.scginternational.com/",
+  "https://www.wha-industrialestate.com/en/projects/industrial-estates/9/wha-chonburi-industrial-estate-1-wha-cie-1": "https://www.wha-industrialestate.com/",
+  "https://www.wha-industrialestate.com/jp/projects/industrial-estates/262/wha%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%B3%E3%82%B7%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E5%B7%A5%E6%A5%AD%E5%9B%A3%E5%9C%B02wha-esie-2": "https://www.wha-industrialestate.com/",
+  "http://www.htt.co.th/": "https://htt.co.th/",
+  "http://www.kctc.co.kr/": "https://www.kctc.co.kr/",
+  "https://www.pvtfoods.com/main/home": "https://www.pvtfoods.com/",
+  "http://www.vanward.com/": "https://www.vanward.com/",
+  "http://taniothai.com/company/?lang=th": "http://taniothai.com/",
+  "https://www.ieat.go.th/en/investment/about-industrial-estates/industrial-estates-in-thailand/g238-Laem%20Chabang%20Industrial%20Estate": "https://www.ieat.go.th/",
+  "https://www.srcplastic.com/16985172/%E0%B9%80%E0%B8%81%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%A7%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B9%80%E0%B8%A3%E0%B8%B2": "https://www.srcplastic.com/",
+  "https://www.treesolars.com/": "http://www.treesolars.com/",
+  "http://www.daikinthai.com/": "https://www.daikinthai.com/",
+  "http://www.scanwell.com/": "https://www.scanwell.com/",
+  "http://www.bigth.com/": "https://www.bigth.com/",
+  "https://www.habita.com/office/56/Habita-Pattaya": "https://www.habita.com/",
+  "http://minebea.co.th/th/plants/navanakorn/": "http://minebea.co.th/",
+  "https://www.wha-group.com/en/business/wha-office-solutions/wha-bangna-business-complex": "https://www.wha-group.com/",
+  "http://www.xn--42cfalf3gucvh7a4gtf.com/": "https://www.xn--42cfalf3gucvh7a4gtf.com/",
+  "http://www.qdletai.cn/Home1.html": "http://www.qdletai.cn/",
+  "https://www.scgpackaging.com/contactus/maps/paper-packaging/TH": "https://www.scgpackaging.com/",
+  "http://www.thaipapercartons.com/contact.php": "http://www.thaipapercartons.com/",
+  "https://www.locopack.co/th/": "https://www.locopack.co/",
+  "https://www.wha-industrialestate.com/en/projects/warehouse/673/wha-logistics-park-2": "https://www.wha-industrialestate.com/",
+  "https://www.alacampagnepattaya.com/tea-factory-more/": "https://www.alacampagnepattaya.com/",
+  "http://www.pjw.co.th/contact.php": "https://www.pjw.co.th/",
+  "https://www.thaimalleable.com/": "http://www.thaimalleable.com/",
+  "https://www.kt-train.com/": "http://www.kt-train.com/",
+  "https://taurasthailand.com/": "http://taurasthailand.com/",
+  "https://bangkokcp.com/corporateinfo/ishizuka-chemical-thailand-co-ltd/": "https://bangkokcp.com/",
+  "http://www.kunakorn.co.th/": "https://www.kunakorn.co.th/",
+  "http://www.thaixon.co.th/contact.htm": "http://www.thaixon.co.th/",
+  "https://rishikeshexports.in/coconut-oil-processing-plant/": "https://rishikeshexports.in/",
+  "http://wow.in.th/8pv4": "http://wow.in.th/",
+  "https://www.ptgenergy.co.th/ptmaxnitron/product.html": "https://www.ptgenergy.co.th/",
+  "https://topthairealestate.com/": "http://topthairealestate.com/",
+  "http://www.summit.co.th/": "https://www.summit.co.th/"
+ },
+ "remove": {
+  "http://www.tdem.toyota-asia.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.samingfoods.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.pleasingcraft.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.aluchamp.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.sknakhon.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.rani.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.thegrandgarment.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://phisithindustrialcoltd.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.sumitomorubber.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.cpfreshmartshop.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.ruamudompaging2006.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://dragon-2002.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.zakich.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.tpssengineering.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.mrgodung.com/house-renr/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://logistics.khuntangroup.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.siamimdee.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.jst-cabinet.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.nrtextile.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://vierabyragazze.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.rohmthai.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.gain.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.senasiam.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://lianhua.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.llhprinting.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.innovatepackaging-th.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://nonfinite.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.udomprai.co/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://rubberworldgreen.com/?utm_source=gmb&utm_medium=referral": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.tstchemical.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.snackideas.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://csw-lasergroup.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://serviamlogisticsgroup.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.nlc.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.madeekitchen.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.chungii.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.kodanghappy.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.thai-py.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.thaitabacco.or.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.insizethai.net/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.infini-th.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://modulplus.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.epesmfg.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://tpk-auto.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.vr3gpart.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.smgroupgarment999.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.foodestategroup.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://rangsitwarehouse.com/KLONG%204%20THANYABURI.html": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.vichitprinting.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://sjb-metal.com/%E0%B9%80%E0%B8%81%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%A7%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%A9%E0%B8%B1%E0%B8%97.htm": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.tobchawa.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.kittipack.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://csindustrialsupply.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://tkk-supply.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.kittiyakasob.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.wonderstorage.net/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.iida-sevensuns.com/en": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.bitakinter.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.knlmanufacturing.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.siamflexibleindustries.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.fr-motorsport.asia/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.tev.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://vmestate.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.asakoworld.com/Asako_04_products.html": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://akathaisiam.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.supawatcenter.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.ocsexpress.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.b5standless.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.xn--12csaad7fc9d2az8d4dh0bya0wna.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.itmon-ayutthaya.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.panusaviation.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://amountplus.online/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://steelingcoltd.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.xn--42cgab3dtb1dacn7dc1ahc3fb8fq4n1gne.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.xn--82cxc2b8cr9bkb4i.com/gps%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B8%96%E0%B8%A2%E0%B8%99%E0%B8%95%E0%B9%8C%E0%B8%8A%E0%B8%A5%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5-gps%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%A3%E0%B8%96%E0%B8%8A%E0%B8%A5%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5-gps%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%A3%E0%B8%96%E0%B8%A2%E0%B8%99%E0%B8%95%E0%B9%8C%E0%B8%88%E0%B8%B1%E0%B8%87%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%8A%E0%B8%A5%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5-gpstracking%E0%B8%8A%E0%B8%A5%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5.html": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://montacharpacking.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.thinkingofyou.asia/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.jiamoei.x10.mx/mainr.html": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.radhungroup.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://imtradeonline.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.thaispirit.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.grace-trading.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://bigbearslogistics.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.thaimedic.co/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.thaiacgroup.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.aplus-engineering.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.mrs-industrial.co.th/contact.php": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.mrgodung.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://aojingonlyone.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://beeboiler.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.ammonia-anhydrous.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://microxp.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.inkthreeguy.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://kaewpilatesstudio.co.th/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.thaitechnocopper.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.rasitalab.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.kerryexpress.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.powerplus-concrete.com/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "https://thaihighconcentrations.com/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.thaicontainersgroup.com/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "https://thanangkoonprinting.co.th/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "https://prime.nc-net.com/98734/en/equipment": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "http://warehousenk.lnwshop.com/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.coopthai.com/": {
+   "verdict": "PARKED",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.navanakorn.co.th/en": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "https://kaknapal.simdif.com/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.pp-tech.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.purithaiproduce.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.advancedgardeningthailand.com/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.datapack.co.th/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.thecheesebaron.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.damgharuwood.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://tawiphatc.simdif.com/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.sibd.co.th/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.bornbb.com/": {
+   "verdict": "PARKED",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.hitech-engineering.co.th/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.halftickets.co.th/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.hipprotank.com/": {
+   "verdict": "PARKED",
+   "confirmed": "2026-09-01"
+  },
+  "https://autech.hypermart.net/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.dkw.co.th/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.buonissimo.co.th/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.fahsaipackaging.com/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.ppipackaging.com/": {
+   "verdict": "DNS_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://fdapapercorp.com/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "https://tvpindustrial.makeweb.co/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.whongkumpangourp.odoo.com/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.tmtsteel.co.th/th/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "https://lin.ee/8gwnr6s": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.cuberyder.com/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "http://meedeeproducts.lnwshop.com/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.q-eco.co.th/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.iptech.co.th/contact.html": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "http://lognod.com/": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01"
+  },
+  "https://shop.line.me/@jaenice88": {
+   "verdict": "HTTP_404",
+   "confirmed": "2026-09-01",
+   "note": "플랫폼 루트 폴백은 공급사를 특정 못 함 — 수리 대신 제거"
+  }
+ },
+ "watch": {
+  "http://www.fb.com/flashexpressnpt": {
+   "verdict": "HTTP_ERR",
+   "confirmed": "2026-09-01"
+  },
+  "http://fb.me/Kodang.KhawDee": {
+   "verdict": "HTTP_ERR",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.pttngd.co.th/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.geoland-design.com/": {
+   "verdict": "HTTP_ERR",
+   "confirmed": "2026-09-01"
+  },
+  "https://sangcharoenstanless.yellowpages.co.th/": {
+   "verdict": "CHECK_ERROR",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.dci.co.th/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://fb.com/platofactorythailand": {
+   "verdict": "HTTP_ERR",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.syensqo.com/th/thailand": {
+   "verdict": "HTTP_ERR",
+   "confirmed": "2026-09-01"
+  },
+  "http://toyotras.jimdo.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://hondajoy.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.foodworksdelivery.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://piticold.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.tnctextile.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://excellencegyd.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://asiathaipaper.com/": {
+   "verdict": "HTTP_ERR",
+   "confirmed": "2026-09-01"
+  },
+  "http://m.me/THANASETH549": {
+   "verdict": "HTTP_ERR",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.snworldplast.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.carbidemold.com/": {
+   "verdict": "HTTP_ERR",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.focalthai.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.italsupplies.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://miyama-unitec.co.jp/company/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.surapolmarine.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://bit.ly/43wwwhY": {
+   "verdict": "HTTP_ERR",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.fujitrans.co.th/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.analog.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.dg-corporations.com/th": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.vsolutionautoparts.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.8weapons-asia.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.gulfsmachinery.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.oelgroup.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.topsun.co.th/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.dhl.com/sg-en/home/our-divisions/supply-chain/solutions.html": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.dhl.com/geolocate/home/global-forwarding.html": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.kwangthai.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.dhl.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.2j.co.th/th/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.murooka-blow.jp/company": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://bkkwirework.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.arrow.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.logistics639ltd.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.topstargroup.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.dhl.com/th-en/home/supply-chain/about-us.html": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.thaicoat.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.mpphan.co.th/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "https://www.qtec-technology.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  },
+  "http://www.it-express.com/": {
+   "verdict": "CONN_FAIL",
+   "confirmed": "2026-09-01"
+  }
+ }
+}

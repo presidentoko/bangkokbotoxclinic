@@ -40,3 +40,8 @@ export/*
 !export/thaisupplyhub_premium_final.csv
 !export/INTEGRATION.md
 data/photo_url_cache.json
+
+# 링크 검사 원본 판정 (800KB, 매 검사마다 재생성). 결론인
+# data/website_corrections.json 만 커밋한다 — 그게 리빌드가 실제로 읽는 파일.
+data/website_check.json
+data/website_recheck.json

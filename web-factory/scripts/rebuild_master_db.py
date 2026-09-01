@@ -19,8 +19,9 @@ Search Console 에 404 668 건 / discovered-not-indexed 6,989 건으로 찍혔�
     1. CSV        DBD·사진·공단·좌표가 붙은 3.3k enrichment 베이스
     2. Apify      Google Maps 커버리지 확장 (기존 enrichment 는 보존하며 머지)
     3. 이메일      contact-info-scraper 결과를 website 호스트로 매칭
-    4. dead-lead  연락 수단도 신호도 없는 레코드 제거
-    5. 통계        최종 목록 기준으로 전 카운터 재계산
+    4. 링크수정    죽은 website 링크 교정/제거 (website_corrections.json)
+    5. dead-lead  연락 수단도 신호도 없는 레코드 제거
+    6. 통계        최종 목록 기준으로 전 카운터 재계산
 
 멱등이다. 몇 번을 돌려도 같은 결과가 나오고, 중간에 뭘 빠뜨려도 다음 실행이 복구한다.
 
@@ -42,6 +43,7 @@ HERE = Path(__file__).resolve().parent
 WEB = HERE.parent
 MASTER_DB = WEB / "data" / "master_db.json"
 APIFY_RAW = WEB / "data" / "apify_raw"
+WEBSITE_CORRECTIONS = WEB / "data" / "website_corrections.json"
 
 # 배포 사고 후 이 선 아래로 떨어지면 뭔가 잘못된 것이다. 2026-08-09 사고 당시
 # 3,305 까지 떨어졌는데 아무도 못 막았다. 이제 여기서 막는다.
@@ -79,6 +81,46 @@ def slugify(s: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", (s or "").lower()).strip("_")
 
 
+def apply_website_corrections(suppliers: list[dict]) -> None:
+    """죽은 website 링크 교정·제거. suppliers 를 제자리에서 수정한다.
+
+    왜 리빌드 안에 있어야 하는가: master_db.json 을 직접 고쳐봐야
+    apify_to_master_db.py 의 PRESERVE_IF_EMPTY 가 다음 리빌드에서 옛 website 를
+    되살린다 (새 스크랩에 website 가 비어 와도 기존 값을 보존하는 규칙).
+    그래서 교정 목록이 리빌드 파이프라인의 마지막에 매번 다시 적용돼야 한다.
+
+    2026-09-01 외부 제보로 시작 — 도메인 만료·폐업 후에도 구글 프로필에서 온
+    링크가 계속 실려 나가고 있었다. 전수 검사 결과 3,595 개 중 ~5% 가 죽어 있었다.
+    목록 생성: check_websites.py → recheck_websites.py → repair_websites.py
+    """
+    if not WEBSITE_CORRECTIONS.exists():
+        print("\n[skip] website_corrections.json 없음 — 링크 교정 건너뜀")
+        return
+    c = json.loads(WEBSITE_CORRECTIONS.read_text(encoding="utf-8"))
+    replace, remove = c.get("replace", {}), c.get("remove", {})
+    n_rep = n_del = n_mail = 0
+    for s in suppliers:
+        w = (s.get("website") or "").strip()
+        if not w:
+            continue
+        if w in replace:
+            s["website"] = replace[w]
+            n_rep += 1
+        elif w in remove:
+            s["website"] = ""
+            n_del += 1
+            # 이메일은 website 호스트로 매칭해 채운 값이다(merge_contact_emails.py).
+            # 도메인이 DNS 에서 사라졌으면 그 주소로는 메일이 가지 않는다 —
+            # 죽은 링크를 지우면서 죽은 메일함을 남겨두면 같은 버그가 남는다.
+            if remove[w].get("verdict") == "DNS_FAIL" and s.get("email"):
+                host = re.sub(r"^www\.", "", (w.split("//")[-1].split("/")[0]).lower())
+                if s["email"].split("@")[-1].lower().endswith(host.split(":")[0]):
+                    s["email"] = ""
+                    n_mail += 1
+    print(f"\n링크 교정 ({c.get('generated_at', '?')}): "
+          f"수리 {n_rep:,} · 제거 {n_del:,} · 죽은 도메인 이메일 제거 {n_mail:,}")
+
+
 def finalize() -> dict:
     """dead-lead 필터 + 전 통계 재계산.
 
@@ -90,6 +132,9 @@ def finalize() -> dict:
     """
     db = json.loads(MASTER_DB.read_text(encoding="utf-8"))
     before = db["suppliers"]
+    # dead-lead 필터보다 먼저 — website 가 유일한 신호였던 레코드는 링크가
+    # 죽은 순간 dead lead 다. 순서가 뒤집히면 그런 레코드가 살아남는다.
+    apply_website_corrections(before)
     suppliers = [s for s in before if has_signal(s)]
     print(f"\ndead-lead 제거: {len(before):,} → {len(suppliers):,}  (-{len(before) - len(suppliers):,})")
 
