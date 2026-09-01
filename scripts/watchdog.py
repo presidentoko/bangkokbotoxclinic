@@ -981,7 +981,7 @@ def build_services() -> list[Service]:
         # 2080-2084 안으로 옮겼다.
         Service(
             name="nordvpn_runner",
-            cmd=["nordvpn_runner.py", "--ports", "8", "--base-port", "2080",
+            cmd=["nordvpn_runner.py", "--ports", "5", "--base-port", "2080",
                  "--auth", "nordvpn/auth.txt", "--proto", "mixed"],
             cwd=ROOT,
             env_extra={},
