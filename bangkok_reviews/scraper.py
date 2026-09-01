@@ -1321,8 +1321,14 @@ def main():
                         rc = int(row.get("review_count") or 0)
                     except ValueError:
                         rc = 0
-                    # rc == 0 (미확정) 또는 >= MIN 인 경우만 통과
-                    if rc == 0 or rc >= config.MIN_REVIEW_COUNT:
+                    # rc == 0 (미확정) 또는 >= MIN 인 경우만 통과.
+                    # SKIP_UNKNOWN_REVIEW_COUNT=1 이면 미확정도 버린다 —
+                    # 그리드를 충분히 돌린 도시에서는 rc==0 이 사실상
+                    # "리뷰 거의 없음"이라, 통과시키면 큐의 절반 이상을
+                    # 열어보고 버리는 데 쓰게 된다. config.py 주석 참고.
+                    if rc >= config.MIN_REVIEW_COUNT:
+                        out.append((href, rc))
+                    elif rc == 0 and not config.SKIP_UNKNOWN_REVIEW_COUNT:
                         out.append((href, rc))
         except Exception as e:
             log.warning(f"discovered read 실패: {e}")

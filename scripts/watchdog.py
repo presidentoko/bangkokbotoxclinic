@@ -590,6 +590,11 @@ def build_services() -> list[Service]:
         "CITY_OUTPUT_DIR": "output",
         "N_WORKERS": "2",
         "PROXY_PORT_BASE": "2080",
+        # 방콕 그리드는 34,412곳까지 돌았고, 그중 review_count==0 인 10,696곳은
+        # "아직 못 읽음"이 아니라 사실상 리뷰가 거의 없는 곳이다. 통과시키면
+        # 큐가 18,238곳이 되고 절반 이상을 열어보고 버린다(약 9일). 진짜 대상
+        # 7,542곳만 돌면 3.5일이다. 그리드를 덜 돌린 도시에는 켜지 말 것.
+        "SKIP_UNKNOWN_REVIEW_COUNT": "1",
     }
     pattaya_env = {
         "CITY_LAT": "12.9236",

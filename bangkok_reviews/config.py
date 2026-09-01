@@ -7,6 +7,18 @@ SEARCH_QUERIES = [
 ]
 
 MIN_REVIEW_COUNT = 30       # 최소 리뷰 수
+
+# discovered_places 의 review_count == 0 인 항목을 큐에 넣을지.
+#
+# 0 은 "리뷰가 없다"가 아니라 "그리드가 카드에서 숫자를 못 읽었다"는 뜻이라,
+# 기본값은 통과시키는 쪽이다 — 갓 스캔한 도시에서 이걸 버리면 멀쩡한 식당을
+# 놓친다.
+#
+# 다만 그리드가 충분히 돈 도시에서는 이 값이 압도적으로 "진짜 리뷰가 거의 없는
+# 곳"이 된다. 방콕이 그 상태다: 발견 34,412곳 중 rc==0 이 10,696곳이고,
+# rc>=30 인 진짜 대상은 7,542곳뿐인데 큐에는 18,238곳이 들어가 절반 이상을
+# 열어보고 버리는 데 쓴다(처리율 1.3/분 기준 9일 → 3.5일 차이).
+SKIP_UNKNOWN_REVIEW_COUNT = os.environ.get("SKIP_UNKNOWN_REVIEW_COUNT", "0") == "1"
 REVIEWS_PER_RATING = 10     # 별점당 최대 수집 리뷰 수 (1~5점 각각)
 MAX_RESTAURANTS = None      # 무제한 (전체 수집)
 OUTPUT_DIR = os.environ.get("CITY_OUTPUT_DIR", "output")
