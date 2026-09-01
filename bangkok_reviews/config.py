@@ -54,8 +54,21 @@ GRID_PROXY_PORT = 2080       # 포트 1개
 GRID_N_WORKERS = 1
 
 # Review (상세 + 리뷰 수집) 워커
-PROXY_PORT_BASE = 2081       # 2081..2085
-N_WORKERS = 5
+# 워커 수와 프록시 포트 시작점.
+#
+# 이 두 값은 watchdog 이 도시별로 env 로 넘긴다 (bangkok 2080, pattaya 2082,
+# spa 2084, massage 2086 … 각 2워커). 그런데 여기서 env 를 안 읽고 하드코딩
+# (5워커 / base 2081) 하고 있어서, watchdog 이 넘기는 값이 조용히 무시됐다.
+#
+# 결과가 두 가지였다. 하나, 방콕 리뷰가 워커를 5개 띄워 브라우저 5개
+# (~2.5GB) 를 물고 ram_manager 가 몇 분 만에 자기를 꺼버렸다. 둘, 2081~2085
+# 를 점거해 pattaya(2082) 와 spa(2084) 배분과 겹쳤다 — VPN 포트가 계속
+# 요동친 원인이기도 하다.
+#
+# watchdog 의 _validate_proxy_ports 는 env 값을 검사하므로, 이 불일치는
+# 검증을 통과하면서 실제 동작만 달랐다.
+PROXY_PORT_BASE = int(os.environ.get("PROXY_PORT_BASE", "2081"))
+N_WORKERS = int(os.environ.get("N_WORKERS", "5"))
 
 # legacy
 PROXY_PORT = 2080
