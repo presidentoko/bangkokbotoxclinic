@@ -34,12 +34,31 @@ PAUSE_THRESHOLDS = [
     ("dental_review_bangkok",  1.2),
     ("bangkok_clinics_review", 0.8),   # 핵심 파이프라인 — 마지막 수단
 ]
+# resume 값은 이 머신이 실제로 도달하는 범위 안에 있어야 한다. 그렇지 않으면
+# pause 는 걸리는데 resume 은 영원히 안 걸려서, "일시정지"가 사실상 영구정지가
+# 된다. 되살리려면 사람이 run/<name>.disabled 를 지워주는 수밖에 없고, 그
+# 사실이 로그 어디에도 안 남는다 — ram_manager 는 이미 꺼진 것으로 보고 매 틱
+# "OK" 만 찍는다.
+#
+# bangkok_review 가 그 상태였다. pause 2.0 / resume 4.5 인데 이 머신은
+# 브라우저 스크래퍼가 여럿 돌 때 2.0~2.6GB 대에서 산다. 2026-09-01 관측으로
+# 25틱 연속 1.3~2.6GB, 4.5GB 는 한 번도 없었다. 그래서 한 번 2.0 밑으로
+# 내려가면 다시는 못 올라왔다.
+#
+# 값을 고를 때 주의할 점: resume 은 pause 보다 "그 서비스가 실제로 쓰는 양"
+# 이상 높아야 한다. bangkok_review 는 워커 2개로 브라우저 2개(약 1GB)를 문다.
+# resume 을 2.8 로 두면 — 꺼진 상태에서 3.0 이 되어 resume, 켜자마자 2.0 으로
+# 떨어져 다시 pause — 6분 주기로 진동하며 매번 진행 중이던 작업을 버린다.
+# 3.2 면 켠 뒤에도 2.2 정도로 pause 선(2.0) 위에 남는다.
+#
+# pause 순서는 일부러 그대로 둔다 — 메모리가 모자라면 식당이 먼저 양보하는
+# 우선순위 자체는 유효하다. 바꾸는 건 "여유가 생겼을 때 돌아올 수 있는가"뿐.
 RESUME_THRESHOLDS = [
     ("bangkok_clinics_review", 2.5),
     ("dental_review_bangkok",  3.0),
     ("spa_review_pattaya",     3.5),
     ("pattaya_review",         3.5),
-    ("bangkok_review",         4.5),
+    ("bangkok_review",         3.2),
 ]
 
 
