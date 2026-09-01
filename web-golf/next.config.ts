@@ -18,6 +18,20 @@ const config: NextConfig = {
         destination: "https://www.thailandgolfguide.com/:path*",
         permanent: true,
       },
+      {
+        // The project's own Vercel alias serves the whole site with Cloudflare
+        // nowhere in the path: measured 2026-09-01, https://web-golf-xi.vercel.app/
+        // returned the full 650,079-byte homepage straight from the origin,
+        // with no cf-cache-status and no noindex. Every crawler holding this
+        // hostname bills an ISR read and the page's full weight in Fast Origin
+        // Transfer, with none of the edge caching the real domain gets. The
+        // deployment URLs (web-golf-<hash>-<team>.vercel.app) are behind
+        // Vercel's SSO and are not affected; this is the one open alias.
+        source: "/:path*",
+        has: [{ type: "host", value: "web-golf-xi.vercel.app" }],
+        destination: "https://www.thailandgolfguide.com/:path*",
+        permanent: true,
+      },
       // 여기 있던 /city/pattaya -> /city/chon_buri 리다이렉트는 제거했다.
       // 붙일 당시엔 맞는 판단이었다 — 파타야 페이지에 코스가 18개뿐이었고 촌부리와
       // 목록이 거의 겹쳐서 중복 콘텐츠였다. lib/cityAliases 의 배타 배정이 들어간 뒤로는

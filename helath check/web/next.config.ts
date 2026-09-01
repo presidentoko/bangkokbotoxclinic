@@ -112,6 +112,22 @@ const nextConfig: NextConfig = {
       // Google keeps re-checking the origin and passes no signal through to
       // the target. `permanent: false` here was the site's single
       // highest-authority URL leaking its authority on every crawl.
+      {
+        // The project's own Vercel alias serves the whole site with Cloudflare
+        // nowhere in the path: measured 2026-09-01, /en on
+        // web-xi-two-ayecjpc8xy.vercel.app came back as 139,938 bytes straight
+        // from the origin, no cf-cache-status and no noindex. Every crawler
+        // holding this hostname bills an ISR read and the page's full weight in
+        // Fast Origin Transfer with none of the edge caching www gets. The
+        // deployment URLs (web-<hash>-yunmin.vercel.app) sit behind Vercel SSO
+        // and are unaffected; this alias was the one open door.
+        //
+        // First, so it wins before the locale rules below rewrite the path.
+        source: "/:path*",
+        has: [{ type: "host", value: "web-xi-two-ayecjpc8xy.vercel.app" }],
+        destination: "https://www.bangkoktopclinic.com/:path*",
+        permanent: true,
+      },
       { source: "/", destination: "/en", permanent: true },
       // Legacy compare URLs used ?category= query params, which forced the
       // page into per-request SSR. Categories are now path segments
@@ -169,7 +185,20 @@ const nextConfig: NextConfig = {
           //
           // Only half the fix lives here: responses stay DYNAMIC until a
           // Cloudflare Cache Rule marks HTML eligible for cache.
-          { key: "Cache-Control", value: "public, max-age=0, s-maxage=3600, stale-while-revalidate=604800" },
+          //
+          // 2026-09-01: the Cache Rule is in place and every page type now
+          // returns MISS then HIT, but the meters kept climbing, and the same
+          // arithmetic that explained web-golf/web-thaigle explains this one —
+          // an hour of edge TTL lets a crawler pull each URL up to 24 times a
+          // day per POP, and this site publishes thousands. An hour was never
+          // the right number here anyway: 18 of the 20 routes declare
+          // `revalidate = false`, so nothing changes at all between deploys
+          // and Vercel would happily serve these pages for a month. Raised to
+          // a day, which is still far more conservative than the origin.
+          //
+          // The cost: after a deploy the edge may serve the previous build for
+          // up to a day. Purge the Cloudflare cache when you ship.
+          { key: "Cache-Control", value: "public, max-age=0, s-maxage=86400, stale-while-revalidate=604800" },
         ],
       },
       {
