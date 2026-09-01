@@ -6,6 +6,9 @@ export type Grade = 'green' | 'yellow' | 'red' | 'black' | 'neutral' | 'unknown'
 export type FoodGrade = 'A' | 'B' | 'C' | 'D' | 'F'
 export type Animal = 'dog' | 'cat'
 export type LifeStage = 'puppy' | 'adult' | 'senior'
+/** `milk_replacer` is a single KMR product, but the union has to admit it or
+ *  the dataset does not typecheck against this interface. */
+export type FoodForm = 'dry_food' | 'wet_food' | 'milk_replacer'
 
 export interface Ingredient {
   name: string
@@ -20,6 +23,11 @@ export interface PetFood {
   name_th: string
   animal: Animal
   life_stage: LifeStage
+  /** Physical form. Every scraper has written this since the beginning; it was
+   *  simply missing from this interface, so nothing could filter on it. It
+   *  matters for recommendations — offering dry kibble to someone reading about
+   *  a wet pouch is a different purchase, not an upgrade. */
+  sub_category: FoodForm
   /** Pack size. 1.0 on every scraped record — a default, not a measurement —
    *  so it is only shown where `weight_verified` says a real listing supplied
    *  it. See petfood/lazada_prices.py. */
@@ -66,7 +74,11 @@ export interface PetFoodLight {
   life_stage: LifeStage
   weight_kg: number
   weight_verified?: boolean
-  /** Absent when unknown. No price source is connected yet, so always absent. */
+  /**
+   * Absent when unknown. Thai retail prices now cover 697 of the products and
+   * a per-kilo figure 436 of them, so these are frequently present — the note
+   * that used to sit here saying no price source was connected is out of date.
+   */
   price_thb?: number
   price_per_kg?: number
   protein_pct: number

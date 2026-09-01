@@ -130,6 +130,14 @@ export function filterFoodsLight(filters: FoodFilters = {}): PetFoodLight[] {
 
 export { getFoodGrade } from './grading'
 
+/**
+ * @deprecated Use `getComparableFoods` from `lib/alternatives`.
+ *
+ * This sorts the whole animal/life-stage group by `green_count` and takes the
+ * top three, which means every page in a group recommends the identical three
+ * products at any price and in any form. It is kept only so nothing that still
+ * imports it breaks; the food detail page no longer uses it.
+ */
 export function getSimilarFoods(food: PetFood, count = 3): PetFood[] {
   return loadFoods()
     .filter(f => f.id !== food.id && f.animal === food.animal && f.life_stage === food.life_stage)

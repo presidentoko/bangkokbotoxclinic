@@ -1,11 +1,13 @@
 import { notFound } from 'next/navigation'
-import { getFoodBySlug, loadFoods, getFoodGrade, getSimilarFoods, foodSlug } from '@/lib/petfood'
+import { getFoodBySlug, loadFoods, getFoodGrade, foodSlug } from '@/lib/petfood'
+import { getBetterAlternatives, getComparableFoods, isPrescriptionDiet } from '@/lib/alternatives'
 import { hasPublishableData } from '@/lib/grading'
 import { affiliateUrl } from '@/lib/affiliate'
 import { getFoodReviews } from '@/lib/petreviews'
 import GradeBar from '@/components/GradeBar'
 import IngredientGroups from '@/components/IngredientGroups'
 import SimilarFoods from '@/components/SimilarFoods'
+import BetterAlternatives from '@/components/BetterAlternatives'
 import ShareCard from '@/components/ShareCard'
 import TrackRecentFood from '@/components/TrackRecentFood'
 import PantipReviews from '@/components/PantipReviews'
@@ -212,7 +214,9 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
 
   const grade = getFoodGrade(food)
   const gradeCfg = grade ? GRADE_CONFIG[grade] : null
-  const similar = getSimilarFoods(food)
+  const similar = getComparableFoods(food)
+  const alternatives = getBetterAlternatives(food)
+  const prescription = isPrescriptionDiet(food)
   const total = food.green_count + food.yellow_count + food.red_count + food.black_count
   const pantipReview = getFoodReviews(food.id)
   const conditionLinks = getConditionLinks(food)
@@ -339,6 +343,30 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
             <a href="/ingredients" className="text-orange-600 hover:underline">ดูวิธีอ่านฉลากอาหารสัตว์</a>
           </p>
         </section>
+      )}
+
+      {/* The upgrade path — placed right after the panel, where the grade has
+          just been explained and the visitor otherwise has nowhere to go.
+          A therapeutic diet gets an explanation instead of suggestions: its
+          grade is low because restricting protein or phosphorus is the point,
+          and swapping it is a veterinary decision, not a shopping one. */}
+      {prescription ? (
+        <section className="mb-4 bg-amber-50 border border-amber-200 rounded-xl p-4">
+          <h2 className="text-base font-bold text-amber-900 mb-1">
+            อาหารประกอบการรักษาโรค — ไม่แนะนำให้เปลี่ยนเอง
+          </h2>
+          <p className="text-sm text-amber-800 leading-relaxed">
+            อาหารสูตรนี้ใช้ประกอบการรักษาโรค สูตรถูกออกแบบมาให้จำกัดสารอาหารบางอย่าง
+            เช่น โปรตีนหรือฟอสฟอรัส ซึ่งเป็นส่วนหนึ่งของการรักษา
+            เกรดส่วนประกอบจึงไม่ได้บอกว่าอาหารตัวนี้ดีหรือไม่ดีสำหรับน้องที่ป่วย
+            หากต้องการเปลี่ยนอาหาร กรุณาปรึกษาสัตวแพทย์ก่อนเสมอ
+          </p>
+          <a href="/hospital" className="mt-2 inline-block text-xs font-semibold text-amber-900 hover:underline">
+            ค้นหาโรงพยาบาลสัตว์ใกล้คุณ →
+          </a>
+        </section>
+      ) : (
+        <BetterAlternatives alternatives={alternatives} currentGrade={grade} />
       )}
 
       {/* Pantip reviews */}

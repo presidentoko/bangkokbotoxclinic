@@ -43,9 +43,14 @@ log = logging.getLogger("petfood.pantip")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
 ROOT = Path(__file__).parent.parent
-FOOD_JSON = ROOT / "data" / "petfood.json"
-HOSPITAL_JSON = ROOT / "data" / "hospitals.json"
-OUTPUT = ROOT / "data" / "petreviews.json"
+# These three used to point at a staging copy under the repo root. The food
+# file there was a frozen 986-record snapshot, so every local brand added since
+# went unsearched; the hospital file did not exist at all, which is why the
+# hospital half of this scraper had nothing to iterate over. Read and write the
+# catalogues the website actually ships.
+from petfood.paths import FOODS as FOOD_JSON, REVIEWS as OUTPUT  # noqa: E402
+
+HOSPITAL_JSON = ROOT / "web-petbkk" / "data" / "hospitals.json"
 
 MAX_SEARCH_PAGES = 3   # per keyword
 MAX_THREADS_PER_ENTITY = 10

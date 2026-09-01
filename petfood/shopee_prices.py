@@ -35,7 +35,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright, Browser
 
 ROOT = Path(__file__).parent.parent
-OUTPUT = ROOT / "data" / "petfood.json"
+from petfood.paths import FOODS as OUTPUT  # single catalogue; see petfood/paths.py
 SHOPEE_BASE = "https://shopee.co.th"
 
 

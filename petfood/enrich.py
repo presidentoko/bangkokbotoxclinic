@@ -15,9 +15,7 @@ from playwright.sync_api import sync_playwright
 from petfood.parse_ingredients import parse_ingredients, calc_dry_matter, meets_aafco, score_food
 
 ROOT = Path(__file__).parent.parent
-OUTPUT = ROOT / "data" / "petfood.json"
-
-
+from petfood.paths import FOODS as OUTPUT  # single catalogue; see petfood/paths.py
 def _extract_ingredients_from_page(page) -> str:
     """Try multiple DOM selectors to find ingredient text on product page."""
     selectors = [

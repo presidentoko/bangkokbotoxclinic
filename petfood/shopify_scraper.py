@@ -10,8 +10,7 @@ from pathlib import Path
 import urllib.request, urllib.error
 
 ROOT   = Path(__file__).parent.parent
-OUTPUT = ROOT / "data" / "petfood.json"
-
+from petfood.paths import FOODS as OUTPUT  # single catalogue; see petfood/paths.py
 SHOPIFY_BRANDS = [
     {
         "key": "open_farm",

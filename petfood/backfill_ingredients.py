@@ -12,9 +12,7 @@ from playwright.sync_api import sync_playwright, Page
 from petfood.parse_ingredients import parse_ingredients, calc_dry_matter, meets_aafco, score_food
 
 ROOT   = Path(__file__).parent.parent
-OUTPUT = ROOT / "data" / "petfood.json"
-
-
+from petfood.paths import FOODS as OUTPUT  # single catalogue; see petfood/paths.py
 def _clean_html(text: str) -> str:
     text = re.sub(r"<[^>]+>", " ", text)
     text = re.sub(r"&[a-z]+;", " ", text)
@@ -239,10 +237,6 @@ def main() -> None:
     if updated > 0:
         OUTPUT.write_text(json.dumps(foods, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"✓ Saved → {OUTPUT}")
-        web_out = ROOT / "web-petbkk" / "data" / "petfood.json"
-        if web_out.exists():
-            web_out.write_text(json.dumps(foods, ensure_ascii=False, indent=2), encoding="utf-8")
-            print(f"✓ Synced → {web_out}")
 
 
 if __name__ == "__main__":

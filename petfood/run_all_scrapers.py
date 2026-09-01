@@ -20,14 +20,13 @@ Run:
 from __future__ import annotations
 import argparse
 import json
-import shutil
 import subprocess
 import sys
 from pathlib import Path
 
+from petfood.paths import FOODS
+
 ROOT = Path(__file__).parent.parent
-DATA_SRC = ROOT / "data" / "petfood.json"
-DATA_DST = ROOT / "web-petbkk" / "data" / "petfood.json"
 
 
 def _run(module: str, extra_args: list[str] = []) -> bool:
@@ -42,13 +41,19 @@ def _run(module: str, extra_args: list[str] = []) -> bool:
 
 
 def _sync_web():
-    print(f"\n→ Syncing {DATA_SRC} → {DATA_DST}")
-    shutil.copy2(DATA_SRC, DATA_DST)
-    with open(DATA_SRC, encoding="utf-8") as f:
+    """Report the catalogue. There is nothing left to copy.
+
+    This used to ``shutil.copy2()`` a staging file over the website's data,
+    which silently reverted whatever the scrapers writing directly to the web
+    copy had added. Every scraper now appends to the one file in
+    ``petfood.paths.FOODS``, so this only summarises the result.
+    """
+    with open(FOODS, encoding="utf-8") as f:
         foods = json.load(f)
     with_ings = sum(1 for f in foods if f.get("ingredients"))
     with_price = sum(1 for f in foods if f.get("price_thb", 0) > 0)
     brands = len(set(f["brand"] for f in foods))
+    print(f"\n→ Catalogue: {FOODS}")
     print(f"  Total: {len(foods)} foods | {brands} brands | {with_ings} with ingredients | {with_price} with price")
 
 

@@ -24,8 +24,7 @@ from urllib.parse import urlparse
 from petfood.parse_ingredients import parse_ingredients, calc_dry_matter, meets_aafco, score_food
 
 ROOT   = Path(__file__).parent.parent
-OUTPUT = ROOT / "data" / "petfood.json"
-
+from petfood.paths import FOODS as OUTPUT  # single catalogue; see petfood/paths.py
 HEADERS = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
 
 # Items that clearly aren't food — remove from DB

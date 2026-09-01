@@ -5,8 +5,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 ROOT   = Path(__file__).parent.parent
-OUTPUT = ROOT / "data" / "petfood.json"
-
+from petfood.paths import FOODS as OUTPUT  # single catalogue; see petfood/paths.py
 SAMPLES = {
     "pedigree":  "https://www.pedigree.co.th/our-products/dry-food/adult-beef-liver-vegetable",
     "whiskas":   "https://www.whiskas.co.th/our-products/dry-food/whiskas-junior-tuna-and-salmon-flavour",

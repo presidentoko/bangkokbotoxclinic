@@ -23,10 +23,21 @@ export const metadata: Metadata = {
 function HowItWorks() {
   const foods = loadFoodsLight()
   const gradeA = foods.filter(f => getFoodGrade(f) === 'A')
-  // Not price-sorted: price_thb/price_per_kg are 0 across the whole dataset,
-  // so filtering on them produced an empty list and a blank section.
-  const pickA = [...gradeA]
-    .sort((a, b) => b.green_count - a.green_count)
+  // This used to sort by `green_count` alone, with a comment explaining that
+  // price_thb/price_per_kg were 0 across the whole dataset. That is no longer
+  // true — the Thai retail import put a price on 697 products and a per-kilo
+  // figure on 436 — so the best-value cut this page is for can finally be made.
+  // Products still missing a price fall back to the ingredient sort rather than
+  // being dropped, so the section never empties.
+  const priced = gradeA.filter(f => (f.price_per_kg ?? 0) > 0)
+  const pickA = (priced.length >= 5 ? priced : gradeA)
+    .slice()
+    .sort((a, b) =>
+      ((a.price_per_kg ?? 0) > 0 && (b.price_per_kg ?? 0) > 0
+        ? (a.price_per_kg ?? 0) - (b.price_per_kg ?? 0)
+        : 0) ||
+      b.green_count - a.green_count
+    )
     .slice(0, 8)
 
   return (
@@ -38,7 +49,9 @@ function HowItWorks() {
         <li>กลับมาที่หน้านี้เพื่อดูโปรตีน ไขมัน (dry matter) เกรดส่วนประกอบ และราคาต่อกิโลกรัมเคียงข้างกัน</li>
       </ol>
 
-      <h2 className="text-base font-bold text-gray-800 mb-1">อาหารเกรด A ที่ส่วนผสมดีที่สุด</h2>
+      <h2 className="text-base font-bold text-gray-800 mb-1">
+        {priced.length >= 5 ? 'อาหารเกรด A ที่คุ้มที่สุดต่อกิโลกรัม' : 'อาหารเกรด A ที่ส่วนผสมดีที่สุด'}
+      </h2>
       <p className="text-xs text-gray-400 mb-3">
         จากอาหารเกรด A ทั้งหมด {gradeA.length.toLocaleString()} รายการ — จุดเริ่มต้นที่ดีสำหรับการเปรียบเทียบ
       </p>
@@ -49,7 +62,9 @@ function HowItWorks() {
             <a href={`/food/${f.slug}`} className="text-gray-700 hover:text-orange-600 hover:underline">
               {f.brand} {f.name_en}
             </a>
-            <span className="text-xs text-gray-400 whitespace-nowrap">ส่วนผสมดี {f.green_count}</span>
+            <span className="text-xs text-gray-400 whitespace-nowrap">
+              {(f.price_per_kg ?? 0) > 0 ? `฿${Math.round(f.price_per_kg!)}/กก.` : `ส่วนผสมดี ${f.green_count}`}
+            </span>
           </li>
         ))}
       </ol>

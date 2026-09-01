@@ -112,6 +112,19 @@ GREEN_TERMS: set[str] = {
     "มันเทศ", "ฟักทอง", "ถั่วเลนทิล", "ถั่วลูกไก่",
     "บลูเบอร์รี่", "แครนเบอร์รี่", "แอปเปิ้ล", "แครอท",
     "เมล็ดแฟลกซ์", "ปลาเฮอร์ริ่ง", "ปลาแอนโชวี", "สาหร่ายทะเล",
+    # Added from the Thonglor Pet Shop panels (2026-09-01). Almost every term
+    # below was already understood in one spelling and unknown in another —
+    # Thai transliterations of English nutrition terms have no single accepted
+    # form, so the dictionary has to carry the variants that retailers and
+    # manufacturers actually print.
+    "แซลมอน", "ปลาแซลมอนป่น", "เนื้อปลา", "ปลาป่น",
+    "ไตสุกร", "ไตและตับสุกร", "ตับสุกร", "เนื้อสุกรและสัตว์ปีก",
+    "ตับสุกรและสัตว์ปีก", "ตับสัตว์ปีก", "หัวใจ", "กึ๋น",
+    "นมแพะผง", "นมแพะ",
+    "สารสกัดจากหอยแมลงภู่นิวซีแลนด์", "หอยแมลงภู่นิวซีแลนด์",
+    "เนื้อและเปลือกเมล็ดไซเลียม", "เมล็ดไซเลียม",
+    "ฟรุกโต-โอลิโก-แซคคาไรด์", "ฟรุคโตโอลิโกแซคคาไรด์",
+    "ฟรุกโตโอลิโกแซคคาไรด์", "โอลิโกแซคคาไรด์",
 }
 
 YELLOW_TERMS: set[str] = {
@@ -157,6 +170,26 @@ YELLOW_TERMS: set[str] = {
     "น้ำมันปาล์ม", "กากน้ำตาล", "น้ำตาล", "เซลลูโลส", "ผงเซลลูโลส",
     "เกลือ", "โซเดียมคลอไรด์", "ยีสต์", "คาราจีแนน", "เจลาติน",
     "กากบีท", "แป้ง", "ข้าวโอ๊ต", "ข้าวบาร์เลย์", "เลซิติน",
+    # Added from the Thonglor Pet Shop panels (2026-09-01).
+    # Named animal fat: declared species, but it is fat, not protein.
+    "ไขมันสุกร", "ไขมันหมู", "ไขมันจากนม", "ไขมันไก่",
+    # Plant oil spelling variants
+    "น้ำมันเมล็ดทานตะวัน", "น้ำมันเมล็ดดอกทานตะวัน", "น้ำมันจากดอกทานตะวัน",
+    "น้ำมันถั่วเหลือง", "น้ำมันรำข้าว",
+    # Chicory pulp is bulking fibre, same role as the beet pulp above
+    "เยื่อหัวชิโครี่", "เนื้อจากต้นชิโครี่", "ชิโครี่",
+    # Sugars, starch fillers and texture
+    "มอลโตเด็กซ์ตริน", "เด็กซ์โตรส", "ผงเยลลี่", "เยลลี่", "คาราเมล",
+    "กัวร์กัม", "แซนแธน", "แซนแทนกัม", "คาร์ราจิแนน", "คาร็อบกัม",
+    "ยางจากต้นอบเชย", "สารเพิ่มความหนืด", "เคซีเนท", "โซเดียมเคซีเนท",
+    # Generic plant/grain terms — recognised, but they declare nothing specific
+    "ธัญพืช", "ผลิตภัณฑ์จากพืช", "สารสกัดโปรตีนจากพืช", "ผงมะเขือเทศ",
+    # Palatants
+    "รสชาติจากธรรมชาติ", "รสธรรมชาติ", "รสหมู", "รสไก่", "รสเนื้อ",
+    # Hydrolysed liver/meat palatants: species group is declared, so not red,
+    # but this is a flavour coating rather than a protein source.
+    "เนื้อสัตว์ปีกไฮโดรไลส์", "ตับสัตว์ปีกไฮโดรไลส์", "ตับสัตว์ปีกไฮโดรไลซ์",
+    "สัตว์ปีกป่นไฮโดรไลส์", "วิตามินสัตว์ปีกป่นไฮโดรไลส์",
 }
 
 # Recognised, but carries no quality signal either way. Excluded from the
@@ -193,6 +226,28 @@ NEUTRAL_TERMS: set[str] = {
     "ไคลน็อพทิโลไลท์", "สารถนอมคุณภาพอาหารสัตว์", "สารกันบูด",
     "แร่ธาตุ", "วิตามิน", "น้ำ", "ทอรีน", "แอล-คาร์นิทีน", "กรดซิตริก",
     "แคลเซียมคาร์บอเนต", "กรดโฟลิก", "ไบโอติน", "ไนอาซิน",
+    # Added from the Thonglor Pet Shop panels (2026-09-01).
+    # Lutein source, added as a nutrient — recognised, no quality signal.
+    "สารสกัดจากดอกดาวเรือง", "ดอกดาวเรืองป่น", "ดอกดาวเรือง",
+    "สารปรุงแต่งอาหารสัตว์", "สารปรุงแต่งอาหารสัตว์ (ไคลน็อพทิโลไลท์)",
+    # Vitamins
+    "วิตามิน อี", "วิตามินอี", "วิตามินบี", "วิตามินซี", "วิตามินเอ",
+    "วิตามินดี", "แคโรทีน", "เบต้าแคโรทีน", "โคลีนคลอไรด์",
+    "แคลเซียมแพนโทธีเนต", "ไพริดอกซินไฮโดรคลอไรด์", "ไรโบฟลาวิน",
+    "ไทอามีน", "อาหารเสริมวิตามิน", "แร่ธาตุวิตามิน",
+    # Minerals
+    "แคลเซียม", "โมโนแคลเซียมฟอสเฟต", "ไดแคลเซียมฟอสเฟต",
+    "โพแทสเซียมคลอไรด์", "โพแทสเซียมซิเตรต", "โซเดียมไบซัลเฟต",
+    "โซเดียม ไบซัลเฟต", "โซเดียมอะลูมิโนซิลิเคต", "สังกะสีออกไซด์",
+    "แมงกานีสออกไซด์", "เฟอร์รัสซัลเฟต", "ซิงค์ออกไซด์",
+    # Amino acids and joint/functional supplements
+    "กรดอะมิโน", "กลูโคซามีน", "กลูโคซามีนจากการหมัก", "คอนดรอยติน",
+    "แอลคาร์นิทีน", "กรดแลคติค", "เลซิทิน", "ขิง",
+    "กระดูกอ่อนสุกรไฮโดรไลส์", "กระดูกอ่อนสุกรไฮโดรไลซ์",
+    "เปลือกกุ้งและปูไฮโดรไลส์", "เปลือกกุ้งและปูไฮโดรไลซ์",
+    # Emulsifiers and preservation
+    "กรดไขมันชนิดโมโนกรีเซอไรด์และไดกรีเซอไรด์",
+    "โมโนและไดกลีเซอร์ไรด์", "โทโคฟีรอลผสม", "สารสกัดจากโรสแมรี่",
 }
 
 RED_TERMS: set[str] = {
@@ -218,6 +273,18 @@ RED_TERMS: set[str] = {
     "ผลิตภัณฑ์พลอยได้จากสัตว์ปีก", "ผลิตภัณฑ์พลอยได้จากเนื้อสัตว์",
     "ไขมันสัตว์", "น้ำมันพืช", "อาหารสัตว์บด", "แป้งเนื้อสัตว์",
     "กลูเตนข้าวโพด", "ผงเลือด", "ผงกระดูก", "กลิ่นสังเคราะห์",
+    # Added from the Thonglor Pet Shop panels (2026-09-01). These are the Thai
+    # forms of the classic undeclared-origin terms — the exact wording a label
+    # uses when it does not want to say which animal, or which oil. They are
+    # the single most useful thing this dictionary can catch, because a bag
+    # advertised as "real chicken" whose panel says only "meat and animal
+    # products" is precisely the claim/panel mismatch worth surfacing.
+    "เนื้อสัตว์และผลิตภัณฑ์จากสัตว์", "ผลิตภัณฑ์จากสัตว์",
+    "เนื้อสัตว์และผลพลอยได้จากสัตว์", "น้ำมันและไขมัน",
+    "ไขมันและน้ำมัน", "โปรตีนจากสัตว์ไฮโดรไลส์", "โปรตีนจากสัตว์",
+    # Hydrolysed poultry feather — the same low-value keratin protein as the
+    # "feather meal" already listed in English above.
+    "สารสกัดจากขนสัตว์ปีกไฮโดรไลส์", "ขนสัตว์ปีกไฮโดรไลส์", "ขนสัตว์ป่น",
 }
 
 BLACK_TERMS: set[str] = {

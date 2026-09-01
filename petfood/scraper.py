@@ -17,8 +17,7 @@ from playwright.sync_api import sync_playwright, Page
 from petfood.parse_ingredients import parse_ingredients, calc_dry_matter, meets_aafco, score_food
 
 ROOT = Path(__file__).parent.parent
-OUTPUT = ROOT / "data" / "petfood.json"
-
+from petfood.paths import FOODS as OUTPUT  # single catalogue; see petfood/paths.py
 SKIP_SLUGS = {
     "retail-products", "puppy-food", "adult-dog-food", "senior-dog-food",
     "kitten-food", "adult-cat-food", "senior-cat-food", "vet-products",
