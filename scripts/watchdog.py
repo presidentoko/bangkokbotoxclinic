@@ -593,7 +593,8 @@ def build_services() -> list[Service]:
         "CITY_LNG": "100.5346890",
         "CITY_RADIUS_M": "30000",
         "CITY_OUTPUT_DIR": "output",
-        "N_WORKERS": "2",
+        # 2026-09-01: 2→1. 총 5워커(클리닉3 + 파타야식당1 + 여기1)가 여유 1.0GB 선이다.
+        "N_WORKERS": "1",
         # 원래 배정은 2080-2081 이지만 그 두 슬롯이 실질적으로 죽어 있다.
         # nordvpn_runner 로그에서 최근 구간 기준 spawn/READY 가
         #   2080: 533/184   2081: 515/158   2082: 505/169
@@ -804,7 +805,7 @@ def build_services() -> list[Service]:
         # 잡으면 식당(2워커)에 연속 2포트를 줄 수 없다. 워커당 940MB 이므로
         # 하나 줄이면 약 0.9GB 도 함께 풀린다. clinics 2080-2081,
         # 식당 2082-2083, 2084 는 예비.
-        "N_WORKERS": "3",
+        "N_WORKERS": "4",
         "PROXY_PORT_BASE": "2080",
         "SEARCH_TAG": "en",
         "CITY_LAT": "13.7462890",

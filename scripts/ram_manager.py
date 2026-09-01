@@ -35,11 +35,20 @@ RUN  = ROOT / "run"
 # OS 가 프로세스를 임의로 죽인다(2026-08-09 실측). pause 판정과 실제 정지
 # 사이에 한 틱(60초)이 있고 그 사이 브라우저가 더 뜰 수 있어, 바닥에서
 # 0.9GB 는 남겨둬야 그 구간에 안 빠진다.
+# 2026-09-01: 사용자 지시 — "1GB 까지 떨어뜨려도 된다, 이 컴퓨터로 아무것도
+# 안 하겠다". 목표 정상 상태는 여유 1.0~1.2GB(총 5워커, 워커당 실측 940MB)다.
+#
+# 그래서 pause 를 전부 0.9 로 내렸다. 기존 값(1.2/1.5)이면 목표 상태 자체가
+# pause 선 아래라 켜자마자 전부 꺼진다.
+#
+# 0.9 밑으로는 안 내린다: 이 파일 위 기록대로 여유 0.3GB 대에서 OS 가 프로세스를
+# 임의로 죽이고, pause 판정과 실제 정지 사이에 한 틱(60초)이 있어 그 사이 브라우저가
+# 더 뜰 수 있다. 0.9 면 그 구간에 0.6GB 여유가 남는다.
 PAUSE_THRESHOLDS = [
-    ("bangkok_review",         1.2),
-    ("pattaya_review",         1.5),
-    ("spa_review_pattaya",     1.5),
-    ("dental_review_bangkok",  1.2),
+    ("bangkok_review",         0.9),
+    ("pattaya_review",         0.9),
+    ("spa_review_pattaya",     0.9),
+    ("dental_review_bangkok",  0.9),
     ("bangkok_clinics_review", 0.8),   # 핵심 파이프라인 — 마지막 수단
 ]
 # resume 값은 이 머신이 실제로 도달하는 범위 안에 있어야 한다. 그렇지 않으면
@@ -61,12 +70,15 @@ PAUSE_THRESHOLDS = [
 #
 # pause 순서는 일부러 그대로 둔다 — 메모리가 모자라면 식당이 먼저 양보하는
 # 우선순위 자체는 유효하다. 바꾸는 건 "여유가 생겼을 때 돌아올 수 있는가"뿐.
+# resume 은 pause(0.9) + 그 서비스가 실제로 쓰는 양(워커당 0.94GB) 위여야
+# 진동하지 않는다. 1워커 서비스 기준 1.9 가 그 선이다. 기존 2.4~3.5 는 목표
+# 상태(1.0~1.2GB)에서 영원히 도달 못 해 "일시정지"가 영구정지가 됐다.
 RESUME_THRESHOLDS = [
-    ("bangkok_clinics_review", 2.5),
-    ("dental_review_bangkok",  3.0),
-    ("spa_review_pattaya",     3.5),
-    ("pattaya_review",         3.5),
-    ("bangkok_review",         2.4),
+    ("bangkok_clinics_review", 1.9),
+    ("dental_review_bangkok",  2.2),
+    ("spa_review_pattaya",     2.2),
+    ("pattaya_review",         2.0),
+    ("bangkok_review",         2.0),
 ]
 
 
