@@ -2043,14 +2043,16 @@ def main():
     # 이전 세션에서 스킵된 href 로드 (재시작 시 큐 롤백 방지)
     skipped_file = out_dir / "skipped_hrefs.txt"
     skipped_hrefs: set[str] = set()
+    skipped_reasons: dict[str, str] = {}
     if skipped_file.exists():
         try:
             # 신규 포맷: "href\treason". 구 포맷(href만)도 그대로 지원.
-            skipped_hrefs = {
-                l.strip().split("\t", 1)[0]
-                for l in skipped_file.read_text(encoding="utf-8").splitlines()
-                if l.strip()
-            }
+            for _line in skipped_file.read_text(encoding="utf-8").splitlines():
+                if not _line.strip():
+                    continue
+                _parts = _line.rstrip("\n").split("\t", 1)
+                skipped_hrefs.add(_parts[0])
+                skipped_reasons[_parts[0]] = _parts[1] if len(_parts) > 1 else ""
         except Exception:
             pass
 
@@ -2074,13 +2076,30 @@ def main():
             seen_filtered_pids.add(pid)
             retry_added += 1
 
-    # 신규 리뷰 재스캔 대상도 동일하게 편입. refresh_ids는 이미 리뷰를
-    # 성공 수집했던(=complete) 장소만이라 skipped_hrefs(폐업 등으로 애초에
-    # 수집 실패한 곳)와는 실질적으로 겹치지 않지만, 방어적으로 동일 체크.
+    # 신규 리뷰 재스캔 편입.
+    #
+    # 2026-09-01: 여기 있던 "skipped_hrefs 와 실질적으로 겹치지 않지만 방어적으로
+    # 동일 체크" 라는 전제가 틀렸다. 실측으로 재스캔 대상 1,481곳 중 1,340곳(90%)이
+    # skipped_hrefs 에 막혀 있었다. 그 결과 큐에는 죽은 찌꺼기만 남고 살아있는
+    # 작업은 밖에 갇혀서, 성공률이 1~9% 로 떨어졌다(09-01 오후).
+    #
+    # 막힌 1,340곳의 사유: low_reviews 745, 사유없음(구 포맷) 506,
+    #                      category 79, closed 11.
+    # low_reviews 는 "그 순간 페이지에 리뷰가 안 보였다"는 일시적 관측인데 이
+    # 장소들은 complete 리뷰 파일을 이미 갖고 있다 — 수집 가능하다는 증거다.
+    # 사유없음은 사유 포맷 도입 이전의 레거시다. 둘 다 재스캔을 막을 근거가
+    # 못 된다. 실제로 영구인 것은 폐업(closed)과 타버티컬(category) 뿐이다.
+    _PERMANENT_SKIP = ("closed", "category")
+
+    def _permanently_skipped(href: str) -> bool:
+        if href not in skipped_hrefs:
+            return False
+        return skipped_reasons.get(href, "").split(":")[0] in _PERMANENT_SKIP
+
     refresh_added = 0
     for pid in refresh_ids:
         href = refresh_hrefs.get(pid)
-        if href and pid not in seen_filtered_pids and href not in skipped_hrefs:
+        if href and pid not in seen_filtered_pids and not _permanently_skipped(href):
             filtered_hrefs.append(href)
             seen_filtered_pids.add(pid)
             refresh_added += 1
