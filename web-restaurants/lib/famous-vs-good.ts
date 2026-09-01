@@ -201,6 +201,8 @@ export async function loadAllSlugs(): Promise<string[]> {
 export type CategoryMeta = {
   /** Noun phrase that reads correctly inside a sentence. */
   label: string;
+  /** Two or three words, for a card or a tab. */
+  short: string;
   title: string;
   description: string;
   /** Answer to "how did these places get on this list?" */
@@ -213,6 +215,7 @@ const FALLBACK_SELECTION =
 export const CATEGORY_META: Record<string, CategoryMeta> = {
   "bangkok-cafes": {
     label: "Bangkok cafés",
+    short: "Bangkok cafés",
     title: "Instagram Famous vs Actually Good: Bangkok Cafés Ranked by Real Data",
     description:
       "The Bangkok cafés that fill your feed, ranked by Trust Score from verified Google reviews. Which ones hold up, and which are a backdrop with a coffee menu.",
@@ -220,6 +223,7 @@ export const CATEGORY_META: Record<string, CategoryMeta> = {
   },
   "social-famous": {
     label: "restaurants people found through Instagram and TikTok",
+    short: "Found on Instagram & TikTok",
     title: "Found It on TikTok? Here's What the Reviews Actually Say",
     description:
       "Restaurants whose own reviewers say they came because of Instagram or TikTok — scored against the Google reviews they earned after everyone arrived.",
@@ -228,6 +232,7 @@ export const CATEGORY_META: Record<string, CategoryMeta> = {
   },
   "hype-check": {
     label: "restaurants reviewers call overrated",
+    short: "Called overrated",
     title: "Overrated? What the Reviews Say About Bangkok & Pattaya's Hyped Restaurants",
     description:
       "Restaurants whose reviewers use the word overrated — checked against the Trust Score their full review history actually supports. Sometimes the crowd is wrong about the crowd.",
@@ -242,6 +247,7 @@ export function getCategoryMeta(slug: string): CategoryMeta {
   const label = slug.replace(/-/g, " ");
   return {
     label,
+    short: label,
     title: `Instagram Famous vs Actually Good: ${label} Ranked by Real Data`,
     description: `${label} that trend on social media, ranked by Trust Score from verified Google reviews.`,
     selection: FALLBACK_SELECTION,

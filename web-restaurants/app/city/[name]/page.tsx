@@ -8,6 +8,13 @@ import { AdSlot } from "@/components/AffiliateSlot";
 import { GenericShareButton } from "@/components/ShareButton";
 import type { Metadata } from "next";
 
+// Static. app/layout.tsx calls headers() to set <html lang>, which makes
+// every route dynamic unless it opts out — so these hub pages, which are
+// the site's main search-landing surface, were server-rendering on every
+// request despite having generateStaticParams and no dynamic data of their
+// own. Nothing here reads searchParams, cookies or headers.
+export const dynamic = "force-static";
+
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
