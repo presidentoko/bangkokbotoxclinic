@@ -600,7 +600,7 @@ def build_services() -> list[Service]:
         # 그 전까지 방콕 식당은 건강한 2086-2087 로 옮긴다. massage_review_*
         # 배정 구간이지만 전부 pause 상태라 지금은 비어 있다. massage 를 다시
         # 켤 때는 여기와 충돌하므로 둘 중 하나를 옮길 것.
-        "PROXY_PORT_BASE": "2086",
+        "PROXY_PORT_BASE": "2083",
         # 방콕 그리드는 34,412곳까지 돌았고, 그중 review_count==0 인 10,696곳은
         # "아직 못 읽음"이 아니라 사실상 리뷰가 거의 없는 곳이다. 통과시키면
         # 큐가 18,238곳이 되고 절반 이상을 열어보고 버린다(약 9일). 진짜 대상
@@ -622,14 +622,14 @@ def build_services() -> list[Service]:
         "CITY_OUTPUT_DIR": "../chiang_mai/output",
         # chiang_mai_review 추가하면서 phuket_review 와 기본 포트(2081~2085)가
         # 겹쳐 VPN 터널을 서로 뺏던 문제 → 전용 포트 배정 (2026-07-23 감사).
-        "N_WORKERS": "2", "PROXY_PORT_BASE": "2084",
+        "N_WORKERS": "2", "PROXY_PORT_BASE": "2083",
     }
     phuket_env = {
         "CITY_LAT": "7.8804",
         "CITY_LNG": "98.3923",
         "CITY_RADIUS_M": "20000",
         "CITY_OUTPUT_DIR": "../phuket/output",
-        "N_WORKERS": "2", "PROXY_PORT_BASE": "2086",
+        "N_WORKERS": "2", "PROXY_PORT_BASE": "2083",
     }
     ayutthaya_env = {
         "CITY_LAT": "14.3532",
@@ -725,7 +725,7 @@ def build_services() -> list[Service]:
         "CITY_RADIUS_M": "20000",
         "CITY_OUTPUT_DIR": "../phuket/clinics_output",
         "N_WORKERS": "1",
-        "PROXY_PORT_BASE": "2086",
+        "PROXY_PORT_BASE": "2084",
     }
     chiang_mai_clinics_env = {
         "SEARCH_QUERY": "clinic",
@@ -740,7 +740,7 @@ def build_services() -> list[Service]:
         # (pattaya_clinics_env 주석 참고). 이 서비스는 아직 체인 대기 중이라
         # 시작 안 했지만 나중에 시작될 때 같은 문제 피하도록 미리 수정.
         "N_WORKERS": "1",
-        "PROXY_PORT_BASE": "2085",
+        "PROXY_PORT_BASE": "2084",
     }
     koh_samui_clinics_env = {
         "SEARCH_QUERY": "clinic",
@@ -749,10 +749,10 @@ def build_services() -> list[Service]:
         "CITY_LNG": "99.9648",
         "CITY_RADIUS_M": "15000",
         "CITY_OUTPUT_DIR": "../koh_samui/clinics_output",
-        "GRID_PROXY_PORT": "2084",
+        "GRID_PROXY_PORT": "2081",
         "GRID_N_WORKERS": "4",
         "N_WORKERS": "1",
-        "PROXY_PORT_BASE": "2086",
+        "PROXY_PORT_BASE": "2084",
     }
     krabi_clinics_env = {
         "SEARCH_QUERY": "clinic",
@@ -761,7 +761,7 @@ def build_services() -> list[Service]:
         "CITY_LNG": "98.9063",
         "CITY_RADIUS_M": "15000",
         "CITY_OUTPUT_DIR": "../krabi/clinics_output",
-        "GRID_PROXY_PORT": "2084",
+        "GRID_PROXY_PORT": "2081",
         "GRID_N_WORKERS": "4",
         "N_WORKERS": "1",
         "PROXY_PORT_BASE": "2081",
@@ -773,7 +773,7 @@ def build_services() -> list[Service]:
         "CITY_LNG": "99.9577",
         "CITY_RADIUS_M": "12000",
         "CITY_OUTPUT_DIR": "../hua_hin/clinics_output",
-        "GRID_PROXY_PORT": "2084",
+        "GRID_PROXY_PORT": "2081",
         "GRID_N_WORKERS": "4",
         "N_WORKERS": "1",
         "PROXY_PORT_BASE": "2084",
@@ -825,7 +825,7 @@ def build_services() -> list[Service]:
         # 터지므로(4→2 로 낮춘 이력) 수는 그대로 두고 배치만 1워커=1터널로
         # 편다: clinics 2080-2082 / dental 2083 / spa 2084-2085 /
         # massage 2086-2087 = 워커 8 : 터널 8.
-        "PROXY_PORT_BASE": "2084",
+        "PROXY_PORT_BASE": "2083",
         # 그리드 단계는 review 아직 안 도는 동안 포트가 노는 게 아까워서
         # 2→3워커로 증설 (2026-07-23, RAM 여유 보고 절반만 증설 — 8개 풀로
         # 가면 chrome이 ram-guard 하드리밋 90 근처까지 가서 위험).
@@ -842,7 +842,7 @@ def build_services() -> list[Service]:
         "N_WORKERS": "2",  # 2026-08-07: 4→2 (spa_bangkok_env 주석 참고).
         # 2026-08-20: 2084 → 2086. spa_review_bangkok 이 2084-2085 로 옮겨오면서
         # 비켜준다 — 1워커=1터널 배치 (spa_bangkok_env 주석에 전체 표 있음).
-        "PROXY_PORT_BASE": "2086",
+        "PROXY_PORT_BASE": "2083",
         "GRID_PROXY_PORT": "2082",
         "GRID_N_WORKERS": "2",
     }
@@ -862,7 +862,7 @@ def build_services() -> list[Service]:
     def _spa_massage_env(
         city_tag: str, lat: str, lng: str, radius: str, out_dir: str,
         spa_proxy_base: str = "2080", spa_grid_port: str = "2080",
-        massage_proxy_base: str = "2084", massage_grid_port: str = "2082",
+        massage_proxy_base: str = "2081", massage_grid_port: str = "2082",
         n_workers: str = "4", grid_n_workers: str = "2",
     ) -> tuple[dict, dict]:
         spa = {
@@ -887,8 +887,8 @@ def build_services() -> list[Service]:
     # (2080-83/2084-87)와는 완전히 분리된 범위.
     spa_pattaya_env, massage_pattaya_env = _spa_massage_env(
         "pattaya", "12.9236", "100.8825", "20000", "../spa_output/pattaya",
-        spa_proxy_base="2085", spa_grid_port="2085",
-        massage_proxy_base="2085", massage_grid_port="2086",
+        spa_proxy_base="2083", spa_grid_port="2084",
+        massage_proxy_base="2083", massage_grid_port="2084",
         n_workers="2", grid_n_workers="1")
     spa_phuket_env, massage_phuket_env = _spa_massage_env(
         "phuket", "7.8804", "98.3923", "20000", "../spa_output/phuket")
@@ -903,8 +903,8 @@ def build_services() -> list[Service]:
     # 동시에 겹치지 않는다 (파타야 오버라이드와 동일 패턴).
     spa_chiang_mai_env, massage_chiang_mai_env = _spa_massage_env(
         "chiang_mai", "18.7883", "98.9853", "20000", "../spa_output/chiang_mai",
-        spa_proxy_base="2084", spa_grid_port="2084",
-        massage_proxy_base="2084", massage_grid_port="2085",
+        spa_proxy_base="2083", spa_grid_port="2083",
+        massage_proxy_base="2083", massage_grid_port="2083",
         n_workers="2", grid_n_workers="2")
     spa_koh_samui_env, massage_koh_samui_env = _spa_massage_env(
         "koh_samui", "9.5018", "99.9648", "15000", "../spa_output/koh_samui")
@@ -933,21 +933,30 @@ def build_services() -> list[Service]:
     PROG_MDB    = re.compile(r"(변경 없음|재빌드 완료|입력 변경)")
 
     return [
-        # --ports 8 은 임의의 숫자가 아니라 NordVPN 계정의 동시접속 한도다.
-        # 2026-08-06까지 10개(2080-2089)를 띄우고 있었는데, 한도를 2개 넘긴
-        # 상태라 NordVPN이 초과분을 서버측에서 끊었다. 어느 터널이 끊길지는
-        # 무작위여서 사망이 10개 포트에 고르게 퍼졌고(포트당 4-6회/시간),
-        # "특정 서버가 불량"처럼 보였지만 실제로는 계정 레벨 신호였다. 그
-        # 결과 review 스크래퍼가 ERR_PROXY_CONNECTION_FAILED /
-        # ERR_SOCKS_CONNECTION_FAILED 로 실패율 60%대를 찍었다.
+        # --ports 는 이 머신이 실제로 쓸 수 있는 동시접속 수여야 한다.
         #
-        # 8보다 더 줄이려면 _validate_proxy_ports() 를 먼저 통과해야 한다 —
-        # massage_* 20개 서비스가 PROXY_PORT_BASE=2084 + N_WORKERS=4 로
-        # 2084-2087 을 쓰기 때문에, 7로 내리면 부팅이 거부된다(fail-fast).
-        # 즉 8 은 "포트 재배정 없이 한도를 지킬 수 있는" 유일한 값이다.
+        # 2026-08-06: 10개(2080-2089)를 띄우다 한도를 2개 넘겨, NordVPN 이
+        # 초과분을 서버측에서 끊었다. 어느 터널이 끊길지는 무작위여서 사망이
+        # 10개 포트에 고르게 퍼졌고 "특정 서버가 불량"처럼 보였지만 계정
+        # 레벨 신호였다. 그래서 계정 한도인 8로 내렸다.
+        #
+        # 2026-09-01: 8도 여전히 과다였다. 계정 한도는 8이 맞지만 그중 3개를
+        # 다른 곳에서 쓰고 있어 이 머신 몫은 5개다. 증상은 위와 같은 모양인데
+        # 이번엔 무작위가 아니라 뒤쪽 3슬롯에 고정으로 나타났다:
+        #   2080: spawn 533 / READY 184    2083: 60 / 25
+        #   2081: spawn 515 / READY 158    2084: 41 / 20
+        #   2082: spawn 505 / READY 169    2085: 28 / 20
+        # 앞 3개가 나머지보다 10배 넘게 재접속을 반복했고, 서버를 계속
+        # 바꿔가며 실패했다. 초과 3슬롯이 남는 자리를 놓고 영구히 경합한 것.
+        # 그 churn 이 살아있는 5개까지 흔들었다.
+        #
+        # 줄일 때는 _validate_proxy_ports() 를 통과해야 한다 — 범위를 벗어난
+        # 서비스는 리스너 없는 포트를 두드리며 조용히 굶는다(2026-07-08 사고,
+        # 3일간 수확 0). 5로 내리면서 2085 이상을 쓰던 11개 배정을
+        # 2080-2084 안으로 옮겼다.
         Service(
             name="nordvpn_runner",
-            cmd=["nordvpn_runner.py", "--ports", "8", "--base-port", "2080",
+            cmd=["nordvpn_runner.py", "--ports", "5", "--base-port", "2080",
                  "--auth", "nordvpn/auth.txt", "--proto", "mixed"],
             cwd=ROOT,
             env_extra={},
@@ -1154,7 +1163,7 @@ def build_services() -> list[Service]:
                 "SEARCH_QUERY": "dental", "SEARCH_TAG": "dental",
                 "CITY_LAT": "12.9236", "CITY_LNG": "100.8825", "CITY_RADIUS_M": "20000",
                 "CITY_OUTPUT_DIR": "../dental_output/pattaya",
-                "N_WORKERS": "1", "PROXY_PORT_BASE": "2086",
+                "N_WORKERS": "1", "PROXY_PORT_BASE": "2084",
             },
             log_file=LOGS / "dental_review_pattaya.log",
             chrome_heavy=True,
@@ -1208,7 +1217,7 @@ def build_services() -> list[Service]:
                 "SEARCH_QUERY": "dental", "SEARCH_TAG": "dental",
                 "CITY_LAT": "9.5018", "CITY_LNG": "99.9648", "CITY_RADIUS_M": "15000",
                 "CITY_OUTPUT_DIR": "../dental_output/koh_samui",
-                "N_WORKERS": "1", "PROXY_PORT_BASE": "2086",
+                "N_WORKERS": "1", "PROXY_PORT_BASE": "2084",
             },
             log_file=LOGS / "dental_review_koh_samui.log",
             chrome_heavy=True,
@@ -1715,7 +1724,7 @@ def build_services() -> list[Service]:
                 "CITY_RADIUS_M": "30000",
                 "CITY_OUTPUT_DIR": "../hair_output/bangkok",
                 "N_WORKERS": "1",
-                "PROXY_PORT_BASE": "2085",
+                "PROXY_PORT_BASE": "2084",
             },
             log_file=LOGS / "hair_review_bangkok.log",
             chrome_heavy=True,
@@ -1778,7 +1787,7 @@ def build_services() -> list[Service]:
                 "CITY_RADIUS_M": "15000",
                 "CITY_OUTPUT_DIR": "../hair_output/pattaya",
                 "N_WORKERS": "1",
-                "PROXY_PORT_BASE": "2086",
+                "PROXY_PORT_BASE": "2084",
             },
             log_file=LOGS / "hair_review_pattaya.log",
             chrome_heavy=True,
