@@ -1380,14 +1380,22 @@ def _atomic_write_csv(path: Path, header: list[str], rows: list[list]):
         w.writerow(header)
         for r in rows:
             w.writerow(r)
-    for attempt in range(5):
+    # 2026-09-01: 재시도 총 1.2초로는 부족했다 — master_db_builder 등이 이 CSV 를
+    # 읽는 동안(수 초) os.replace 가 계속 막혀 오늘만 세션 크래시 4회(재시작 8회 중).
+    # 총 ~30초까지 기다리고, 그래도 안 되면 raise 하지 않는다: 이 저장은 merge
+    # 방식이라 다음 저장 주기에 같은 내용이 다시 합쳐진다. 한 번 미루는 것이
+    # 세션 전체(진행 중 작업·큐·예산 카운트)를 죽이는 것보다 싸다.
+    for attempt in range(10):
         try:
             os.replace(str(tmp), str(path))  # POSIX + Windows atomic
             return
         except PermissionError:
-            if attempt == 4:
-                raise
-            time.sleep(0.2 * (attempt + 1))
+            time.sleep(min(6.0, 0.3 * (2 ** attempt)))
+    log.error(f"  {path.name} 교체 30초 실패 — 이번 저장은 건너뜀 (다음 주기에 재병합)")
+    try:
+        os.remove(str(tmp))
+    except Exception:
+        pass
 
 
 def _merge_and_save_restaurants(
