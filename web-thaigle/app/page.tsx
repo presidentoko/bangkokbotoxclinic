@@ -11,6 +11,7 @@ import { HeroSearch } from "@/components/HeroSearch";
 import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { SponsoredHero } from "@/components/SponsoredHero";
 import { GUIDES } from "@/lib/guides";
+import { buildSearchIndex } from "@/lib/searchIndex";
 import { NICHES, loadNicheDb, qualifyingNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { nicheAreaCounts } from "@/lib/areas";
@@ -164,44 +165,11 @@ export default async function HomePage() {
     { label: "☕ Cafés", href: "/restaurants/cuisine/cafe" },
   ];
 
-  // SearchBar takes entities as a prop, not a fetched dataset, so every
-  // entry here gets serialized straight into this page's RSC/HTML payload.
-  // All 3,269 restaurants measured ~593KB raw (~149KB gzip) — capping to
-  // the top 400 by trust score covers what people are actually searching
-  // for from the homepage (the long tail is still reachable via district/
-  // cuisine browsing) at a fraction of the payload.
-  const restaurantSearchIndex = [...db.restaurants]
-    .sort((a, b) => b.trust_score - a.trust_score)
-    .slice(0, 400)
-    .map((r) => ({
-      id: restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id }).slice(1),
-      name: r.name,
-      district: r.district,
-      city_label: r.city_label,
-      rating: r.rating,
-      trust_score: r.trust_score,
-    }));
-
-  // The hero search previously only indexed restaurants, so "muay thai" or
-  // any activity query returned nothing — a dead end on the exact search box
-  // meant to funnel people to the Klook-affiliate activity pages. rating is
-  // required by SearchableEntity, so places with a null rating (spa/yoga
-  // datasets ship with rating null across the board) are skipped here rather
-  // than shown with a fake/zero rating.
-  const activitySearchIndex = nicheTopPlaces.flatMap((n) =>
-    n.top
-      .filter((p) => p.rating != null)
-      .map((p) => ({
-        id: `activities/${n.slug}/${encodeURIComponent(p.slug)}`,
-        name: p.name,
-        district: p.city,
-        city_label: undefined,
-        rating: p.rating as number,
-        trust_score: p.trust_score,
-      }))
-  );
-
-  const searchIndex = [...restaurantSearchIndex, ...activitySearchIndex];
+  // Only the head of the list travels in this page's RSC payload; the full
+  // index is fetched from /search-index.json when the box is focused, which is
+  // also why the restaurant side is no longer capped at 400. See
+  // lib/searchIndex.ts.
+  const searchSeed = (await buildSearchIndex()).slice(0, 40);
 
   // Pull a few standout reviews to display as social proof
   const reviewQuotes = db.restaurants
@@ -245,7 +213,8 @@ export default async function HomePage() {
           </p>
 
           <HeroSearch
-            entities={searchIndex}
+            entities={searchSeed}
+            entitiesUrl="/search-index.json"
             hrefBase=""
             hero=""
             heroSub=""

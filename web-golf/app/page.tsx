@@ -10,6 +10,7 @@ import { HeroSearch } from "@/components/HeroSearch";
 import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { SponsoredHero } from "@/components/SponsoredHero";
 import { BEST_FOR } from "@/lib/bestFor";
+import { buildSearchIndex } from "@/lib/searchIndex";
 import { GUIDES } from "@/lib/guides";
 
 export const dynamic = "force-static";
@@ -66,14 +67,10 @@ export default async function HomePage() {
     { label: "Korean caddy", href: "/best/korean-friendly" },
   ];
 
-  const searchIndex = db.restaurants.map((r) => ({
-    id: r.id,
-    name: r.name,
-    district: r.district,
-    city_label: r.city_label,
-    rating: r.rating,
-    trust_score: r.trust_score,
-  }));
+  // Only the head of the list travels in this page's RSC payload; the rest is
+  // fetched from /search-index.json when the box is focused. See
+  // lib/searchIndex.ts for why.
+  const searchSeed = (await buildSearchIndex()).slice(0, 40);
 
   // Featured 6 with photos prioritized (hero_image OR top_photo_url)
   const featured6 = top
@@ -112,7 +109,8 @@ export default async function HomePage() {
           </p>
 
           <HeroSearch
-            entities={searchIndex}
+            entities={searchSeed}
+            entitiesUrl="/search-index.json"
             hrefBase="/course"
             popularSearches={popularSearches}
           />

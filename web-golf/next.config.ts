@@ -43,20 +43,42 @@ const config: NextConfig = {
   async headers() {
     return [
       {
-        // Cloudflare fronts Vercel on this domain and returns
-        // `cf-cache-status: DYNAMIC` for HTML, so every request reaches Vercel
-        // and bills an ISR read while `x-vercel-cache` reports HIT. Next's
-        // default `public, max-age=0, must-revalidate` reads to a shared cache
-        // as "do not store"; `s-maxage` is what makes the edge eligible to
-        // hold a copy. An hour is far inside the 7-day `revalidate` most pages
-        // here already use, so nothing goes staler than it does today.
+        // 2026-09-01: the meters on the team that holds web-golf and
+        // web-thaigle read ISR Reads 3.1M against a 1M limit and Fast Origin
+        // Transfer 24.3 GB against 10 GB. The Cloudflare Cache Rule is working
+        // — every path checked returns MISS then HIT, and the Age header on a
+        // hit stays under the hour the origin asks for — the TTL was simply an
+        // order of magnitude too short. The two sites prerender ~16,800 pages
+        // between them, and 3.1M / 16,800 is ~6 origin fetches per URL per
+        // day, comfortably inside what a one-hour edge TTL permits (24 per POP)
+        // under continuous crawling. An hour buys nothing here: the pages
+        // themselves declare `revalidate` of a day (thaigle) or a week (golf),
+        // so Vercel already serves them that stale. Matching the edge to that
+        // ceiling cuts the origin fetches from up to 24 a day per POP to 1.
         //
-        // Half the fix — responses stay DYNAMIC until a Cloudflare Cache Rule
-        // marks HTML cacheable.
+        // The cost: after a deploy the edge can keep serving the previous
+        // build for up to a day. Purge the Cloudflare cache when you ship.
         source: "/(.*)",
         headers: [
           ...securityHeaders,
-          { key: "Cache-Control", value: "public, max-age=0, s-maxage=3600, stale-while-revalidate=604800" },
+          { key: "Cache-Control", value: "public, max-age=0, s-maxage=86400, stale-while-revalidate=604800" },
+        ],
+      },
+      {
+        // Course photos, and the only heavy static payload on the site: 140
+        // JPEGs, 12 MB, the largest 294 KB. They were picking up the blanket
+        // rule above, which meant an edge TTL of one hour on files that are
+        // named by Google place id and effectively never change — Cloudflare
+        // was re-pulling the whole 12 MB from the origin every hour it saw
+        // traffic. `immutable` would be the textbook answer, but the photo
+        // scraper does occasionally overwrite a file under the same name, so
+        // a month at the edge with a week of stale-while-revalidate keeps a
+        // replacement from being pinned forever while still cutting the
+        // origin pulls by ~720x.
+        source: "/course-photos/(.*)",
+        headers: [
+          ...securityHeaders,
+          { key: "Cache-Control", value: "public, max-age=604800, s-maxage=2592000, stale-while-revalidate=604800" },
         ],
       },
       {

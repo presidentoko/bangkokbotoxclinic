@@ -36,26 +36,51 @@ const config: NextConfig = {
     // at 1,000/month while this site references ~9,000 unique photo URLs.
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        // The project's own Vercel alias serves the entire site, bypassing
+        // Cloudflare completely: measured 2026-09-01, https://web-thaigle.vercel.app/
+        // returned the full 1,043,789-byte homepage straight from the origin
+        // with no cf-cache-status at all, and its robots.txt (the app's own,
+        // not Cloudflare's) says `Allow: /`. Every crawler that has this
+        // hostname bills an ISR read and its full weight in Fast Origin
+        // Transfer, with none of the edge caching the real domain gets. The
+        // canonical tag already pointed at www.thaigle.com, which fixes the
+        // duplicate-content half of the problem and none of the billing half —
+        // the crawler has downloaded the page by the time it reads a canonical.
+        //
+        // The host is matched exactly. Preview deployments are served from
+        // web-thaigle-<hash>-<team>.vercel.app and are untouched.
+        source: "/:path*",
+        has: [{ type: "host", value: "web-thaigle.vercel.app" }],
+        destination: "https://www.thaigle.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
-        // Cloudflare fronts Vercel on this domain and every HTML response
-        // comes back `cf-cache-status: DYNAMIC`, so the edge passes it
-        // straight through: each crawler hit reaches Vercel and bills an ISR
-        // read, even while `x-vercel-cache` reports HIT. With ~15,800
-        // prerendered pages that is the single largest line on the bill.
+        // 2026-09-01: the meters on the team that holds web-golf and
+        // web-thaigle read ISR Reads 3.1M against a 1M limit and Fast Origin
+        // Transfer 24.3 GB against 10 GB. The Cloudflare Cache Rule is working
+        // — every path checked returns MISS then HIT, and the Age header on a
+        // hit stays under the hour the origin asks for — the TTL was simply an
+        // order of magnitude too short. The two sites prerender ~16,800 pages
+        // between them, and 3.1M / 16,800 is ~6 origin fetches per URL per
+        // day, comfortably inside what a one-hour edge TTL permits (24 per POP)
+        // under continuous crawling. An hour buys nothing here: the pages
+        // themselves declare `revalidate` of a day (thaigle) or a week (golf),
+        // so Vercel already serves them that stale. Matching the edge to that
+        // ceiling cuts the origin fetches from up to 24 a day per POP to 1.
         //
-        // Next's default `public, max-age=0, must-revalidate` reads to a
-        // shared cache as "do not store". `max-age=0` stays so browsers keep
-        // revalidating; `s-maxage` is what lets the edge hold a copy, and an
-        // hour is well inside the 24h `revalidate` the pages already use.
-        //
-        // This is only half the fix — responses stay DYNAMIC until a
-        // Cloudflare Cache Rule marks HTML eligible for cache.
+        // The cost: after a deploy the edge can keep serving the previous
+        // build for up to a day. Purge the Cloudflare cache when you ship.
         source: "/(.*)",
         headers: [
           ...securityHeaders,
-          { key: "Cache-Control", value: "public, max-age=0, s-maxage=3600, stale-while-revalidate=604800" },
+          { key: "Cache-Control", value: "public, max-age=0, s-maxage=86400, stale-while-revalidate=604800" },
         ],
       },
       {
