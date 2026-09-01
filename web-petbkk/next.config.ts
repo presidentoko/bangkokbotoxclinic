@@ -18,9 +18,38 @@ const config: NextConfig = {
    * Note this only makes the responses *eligible*. Cloudflare does not cache
    * HTML by default whatever the origin says — that needs a Cache Rule set to
    * "Eligible for cache" for this host, which is a dashboard change.
+   *
+   * 2026-09-01: the Cache Rule is evidently in place — www now returns
+   * `cf-cache-status: MISS`/`HIT` rather than the `DYNAMIC` described above —
+   * but both quotas went over anyway (ISR reads 1.1M/1M, origin transfer
+   * 9.8/10 GB). Measuring three consecutive requests to the same URL gave
+   * MISS, MISS, HIT and then MISS again, so a large share of hits still reach
+   * the origin, and each one bills an ISR read whatever `x-vercel-cache` says.
+   *
+   * `s-maxage` was the controllable half of that: at 3600 every page expired
+   * hourly, so a crawler working through 5,459 URLs re-fetched the whole site
+   * from origin every hour. Nothing here is time-sensitive — every route is
+   * statically generated, `dynamicParams` is false, and no route sets
+   * `revalidate`, so the content genuinely cannot change until a deploy
+   * replaces it. A day is therefore just as correct as an hour and asks the
+   * origin for 24x less.
+   *
+   * The cost of that is staleness after a deploy: with no cache purge, a new
+   * build can take up to `s-maxage` to appear (`stale-while-revalidate` then
+   * serves the old copy while fetching the new one in the background, so
+   * visitors never wait — they may just see yesterday's page once). Purging
+   * the Cloudflare cache after deploying removes the lag entirely, and is
+   * worth wiring up: Caching → Configuration → Purge Everything.
+   *
+   * Not touched here: the `Vary: rsc, next-router-state-tree, ...` that Next
+   * sets on every response. It fragments the Cloudflare cache into a separate
+   * entry per header combination, which is the likeliest cause of the erratic
+   * MISS/HIT above — but those headers are how Next tells an RSC payload apart
+   * from an HTML document, and overriding `Vary` risks serving one as the
+   * other. That belongs in a Cloudflare Cache Rule, not in app code.
    */
   async headers() {
-    const cacheable = 'public, max-age=0, s-maxage=3600, stale-while-revalidate=604800'
+    const cacheable = 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800'
     return [
       {
         // Everything except the API surface and Next's own fingerprinted
@@ -50,6 +79,21 @@ const config: NextConfig = {
     )
 
     return [
+      // The project's own `petbkk.vercel.app` alias serves the entire site
+      // straight from Vercel — `server: Vercel`, no `cf-*` headers at all —
+      // so every request that reaches it skips Cloudflare completely and bills
+      // an ISR read plus its full weight in origin transfer. Crawlers find the
+      // alias whether or not anything links to it, and a canonical tag cannot
+      // stop a request that has already been served.
+      //
+      // Matching the exact host leaves per-deployment preview URLs
+      // (petbkk-<hash>-<team>.vercel.app) alone, so previews still work.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'petbkk.vercel.app' }],
+        destination: 'https://www.thailandpethub.com/:path*',
+        permanent: true,
+      },
       ...slugMoves,
       // /hospital/surgery listed all 503 hospitals, because `has_surgery` is
       // hardcoded true in petvet/transform.py — byte-for-byte the same list as
