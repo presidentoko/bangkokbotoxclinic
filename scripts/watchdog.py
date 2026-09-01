@@ -784,7 +784,10 @@ def build_services() -> list[Service]:
         # chrome-headless-shell 246개까지 폭증, ram-guard 하드리밋(90) 초과로
         # 7분마다 전체 kill → 재기동 스래싱 (throughput 사실상 0). 전 서비스
         # 워커를 1~3개로 줄이고 포트를 2080-2087 8개에 고르게 분산.
-        "N_WORKERS": "3",
+        "N_WORKERS": "2",   # 2026-09-01: 3→2. 이 머신의 NordVPN 몫은 터널 5개인데
+        # 이 서비스가 3개를 독점해 나머지 스크래퍼가 2개로 눌렸다. 2개로
+        # 줄이면 2082~2084 세 개가 비어 다른 작업을 동시에 돌릴 수 있다.
+        # 브라우저도 워커당 약 480MB 라 RAM 도 그만큼 돌려준다.
         "PROXY_PORT_BASE": "2080",
         "SEARCH_TAG": "en",
         "CITY_LAT": "13.7462890",
