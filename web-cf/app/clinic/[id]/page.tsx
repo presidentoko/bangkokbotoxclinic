@@ -102,7 +102,10 @@ export async function generateMetadata(
   // 2026-09-02: title 에는 정제 이름을 쓴다 — 키워드 나열·잘림이 SERP 에서
   // 스팸처럼 보이는 것을 막는다. H1·JSON-LD 는 원본 c.name 그대로.
   const dispName = c.display_name || c.name;
-  const title = `${dispName} — ★${c.rating} (${c.total_reviews})`;
+  // 2026-09-02: "Reviews & Prices" 추가 (web/ 과 동일). 검증 검색에서 사람들이
+  // 실제로 넣는 단어는 "review" 다. th/ko 라우트는 이미 "รีวิว"·"후기" 를
+  // 넣고 있었는데 영어판만 빠져 있었다.
+  const title = `${dispName} — Reviews & Prices ★${c.rating} (${c.total_reviews.toLocaleString()})`;
   const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} rating from ${c.total_reviews} Google reviews. ${cats || "Aesthetic clinic"}. See prices, photos & book a free consult.`;
 
   // 이 사이트 소관이 아닌 클리닉이면 (예: 덴탈 사이트에 뜬 보톡스 전용 클리닉)
