@@ -3,6 +3,7 @@ import { loadMasterDb, getAllDoctors, filterByDistrict } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { guidesForFocus } from "@/lib/guides";
 import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
+import { groupBrands } from "@/lib/brands";
 
 const SITE = getSiteUrl();
 const SERVICES = ["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"];
@@ -102,6 +103,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const clinic = db.clinics.find((c) => c.city_label === cityLabel);
     const slug = clinic?.city_slug ?? cityLabel.toLowerCase().replace(/\s+/g, "-");
     items.push({ url: `${SITE}/city/${slug}`, lastModified: updated, changeFrequency: "daily", priority: 0.9 });
+  }
+  // 2026-09-02: 멀티지점 브랜드 허브 (web/ 과 동일).
+  for (const b of groupBrands(scoped)) {
+    items.push({ url: `${SITE}/brand/${b.slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
   }
   for (const d of districts) {
     // app/d/[district]/page.tsx — scoped 카운트 5개 미만이면 noindex.

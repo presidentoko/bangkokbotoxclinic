@@ -29,6 +29,7 @@ import {
   priceDataGeneratedAt,
 } from "@/lib/publishedPrices";
 import { applySiteFilter, getSiteConfig, getSiteUrl, resolveOwnerUrl, safeEncodeURIComponent, FOCUS_VALID } from "@/lib/site";
+import { groupBrands, brandKeyOf } from "@/lib/brands";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { hasKoPage } from "@/lib/ko-cap";
@@ -191,6 +192,11 @@ export default async function ClinicPage(
   ].slice(0, 4);
 
   // Pricing — hdmall package 데이터(있는 경우)
+  // 2026-09-02: 멀티지점 브랜드면 허브로 링크 (web/ 과 동일).
+  const brandKey = brandKeyOf(c.name);
+  const brandOf = brandKey
+    ? groupBrands(applySiteFilter(db.clinics, getSiteConfig())).find((b) => b.key === brandKey) ?? null
+    : null;
   const pricing = await loadPricing(c.id);
   const pricingTop = pricing ? summarisePackages(pricing, 6) : [];
   const priceRange = pricing ? priceRangeTHB(pricing) : null;
@@ -343,6 +349,14 @@ export default async function ClinicPage(
                 <>
                   <span>·</span>
                   <span className="flex items-center gap-1">📍 {c.district}</span>
+                </>
+              )}
+              {brandOf && brandOf.clinics.length > 1 && (
+                <>
+                  <span>·</span>
+                  <a href={`/brand/${brandOf.slug}`} className="underline">
+                    {brandOf.name} · {brandOf.clinics.length} branches
+                  </a>
                 </>
               )}
               {c.business_status === "Open" && (

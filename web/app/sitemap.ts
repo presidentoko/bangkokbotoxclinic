@@ -3,6 +3,7 @@ import { loadMasterDb, getAllDoctors, filterByDistrict } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { guidesForFocus } from "@/lib/guides";
 import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
+import { groupBrands } from "@/lib/brands";
 
 const SITE = getSiteUrl();
 const SERVICES = ["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"];
@@ -105,6 +106,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const clinic = db.clinics.find((c) => c.city_label === cityLabel);
     const slug = clinic?.city_slug ?? cityLabel.toLowerCase().replace(/\s+/g, "-");
     items.push({ url: `${SITE}/city/${slug}`, lastModified: updated, changeFrequency: "daily", priority: 0.9 });
+  }
+  // 2026-09-02: 멀티지점 브랜드 허브. 인플루언서가 말하는 건 "Apex Clinic" 이지
+  // 지점명이 아닌데, 그 검색어에는 지점 페이지 13개가 서로 경쟁하고 있었다.
+  // 3지점 이상만 — 2지점이면 허브가 지점 페이지와 거의 같아져 근접중복이 된다.
+  for (const b of groupBrands(scoped)) {
+    items.push({ url: `${SITE}/brand/${b.slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
   }
   for (const d of districts) {
     // app/d/[district]/page.tsx:45 — scoped 카운트 5개 미만이면 noindex.
