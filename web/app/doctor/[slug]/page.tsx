@@ -59,7 +59,9 @@ export async function generateMetadata(
     description,
     ...((!inSite || thinContent) && { robots: { index: false, follow: true } }),
     alternates: { canonical },
-    openGraph: { title, description, url: `/doctor/${slug}`, type: "profile" },
+    // 2026-09-02: siteName 은 페이지마다 다시 넣어야 한다 — Next 는 openGraph 를
+    // 객체 단위로 교체해서, 루트 layout 에 있어도 페이지가 정의하면 사라진다.
+    openGraph: { siteName: cfg.brand, title, description, url: `/doctor/${slug}`, type: "profile" },
   };
 }
 

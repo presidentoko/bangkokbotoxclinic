@@ -32,7 +32,8 @@ export async function generateMetadata(): Promise<Metadata> {
       canonical: "/ko",
       languages: { en: "/", th: "/th", ko: "/ko", "x-default": "/" },
     },
-    openGraph: { title, description, locale: "ko_KR" },
+    // 2026-09-02: 페이지가 openGraph 를 정의하면 루트의 siteName 이 사라진다.
+    openGraph: { siteName: cfg.brand, title, description, locale: "ko_KR" },
   };
 }
 

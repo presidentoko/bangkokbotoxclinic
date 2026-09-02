@@ -42,6 +42,38 @@ const SITE_SAMEAS: Record<string, string[]> = {
   hair: ["https://www.google.com/maps/search/hair+transplant+bangkok"],
 };
 
+// 2026-09-02: 한 문자열에 섞인 라틴/태국어 표기를 분리해 alternateName 으로 낸다.
+// 구글맵 상호는 "Vincent Clinic Asok (วินเซนต์คลินิก สาขาอโศก)" 처럼 두 표기를
+// 붙여 놓는 경우가 많다 — 실측 5,489곳 중 2,078곳. 그 상태면 스키마상 이름이
+// 하나뿐이라, 태국어로만 검색하는 사람과 영어로만 검색하는 사람 중 한쪽에서
+// 엔티티 매칭이 약해진다. 원본 name 은 그대로 둔다 — 상호 전체를 복사해 붙이는
+// 정확 일치 검색을 잃지 않기 위해서다.
+//
+// 숫자·기호 토큰은 가까운 쪽 언어에 귀속시킨다. 양쪽에 다 넣으면
+// "32 Dental Clinic 32" 같은 결과가 나온다(실측).
+function splitScriptNames(name: string): string[] {
+  if (!name) return [];
+  const toks = name.split(/\s+/).filter(Boolean);
+  const kindOf = (t: string): "th" | "en" | null =>
+    /[\u0E00-\u0E7F]/.test(t) ? "th" : /[A-Za-z]/.test(t) ? "en" : null;
+  const kinds: (("th" | "en") | null)[] = toks.map(kindOf);
+  for (let i = 0; i < kinds.length; i++) {
+    if (kinds[i]) continue;
+    let k: "th" | "en" | null = null;
+    for (let j = i - 1; j >= 0 && !k; j--) k = kinds[j];
+    for (let j = i + 1; j < kinds.length && !k; j++) k = kinds[j];
+    kinds[i] = k;
+  }
+  const pick = (want: "th" | "en") => toks.filter((_, i) => kinds[i] === want);
+  const th = pick("th");
+  const en = pick("en");
+  if (th.length === 0 || en.length === 0) return [];
+  const clean = (xs: string[]) =>
+    xs.join(" ").replace(/[()[\]|,]+/g, " ").replace(/\s+/g, " ").replace(/^[-–—:|\s]+|[-–—:|\s]+$/g, "");
+  const out = [clean(th), clean(en)].filter((x) => x.length >= 3 && x !== name);
+  return Array.from(new Set(out));
+}
+
 export function OrgJsonLd() {
   const cfg = getSiteConfig();
   return tag({
@@ -129,6 +161,8 @@ export function ClinicJsonLd({ c, photos, priceRange, localePrefix = "" }: {
   if (c.lat && c.lng) {
     data.geo = { "@type": "GeoCoordinates", latitude: c.lat, longitude: c.lng };
   }
+  const altNames = splitScriptNames(c.name);
+  if (altNames.length > 0) data.alternateName = altNames;
   if (c.phone) data.telephone = c.phone;
   if (c.website) data.sameAs = [c.website];
   if (c.maps_url) {

@@ -59,7 +59,8 @@ export async function generateMetadata(
     description,
     ...((!inSite || thinContent) && { robots: { index: false, follow: true } }),
     alternates: { canonical },
-    openGraph: { title, description, url: `/doctor/${slug}`, type: "profile" },
+    // 2026-09-02: 페이지가 openGraph 를 정의하면 루트의 siteName 이 사라진다.
+    openGraph: { siteName: cfg.brand, title, description, url: `/doctor/${slug}`, type: "profile" },
   };
 }
 

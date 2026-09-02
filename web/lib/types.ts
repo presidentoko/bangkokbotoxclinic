@@ -54,6 +54,8 @@ export type Clinic = {
   id: string;
   place_id: string;
   name: string;
+  /** title 전용 정제 이름. 원본 name 은 H1·JSON-LD 에 그대로 쓴다 (2026-09-02) */
+  display_name?: string;
   name_lang: "th" | "en" | "other";
   primary_type: string;
   address: string;

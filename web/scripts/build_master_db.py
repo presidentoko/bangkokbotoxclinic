@@ -413,6 +413,35 @@ _KOREAN_RE = re.compile(r"[가-힣ᄀ-ᇿ]")
 _JAPANESE_RE = re.compile(r"[ぁ-ゟ゠-ヿ㐀-䷿一-龯]")
 
 
+# 2026-09-02: 검색결과에 내보낼 표시용 이름.
+#
+# 구글맵 상호를 그대로 title 에 쓰면 SERP 에서 이렇게 나간다:
+#   "PLUS Dental Clinic | สาขาพระราม 2 | คลินิกทันตกรรมและจัดฟัน ขูดหินปูน …"
+# 파이프 뒤는 업주가 넣은 키워드 나열이고, 잘린 꼬리는 스팸처럼 보인다.
+# 실측(5,489곳): 80자 초과 236 · 파이프 96 · 괄호 짝 안맞음 5 · "..." 잘림 2.
+#
+# ⚠ 원본 name 은 절대 건드리지 않는다. H1 과 JSON-LD name 에 그대로 쓰여서
+# "상호 전체를 복사해 붙이는" 정확 일치 검색을 받아내야 하기 때문이다.
+# 이 값은 title 전용이다.
+def display_name(name: str) -> str:
+    if not name:
+        return name
+    s = name.split("|")[0]                      # 파이프 뒤 = 키워드 나열
+    s = re.sub(r"\.{3,}|…", " ", s)             # 잘림 표시
+    for op, cl in (("(", ")"), ("（", "）"), ("[", "]")):
+        if s.count(op) < s.count(cl):
+            s = s.replace(cl, "")               # 여는 괄호 없이 닫힘
+        elif s.count(op) > s.count(cl):
+            s = s[: s.rfind(op)]                # 열린 채 끝남
+    s = re.sub(r'["""]', "", s)
+    s = re.sub(r"\s{2,}", " ", s).strip(" -–—:,/")
+    if len(s) > 60:                             # SERP 가 자르기 전에 우리가 자른다
+        cut = s[:60]
+        sp = cut.rfind(" ")
+        s = (cut[:sp] if sp > 35 else cut).rstrip(" -–—:,/")
+    return s or name
+
+
 def detect_lang(text: str) -> str:
     """간단 분류: th / en / other.
     태국/한국/일본/영어/기타 분류."""
@@ -993,6 +1022,7 @@ def process_source(
                 "id": place_id.replace(":", "_"),
                 "place_id": place_id,
                 "name": name,
+                "display_name": display_name(name),
                 "name_lang": name_lang,
                 "primary_type": row.get("primary_type", ""),
                 "address": address,

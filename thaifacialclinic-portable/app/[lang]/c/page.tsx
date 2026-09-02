@@ -32,7 +32,9 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
     title: "Browse Hair Transplant Clinics by Procedure — Thailand",
     description: "Browse Thailand hair transplant clinics by procedure: FUE, DHI, FUT, PRP, SMP and more. Verified reviews, Trust Score ranked.",
     alternates: { canonical: canonicalUrl },
-    openGraph: { title: "Browse by Procedure — Thai Facial Clinic", url },
+    // 2026-09-02: siteName 은 페이지마다 다시 넣어야 한다 — Next 는 openGraph 를
+    // 객체 단위로 교체해서, 루트 layout 에 있어도 페이지가 정의하면 사라진다.
+    openGraph: { siteName: SITE.name, title: "Browse by Procedure — Thai Facial Clinic", url },
   };
 }
 

@@ -43,7 +43,8 @@ export async function generateMetadata(
     description,
     alternates: { canonical: `/city/${city}` },
     ...(robots && { robots }),
-    openGraph: { title, description, url: `/city/${city}` },
+    // 2026-09-02: 페이지가 openGraph 를 정의하면 루트의 siteName 이 사라진다.
+    openGraph: { siteName: cfg.brand, title, description, url: `/city/${city}` },
   };
 }
 

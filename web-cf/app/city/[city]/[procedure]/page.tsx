@@ -173,6 +173,9 @@ export async function generateMetadata(
     ...(robots && { robots }),
     alternates: { canonical: `/city/${city}/${procedure}` },
     openGraph: {
+      // 2026-09-02: 페이지가 openGraph 를 정의하면 루트 layout 의 siteName 이
+      // 통째로 사라진다(Next 는 객체 단위 교체). 실측: og:site_name 태그 부재.
+      siteName: cfg.brand,
       title,
       description,
       url: `${SITE}/city/${city}/${procedure}`,

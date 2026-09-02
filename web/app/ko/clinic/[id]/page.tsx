@@ -71,7 +71,10 @@ export async function generateMetadata(
   const c = getClinicById(db.clinics, id);
   if (!c) return { title: "클리닉을 찾을 수 없습니다" };
   const place = c.district || c.city_label;
-  const title = `${c.name} — 후기, 가격, 위치 | ${place}`;
+  // 2026-09-02: title 에는 정제 이름을 쓴다 — 키워드 나열·잘림이 SERP 에서
+  // 스팸처럼 보이는 것을 막는다. H1·JSON-LD 는 원본 c.name 그대로.
+  const dispName = c.display_name || c.name;
+  const title = `${dispName} — 후기, 가격, 위치 | ${place}`;
   const description = c.address
     ? `${place}에 위치한 ${c.name}. Google 리뷰 ${c.total_reviews.toLocaleString()}건 기준 평점 ${c.rating.toFixed(1)}. 주소: ${c.address.slice(0, 80)}.`
     : `${c.name} — Google 리뷰 ${c.total_reviews.toLocaleString()}건 기준 평점 ${c.rating.toFixed(1)}.`;
@@ -99,6 +102,9 @@ export async function generateMetadata(
       }),
     },
     openGraph: {
+      // 2026-09-02: 페이지가 openGraph 를 정의하면 루트 layout 의 siteName 이
+      // 통째로 사라진다(Next 는 객체 단위 교체). 실측: og:site_name 태그 부재.
+      siteName: cfg.brand,
       type: "website",
       locale: "ko_KR",
       title,

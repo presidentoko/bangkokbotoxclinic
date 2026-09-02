@@ -22,7 +22,9 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
     title: "Hair Transplant Guides — Thailand",
     description: "Cost breakdowns, technique comparisons (FUE vs DHI), and real patient review roundups for hair transplant clinics in Thailand.",
     alternates: { canonical: canonicalUrl },
-    openGraph: { title: "Hair Transplant Guides — Thai Facial Clinic", url },
+    // 2026-09-02: siteName 은 페이지마다 다시 넣어야 한다 — Next 는 openGraph 를
+    // 객체 단위로 교체해서, 루트 layout 에 있어도 페이지가 정의하면 사라진다.
+    openGraph: { siteName: SITE.name, title: "Hair Transplant Guides — Thai Facial Clinic", url },
   };
 }
 

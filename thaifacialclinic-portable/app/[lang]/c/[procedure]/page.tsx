@@ -45,6 +45,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
     description: `Compare ${count} verified ${proc.name} clinics in Bangkok & Thailand. ${proc.priceHint}. Trust Score ranked from real Google + Bookimed + Reddit + Naver reviews. Free consultation.`,
     alternates: { canonical: canonicalUrl },
     openGraph: {
+      // 2026-09-02: siteName 은 페이지마다 다시 넣어야 한다. Next 메타데이터는
+      // openGraph 를 객체 단위로 교체하므로, 루트 layout 에 siteName 이 있어도
+      // 페이지가 openGraph 를 정의하는 순간 통째로 사라진다. 실측: 라이브
+      // og:site_name 태그가 아예 없었다.
+      siteName: SITE.name,
       title: `${proc.name} in Bangkok — ${count} Verified Clinics`,
       description: `${count} clinics · ${proc.priceHint} · Trust Score ranked from real patient reviews.`,
       url,

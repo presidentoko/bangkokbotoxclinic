@@ -98,7 +98,10 @@ export async function generateMetadata(
   // (2026-07-31 감사, 실측 브랜드 포함 81자 → 잘림).
   // 2026-08-14 감사: " reviews" 단어 제거 (8자) — ★ 옆 괄호 숫자는 리뷰수로
   // 읽히므로 정보 손실 없음. (web/ 원본과 동기)
-  const title = `${c.name} — ★${c.rating} (${c.total_reviews})`;
+  // 2026-09-02: title 에는 정제 이름을 쓴다 — 키워드 나열·잘림이 SERP 에서
+  // 스팸처럼 보이는 것을 막는다. H1·JSON-LD 는 원본 c.name 그대로.
+  const dispName = c.display_name || c.name;
+  const title = `${dispName} — ★${c.rating} (${c.total_reviews})`;
   const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} rating from ${c.total_reviews} Google reviews. ${cats || "Aesthetic clinic"}. See prices, photos & book a free consult.`;
 
   // 이 사이트 소관이 아닌 클리닉이면 (예: 덴탈 사이트에 뜬 보톡스 전용 클리닉)
@@ -126,6 +129,9 @@ export async function generateMetadata(
       }),
     },
     openGraph: {
+      // 2026-09-02: 페이지가 openGraph 를 정의하면 루트 layout 의 siteName 이
+      // 통째로 사라진다(Next 는 객체 단위 교체). 실측: og:site_name 태그 부재.
+      siteName: cfg.brand,
       title,
       description,
       url: `/clinic/${c.id}`,

@@ -24,6 +24,7 @@ export async function generateStaticParams() {
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
+  const cfg = getSiteConfig();
   const { slug } = await params;
   const g = findGuide(slug);
   if (!g) return { title: "Guide not found" };
@@ -32,6 +33,9 @@ export async function generateMetadata(
     description: g.metaDescription,
     alternates: { canonical: `/guide/${slug}` },
     openGraph: {
+      // 2026-09-02: 페이지가 openGraph 를 정의하면 루트 layout 의 siteName 이
+      // 통째로 사라진다(Next 는 객체 단위 교체). 실측: og:site_name 태그 부재.
+      siteName: cfg.brand,
       type: "article",
       title: g.title,
       description: g.metaDescription,

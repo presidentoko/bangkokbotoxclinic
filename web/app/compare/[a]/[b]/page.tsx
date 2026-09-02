@@ -3,7 +3,7 @@ import { loadMasterDb, getClinicById } from "@/lib/data";
 import { CATEGORY_LABELS, TOPIC_LABELS, type Clinic } from "@/lib/types";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
-import { getSiteUrl, safeEncodeURIComponent } from "@/lib/site";
+import { getSiteUrl, safeEncodeURIComponent , getSiteConfig} from "@/lib/site";
 import type { Metadata } from "next";
 
 // 모든 클리닉 × 모든 클리닉 = N² 조합이라 프리렌더 불가.
@@ -44,6 +44,8 @@ export async function generateMetadata(
     // 링크 가치가 흐르게 둔다.
     robots: { index: false, follow: true },
     openGraph: {
+      // 2026-09-02: 페이지가 openGraph 를 정의하면 루트의 siteName 이 사라진다.
+      siteName: getSiteConfig().brand,
       title,
       description,
       url: `/compare/${a}/${b}`,

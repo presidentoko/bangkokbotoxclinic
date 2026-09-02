@@ -32,7 +32,10 @@ export async function generateMetadata(
   if (!c) return { title: "ไม่พบคลินิก" };
   // 2026-08-14 감사: ", ที่ตั้ง"(위치) 제거 — รีวิว(리뷰)·ราคา(가격) 검색어와
   // 지역명은 유지. TH 클리닉이 60자 초과 최다 그룹(표본 404건)이었다.
-  const title = `${c.name} — รีวิว & ราคา | ${c.district || c.city_label}`;
+  // 2026-09-02: title 에는 정제 이름을 쓴다 — 키워드 나열·잘림이 SERP 에서
+  // 스팸처럼 보이는 것을 막는다. H1·JSON-LD 는 원본 c.name 그대로.
+  const dispName = c.display_name || c.name;
+  const title = `${dispName} — รีวิว & ราคา | ${c.district || c.city_label}`;
   const description = c.address
     ? `${c.name} ใน ${c.district || c.city_label} — คะแนน ${c.rating.toFixed(1)} จาก ${c.total_reviews.toLocaleString()} รีวิว Google. ที่อยู่: ${c.address.slice(0, 80)}.`
     : `${c.name} — คะแนน ${c.rating.toFixed(1)} จาก ${c.total_reviews.toLocaleString()} รีวิว Google.`;
@@ -65,6 +68,9 @@ export async function generateMetadata(
       }),
     },
     openGraph: {
+      // 2026-09-02: 페이지가 openGraph 를 정의하면 루트 layout 의 siteName 이
+      // 통째로 사라진다(Next 는 객체 단위 교체). 실측: og:site_name 태그 부재.
+      siteName: cfg.brand,
       type: "website",
       locale: "th_TH",
       title,

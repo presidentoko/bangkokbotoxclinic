@@ -121,7 +121,12 @@ export async function generateMetadata({
   // 지금 상태(13%)로 되살리면 같은 문제가 재발한다.
   const indexable = lang === "en";
   return {
-    title: `${found.place.name} — ${SITE.name}`,
+    // 2026-09-02: 평점·리뷰수를 title 에. 넷 중 이 사이트만 브랜드명만 달고
+    // 있었는데 데이터에는 rating·reviewCount 가 이미 있었다. 검증 검색에서
+    // 클릭을 만드는 건 사이트 이름이 아니라 "★4.8 (312)" 다.
+    title: found.place.rating != null
+      ? `${found.place.name} — Reviews ★${found.place.rating.toFixed(1)} (${(found.place.reviewCount ?? 0).toLocaleString()})`
+      : `${found.place.name} — ${SITE.name}`,
     description:
       summary ??
       (found.place.rating != null

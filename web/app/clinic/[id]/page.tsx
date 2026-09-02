@@ -93,7 +93,15 @@ export async function generateMetadata(
   // 2026-08-14 감사: " reviews" 단어 제거 (8자) — ★ 옆 괄호 숫자는 리뷰수로
   // 읽히므로 정보 손실 없음. 긴 태국어 상호는 어차피 60자를 넘는데 그건
   // 자를 수 없는 본질 — 꼬리만 최소화한다.
-  const title = `${c.name} — ★${c.rating} (${c.total_reviews})`;
+  // 2026-09-02: "Reviews & Prices" 추가. 검증 검색(인플루언서 보고 이름을 치는)
+  // 에서 사람들이 실제로 넣는 단어는 "review" 다. th/ko 라우트는 이미 각각
+  // "รีวิว"·"후기" 를 넣고 있었는데 영어판만 빠져 있었다.
+  // 길이: 이름 뒤 22자. 이름이 38자를 넘으면 구글이 꼬리를 자르는데, 그때도
+  // 잘리는 건 평점 숫자지 "Reviews" 가 아니다 — 순서를 그렇게 잡았다.
+  // 2026-09-02: title 에는 정제 이름을 쓴다 — 키워드 나열·잘림이 SERP 에서
+  // 스팸처럼 보이는 것을 막는다. H1·JSON-LD 는 원본 c.name 그대로.
+  const dispName = c.display_name || c.name;
+  const title = `${dispName} — Reviews & Prices ★${c.rating} (${c.total_reviews.toLocaleString()})`;
   const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} rating from ${c.total_reviews} Google reviews. ${cats || "Aesthetic clinic"}. See prices, photos & book a free consult.`;
 
   // 이 사이트 소관이 아닌 클리닉이면 (예: 덴탈 사이트에 뜬 보톡스 전용 클리닉)
@@ -121,6 +129,9 @@ export async function generateMetadata(
       }),
     },
     openGraph: {
+      // 2026-09-02: 페이지가 openGraph 를 정의하면 루트 layout 의 siteName 이
+      // 통째로 사라진다(Next 는 객체 단위 교체). 실측: og:site_name 태그 부재.
+      siteName: cfg.brand,
       title,
       description,
       url: `/clinic/${c.id}`,
