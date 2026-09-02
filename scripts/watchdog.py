@@ -609,7 +609,7 @@ def build_services() -> list[Service]:
         # 그 전까지 방콕 식당은 건강한 2086-2087 로 옮긴다. massage_review_*
         # 배정 구간이지만 전부 pause 상태라 지금은 비어 있다. massage 를 다시
         # 켤 때는 여기와 충돌하므로 둘 중 하나를 옮길 것.
-        "PROXY_PORT_BASE": "2082",
+        "PROXY_PORT_BASE": "2085",
         # 방콕 그리드는 34,412곳까지 돌았고, 그중 review_count==0 인 10,696곳은
         # "아직 못 읽음"이 아니라 사실상 리뷰가 거의 없는 곳이다. 통과시키면
         # 큐가 18,238곳이 되고 절반 이상을 열어보고 버린다(약 9일). 진짜 대상
@@ -625,7 +625,7 @@ def build_services() -> list[Service]:
         # 클리닉 3 + 여기 1. 여유가 생기면 2~3 으로 올려도 포트는 이미 확보돼
         # 있다(식당 블록 2085-2087).
         "N_WORKERS": "1",
-        "PROXY_PORT_BASE": "2084",
+        "PROXY_PORT_BASE": "2087",
     }
     chiang_mai_env = {
         "CITY_LAT": "18.7883",
@@ -808,7 +808,11 @@ def build_services() -> list[Service]:
         # 잡으면 식당(2워커)에 연속 2포트를 줄 수 없다. 워커당 940MB 이므로
         # 하나 줄이면 약 0.9GB 도 함께 풀린다. clinics 2080-2081,
         # 식당 2082-2083, 2084 는 예비.
-        "N_WORKERS": "2",
+        # 2026-09-02: 2→4. 오전 성공률이 기준선을 재현했다(10시 60% vs 08-31 58%).
+        # 하루 곡선도 안정적이다: 05시 71% · 07시 74% · 10시 60%, 09-01 오후의
+        # 2~9% 구간은 사라졌다. 회복 요인은 재스캔 해방 — 큐 1,000건 중 874건이
+        # 재스캔이라 죽은 잔여물이 밀려났다. 이제 처리량을 늘릴 차례다.
+        "N_WORKERS": "4",
         "PROXY_PORT_BASE": "2080",
         "SEARCH_TAG": "en",
         "CITY_LAT": "13.7462890",
@@ -995,7 +999,7 @@ def build_services() -> list[Service]:
             # 앞 3개의 spawn 이 많은 건 리뷰 워커가 차단당할 때마다 회전시켜서지
             # 불량이라서가 아니다. 계정 한도에 걸렸다면 뒤쪽이 더 나빠야 하는데
             # 정반대다. AUTH_FAILED / too many / limit 로그도 전 기간 0건이다.
-            cmd=["nordvpn_runner.py", "--ports", "5", "--base-port", "2080",
+            cmd=["nordvpn_runner.py", "--ports", "8", "--base-port", "2080",
                  "--auth", "nordvpn/auth.txt", "--proto", "mixed"],
             cwd=ROOT,
             env_extra={},
