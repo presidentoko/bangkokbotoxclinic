@@ -48,6 +48,23 @@ MAX_TASK_RETRIES = 2         # 작업 1건당 최대 재시도 횟수 (초과 �
 SLOW_THRESHOLD_SEC = 120     # 1건 처리 시간이 이 이상이면 다음 작업 전 VPN 교체
 ROTATE_TIMEOUT_SEC = 90      # vpn_runner가 새 터널을 올릴 때까지 최대 대기 (45→90, NordVPN 일부 서버 boot 30s+)
 ROTATE_EVERY_TASKS = 8       # 2026-08-31: 15→8. 강등은 출구 활동량에 반응한다(실측) — 실패 전에 선제 교체
+
+# 2026-09-03: 브라우저 프로세스를 주기적으로 새로 띄운다.
+#
+# 왜: chromium 은 오래 돌수록 메모리를 누적한다. 실측으로 워커당 비용이
+# 갓 띄웠을 때 ~480MB → 몇 시간 뒤 940MB 이상으로 늘었고, 그 때문에
+#   - 켤 때 여유 3.0GB 였던 것이 한 시간 만에 1.0GB 로 떨어지고
+#   - ram_manager 가 pause 선(0.9GB)에서 다른 스크래퍼를 밀어냈다(09-03 실측)
+# "워커를 몇 개 돌릴 수 있나" 가 시간에 따라 변하는 값이 되어, 고정 N_WORKERS
+# 로는 답이 없었다. 워커 수를 줄이는 건 증상 대응이고 원인은 이 누적이다.
+#
+# 성공 건수가 아니라 '시도' 기준으로 센다. 차단 구간에서는 성공이 0이라
+# task_success_count 기반이면 영원히 재활용되지 않는다 — 그런데 메모리는
+# 실패로도 똑같이 쌓인다.
+#
+# 40건: 작업당 20~35초라 20~25분에 한 번. context 재생성(수백 ms)과 달리
+# 프로세스 재시작은 2~3초가 들지만, 그 빈도면 처리량 손실이 0.2% 미만이다.
+RECYCLE_EVERY_TASKS = 40
 # 2026-08-07: 연속 실패/스킵이 이만큼 쌓이면 성공 여부와 무관하게 VPN 교체.
 # 이게 없으면 출구 IP 가 구글에 소프트 차단됐을 때 워커가 영구히 갇힌다 —
 # periodic 교체는 task_success_count(성공 시에만 증가)에 묶여 있어 성공이 0이면
@@ -1666,6 +1683,7 @@ def worker(
                 pending_rotate = False  # 직전 작업이 느렸으면 True → 다음 작업 전 rotate
                 task_success_count = 0  # 이 워커가 성공한 누적 작업 수 (정기 rotate 트리거)
                 consec_fail = 0  # 연속 실패/스킵 — 차단된 출구 IP 탈출용
+                tasks_since_recycle = 0  # 브라우저 재활용 주기 카운터 (2026-09-03)
                 # 2026-08-31: href 별 빈 지도 횟수. 실측: 실패 직후 같은 출구에서 새 컨텍스트로
                 # 열면 약 50% 정상 — 회전(비쌈, 터널 실패 동반)보다 먼저 이걸 쓴다.
                 _empty_map_hits: dict[str, int] = {}
@@ -1695,6 +1713,32 @@ def worker(
 
                     # 전 출구가 막힌 상태면 여기서 함께 쉰다 (위 서킷브레이커 주석 참조)
                     _wait_if_blocked(worker_id)
+
+                    # 2026-09-03: 브라우저 메모리 누적 리셋. context 만 새로 만드는
+                    # 것으로는 안 된다 — 누적은 프로세스에 쌓인다.
+                    tasks_since_recycle += 1
+                    if tasks_since_recycle >= RECYCLE_EVERY_TASKS:
+                        tasks_since_recycle = 0
+                        log.info(f"[W{worker_id}] 브라우저 재활용 ({RECYCLE_EVERY_TASKS}건 주기)")
+                        try: context.close()
+                        except Exception: pass
+                        try: browser.close()
+                        except Exception: pass
+                        try:
+                            browser = pw.chromium.launch(
+                                headless=not is_visible,
+                                slow_mo=config.SLOW_MO,
+                                proxy={"server": proxy_url},
+                                args=[
+                                    "--disable-blink-features=AutomationControlled",
+                                    "--disable-features=IsolateOrigins,site-per-process",
+                                ],
+                            )
+                            context, page = _build_context(browser)
+                        except Exception as _e:
+                            # 재기동 실패는 치명적이다 — 이 워커는 브라우저 없이 못 돈다.
+                            log.error(f"[W{worker_id}] 브라우저 재활용 실패: {_e}")
+                            raise
 
                     # 직전 작업이 느렸거나 정기 교체 주기 도달 시 먼저 VPN 교체
                     periodic = (task_success_count > 0
