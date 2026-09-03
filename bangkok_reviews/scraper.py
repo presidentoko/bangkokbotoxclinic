@@ -1529,15 +1529,28 @@ def main():
         pid_fn = place_id_to_filename(rest.place_id)
         rp = reviews_dir / f"{pid_fn}_reviews.csv"
         mp = reviews_dir / f"{pid_fn}_meta.csv"
-        # 리뷰 0건이면 파일 생성 안 함 (스크래핑 실패 구분 용이)
+        # 리뷰 0건이면 파일을 만들지 않는다 — 파일 없음 = 아직 못 모았음 이라는
+        # 재개 로직의 신호를 지키기 위해서다.
+        #
+        # 단, "만들지 않는다"와 "지운다"는 다르다. 예전엔 여기서 unlink 를 해서,
+        # 이미 리뷰 50개를 잘 모아둔 가게가 VPN 나쁜 구간에 재처리되며 0건이
+        # 나오면 그 50개가 지워졌다. 그러면 다시 미완료가 되어 큐에 돌아오고,
+        # 또 실패하면 또 지워지는 악순환이 된다. 2026-09-01~02 로그 기준
+        # 116개 업소가 이렇게 수집분을 잃었다(TenTen 60개, KAI 60개,
+        # After You 46개 …).
+        #
+        # 0건은 "이 가게에 리뷰가 없다"가 아니라 대개 "이번엔 못 가져왔다"이다.
+        # 구글 목록이 리뷰 수천 개라고 말하는 가게가 0건으로 나오면 그건 실패다.
+        # 그러니 기존 파일이 있으면 남긴다.
         if reviews:
             save_reviews_csv(reviews, rp)
-        else:
-            rp.unlink(missing_ok=True)
+        elif rp.exists():
+            log.warning(
+                f"  0건이지만 기존 수집분 유지: {rest.name[:40]} "
+                f"(구글 리뷰 {rest.total_reviews}개)"
+            )
         if metas:
             save_metas_csv(metas, mp)
-        else:
-            mp.unlink(missing_ok=True)
         # append_restaurant 모드: 첫 성공 시 헤더 포함하여 기존 행 + 신규 통합 저장
         # 그 후부터는 매번 전체 다시 쓰기 (간단 + 크기 작음)
         _merge_and_save_restaurants(restaurants_path, restaurants, existing_ids)
