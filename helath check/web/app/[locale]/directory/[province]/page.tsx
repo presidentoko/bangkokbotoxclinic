@@ -54,6 +54,9 @@ const TONE: Record<string, string> = {
 function Row({ h, locale, ourPage }: { h: RegistryHospital; locale: Locale; ourPage?: { slug: string; name: string } }) {
   const badge = haBadge(h.ha_level);
   const expiry = formatRegistryDate(h.ha_expires_on);
+  const lapsed =
+    h.ha_current === false &&
+    (h.ha_level === "none" || h.ha_level === "renewing" || h.ha_level === "in-progress");
   return (
     <li
       id={h.hcode ? `h${h.hcode}` : undefined}
@@ -75,8 +78,10 @@ function Row({ h, locale, ourPage }: { h: RegistryHospital; locale: Locale; ourP
         {h.beds && <span className="text-gray-600">{h.beds} beds</span>}
         {h.hcode && <span className="text-gray-500">Hospital code {h.hcode}</span>}
         {expiry && (
-          <span className={h.ha_current === false ? "text-amber-800" : "text-gray-500"}>
-            {h.ha_current === false ? "Certificate expired " : "Valid to "}
+          <span className={lapsed ? "text-amber-800" : "text-gray-500"}>
+            {/* See VerifiedStrip: the register's status and its certificate
+                date can disagree, and the status is the one to trust. */}
+            {lapsed ? "Certificate lapsed " : h.ha_current === false ? "Last certificate " : "Valid to "}
             {expiry}
           </span>
         )}

@@ -32,6 +32,24 @@ export function VerifiedStrip({
   const granted = formatRegistryDate(match.ha_accredited_on);
   const expires = formatRegistryDate(match.ha_expires_on);
 
+  // Never put "expired" next to "HA accredited". The register publishes a
+  // status and a certificate date separately, and for 55 of its 1,030
+  // accredited rows the date has passed while the status still reads
+  // accredited — the certificate was renewed and the date not yet restated.
+  // Only a status that itself says the accreditation is not current earns the
+  // word; otherwise the date is reported as what it is, the last certificate
+  // on file.
+  const lapsed =
+    match.ha_current === false &&
+    (match.ha_level === "none" || match.ha_level === "renewing" || match.ha_level === "in-progress");
+  const expiryLabel = lapsed
+    ? match.ha_level === "renewing" || match.ha_level === "in-progress"
+      ? "Previous certificate ran to"
+      : "Certificate lapsed"
+    : match.ha_current === false
+      ? "Last certificate on file"
+      : "Certificate valid to";
+
   return (
     <section
       aria-labelledby="verified-heading"
@@ -89,12 +107,8 @@ export function VerifiedStrip({
         )}
         {expires && (
           <div className="flex justify-between gap-3 border-b border-slate-200 pb-1.5">
-            <dt className="text-slate-600">
-              {match.ha_current === false ? "Certificate expired" : "Certificate valid to"}
-            </dt>
-            <dd
-              className={`text-right font-semibold ${match.ha_current === false ? "text-amber-800" : ""}`}
-            >
+            <dt className="text-slate-600">{expiryLabel}</dt>
+            <dd className={`text-right font-semibold ${lapsed ? "text-amber-800" : ""}`}>
               {expires}
             </dd>
           </div>
