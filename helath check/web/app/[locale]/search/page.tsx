@@ -10,11 +10,12 @@ import {
   haBadge,
 } from "@/lib/registry";
 
-// Server-rendered so the form works with JavaScript off and so a search has a
-// URL. The nav box was the only way to look a hospital up, it matched English
-// substrings only, and there was no results page behind it — a reader who typed
-// a Thai name, or a name with a different word order, got nothing and no
-// explanation.
+// A findable page for name lookup. The nav box was the only way to look a
+// hospital up, it matched English substrings only, and there was no page behind
+// it — a reader who typed a Thai name, or the same words in a different order,
+// got nothing and no explanation. The index is built here and shipped with the
+// page, so matching happens locally: it covers the register's Thai names, and
+// the province links below work with JavaScript off.
 export const revalidate = false;
 export const dynamic = "force-static";
 

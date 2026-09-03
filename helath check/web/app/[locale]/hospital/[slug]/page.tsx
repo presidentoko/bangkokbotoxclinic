@@ -412,10 +412,32 @@ export default async function HospitalPage({
         </section>
       ))}
 
+      {/* 188 hospitals have no scraped package, and "check back soon — we
+          update weekly" has been sitting on them since the data was last
+          refreshed. Most publish nothing online at all; the useful answer is
+          the phone number, not a promise. */}
       {hospital.packages.length === 0 && (
-        <div className="text-center py-12 text-slate-400">
-          <p className="text-lg mb-2">{t(loc, "hosp_no_packages")}</p>
-          <p className="text-sm">{t(loc, "hosp_check_back")}</p>
+        <div className="rounded-xl border border-slate-200 bg-white p-6 text-center">
+          <p className="text-lg font-semibold text-slate-800 mb-1">
+            No check-up prices published online
+          </p>
+          <p className="text-slate-600 mb-4">
+            {hospital.name} does not list check-up package prices on a public page we can read.
+            Prices are quoted on request.
+          </p>
+          {hospital.phone && (
+            <a
+              href={`tel:${hospital.phone}`}
+              className="inline-block rounded-lg bg-blue-700 px-5 py-3 text-lg font-bold text-white hover:bg-blue-800"
+            >
+              📞 Call {hospital.phone}
+            </a>
+          )}
+          <p className="mt-4 text-sm">
+            <Link href={`/${locale}/compare`} className="text-blue-700 hover:underline">
+              Compare hospitals that do publish prices →
+            </Link>
+          </p>
         </div>
       )}
 

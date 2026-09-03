@@ -53,6 +53,8 @@ SAME_NAME_MAX_KM = 25.0
 _GENERIC = {
     "golf", "club", "clubs", "course", "courses", "country", "resort", "resorts", "the", "and",
     "international", "co", "ltd", "spa", "hotel", "residence", "gc", "cc", "g", "c",
+    # "&amp;" survives in a couple of provider names and slugifies to a token
+    "amp",
     "สนามกอล์ฟ", "สนาม", "กอล์ฟ",
 }
 _PROVINCE_ALIASES = {
@@ -73,6 +75,26 @@ _PROVINCE_ALIASES = {
 
 def _ascii(s: str) -> str:
     return unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode()
+
+
+# Words that name one course inside a multi-course club. Blue Canyon has a
+# Canyon and a Lakes course, Siam Country Club has four, Phoenix has three —
+# different layouts, different green fees. Dropping the qualifier paired
+# Golfdigg's "Blue Canyon (Canyon Course)" at 4,300 with ThaiGolfBooking's
+# Lakes course at 1,500 and presented them as two quotes for the same round.
+VARIANTS = {
+    "canyon", "lakes", "lake", "old", "new", "plantation", "waterside", "rolling",
+    "hills", "east", "west", "north", "south", "mountain", "ocean", "valley",
+    "highland", "lakeside", "gold", "emerald", "ruby", "jade", "pine", "palm",
+    "a", "b", "c", "i", "ii", "iii",
+}
+
+
+def variant_tokens(name: str) -> set[str]:
+    """Course-variant words anywhere in the name, including inside parentheses."""
+    s = _ascii(name or "").lower()
+    s = re.sub(r"[^a-z0-9\s]", " ", s)
+    return {t for t in s.split() if t in VARIANTS}
 
 
 def core_tokens(name: str) -> list[str]:
@@ -118,6 +140,14 @@ def evaluate(master: dict, prov: dict) -> tuple[bool, str, float]:
         return False, "empty core", 0
     has_geo = bool(master.get("lat") and master.get("lng") and prov.get("lat") and prov.get("lng"))
     dist = haversine_km(master["lat"], master["lng"], prov["lat"], prov["lng"]) if has_geo else None
+
+    # Two courses at one club sit at the same coordinates and share every word
+    # except the one that matters. When both sides name a variant they have to
+    # name the same one; when only one side does, the pairing is a guess and a
+    # guess here publishes one course's green fee under another's name.
+    mv, pv = variant_tokens(master["name"]), variant_tokens(prov.get("name") or "")
+    if mv != pv and (mv or pv):
+        return False, f"course variant mismatch ({sorted(mv) or '-'} vs {sorted(pv) or '-'})", 0
 
     if mc == pc:
         if dist is not None and dist > SAME_NAME_MAX_KM:
