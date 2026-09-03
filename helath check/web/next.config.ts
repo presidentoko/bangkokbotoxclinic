@@ -218,6 +218,31 @@ const nextConfig: NextConfig = {
           { key: "Cache-Control", value: "public, max-age=0, s-maxage=86400, stale-while-revalidate=604800" },
         ],
       },
+      // Redirect-producing paths get a short edge TTL.
+      //
+      // A day of s-maxage is right for a page whose content only changes on a
+      // deploy. It is wrong for a URL that answers with a 308, because the
+      // edge stores the redirect too: on 2026-09-03 a fixed redirect loop on
+      // /:locale/compare?category= stayed broken for visitors for a further 24
+      // hours after the fix shipped, and the standing instruction above —
+      // purge Cloudflare when you ship — could not be followed because the
+      // account has no working API token. Five minutes means a bad redirect
+      // here is visible for one revalidation, not one day. These are eight
+      // categories across six locales; the cost is negligible.
+      {
+        source: "/:locale/compare",
+        headers: [
+          ...securityHeaders,
+          { key: "Cache-Control", value: "public, max-age=0, s-maxage=300, stale-while-revalidate=3600" },
+        ],
+      },
+      {
+        source: "/:locale/compare/:category",
+        headers: [
+          ...securityHeaders,
+          { key: "Cache-Control", value: "public, max-age=0, s-maxage=300, stale-while-revalidate=3600" },
+        ],
+      },
       {
         source: "/api/(.*)",
         headers: [
