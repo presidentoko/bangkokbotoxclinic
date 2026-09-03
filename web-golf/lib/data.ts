@@ -105,7 +105,7 @@ export function golfOnly(courses: Course[]): Course[] {
   });
 }
 
-const GOLF_CATEGORIES = new Set(["course", "club", "resort", "driving_range", "indoor"]);
+const GOLF_CATEGORIES = new Set(["course", "club", "country_club", "resort", "driving_range", "indoor"]);
 const NON_GOLF_NAME = /\b(mini[\s-]?golf|foot[\s-]?golf|golf\s*(shop|store|shack)|pro\s*shop)\b/i;
 
 /**

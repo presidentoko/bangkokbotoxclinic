@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { citySlug } from "@/lib/citySlug";
 import { type Locale, localeAlternates } from "@/lib/i18n";
 import { getHospitals, type HospitalSummary } from "@/lib/db";
 import { HospitalSearch } from "@/app/components/HospitalSearch";
@@ -18,7 +19,7 @@ export async function generateMetadata({
   void locale;
   return {
     title: "Health Check-Up Hospitals in Thailand — Bangkok, Phuket, Chiang Mai",
-    description: "Compare all hospitals offering health check-up packages across Thailand. Bangkok, Phuket, Chiang Mai and 19 more cities. Real prices, JCI-accredited hospitals listed.",
+    description: "Every hospital we hold check-up prices for, with published prices and JCI status. For all 1,491 hospitals on Thailand's official register, see the directory.",
     alternates: localeAlternates(locale, `/hospital`),
   };
 }
@@ -145,10 +146,12 @@ export default async function HospitalsPage({
                   {CITY_CITY[city] || "🏥"} {city}
                   <span className="text-sm font-normal text-slate-400 ms-2">({grouped[city].length})</span>
                 </h2>
-                <Link href={`/${locale}/city/${city.toLowerCase().replace(/ /g, '-')}`}
-                  className="text-sm text-blue-600 hover:underline">
-                  Compare {city} packages →
-                </Link>
+                {citySlug(city) && (
+                  <Link href={`/${locale}/city/${citySlug(city)}`}
+                    className="text-sm text-blue-600 hover:underline">
+                    Compare {city} packages →
+                  </Link>
+                )}
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {grouped[city].map((h) => (
@@ -229,7 +232,7 @@ export default async function HospitalsPage({
             "@type": "Hospital",
             name: h.name,
             url: `${BASE}/${locale}/hospital/${h.slug}`,
-            ...(h.rating ? { aggregateRating: { "@type": "AggregateRating", ratingValue: parseFloat(h.rating), bestRating: 5, reviewCount: h.review_count ?? 1 } } : {}),
+            ...(h.rating && h.review_count ? { aggregateRating: { "@type": "AggregateRating", ratingValue: parseFloat(h.rating), bestRating: 5, reviewCount: h.review_count } } : {}),
           },
         })),
       }) }} />

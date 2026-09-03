@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { logClick } from "@/lib/db";
 
 // Click-tracking endpoint for affiliate outlinks.
 // Logs the click and redirects to the destination URL.
@@ -28,11 +27,11 @@ export async function GET(request: NextRequest) {
   parsed.searchParams.set("utm_campaign", "healthcheck");
   if (pkgId) parsed.searchParams.set("utm_content", `pkg_${pkgId}`);
 
-  // Log to DB (fire-and-forget, non-blocking)
-  const ip = request.headers.get("x-forwarded-for") ?? "unknown";
-  if (pkgId) {
-    logClick(parseInt(pkgId, 10), parsed.href, ip).catch(() => {});
-  }
+  // There is no click store any more — the site dropped its runtime database
+  // in 2026-08 and lib/db.ts's logClick has been a console.log ever since.
+  // Importing it here pulled the whole 1.5 MB dataset into this redirect
+  // function for the sake of that log line, so the import is gone. If click
+  // data is wanted again it needs a real sink, not a bundled JSON file.
 
   return NextResponse.redirect(parsed.href, { status: 302 });
 }

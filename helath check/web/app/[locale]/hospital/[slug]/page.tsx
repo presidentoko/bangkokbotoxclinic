@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { type Locale, catLabel, localeAlternates, t, fmt } from "@/lib/i18n";
-import { getHospital, getAllHospitalSlugs, getHospitalReviews, getPriceHistoryBatch, type PackageRow, type ReviewRow } from "@/lib/db";
+import { getHospitals, getHospital, getAllHospitalSlugs, getHospitalReviews, getPriceHistoryBatch, type PackageRow, type ReviewRow } from "@/lib/db";
 import { SLUG_REDIRECTS } from "@/lib/slug-redirects";
 import { Sparkline } from "@/app/components/Sparkline";
 import { ShareButtons } from "@/app/components/ShareButtons";
+import { VerifiedStrip } from "@/app/components/VerifiedStrip";
+import { registryMatch, nearbyHospitals, isMedicalFacility } from "@/lib/registry";
+import { citySlug } from "@/lib/citySlug";
 import { ReportButton } from "@/app/components/ReportButton";
 import { HospitalTracker } from "@/app/components/HospitalTracker";
 
@@ -101,20 +104,26 @@ function openingHoursSchema(hours: { day: string; hours: string }[] | null) {
   };
   const out: Record<string, unknown>[] = [];
   for (const { day, hours: text } of hours) {
-    const t = text.trim();
+    // Google words the same schedule three ways: "8 AM to 6 PM", "8 AM–6 PM"
+    // (en dash) and, for split shifts, "9:30 AM to 1 PM, 2 to 6:30 PM". Only
+    // the first was handled, so 35 rows of real opening hours were silently
+    // dropped from the markup.
+    const t = text.replace(/[–—]/g, " to ").replace(/\s+/g, " ").trim();
     if (/^closed$/i.test(t)) continue;
     if (/24\s*hours/i.test(t)) {
       out.push({ "@type": "OpeningHoursSpecification", dayOfWeek: day, opens: "00:00", closes: "23:59" });
       continue;
     }
-    // "12 to 8 PM" leaves the opening meridiem implied by the closing one.
-    const parts = /^(.+?)\s+to\s+(.+)$/i.exec(t);
-    if (!parts) continue;
-    const closeMer = /PM/i.test(parts[2]) ? "PM" : /AM/i.test(parts[2]) ? "AM" : undefined;
-    const opens = to24(parts[1], closeMer);
-    const closes = to24(parts[2]);
-    if (!opens || !closes) continue;
-    out.push({ "@type": "OpeningHoursSpecification", dayOfWeek: day, opens, closes });
+    for (const shift of t.split(",")) {
+      // "12 to 8 PM" leaves the opening meridiem implied by the closing one.
+      const parts = /^(.+?)\s+to\s+(.+)$/i.exec(shift.trim());
+      if (!parts) continue;
+      const closeMer = /PM/i.test(parts[2]) ? "PM" : /AM/i.test(parts[2]) ? "AM" : undefined;
+      const opens = to24(parts[1], closeMer);
+      const closes = to24(parts[2]);
+      if (!opens || !closes) continue;
+      out.push({ "@type": "OpeningHoursSpecification", dayOfWeek: day, opens, closes });
+    }
   }
   return out;
 }
@@ -208,6 +217,22 @@ export default async function HospitalPage({
     notFound();
   }
 
+  // Register match, nearby list and a real comparison partner.
+  const match = registryMatch(slug);
+  const cityHref = citySlug(hospital.city);
+  const nearby = nearbyHospitals(slug).filter((n) => isMedicalFacility(n.slug));
+  // The old CTA hardcoded b=bumrungrad-international-hospital, which is not a
+  // slug that exists (the real one is `bumrungrad`), so every hospital page
+  // linked to an empty comparison. Pick the nearest hospital that actually has
+  // packages to compare against, falling back to the largest one in the set.
+  const comparePool = (await getHospitals()).filter(
+    (x) => x.slug !== slug && x.package_count > 0 && isMedicalFacility(x.slug),
+  );
+  const compareWith =
+    comparePool.find((x) => nearby.some((n) => n.slug === x.slug)) ??
+    [...comparePool].sort((a, b) => b.package_count - a.package_count)[0] ??
+    null;
+
   // Reviews and sparklines are supplementary — let them degrade to empty
   // instead of failing a page whose main content already loaded.
   let reviews: ReviewRow[] = [];
@@ -243,7 +268,11 @@ export default async function HospitalPage({
         {hospital.city && (
           <>
             <span>›</span>
-            <Link href={`/${locale}/city/${hospital.city.toLowerCase().replace(/\s+/g, "-")}`} className="hover:text-blue-600">{hospital.city}</Link>
+            {cityHref ? (
+              <Link href={`/${locale}/city/${cityHref}`} className="hover:text-blue-600">{hospital.city}</Link>
+            ) : (
+              <span>{hospital.city}</span>
+            )}
           </>
         )}
         <span>›</span>
@@ -314,6 +343,8 @@ export default async function HospitalPage({
           </div>
         </div>
       </div>
+
+      {match && <VerifiedStrip match={match} jci={hospital.jci === 1} locale={locale} />}
 
       {/* Opening hours — the single most-asked question for a walk-in
           check-up, and the one thing a price list can't answer. */}
@@ -415,23 +446,53 @@ export default async function HospitalPage({
         <p className="text-sm font-semibold text-slate-700 mb-1">{t(loc, "hosp_compare_with")}</p>
         <p className="text-xs text-slate-400 mb-3">Side-by-side package comparison — prices, inclusions, JCI status.</p>
         <Link
-          href={`/${locale}/compare-hospitals?a=${hospital.slug}&b=bumrungrad-international-hospital`}
+          href={`/${locale}/compare-hospitals?a=${hospital.slug}${compareWith ? `&b=${compareWith.slug}` : ""}`}
           className="text-sm text-blue-600 hover:underline"
         >
-          Compare {hospital.name} vs Bumrungrad →
+          Compare {hospital.name}{compareWith ? ` vs ${compareWith.name}` : ""} →
         </Link>
       </div>
 
-      {/* Map placeholder if coords exist */}
+      {/* Map. The embed endpoint needs no API key, and a reader deciding
+          whether a hospital is reachable should not have to leave the page to
+          find out where it is. */}
       {hospital.lat && hospital.lng && (
-        <div className="bg-slate-100 rounded-xl overflow-hidden mb-8">
+        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden mb-8">
+          <iframe
+            title={`Map of ${hospital.name}`}
+            src={`https://www.google.com/maps?q=${hospital.lat},${hospital.lng}&z=15&output=embed`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="w-full h-64 border-0"
+          />
           <a
             href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.lng}`}
             target="_blank" rel="nofollow noopener noreferrer"
-            className="block p-4 text-center text-sm text-blue-600 hover:text-blue-700"
+            className="block p-3 text-center text-sm font-semibold text-blue-600 hover:text-blue-700"
           >
-            📍 View {hospital.name} on Google Maps →
+            📍 Open in Google Maps for directions →
           </a>
+        </div>
+      )}
+
+      {/* Nearby hospitals — computed from coordinates we already hold. Someone
+          whose first choice is full, closed or too far needs the next option,
+          and until now the page offered none. Salons and spas are excluded. */}
+      {nearby.length > 0 && (
+        <div className="bg-white border border-slate-200 rounded-xl p-6 mb-8">
+          <h2 className="font-bold text-slate-800 mb-3">Other hospitals nearby</h2>
+          <ul className="divide-y divide-slate-100">
+            {nearby.map((n) => (
+              <li key={n.slug} className="py-2 flex items-baseline justify-between gap-3">
+                <Link href={`/${locale}/hospital/${n.slug}`} className="text-blue-700 hover:underline font-medium">
+                  {n.name}
+                </Link>
+                <span className="text-sm text-slate-500 whitespace-nowrap tabular-nums">
+                  {n.rating ? `★ ${parseFloat(String(n.rating)).toFixed(1)} · ` : ""}{n.km} km
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 
@@ -475,9 +536,9 @@ export default async function HospitalPage({
       </div>
 
       {/* More hospitals in city */}
-      {hospital.city && (
+      {hospital.city && cityHref && (
         <div className="mt-4 p-4 bg-slate-50 rounded-xl border border-slate-100 text-sm">
-          <Link href={`/${locale}/city/${hospital.city.toLowerCase().replace(/\s+/g, "-")}`} className="font-semibold text-blue-600 hover:underline">
+          <Link href={`/${locale}/city/${cityHref}`} className="font-semibold text-blue-600 hover:underline">
             {fmt(loc, "hosp_city_link", { city: hospital.city })}
           </Link>
           <span className="text-slate-400 ms-2">{fmt(loc, "hosp_city_sub", { city: hospital.city })}</span>
@@ -491,8 +552,8 @@ export default async function HospitalPage({
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "BangkokCheckup", item: `${BASE}/${locale}` },
           { "@type": "ListItem", position: 2, name: "Hospitals", item: `${BASE}/${locale}/hospital` },
-          ...(hospital.city ? [{ "@type": "ListItem", position: 3, name: hospital.city, item: `${BASE}/${locale}/city/${hospital.city.toLowerCase().replace(/\s+/g, "-")}` }] : []),
-          { "@type": "ListItem", position: hospital.city ? 4 : 3, name: hospital.name, item: `${BASE}/${locale}/hospital/${hospital.slug}` },
+          ...(cityHref ? [{ "@type": "ListItem", position: 3, name: hospital.city, item: `${BASE}/${locale}/city/${cityHref}` }] : []),
+          { "@type": "ListItem", position: cityHref ? 4 : 3, name: hospital.name, item: `${BASE}/${locale}/hospital/${hospital.slug}` },
         ],
       }) }} />
 
@@ -519,7 +580,10 @@ export default async function HospitalPage({
             } : {}),
             ...(hospital.phone ? { telephone: hospital.phone } : {}),
             ...(hospital.lat && hospital.lng ? { geo: { "@type": "GeoCoordinates", latitude: hospital.lat, longitude: hospital.lng } } : {}),
-            ...(hospital.rating ? { aggregateRating: { "@type": "AggregateRating", ratingValue: parseFloat(hospital.rating), bestRating: 5, reviewCount: hospital.review_count ?? 1 } } : {}),
+            // A rating with no review count is not a rating Google can show. The
+            // "?? 1" that used to sit here asserted one review for two hospitals
+            // that have a score and no count on file.
+            ...(hospital.rating && hospital.review_count ? { aggregateRating: { "@type": "AggregateRating", ratingValue: parseFloat(hospital.rating), bestRating: 5, reviewCount: hospital.review_count } } : {}),
             ...(reviews.length ? {
               review: reviews.map((r) => ({
                 "@type": "Review",

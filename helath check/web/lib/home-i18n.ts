@@ -44,7 +44,7 @@ type HomeContent = {
 const en: HomeContent = {
   metaDescription: "Compare published health check-up prices from Thai hospitals and clinics — Bangkok, Chiang Mai, Phuket and more. No ads, no sponsored listings, no booking fee.",
   ogTitle: "Compare Health Check-Up Prices in Thailand — Real Prices, No Ads",
-  ogDescription: "Real prices from 235+ hospitals across Bangkok, Chiang Mai, Phuket and 19 more Thai cities. Executive, cancer, cardiac, women's screening and more.",
+  ogDescription: "Published check-up prices from Thai hospitals, plus every hospital on Thailand's official register — all 77 provinces. Executive, cancer, cardiac and women's screening compared.",
   heroBadge: "✓ No ads · No sponsored rankings · Real prices only",
   heroTitleLine1: "Compare Bangkok",
   heroTitleLine2: "Health Check-Up Prices",
@@ -83,9 +83,9 @@ const en: HomeContent = {
 };
 
 const zh: HomeContent = {
-  metaDescription: "比较泰国235家以上医院、22个城市的真实体检套餐价格。曼谷、清迈、普吉、芭提雅等。无广告，无赞助排名。",
+  metaDescription: "比较泰国医院公开的体检套餐价格，并收录泰国官方注册的全部医院（77府）。曼谷、清迈、普吉、芭提雅等。无广告，无赞助排名。",
   ogTitle: "比较泰国体检价格 — 真实价格，无广告",
-  ogDescription: "曼谷、清迈、普吉等19个以上泰国城市235家以上医院的真实价格。高管体检、癌症筛查、心脏检查、女性体检等。",
+  ogDescription: "泰国医院公开体检价格，外加官方注册全部医院名录（77府）。高管体检、癌症筛查、心脏检查、女性体检等。",
   heroBadge: "✓ 无广告 · 无赞助排名 · 仅真实价格",
   heroTitleLine1: "比较曼谷",
   heroTitleLine2: "体检套餐价格",

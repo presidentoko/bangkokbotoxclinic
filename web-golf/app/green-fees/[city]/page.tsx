@@ -1,7 +1,8 @@
 // web-golf/app/green-fees/[city]/page.tsx
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCityOrAlias, resolveCityAlias, golfOnly, getCourseById } from "@/lib/data";
-import { loadPriceMatrix, toPriceRows } from "@/lib/priceMatrix";
+import { loadPriceMatrix, toPriceRows, sortRowsByCheapest, medianWeekendPremiumPct } from "@/lib/priceMatrix";
+import { providerNames, formatScrapeDate } from "@/lib/providers";
 import { indexableCities } from "@/lib/crawlGate";
 import { BreadcrumbJsonLd, ItemListJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
@@ -27,7 +28,7 @@ export async function generateStaticParams() {
   const [db, matrix] = await Promise.all([loadMasterDb(), loadPriceMatrix()]);
   const pricedCourseIds = new Set(
     toPriceRows(matrix)
-      .filter((r) => r.weekday_morning_total !== null || r.weekend_morning_total !== null)
+      .filter((r) => r.weekday_greenfee !== null || r.weekend_greenfee !== null)
       .map((r) => r.course_id)
   );
   const courses = golfOnly(db.restaurants);
@@ -53,11 +54,11 @@ export async function generateMetadata(
   const display = displayKey ?? name.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   return {
     title: `Golf Green Fees in ${display} 2026 — Price Comparison`,
-    description: `Compare real all-in green fee totals — weekday & weekend, including caddy + cart — for golf courses in ${display}, Thailand. Sorted cheapest first, no agency markup guesswork.`,
+    description: `Weekday and weekend green fees for golf courses in ${display}, Thailand, compared across the booking sites that publish them. Scraped rates only — no estimates.`,
     alternates: { canonical: `/green-fees/${name}` },
     openGraph: {
       title: `Golf Green Fees in ${display} 2026 — Price Comparison`,
-      description: `Compare real all-in green fee totals — weekday & weekend, including caddy + cart — for golf courses in ${display}, Thailand.`,
+      description: `Weekday and weekend green fees for golf courses in ${display}, compared across booking sites.`,
       url: `${SITE}/green-fees/${name}`,
     },
   };
@@ -78,20 +79,16 @@ export default async function GreenFeesCityPage(
   const priceRows = toPriceRows(matrix);
   const courseIds = new Set(courses.map((c) => c.id));
   const rows = priceRows.filter(
-    (r) => courseIds.has(r.course_id) && (r.weekday_morning_total !== null || r.weekend_morning_total !== null)
+    (r) => courseIds.has(r.course_id) && (r.weekday_greenfee !== null || r.weekend_greenfee !== null)
   );
   if (rows.length === 0) notFound();
 
-  const sorted = [...rows].sort((a, b) => {
-    const ta = a.weekend_morning_total ?? a.weekday_morning_total ?? Infinity;
-    const tb = b.weekend_morning_total ?? b.weekday_morning_total ?? Infinity;
-    return ta - tb;
-  });
+  const sorted = sortRowsByCheapest(rows);
+  const premium = medianWeekendPremiumPct(rows);
+  const multi = rows.filter((r) => r.sources >= 2).length;
 
   const latestScrape = matrix.find((m) => courseIds.has(m.course_id))?.scraped_at;
-  const scraped_at = latestScrape
-    ? new Date(latestScrape).toLocaleDateString("en-US", { timeZone: "Asia/Bangkok", year: "numeric", month: "long", day: "numeric" })
-    : null;
+  const scraped_at = formatScrapeDate(latestScrape ?? null);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
@@ -108,10 +105,13 @@ export default async function GreenFeesCityPage(
           Golf Green Fees in {display} — Compared
         </h1>
         <p className="text-base text-[var(--muted)] max-w-2xl">
-          Real all-in totals — green fee + caddy + cart — for {sorted.length} {display} golf course{sorted.length === 1 ? "" : "s"} with published pricing, sorted cheapest first. No agency markup guesswork, just what actually leaves your wallet.
+          Green fees for {sorted.length} {display} golf course{sorted.length === 1 ? "" : "s"} with a
+          published rate, cheapest weekday first, compared across {providerNames()}. Only figures the
+          booking sites state — a dash means that number is not published.
+          {multi > 0 ? ` ${multi} of them are listed by more than one site.` : ""}
         </p>
         {scraped_at && (
-          <p className="text-xs text-[var(--muted)] mt-2">Last updated: {scraped_at}</p>
+          <p className="text-xs text-[var(--muted)] mt-2">Rates checked {scraped_at}. Confirm on the booking site before you travel.</p>
         )}
       </header>
 
@@ -121,9 +121,10 @@ export default async function GreenFeesCityPage(
             <tr className="bg-emerald-50 text-left">
               <th className="px-4 py-3 font-bold">#</th>
               <th className="px-4 py-3 font-bold">Course</th>
-              <th className="px-4 py-3 font-bold text-right">Weekday total ฿</th>
-              <th className="px-4 py-3 font-bold text-right bg-emerald-100">Weekend total ฿</th>
-              <th className="px-4 py-3 font-bold">Booking agency</th>
+              <th className="px-4 py-3 font-bold text-right bg-emerald-100">Weekday ฿</th>
+              <th className="px-4 py-3 font-bold text-right">Weekend ฿</th>
+              <th className="px-4 py-3 font-bold text-center">Sources</th>
+              <th className="px-4 py-3 font-bold">Cheapest link</th>
             </tr>
           </thead>
           <tbody>
@@ -138,17 +139,18 @@ export default async function GreenFeesCityPage(
                     </a>
                     <div className="text-xs text-[var(--muted)]">{course?.district || course?.city_label}</div>
                   </td>
-                  <td className="px-4 py-3 text-right tabular-nums">
-                    {row.weekday_morning_total !== null ? row.weekday_morning_total.toLocaleString() : "—"}
-                  </td>
                   <td className="px-4 py-3 text-right tabular-nums font-black text-emerald-700 bg-emerald-50">
-                    {row.weekend_morning_total !== null ? row.weekend_morning_total.toLocaleString() : "—"}
+                    {row.weekday_greenfee !== null ? row.weekday_greenfee.toLocaleString() : "—"}
                   </td>
+                  <td className="px-4 py-3 text-right tabular-nums">
+                    {row.weekend_greenfee !== null ? row.weekend_greenfee.toLocaleString() : "—"}
+                  </td>
+                  <td className="px-4 py-3 text-center tabular-nums">{row.sources}</td>
                   <td className="px-4 py-3">
                     <a
                       href={row.source_url}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener noreferrer nofollow sponsored"
                       className="text-xs text-emerald-700 hover:underline font-medium"
                     >
                       {row.source_agency} →
@@ -180,16 +182,18 @@ export default async function GreenFeesCityPage(
       />
       <FaqJsonLd faqs={[
         {
-          q: `What's included in a ${display} golf green fee?`,
-          a: "Green fee covers the round (18 holes) and course access only. Caddy fee (~฿400), caddy tip (฿400–600), cart fee (฿700–1,000), and club rental (฿700–2,500) are extra. The all-in totals on this page combine green fee + caddy + cart, so it's the real amount you'll pay at the counter.",
+          q: `What is included in a ${display} golf green fee?`,
+          a: "The green fee covers the round and course access. Caddy fee, caddy tip, cart and club rental are usually extra. Where a booking site states those figures we show them on the course page; where it does not, we leave them blank rather than guess.",
         },
         {
-          q: `How much more do ${display} courses charge on weekends?`,
-          a: "Weekend rates typically run 30–60% above weekday rates at popular courses. Some country clubs add a visitor surcharge of 10–30% on top of the standard weekend rate.",
+          q: `How much more do ${display} courses charge at the weekend?`,
+          a: premium
+            ? `Across the ${premium.n} ${display} courses that publish both, the weekend green fee is a median ${premium.pct}% above the weekday rate.`
+            : "Too few courses here publish both a weekday and a weekend rate to state a reliable difference.",
         },
         {
-          q: `What's the cheapest way to book ${display} golf?`,
-          a: "Booking directly with the course (official website or phone) is usually cheapest on green fee alone, though you'll need to sort transport and equipment yourself. Agencies like GolfAsian or ThailandGolfCentre add convenience — transport, packages, English support — for a modest markup.",
+          q: `Which booking sites are compared for ${display}?`,
+          a: `${providerNames()}. Each figure is copied from that site's own course page, with the date it was checked shown above the table.`,
         },
       ]} />
     </div>

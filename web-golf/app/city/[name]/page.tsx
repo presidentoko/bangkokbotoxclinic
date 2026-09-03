@@ -99,7 +99,7 @@ export default async function CityPage(
   // generateStaticParams 와 같은 조건(골프 시설 + 가격 보유)을 본다.
   const pricedIds = new Set(
     toPriceRows(await loadPriceMatrix())
-      .filter((r) => r.weekday_morning_total !== null || r.weekend_morning_total !== null)
+      .filter((r) => r.weekday_greenfee !== null || r.weekend_greenfee !== null)
       .map((r) => r.course_id),
   );
   const hasGreenFees = filterByCityOrAlias(golfOnly(db.restaurants), name)

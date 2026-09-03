@@ -11,7 +11,6 @@ import { INDEXABLE_PLACE_LANGS, PLACE_TREE_INDEXABLE } from "@/lib/placeIndexing
 import { activityForPlace } from "@/lib/placeCanonical";
 import { AddToPlanButton } from "@/components/AddToPlanButton";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
-import { PopularTimes } from "@/components/PopularTimes";
 import { NearbyThings } from "@/components/NearbyThings";
 import { CardImage } from "@/components/CardImage";
 
@@ -332,7 +331,6 @@ export default async function PlacePage({
         </div>
       </div>
 
-      <PopularTimes type="restaurant" />
       <NearbyThings context="restaurant" />
 
       {/* JSON-LD */}

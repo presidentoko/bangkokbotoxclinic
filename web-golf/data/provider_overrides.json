@@ -1,0 +1,30 @@
+{
+  "_comment": "Manual corrections for scripts/golf_providers/build_registry.py. `block` refuses a provider slug for one master course (course_id) or for every course (course_id omitted). `force` pins a provider slug to a master course regardless of the matcher.",
+  "block": [
+    {
+      "provider": "golfdigg",
+      "slug": "alpine-golf-club",
+      "course_id": "ChIJUekzh4l_4jARXKZOSGmpQ0o",
+      "reason": "AIT Golf Club (Asian Institute of Technology, Khlong Luang) is not Alpine Golf Club — the old fuzzy matcher paired them."
+    },
+    {
+      "provider": "thaigolfbooking",
+      "slug": "alpine-golf-club",
+      "course_id": "ChIJUekzh4l_4jARXKZOSGmpQ0o",
+      "reason": "Same as above for ThaiGolfBooking."
+    },
+    {
+      "provider": "golfdigg",
+      "slug": "korat-country-club",
+      "course_id": "ChIJcVTD4g2rHjERj2i7Zgud7hU",
+      "reason": "Rooks Khorat Country Club (Pak Thong Chai) is a different club from Korat Country Club."
+    },
+    {
+      "provider": "thaigolfbooking",
+      "slug": "korat-country-club",
+      "course_id": "ChIJcVTD4g2rHjERj2i7Zgud7hU",
+      "reason": "Same as above for ThaiGolfBooking."
+    }
+  ],
+  "force": {}
+}

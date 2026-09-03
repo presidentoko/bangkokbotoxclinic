@@ -24,7 +24,7 @@ export async function generateMetadata({
 
 const STATS = [
   { val: "Medical tourists", label: "Primary audience" },
-  { val: "5 languages", label: "EN, ZH, JA, TH, AR" },
+  { val: "6 languages", label: "EN, ZH, JA, TH, AR, KO" },
   { val: "SEO-optimised", label: "Google, AI search" },
   { val: "No pay-to-rank", label: "Transparent listings" },
 ];
@@ -49,7 +49,7 @@ export default async function ForClinicsPage({
       </h1>
       <p className="text-slate-600 mb-8 leading-relaxed">
         BangkokCheckup is the leading price-comparison directory for international health check-up packages in Bangkok.
-        We serve medical tourists from the US, UK, China, Japan, the Middle East, and Southeast Asia — in 5 languages.
+        We serve medical tourists from the US, UK, China, Japan, the Middle East, and Southeast Asia — in 6 languages.
       </p>
 
       {/* Stats */}

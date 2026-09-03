@@ -24,7 +24,7 @@ export function StickyBottomNav() {
   const navItems = [
     { href: "/", icon: "🏠", label: "Home", active: pathname === "/" },
     { href: "/activities", icon: "🎯", label: "Activities", active: isActivitiesSection },
-    { href: "/for", icon: "✨", label: "Perfect For", active: pathname.startsWith("/for") || pathname.startsWith("/quiz") },
+    { href: "/verify", icon: "🔎", label: "Verify", active: pathname.startsWith("/verify") },
     { href: "/restaurants", icon: "🍜", label: "Eat", active: isRestaurantSection },
     { href: "/my-trip", icon: "🗺", label: "My Trip", active: pathname === "/my-trip" || pathname === "/plan" || pathname === "/bingo" || pathname === "/quiz", badge: savedCount > 0 ? savedCount : undefined },
   ];

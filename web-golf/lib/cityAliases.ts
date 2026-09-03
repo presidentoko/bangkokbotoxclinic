@@ -29,12 +29,37 @@ export type CityDestination = {
    * 들어간 방콕 코스가 파타야로 끌려가는 오탐을 막는다.
    */
   parents: string[];
+  /**
+   * 이름에 목적지가 안 들어가도 그 목적지로 팔리는 군(district) 목록.
+   *
+   * 이름 패턴만으로는 부족했다 — Siam Country Club·Burapha·Laem Chabang·Khao Kheow
+   * 는 전부 "Pattaya golf" 로 검색·판매되지만 이름 어디에도 Pattaya 가 없어서
+   * /green-fees/pattaya 에 코스가 1개뿐이었다. Cha-am 의 Palm Hills·Springfield·
+   * Lake View 도 같은 이유로 /green-fees/hua_hin 이 아예 발행되지 않았다.
+   */
+  districts?: RegExp;
 };
 
 export const CITY_DESTINATIONS: CityDestination[] = [
-  { slug: "hua_hin",   label: "Hua Hin",   pattern: /hua\s*hin/i, parents: ["Prachuap Khiri Khan"] },
-  { slug: "pattaya",   label: "Pattaya",   pattern: /pattaya/i,   parents: ["Chon Buri"] },
-  { slug: "koh_samui", label: "Koh Samui", pattern: /samui/i,     parents: ["Surat Thani"] },
+  {
+    slug: "hua_hin",
+    label: "Hua Hin",
+    pattern: /hua\s*hin/i,
+    parents: ["Prachuap Khiri Khan", "Phetchaburi"],
+    // Cha-am 은 행정구역상 Phetchaburi 지만 골프에서는 후아힌 상권이다
+    // (Palm Hills, Springfield Royal, Lake View). Pran Buri 도 마찬가지.
+    districts: /hua\s*hin|pran\s*buri|cha[\s-]*am/i,
+  },
+  {
+    slug: "pattaya",
+    label: "Pattaya",
+    pattern: /pattaya/i,
+    parents: ["Chon Buri"],
+    // 파타야 골프 상권 = Bang Lamung(파타야 시가지) + Sattahip + Si Racha + Ban Bueng.
+    // Chon Buri District(촌부리 시내, Amata Spring 등)는 파타야로 팔리지 않으므로 제외.
+    districts: /bang\s*lamung|sattahip|si\s*racha|sriracha|ban\s*bueng/i,
+  },
+  { slug: "koh_samui", label: "Koh Samui", pattern: /samui/i,     parents: ["Surat Thani"], districts: /ko\s*samui/i },
   { slug: "hat_yai",   label: "Hat Yai",   pattern: /hat\s*yai/i, parents: ["Songkhla"] },
 ];
 
@@ -49,7 +74,8 @@ export function belongsToDestination(c: Course, dest: CityDestination): boolean 
   if (c.city === dest.slug) return true;
   if (!dest.parents.includes(c.city_label)) return false;
   const hay = `${c.address ?? ""} ${c.name ?? ""} ${c.district ?? ""}`;
-  return dest.pattern.test(hay);
+  if (dest.pattern.test(hay)) return true;
+  return dest.districts ? dest.districts.test(`${c.district ?? ""} ${c.address ?? ""}`) : false;
 }
 
 /**

@@ -17,6 +17,8 @@ import { drainageStatus, STATUS_EMOJI, STATUS_LABEL } from "@/lib/weather";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { TravelStackAffiliate } from "@/components/TravelStackAffiliate";
 import { loadPriceMatrix, toPriceRows } from "@/lib/priceMatrix";
+import { BookingCompare } from "@/components/BookingCompare";
+import { offersForCourse, courseFacts, providerNames } from "@/lib/providers";
 import type { Metadata } from "next";
 
 export const revalidate = 604800;
@@ -171,6 +173,11 @@ export default async function CoursePage(
   const priceMatrix = await loadPriceMatrix();
   const priceRows = toPriceRows(priceMatrix);
   const priceRow = priceRows.find((p) => p.course_id === r.id) ?? null;
+  // Booking sources for this course, cheapest known weekday first.
+  const offers = offersForCourse(r.id);
+  // holes / par / length / designer are 0% populated in master_db; the
+  // booking providers publish them, so the header pills finally have data.
+  const facts = courseFacts(r.id);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -257,9 +264,16 @@ export default async function CoursePage(
               🇰🇷 Korean-friendly{(r.language_breakdown?.ko ?? 0) > 0 ? ` · ${r.language_breakdown.ko} KO reviews` : ""}
             </span>
           )}
-          {r.holes && (
+          {(r.holes ?? facts?.holes) && (
             <span className="bg-emerald-50 text-emerald-800 px-3 py-1 rounded-full text-sm">
-              {r.holes} holes{r.par ? ` · Par ${r.par}` : ""}
+              {r.holes ?? facts?.holes} holes
+              {(r.par ?? facts?.par) ? ` · Par ${r.par ?? facts?.par}` : ""}
+              {facts?.length_yd ? ` · ${facts.length_yd.toLocaleString()} yd` : ""}
+            </span>
+          )}
+          {facts?.designer && (
+            <span className="bg-slate-50 text-slate-800 px-3 py-1 rounded-full text-sm">
+              Designed by {facts.designer}
             </span>
           )}
           {r.green_fee_mentions && (
@@ -551,50 +565,12 @@ export default async function CoursePage(
         </div>
 
         <aside className="lg:sticky lg:top-4 lg:self-start space-y-4">
-          {priceRow && (
-            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
-              <div className="text-xs font-semibold uppercase tracking-wide text-emerald-800 mb-3">
-                Green Fee (Golfdigg)
-              </div>
-              <div className="grid grid-cols-2 gap-2 mb-3">
-                {priceRow.weekday_morning_slot && (
-                  <div className="bg-white rounded-lg p-2.5 text-center border border-emerald-100">
-                    <div className="text-[10px] text-[var(--muted)] uppercase tracking-wide mb-1">평일</div>
-                    <div className="text-lg font-bold text-emerald-900">
-                      ฿{priceRow.weekday_morning_slot.greenfee.toLocaleString()}
-                    </div>
-                    <div className="text-[10px] text-[var(--muted)] mt-0.5">그린피</div>
-                    <div className="text-[11px] text-emerald-700 mt-1 font-medium">
-                      All-in ฿{priceRow.weekday_morning_total!.toLocaleString()}
-                    </div>
-                  </div>
-                )}
-                {priceRow.weekend_morning_slot && (
-                  <div className="bg-white rounded-lg p-2.5 text-center border border-emerald-100">
-                    <div className="text-[10px] text-[var(--muted)] uppercase tracking-wide mb-1">주말</div>
-                    <div className="text-lg font-bold text-emerald-900">
-                      ฿{priceRow.weekend_morning_slot.greenfee.toLocaleString()}
-                    </div>
-                    <div className="text-[10px] text-[var(--muted)] mt-0.5">그린피</div>
-                    <div className="text-[11px] text-emerald-700 mt-1 font-medium">
-                      All-in ฿{priceRow.weekend_morning_total!.toLocaleString()}
-                    </div>
-                  </div>
-                )}
-              </div>
-              <div className="text-[10px] text-[var(--muted)] mb-3">
-                캐디 ฿{priceRow.weekday_morning_slot?.caddy ?? 400} + 카트 ฿{priceRow.weekday_morning_slot?.cart ?? 800} 포함
-              </div>
-              <a
-                href={priceRow.source_url}
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-                className="block w-full bg-emerald-700 text-white py-2.5 px-4 rounded-lg font-bold text-center hover:bg-emerald-800 text-sm transition"
-              >
-                Golfdigg에서 예약 →
-              </a>
-            </div>
-          )}
+          <BookingCompare
+            offers={offers}
+            courseName={r.name}
+            website={r.website}
+            phone={r.phone}
+          />
           <div className="bg-white border border-[var(--border)] rounded-xl p-4 space-y-2">
             <a
               href={r.maps_url}

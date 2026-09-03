@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/methodology" },
   openGraph: {
     type: "article",
-    title: "Methodology — Thailand Golf Guide",
+    title: "Methodology",
     description: "How we compute Trust Score and Korean-friendly flags. No editorial picks, no paid placement in organic rank.",
   },
 };

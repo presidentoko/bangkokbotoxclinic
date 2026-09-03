@@ -1,0 +1,8524 @@
+{
+ "generated_at": "2026-09-03",
+ "registry_match": {
+  "aek-udon-international-hospital": {
+   "hcode": "11952",
+   "name_th": "เอกอุดร",
+   "province_slug": "udon-thani",
+   "province_en": "Udon Thani",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "none",
+   "ha_level_en": "On the register, not yet accredited",
+   "ha_accredited_on": null,
+   "ha_expires_on": null,
+   "ha_current": null,
+   "beds": null,
+   "match_score": 3
+  },
+  "bangkok-christian-nakhon-pathom-hospital": {
+   "hcode": "12126",
+   "name_th": "กรุงเทพคริสเตียนนครปฐม",
+   "province_slug": "nakhon-pathom",
+   "province_en": "Nakhon Pathom",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "step2",
+   "ha_level_en": "Step 2 (developing)",
+   "ha_accredited_on": "2024-09-25",
+   "ha_expires_on": "2026-09-24",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 3
+  },
+  "bangmod-hospital": {
+   "hcode": "11708",
+   "name_th": "บางมด",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2025-01-14",
+   "ha_expires_on": "2028-01-13",
+   "ha_current": true,
+   "beds": 203,
+   "match_score": 3
+  },
+  "bangpakok9": {
+   "hcode": "21339",
+   "name_th": "บางปะกอก 9 อินเตอร์เนชั่นแนล",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2026-01-29",
+   "ha_expires_on": "2029-01-28",
+   "ha_current": true,
+   "beds": 200,
+   "match_score": 5
+  },
+  "bnh": {
+   "hcode": "11546",
+   "name_th": "บีเอ็นเอช",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2026-02-18",
+   "ha_expires_on": "2029-02-17",
+   "ha_current": true,
+   "beds": 86,
+   "match_score": 5
+  },
+  "bumrungrad": {
+   "hcode": "11699",
+   "name_th": "บำรุงราษฎร์ อินเตอร์เนชั่นแนล",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "advanced",
+   "ha_level_en": "Advanced HA",
+   "ha_accredited_on": "2025-05-23",
+   "ha_expires_on": "2029-05-22",
+   "ha_current": true,
+   "beds": 538,
+   "match_score": 5
+  },
+  "ekachai-hospital": {
+   "hcode": "22615",
+   "name_th": "เอกชัย",
+   "province_slug": "samut-sakhon",
+   "province_en": "Samut Sakhon",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "none",
+   "ha_level_en": "On the register, not yet accredited",
+   "ha_accredited_on": "2008-01-03",
+   "ha_expires_on": "2009-01-02",
+   "ha_current": false,
+   "beds": null,
+   "match_score": 3
+  },
+  "kasemrad-hospital-bang-khae": {
+   "hcode": "11656",
+   "name_th": "เกษมราษฎร์ บางแค",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2025-07-22",
+   "ha_expires_on": "2028-07-21",
+   "ha_current": true,
+   "beds": 317,
+   "match_score": 5
+  },
+  "kluaynamthai-hospital": {
+   "hcode": "11583",
+   "name_th": "กล้วยน้ำไท",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2024-03-24",
+   "ha_expires_on": "2027-03-24",
+   "ha_current": true,
+   "beds": 111,
+   "match_score": 5
+  },
+  "mccormick-hospital": {
+   "hcode": "11980",
+   "name_th": "แมคคอร์มิค",
+   "province_slug": "chiang-mai",
+   "province_en": "Chiang Mai",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2024-05-21",
+   "ha_expires_on": "2027-05-20",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 3
+  },
+  "medpark": {
+   "hcode": "41901",
+   "name_th": "เมดพาร์ค",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "เอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2024-04-23",
+   "ha_expires_on": "2027-04-22",
+   "ha_current": true,
+   "beds": 205,
+   "match_score": 5
+  },
+  "paolo-kaset": {
+   "hcode": "11560",
+   "name_th": "เปาโล เกษตร",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "renewing",
+   "ha_level_en": "Renewal in progress",
+   "ha_accredited_on": "2023-05-12",
+   "ha_expires_on": "2026-05-11",
+   "ha_current": false,
+   "beds": 162,
+   "match_score": 5
+  },
+  "paolo-rangsit": {
+   "hcode": "40887",
+   "name_th": "เปาโล รังสิต",
+   "province_slug": "pathum-thani",
+   "province_en": "Pathum Thani",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "เอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2025-04-22",
+   "ha_expires_on": "2028-04-21",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 3
+  },
+  "phyathai-1": {
+   "hcode": "11715",
+   "name_th": "พญาไท 1",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2024-12-24",
+   "ha_expires_on": "2027-12-23",
+   "ha_current": true,
+   "beds": 350,
+   "match_score": 5
+  },
+  "phyathai-phaholyothin-hospital": {
+   "hcode": "11607",
+   "name_th": "พญาไท พหลโยธิน",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2024-04-11",
+   "ha_expires_on": "2027-04-10",
+   "ha_current": true,
+   "beds": 237,
+   "match_score": 5
+  },
+  "phyathai-sriracha-hospital": {
+   "hcode": "11855",
+   "name_th": "พญาไท ศรีราชา",
+   "province_slug": "chon-buri",
+   "province_en": "Chon Buri",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2023-11-14",
+   "ha_expires_on": "2026-11-13",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 3
+  },
+  "piyavate-hospital": {
+   "hcode": "11632",
+   "name_th": "ปิยะเวท",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2026-06-23",
+   "ha_expires_on": "2029-06-22",
+   "ha_current": true,
+   "beds": 100,
+   "match_score": 3
+  },
+  "rajavithi-hospital": {
+   "hcode": "11472",
+   "name_th": "ราชวิถี",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "public",
+   "type_en": "Department of Medical Services hospital",
+   "type_th": "กรมการแพทย์",
+   "ha_level": "advanced",
+   "ha_level_en": "Advanced HA",
+   "ha_accredited_on": "2025-01-31",
+   "ha_expires_on": "2029-01-30",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 3
+  },
+  "ramathibodi-hospital": {
+   "hcode": "13781",
+   "name_th": "คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "public",
+   "type_en": "University teaching hospital",
+   "type_th": "โรงเรียนแพทย์",
+   "ha_level": "advanced",
+   "ha_level_en": "Advanced HA",
+   "ha_accredited_on": "2026-02-20",
+   "ha_expires_on": "2030-02-19",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 3
+  },
+  "samitivej-chonburi-hospital": {
+   "hcode": "40768",
+   "name_th": "สมิติเวช ชลบุรี",
+   "province_slug": "chon-buri",
+   "province_en": "Chon Buri",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "เอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2023-11-21",
+   "ha_expires_on": "2026-11-20",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 3
+  },
+  "samitivej-sukhumvit": {
+   "hcode": "11811",
+   "name_th": "สมิติเวช สุขุมวิท",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2024-02-13",
+   "ha_expires_on": "2027-02-12",
+   "ha_current": true,
+   "beds": 275,
+   "match_score": 5
+  },
+  "samitivej-sriracha-hospital": {
+   "hcode": "11853",
+   "name_th": "สมิติเวช ศรีราชา",
+   "province_slug": "chon-buri",
+   "province_en": "Chon Buri",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2024-02-04",
+   "ha_expires_on": "2027-02-03",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 3
+  },
+  "samitivej-thonburi-hospital": {
+   "hcode": "11616",
+   "name_th": "สมิติเวช ธนบุรี",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2023-08-08",
+   "ha_expires_on": "2026-08-07",
+   "ha_current": false,
+   "beds": 150,
+   "match_score": 5
+  },
+  "sikarin": {
+   "hcode": "11582",
+   "name_th": "ศิครินทร์ กรุงเทพ",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2025-05-13",
+   "ha_expires_on": "2028-05-12",
+   "ha_current": true,
+   "beds": 258,
+   "match_score": 5
+  },
+  "siriroj-hospital": {
+   "hcode": "12180",
+   "name_th": "กรุงเทพสิริโรจน์",
+   "province_slug": "phuket",
+   "province_en": "Phuket",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "none",
+   "ha_level_en": "On the register, not yet accredited",
+   "ha_accredited_on": "2006-11-01",
+   "ha_expires_on": "2007-10-31",
+   "ha_current": false,
+   "beds": null,
+   "match_score": 3
+  },
+  "thonburi": {
+   "hcode": "11645",
+   "name_th": "ธนบุรี",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2024-09-24",
+   "ha_expires_on": "2027-09-23",
+   "ha_current": true,
+   "beds": 435,
+   "match_score": 5
+  },
+  "vachira-phuket-hospital": {
+   "hcode": "10741",
+   "name_th": "วชิระภูเก็ต",
+   "province_slug": "phuket",
+   "province_en": "Phuket",
+   "sector": "public",
+   "type_en": "Regional hospital",
+   "type_th": "รพศ.",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2024-02-13",
+   "ha_expires_on": "2027-02-12",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 3
+  },
+  "vejthani": {
+   "hcode": "11564",
+   "name_th": "เวชธานี",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "none",
+   "ha_level_en": "On the register, not yet accredited",
+   "ha_accredited_on": "2007-03-12",
+   "ha_expires_on": "2009-03-11",
+   "ha_current": false,
+   "beds": 263,
+   "match_score": 5
+  },
+  "vibhavadi": {
+   "hcode": "11691",
+   "name_th": "วิภาวดี",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2024-05-28",
+   "ha_expires_on": "2027-05-27",
+   "ha_current": true,
+   "beds": 250,
+   "match_score": 5
+  },
+  "yanhee-hospital": {
+   "hcode": "11676",
+   "name_th": "ยันฮี",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "none",
+   "ha_level_en": "On the register, not yet accredited",
+   "ha_accredited_on": "2016-01-12",
+   "ha_expires_on": "2019-01-11",
+   "ha_current": false,
+   "beds": 400,
+   "match_score": 3
+  }
+ },
+ "nearby": {
+  "hdm-120-wellness-villa": [
+   {
+    "slug": "hdm-health-focus-clinic",
+    "name": "Health Focus Clinic",
+    "km": 6.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "chalermpong-poly-clinic",
+    "name": "Chalermpong Poly Clinic",
+    "km": 6.5,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-semed-living-care-hospital",
+    "name": "SEMed Living Care Hospital",
+    "km": 7.4,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "paolo-rangsit",
+    "name": "Paolo Hospital Rangsit",
+    "km": 9.7,
+    "rating": "3.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-cb-medical-and-lab-center",
+    "name": "CB Medical and Lab Center",
+    "km": 9.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-absolute-health-clinic": [
+   {
+    "slug": "hdm-ibaby-fertility-genetic-center",
+    "name": "iBaby Fertility & Genetic Center",
+    "km": 0.1,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-genz-clinic",
+    "name": "GenZ Clinic",
+    "km": 0.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-apex-medical-center",
+    "name": "APEX Medical Center",
+    "km": 0.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bumrungrad",
+    "name": "Bumrungrad International Hospital",
+    "km": 0.7,
+    "rating": "3.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-wa-wellness-clinic",
+    "name": "WA Wellness Clinic",
+    "km": 0.8,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-adam-wellness-clinic": [
+   {
+    "slug": "hdm-w-medic",
+    "name": "W+ Medic",
+    "km": 3.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-dgan-physio-clinic",
+    "name": "DGAN Physio Clinic",
+    "km": 4.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "nonthavej-hospital",
+    "name": "Nonthavej Hospital",
+    "km": 9.6,
+    "rating": "3.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-chevanon-clinic",
+    "name": "Chevanon Clinic",
+    "km": 10.5,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pct-laboratory-services",
+    "name": "PCT Laboratory Services",
+    "km": 10.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-addlife-total-check-up-center": [
+   {
+    "slug": "hdm-chirovedic-clinic",
+    "name": "Body Adjust Wellness",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bnh",
+    "name": "BNH Hospital",
+    "km": 1.0,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-wa-wellness-clinic",
+    "name": "WA Wellness Clinic",
+    "km": 1.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-gowoonmom-clinic",
+    "name": "Gowoonmom Clinic",
+    "km": 1.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bodyset-physiotherapy",
+    "name": "BODYSET Physiotherapy",
+    "km": 1.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "aek-udon-international-hospital": [
+   {
+    "slug": "bangkok-hospital-udon",
+    "name": "Bangkok Hospital Udon",
+    "km": 1.0,
+    "rating": "4.20",
+    "city": "Udon Thani"
+   }
+  ],
+  "hdm-amc-arix-medical-center": [
+   {
+    "slug": "phyathai-1",
+    "name": "Phyathai 1 Hospital",
+    "km": 0.6,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-glove-clinic",
+    "name": "Glove Clinic",
+    "km": 0.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-chinglian-tcm-clinic",
+    "name": "Chinglian TCM Clinic",
+    "km": 0.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "rajavithi-hospital",
+    "name": "Rajavithi Hospital",
+    "km": 0.9,
+    "rating": "2.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "ramathibodi-hospital",
+    "name": "Ramathibodi Hospital",
+    "km": 1.2,
+    "rating": "3.10",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-apc-clinic": [
+   {
+    "slug": "hdm-ubosu-clinic",
+    "name": "UBOSU Clinic",
+    "km": 0.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-kloss-wellness-clinic",
+    "name": "Kloss Wellness Clinic",
+    "km": 1.9,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-drpunjai-clinic",
+    "name": "Dr.Punjai Clinic",
+    "km": 2.1,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangchak-medical-clinic",
+    "name": "Bangchak Medical Clinic",
+    "km": 2.5,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-anti-aging-center",
+    "name": "Bangkok Anti-Aging Center",
+    "km": 2.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-apex-medical-center": [
+   {
+    "slug": "hdm-absolute-health-clinic",
+    "name": "Absolute Health Clinic",
+    "km": 0.2,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ibaby-fertility-genetic-center",
+    "name": "iBaby Fertility & Genetic Center",
+    "km": 0.3,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-genz-clinic",
+    "name": "GenZ Clinic",
+    "km": 0.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bumrungrad",
+    "name": "Bumrungrad International Hospital",
+    "km": 0.6,
+    "rating": "3.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-clinical-laboratory-center",
+    "name": "Clinical Laboratory Center",
+    "km": 0.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-atgenes": [
+   {
+    "slug": "hdm-soyeon-clinic",
+    "name": "Soyeon Clinic",
+    "km": 5.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "wellbase-saha-clinic",
+    "name": "Wellbase Saha Clinic (เวลล์เบสสหคลินิก)",
+    "km": 6.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pct-laboratory-services",
+    "name": "PCT Laboratory Services",
+    "km": 6.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "thonburi",
+    "name": "Thonburi Hospital",
+    "km": 7.0,
+    "rating": "3.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "siriraj-hospital",
+    "name": "Siriraj Hospital",
+    "km": 7.1,
+    "rating": "4.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-avatreat-clinic": [
+   {
+    "slug": "bangkok-hospital-hat-yai",
+    "name": "Bangkok Hospital Hat Yai",
+    "km": 1.0,
+    "rating": "4.00",
+    "city": "Hat Yai"
+   },
+   {
+    "slug": "hatyai-hospital",
+    "name": "Hatyai Hospital",
+    "km": 1.0,
+    "rating": "3.20",
+    "city": "Hat Yai"
+   },
+   {
+    "slug": "songklanagarind-hospital",
+    "name": "Songklanagarind Hospital",
+    "km": 2.2,
+    "rating": "4.10",
+    "city": "Hat Yai"
+   }
+  ],
+  "hdm-baihuitang-clinic": [
+   {
+    "slug": "hdm-gui-tang-wellness",
+    "name": "Gui Tang Wellness",
+    "km": 1.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "chivi-clinic",
+    "name": "CHIVI CLINIC (ชีวีคลินิกเวชกรรม)",
+    "km": 2.0,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-biomed-microbiome-dna",
+    "name": "Biomed Microbiome DNA",
+    "km": 3.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-valor-clinic",
+    "name": "Valor Clinic",
+    "km": 3.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mabella-clinic",
+    "name": "Mabella Clinic",
+    "km": 3.8,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-bangchak-medical-clinic": [
+   {
+    "slug": "hdm-max-wellness-clinic",
+    "name": "Max Wellness Clinic",
+    "km": 1.1,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-id-life-clinic",
+    "name": "ID Life Clinic",
+    "km": 1.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-btlab",
+    "name": "BTLAB",
+    "km": 1.8,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ubosu-clinic",
+    "name": "UBOSU Clinic",
+    "km": 2.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-kloss-wellness-clinic",
+    "name": "Kloss Wellness Clinic",
+    "km": 2.2,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-bangkok-anti-aging-center": [
+   {
+    "slug": "sikarin",
+    "name": "Sikarin Hospital",
+    "km": 1.3,
+    "rating": "4.20",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-drpunjai-clinic",
+    "name": "Dr.Punjai Clinic",
+    "km": 2.4,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-apc-clinic",
+    "name": "APC Clinic",
+    "km": 2.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ubosu-clinic",
+    "name": "UBOSU Clinic",
+    "km": 3.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-kloss-wellness-clinic",
+    "name": "Kloss Wellness Clinic",
+    "km": 3.9,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "bangkok-christian-nakhon-pathom-hospital": [
+   {
+    "slug": "bangkok-sanam-chan-hospital",
+    "name": "Bangkok Sanam Chan Hospital",
+    "km": 3.6,
+    "rating": "4.70",
+    "city": "Nakhon Pathom"
+   }
+  ],
+  "hdm-bangkok-cytogenetics-center": [
+   {
+    "slug": "hdm-bangkok-sleep-center",
+    "name": "Bangkok Sleep Center",
+    "km": 0.9,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mn-medical-clinic",
+    "name": "MN Medical Clinic",
+    "km": 1.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-phaholyothin-hospital",
+    "name": "Phyathai Phaholyothin Hospital",
+    "km": 1.7,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-medical-lab",
+    "name": "Bangkok Medical Lab",
+    "km": 1.7,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-glam-glow-wellness-centre",
+    "name": "Glam Glow Wellness Centre",
+    "km": 1.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "bangkok-hospital": [
+   {
+    "slug": "hdm-w9-wellness-center",
+    "name": "W9 Wellness Center โรงพยาบาลพระรามเก้า",
+    "km": 1.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "praram9",
+    "name": "Praram 9 Hospital",
+    "km": 1.4,
+    "rating": "4.10",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-newton-em-physiotherapy-clinic",
+    "name": "Newton EM Physiotherapy Clinic (นิวตั้น เอ็ม คลินิกกายภาพบำบัด)",
+    "km": 1.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medconsult-bangkok-medical-clinic",
+    "name": "MedConsult Bangkok Medical Clinic",
+    "km": 1.6,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-menhance-clinic",
+    "name": "Menhance Clinic",
+    "km": 1.6,
+    "rating": "4.40",
+    "city": "Bangkok"
+   }
+  ],
+  "bangkok-hospital-chiang-mai": [
+   {
+    "slug": "mccormick-hospital",
+    "name": "McCormick Hospital",
+    "km": 1.9,
+    "rating": "3.60",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "rajavej-chiang-mai-hospital",
+    "name": "Rajavej Chiang Mai Hospital",
+    "km": 3.3,
+    "rating": "4.00",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "lanna-hospital",
+    "name": "Lanna Hospital",
+    "km": 4.5,
+    "rating": "2.60",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "chiangmai-ram-hospital",
+    "name": "Chiangmai Ram Hospital",
+    "km": 5.1,
+    "rating": "3.80",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "peach-clinic",
+    "name": "Peach Clinic คลินิกหมอพีช",
+    "km": 5.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "bangkok-hospital-chiang-rai": [
+   {
+    "slug": "mae-fah-luang-university-medical-center-hospital",
+    "name": "Mae Fah Luang University Medical Center Hospital",
+    "km": 4.6,
+    "rating": "3.60",
+    "city": "Chiang Rai"
+   },
+   {
+    "slug": "chiang-rai-ram-hospital",
+    "name": "Chiang Rai Ram Hospital",
+    "km": 11.4,
+    "rating": "3.50",
+    "city": "Chiang Rai"
+   }
+  ],
+  "bangkok-hospital-hat-yai": [
+   {
+    "slug": "hdm-avatreat-clinic",
+    "name": "Avatreat Clinic",
+    "km": 1.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "songklanagarind-hospital",
+    "name": "Songklanagarind Hospital",
+    "km": 1.4,
+    "rating": "4.10",
+    "city": "Hat Yai"
+   },
+   {
+    "slug": "hatyai-hospital",
+    "name": "Hatyai Hospital",
+    "km": 2.0,
+    "rating": "3.20",
+    "city": "Hat Yai"
+   }
+  ],
+  "bangkok-hospital-hua-hin": [
+   {
+    "slug": "san-paulo-hospital",
+    "name": "San Paulo Hospital",
+    "km": 1.1,
+    "rating": "3.60",
+    "city": "Hua Hin"
+   }
+  ],
+  "bangkok-hospital-khonkaen": [
+   {
+    "slug": "khon-kaen-ram-hospital",
+    "name": "Khon Kaen Ram Hospital",
+    "km": 1.0,
+    "rating": "4.60",
+    "city": "Khon Kaen"
+   },
+   {
+    "slug": "srinagarind-hospital",
+    "name": "Srinagarind Hospital",
+    "km": 3.1,
+    "rating": "4.10",
+    "city": "Khon Kaen"
+   }
+  ],
+  "bangkok-hospital-pattaya": [
+   {
+    "slug": "pattaya-international-hospital",
+    "name": "Pattaya International Hospital",
+    "km": 2.2,
+    "rating": "3.80",
+    "city": "Pattaya"
+   }
+  ],
+  "bangkok-hospital-phitsanulok": [
+   {
+    "slug": "buddhachinaraj-hospital",
+    "name": "Buddhachinaraj Hospital",
+    "km": 1.3,
+    "rating": "3.10",
+    "city": "Phitsanulok"
+   },
+   {
+    "slug": "ruamphat-phitsanulok-hospital",
+    "name": "Ruamphat Phitsanulok Hospital",
+    "km": 1.6,
+    "rating": "3.40",
+    "city": "Phitsanulok"
+   }
+  ],
+  "bangkok-hospital-phuket": [
+   {
+    "slug": "phuket-international-hospital",
+    "name": "Phuket International Hospital",
+    "km": 1.1,
+    "rating": "4.50",
+    "city": "Phuket"
+   },
+   {
+    "slug": "vachira-phuket-hospital",
+    "name": "Vachira Phuket Hospital",
+    "km": 1.1,
+    "rating": "2.80",
+    "city": "Phuket"
+   },
+   {
+    "slug": "mission-hospital-phuket",
+    "name": "Mission Hospital Phuket",
+    "km": 1.6,
+    "rating": "3.00",
+    "city": "Phuket"
+   },
+   {
+    "slug": "dibuk-hospital",
+    "name": "Dibuk Hospital",
+    "km": 4.0,
+    "rating": "3.00",
+    "city": "Phuket"
+   },
+   {
+    "slug": "chalong-hospital",
+    "name": "Chalong Hospital",
+    "km": 9.7,
+    "rating": "2.30",
+    "city": "Phuket"
+   }
+  ],
+  "bangkok-hospital-ratchasima": [
+   {
+    "slug": "maharat-nakhon-ratchasima-hospital",
+    "name": "Maharat Nakhon Ratchasima Hospital",
+    "km": 3.3,
+    "rating": "3.20",
+    "city": "Nakhon Ratchasima"
+   }
+  ],
+  "bangkok-hospital-rayong": [
+   {
+    "slug": "sri-rayong-hospital",
+    "name": "Sri Rayong Hospital",
+    "km": 8.0,
+    "rating": "3.40",
+    "city": "Rayong"
+   },
+   {
+    "slug": "camillian-social-center-rayong-csc-rayong",
+    "name": "Camillian Social Center Rayong (CSC Rayong)",
+    "km": 14.4,
+    "rating": "4.60",
+    "city": "Rayong"
+   }
+  ],
+  "bangkok-hospital-samui": [
+   {
+    "slug": "samui-international-hospital",
+    "name": "Samui International Hospital",
+    "km": 3.5,
+    "rating": "3.50",
+    "city": "Koh Samui"
+   }
+  ],
+  "bangkok-hospital-surat-thani": [
+   {
+    "slug": "suratthani-hospital",
+    "name": "Suratthani Hospital",
+    "km": 1.9,
+    "rating": "3.20",
+    "city": "Surat Thani"
+   },
+   {
+    "slug": "thaksin-hospital",
+    "name": "Thaksin Hospital",
+    "km": 5.2,
+    "rating": "3.80",
+    "city": "Surat Thani"
+   }
+  ],
+  "bangkok-hospital-udon": [
+   {
+    "slug": "aek-udon-international-hospital",
+    "name": "Aek Udon International Hospital",
+    "km": 1.0,
+    "rating": "4.30",
+    "city": "Udon Thani"
+   }
+  ],
+  "hdm-bangkok-medical-lab": [
+   {
+    "slug": "phyathai-phaholyothin-hospital",
+    "name": "Phyathai Phaholyothin Hospital",
+    "km": 0.3,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-deep-harmonicare-ivf-center",
+    "name": "Deep & Harmonicare IVF Center",
+    "km": 0.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-sleep-center",
+    "name": "Bangkok Sleep Center",
+    "km": 0.8,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medtopia-clinic",
+    "name": "Medtopia Clinic",
+    "km": 0.8,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mental-well-clinic",
+    "name": "Mental Well Clinic",
+    "km": 1.0,
+    "rating": "4.70",
+    "city": "Bangkok"
+   }
+  ],
+  "bangkok-sanam-chan-hospital": [
+   {
+    "slug": "bangkok-christian-nakhon-pathom-hospital",
+    "name": "Bangkok Christian Nakhon Pathom Hospital",
+    "km": 3.6,
+    "rating": "4.00",
+    "city": "Nakhon Pathom"
+   }
+  ],
+  "hdm-bangkok-sexual-health-center": [
+   {
+    "slug": "hdm-the-pavilion-health-clinic",
+    "name": "The Pavilion Health Clinic",
+    "km": 1.5,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "siriraj-hospital",
+    "name": "Siriraj Hospital",
+    "km": 2.0,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-laboratory-bangkok",
+    "name": "Prime Laboratory Bangkok",
+    "km": 2.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "thonburi",
+    "name": "Thonburi Hospital",
+    "km": 2.4,
+    "rating": "3.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-m-clinic",
+    "name": "M Clinic",
+    "km": 2.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-bangkok-sleep-center": [
+   {
+    "slug": "hdm-bangkok-medical-lab",
+    "name": "Bangkok Medical Lab",
+    "km": 0.8,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-phaholyothin-hospital",
+    "name": "Phyathai Phaholyothin Hospital",
+    "km": 0.8,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-cytogenetics-center",
+    "name": "Bangkok Cytogenetics Center",
+    "km": 0.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mental-well-clinic",
+    "name": "Mental Well Clinic",
+    "km": 1.3,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-deep-harmonicare-ivf-center",
+    "name": "Deep & Harmonicare IVF Center",
+    "km": 1.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "bangpakok9": [
+   {
+    "slug": "hdm-physio-art-clinic",
+    "name": "Physio Art Clinic",
+    "km": 1.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-nawamin",
+    "name": "Samitivej Hospital Nawamin",
+    "km": 3.9,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-thonburi-hospital",
+    "name": "Samitivej Thonburi Hospital",
+    "km": 3.9,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-3",
+    "name": "Phyathai 3 Hospital",
+    "km": 4.7,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bodylab-pilates",
+    "name": "BodyLab Pilates",
+    "km": 5.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-bds-clinic": [
+   {
+    "slug": "hdm-soul-clinic",
+    "name": "Soul Clinic",
+    "km": 0.5,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-divine-aesthetic-clinic",
+    "name": "Divine Aesthetic Clinic",
+    "km": 1.5,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-dr-trin-wellness",
+    "name": "Dr. Trin Wellness",
+    "km": 1.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-w9-wellness-center",
+    "name": "W9 Wellness Center โรงพยาบาลพระรามเก้า",
+    "km": 2.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "praram9",
+    "name": "Praram 9 Hospital",
+    "km": 2.2,
+    "rating": "4.10",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-bewellasiaco": [
+   {
+    "slug": "hdm-wellnex-clinic",
+    "name": "Wellnex Clinic",
+    "km": 0.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-laser-vision-bangkok-eye-hospital",
+    "name": "Laser Vision Bangkok Eye Hospital",
+    "km": 1.1,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-s-mart-anti-aging-wellness-center",
+    "name": "S-Mart Anti-aging Wellness Center",
+    "km": 1.9,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-the-gent-clinic",
+    "name": "The Gent Clinic",
+    "km": 2.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "synphaet-ramintra-hospital",
+    "name": "Synphaet Ramintra Hospital",
+    "km": 3.6,
+    "rating": "4.60",
+    "city": "Bangkok"
+   }
+  ],
+  "bg-clinic": [
+   {
+    "slug": "paolo-kaset",
+    "name": "Paolo Hospital Kaset",
+    "km": 0.2,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-patricia-clinic",
+    "name": "Patricia Clinic",
+    "km": 0.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-life-balance-methodology",
+    "name": "Life Balance Methodology",
+    "km": 1.0,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-cmc-wellness",
+    "name": "CMC Wellness",
+    "km": 1.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "vibhavadi",
+    "name": "Vibhavadi Hospital",
+    "km": 1.7,
+    "rating": "4.70",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-biomed-microbiome-dna": [
+   {
+    "slug": "hdm-valor-clinic",
+    "name": "Valor Clinic",
+    "km": 0.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mabella-clinic",
+    "name": "Mabella Clinic",
+    "km": 0.6,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "mevis-clinic",
+    "name": "Mevis Clinic",
+    "km": 1.2,
+    "rating": "4.20",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bodyset-physiotherapy",
+    "name": "BODYSET Physiotherapy",
+    "km": 1.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-gui-tang-wellness",
+    "name": "Gui Tang Wellness",
+    "km": 2.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-blez-clinic": [
+   {
+    "slug": "hdm-hum-clinic",
+    "name": "H.U.M. Clinic",
+    "km": 0.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-brain-rehab-clinic",
+    "name": "Brain Rehab Clinic",
+    "km": 0.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-wellmed-bangkok-clinic",
+    "name": "Wellmed Bangkok Clinic",
+    "km": 0.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medical-trend-clinic-lab",
+    "name": "Medical Trend Clinic Lab",
+    "km": 0.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "koa-clinic",
+    "name": "Koa Clinic (โคอา คลินิก)",
+    "km": 0.3,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "bnh": [
+   {
+    "slug": "hdm-gowoonmom-clinic",
+    "name": "Gowoonmom Clinic",
+    "km": 0.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "happybirth-clinic",
+    "name": "happybirth clinic (สีลม)",
+    "km": 0.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "n-health",
+    "name": "N Health (เอ็นเฮลท์)",
+    "km": 0.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-sesh-clinic",
+    "name": "SESH Clinic",
+    "km": 0.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "king-chulalongkorn-memorial-hospital",
+    "name": "King Chulalongkorn Memorial Hospital",
+    "km": 0.9,
+    "rating": "3.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-chirovedic-clinic": [
+   {
+    "slug": "hdm-addlife-total-check-up-center",
+    "name": "Addlife Total Check-Up Center",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "medpark",
+    "name": "MedPark Hospital",
+    "km": 0.7,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bodyset-physiotherapy",
+    "name": "BODYSET Physiotherapy",
+    "km": 1.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-wa-wellness-clinic",
+    "name": "WA Wellness Clinic",
+    "km": 1.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-interrehab-brain-pain",
+    "name": "InterRehab Brain & Pain",
+    "km": 1.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-bodyconscious-at-y-wellness": [
+   {
+    "slug": "koa-clinic",
+    "name": "Koa Clinic (โคอา คลินิก)",
+    "km": 0.1,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-interrehab-brain-pain",
+    "name": "InterRehab Brain & Pain",
+    "km": 0.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ot-room-physical-therapy-clinic",
+    "name": "OT Room Physical Therapy Clinic",
+    "km": 0.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hum-clinic",
+    "name": "H.U.M. Clinic",
+    "km": 0.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-wellmed-bangkok-clinic",
+    "name": "Wellmed Bangkok Clinic",
+    "km": 0.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-bodylab-pilates": [
+   {
+    "slug": "samitivej-nawamin",
+    "name": "Samitivej Hospital Nawamin",
+    "km": 1.2,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-thonburi-hospital",
+    "name": "Samitivej Thonburi Hospital",
+    "km": 1.2,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-menness-wellness",
+    "name": "Menness Wellness",
+    "km": 1.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "king-taksin-memorial-hospital",
+    "name": "King Taksin Memorial Hospital",
+    "km": 1.5,
+    "rating": "2.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "pills-for-1-week-thonburi-medical-center",
+    "name": "Pills For 1 Week Thonburi Medical Center",
+    "km": 1.6,
+    "rating": "4.70",
+    "city": "Bangkok"
+   }
+  ],
+  "bodyset-physiotherapy": [
+   {
+    "slug": "mevis-clinic",
+    "name": "Mevis Clinic",
+    "km": 0.6,
+    "rating": "4.20",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-chirovedic-clinic",
+    "name": "Body Adjust Wellness",
+    "km": 1.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-addlife-total-check-up-center",
+    "name": "Addlife Total Check-Up Center",
+    "km": 1.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "medpark",
+    "name": "MedPark Hospital",
+    "km": 1.3,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-valor-clinic",
+    "name": "Valor Clinic",
+    "km": 1.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-botan-clinic": [
+   {
+    "slug": "hdm-pwc-healthy-and-skin",
+    "name": "PWC Healthy and Skin",
+    "km": 0.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-drpunjai-clinic",
+    "name": "Dr.Punjai Clinic",
+    "km": 2.9,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangchak-medical-clinic",
+    "name": "Bangchak Medical Clinic",
+    "km": 3.5,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-apc-clinic",
+    "name": "APC Clinic",
+    "km": 3.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-srinakarin",
+    "name": "Samitivej Hospital Srinakarin",
+    "km": 3.9,
+    "rating": "4.60",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-brain-rehab-clinic": [
+   {
+    "slug": "hdm-wellmed-bangkok-clinic",
+    "name": "Wellmed Bangkok Clinic",
+    "km": 0.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-blez-clinic",
+    "name": "BLEZ Clinic",
+    "km": 0.1,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hum-clinic",
+    "name": "H.U.M. Clinic",
+    "km": 0.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medical-trend-clinic-lab",
+    "name": "Medical Trend Clinic Lab",
+    "km": 0.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "koa-clinic",
+    "name": "Koa Clinic (โคอา คลินิก)",
+    "km": 0.4,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-bria-health-center": [
+   {
+    "slug": "ladprao-general-hospital",
+    "name": "Ladprao General Hospital",
+    "km": 0.9,
+    "rating": "3.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "santiraks-clinic",
+    "name": "Santiraks Clinic",
+    "km": 1.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medical-line-lab",
+    "name": "Medical Line Lab",
+    "km": 1.8,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "vejthani",
+    "name": "Vejthani Hospital",
+    "km": 2.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-moves-d-clinic",
+    "name": "Moves D Clinic",
+    "km": 2.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-bsr-healthcare": [
+   {
+    "slug": "hdm-w-medic",
+    "name": "W+ Medic",
+    "km": 10.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-adam-wellness-clinic",
+    "name": "Adam Wellness Clinic",
+    "km": 12.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-btlab": [
+   {
+    "slug": "hdm-raksa-physio",
+    "name": "Raksa Physio",
+    "km": 0.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-max-wellness-clinic",
+    "name": "Max Wellness Clinic",
+    "km": 0.8,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-infinity-clinic-by-dr-palm",
+    "name": "Infinity Clinic by Dr. Palm",
+    "km": 1.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "kluaynamthai-hospital",
+    "name": "Kluaynamthai Hospital",
+    "km": 1.5,
+    "rating": "3.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-id-life-clinic",
+    "name": "ID Life Clinic",
+    "km": 1.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "buddhachinaraj-hospital": [
+   {
+    "slug": "ruamphat-phitsanulok-hospital",
+    "name": "Ruamphat Phitsanulok Hospital",
+    "km": 0.4,
+    "rating": "3.40",
+    "city": "Phitsanulok"
+   },
+   {
+    "slug": "bangkok-hospital-phitsanulok",
+    "name": "Bangkok Hospital Phitsanulok",
+    "km": 1.3,
+    "rating": "4.00",
+    "city": "Phitsanulok"
+   }
+  ],
+  "bumrungrad": [
+   {
+    "slug": "hdm-genz-clinic",
+    "name": "GenZ Clinic",
+    "km": 0.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-apex-medical-center",
+    "name": "APEX Medical Center",
+    "km": 0.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ibaby-fertility-genetic-center",
+    "name": "iBaby Fertility & Genetic Center",
+    "km": 0.7,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-absolute-health-clinic",
+    "name": "Absolute Health Clinic",
+    "km": 0.7,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-jetanin-hospital",
+    "name": "Jetanin Hospital",
+    "km": 0.9,
+    "rating": "4.20",
+    "city": "Bangkok"
+   }
+  ],
+  "camillian-social-center-rayong-csc-rayong": [
+   {
+    "slug": "bangkok-hospital-rayong",
+    "name": "Bangkok Hospital Rayong",
+    "km": 14.4,
+    "rating": "4.00",
+    "city": "Rayong"
+   }
+  ],
+  "hdm-cb-medical-and-lab-center": [
+   {
+    "slug": "hdm-vanita-clinic",
+    "name": "Vanita Clinic",
+    "km": 4.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-semed-living-care-hospital",
+    "name": "SEMed Living Care Hospital",
+    "km": 5.0,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "paolo-rangsit",
+    "name": "Paolo Hospital Rangsit",
+    "km": 5.3,
+    "rating": "3.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "chalermpong-poly-clinic",
+    "name": "Chalermpong Poly Clinic",
+    "km": 6.6,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-health-focus-clinic",
+    "name": "Health Focus Clinic",
+    "km": 7.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-century-care-center": [
+   {
+    "slug": "hdm-sirin-clinic",
+    "name": "Sirin Clinic",
+    "km": 3.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hcs-health-care-and-skin",
+    "name": "HCS Health Care and Skin",
+    "km": 5.2,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-drchen-surgery-hospital-international-center",
+    "name": "Dr.CHEN Surgery Hospital International Center",
+    "km": 8.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-interrehab-neurobridge",
+    "name": "InterRehab NeuroBridge",
+    "km": 8.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-botan-clinic",
+    "name": "BOTAN CLINIC",
+    "km": 9.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "chalermpong-poly-clinic": [
+   {
+    "slug": "hdm-health-focus-clinic",
+    "name": "Health Focus Clinic",
+    "km": 1.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-120-wellness-villa",
+    "name": "120 Wellness Villa",
+    "km": 6.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-cb-medical-and-lab-center",
+    "name": "CB Medical and Lab Center",
+    "km": 6.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-semed-living-care-hospital",
+    "name": "SEMed Living Care Hospital",
+    "km": 8.2,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-the-gent-clinic",
+    "name": "The Gent Clinic",
+    "km": 8.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "chalong-hospital": [
+   {
+    "slug": "dibuk-hospital",
+    "name": "Dibuk Hospital",
+    "km": 5.7,
+    "rating": "3.00",
+    "city": "Phuket"
+   },
+   {
+    "slug": "phuket-international-hospital",
+    "name": "Phuket International Hospital",
+    "km": 8.7,
+    "rating": "4.50",
+    "city": "Phuket"
+   },
+   {
+    "slug": "vachira-phuket-hospital",
+    "name": "Vachira Phuket Hospital",
+    "km": 9.3,
+    "rating": "2.80",
+    "city": "Phuket"
+   },
+   {
+    "slug": "bangkok-hospital-phuket",
+    "name": "Bangkok Hospital Phuket",
+    "km": 9.7,
+    "rating": "4.50",
+    "city": "Phuket"
+   },
+   {
+    "slug": "mission-hospital-phuket",
+    "name": "Mission Hospital Phuket",
+    "km": 10.7,
+    "rating": "3.00",
+    "city": "Phuket"
+   }
+  ],
+  "hdm-charismma-clinic": [
+   {
+    "slug": "hdm-medical-trend-clinic-lab",
+    "name": "Medical Trend Clinic Lab",
+    "km": 0.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-safe-clinic",
+    "name": "Safe Clinic",
+    "km": 0.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-clinical-laboratory-center",
+    "name": "Clinical Laboratory Center",
+    "km": 0.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-brain-rehab-clinic",
+    "name": "Brain Rehab Clinic",
+    "km": 0.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-blez-clinic",
+    "name": "BLEZ Clinic",
+    "km": 0.5,
+    "rating": "4.60",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-chevanon-clinic": [
+   {
+    "slug": "hdm-vanita-clinic",
+    "name": "Vanita Clinic",
+    "km": 4.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "nonthavej-hospital",
+    "name": "Nonthavej Hospital",
+    "km": 4.9,
+    "rating": "3.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "vibhavadi",
+    "name": "Vibhavadi Hospital",
+    "km": 5.9,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "thanisa-clinic",
+    "name": "Thanisa Clinic",
+    "km": 6.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-cmc-wellness",
+    "name": "CMC Wellness",
+    "km": 6.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "chiang-mai-university-hospital-maharaj": [
+   {
+    "slug": "chiangmai-ram-hospital",
+    "name": "Chiangmai Ram Hospital",
+    "km": 0.7,
+    "rating": "3.80",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "peach-clinic",
+    "name": "Peach Clinic คลินิกหมอพีช",
+    "km": 1.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "lanna-hospital",
+    "name": "Lanna Hospital",
+    "km": 3.1,
+    "rating": "2.60",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "mccormick-hospital",
+    "name": "McCormick Hospital",
+    "km": 3.9,
+    "rating": "3.60",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "rajavej-chiang-mai-hospital",
+    "name": "Rajavej Chiang Mai Hospital",
+    "km": 4.0,
+    "rating": "4.00",
+    "city": "Chiang Mai"
+   }
+  ],
+  "chiang-rai-ram-hospital": [
+   {
+    "slug": "bangkok-hospital-chiang-rai",
+    "name": "Bangkok Hospital Chiang Rai",
+    "km": 11.4,
+    "rating": "4.30",
+    "city": "Chiang Rai"
+   }
+  ],
+  "chiangmai-ram-hospital": [
+   {
+    "slug": "chiang-mai-university-hospital-maharaj",
+    "name": "Chiang Mai University Hospital (Maharaj)",
+    "km": 0.7,
+    "rating": "3.30",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "peach-clinic",
+    "name": "Peach Clinic คลินิกหมอพีช",
+    "km": 2.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "lanna-hospital",
+    "name": "Lanna Hospital",
+    "km": 2.4,
+    "rating": "2.60",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "mccormick-hospital",
+    "name": "McCormick Hospital",
+    "km": 3.5,
+    "rating": "3.60",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "rajavej-chiang-mai-hospital",
+    "name": "Rajavej Chiang Mai Hospital",
+    "km": 4.2,
+    "rating": "4.00",
+    "city": "Chiang Mai"
+   }
+  ],
+  "hdm-chinglian-tcm-clinic": [
+   {
+    "slug": "hdm-glove-clinic",
+    "name": "Glove Clinic",
+    "km": 0.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-amc-arix-medical-center",
+    "name": "AMC Arix Medical Center",
+    "km": 0.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "mediprime-clinic",
+    "name": "MediPrime Clinic (เมดิไพร์ม คลินิก)",
+    "km": 0.8,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-m-clinic",
+    "name": "M Clinic",
+    "km": 0.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-1",
+    "name": "Phyathai 1 Hospital",
+    "km": 1.1,
+    "rating": "4.30",
+    "city": "Bangkok"
+   }
+  ],
+  "chivi-clinic": [
+   {
+    "slug": "hdm-gui-tang-wellness",
+    "name": "Gui Tang Wellness",
+    "km": 0.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-baihuitang-clinic",
+    "name": "Baihuitang Clinic",
+    "km": 2.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-biomed-microbiome-dna",
+    "name": "Biomed Microbiome DNA",
+    "km": 2.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mabella-clinic",
+    "name": "Mabella Clinic",
+    "km": 3.0,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-valor-clinic",
+    "name": "Valor Clinic",
+    "km": 3.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "chonburi-hospital": [
+   {
+    "slug": "samitivej-chonburi-hospital",
+    "name": "Samitivej Chonburi Hospital",
+    "km": 1.0,
+    "rating": "4.30",
+    "city": "Chonburi"
+   }
+  ],
+  "hdm-clinical-laboratory-center": [
+   {
+    "slug": "hdm-safe-clinic",
+    "name": "Safe Clinic",
+    "km": 0.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medical-trend-clinic-lab",
+    "name": "Medical Trend Clinic Lab",
+    "km": 0.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hum-clinic",
+    "name": "H.U.M. Clinic",
+    "km": 0.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-blez-clinic",
+    "name": "BLEZ Clinic",
+    "km": 0.4,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-brain-rehab-clinic",
+    "name": "Brain Rehab Clinic",
+    "km": 0.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-cmc-wellness": [
+   {
+    "slug": "thanisa-clinic",
+    "name": "Thanisa Clinic",
+    "km": 0.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "vibhavadi",
+    "name": "Vibhavadi Hospital",
+    "km": 0.8,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bg-clinic",
+    "name": "BG Clinic (บีจีคลินิกเวชกรรม)",
+    "km": 1.5,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "paolo-kaset",
+    "name": "Paolo Hospital Kaset",
+    "km": 1.6,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-patricia-clinic",
+    "name": "Patricia Clinic",
+    "km": 1.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-deep-harmonicare-ivf-center": [
+   {
+    "slug": "hdm-bangkok-medical-lab",
+    "name": "Bangkok Medical Lab",
+    "km": 0.7,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-fertility-center",
+    "name": "Prime Fertility Clinic",
+    "km": 0.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-phaholyothin-hospital",
+    "name": "Phyathai Phaholyothin Hospital",
+    "km": 0.9,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medtopia-clinic",
+    "name": "Medtopia Clinic",
+    "km": 0.9,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-sleep-center",
+    "name": "Bangkok Sleep Center",
+    "km": 1.3,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-dgan-physio-clinic": [
+   {
+    "slug": "hdm-adam-wellness-clinic",
+    "name": "Adam Wellness Clinic",
+    "km": 4.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-w-medic",
+    "name": "W+ Medic",
+    "km": 5.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pct-laboratory-services",
+    "name": "PCT Laboratory Services",
+    "km": 6.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-atgenes",
+    "name": "ATGenes",
+    "km": 7.3,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-soyeon-clinic",
+    "name": "Soyeon Clinic",
+    "km": 7.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "dibuk-hospital": [
+   {
+    "slug": "phuket-international-hospital",
+    "name": "Phuket International Hospital",
+    "km": 3.0,
+    "rating": "4.50",
+    "city": "Phuket"
+   },
+   {
+    "slug": "vachira-phuket-hospital",
+    "name": "Vachira Phuket Hospital",
+    "km": 3.8,
+    "rating": "2.80",
+    "city": "Phuket"
+   },
+   {
+    "slug": "bangkok-hospital-phuket",
+    "name": "Bangkok Hospital Phuket",
+    "km": 4.0,
+    "rating": "4.50",
+    "city": "Phuket"
+   },
+   {
+    "slug": "mission-hospital-phuket",
+    "name": "Mission Hospital Phuket",
+    "km": 5.1,
+    "rating": "3.00",
+    "city": "Phuket"
+   },
+   {
+    "slug": "chalong-hospital",
+    "name": "Chalong Hospital",
+    "km": 5.7,
+    "rating": "2.30",
+    "city": "Phuket"
+   }
+  ],
+  "hdm-divine-aesthetic-clinic": [
+   {
+    "slug": "hdm-bds-clinic",
+    "name": "BDS Clinic",
+    "km": 1.5,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "karaboon-wellness",
+    "name": "Karaboon Wellness (การบูร สหคลินิก)",
+    "km": 1.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-soul-clinic",
+    "name": "Soul Clinic",
+    "km": 1.8,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mic-lab",
+    "name": "MIC Lab",
+    "km": 1.9,
+    "rating": null,
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-dr-trin-wellness",
+    "name": "Dr. Trin Wellness",
+    "km": 2.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "doctors-assess-case-first-time-veera-clinic": [
+   {
+    "slug": "hdm-hugsa-medical-clinic",
+    "name": "Hugsa Medical Clinic",
+    "km": 0.1,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "tutt-medical-clinic",
+    "name": "ธรรศสหคลินิก Tutt Medical Clinic",
+    "km": 1.1,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "paolo-chokchai4",
+    "name": "Paolo Hospital Chokchai 4",
+    "km": 1.5,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-glam-glow-wellness-centre",
+    "name": "Glam Glow Wellness Centre",
+    "km": 1.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-zhen-fu-clinic",
+    "name": "Zhen Fu Clinic",
+    "km": 2.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-dr-clear-aligner": [
+   {
+    "slug": "hdm-grace-tcm-clinic",
+    "name": "Grace TCM Clinic",
+    "km": 0.6,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-vaccine-point",
+    "name": "Vaccine Point",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-sukhumvit",
+    "name": "Samitivej Hospital Sukhumvit",
+    "km": 0.7,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-menhance-clinic",
+    "name": "Menhance Clinic",
+    "km": 0.8,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medconsult-bangkok-medical-clinic",
+    "name": "MedConsult Bangkok Medical Clinic",
+    "km": 0.8,
+    "rating": "4.40",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-dr-trin-wellness": [
+   {
+    "slug": "hdm-w9-wellness-center",
+    "name": "W9 Wellness Center โรงพยาบาลพระรามเก้า",
+    "km": 0.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "praram9",
+    "name": "Praram 9 Hospital",
+    "km": 0.7,
+    "rating": "4.10",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-joy-of-minds-by-masterwork-clinic",
+    "name": "JOY OF MINDS CLINIC",
+    "km": 1.6,
+    "rating": "3.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bds-clinic",
+    "name": "BDS Clinic",
+    "km": 1.7,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bangkok-hospital",
+    "name": "Bangkok Hospital (BDMS HQ)",
+    "km": 2.0,
+    "rating": "4.70",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-drchen-surgery-hospital-international-center": [
+   {
+    "slug": "hdm-natchaya-clinic",
+    "name": "Natchaya Clinic (ณัฐชญาคลินิก)",
+    "km": 2.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-interrehab-neurobridge",
+    "name": "InterRehab NeuroBridge",
+    "km": 3.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-h8-clinic",
+    "name": "H8 Clinic",
+    "km": 4.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "kayagata-clinic",
+    "name": "Kayagata Clinic",
+    "km": 5.2,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "synphaet-ramintra-hospital",
+    "name": "Synphaet Ramintra Hospital",
+    "km": 6.1,
+    "rating": "4.60",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-drpunjai-clinic": [
+   {
+    "slug": "hdm-apc-clinic",
+    "name": "APC Clinic",
+    "km": 2.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-anti-aging-center",
+    "name": "Bangkok Anti-Aging Center",
+    "km": 2.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pwc-healthy-and-skin",
+    "name": "PWC Healthy and Skin",
+    "km": 2.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-botan-clinic",
+    "name": "BOTAN CLINIC",
+    "km": 2.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ubosu-clinic",
+    "name": "UBOSU Clinic",
+    "km": 2.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-eatwellconcept": [
+   {
+    "slug": "hdm-sesh-clinic",
+    "name": "SESH Clinic",
+    "km": 0.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "n-health",
+    "name": "N Health (เอ็นเฮลท์)",
+    "km": 1.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "happybirth-clinic",
+    "name": "happybirth clinic (สีลม)",
+    "km": 1.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-menness-wellness",
+    "name": "Menness Wellness",
+    "km": 1.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-gowoonmom-clinic",
+    "name": "Gowoonmom Clinic",
+    "km": 1.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-ew-villa-medica-bangkok": [
+   {
+    "slug": "hdm-gwellness",
+    "name": "Gwellness",
+    "km": 0.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-g-nipt-thailand",
+    "name": "G-NIPT Thailand",
+    "km": 0.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ketsarin-physiotherapy-clinic",
+    "name": "Ketsarin Physiotherapy Clinic",
+    "km": 0.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-jetanin-hospital",
+    "name": "Jetanin Hospital",
+    "km": 0.4,
+    "rating": "4.20",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "mediprime-clinic",
+    "name": "MediPrime Clinic (เมดิไพร์ม คลินิก)",
+    "km": 0.8,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-g-nipt-thailand": [
+   {
+    "slug": "hdm-ew-villa-medica-bangkok",
+    "name": "EW Villa Medica Bangkok",
+    "km": 0.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-gwellness",
+    "name": "Gwellness",
+    "km": 0.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ketsarin-physiotherapy-clinic",
+    "name": "Ketsarin Physiotherapy Clinic",
+    "km": 0.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-jetanin-hospital",
+    "name": "Jetanin Hospital",
+    "km": 0.6,
+    "rating": "4.20",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "mediprime-clinic",
+    "name": "MediPrime Clinic (เมดิไพร์ม คลินิก)",
+    "km": 0.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-genz-clinic": [
+   {
+    "slug": "hdm-ibaby-fertility-genetic-center",
+    "name": "iBaby Fertility & Genetic Center",
+    "km": 0.1,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-absolute-health-clinic",
+    "name": "Absolute Health Clinic",
+    "km": 0.2,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-apex-medical-center",
+    "name": "APEX Medical Center",
+    "km": 0.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bumrungrad",
+    "name": "Bumrungrad International Hospital",
+    "km": 0.6,
+    "rating": "3.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ketsarin-physiotherapy-clinic",
+    "name": "Ketsarin Physiotherapy Clinic",
+    "km": 0.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-glam-glow-wellness-centre": [
+   {
+    "slug": "hdm-mn-medical-clinic",
+    "name": "MN Medical Clinic",
+    "km": 0.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "tutt-medical-clinic",
+    "name": "ธรรศสหคลินิก Tutt Medical Clinic",
+    "km": 1.6,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "doctors-assess-case-first-time-veera-clinic",
+    "name": "Doctors Assess Case First Time Veera Clinic",
+    "km": 1.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hugsa-medical-clinic",
+    "name": "Hugsa Medical Clinic",
+    "km": 1.9,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-cytogenetics-center",
+    "name": "Bangkok Cytogenetics Center",
+    "km": 1.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-glove-clinic": [
+   {
+    "slug": "hdm-chinglian-tcm-clinic",
+    "name": "Chinglian TCM Clinic",
+    "km": 0.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-amc-arix-medical-center",
+    "name": "AMC Arix Medical Center",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "mediprime-clinic",
+    "name": "MediPrime Clinic (เมดิไพร์ม คลินิก)",
+    "km": 0.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-1",
+    "name": "Phyathai 1 Hospital",
+    "km": 1.0,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-m-clinic",
+    "name": "M Clinic",
+    "km": 1.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-gowoonmom-clinic": [
+   {
+    "slug": "bnh",
+    "name": "BNH Hospital",
+    "km": 0.1,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "happybirth-clinic",
+    "name": "happybirth clinic (สีลม)",
+    "km": 0.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "n-health",
+    "name": "N Health (เอ็นเฮลท์)",
+    "km": 0.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-sesh-clinic",
+    "name": "SESH Clinic",
+    "km": 0.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "king-chulalongkorn-memorial-hospital",
+    "name": "King Chulalongkorn Memorial Hospital",
+    "km": 0.9,
+    "rating": "3.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-grace-tcm-clinic": [
+   {
+    "slug": "hdm-dr-clear-aligner",
+    "name": "Dr Clear Aligners",
+    "km": 0.6,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-stc-anti-aging-wellness-clinic",
+    "name": "STC Anti-Aging & Wellness Clinic",
+    "km": 0.6,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-sukhumvit",
+    "name": "Samitivej Hospital Sukhumvit",
+    "km": 0.6,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-menhance-clinic",
+    "name": "Menhance Clinic",
+    "km": 0.7,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medconsult-bangkok-medical-clinic",
+    "name": "MedConsult Bangkok Medical Clinic",
+    "km": 0.7,
+    "rating": "4.40",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-gui-tang-wellness": [
+   {
+    "slug": "chivi-clinic",
+    "name": "CHIVI CLINIC (ชีวีคลินิกเวชกรรม)",
+    "km": 0.7,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-baihuitang-clinic",
+    "name": "Baihuitang Clinic",
+    "km": 1.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-biomed-microbiome-dna",
+    "name": "Biomed Microbiome DNA",
+    "km": 2.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mabella-clinic",
+    "name": "Mabella Clinic",
+    "km": 2.5,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-valor-clinic",
+    "name": "Valor Clinic",
+    "km": 2.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-gwellness": [
+   {
+    "slug": "hdm-ew-villa-medica-bangkok",
+    "name": "EW Villa Medica Bangkok",
+    "km": 0.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ketsarin-physiotherapy-clinic",
+    "name": "Ketsarin Physiotherapy Clinic",
+    "km": 0.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-jetanin-hospital",
+    "name": "Jetanin Hospital",
+    "km": 0.4,
+    "rating": "4.20",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-g-nipt-thailand",
+    "name": "G-NIPT Thailand",
+    "km": 0.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "mediprime-clinic",
+    "name": "MediPrime Clinic (เมดิไพร์ม คลินิก)",
+    "km": 0.8,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-hum-clinic": [
+   {
+    "slug": "hdm-blez-clinic",
+    "name": "BLEZ Clinic",
+    "km": 0.1,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-brain-rehab-clinic",
+    "name": "Brain Rehab Clinic",
+    "km": 0.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-wellmed-bangkok-clinic",
+    "name": "Wellmed Bangkok Clinic",
+    "km": 0.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medical-trend-clinic-lab",
+    "name": "Medical Trend Clinic Lab",
+    "km": 0.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "koa-clinic",
+    "name": "Koa Clinic (โคอา คลินิก)",
+    "km": 0.3,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-h8-clinic": [
+   {
+    "slug": "kayagata-clinic",
+    "name": "Kayagata Clinic",
+    "km": 1.4,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "synphaet-ramintra-hospital",
+    "name": "Synphaet Ramintra Hospital",
+    "km": 1.5,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-natchaya-clinic",
+    "name": "Natchaya Clinic (ณัฐชญาคลินิก)",
+    "km": 3.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-laser-vision-bangkok-eye-hospital",
+    "name": "Laser Vision Bangkok Eye Hospital",
+    "km": 4.1,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-wellnex-clinic",
+    "name": "Wellnex Clinic",
+    "km": 4.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "happybirth-clinic": [
+   {
+    "slug": "n-health",
+    "name": "N Health (เอ็นเฮลท์)",
+    "km": 0.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-sesh-clinic",
+    "name": "SESH Clinic",
+    "km": 0.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-gowoonmom-clinic",
+    "name": "Gowoonmom Clinic",
+    "km": 0.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bnh",
+    "name": "BNH Hospital",
+    "km": 0.5,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "king-chulalongkorn-memorial-hospital",
+    "name": "King Chulalongkorn Memorial Hospital",
+    "km": 0.8,
+    "rating": "3.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hatyai-hospital": [
+   {
+    "slug": "hdm-avatreat-clinic",
+    "name": "Avatreat Clinic",
+    "km": 1.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bangkok-hospital-hat-yai",
+    "name": "Bangkok Hospital Hat Yai",
+    "km": 2.0,
+    "rating": "4.00",
+    "city": "Hat Yai"
+   },
+   {
+    "slug": "songklanagarind-hospital",
+    "name": "Songklanagarind Hospital",
+    "km": 3.2,
+    "rating": "4.10",
+    "city": "Hat Yai"
+   }
+  ],
+  "hdm-hcs-health-care-and-skin": [
+   {
+    "slug": "hdm-sirin-clinic",
+    "name": "Sirin Clinic",
+    "km": 3.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-century-care-center",
+    "name": "Century Care Center",
+    "km": 5.2,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-drpunjai-clinic",
+    "name": "Dr.Punjai Clinic",
+    "km": 5.8,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-trustme-plus-clinic",
+    "name": "Trustme PLUS Clinic",
+    "km": 6.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-anti-aging-center",
+    "name": "Bangkok Anti-Aging Center",
+    "km": 6.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-health-focus-clinic": [
+   {
+    "slug": "chalermpong-poly-clinic",
+    "name": "Chalermpong Poly Clinic",
+    "km": 1.2,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-120-wellness-villa",
+    "name": "120 Wellness Villa",
+    "km": 6.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-cb-medical-and-lab-center",
+    "name": "CB Medical and Lab Center",
+    "km": 7.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-semed-living-care-hospital",
+    "name": "SEMed Living Care Hospital",
+    "km": 8.9,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-the-gent-clinic",
+    "name": "The Gent Clinic",
+    "km": 9.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-high-life-clinic": [
+   {
+    "slug": "hdm-takara-ivf-bangkok",
+    "name": "Takara IVF Bangkok",
+    "km": 0.6,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pd-wellness-clinic",
+    "name": "PD Wellness Clinic",
+    "km": 0.6,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "kluaynamthai-hospital",
+    "name": "Kluaynamthai Hospital",
+    "km": 0.6,
+    "rating": "3.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-infinity-clinic-by-dr-palm",
+    "name": "Infinity Clinic by Dr. Palm",
+    "km": 0.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-vaccine-point",
+    "name": "Vaccine Point",
+    "km": 0.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-hugsa-medical-clinic": [
+   {
+    "slug": "doctors-assess-case-first-time-veera-clinic",
+    "name": "Doctors Assess Case First Time Veera Clinic",
+    "km": 0.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "tutt-medical-clinic",
+    "name": "ธรรศสหคลินิก Tutt Medical Clinic",
+    "km": 1.2,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "paolo-chokchai4",
+    "name": "Paolo Hospital Chokchai 4",
+    "km": 1.6,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-glam-glow-wellness-centre",
+    "name": "Glam Glow Wellness Centre",
+    "km": 1.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-zhen-fu-clinic",
+    "name": "Zhen Fu Clinic",
+    "km": 2.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-ibaby-fertility-genetic-center": [
+   {
+    "slug": "hdm-absolute-health-clinic",
+    "name": "Absolute Health Clinic",
+    "km": 0.1,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-genz-clinic",
+    "name": "GenZ Clinic",
+    "km": 0.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-apex-medical-center",
+    "name": "APEX Medical Center",
+    "km": 0.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bumrungrad",
+    "name": "Bumrungrad International Hospital",
+    "km": 0.7,
+    "rating": "3.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ketsarin-physiotherapy-clinic",
+    "name": "Ketsarin Physiotherapy Clinic",
+    "km": 0.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-id-life-clinic": [
+   {
+    "slug": "hdm-max-wellness-clinic",
+    "name": "Max Wellness Clinic",
+    "km": 0.7,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangchak-medical-clinic",
+    "name": "Bangchak Medical Clinic",
+    "km": 1.1,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-kloss-wellness-clinic",
+    "name": "Kloss Wellness Clinic",
+    "km": 1.5,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-btlab",
+    "name": "BTLAB",
+    "km": 1.5,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-raksa-physio",
+    "name": "Raksa Physio",
+    "km": 1.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-infinity-clinic-by-dr-palm": [
+   {
+    "slug": "kluaynamthai-hospital",
+    "name": "Kluaynamthai Hospital",
+    "km": 0.4,
+    "rating": "3.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-takara-ivf-bangkok",
+    "name": "Takara IVF Bangkok",
+    "km": 0.5,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-high-life-clinic",
+    "name": "High Life Clinic",
+    "km": 0.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pd-wellness-clinic",
+    "name": "PD Wellness Clinic",
+    "km": 1.1,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-raksa-physio",
+    "name": "Raksa Physio",
+    "km": 1.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-intellihealthplus-rejuvenation-clinic-by-stem": [
+   {
+    "slug": "hdm-spectrum-wellness",
+    "name": "Spectrum Wellness",
+    "km": 0.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-dr-clear-aligner",
+    "name": "Dr Clear Aligners",
+    "km": 0.9,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-grace-tcm-clinic",
+    "name": "Grace TCM Clinic",
+    "km": 1.0,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-vaccine-point",
+    "name": "Vaccine Point",
+    "km": 1.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ot-room-physical-therapy-clinic",
+    "name": "OT Room Physical Therapy Clinic",
+    "km": 1.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-interrehab-brain-pain": [
+   {
+    "slug": "hdm-ot-room-physical-therapy-clinic",
+    "name": "OT Room Physical Therapy Clinic",
+    "km": 0.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bodyconscious-at-y-wellness",
+    "name": "BodyConscious at Y Wellness",
+    "km": 0.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "koa-clinic",
+    "name": "Koa Clinic (โคอา คลินิก)",
+    "km": 0.3,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hum-clinic",
+    "name": "H.U.M. Clinic",
+    "km": 0.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-wellmed-bangkok-clinic",
+    "name": "Wellmed Bangkok Clinic",
+    "km": 0.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-interrehab-neurobridge": [
+   {
+    "slug": "hdm-natchaya-clinic",
+    "name": "Natchaya Clinic (ณัฐชญาคลินิก)",
+    "km": 1.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-drchen-surgery-hospital-international-center",
+    "name": "Dr.CHEN Surgery Hospital International Center",
+    "km": 3.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "vejthani",
+    "name": "Vejthani Hospital",
+    "km": 4.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-moves-d-clinic",
+    "name": "Moves D Clinic",
+    "km": 4.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-wellness-at-your-home",
+    "name": "Prime Wellness at your Home",
+    "km": 4.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-jessica-clinic": [
+   {
+    "slug": "kasemrad-hospital-bang-khae",
+    "name": "Kasemrad Hospital Bang Khae",
+    "km": 6.5,
+    "rating": "3.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mywelltality",
+    "name": "MyWelltality",
+    "km": 7.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-vac2home-clinic",
+    "name": "Vac2home Clinic",
+    "km": 7.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pmg-hospital",
+    "name": "PMG Hospital",
+    "km": 9.7,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-3",
+    "name": "Phyathai 3 Hospital",
+    "km": 13.6,
+    "rating": "4.50",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-jetanin-hospital": [
+   {
+    "slug": "hdm-ketsarin-physiotherapy-clinic",
+    "name": "Ketsarin Physiotherapy Clinic",
+    "km": 0.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-gwellness",
+    "name": "Gwellness",
+    "km": 0.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ew-villa-medica-bangkok",
+    "name": "EW Villa Medica Bangkok",
+    "km": 0.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-g-nipt-thailand",
+    "name": "G-NIPT Thailand",
+    "km": 0.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-genz-clinic",
+    "name": "GenZ Clinic",
+    "km": 0.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-joy-of-minds-by-masterwork-clinic": [
+   {
+    "slug": "hdm-charismma-clinic",
+    "name": "Charismma Clinic",
+    "km": 0.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-safe-clinic",
+    "name": "Safe Clinic",
+    "km": 1.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-clinical-laboratory-center",
+    "name": "Clinical Laboratory Center",
+    "km": 1.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medical-trend-clinic-lab",
+    "name": "Medical Trend Clinic Lab",
+    "km": 1.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bumrungrad",
+    "name": "Bumrungrad International Hospital",
+    "km": 1.0,
+    "rating": "3.90",
+    "city": "Bangkok"
+   }
+  ],
+  "karaboon-wellness": [
+   {
+    "slug": "hdm-divine-aesthetic-clinic",
+    "name": "Divine Aesthetic Clinic",
+    "km": 1.5,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "santiraks-clinic",
+    "name": "Santiraks Clinic",
+    "km": 2.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bangkok-hospital",
+    "name": "Bangkok Hospital (BDMS HQ)",
+    "km": 2.4,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bria-health-center",
+    "name": "BRIA Health Center",
+    "km": 2.6,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bds-clinic",
+    "name": "BDS Clinic",
+    "km": 2.9,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "kasemrad-hospital-bang-khae": [
+   {
+    "slug": "hdm-vac2home-clinic",
+    "name": "Vac2home Clinic",
+    "km": 1.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mywelltality",
+    "name": "MyWelltality",
+    "km": 2.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-jessica-clinic",
+    "name": "Jessica Clinic",
+    "km": 6.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pmg-hospital",
+    "name": "PMG Hospital",
+    "km": 7.0,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-3",
+    "name": "Phyathai 3 Hospital",
+    "km": 7.2,
+    "rating": "4.50",
+    "city": "Bangkok"
+   }
+  ],
+  "kayagata-clinic": [
+   {
+    "slug": "synphaet-ramintra-hospital",
+    "name": "Synphaet Ramintra Hospital",
+    "km": 1.0,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-h8-clinic",
+    "name": "H8 Clinic",
+    "km": 1.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-natchaya-clinic",
+    "name": "Natchaya Clinic (ณัฐชญาคลินิก)",
+    "km": 4.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-the-gent-clinic",
+    "name": "The Gent Clinic",
+    "km": 4.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bewellasiaco",
+    "name": "bewellasia.co",
+    "km": 4.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-ketsarin-physiotherapy-clinic": [
+   {
+    "slug": "hdm-jetanin-hospital",
+    "name": "Jetanin Hospital",
+    "km": 0.1,
+    "rating": "4.20",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ew-villa-medica-bangkok",
+    "name": "EW Villa Medica Bangkok",
+    "km": 0.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-gwellness",
+    "name": "Gwellness",
+    "km": 0.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-g-nipt-thailand",
+    "name": "G-NIPT Thailand",
+    "km": 0.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-genz-clinic",
+    "name": "GenZ Clinic",
+    "km": 0.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "khelangnakorn-ram-hospital": [
+   {
+    "slug": "lampang-hospital",
+    "name": "Lampang Hospital",
+    "km": 2.3,
+    "rating": "3.20",
+    "city": "Lampang"
+   }
+  ],
+  "khon-kaen-ram-hospital": [
+   {
+    "slug": "bangkok-hospital-khonkaen",
+    "name": "Bangkok Hospital KhonKaen",
+    "km": 1.0,
+    "rating": "4.30",
+    "city": "Khon Kaen"
+   },
+   {
+    "slug": "srinagarind-hospital",
+    "name": "Srinagarind Hospital",
+    "km": 4.0,
+    "rating": "4.10",
+    "city": "Khon Kaen"
+   }
+  ],
+  "king-chulalongkorn-memorial-hospital": [
+   {
+    "slug": "hdm-regenelife-vital-center",
+    "name": "Regenelife Vital Center",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "happybirth-clinic",
+    "name": "happybirth clinic (สีลม)",
+    "km": 0.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "n-health",
+    "name": "N Health (เอ็นเฮลท์)",
+    "km": 0.8,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bnh",
+    "name": "BNH Hospital",
+    "km": 0.9,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-gowoonmom-clinic",
+    "name": "Gowoonmom Clinic",
+    "km": 0.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "king-taksin-memorial-hospital": [
+   {
+    "slug": "hdm-menness-wellness",
+    "name": "Menness Wellness",
+    "km": 1.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-eatwellconcept",
+    "name": "Eatwellconcept",
+    "km": 1.5,
+    "rating": null,
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bodylab-pilates",
+    "name": "BodyLab Pilates",
+    "km": 1.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-the-pavilion-health-clinic",
+    "name": "The Pavilion Health Clinic",
+    "km": 2.3,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-sesh-clinic",
+    "name": "SESH Clinic",
+    "km": 2.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-kloss-wellness-clinic": [
+   {
+    "slug": "hdm-ubosu-clinic",
+    "name": "UBOSU Clinic",
+    "km": 1.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-id-life-clinic",
+    "name": "ID Life Clinic",
+    "km": 1.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-apc-clinic",
+    "name": "APC Clinic",
+    "km": 1.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-max-wellness-clinic",
+    "name": "Max Wellness Clinic",
+    "km": 2.2,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangchak-medical-clinic",
+    "name": "Bangchak Medical Clinic",
+    "km": 2.2,
+    "rating": "4.70",
+    "city": "Bangkok"
+   }
+  ],
+  "kluaynamthai-hospital": [
+   {
+    "slug": "hdm-takara-ivf-bangkok",
+    "name": "Takara IVF Bangkok",
+    "km": 0.1,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-infinity-clinic-by-dr-palm",
+    "name": "Infinity Clinic by Dr. Palm",
+    "km": 0.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-high-life-clinic",
+    "name": "High Life Clinic",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-raksa-physio",
+    "name": "Raksa Physio",
+    "km": 1.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pd-wellness-clinic",
+    "name": "PD Wellness Clinic",
+    "km": 1.2,
+    "rating": "4.30",
+    "city": "Bangkok"
+   }
+  ],
+  "koa-clinic": [
+   {
+    "slug": "hdm-bodyconscious-at-y-wellness",
+    "name": "BodyConscious at Y Wellness",
+    "km": 0.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hum-clinic",
+    "name": "H.U.M. Clinic",
+    "km": 0.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-interrehab-brain-pain",
+    "name": "InterRehab Brain & Pain",
+    "km": 0.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-wellmed-bangkok-clinic",
+    "name": "Wellmed Bangkok Clinic",
+    "km": 0.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-blez-clinic",
+    "name": "BLEZ Clinic",
+    "km": 0.3,
+    "rating": "4.60",
+    "city": "Bangkok"
+   }
+  ],
+  "koh-chang-hospital": [
+   {
+    "slug": "koh-chang-international-hospital",
+    "name": "Koh Chang International Hospital",
+    "km": 7.9,
+    "rating": "3.60",
+    "city": "Trat"
+   },
+   {
+    "slug": "koh-chang-medical-clinic",
+    "name": "KOH CHANG MEDICAL CLINIC",
+    "km": 9.7,
+    "rating": "4.70",
+    "city": "Koh Chang"
+   }
+  ],
+  "koh-chang-international-hospital": [
+   {
+    "slug": "koh-chang-medical-clinic",
+    "name": "KOH CHANG MEDICAL CLINIC",
+    "km": 6.3,
+    "rating": "4.70",
+    "city": "Koh Chang"
+   },
+   {
+    "slug": "koh-chang-hospital",
+    "name": "Koh Chang Hospital",
+    "km": 7.9,
+    "rating": "4.30",
+    "city": "Koh Chang"
+   }
+  ],
+  "koh-chang-medical-clinic": [
+   {
+    "slug": "koh-chang-international-hospital",
+    "name": "Koh Chang International Hospital",
+    "km": 6.3,
+    "rating": "3.60",
+    "city": "Trat"
+   },
+   {
+    "slug": "koh-chang-hospital",
+    "name": "Koh Chang Hospital",
+    "km": 9.7,
+    "rating": "4.30",
+    "city": "Koh Chang"
+   }
+  ],
+  "ladprao-general-hospital": [
+   {
+    "slug": "hdm-bria-health-center",
+    "name": "BRIA Health Center",
+    "km": 0.9,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medical-line-lab",
+    "name": "Medical Line Lab",
+    "km": 0.9,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "santiraks-clinic",
+    "name": "Santiraks Clinic",
+    "km": 1.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "vejthani",
+    "name": "Vejthani Hospital",
+    "km": 1.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-moves-d-clinic",
+    "name": "Moves D Clinic",
+    "km": 1.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "lampang-hospital": [
+   {
+    "slug": "khelangnakorn-ram-hospital",
+    "name": "Khelangnakorn-Ram Hospital",
+    "km": 2.3,
+    "rating": "3.60",
+    "city": "Lampang"
+   }
+  ],
+  "lanna-hospital": [
+   {
+    "slug": "chiangmai-ram-hospital",
+    "name": "Chiangmai Ram Hospital",
+    "km": 2.4,
+    "rating": "3.80",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "mccormick-hospital",
+    "name": "McCormick Hospital",
+    "km": 2.6,
+    "rating": "3.60",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "chiang-mai-university-hospital-maharaj",
+    "name": "Chiang Mai University Hospital (Maharaj)",
+    "km": 3.1,
+    "rating": "3.30",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "peach-clinic",
+    "name": "Peach Clinic คลินิกหมอพีช",
+    "km": 4.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bangkok-hospital-chiang-mai",
+    "name": "Bangkok Hospital Chiang Mai",
+    "km": 4.5,
+    "rating": "3.60",
+    "city": "Chiang Mai"
+   }
+  ],
+  "hdm-laser-vision-bangkok-eye-hospital": [
+   {
+    "slug": "hdm-wellnex-clinic",
+    "name": "Wellnex Clinic",
+    "km": 0.8,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bewellasiaco",
+    "name": "bewellasia.co",
+    "km": 1.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-s-mart-anti-aging-wellness-center",
+    "name": "S-Mart Anti-aging Wellness Center",
+    "km": 1.7,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-me-center",
+    "name": "Me Center",
+    "km": 3.0,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-the-gent-clinic",
+    "name": "The Gent Clinic",
+    "km": 3.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-life-balance-methodology": [
+   {
+    "slug": "hdm-patricia-clinic",
+    "name": "Patricia Clinic",
+    "km": 0.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "paolo-kaset",
+    "name": "Paolo Hospital Kaset",
+    "km": 0.9,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bg-clinic",
+    "name": "BG Clinic (บีจีคลินิกเวชกรรม)",
+    "km": 1.0,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-cmc-wellness",
+    "name": "CMC Wellness",
+    "km": 2.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "vibhavadi",
+    "name": "Vibhavadi Hospital",
+    "km": 2.4,
+    "rating": "4.70",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-m-clinic": [
+   {
+    "slug": "hdm-chinglian-tcm-clinic",
+    "name": "Chinglian TCM Clinic",
+    "km": 0.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-glove-clinic",
+    "name": "Glove Clinic",
+    "km": 1.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "mediprime-clinic",
+    "name": "MediPrime Clinic (เมดิไพร์ม คลินิก)",
+    "km": 1.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-the-pavilion-health-clinic",
+    "name": "The Pavilion Health Clinic",
+    "km": 1.2,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-amc-arix-medical-center",
+    "name": "AMC Arix Medical Center",
+    "km": 1.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-mabella-clinic": [
+   {
+    "slug": "hdm-valor-clinic",
+    "name": "Valor Clinic",
+    "km": 0.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-biomed-microbiome-dna",
+    "name": "Biomed Microbiome DNA",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "mevis-clinic",
+    "name": "Mevis Clinic",
+    "km": 1.3,
+    "rating": "4.20",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bodyset-physiotherapy",
+    "name": "BODYSET Physiotherapy",
+    "km": 1.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-sesh-clinic",
+    "name": "SESH Clinic",
+    "km": 2.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "mae-fah-luang-university-medical-center-hospital": [
+   {
+    "slug": "bangkok-hospital-chiang-rai",
+    "name": "Bangkok Hospital Chiang Rai",
+    "km": 4.6,
+    "rating": "4.30",
+    "city": "Chiang Rai"
+   }
+  ],
+  "maharaj-nakhon-si-thammarat-hospital": [
+   {
+    "slug": "nakharin-hospital",
+    "name": "Nakharin Hospital",
+    "km": 7.3,
+    "rating": "4.00",
+    "city": "Nakhon Si Thammarat"
+   }
+  ],
+  "maharat-nakhon-ratchasima-hospital": [
+   {
+    "slug": "bangkok-hospital-ratchasima",
+    "name": "Bangkok Hospital Ratchasima",
+    "km": 3.3,
+    "rating": "4.00",
+    "city": "Nakhon Ratchasima"
+   }
+  ],
+  "hdm-max-wellness-clinic": [
+   {
+    "slug": "hdm-id-life-clinic",
+    "name": "ID Life Clinic",
+    "km": 0.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-btlab",
+    "name": "BTLAB",
+    "km": 0.8,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangchak-medical-clinic",
+    "name": "Bangchak Medical Clinic",
+    "km": 1.1,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-raksa-physio",
+    "name": "Raksa Physio",
+    "km": 1.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-kloss-wellness-clinic",
+    "name": "Kloss Wellness Clinic",
+    "km": 2.2,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "mccormick-hospital": [
+   {
+    "slug": "bangkok-hospital-chiang-mai",
+    "name": "Bangkok Hospital Chiang Mai",
+    "km": 1.9,
+    "rating": "3.60",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "lanna-hospital",
+    "name": "Lanna Hospital",
+    "km": 2.6,
+    "rating": "2.60",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "chiangmai-ram-hospital",
+    "name": "Chiangmai Ram Hospital",
+    "km": 3.5,
+    "rating": "3.80",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "rajavej-chiang-mai-hospital",
+    "name": "Rajavej Chiang Mai Hospital",
+    "km": 3.6,
+    "rating": "4.00",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "chiang-mai-university-hospital-maharaj",
+    "name": "Chiang Mai University Hospital (Maharaj)",
+    "km": 3.9,
+    "rating": "3.30",
+    "city": "Chiang Mai"
+   }
+  ],
+  "hdm-me-center": [
+   {
+    "slug": "paolo-chokchai4",
+    "name": "Paolo Hospital Chokchai 4",
+    "km": 2.4,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bria-health-center",
+    "name": "BRIA Health Center",
+    "km": 2.5,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-zhen-fu-clinic",
+    "name": "Zhen Fu Clinic",
+    "km": 2.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "ladprao-general-hospital",
+    "name": "Ladprao General Hospital",
+    "km": 2.8,
+    "rating": "3.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-laser-vision-bangkok-eye-hospital",
+    "name": "Laser Vision Bangkok Eye Hospital",
+    "km": 3.0,
+    "rating": "4.60",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-medconsult-bangkok-medical-clinic": [
+   {
+    "slug": "hdm-newton-em-physiotherapy-clinic",
+    "name": "Newton EM Physiotherapy Clinic (นิวตั้น เอ็ม คลินิกกายภาพบำบัด)",
+    "km": 0.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-menhance-clinic",
+    "name": "Menhance Clinic",
+    "km": 0.1,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-sukhumvit",
+    "name": "Samitivej Hospital Sukhumvit",
+    "km": 0.2,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-stc-anti-aging-wellness-clinic",
+    "name": "STC Anti-Aging & Wellness Clinic",
+    "km": 0.6,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-grace-tcm-clinic",
+    "name": "Grace TCM Clinic",
+    "km": 0.7,
+    "rating": "4.50",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-medical-line-lab": [
+   {
+    "slug": "vejthani",
+    "name": "Vejthani Hospital",
+    "km": 0.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-moves-d-clinic",
+    "name": "Moves D Clinic",
+    "km": 0.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-wellness-at-your-home",
+    "name": "Prime Wellness at your Home",
+    "km": 0.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "ladprao-general-hospital",
+    "name": "Ladprao General Hospital",
+    "km": 0.9,
+    "rating": "3.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "santiraks-clinic",
+    "name": "Santiraks Clinic",
+    "km": 1.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-medical-trend-clinic-lab": [
+   {
+    "slug": "hdm-safe-clinic",
+    "name": "Safe Clinic",
+    "km": 0.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-clinical-laboratory-center",
+    "name": "Clinical Laboratory Center",
+    "km": 0.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hum-clinic",
+    "name": "H.U.M. Clinic",
+    "km": 0.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-blez-clinic",
+    "name": "BLEZ Clinic",
+    "km": 0.3,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-brain-rehab-clinic",
+    "name": "Brain Rehab Clinic",
+    "km": 0.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "mediprime-clinic": [
+   {
+    "slug": "hdm-g-nipt-thailand",
+    "name": "G-NIPT Thailand",
+    "km": 0.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-chinglian-tcm-clinic",
+    "name": "Chinglian TCM Clinic",
+    "km": 0.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ew-villa-medica-bangkok",
+    "name": "EW Villa Medica Bangkok",
+    "km": 0.8,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-gwellness",
+    "name": "Gwellness",
+    "km": 0.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-glove-clinic",
+    "name": "Glove Clinic",
+    "km": 0.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "medpark": [
+   {
+    "slug": "hdm-chirovedic-clinic",
+    "name": "Body Adjust Wellness",
+    "km": 0.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ot-room-physical-therapy-clinic",
+    "name": "OT Room Physical Therapy Clinic",
+    "km": 1.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-interrehab-brain-pain",
+    "name": "InterRehab Brain & Pain",
+    "km": 1.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bodyset-physiotherapy",
+    "name": "BODYSET Physiotherapy",
+    "km": 1.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bodyconscious-at-y-wellness",
+    "name": "BodyConscious at Y Wellness",
+    "km": 1.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-medtopia-clinic": [
+   {
+    "slug": "phyathai-phaholyothin-hospital",
+    "name": "Phyathai Phaholyothin Hospital",
+    "km": 0.8,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-medical-lab",
+    "name": "Bangkok Medical Lab",
+    "km": 0.8,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-deep-harmonicare-ivf-center",
+    "name": "Deep & Harmonicare IVF Center",
+    "km": 0.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mental-well-clinic",
+    "name": "Mental Well Clinic",
+    "km": 0.9,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-fertility-center",
+    "name": "Prime Fertility Clinic",
+    "km": 1.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "mei-house-clinic": [
+   {
+    "slug": "hdm-stc-anti-aging-wellness-clinic",
+    "name": "STC Anti-Aging & Wellness Clinic",
+    "km": 0.4,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-brain-rehab-clinic",
+    "name": "Brain Rehab Clinic",
+    "km": 0.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-wellmed-bangkok-clinic",
+    "name": "Wellmed Bangkok Clinic",
+    "km": 0.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-blez-clinic",
+    "name": "BLEZ Clinic",
+    "km": 0.6,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hum-clinic",
+    "name": "H.U.M. Clinic",
+    "km": 0.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-menhance-clinic": [
+   {
+    "slug": "hdm-medconsult-bangkok-medical-clinic",
+    "name": "MedConsult Bangkok Medical Clinic",
+    "km": 0.1,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-sukhumvit",
+    "name": "Samitivej Hospital Sukhumvit",
+    "km": 0.1,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-newton-em-physiotherapy-clinic",
+    "name": "Newton EM Physiotherapy Clinic (นิวตั้น เอ็ม คลินิกกายภาพบำบัด)",
+    "km": 0.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-stc-anti-aging-wellness-clinic",
+    "name": "STC Anti-Aging & Wellness Clinic",
+    "km": 0.6,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-grace-tcm-clinic",
+    "name": "Grace TCM Clinic",
+    "km": 0.7,
+    "rating": "4.50",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-menness-wellness": [
+   {
+    "slug": "king-taksin-memorial-hospital",
+    "name": "King Taksin Memorial Hospital",
+    "km": 1.0,
+    "rating": "2.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-eatwellconcept",
+    "name": "Eatwellconcept",
+    "km": 1.3,
+    "rating": null,
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bodylab-pilates",
+    "name": "BodyLab Pilates",
+    "km": 1.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-sesh-clinic",
+    "name": "SESH Clinic",
+    "km": 2.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-nawamin",
+    "name": "Samitivej Hospital Nawamin",
+    "km": 2.4,
+    "rating": "4.60",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-mental-well-clinic": [
+   {
+    "slug": "phyathai-phaholyothin-hospital",
+    "name": "Phyathai Phaholyothin Hospital",
+    "km": 0.8,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medtopia-clinic",
+    "name": "Medtopia Clinic",
+    "km": 0.9,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-medical-lab",
+    "name": "Bangkok Medical Lab",
+    "km": 1.0,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-sleep-center",
+    "name": "Bangkok Sleep Center",
+    "km": 1.3,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-deep-harmonicare-ivf-center",
+    "name": "Deep & Harmonicare IVF Center",
+    "km": 1.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "mevis-clinic": [
+   {
+    "slug": "bodyset-physiotherapy",
+    "name": "BODYSET Physiotherapy",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-valor-clinic",
+    "name": "Valor Clinic",
+    "km": 0.8,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-biomed-microbiome-dna",
+    "name": "Biomed Microbiome DNA",
+    "km": 1.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mabella-clinic",
+    "name": "Mabella Clinic",
+    "km": 1.3,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-chirovedic-clinic",
+    "name": "Body Adjust Wellness",
+    "km": 1.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-mic-lab": [
+   {
+    "slug": "hdm-zhen-fu-clinic",
+    "name": "Zhen Fu Clinic",
+    "km": 1.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "paolo-chokchai4",
+    "name": "Paolo Hospital Chokchai 4",
+    "km": 1.8,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-divine-aesthetic-clinic",
+    "name": "Divine Aesthetic Clinic",
+    "km": 1.9,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "tutt-medical-clinic",
+    "name": "ธรรศสหคลินิก Tutt Medical Clinic",
+    "km": 1.9,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mn-medical-clinic",
+    "name": "MN Medical Clinic",
+    "km": 2.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "mission-hospital-phuket": [
+   {
+    "slug": "vachira-phuket-hospital",
+    "name": "Vachira Phuket Hospital",
+    "km": 1.4,
+    "rating": "2.80",
+    "city": "Phuket"
+   },
+   {
+    "slug": "bangkok-hospital-phuket",
+    "name": "Bangkok Hospital Phuket",
+    "km": 1.6,
+    "rating": "4.50",
+    "city": "Phuket"
+   },
+   {
+    "slug": "phuket-international-hospital",
+    "name": "Phuket International Hospital",
+    "km": 2.7,
+    "rating": "4.50",
+    "city": "Phuket"
+   },
+   {
+    "slug": "dibuk-hospital",
+    "name": "Dibuk Hospital",
+    "km": 5.1,
+    "rating": "3.00",
+    "city": "Phuket"
+   },
+   {
+    "slug": "chalong-hospital",
+    "name": "Chalong Hospital",
+    "km": 10.7,
+    "rating": "2.30",
+    "city": "Phuket"
+   }
+  ],
+  "hdm-mn-medical-clinic": [
+   {
+    "slug": "hdm-glam-glow-wellness-centre",
+    "name": "Glam Glow Wellness Centre",
+    "km": 0.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-cytogenetics-center",
+    "name": "Bangkok Cytogenetics Center",
+    "km": 1.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "tutt-medical-clinic",
+    "name": "ธรรศสหคลินิก Tutt Medical Clinic",
+    "km": 1.7,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mic-lab",
+    "name": "MIC Lab",
+    "km": 2.0,
+    "rating": null,
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-sleep-center",
+    "name": "Bangkok Sleep Center",
+    "km": 2.3,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "more-clinic": [
+   {
+    "slug": "hdm-kloss-wellness-clinic",
+    "name": "Kloss Wellness Clinic",
+    "km": 3.9,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ubosu-clinic",
+    "name": "UBOSU Clinic",
+    "km": 4.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-id-life-clinic",
+    "name": "ID Life Clinic",
+    "km": 5.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-apc-clinic",
+    "name": "APC Clinic",
+    "km": 5.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "sikarin",
+    "name": "Sikarin Hospital",
+    "km": 5.3,
+    "rating": "4.20",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-moves-d-clinic": [
+   {
+    "slug": "vejthani",
+    "name": "Vejthani Hospital",
+    "km": 0.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-wellness-at-your-home",
+    "name": "Prime Wellness at your Home",
+    "km": 0.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medical-line-lab",
+    "name": "Medical Line Lab",
+    "km": 0.7,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "ramkhamhaeng-hospital-chiang-mai",
+    "name": "Ramkhamhaeng Hospital Chiang Mai",
+    "km": 1.0,
+    "rating": "4.70",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "ladprao-general-hospital",
+    "name": "Ladprao General Hospital",
+    "km": 1.6,
+    "rating": "3.30",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-mywelltality": [
+   {
+    "slug": "kasemrad-hospital-bang-khae",
+    "name": "Kasemrad Hospital Bang Khae",
+    "km": 2.1,
+    "rating": "3.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-vac2home-clinic",
+    "name": "Vac2home Clinic",
+    "km": 2.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pmg-hospital",
+    "name": "PMG Hospital",
+    "km": 4.9,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-3",
+    "name": "Phyathai 3 Hospital",
+    "km": 6.9,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-jessica-clinic",
+    "name": "Jessica Clinic",
+    "km": 7.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "n-health": [
+   {
+    "slug": "happybirth-clinic",
+    "name": "happybirth clinic (สีลม)",
+    "km": 0.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-sesh-clinic",
+    "name": "SESH Clinic",
+    "km": 0.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-gowoonmom-clinic",
+    "name": "Gowoonmom Clinic",
+    "km": 0.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bnh",
+    "name": "BNH Hospital",
+    "km": 0.5,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "king-chulalongkorn-memorial-hospital",
+    "name": "King Chulalongkorn Memorial Hospital",
+    "km": 0.8,
+    "rating": "3.90",
+    "city": "Bangkok"
+   }
+  ],
+  "nakharin-hospital": [
+   {
+    "slug": "maharaj-nakhon-si-thammarat-hospital",
+    "name": "Maharaj Nakhon Si Thammarat Hospital",
+    "km": 7.3,
+    "rating": "3.00",
+    "city": "Nakhon Si Thammarat"
+   }
+  ],
+  "nakornping-hospital": [
+   {
+    "slug": "lanna-hospital",
+    "name": "Lanna Hospital",
+    "km": 5.0,
+    "rating": "2.60",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "chiangmai-ram-hospital",
+    "name": "Chiangmai Ram Hospital",
+    "km": 6.5,
+    "rating": "3.80",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "chiang-mai-university-hospital-maharaj",
+    "name": "Chiang Mai University Hospital (Maharaj)",
+    "km": 7.0,
+    "rating": "3.30",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "mccormick-hospital",
+    "name": "McCormick Hospital",
+    "km": 7.5,
+    "rating": "3.60",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "peach-clinic",
+    "name": "Peach Clinic คลินิกหมอพีช",
+    "km": 8.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-natchaya-clinic": [
+   {
+    "slug": "hdm-interrehab-neurobridge",
+    "name": "InterRehab NeuroBridge",
+    "km": 1.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-drchen-surgery-hospital-international-center",
+    "name": "Dr.CHEN Surgery Hospital International Center",
+    "km": 2.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-h8-clinic",
+    "name": "H8 Clinic",
+    "km": 3.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "kayagata-clinic",
+    "name": "Kayagata Clinic",
+    "km": 4.5,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "vejthani",
+    "name": "Vejthani Hospital",
+    "km": 5.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-newton-em-physiotherapy-clinic": [
+   {
+    "slug": "hdm-medconsult-bangkok-medical-clinic",
+    "name": "MedConsult Bangkok Medical Clinic",
+    "km": 0.0,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-menhance-clinic",
+    "name": "Menhance Clinic",
+    "km": 0.1,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-sukhumvit",
+    "name": "Samitivej Hospital Sukhumvit",
+    "km": 0.2,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-stc-anti-aging-wellness-clinic",
+    "name": "STC Anti-Aging & Wellness Clinic",
+    "km": 0.6,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-grace-tcm-clinic",
+    "name": "Grace TCM Clinic",
+    "km": 0.8,
+    "rating": "4.50",
+    "city": "Bangkok"
+   }
+  ],
+  "nonthavej-hospital": [
+   {
+    "slug": "thanisa-clinic",
+    "name": "Thanisa Clinic",
+    "km": 2.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "vibhavadi",
+    "name": "Vibhavadi Hospital",
+    "km": 2.4,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-cmc-wellness",
+    "name": "CMC Wellness",
+    "km": 2.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-patricia-clinic",
+    "name": "Patricia Clinic",
+    "km": 4.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bg-clinic",
+    "name": "BG Clinic (บีจีคลินิกเวชกรรม)",
+    "km": 4.0,
+    "rating": "4.30",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-ot-room-physical-therapy-clinic": [
+   {
+    "slug": "hdm-interrehab-brain-pain",
+    "name": "InterRehab Brain & Pain",
+    "km": 0.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bodyconscious-at-y-wellness",
+    "name": "BodyConscious at Y Wellness",
+    "km": 0.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "koa-clinic",
+    "name": "Koa Clinic (โคอา คลินิก)",
+    "km": 0.3,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-wellmed-bangkok-clinic",
+    "name": "Wellmed Bangkok Clinic",
+    "km": 0.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hum-clinic",
+    "name": "H.U.M. Clinic",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "paolo-chokchai4": [
+   {
+    "slug": "hdm-zhen-fu-clinic",
+    "name": "Zhen Fu Clinic",
+    "km": 0.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "tutt-medical-clinic",
+    "name": "ธรรศสหคลินิก Tutt Medical Clinic",
+    "km": 0.8,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "doctors-assess-case-first-time-veera-clinic",
+    "name": "Doctors Assess Case First Time Veera Clinic",
+    "km": 1.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hugsa-medical-clinic",
+    "name": "Hugsa Medical Clinic",
+    "km": 1.6,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mic-lab",
+    "name": "MIC Lab",
+    "km": 1.8,
+    "rating": null,
+    "city": "Bangkok"
+   }
+  ],
+  "paolo-kaset": [
+   {
+    "slug": "bg-clinic",
+    "name": "BG Clinic (บีจีคลินิกเวชกรรม)",
+    "km": 0.2,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-patricia-clinic",
+    "name": "Patricia Clinic",
+    "km": 0.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-life-balance-methodology",
+    "name": "Life Balance Methodology",
+    "km": 0.9,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-cmc-wellness",
+    "name": "CMC Wellness",
+    "km": 1.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "vibhavadi",
+    "name": "Vibhavadi Hospital",
+    "km": 1.8,
+    "rating": "4.70",
+    "city": "Bangkok"
+   }
+  ],
+  "paolo-rangsit": [
+   {
+    "slug": "hdm-semed-living-care-hospital",
+    "name": "SEMed Living Care Hospital",
+    "km": 2.2,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-cb-medical-and-lab-center",
+    "name": "CB Medical and Lab Center",
+    "km": 5.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-vanita-clinic",
+    "name": "Vanita Clinic",
+    "km": 7.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-120-wellness-villa",
+    "name": "120 Wellness Villa",
+    "km": 9.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "chalermpong-poly-clinic",
+    "name": "Chalermpong Poly Clinic",
+    "km": 10.0,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-patricia-clinic": [
+   {
+    "slug": "paolo-kaset",
+    "name": "Paolo Hospital Kaset",
+    "km": 0.4,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bg-clinic",
+    "name": "BG Clinic (บีจีคลินิกเวชกรรม)",
+    "km": 0.5,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-life-balance-methodology",
+    "name": "Life Balance Methodology",
+    "km": 0.9,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "vibhavadi",
+    "name": "Vibhavadi Hospital",
+    "km": 1.6,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-cmc-wellness",
+    "name": "CMC Wellness",
+    "km": 1.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "pattaya-international-hospital": [
+   {
+    "slug": "bangkok-hospital-pattaya",
+    "name": "Bangkok Hospital Pattaya",
+    "km": 2.2,
+    "rating": "4.40",
+    "city": "Pattaya"
+   }
+  ],
+  "hdm-pct-laboratory-services": [
+   {
+    "slug": "wellbase-saha-clinic",
+    "name": "Wellbase Saha Clinic (เวลล์เบสสหคลินิก)",
+    "km": 1.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-soyeon-clinic",
+    "name": "Soyeon Clinic",
+    "km": 1.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-laboratory-bangkok",
+    "name": "Prime Laboratory Bangkok",
+    "km": 2.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-phenomed-clinic",
+    "name": "Phenomed Clinic",
+    "km": 3.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "siriraj-hospital",
+    "name": "Siriraj Hospital",
+    "km": 3.8,
+    "rating": "4.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-pd-wellness-clinic": [
+   {
+    "slug": "hdm-high-life-clinic",
+    "name": "High Life Clinic",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-vaccine-point",
+    "name": "Vaccine Point",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-dr-clear-aligner",
+    "name": "Dr Clear Aligners",
+    "km": 1.1,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-infinity-clinic-by-dr-palm",
+    "name": "Infinity Clinic by Dr. Palm",
+    "km": 1.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-takara-ivf-bangkok",
+    "name": "Takara IVF Bangkok",
+    "km": 1.2,
+    "rating": "4.60",
+    "city": "Bangkok"
+   }
+  ],
+  "peach-clinic": [
+   {
+    "slug": "chiang-mai-university-hospital-maharaj",
+    "name": "Chiang Mai University Hospital (Maharaj)",
+    "km": 1.7,
+    "rating": "3.30",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "chiangmai-ram-hospital",
+    "name": "Chiangmai Ram Hospital",
+    "km": 2.3,
+    "rating": "3.80",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "rajavej-chiang-mai-hospital",
+    "name": "Rajavej Chiang Mai Hospital",
+    "km": 3.0,
+    "rating": "4.00",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "mccormick-hospital",
+    "name": "McCormick Hospital",
+    "km": 4.4,
+    "rating": "3.60",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "lanna-hospital",
+    "name": "Lanna Hospital",
+    "km": 4.5,
+    "rating": "2.60",
+    "city": "Chiang Mai"
+   }
+  ],
+  "hdm-phenomed-clinic": [
+   {
+    "slug": "hdm-prime-laboratory-bangkok",
+    "name": "Prime Laboratory Bangkok",
+    "km": 1.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "ramathibodi-hospital",
+    "name": "Ramathibodi Hospital",
+    "km": 2.9,
+    "rating": "3.10",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pct-laboratory-services",
+    "name": "PCT Laboratory Services",
+    "km": 3.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medtopia-clinic",
+    "name": "Medtopia Clinic",
+    "km": 3.1,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-fertility-center",
+    "name": "Prime Fertility Clinic",
+    "km": 3.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "phra-nakhon-si-ayutthaya-hospital": [
+   {
+    "slug": "rajthanee-hospital",
+    "name": "Rajthanee Hospital",
+    "km": 5.2,
+    "rating": "2.60",
+    "city": "Ayutthaya"
+   },
+   {
+    "slug": "rajthanee-rojana-hospital",
+    "name": "Rajthanee Rojana Hospital",
+    "km": 11.3,
+    "rating": "3.30",
+    "city": "Ayutthaya"
+   }
+  ],
+  "phuket-international-hospital": [
+   {
+    "slug": "bangkok-hospital-phuket",
+    "name": "Bangkok Hospital Phuket",
+    "km": 1.1,
+    "rating": "4.50",
+    "city": "Phuket"
+   },
+   {
+    "slug": "vachira-phuket-hospital",
+    "name": "Vachira Phuket Hospital",
+    "km": 1.7,
+    "rating": "2.80",
+    "city": "Phuket"
+   },
+   {
+    "slug": "mission-hospital-phuket",
+    "name": "Mission Hospital Phuket",
+    "km": 2.7,
+    "rating": "3.00",
+    "city": "Phuket"
+   },
+   {
+    "slug": "dibuk-hospital",
+    "name": "Dibuk Hospital",
+    "km": 3.0,
+    "rating": "3.00",
+    "city": "Phuket"
+   },
+   {
+    "slug": "chalong-hospital",
+    "name": "Chalong Hospital",
+    "km": 8.7,
+    "rating": "2.30",
+    "city": "Phuket"
+   }
+  ],
+  "phyathai-1": [
+   {
+    "slug": "hdm-amc-arix-medical-center",
+    "name": "AMC Arix Medical Center",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "rajavithi-hospital",
+    "name": "Rajavithi Hospital",
+    "km": 0.9,
+    "rating": "2.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-glove-clinic",
+    "name": "Glove Clinic",
+    "km": 1.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-gwellness",
+    "name": "Gwellness",
+    "km": 1.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-chinglian-tcm-clinic",
+    "name": "Chinglian TCM Clinic",
+    "km": 1.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "phyathai-2": [
+   {
+    "slug": "piyachart-clinic",
+    "name": "Piyachart Clinic",
+    "km": 0.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "rajavithi-hospital",
+    "name": "Rajavithi Hospital",
+    "km": 0.8,
+    "rating": "2.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-fertility-center",
+    "name": "Prime Fertility Clinic",
+    "km": 0.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-1",
+    "name": "Phyathai 1 Hospital",
+    "km": 1.6,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "ramathibodi-hospital",
+    "name": "Ramathibodi Hospital",
+    "km": 1.6,
+    "rating": "3.10",
+    "city": "Bangkok"
+   }
+  ],
+  "phyathai-3": [
+   {
+    "slug": "pills-for-1-week-thonburi-medical-center",
+    "name": "Pills For 1 Week Thonburi Medical Center",
+    "km": 2.2,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-nawamin",
+    "name": "Samitivej Hospital Nawamin",
+    "km": 2.9,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-thonburi-hospital",
+    "name": "Samitivej Thonburi Hospital",
+    "km": 2.9,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-physio-art-clinic",
+    "name": "Physio Art Clinic",
+    "km": 3.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bodylab-pilates",
+    "name": "BodyLab Pilates",
+    "km": 3.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "phyathai-phaholyothin-hospital": [
+   {
+    "slug": "hdm-bangkok-medical-lab",
+    "name": "Bangkok Medical Lab",
+    "km": 0.3,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mental-well-clinic",
+    "name": "Mental Well Clinic",
+    "km": 0.8,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-sleep-center",
+    "name": "Bangkok Sleep Center",
+    "km": 0.8,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medtopia-clinic",
+    "name": "Medtopia Clinic",
+    "km": 0.8,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-deep-harmonicare-ivf-center",
+    "name": "Deep & Harmonicare IVF Center",
+    "km": 0.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "phyathai-sriracha-hospital": [
+   {
+    "slug": "samitivej-sriracha-hospital",
+    "name": "Samitivej Sriracha Hospital",
+    "km": 1.1,
+    "rating": "4.60",
+    "city": "Chonburi"
+   }
+  ],
+  "hdm-physio-art-clinic": [
+   {
+    "slug": "bangpakok9",
+    "name": "Bangpakok 9 International Hospital",
+    "km": 1.5,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-nawamin",
+    "name": "Samitivej Hospital Nawamin",
+    "km": 2.4,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-thonburi-hospital",
+    "name": "Samitivej Thonburi Hospital",
+    "km": 2.4,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-3",
+    "name": "Phyathai 3 Hospital",
+    "km": 3.4,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bodylab-pilates",
+    "name": "BodyLab Pilates",
+    "km": 3.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "pills-for-1-week-thonburi-medical-center": [
+   {
+    "slug": "hdm-bodylab-pilates",
+    "name": "BodyLab Pilates",
+    "km": 1.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-nawamin",
+    "name": "Samitivej Hospital Nawamin",
+    "km": 1.6,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-thonburi-hospital",
+    "name": "Samitivej Thonburi Hospital",
+    "km": 1.6,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-3",
+    "name": "Phyathai 3 Hospital",
+    "km": 2.2,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "king-taksin-memorial-hospital",
+    "name": "King Taksin Memorial Hospital",
+    "km": 2.7,
+    "rating": "2.90",
+    "city": "Bangkok"
+   }
+  ],
+  "piyachart-clinic": [
+   {
+    "slug": "phyathai-2",
+    "name": "Phyathai 2 Hospital",
+    "km": 0.2,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "rajavithi-hospital",
+    "name": "Rajavithi Hospital",
+    "km": 0.6,
+    "rating": "2.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-fertility-center",
+    "name": "Prime Fertility Clinic",
+    "km": 1.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-1",
+    "name": "Phyathai 1 Hospital",
+    "km": 1.4,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "ramathibodi-hospital",
+    "name": "Ramathibodi Hospital",
+    "km": 1.4,
+    "rating": "3.10",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-pmg-hospital": [
+   {
+    "slug": "hdm-mywelltality",
+    "name": "MyWelltality",
+    "km": 4.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bangpakok9",
+    "name": "Bangpakok 9 International Hospital",
+    "km": 6.6,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-vac2home-clinic",
+    "name": "Vac2home Clinic",
+    "km": 7.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "kasemrad-hospital-bang-khae",
+    "name": "Kasemrad Hospital Bang Khae",
+    "km": 7.0,
+    "rating": "3.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-physio-art-clinic",
+    "name": "Physio Art Clinic",
+    "km": 7.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "praram9": [
+   {
+    "slug": "hdm-w9-wellness-center",
+    "name": "W9 Wellness Center โรงพยาบาลพระรามเก้า",
+    "km": 0.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-dr-trin-wellness",
+    "name": "Dr. Trin Wellness",
+    "km": 0.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-joy-of-minds-by-masterwork-clinic",
+    "name": "JOY OF MINDS CLINIC",
+    "km": 1.3,
+    "rating": "3.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bangkok-hospital",
+    "name": "Bangkok Hospital (BDMS HQ)",
+    "km": 1.4,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-charismma-clinic",
+    "name": "Charismma Clinic",
+    "km": 1.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-prime-fertility-center": [
+   {
+    "slug": "hdm-deep-harmonicare-ivf-center",
+    "name": "Deep & Harmonicare IVF Center",
+    "km": 0.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-2",
+    "name": "Phyathai 2 Hospital",
+    "km": 0.9,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "piyachart-clinic",
+    "name": "Piyachart Clinic",
+    "km": 1.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-medical-lab",
+    "name": "Bangkok Medical Lab",
+    "km": 1.5,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medtopia-clinic",
+    "name": "Medtopia Clinic",
+    "km": 1.5,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-prime-laboratory-bangkok": [
+   {
+    "slug": "hdm-phenomed-clinic",
+    "name": "Phenomed Clinic",
+    "km": 1.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-sexual-health-center",
+    "name": "Bangkok Sexual Health Center",
+    "km": 2.1,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "ramathibodi-hospital",
+    "name": "Ramathibodi Hospital",
+    "km": 2.4,
+    "rating": "3.10",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "wellbase-saha-clinic",
+    "name": "Wellbase Saha Clinic (เวลล์เบสสหคลินิก)",
+    "km": 2.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-the-pavilion-health-clinic",
+    "name": "The Pavilion Health Clinic",
+    "km": 2.9,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-prime-wellness-at-your-home": [
+   {
+    "slug": "hdm-moves-d-clinic",
+    "name": "Moves D Clinic",
+    "km": 0.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "vejthani",
+    "name": "Vejthani Hospital",
+    "km": 0.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "ramkhamhaeng-hospital-chiang-mai",
+    "name": "Ramkhamhaeng Hospital Chiang Mai",
+    "km": 0.7,
+    "rating": "4.70",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "hdm-medical-line-lab",
+    "name": "Medical Line Lab",
+    "km": 0.9,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "ladprao-general-hospital",
+    "name": "Ladprao General Hospital",
+    "km": 1.8,
+    "rating": "3.30",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-pwc-healthy-and-skin": [
+   {
+    "slug": "hdm-botan-clinic",
+    "name": "BOTAN CLINIC",
+    "km": 0.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-drpunjai-clinic",
+    "name": "Dr.Punjai Clinic",
+    "km": 2.8,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangchak-medical-clinic",
+    "name": "Bangchak Medical Clinic",
+    "km": 3.1,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-apc-clinic",
+    "name": "APC Clinic",
+    "km": 3.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ubosu-clinic",
+    "name": "UBOSU Clinic",
+    "km": 3.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "rajavej-chiang-mai-hospital": [
+   {
+    "slug": "peach-clinic",
+    "name": "Peach Clinic คลินิกหมอพีช",
+    "km": 3.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bangkok-hospital-chiang-mai",
+    "name": "Bangkok Hospital Chiang Mai",
+    "km": 3.3,
+    "rating": "3.60",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "mccormick-hospital",
+    "name": "McCormick Hospital",
+    "km": 3.6,
+    "rating": "3.60",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "chiang-mai-university-hospital-maharaj",
+    "name": "Chiang Mai University Hospital (Maharaj)",
+    "km": 4.0,
+    "rating": "3.30",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "chiangmai-ram-hospital",
+    "name": "Chiangmai Ram Hospital",
+    "km": 4.2,
+    "rating": "3.80",
+    "city": "Chiang Mai"
+   }
+  ],
+  "rajavithi-hospital": [
+   {
+    "slug": "piyachart-clinic",
+    "name": "Piyachart Clinic",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-2",
+    "name": "Phyathai 2 Hospital",
+    "km": 0.8,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-amc-arix-medical-center",
+    "name": "AMC Arix Medical Center",
+    "km": 0.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-1",
+    "name": "Phyathai 1 Hospital",
+    "km": 0.9,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "ramathibodi-hospital",
+    "name": "Ramathibodi Hospital",
+    "km": 1.1,
+    "rating": "3.10",
+    "city": "Bangkok"
+   }
+  ],
+  "rajthanee-hospital": [
+   {
+    "slug": "phra-nakhon-si-ayutthaya-hospital",
+    "name": "Phra Nakhon Si Ayutthaya Hospital",
+    "km": 5.2,
+    "rating": "3.00",
+    "city": "Ayutthaya"
+   },
+   {
+    "slug": "rajthanee-rojana-hospital",
+    "name": "Rajthanee Rojana Hospital",
+    "km": 6.9,
+    "rating": "3.30",
+    "city": "Ayutthaya"
+   }
+  ],
+  "rajthanee-rojana-hospital": [
+   {
+    "slug": "rajthanee-hospital",
+    "name": "Rajthanee Hospital",
+    "km": 6.9,
+    "rating": "2.60",
+    "city": "Ayutthaya"
+   },
+   {
+    "slug": "phra-nakhon-si-ayutthaya-hospital",
+    "name": "Phra Nakhon Si Ayutthaya Hospital",
+    "km": 11.3,
+    "rating": "3.00",
+    "city": "Ayutthaya"
+   }
+  ],
+  "hdm-raksa-physio": [
+   {
+    "slug": "hdm-btlab",
+    "name": "BTLAB",
+    "km": 0.5,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "kluaynamthai-hospital",
+    "name": "Kluaynamthai Hospital",
+    "km": 1.1,
+    "rating": "3.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-takara-ivf-bangkok",
+    "name": "Takara IVF Bangkok",
+    "km": 1.2,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-infinity-clinic-by-dr-palm",
+    "name": "Infinity Clinic by Dr. Palm",
+    "km": 1.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-max-wellness-clinic",
+    "name": "Max Wellness Clinic",
+    "km": 1.3,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "ramathibodi-hospital": [
+   {
+    "slug": "rajavithi-hospital",
+    "name": "Rajavithi Hospital",
+    "km": 1.1,
+    "rating": "2.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-amc-arix-medical-center",
+    "name": "AMC Arix Medical Center",
+    "km": 1.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "piyachart-clinic",
+    "name": "Piyachart Clinic",
+    "km": 1.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-2",
+    "name": "Phyathai 2 Hospital",
+    "km": 1.6,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-glove-clinic",
+    "name": "Glove Clinic",
+    "km": 1.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "ramkhamhaeng-hospital-chiang-mai": [
+   {
+    "slug": "hdm-prime-wellness-at-your-home",
+    "name": "Prime Wellness at your Home",
+    "km": 0.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-moves-d-clinic",
+    "name": "Moves D Clinic",
+    "km": 1.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "vejthani",
+    "name": "Vejthani Hospital",
+    "km": 1.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "samitivej-srinakarin",
+    "name": "Samitivej Hospital Srinakarin",
+    "km": 1.5,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medical-line-lab",
+    "name": "Medical Line Lab",
+    "km": 1.5,
+    "rating": "4.50",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-regenelife-vital-center": [
+   {
+    "slug": "king-chulalongkorn-memorial-hospital",
+    "name": "King Chulalongkorn Memorial Hospital",
+    "km": 0.6,
+    "rating": "3.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-wa-wellness-clinic",
+    "name": "WA Wellness Clinic",
+    "km": 0.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-g-nipt-thailand",
+    "name": "G-NIPT Thailand",
+    "km": 0.8,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ew-villa-medica-bangkok",
+    "name": "EW Villa Medica Bangkok",
+    "km": 1.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "mediprime-clinic",
+    "name": "MediPrime Clinic (เมดิไพร์ม คลินิก)",
+    "km": 1.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "ruamphat-phitsanulok-hospital": [
+   {
+    "slug": "buddhachinaraj-hospital",
+    "name": "Buddhachinaraj Hospital",
+    "km": 0.4,
+    "rating": "3.10",
+    "city": "Phitsanulok"
+   },
+   {
+    "slug": "bangkok-hospital-phitsanulok",
+    "name": "Bangkok Hospital Phitsanulok",
+    "km": 1.6,
+    "rating": "4.00",
+    "city": "Phitsanulok"
+   }
+  ],
+  "hdm-s-mart-anti-aging-wellness-center": [
+   {
+    "slug": "hdm-laser-vision-bangkok-eye-hospital",
+    "name": "Laser Vision Bangkok Eye Hospital",
+    "km": 1.7,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-wellnex-clinic",
+    "name": "Wellnex Clinic",
+    "km": 1.8,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bewellasiaco",
+    "name": "bewellasia.co",
+    "km": 1.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hugsa-medical-clinic",
+    "name": "Hugsa Medical Clinic",
+    "km": 3.2,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-me-center",
+    "name": "Me Center",
+    "km": 3.2,
+    "rating": "4.60",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-safe-clinic": [
+   {
+    "slug": "hdm-clinical-laboratory-center",
+    "name": "Clinical Laboratory Center",
+    "km": 0.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medical-trend-clinic-lab",
+    "name": "Medical Trend Clinic Lab",
+    "km": 0.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hum-clinic",
+    "name": "H.U.M. Clinic",
+    "km": 0.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-blez-clinic",
+    "name": "BLEZ Clinic",
+    "km": 0.4,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-brain-rehab-clinic",
+    "name": "Brain Rehab Clinic",
+    "km": 0.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "samitivej-chonburi-hospital": [
+   {
+    "slug": "chonburi-hospital",
+    "name": "Chonburi Hospital",
+    "km": 1.0,
+    "rating": "2.90",
+    "city": "Chonburi"
+   }
+  ],
+  "samitivej-nawamin": [
+   {
+    "slug": "samitivej-thonburi-hospital",
+    "name": "Samitivej Thonburi Hospital",
+    "km": 0.0,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bodylab-pilates",
+    "name": "BodyLab Pilates",
+    "km": 1.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "pills-for-1-week-thonburi-medical-center",
+    "name": "Pills For 1 Week Thonburi Medical Center",
+    "km": 1.6,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-menness-wellness",
+    "name": "Menness Wellness",
+    "km": 2.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-physio-art-clinic",
+    "name": "Physio Art Clinic",
+    "km": 2.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "samitivej-srinakarin": [
+   {
+    "slug": "ramkhamhaeng-hospital-chiang-mai",
+    "name": "Ramkhamhaeng Hospital Chiang Mai",
+    "km": 1.5,
+    "rating": "4.70",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "hdm-prime-wellness-at-your-home",
+    "name": "Prime Wellness at your Home",
+    "km": 2.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-moves-d-clinic",
+    "name": "Moves D Clinic",
+    "km": 2.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "vejthani",
+    "name": "Vejthani Hospital",
+    "km": 2.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medical-line-lab",
+    "name": "Medical Line Lab",
+    "km": 2.9,
+    "rating": "4.50",
+    "city": "Bangkok"
+   }
+  ],
+  "samitivej-sukhumvit": [
+   {
+    "slug": "hdm-menhance-clinic",
+    "name": "Menhance Clinic",
+    "km": 0.1,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medconsult-bangkok-medical-clinic",
+    "name": "MedConsult Bangkok Medical Clinic",
+    "km": 0.2,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-newton-em-physiotherapy-clinic",
+    "name": "Newton EM Physiotherapy Clinic (นิวตั้น เอ็ม คลินิกกายภาพบำบัด)",
+    "km": 0.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-stc-anti-aging-wellness-clinic",
+    "name": "STC Anti-Aging & Wellness Clinic",
+    "km": 0.6,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-grace-tcm-clinic",
+    "name": "Grace TCM Clinic",
+    "km": 0.6,
+    "rating": "4.50",
+    "city": "Bangkok"
+   }
+  ],
+  "samitivej-sriracha-hospital": [
+   {
+    "slug": "phyathai-sriracha-hospital",
+    "name": "Phyathai Sriracha Hospital",
+    "km": 1.1,
+    "rating": "4.40",
+    "city": "Chonburi"
+   }
+  ],
+  "samitivej-thonburi-hospital": [
+   {
+    "slug": "samitivej-nawamin",
+    "name": "Samitivej Hospital Nawamin",
+    "km": 0.0,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bodylab-pilates",
+    "name": "BodyLab Pilates",
+    "km": 1.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "pills-for-1-week-thonburi-medical-center",
+    "name": "Pills For 1 Week Thonburi Medical Center",
+    "km": 1.6,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-menness-wellness",
+    "name": "Menness Wellness",
+    "km": 2.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-physio-art-clinic",
+    "name": "Physio Art Clinic",
+    "km": 2.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "samui-international-hospital": [
+   {
+    "slug": "bangkok-hospital-samui",
+    "name": "Bangkok Hospital Samui",
+    "km": 3.5,
+    "rating": "3.80",
+    "city": "Koh Samui"
+   }
+  ],
+  "samut-prakan-hospital": [
+   {
+    "slug": "more-clinic",
+    "name": "More Clinic (มอร์ คลินิกเวชกรรม)",
+    "km": 7.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "sikarin",
+    "name": "Sikarin Hospital",
+    "km": 9.5,
+    "rating": "4.20",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-anti-aging-center",
+    "name": "Bangkok Anti-Aging Center",
+    "km": 10.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-kloss-wellness-clinic",
+    "name": "Kloss Wellness Clinic",
+    "km": 11.0,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ubosu-clinic",
+    "name": "UBOSU Clinic",
+    "km": 11.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "san-paulo-hospital": [
+   {
+    "slug": "bangkok-hospital-hua-hin",
+    "name": "Bangkok Hospital Hua Hin",
+    "km": 1.1,
+    "rating": "4.40",
+    "city": "Hua Hin"
+   }
+  ],
+  "santiraks-clinic": [
+   {
+    "slug": "ladprao-general-hospital",
+    "name": "Ladprao General Hospital",
+    "km": 1.1,
+    "rating": "3.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bria-health-center",
+    "name": "BRIA Health Center",
+    "km": 1.2,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medical-line-lab",
+    "name": "Medical Line Lab",
+    "km": 1.4,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-wellness-at-your-home",
+    "name": "Prime Wellness at your Home",
+    "km": 1.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-moves-d-clinic",
+    "name": "Moves D Clinic",
+    "km": 1.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-semed-living-care-hospital": [
+   {
+    "slug": "paolo-rangsit",
+    "name": "Paolo Hospital Rangsit",
+    "km": 2.2,
+    "rating": "3.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-cb-medical-and-lab-center",
+    "name": "CB Medical and Lab Center",
+    "km": 5.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-120-wellness-villa",
+    "name": "120 Wellness Villa",
+    "km": 7.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "chalermpong-poly-clinic",
+    "name": "Chalermpong Poly Clinic",
+    "km": 8.2,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-vanita-clinic",
+    "name": "Vanita Clinic",
+    "km": 8.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-sesh-clinic": [
+   {
+    "slug": "n-health",
+    "name": "N Health (เอ็นเฮลท์)",
+    "km": 0.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "happybirth-clinic",
+    "name": "happybirth clinic (สีลม)",
+    "km": 0.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-gowoonmom-clinic",
+    "name": "Gowoonmom Clinic",
+    "km": 0.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bnh",
+    "name": "BNH Hospital",
+    "km": 0.6,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-eatwellconcept",
+    "name": "Eatwellconcept",
+    "km": 0.9,
+    "rating": null,
+    "city": "Bangkok"
+   }
+  ],
+  "sikarin": [
+   {
+    "slug": "hdm-bangkok-anti-aging-center",
+    "name": "Bangkok Anti-Aging Center",
+    "km": 1.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-drpunjai-clinic",
+    "name": "Dr.Punjai Clinic",
+    "km": 3.7,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-apc-clinic",
+    "name": "APC Clinic",
+    "km": 3.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ubosu-clinic",
+    "name": "UBOSU Clinic",
+    "km": 4.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-kloss-wellness-clinic",
+    "name": "Kloss Wellness Clinic",
+    "km": 4.9,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-sirin-clinic": [
+   {
+    "slug": "hdm-century-care-center",
+    "name": "Century Care Center",
+    "km": 3.2,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hcs-health-care-and-skin",
+    "name": "HCS Health Care and Skin",
+    "km": 3.7,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-botan-clinic",
+    "name": "BOTAN CLINIC",
+    "km": 6.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-drpunjai-clinic",
+    "name": "Dr.Punjai Clinic",
+    "km": 6.8,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pwc-healthy-and-skin",
+    "name": "PWC Healthy and Skin",
+    "km": 6.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "siriraj-hospital": [
+   {
+    "slug": "thonburi",
+    "name": "Thonburi Hospital",
+    "km": 0.6,
+    "rating": "3.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-sexual-health-center",
+    "name": "Bangkok Sexual Health Center",
+    "km": 2.0,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "wellbase-saha-clinic",
+    "name": "Wellbase Saha Clinic (เวลล์เบสสหคลินิก)",
+    "km": 2.1,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-soyeon-clinic",
+    "name": "Soyeon Clinic",
+    "km": 2.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-laboratory-bangkok",
+    "name": "Prime Laboratory Bangkok",
+    "km": 3.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "songklanagarind-hospital": [
+   {
+    "slug": "bangkok-hospital-hat-yai",
+    "name": "Bangkok Hospital Hat Yai",
+    "km": 1.4,
+    "rating": "4.00",
+    "city": "Hat Yai"
+   },
+   {
+    "slug": "hdm-avatreat-clinic",
+    "name": "Avatreat Clinic",
+    "km": 2.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hatyai-hospital",
+    "name": "Hatyai Hospital",
+    "km": 3.2,
+    "rating": "3.20",
+    "city": "Hat Yai"
+   }
+  ],
+  "hdm-soul-clinic": [
+   {
+    "slug": "hdm-bds-clinic",
+    "name": "BDS Clinic",
+    "km": 0.5,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-divine-aesthetic-clinic",
+    "name": "Divine Aesthetic Clinic",
+    "km": 1.8,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-dr-trin-wellness",
+    "name": "Dr. Trin Wellness",
+    "km": 2.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mic-lab",
+    "name": "MIC Lab",
+    "km": 2.1,
+    "rating": null,
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-cytogenetics-center",
+    "name": "Bangkok Cytogenetics Center",
+    "km": 2.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-soyeon-clinic": [
+   {
+    "slug": "wellbase-saha-clinic",
+    "name": "Wellbase Saha Clinic (เวลล์เบสสหคลินิก)",
+    "km": 1.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pct-laboratory-services",
+    "name": "PCT Laboratory Services",
+    "km": 1.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "siriraj-hospital",
+    "name": "Siriraj Hospital",
+    "km": 2.6,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "thonburi",
+    "name": "Thonburi Hospital",
+    "km": 2.9,
+    "rating": "3.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-laboratory-bangkok",
+    "name": "Prime Laboratory Bangkok",
+    "km": 3.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-spectrum-wellness": [
+   {
+    "slug": "hdm-intellihealthplus-rejuvenation-clinic-by-stem",
+    "name": "IntelliHealthPlus Rejuvenation Clinic by StemCells21",
+    "km": 0.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-dr-clear-aligner",
+    "name": "Dr Clear Aligners",
+    "km": 1.0,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-vaccine-point",
+    "name": "Vaccine Point",
+    "km": 1.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-grace-tcm-clinic",
+    "name": "Grace TCM Clinic",
+    "km": 1.1,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ot-room-physical-therapy-clinic",
+    "name": "OT Room Physical Therapy Clinic",
+    "km": 1.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "sri-rayong-hospital": [
+   {
+    "slug": "bangkok-hospital-rayong",
+    "name": "Bangkok Hospital Rayong",
+    "km": 8.0,
+    "rating": "4.00",
+    "city": "Rayong"
+   }
+  ],
+  "srinagarind-hospital": [
+   {
+    "slug": "bangkok-hospital-khonkaen",
+    "name": "Bangkok Hospital KhonKaen",
+    "km": 3.1,
+    "rating": "4.30",
+    "city": "Khon Kaen"
+   },
+   {
+    "slug": "khon-kaen-ram-hospital",
+    "name": "Khon Kaen Ram Hospital",
+    "km": 4.0,
+    "rating": "4.60",
+    "city": "Khon Kaen"
+   }
+  ],
+  "hdm-stc-anti-aging-wellness-clinic": [
+   {
+    "slug": "mei-house-clinic",
+    "name": "MEi House Clinic (เมอิเฮ้าส์คลินิก)",
+    "km": 0.4,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-newton-em-physiotherapy-clinic",
+    "name": "Newton EM Physiotherapy Clinic (นิวตั้น เอ็ม คลินิกกายภาพบำบัด)",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medconsult-bangkok-medical-clinic",
+    "name": "MedConsult Bangkok Medical Clinic",
+    "km": 0.6,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-grace-tcm-clinic",
+    "name": "Grace TCM Clinic",
+    "km": 0.6,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-menhance-clinic",
+    "name": "Menhance Clinic",
+    "km": 0.6,
+    "rating": "4.40",
+    "city": "Bangkok"
+   }
+  ],
+  "suratthani-hospital": [
+   {
+    "slug": "bangkok-hospital-surat-thani",
+    "name": "Bangkok Hospital Surat Thani",
+    "km": 1.9,
+    "rating": "4.30",
+    "city": "Surat Thani"
+   },
+   {
+    "slug": "thaksin-hospital",
+    "name": "Thaksin Hospital",
+    "km": 3.7,
+    "rating": "3.80",
+    "city": "Surat Thani"
+   }
+  ],
+  "synphaet-ramintra-hospital": [
+   {
+    "slug": "kayagata-clinic",
+    "name": "Kayagata Clinic",
+    "km": 1.0,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-h8-clinic",
+    "name": "H8 Clinic",
+    "km": 1.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-the-gent-clinic",
+    "name": "The Gent Clinic",
+    "km": 3.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bewellasiaco",
+    "name": "bewellasia.co",
+    "km": 3.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-wellnex-clinic",
+    "name": "Wellnex Clinic",
+    "km": 3.7,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-takara-ivf-bangkok": [
+   {
+    "slug": "kluaynamthai-hospital",
+    "name": "Kluaynamthai Hospital",
+    "km": 0.1,
+    "rating": "3.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-infinity-clinic-by-dr-palm",
+    "name": "Infinity Clinic by Dr. Palm",
+    "km": 0.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-high-life-clinic",
+    "name": "High Life Clinic",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pd-wellness-clinic",
+    "name": "PD Wellness Clinic",
+    "km": 1.2,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-raksa-physio",
+    "name": "Raksa Physio",
+    "km": 1.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "thaksin-hospital": [
+   {
+    "slug": "suratthani-hospital",
+    "name": "Suratthani Hospital",
+    "km": 3.7,
+    "rating": "3.20",
+    "city": "Surat Thani"
+   },
+   {
+    "slug": "bangkok-hospital-surat-thani",
+    "name": "Bangkok Hospital Surat Thani",
+    "km": 5.2,
+    "rating": "4.30",
+    "city": "Surat Thani"
+   }
+  ],
+  "thalang-hospital": [
+   {
+    "slug": "bangkok-hospital-phuket",
+    "name": "Bangkok Hospital Phuket",
+    "km": 13.9,
+    "rating": "4.50",
+    "city": "Phuket"
+   },
+   {
+    "slug": "mission-hospital-phuket",
+    "name": "Mission Hospital Phuket",
+    "km": 14.1,
+    "rating": "3.00",
+    "city": "Phuket"
+   },
+   {
+    "slug": "phuket-international-hospital",
+    "name": "Phuket International Hospital",
+    "km": 14.3,
+    "rating": "4.50",
+    "city": "Phuket"
+   },
+   {
+    "slug": "vachira-phuket-hospital",
+    "name": "Vachira Phuket Hospital",
+    "km": 14.9,
+    "rating": "2.80",
+    "city": "Phuket"
+   }
+  ],
+  "thanisa-clinic": [
+   {
+    "slug": "hdm-cmc-wellness",
+    "name": "CMC Wellness",
+    "km": 0.8,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "vibhavadi",
+    "name": "Vibhavadi Hospital",
+    "km": 1.3,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "nonthavej-hospital",
+    "name": "Nonthavej Hospital",
+    "km": 2.1,
+    "rating": "3.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bg-clinic",
+    "name": "BG Clinic (บีจีคลินิกเวชกรรม)",
+    "km": 2.3,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "paolo-kaset",
+    "name": "Paolo Hospital Kaset",
+    "km": 2.4,
+    "rating": "4.30",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-the-gent-clinic": [
+   {
+    "slug": "hdm-bewellasiaco",
+    "name": "bewellasia.co",
+    "km": 2.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-wellnex-clinic",
+    "name": "Wellnex Clinic",
+    "km": 2.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-laser-vision-bangkok-eye-hospital",
+    "name": "Laser Vision Bangkok Eye Hospital",
+    "km": 3.2,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "synphaet-ramintra-hospital",
+    "name": "Synphaet Ramintra Hospital",
+    "km": 3.6,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-s-mart-anti-aging-wellness-center",
+    "name": "S-Mart Anti-aging Wellness Center",
+    "km": 3.8,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-the-pavilion-health-clinic": [
+   {
+    "slug": "hdm-m-clinic",
+    "name": "M Clinic",
+    "km": 1.2,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-sexual-health-center",
+    "name": "Bangkok Sexual Health Center",
+    "km": 1.5,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-glove-clinic",
+    "name": "Glove Clinic",
+    "km": 1.8,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-chinglian-tcm-clinic",
+    "name": "Chinglian TCM Clinic",
+    "km": 1.8,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-amc-arix-medical-center",
+    "name": "AMC Arix Medical Center",
+    "km": 2.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "thonburi": [
+   {
+    "slug": "siriraj-hospital",
+    "name": "Siriraj Hospital",
+    "km": 0.6,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-sexual-health-center",
+    "name": "Bangkok Sexual Health Center",
+    "km": 2.4,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "wellbase-saha-clinic",
+    "name": "Wellbase Saha Clinic (เวลล์เบสสหคลินิก)",
+    "km": 2.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "pills-for-1-week-thonburi-medical-center",
+    "name": "Pills For 1 Week Thonburi Medical Center",
+    "km": 2.8,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-soyeon-clinic",
+    "name": "Soyeon Clinic",
+    "km": 2.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-trustme-plus-clinic": [
+   {
+    "slug": "hdm-hcs-health-care-and-skin",
+    "name": "HCS Health Care and Skin",
+    "km": 6.0,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "sikarin",
+    "name": "Sikarin Hospital",
+    "km": 7.9,
+    "rating": "4.20",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangkok-anti-aging-center",
+    "name": "Bangkok Anti-Aging Center",
+    "km": 8.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-drpunjai-clinic",
+    "name": "Dr.Punjai Clinic",
+    "km": 9.6,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-sirin-clinic",
+    "name": "Sirin Clinic",
+    "km": 9.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-ubosu-clinic": [
+   {
+    "slug": "hdm-apc-clinic",
+    "name": "APC Clinic",
+    "km": 0.8,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-kloss-wellness-clinic",
+    "name": "Kloss Wellness Clinic",
+    "km": 1.1,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-id-life-clinic",
+    "name": "ID Life Clinic",
+    "km": 2.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bangchak-medical-clinic",
+    "name": "Bangchak Medical Clinic",
+    "km": 2.1,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-max-wellness-clinic",
+    "name": "Max Wellness Clinic",
+    "km": 2.6,
+    "rating": "4.80",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-vac2home-clinic": [
+   {
+    "slug": "kasemrad-hospital-bang-khae",
+    "name": "Kasemrad Hospital Bang Khae",
+    "km": 1.4,
+    "rating": "3.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mywelltality",
+    "name": "MyWelltality",
+    "km": 2.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "phyathai-3",
+    "name": "Phyathai 3 Hospital",
+    "km": 5.8,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pmg-hospital",
+    "name": "PMG Hospital",
+    "km": 7.0,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-physio-art-clinic",
+    "name": "Physio Art Clinic",
+    "km": 7.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-vaccine-point": [
+   {
+    "slug": "hdm-dr-clear-aligner",
+    "name": "Dr Clear Aligners",
+    "km": 0.6,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pd-wellness-clinic",
+    "name": "PD Wellness Clinic",
+    "km": 0.6,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-high-life-clinic",
+    "name": "High Life Clinic",
+    "km": 0.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-spectrum-wellness",
+    "name": "Spectrum Wellness",
+    "km": 1.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-intellihealthplus-rejuvenation-clinic-by-stem",
+    "name": "IntelliHealthPlus Rejuvenation Clinic by StemCells21",
+    "km": 1.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "vachira-phuket-hospital": [
+   {
+    "slug": "bangkok-hospital-phuket",
+    "name": "Bangkok Hospital Phuket",
+    "km": 1.1,
+    "rating": "4.50",
+    "city": "Phuket"
+   },
+   {
+    "slug": "mission-hospital-phuket",
+    "name": "Mission Hospital Phuket",
+    "km": 1.4,
+    "rating": "3.00",
+    "city": "Phuket"
+   },
+   {
+    "slug": "phuket-international-hospital",
+    "name": "Phuket International Hospital",
+    "km": 1.7,
+    "rating": "4.50",
+    "city": "Phuket"
+   },
+   {
+    "slug": "dibuk-hospital",
+    "name": "Dibuk Hospital",
+    "km": 3.8,
+    "rating": "3.00",
+    "city": "Phuket"
+   },
+   {
+    "slug": "chalong-hospital",
+    "name": "Chalong Hospital",
+    "km": 9.3,
+    "rating": "2.30",
+    "city": "Phuket"
+   }
+  ],
+  "hdm-valor-clinic": [
+   {
+    "slug": "hdm-biomed-microbiome-dna",
+    "name": "Biomed Microbiome DNA",
+    "km": 0.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mabella-clinic",
+    "name": "Mabella Clinic",
+    "km": 0.5,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "mevis-clinic",
+    "name": "Mevis Clinic",
+    "km": 0.8,
+    "rating": "4.20",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bodyset-physiotherapy",
+    "name": "BODYSET Physiotherapy",
+    "km": 1.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bnh",
+    "name": "BNH Hospital",
+    "km": 2.0,
+    "rating": "4.40",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-vanita-clinic": [
+   {
+    "slug": "hdm-chevanon-clinic",
+    "name": "Chevanon Clinic",
+    "km": 4.4,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-cb-medical-and-lab-center",
+    "name": "CB Medical and Lab Center",
+    "km": 4.9,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "paolo-rangsit",
+    "name": "Paolo Hospital Rangsit",
+    "km": 7.6,
+    "rating": "3.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-semed-living-care-hospital",
+    "name": "SEMed Living Care Hospital",
+    "km": 8.7,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "nonthavej-hospital",
+    "name": "Nonthavej Hospital",
+    "km": 9.0,
+    "rating": "3.60",
+    "city": "Bangkok"
+   }
+  ],
+  "vejthani": [
+   {
+    "slug": "hdm-moves-d-clinic",
+    "name": "Moves D Clinic",
+    "km": 0.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-wellness-at-your-home",
+    "name": "Prime Wellness at your Home",
+    "km": 0.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medical-line-lab",
+    "name": "Medical Line Lab",
+    "km": 0.6,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "ramkhamhaeng-hospital-chiang-mai",
+    "name": "Ramkhamhaeng Hospital Chiang Mai",
+    "km": 1.2,
+    "rating": "4.70",
+    "city": "Chiang Mai"
+   },
+   {
+    "slug": "ladprao-general-hospital",
+    "name": "Ladprao General Hospital",
+    "km": 1.5,
+    "rating": "3.30",
+    "city": "Bangkok"
+   }
+  ],
+  "vibhavadi": [
+   {
+    "slug": "hdm-cmc-wellness",
+    "name": "CMC Wellness",
+    "km": 0.8,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "thanisa-clinic",
+    "name": "Thanisa Clinic",
+    "km": 1.3,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-patricia-clinic",
+    "name": "Patricia Clinic",
+    "km": 1.6,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bg-clinic",
+    "name": "BG Clinic (บีจีคลินิกเวชกรรม)",
+    "km": 1.7,
+    "rating": "4.30",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "paolo-kaset",
+    "name": "Paolo Hospital Kaset",
+    "km": 1.8,
+    "rating": "4.30",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-w-medic": [
+   {
+    "slug": "hdm-adam-wellness-clinic",
+    "name": "Adam Wellness Clinic",
+    "km": 3.9,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-dgan-physio-clinic",
+    "name": "DGAN Physio Clinic",
+    "km": 5.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-atgenes",
+    "name": "ATGenes",
+    "km": 9.9,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bsr-healthcare",
+    "name": "BSR Healthcare",
+    "km": 10.5,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pct-laboratory-services",
+    "name": "PCT Laboratory Services",
+    "km": 11.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-w9-wellness-center": [
+   {
+    "slug": "praram9",
+    "name": "Praram 9 Hospital",
+    "km": 0.0,
+    "rating": "4.10",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-dr-trin-wellness",
+    "name": "Dr. Trin Wellness",
+    "km": 0.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-joy-of-minds-by-masterwork-clinic",
+    "name": "JOY OF MINDS CLINIC",
+    "km": 1.3,
+    "rating": "3.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "bangkok-hospital",
+    "name": "Bangkok Hospital (BDMS HQ)",
+    "km": 1.4,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-charismma-clinic",
+    "name": "Charismma Clinic",
+    "km": 1.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-wa-wellness-clinic": [
+   {
+    "slug": "hdm-regenelife-vital-center",
+    "name": "Regenelife Vital Center",
+    "km": 0.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-absolute-health-clinic",
+    "name": "Absolute Health Clinic",
+    "km": 0.8,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-ibaby-fertility-genetic-center",
+    "name": "iBaby Fertility & Genetic Center",
+    "km": 0.9,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-apex-medical-center",
+    "name": "APEX Medical Center",
+    "km": 1.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-genz-clinic",
+    "name": "GenZ Clinic",
+    "km": 1.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "wellbase-saha-clinic": [
+   {
+    "slug": "hdm-soyeon-clinic",
+    "name": "Soyeon Clinic",
+    "km": 1.0,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pct-laboratory-services",
+    "name": "PCT Laboratory Services",
+    "km": 1.7,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "siriraj-hospital",
+    "name": "Siriraj Hospital",
+    "km": 2.1,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-laboratory-bangkok",
+    "name": "Prime Laboratory Bangkok",
+    "km": 2.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "thonburi",
+    "name": "Thonburi Hospital",
+    "km": 2.6,
+    "rating": "3.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-wellmed-bangkok-clinic": [
+   {
+    "slug": "hdm-brain-rehab-clinic",
+    "name": "Brain Rehab Clinic",
+    "km": 0.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-blez-clinic",
+    "name": "BLEZ Clinic",
+    "km": 0.1,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hum-clinic",
+    "name": "H.U.M. Clinic",
+    "km": 0.2,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "koa-clinic",
+    "name": "Koa Clinic (โคอา คลินิก)",
+    "km": 0.3,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-bodyconscious-at-y-wellness",
+    "name": "BodyConscious at Y Wellness",
+    "km": 0.4,
+    "rating": "4.90",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-wellnex-clinic": [
+   {
+    "slug": "hdm-bewellasiaco",
+    "name": "bewellasia.co",
+    "km": 0.4,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-laser-vision-bangkok-eye-hospital",
+    "name": "Laser Vision Bangkok Eye Hospital",
+    "km": 0.8,
+    "rating": "4.60",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-s-mart-anti-aging-wellness-center",
+    "name": "S-Mart Anti-aging Wellness Center",
+    "km": 1.8,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-the-gent-clinic",
+    "name": "The Gent Clinic",
+    "km": 2.5,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "synphaet-ramintra-hospital",
+    "name": "Synphaet Ramintra Hospital",
+    "km": 3.7,
+    "rating": "4.60",
+    "city": "Bangkok"
+   }
+  ],
+  "hdm-zhen-fu-clinic": [
+   {
+    "slug": "paolo-chokchai4",
+    "name": "Paolo Hospital Chokchai 4",
+    "km": 0.5,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "tutt-medical-clinic",
+    "name": "ธรรศสหคลินิก Tutt Medical Clinic",
+    "km": 1.0,
+    "rating": "4.50",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mic-lab",
+    "name": "MIC Lab",
+    "km": 1.4,
+    "rating": null,
+    "city": "Bangkok"
+   },
+   {
+    "slug": "doctors-assess-case-first-time-veera-clinic",
+    "name": "Doctors Assess Case First Time Veera Clinic",
+    "km": 2.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hugsa-medical-clinic",
+    "name": "Hugsa Medical Clinic",
+    "km": 2.1,
+    "rating": "4.40",
+    "city": "Bangkok"
+   }
+  ],
+  "tutt-medical-clinic": [
+   {
+    "slug": "paolo-chokchai4",
+    "name": "Paolo Hospital Chokchai 4",
+    "km": 0.8,
+    "rating": "4.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-zhen-fu-clinic",
+    "name": "Zhen Fu Clinic",
+    "km": 1.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "doctors-assess-case-first-time-veera-clinic",
+    "name": "Doctors Assess Case First Time Veera Clinic",
+    "km": 1.1,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-hugsa-medical-clinic",
+    "name": "Hugsa Medical Clinic",
+    "km": 1.2,
+    "rating": "4.40",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-glam-glow-wellness-centre",
+    "name": "Glam Glow Wellness Centre",
+    "km": 1.6,
+    "rating": "5.00",
+    "city": "Bangkok"
+   }
+  ]
+ },
+ "province": {
+  "hdm-120-wellness-villa": "pathum-thani",
+  "hdm-abhai-wellness": "bangkok",
+  "hdm-absolute-health-clinic": "bangkok",
+  "hdm-adam-wellness-clinic": "nonthaburi",
+  "hdm-addlife-total-check-up-center": "bangkok",
+  "aek-udon-international-hospital": "udon-thani",
+  "hdm-aestiq-clinic": "bangkok",
+  "hdm-amc-arix-medical-center": "bangkok",
+  "hdm-anissa-clinic": "bangkok",
+  "hdm-apc-clinic": "bangkok",
+  "hdm-apex-medical-center": "bangkok",
+  "hdm-aqua-bkk-aesthetic-wellness-clinic": "bangkok",
+  "asia-hospital": "bangkok",
+  "hdm-atgenes": "bangkok",
+  "hdm-avanti-wellness": "bangkok",
+  "hdm-avatreat-clinic": "songkhla",
+  "hdm-baihuitang-clinic": "bangkok",
+  "hdm-bandara-spa": "bangkok",
+  "hdm-bangchak-medical-clinic": "bangkok",
+  "hdm-bangkok-anti-aging-center": "bangkok",
+  "bangkok-christian-nakhon-pathom-hospital": "nakhon-pathom",
+  "hdm-bangkok-cytogenetics-center": "bangkok",
+  "hdm-bangkok-genomics-innovation": "bangkok",
+  "bangkok-hospital": "phetchaburi",
+  "bangkok-hospital-chanthaburi": "chanthaburi",
+  "bangkok-hospital-chiang-mai": "chiang-mai",
+  "bangkok-hospital-chiang-rai": "chiang-rai",
+  "bangkok-hospital-hat-yai": "songkhla",
+  "bangkok-hospital-hua-hin": "prachuap-khiri-khan",
+  "bangkok-hospital-khonkaen": "khon-kaen",
+  "bangkok-hospital-pattaya": "chon-buri",
+  "bangkok-hospital-phitsanulok": "phitsanulok",
+  "bangkok-hospital-phuket": "phuket",
+  "bangkok-hospital-ratchasima": "nakhon-ratchasima",
+  "bangkok-hospital-rayong": "rayong",
+  "bangkok-hospital-samui": "surat-thani",
+  "bangkok-hospital-surat-thani": "surat-thani",
+  "bangkok-hospital-trat": "trat",
+  "bangkok-hospital-udon": "udon-thani",
+  "hdm-bangkok-medical-lab": "bangkok",
+  "bangkok-medical-laboratory": "bangkok",
+  "bangkok-sanam-chan-hospital": "nakhon-pathom",
+  "hdm-bangkok-sexual-health-center": "bangkok",
+  "hdm-bangkok-sleep-center": "bangkok",
+  "bangmod-hospital": "bangkok",
+  "bangpakok-1-hospital": "bangkok",
+  "bangpakok-8-hospital": "bangkok",
+  "bangpakok9": "bangkok",
+  "hdm-bds-clinic": "bangkok",
+  "hdm-befriends-clinic": "bangkok",
+  "hdm-begift-clinic": "bangkok",
+  "hdm-beglam-clinic": "bangkok",
+  "hdm-bellalin-clinic": "bangkok",
+  "hdm-chanya-clinic": "bangkok",
+  "hdm-bewellasiaco": "bangkok",
+  "bg-clinic": "bangkok",
+  "hdm-biomed-microbiome-dna": "bangkok",
+  "hdm-blez-clinic": "bangkok",
+  "bnh": "bangkok",
+  "hdm-chirovedic-clinic": "bangkok",
+  "hdm-bodyconscious-at-y-wellness": "bangkok",
+  "hdm-bodylab-pilates": "bangkok",
+  "bodyset-physiotherapy": "bangkok",
+  "hdm-botan-clinic": "bangkok",
+  "hdm-bp-clinic": "bangkok",
+  "hdm-brain-rehab-clinic": "bangkok",
+  "hdm-bria-health-center": "bangkok",
+  "hdm-bsr-healthcare": "nonthaburi",
+  "hdm-btlab": "bangkok",
+  "buddhachinaraj-hospital": "phitsanulok",
+  "bumrungrad": "bangkok",
+  "camillian-social-center-rayong-csc-rayong": "rayong",
+  "hdm-cb-medical-and-lab-center": "pathum-thani",
+  "hdm-century-care-center": "bangkok",
+  "chada-clinic": "bangkok",
+  "chalermpong-clinic": "bangkok",
+  "chalermpong-poly-clinic": "bangkok",
+  "chalong-hospital": "phuket",
+  "hdm-chanun-aesthetic-wellness": "bangkok",
+  "chaophya-hospital": "bangkok",
+  "hdm-charismma-clinic": "bangkok",
+  "hdm-checkgo-by-occicare": "bangkok",
+  "hdm-cher-clinic": "phetchaburi",
+  "hdm-chevanon-clinic": "nonthaburi",
+  "chiang-mai-university-hospital-maharaj": "chiang-mai",
+  "chiang-rai-ram-hospital": "chiang-rai",
+  "chiangmai-ram-hospital": "chiang-mai",
+  "hdm-chinglian-tcm-clinic": "bangkok",
+  "chivi-clinic": "bangkok",
+  "chonburi-hospital": "chon-buri",
+  "hdm-clinical-laboratory-center": "bangkok",
+  "hdm-cmc-wellness": "bangkok",
+  "hdm-de-balance-massage-relax": "bangkok",
+  "hdm-deep-harmonicare-ivf-center": "bangkok",
+  "hdm-dgan-physio-clinic": "nonthaburi",
+  "dibuk-hospital": "phuket",
+  "hdm-divine-aesthetic-clinic": "bangkok",
+  "doctors-assess-case-first-time-veera-clinic": "bangkok",
+  "hdm-dr-clear-aligner": "bangkok",
+  "hdm-dr-one-clinic": "bangkok",
+  "hdm-dr-trin-wellness": "bangkok",
+  "hdm-drchen-surgery-hospital-international-center": "bangkok",
+  "hdm-drpunjai-clinic": "bangkok",
+  "hdm-e-den-clinic": "bangkok",
+  "hdm-eatwellconcept": "bangkok",
+  "ekachai-hospital": "samut-sakhon",
+  "hdm-elixa-clinic": "bangkok",
+  "hdm-ew-villa-medica-bangkok": "bangkok",
+  "hdm-forest-massage-spa-onsen-thonglor": "bangkok",
+  "hdm-g-nipt-thailand": "bangkok",
+  "hdm-geneus-dna": "bangkok",
+  "hdm-gentle-clinic": "bangkok",
+  "hdm-genz-clinic": "bangkok",
+  "hdm-glam-glow-wellness-centre": "bangkok",
+  "hdm-glamora-clinic": "bangkok",
+  "hdm-glove-clinic": "phetchaburi",
+  "hdm-gowoonmom-clinic": "bangkok",
+  "hdm-grace-tcm-clinic": "bangkok",
+  "hdm-gui-tang-wellness": "bangkok",
+  "hdm-gwellness": "bangkok",
+  "hdm-hum-clinic": "bangkok",
+  "hdm-h8-clinic": "bangkok",
+  "happybirth-clinic": "bangkok",
+  "hdm-harmony-life-center": "bangkok",
+  "hatyai-hospital": "songkhla",
+  "hdm-hcs-health-care-and-skin": "bangkok",
+  "hdm-health-focus-clinic": "pathum-thani",
+  "hdm-healthy-me": "bangkok",
+  "hicare": "bangkok",
+  "hdm-high-life-clinic": "bangkok",
+  "hdm-hugsa-medical-clinic": "bangkok",
+  "hdm-ibaby-fertility-genetic-center": "bangkok",
+  "hdm-id-life-clinic": "bangkok",
+  "hdm-infinity-clinic-by-dr-palm": "bangkok",
+  "hdm-innerheal-wellness": "bangkok",
+  "hdm-intellihealthplus-rejuvenation-clinic-by-stem": "bangkok",
+  "hdm-interrehab-brain-pain": "bangkok",
+  "hdm-interrehab-neurobridge": "bangkok",
+  "hdm-jessica-clinic": "bangkok",
+  "hdm-jetanin-hospital": "bangkok",
+  "hdm-joy-of-minds-by-masterwork-clinic": "bangkok",
+  "karaboon-wellness": "bangkok",
+  "kasemrad-hospital-bang-khae": "bangkok",
+  "hdm-kawintra-clinic": "bangkok",
+  "kayagata-clinic": "bangkok",
+  "hdm-ketsarin-physiotherapy-clinic": "bangkok",
+  "khelangnakorn-ram-hospital": "lampang",
+  "khon-kaen-ram-hospital": "khon-kaen",
+  "king-chulalongkorn-memorial-hospital": "bangkok",
+  "king-taksin-memorial-hospital": "bangkok",
+  "hdm-kloss-wellness-clinic": "bangkok",
+  "kluaynamthai-hospital": "bangkok",
+  "koa-clinic": "bangkok",
+  "koh-chang-hospital": "trat",
+  "koh-chang-international-hospital": "trat",
+  "koh-chang-medical-clinic": "trat",
+  "krabi-hospital": "krabi",
+  "lab-center-clinic": "bangkok",
+  "ladprao-general-hospital": "bangkok",
+  "hdm-laks-thai-massage": "bangkok",
+  "lampang-hospital": "lampang",
+  "lanna-hospital": "chiang-mai",
+  "hdm-laser-vision-bangkok-eye-hospital": "bangkok",
+  "hdm-life-balance-methodology": "bangkok",
+  "hdm-loft-thai-spa-tea-house": "bangkok",
+  "hdm-m-clinic": "bangkok",
+  "hdm-mabella-clinic": "bangkok",
+  "mae-fah-luang-university-medical-center-hospital": "chiang-rai",
+  "maharaj-nakhon-si-thammarat-hospital": "nakhon-si-thammarat",
+  "maharat-nakhon-ratchasima-hospital": "nakhon-ratchasima",
+  "hdm-matrix-clinic": "bangkok",
+  "hdm-max-wellness-clinic": "bangkok",
+  "mccormick-hospital": "chiang-mai",
+  "hdm-me-center": "bangkok",
+  "hdm-me-medical-clinic": "bangkok",
+  "hdm-medconsult-bangkok-medical-clinic": "bangkok",
+  "hdm-medical-line-lab": "bangkok",
+  "hdm-medical-trend-clinic-lab": "bangkok",
+  "mediprime-clinic": "bangkok",
+  "medpark": "bangkok",
+  "hdm-medtopia-clinic": "bangkok",
+  "mei-house-clinic": "bangkok",
+  "hdm-memory-clinic": "bangkok",
+  "hdm-menhance-clinic": "bangkok",
+  "hdm-menness-wellness": "bangkok",
+  "hdm-mental-well-clinic": "kamphaeng-phet",
+  "mevis-clinic": "bangkok",
+  "mi-clinic": "bangkok",
+  "hdm-mic-lab": "bangkok",
+  "mission-hospital-phuket": "phuket",
+  "hdm-mn-medical-clinic": "bangkok",
+  "more-clinic": "samut-prakan",
+  "hdm-moves-d-clinic": "bangkok",
+  "hdm-mywelltality": "bangkok",
+  "n-health": "bangkok",
+  "hdm-nadlada-clinic": "phetchaburi",
+  "nakharin-hospital": "nakhon-si-thammarat",
+  "nakornping-hospital": "chiang-mai",
+  "nakornthon-hospital": "bangkok",
+  "hdm-natchaya-clinic": "bangkok",
+  "navamin-9-hospital": "bangkok",
+  "navavej-hospital": "bangkok",
+  "hdm-neat-wellness-clinic": "nonthaburi",
+  "hdm-newton-em-physiotherapy-clinic": "bangkok",
+  "nicha-clinic": "chiang-mai",
+  "hdm-nnail": "bangkok",
+  "nonthavej-hospital": "nonthaburi",
+  "hdm-origene-clinic": "chon-buri",
+  "hdm-ot-room-physical-therapy-clinic": "bangkok",
+  "hdm-paiparin-health-massage": "bangkok",
+  "paolo-chokchai4": "bangkok",
+  "paolo-kaset": "bangkok",
+  "paolo-rangsit": "pathum-thani",
+  "hdm-patricia-clinic": "bangkok",
+  "pattaya-international-hospital": "chon-buri",
+  "hdm-pb-clinic": "bangkok",
+  "hdm-pct-laboratory-services": "bangkok",
+  "hdm-pd-wellness-clinic": "bangkok",
+  "peach-clinic": "chiang-mai",
+  "hdm-perfect-figure-slimming-spa": "bangkok",
+  "hdm-phenomed-clinic": "bangkok",
+  "phra-nakhon-si-ayutthaya-hospital": "phra-nakhon-si-ayutthaya",
+  "phuket-international-hospital": "phuket",
+  "phyathai-1": "bangkok",
+  "phyathai-2": "phetchaburi",
+  "phyathai-3": "nonthaburi",
+  "phyathai-phaholyothin-hospital": "bangkok",
+  "phyathai-sriracha-hospital": "chon-buri",
+  "hdm-physio-art-clinic": "bangkok",
+  "pills-for-1-week-thonburi-medical-center": "bangkok",
+  "pitsanuvej-hospital": "phitsanulok",
+  "piyachart-clinic": "bangkok",
+  "piyavate-hospital": "bangkok",
+  "hdm-pmg-hospital": "bangkok",
+  "porrak-polyclinic": "phetchabun",
+  "praram9": "bangkok",
+  "hdm-pratunam-thai-massage": "phetchaburi",
+  "hdm-prime-fertility-center": "bangkok",
+  "hdm-prime-laboratory-bangkok": "bangkok",
+  "hdm-prime-wellness-at-your-home": "bangkok",
+  "hdm-pwc-healthy-and-skin": "bangkok",
+  "hdm-r3-life-wellness-center": "bangkok",
+  "rajavej-chiang-mai-hospital": "chiang-mai",
+  "rajavithi-hospital": "bangkok",
+  "rajthanee-hospital": "phra-nakhon-si-ayutthaya",
+  "rajthanee-rojana-hospital": "phra-nakhon-si-ayutthaya",
+  "rakkhao-hospital": "bangkok",
+  "hdm-raksa-physio": "bangkok",
+  "ramathibodi-hospital": "bangkok",
+  "ramkhamhaeng-hospital-chiang-mai": "chiang-mai",
+  "hdm-regenelife-vital-center": "bangkok",
+  "rei-clinic": "nonthaburi",
+  "reva-clinic": "bangkok",
+  "ruamphat-phitsanulok-hospital": "phitsanulok",
+  "hdm-s-mart-anti-aging-wellness-center": "bangkok",
+  "hdm-safe-clinic": "bangkok",
+  "samitivej-chonburi-hospital": "chon-buri",
+  "samitivej-nawamin": "bangkok",
+  "samitivej-srinakarin": "bangkok",
+  "samitivej-sukhumvit": "bangkok",
+  "samitivej-sriracha-hospital": "chon-buri",
+  "samitivej-thonburi-hospital": "bangkok",
+  "samui-international-hospital": "surat-thani",
+  "samut-prakan-hospital": "samut-prakan",
+  "san-paulo-hospital": "prachuap-khiri-khan",
+  "santiraks-clinic": "bangkok",
+  "hdm-semed-living-care-hospital": "pathum-thani",
+  "hdm-sesh-clinic": "bangkok",
+  "sikarin": "bangkok",
+  "hdm-sirin-clinic": "bangkok",
+  "siriraj-hospital": "bangkok",
+  "siriroj-hospital": "phuket",
+  "hdm-smile-massage-ekkamai": "bangkok",
+  "songklanagarind-hospital": "songkhla",
+  "hdm-soul-clinic": "bangkok",
+  "hdm-soyeon-clinic": "bangkok",
+  "hdm-spectrum-wellness": "bangkok",
+  "sri-rayong-hospital": "rayong",
+  "srinagarind-hospital": "khon-kaen",
+  "hdm-stc-anti-aging-wellness-clinic": "bangkok",
+  "suratthani-hospital": "surat-thani",
+  "synphaet-ramintra-hospital": "bangkok",
+  "hdm-takara-ivf-bangkok": "bangkok",
+  "thaksin-hospital": "surat-thani",
+  "thalang-hospital": "phuket",
+  "thanisa-clinic": "bangkok",
+  "hdm-the-gent-clinic": "bangkok",
+  "hdm-the-pavilion-health-clinic": "bangkok",
+  "thonburi": "bangkok",
+  "thonburi-medical-center": "bangkok",
+  "hdm-thrive-wellness": "bangkok",
+  "trr-clinic": "bangkok",
+  "hdm-trustme-plus-clinic": "samut-prakan",
+  "hdm-u-wellness-center": "bangkok",
+  "hdm-ubosu-clinic": "bangkok",
+  "hdm-vac2home-clinic": "bangkok",
+  "hdm-vaccine-point": "bangkok",
+  "vachira-phuket-hospital": "phuket",
+  "hdm-valor-clinic": "bangkok",
+  "hdm-vanita-clinic": "bangkok",
+  "vejthani": "bangkok",
+  "vibhavadi": "bangkok",
+  "vichaiyut-hospital": "bangkok",
+  "vimut-hospital": "bangkok",
+  "hdm-vital-glow-skin-aesthetic": "bangkok",
+  "hdm-w-medic": "nonthaburi",
+  "hdm-w9-wellness-center": "bangkok",
+  "hdm-wa-wellness-clinic": "bangkok",
+  "walailak-university-hospital": "nakhon-si-thammarat",
+  "wattanapat-hospital-trang": "phatthalung",
+  "hdm-welida-health": "bangkok",
+  "wellbase-saha-clinic": "bangkok",
+  "hdm-wellmed-bangkok-clinic": "bangkok",
+  "hdm-wellnex-clinic": "bangkok",
+  "yanhee-hospital": "bangkok",
+  "yume-clinic": "chiang-mai",
+  "hdm-yuva-wellness-center": "bangkok",
+  "hdm-zhen-fu-clinic": "bangkok",
+  "tutt-medical-clinic": "bangkok",
+  "boonyindee-medical-clinic": "ratchaburi",
+  "pruksa-clinic": "bangkok"
+ },
+ "non_medical": [
+  "chada-clinic",
+  "hdm-abhai-wellness",
+  "hdm-aestiq-clinic",
+  "hdm-anissa-clinic",
+  "hdm-aqua-bkk-aesthetic-wellness-clinic",
+  "hdm-avanti-wellness",
+  "hdm-bandara-spa",
+  "hdm-befriends-clinic",
+  "hdm-begift-clinic",
+  "hdm-beglam-clinic",
+  "hdm-bellalin-clinic",
+  "hdm-bp-clinic",
+  "hdm-chanun-aesthetic-wellness",
+  "hdm-chanya-clinic",
+  "hdm-checkgo-by-occicare",
+  "hdm-cher-clinic",
+  "hdm-de-balance-massage-relax",
+  "hdm-dr-one-clinic",
+  "hdm-e-den-clinic",
+  "hdm-elixa-clinic",
+  "hdm-forest-massage-spa-onsen-thonglor",
+  "hdm-geneus-dna",
+  "hdm-gentle-clinic",
+  "hdm-glamora-clinic",
+  "hdm-harmony-life-center",
+  "hdm-healthy-me",
+  "hdm-innerheal-wellness",
+  "hdm-kawintra-clinic",
+  "hdm-laks-thai-massage",
+  "hdm-loft-thai-spa-tea-house",
+  "hdm-matrix-clinic",
+  "hdm-me-medical-clinic",
+  "hdm-memory-clinic",
+  "hdm-nadlada-clinic",
+  "hdm-neat-wellness-clinic",
+  "hdm-nnail",
+  "hdm-origene-clinic",
+  "hdm-paiparin-health-massage",
+  "hdm-pb-clinic",
+  "hdm-perfect-figure-slimming-spa",
+  "hdm-pratunam-thai-massage",
+  "hdm-r3-life-wellness-center",
+  "hdm-smile-massage-ekkamai",
+  "hdm-thrive-wellness",
+  "hdm-u-wellness-center",
+  "hdm-vital-glow-skin-aesthetic",
+  "hdm-welida-health",
+  "hdm-yuva-wellness-center",
+  "hicare",
+  "mi-clinic",
+  "nicha-clinic",
+  "pruksa-clinic",
+  "rei-clinic",
+  "reva-clinic",
+  "trr-clinic",
+  "yume-clinic"
+ ]
+}

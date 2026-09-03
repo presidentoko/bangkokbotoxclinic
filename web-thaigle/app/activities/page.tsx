@@ -82,6 +82,7 @@ export default async function ActivitiesPage() {
   const counts = nicheData;
   const countMap = Object.fromEntries(counts.map((c) => [c.slug, c.total]));
   const totalPlaces = counts.reduce((s, c) => s + c.total, 0);
+  const faqs = activitiesFaqs(countMap);
   const featuredByNiche = Object.fromEntries(
     nicheData
       .filter((n) => n.topPlaces.length > 0)
@@ -357,13 +358,13 @@ export default async function ActivitiesPage() {
         <div className="grid sm:grid-cols-2 gap-4">
           <VersusVote
             question="First Bangkok experience?"
-            a={{ id: "muay-thai", label: "Muay Thai", emoji: "🥊", desc: "Train like a local. Beginner sessions from ฿300.", url: "/activities/muay-thai", highlight: "381+ gyms" }}
-            b={{ id: "spa", label: "Thai Massage", emoji: "💆", desc: "Relax first, explore later. From ฿200/hr.", url: "/activities/spa", highlight: "2,000+ venues" }}
+            a={{ id: "muay-thai", label: "Muay Thai", emoji: "🥊", desc: "Train like a local. Beginner sessions from ฿300.", url: "/activities/muay-thai", highlight: `${countMap["muay-thai"]?.toLocaleString() ?? ""} gyms` }}
+            b={{ id: "spa", label: "Thai Massage", emoji: "💆", desc: "Relax first, explore later. From ฿200/hr.", url: "/activities/spa", highlight: `${countMap["spa"]?.toLocaleString() ?? ""} venues` }}
           />
           <VersusVote
             question="Best couple activity?"
-            a={{ id: "cooking", label: "Cooking Class", emoji: "👨‍🍳", desc: "Cook together, eat together. ฿800–฿1,800.", url: "/activities/cooking", highlight: "296+ classes" }}
-            b={{ id: "yoga", label: "Couples Yoga", emoji: "🧘", desc: "Stretch and zen out as a duo. From ฿400.", url: "/activities/yoga-pilates", highlight: "284+ studios" }}
+            a={{ id: "cooking", label: "Cooking Class", emoji: "👨‍🍳", desc: "Cook together, eat together. ฿800–฿1,800.", url: "/activities/cooking", highlight: `${countMap["cooking"]?.toLocaleString() ?? ""} classes` }}
+            b={{ id: "yoga", label: "Couples Yoga", emoji: "🧘", desc: "Stretch and zen out as a duo. From ฿400.", url: "/activities/yoga-pilates", highlight: `${countMap["yoga-pilates"]?.toLocaleString() ?? ""} studios` }}
           />
         </div>
         <div className="mt-4">
@@ -418,7 +419,7 @@ export default async function ActivitiesPage() {
       <section className="mt-4">
         <h2 className="text-2xl font-black tracking-tight mb-5">Frequently Asked About Bangkok Activities</h2>
         <div className="space-y-3">
-          {ACTIVITIES_FAQS.map((f, i) => (
+          {faqs.map((f, i) => (
             <details key={i} className="bg-white border border-[var(--border)] rounded-xl p-4 group">
               <summary className="font-medium cursor-pointer flex items-center justify-between gap-3 text-sm">
                 <span>{f.q}</span>
@@ -429,19 +430,24 @@ export default async function ActivitiesPage() {
           ))}
         </div>
       </section>
-      <FaqJsonLd faqs={ACTIVITIES_FAQS} />
+      <FaqJsonLd faqs={faqs} />
     </div>
   );
 }
 
-const ACTIVITIES_FAQS = [
+// Counts inside the FAQ answers are read off the same live totals the page
+// renders, so a data refresh can never leave the prose claiming venues we no
+// longer publish (it claimed "296+ classes" against 264 real pages).
+function activitiesFaqs(countMap: Record<string, number>) {
+  const n = (k: string) => (countMap[k] ?? 0).toLocaleString();
+  return [
   {
     q: "What are the best activities to do in Bangkok in 2026?",
-    a: "Bangkok's top activities in 2026 include: Muay Thai training (฿300–฿800/session at 381+ gyms), traditional Thai massage and spa (from ฿200/hour at 2,000+ venues), Thai cooking classes with market visits (฿800–฿1,800 at 296+ schools), yoga and Pilates (from ฿400/class at 284+ studios), coworking spaces for digital nomads (฿250–฿600/day), and diving day trips to Pattaya and Koh Larn (from ฿1,800). All ranked by real Google reviews on Thaigle.",
+    a: `Bangkok's top activities in 2026 include: Muay Thai training (฿300–฿800/session at ${n("muay-thai")} ranked gyms), traditional Thai massage and spa (from ฿200/hour at ${n("spa")} ranked venues), Thai cooking classes with market visits (฿800–฿1,800 at ${n("cooking")} ranked schools), yoga and Pilates (from ฿400/class at ${n("yoga-pilates")} ranked studios), coworking spaces for digital nomads (฿250–฿600/day), and diving day trips to Pattaya and Koh Larn (from ฿1,800). All ranked by real Google reviews on Thaigle.`,
   },
   {
     q: "What is the most popular activity for tourists in Bangkok?",
-    a: "Thai massage and spa is the most-booked activity for Bangkok tourists — with 2,000+ venues, it's accessible everywhere, and prices start at just ฿200/hour. Muay Thai training (especially 1–2 session experiences via Klook) and Thai cooking classes are close seconds. First-time visitors typically combine all three over a 3–5 day stay.",
+    a: `Thai massage and spa is the most-booked activity for Bangkok tourists — with ${n("spa")} ranked venues, it's accessible everywhere, and prices start at just ฿200/hour. Muay Thai training (especially 1–2 session experiences via Klook) and Thai cooking classes are close seconds. First-time visitors typically combine all three over a 3–5 day stay.`,
   },
   {
     q: "How much do Bangkok activities cost in 2026?",
@@ -459,4 +465,5 @@ const ACTIVITIES_FAQS = [
     q: "What is the best area in Bangkok for activities?",
     a: "Sukhumvit (BTS Asoke to Thong Lo): Best for Muay Thai gyms, yoga studios, and cooking classes. High concentration of foreigner-friendly venues. Silom: Dense spa area, several Muay Thai camps nearby. Ari: Best yoga and wellness scene, quieter than Sukhumvit. Chatuchak/Mo Chit: Traditional Muay Thai camps with lower prices. For diving day trips, most operators depart from central Bangkok (Sukhumvit area) for Pattaya/Koh Larn.",
   },
-];
+  ];
+}

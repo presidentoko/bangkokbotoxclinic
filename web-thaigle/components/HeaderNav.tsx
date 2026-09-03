@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 type LinkItem = { href: string; label: string };
 
 const PRIMARY: LinkItem[] = [
+  { href: "/verify", label: "Verify" },
   { href: "/restaurants/cuisine/thai", label: "Thai" },
   { href: "/activities", label: "Activities" },
   { href: "/trending", label: "Trending" },

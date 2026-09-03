@@ -1,8 +1,12 @@
 name: Scrape Prices
 
 on:
+  # Once a day, 03:00 Bangkok. It used to be every 6 hours, and because the
+  # scraper stamped a fresh scraped_at on every row the diff was never empty —
+  # so each run committed and triggered a full 2,274-page production rebuild,
+  # about five a day, whether or not a single price had moved.
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 20 * * *'
   workflow_dispatch:
 
 permissions:
@@ -23,20 +27,28 @@ jobs:
       - name: Install deps
         run: pip install requests beautifulsoup4 rapidfuzz
 
-      - name: Run scraper
+      - name: Scrape every booking provider and rebuild the registry
         run: python scripts/price_scraper.py
 
-      - name: Check for changes
+      - name: Check for real changes
         id: diff
-        run: git diff --quiet && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+        # Ignore lines that only carry a timestamp: generated_at and
+        # scraped_at change on every run by definition, and deploying for
+        # them costs a full rebuild and buys nothing.
+        run: |
+          if git diff --quiet -I 'generated_at' -I 'scraped_at' -- web-golf/data; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
 
       - name: Commit and push
         if: steps.diff.outputs.changed == 'true'
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git add web-golf/data/price_matrix.json web-golf/data/unmatched_prices.json
-          git commit -m "data: price_matrix update [skip ci]"
+          git add web-golf/data/providers web-golf/data/provider_registry.json
+          git commit -m "data: booking provider rates update [skip ci]"
           git push
 
       - name: Install Vercel CLI

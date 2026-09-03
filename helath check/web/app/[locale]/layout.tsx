@@ -71,6 +71,9 @@ function NavBar({ locale }: { locale: Locale }) {
   const navItems = [
     { href: `${base}/compare`, label: t(locale, "nav_compare") },
     { href: `${base}/hospital`, label: t(locale, "nav_hospitals") },
+    // The national register — every hospital in Thailand, not only the ones
+    // we hold prices for.
+    { href: `${base}/directory`, label: "All hospitals" },
     { href: `${base}/guide`, label: t(locale, "nav_guide") },
     { href: `${base}/trends`, label: t(locale, "nav_trends") },
     { href: `${base}/saved`, label: t(locale, "nav_saved") },

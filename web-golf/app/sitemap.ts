@@ -54,7 +54,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/methodology`, lastModified: updated, changeFrequency: "monthly", priority: 0.75 },
     { url: `${SITE}/compare`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 },
     { url: `${SITE}/price-compare`, lastModified: updated, changeFrequency: "daily", priority: 0.85 },
-    { url: `${SITE}/tee-times`, lastModified: updated, changeFrequency: "hourly", priority: 0.9 },
     { url: `${SITE}/conditions`, lastModified: updated, changeFrequency: "hourly", priority: 0.85 },
     {
       url: `${SITE}/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8,
@@ -177,7 +176,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const priceMatrix = await loadPriceMatrix();
   const pricedIds = new Set(
     toPriceRows(priceMatrix)
-      .filter((r) => r.weekday_morning_total !== null || r.weekend_morning_total !== null)
+      .filter((r) => r.weekday_greenfee !== null || r.weekend_greenfee !== null)
       .map((r) => r.course_id),
   );
   const golf = golfOnly(db.restaurants);
@@ -232,7 +231,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // lastmod 는 실제로 바뀐 페이지에만 새 시각을 준다.
   // master_db.generated_at 은 2026-05-13 에 멈춰 있는데 이건 버그가 아니라 사실이다 —
-  // 매일 갱신되는 건 price_matrix / tee_times / drainage 이고 리뷰 코퍼스는 그때가 마지막이다.
+  // 매일 갱신되는 건 provider 가격 / drainage 이고 리뷰 코퍼스는 그때가 마지막이다.
   // 전 URL 에 빌드 시각을 찍으면 "매일 전부 바뀐다"는 거짓 신호가 되어 구글이 lastmod 자체를
   // 무시하기 시작한다. 그래서 가격이 재수집된 코스만 그 시각을 쓴다.
   const priceScrapedAt = new Map<string, string>();

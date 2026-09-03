@@ -36,7 +36,7 @@ export async function generateMetadata({
 }
 
 const CATEGORIES = [
-  { icon: "🍜", label: "Eat", href: "/restaurants/bangkok", desc: "3,200+ restaurants ranked by real reviews" },
+  { icon: "🍜", label: "Eat", href: "/restaurants/bangkok", desc: "Every Bangkok restaurant with a real Google footprint, ranked" },
   { icon: "🥊", label: "Train", href: "/activities/muay-thai", desc: "Muay Thai gyms from ฿300/session" },
   { icon: "💆", label: "Spa & Massage", href: "/activities/spa", desc: "Thai massage & spas from ฿200" },
   { icon: "💉", label: "Clinic", href: "/clinics", desc: "Aesthetic clinics — botox, fillers, facials" },

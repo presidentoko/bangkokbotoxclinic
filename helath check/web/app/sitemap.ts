@@ -272,9 +272,45 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const hospitalsWithPackages = new Set(
     Array.from(realCombos).map((k) => k.split("::")[1]),
   );
+  // A page also earns its place when it is a substantial profile without
+  // prices. 188 hospitals have no scraped package and 61 of those are real
+  // hospitals — Siriraj, Chulalongkorn, Ramathibodi, the provincial BDMS
+  // branches — with an address, a phone number, opening hours, a rating and,
+  // for some, a row on the national register. Someone searching that hospital
+  // by name is looking for exactly that page. Salons and spas are excluded
+  // outright, and a listing with nothing but a name still stays out.
+  const { getHospital: loadOne } = await import("@/lib/db");
+  const { registryMatch, isMedicalFacility } = await import("@/lib/registry");
+  const substantial = new Set<string>();
   for (const slug of slugs) {
-    if (!hospitalsWithPackages.has(slug)) continue;
-    specs.push({ path: `/hospital/${enc(slug)}`, priority: 0.8, changeFrequency: "weekly" });
+    if (hospitalsWithPackages.has(slug) || !isMedicalFacility(slug)) continue;
+    const h = await loadOne(slug);
+    if (!h) continue;
+    const signals =
+      (h.phone ? 1 : 0) +
+      (h.address ? 1 : 0) +
+      (h.opening_hours?.length ? 1 : 0) +
+      (h.rating ? 1 : 0) +
+      (registryMatch(slug) ? 1 : 0);
+    if (signals >= 3) substantial.add(slug);
+  }
+  for (const slug of slugs) {
+    if (!isMedicalFacility(slug)) continue;
+    if (!hospitalsWithPackages.has(slug) && !substantial.has(slug)) continue;
+    specs.push({
+      path: `/hospital/${enc(slug)}`,
+      priority: hospitalsWithPackages.has(slug) ? 0.8 : 0.65,
+      changeFrequency: "weekly",
+    });
+  }
+
+  // The national register — one page per province, plus the index.
+  {
+    const { registryProvinces } = await import("@/lib/registry");
+    specs.push({ path: "/directory", priority: 0.9, changeFrequency: "monthly" });
+    for (const p of registryProvinces()) {
+      specs.push({ path: `/directory/${p.slug}`, priority: 0.7, changeFrequency: "monthly" });
+    }
   }
 
   for (const city of CITY_SLUGS) {

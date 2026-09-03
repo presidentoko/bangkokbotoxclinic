@@ -10,10 +10,15 @@ export const dynamic = "force-static";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thailandgolfguide.com";
 
-export const metadata: Metadata = {
-  title: "한국어 캐디 있는 태국 골프장 — 검증된 86개 코스 (2026)",
+// 제목·본문의 코스 수는 데이터에서 센다. 하드코딩된 "86" 은 실제 103 과
+// 어긋나 있었다 — 검증을 파는 페이지에서 자기 숫자가 틀리면 안 된다.
+export async function generateMetadata(): Promise<Metadata> {
+  const db = await loadMasterDb();
+  const n = db.restaurants.filter((r) => r.is_korean_friendly).length;
+  return {
+  title: `한국어 캐디 있는 태국 골프장 — 검증된 ${n}개 코스 (2026)`,
   description:
-    "구글 리뷰에서 한국어 캐디·한국 골퍼 인기·네이버 블로그 매칭 시그널로 검증한 태국 골프장 86개. 방콕·파타야·후아힌·치앙마이·푸켓. 한국어 리뷰 수와 캐디 친화 점수 함께 표시.",
+    `구글 리뷰에서 한국어 캐디·한국 골퍼 인기·네이버 블로그 매칭 시그널로 검증한 태국 골프장 ${n}개. 방콕·파타야·후아힌·치앙마이·푸켓. 한국어 리뷰 수와 캐디 친화 점수 함께 표시.`,
   alternates: {
     canonical: "/ko/best/korean-friendly",
     languages: {
@@ -24,15 +29,17 @@ export const metadata: Metadata = {
   },
   openGraph: {
     locale: "ko_KR",
-    title: "한국어 캐디 있는 태국 골프장 86개 — 진짜 후기로 검증",
+    title: `한국어 캐디 있는 태국 골프장 ${n}개 — 진짜 후기로 검증`,
     description: "구글 리뷰 + 네이버 블로그 시그널로 자동 검증한 한국 친화 태국 골프장 모음.",
   },
-};
+  };
+}
 
-const KO_FAQS = [
+function koFaqs(n: number) {
+  return [
   {
     q: "여기 '한국 친화' 어떻게 검증된 거죠?",
-    a: "수작업 큐레이션이 아니라 구글 리뷰 시그널 4개로 자동 검증합니다. (1) 리뷰 텍스트에서 'Korean caddy / 한국 캐디' 명시 멘션, (2) Apify가 추출한 'korean_caddy' 토픽 카운트, (3) 한국어 리뷰 수, (4) 네이버 블로그 매칭. 이 중 하나라도 시그널 강도가 임계값 이상이면 자동으로 친화 코스로 등록됩니다. 현재 86개 코스가 통과.",
+    a: `수작업 큐레이션이 아니라 구글 리뷰 시그널 4개로 자동 검증합니다. (1) 리뷰 텍스트에서 'Korean caddy / 한국 캐디' 명시 멘션, (2) Apify가 추출한 'korean_caddy' 토픽 카운트, (3) 한국어 리뷰 수, (4) 네이버 블로그 매칭. 이 중 하나라도 시그널 강도가 임계값 이상이면 자동으로 친화 코스로 등록됩니다. 현재 ${n}개 코스가 통과.`,
   },
   {
     q: "캐디가 한국어 한다고 100% 보장되나요?",
@@ -54,7 +61,8 @@ const KO_FAQS = [
     q: "이 페이지 데이터는 얼마나 자주 갱신되나요?",
     a: "Master DB 가 새로 빌드될 때마다 (보통 주 1-2회) 자동 재라벨링됩니다. 구글에 새 한국어 리뷰가 달리면 다음 빌드 사이클에 반영. 수동 개입 없음 — 우리가 코스 평판을 임의로 조작하지 않습니다.",
   },
-];
+  ];
+}
 
 export default async function KoBestKoreanFriendlyPage() {
   const db = await loadMasterDb();
@@ -72,6 +80,8 @@ export default async function KoBestKoreanFriendlyPage() {
       .sort((a, b) => b._score - a._score)
       .slice(0, 100)
   );
+
+  const faqs = koFaqs(db.restaurants.filter((r) => r.is_korean_friendly).length);
 
   // City breakdown
   const cityCounts = filtered.reduce<Record<string, number>>((acc, r) => {
@@ -149,7 +159,7 @@ export default async function KoBestKoreanFriendlyPage() {
       <section className="mt-12">
         <h2 className="text-2xl font-bold mb-4">자주 묻는 질문</h2>
         <div className="space-y-3">
-          {KO_FAQS.map((f, i) => (
+          {faqs.map((f, i) => (
             <details key={i} className="bg-white border border-[var(--border)] rounded-lg p-4 group">
               <summary className="font-medium cursor-pointer flex items-center justify-between gap-3">
                 <span>{f.q}</span>
@@ -181,7 +191,7 @@ export default async function KoBestKoreanFriendlyPage() {
         { name: "홈", url: "/ko" },
         { name: "한국 친화 골프장", url: "/ko/best/korean-friendly" },
       ]} />
-      <FaqJsonLd faqs={KO_FAQS} />
+      <FaqJsonLd faqs={faqs} />
       <ItemListJsonLd
         name="한국어 캐디 있는 태국 골프장"
         items={filtered.slice(0, 30).map((r) => ({ name: r.name, url: `/course/${r.id}` }))}

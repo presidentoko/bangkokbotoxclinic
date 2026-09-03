@@ -110,6 +110,7 @@ export default function RootLayout({
           <footer className="border-t border-[var(--border)] mt-16 bg-white pb-24 md:pb-0">
             <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-[var(--muted)]">
               <div className="flex flex-wrap gap-x-8 gap-y-3 mb-4">
+                <a href="/verify" className="hover:text-black">Verify a place</a>
                 <a href="/about" className="hover:text-black">About</a>
                 <a href="/quiz" className="hover:text-black">Bangkok Quiz</a>
                 <a href="/bingo" className="hover:text-black">Bucket List</a>

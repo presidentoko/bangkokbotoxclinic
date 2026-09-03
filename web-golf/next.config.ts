@@ -11,6 +11,11 @@ const config: NextConfig = {
   trailingSlash: false,
   async redirects() {
     return [
+      // /tee-times published 4,320 "available" slots that were generated,
+      // not scraped — five fixed morning times per course per day with
+      // available:true hardcoded. The route is gone; the price comparison is
+      // the page people wanted from it.
+      { source: "/tee-times", destination: "/price-compare", permanent: true },
       // Non-www → www (permanent 301 — consolidates all authority to www)
       {
         source: "/:path*",

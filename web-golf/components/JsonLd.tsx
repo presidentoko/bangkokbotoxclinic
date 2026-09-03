@@ -268,29 +268,37 @@ export function FaqJsonLd({ faqs }: { faqs: { q: string; a: string }[] }) {
 }
 
 export function CoursePriceJsonLd({ r, priceRow }: { r: Restaurant; priceRow: PriceRow }) {
-  const offers = [];
-  if (priceRow.weekday_morning_slot && priceRow.weekday_morning_total) {
-    offers.push({
-      "@type": "Offer",
-      name: "Weekday Morning (Green Fee + Caddy + Cart)",
-      price: priceRow.weekday_morning_total,
-      priceCurrency: "THB",
-      availability: "https://schema.org/InStock",
-      url: priceRow.source_url,
-      seller: { "@type": "Organization", name: priceRow.source_agency },
-    });
-  }
-  if (priceRow.weekend_morning_slot && priceRow.weekend_morning_total) {
-    offers.push({
-      "@type": "Offer",
-      name: "Weekend Morning (Green Fee + Caddy + Cart)",
-      price: priceRow.weekend_morning_total,
-      priceCurrency: "THB",
-      availability: "https://schema.org/InStock",
-      url: priceRow.source_url,
-      seller: { "@type": "Organization", name: priceRow.source_agency },
-    });
-  }
+  // One Offer per provider per day type, priced at the green fee that
+  // provider actually publishes. The previous version emitted an "all-in"
+  // total built from a weekend price invented as weekday x 1.30 plus
+  // constant caddy and cart figures — schema.org Offers asserting numbers
+  // no one charges.
+  const offers = priceRow.offers.flatMap((o) => {
+    const rows = [];
+    if (o.weekday !== null) {
+      rows.push({
+        "@type": "Offer",
+        name: `Weekday green fee (${o.providerLabel})`,
+        price: o.weekday,
+        priceCurrency: "THB",
+        availability: "https://schema.org/InStock",
+        url: o.url,
+        seller: { "@type": "Organization", name: o.providerLabel },
+      });
+    }
+    if (o.weekend !== null) {
+      rows.push({
+        "@type": "Offer",
+        name: `Weekend green fee (${o.providerLabel})`,
+        price: o.weekend,
+        priceCurrency: "THB",
+        availability: "https://schema.org/InStock",
+        url: o.url,
+        seller: { "@type": "Organization", name: o.providerLabel },
+      });
+    }
+    return rows;
+  });
   if (offers.length === 0) return null;
   return tag({
     "@context": "https://schema.org",

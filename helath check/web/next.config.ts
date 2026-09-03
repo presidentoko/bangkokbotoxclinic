@@ -18,11 +18,20 @@ import { CATEGORIES } from "./lib/i18n";
  * after that. next.config redirects are applied before routing, which is the
  * only place left that still owns the response line.
  */
+const REDIRECTABLE_CATEGORIES = [
+  "comprehensive", "executive", "standard", "cancer", "cardiac", "heart", "women",
+  "men", "senior", "basic", "diabetes", "eye", "liver", "kidney", "brain", "dental",
+];
+
 const EMPTY_CATEGORIES = CATEGORIES.filter((cat) => {
   return !data.packages.some(
     (p) => p.category === cat && p.price != null && parseFloat(p.price) > 0,
   );
 });
+
+const LIVE_CATEGORIES = REDIRECTABLE_CATEGORIES.filter(
+  (cat) => !(EMPTY_CATEGORIES as string[]).includes(cat),
+);
 
 /**
  * First path segments Google indexed that were never locales.
@@ -134,12 +143,20 @@ const nextConfig: NextConfig = {
       // (/compare/[category], SSG). The alternation is the exact CATEGORIES
       // list — junk values fall through to the bare static page, which
       // ignores the query.
+      //
+      // The alternation must exclude EMPTY_CATEGORIES, or the two rules chase
+      // each other: Next carries the query string through a redirect, so
+      // /en/compare?category=cardiac went to /en/compare/cardiac?category=cardiac,
+      // the empty-category rule below sent that back to /en/compare?category=cardiac,
+      // and this rule fired again — an endless 308 loop on eight categories,
+      // reproduced live. Empty categories now fall straight through to the
+      // static picker, which ignores the query.
       {
         source: "/:locale/compare",
         has: [{
           type: "query",
           key: "category",
-          value: "(?<category>comprehensive|executive|standard|cancer|cardiac|heart|women|men|senior|basic|diabetes|eye|liver|kidney|brain|dental)",
+          value: `(?<category>${LIVE_CATEGORIES.join("|")})`,
         }],
         destination: "/:locale/compare/:category",
         permanent: true,

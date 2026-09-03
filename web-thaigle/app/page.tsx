@@ -212,6 +212,16 @@ export default async function HomePage() {
             <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> Google reviews — every single one analyzed for credibility.
           </p>
 
+          {/* The verification entry point. Someone arriving from a video has
+              one question and it is not "browse Bangkok" — give them the
+              lookup before the browse grid. */}
+          <a
+            href="/verify"
+            className="inline-flex items-center gap-2 mb-5 px-5 py-3 rounded-full bg-black text-white font-bold text-sm md:text-base hover:bg-gray-800 transition"
+          >
+            🔎 Saw it on TikTok? Verify the place first →
+          </a>
+
           <HeroSearch
             entities={searchSeed}
             entitiesUrl="/search-index.json"

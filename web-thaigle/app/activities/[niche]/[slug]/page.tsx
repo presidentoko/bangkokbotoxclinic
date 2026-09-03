@@ -30,10 +30,11 @@ import { BookingCTAs } from "@/components/BookingCTAs";
 import { AffiliateLink } from "@/components/AffiliateLink";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { TrustScoreBadge } from "@/components/TrustScoreBadge";
+import { VerdictCard } from "@/components/VerdictCard";
+import { nicheContext, nicheVerdict } from "@/lib/verdict";
 import { getDayPlansForVenue } from "@/lib/venue-day-plans";
 import { ReportButton } from "@/components/ReportButton";
 import { VenueStamp } from "@/components/VenueStamp";
-import { PopularTimes } from "@/components/PopularTimes";
 import { PhotoHints } from "@/components/PhotoHints";
 import { KlookBanner } from "@/components/KlookBanner";
 import { NearbyThings } from "@/components/NearbyThings";
@@ -84,9 +85,10 @@ export async function generateMetadata({
   const ratingDescFragment = hasRating
     ? `★${place.rating!.toFixed(1)} from ${place.review_count!.toLocaleString()} Google reviews. `
     : "";
+  const verdict = nicheVerdict(place, info.label, nicheContext(niche, db.places));
   return {
     title: `${place.name} — ${info.label} in ${cityLabel} 2026${priceTitleFragment}${ratingTitleFragment}`,
-    description: `${place.name}: ${info.label} in ${cityLabel}. ${ratingDescFragment}Trust Score ${place.trust_score} (${trustLabel}).${priceStr} Book on Klook or visit directly.`,
+    description: `${verdict.label}: ${verdict.summary} ${place.name} — ${info.label} in ${cityLabel}. ${ratingDescFragment}Trust Score ${place.trust_score} (${trustLabel}).${priceStr}`,
     // ~683 niche-place slugs contain Thai characters (kept intentionally,
     // see lib/data.ts slugify) — sitemap spec and strict crawlers require
     // RFC-3986-encoded <loc>/canonical/hreflang, unlike plain <a href>
@@ -179,6 +181,11 @@ export default async function PlaceDetailPage({
   const pageUrl = `${SITE}/activities/${niche}/${encodeURIComponent(slug)}`;
   const openingHours = readOpeningHours(place.opening_hours_json);
 
+  // The verdict — see lib/verdict.ts. Thresholds come from this niche's own
+  // distribution, so "★4.4" is read against how spas actually score, not
+  // against an abstract five-point scale.
+  const verdict = nicheVerdict(place, info.label, nicheContext(niche, db.places));
+
   // The third stat tile used to be price, which is populated on 5% of these
   // pages — so 95% of the highest-traffic template opened with an empty box
   // in prime position, reading as auto-generated. Hours are on 85%, and
@@ -269,6 +276,8 @@ export default async function PlaceDetailPage({
         </div>
       </div>
 
+      <VerdictCard verdict={verdict} name={place.name} generatedAt={db.generated_at} />
+
       {/* Trust score + stats bar */}
       <div className="grid grid-cols-3 gap-3 mb-5">
         <div className="bg-white border border-[var(--border)] rounded-xl p-3 text-center">
@@ -336,7 +345,6 @@ export default async function PlaceDetailPage({
       />
 
       <SeasonalTip />
-      <PopularTimes type={niche === "spa" ? "spa" : niche === "muay-thai" || niche === "yoga-pilates" ? "gym" : "restaurant"} />
       <PhotoHints niche={niche} />
       <NearbyThings context="activity" />
       {/* Generic cross-sell banner only when this venue has no direct

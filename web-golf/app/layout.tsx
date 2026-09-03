@@ -84,7 +84,7 @@ export default function RootLayout({
               <a href="/guide/booking-thai-golf" className="hover:text-black hidden lg:inline">Guides</a>
               <a href="/blog" className="hover:text-black hidden lg:inline">Blog</a>
               <a href="/price-compare" className="hover:text-black hidden lg:inline">Price Compare</a>
-              <a href="/tee-times" className="hover:text-black hidden lg:inline">Tee Times</a>
+              <a href="/price-compare" className="hover:text-black hidden lg:inline">Compare Prices</a>
               <a href="/conditions" className="hover:text-black hidden lg:inline">Conditions</a>
               <a
                 href="/for-courses"

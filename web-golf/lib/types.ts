@@ -195,40 +195,23 @@ export const TOPIC_LABELS: Record<string, string> = {
   long_drive: "Far from city",
 };
 
+/** A scraped rate. Fields the provider does not publish are null — never a default. */
 export type PriceSlot = {
-  greenfee: number;
-  caddy: number;
-  cart: number;
+  greenfee: number | null;
+  caddy: number | null;
+  cart: number | null;
 };
 
+/** Per-course summary derived from scraped provider offers (see lib/providers.ts). */
 export type PriceEntry = {
   course_id: string;
   scraped_at: string;
+  /** Provider behind the cheapest known weekday fee. */
   source_agency: string;
   source_url: string;
-  weekday: {
-    morning?: PriceSlot;
-    twilight?: PriceSlot;
-  };
-  weekend: {
-    morning?: PriceSlot;
-    twilight?: PriceSlot;
-  };
-  notes?: string;
-};
-
-export type TeeSlot = {
-  course_id: string;
-  course_name: string;
-  date: string;          // "YYYY-MM-DD"
-  time: string;          // "HH:MM"
-  agency: string;
-  booking_url: string;
-  total_baht: number;
-  available: boolean;
-};
-
-export type TeeTimesJson = {
-  updated_at: string;
-  slots: TeeSlot[];
+  /** Number of providers with a scraped rate for this course. */
+  sources: number;
+  weekday: PriceSlot | null;
+  weekend: PriceSlot | null;
+  offers: import("./providers").ProviderOffer[];
 };

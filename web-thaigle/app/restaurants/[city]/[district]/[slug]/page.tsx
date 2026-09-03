@@ -21,8 +21,9 @@ import { VersusVote } from "@/components/VersusVote";
 import { BangkokTip } from "@/components/BangkokTip";
 import { BangkokChallenge } from "@/components/BangkokChallenge";
 import { VenueStamp } from "@/components/VenueStamp";
-import { PopularTimes } from "@/components/PopularTimes";
 import { QuickFacts } from "@/components/QuickFacts";
+import { VerdictCard } from "@/components/VerdictCard";
+import { restaurantContext, restaurantVerdict } from "@/lib/verdict";
 import { CardImage } from "@/components/CardImage";
 import type { Metadata } from "next";
 
@@ -64,7 +65,8 @@ export async function generateMetadata(
   const where = r.district && r.district !== cityLabel ? `${r.district}, ${cityLabel}` : cityLabel;
   const title = `${r.name} — ${kind} in ${where} (Menu, Prices & Reviews)`;
   const trustLabel = trustTierLong(r.trust_score);
-  const description = `${r.name} in ${where}: ★${r.rating} from ${r.total_reviews.toLocaleString()} Google reviews. Trust Score ${r.trust_score}/100 (${trustLabel}). ${cuisines || "Restaurant"}. View reviews, address & photos.`;
+  const verdict = restaurantVerdict(r, restaurantContext(db.restaurants, r.city));
+  const description = `${verdict.label}: ${verdict.summary} ${r.name} in ${where} — ★${r.rating} from ${r.total_reviews.toLocaleString()} Google reviews, Trust Score ${r.trust_score}/100 (${trustLabel}).`;
   const canonical = restaurantUrl({ city, district, slug });
 
   return {
@@ -165,6 +167,10 @@ export default async function RestaurantPage(
   const hoursEntries = Object.entries(r.opening_hours ?? {});
 
   const showAds = samples.length >= 2 && similar.length >= 2;
+
+  // The verdict — the answer someone who arrived from a video is here for.
+  // Thresholds are relative to this venue's own city (see lib/verdict.ts).
+  const verdict = restaurantVerdict(r, restaurantContext(db.restaurants, r.city));
 
   const cuisineLabel = r.cuisines.length > 0 ? (CUISINE_LABELS[r.cuisines[0]] ?? r.cuisines[0]) : "restaurant";
   const cuisines = r.cuisines.map((c) => CUISINE_LABELS[c] ?? c).join(", ");
@@ -308,6 +314,8 @@ export default async function RestaurantPage(
           </div>
         )}
 
+        <VerdictCard verdict={verdict} name={r.name} generatedAt={db.generated_at} />
+
         <div className="flex gap-6 mb-6 flex-wrap">
           <TrustDonut score={r.trust_score} breakdown={breakdown} />
           <div>
@@ -336,7 +344,6 @@ export default async function RestaurantPage(
 
         <QuickFacts priceRange={priceLevel} />
         <RatingChart trend={r.rating_trend} />
-        <PopularTimes type="restaurant" />
         <TopicCluster topics={r.mentioned_topics} />
 
         {samples.length > 0 && (

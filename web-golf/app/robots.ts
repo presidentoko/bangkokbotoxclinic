@@ -33,8 +33,6 @@ export default function robots(): MetadataRoute.Robots {
     // 네이버는 RSS 를 sitemap 보다 빠르게 수집한다. 한국어 피드를 여기서도 노출한다.
     sitemap: [
       `${SITE}/sitemap.xml`,
-      `${SITE}/image-sitemap.xml`,
-      `${SITE}/video-sitemap.xml`,
     ],
     host: SITE,
   };

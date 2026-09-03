@@ -9,7 +9,7 @@ const NAV = [
   { href: "/guide/booking-thai-golf", label: "Guides" },
   { href: "/blog", label: "Blog" },
   { href: "/price-compare", label: "Price Compare" },
-  { href: "/tee-times", label: "Tee Times" },
+  { href: "/price-compare", label: "Compare Prices" },
   { href: "/conditions", label: "Conditions" },
   { href: "/about", label: "About" },
   { href: "/for-courses", label: "For Golf Clubs →" },
