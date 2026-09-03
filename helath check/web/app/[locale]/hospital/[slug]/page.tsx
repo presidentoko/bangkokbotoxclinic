@@ -7,7 +7,7 @@ import { SLUG_REDIRECTS } from "@/lib/slug-redirects";
 import { Sparkline } from "@/app/components/Sparkline";
 import { ShareButtons } from "@/app/components/ShareButtons";
 import { VerifiedStrip } from "@/app/components/VerifiedStrip";
-import { registryMatch, nearbyHospitals, isMedicalFacility } from "@/lib/registry";
+import { registryMatch, nearbyHospitals, isMedicalFacility, thaiName } from "@/lib/registry";
 import { citySlug } from "@/lib/citySlug";
 import { ReportButton } from "@/app/components/ReportButton";
 import { HospitalTracker } from "@/app/components/HospitalTracker";
@@ -284,7 +284,9 @@ export default async function HospitalPage({
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div className="flex-1 min-w-0">
             <h1 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight">{hospital.name}</h1>
-            {hospital.name_th && <p className="text-slate-500 text-sm mt-0.5">{hospital.name_th}</p>}
+            {(hospital.name_th || thaiName(slug)) && (
+              <p className="text-slate-500 text-sm mt-0.5">{hospital.name_th || thaiName(slug)}</p>
+            )}
             {(hospital.city || hospital.area) && (
               <p className="text-slate-500 mt-1.5">
                 📍 {hospital.area && hospital.city && hospital.area !== hospital.city ? `${hospital.area}, ` : ""}{hospital.city || "Bangkok"}

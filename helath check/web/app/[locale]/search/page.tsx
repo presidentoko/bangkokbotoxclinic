@@ -8,6 +8,7 @@ import {
   registryMatch,
   isMedicalFacility,
   haBadge,
+  thaiName,
 } from "@/lib/registry";
 
 // A findable page for name lookup. The nav box was the only way to look a
@@ -108,7 +109,7 @@ async function SearchClient({ locale }: { locale: Locale }) {
     if (m?.hcode) claimed.add(m.hcode);
     entries.push({
       n: h.name,
-      th: m?.name_th ?? null,
+      th: thaiName(h.slug) ?? m?.name_th ?? null,
       p: h.city,
       href: `/${locale}/hospital/${h.slug}`,
       sub: [h.city, h.package_count ? `${h.package_count} packages` : null]

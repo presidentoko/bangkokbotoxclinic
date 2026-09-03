@@ -1,0 +1,15 @@
+{
+  "_comment": "Hand-pinned register rows for institutions the register splits into several entries, and blocks for listings that reach the matcher but are not hospitals. Every pin was checked against the register row's own province, type and code.",
+  "pin": {
+    "siriraj-hospital": "คณะแพทยศาสตร์ศิริราชพยาบาล มหาวิทยาลัยมหิดล",
+    "chonburi-hospital": "ชลบุรี",
+    "hatyai-hospital": "หาดใหญ่",
+    "suratthani-hospital": "สุราษฎร์ธานี",
+    "vichaiyut-hospital": "วิชัยยุทธ",
+    "samitivej-chonburi-hospital": "สมิติเวช ชลบุรี",
+    "samitivej-thonburi-hospital": "สมิติเวช ธนบุรี"
+  },
+  "block": {
+    "hdm-bangkok-sexual-health-center": "A sexual-health clinic, not a hospital; Google files it with no category, so it reached the matcher and took a district hospital's row on the shared word กรุงเทพมหานคร."
+  }
+}

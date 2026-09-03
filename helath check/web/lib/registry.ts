@@ -112,6 +112,7 @@ export type NearbyHospital = {
 type ProfilesFile = {
   generated_at: string;
   registry_match: Record<string, RegistryMatch>;
+  names_th: Record<string, string>;
   nearby: Record<string, NearbyHospital[]>;
   province: Record<string, string>;
   non_medical: string[];
@@ -158,6 +159,18 @@ export function registryHospitals(provinceSlug: string): RegistryHospital[] {
 /** The register row this page was matched to, or null when unmatched. */
 export function registryMatch(slug: string): RegistryMatch | null {
   return profiles.registry_match[slug] ?? null;
+}
+
+/**
+ * The hospital's Thai name.
+ *
+ * checkup_db carries one for 24 of 321 rows. enrich_thai_names.py lifts 59
+ * more out of the Apify export by joining on coordinates, which is what makes
+ * Thai-language search work and what took register matching from 30 pairs to
+ * 80.
+ */
+export function thaiName(slug: string): string | null {
+  return profiles.names_th?.[slug] ?? null;
 }
 
 export function nearbyHospitals(slug: string): NearbyHospital[] {
