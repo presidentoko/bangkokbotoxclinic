@@ -69,6 +69,12 @@ export type Dict = {
   };
   place: {
     reviewsTitle: string;
+    readMore: string;
+    mostCriticalTitle: string;
+    noCriticalReviews: string;
+    stickyReviewsCta: string;
+    ownerCtaTitle: string;
+    ownerCtaLink: string;
     /** Template with an "{n}" placeholder, e.g. "Show {n} more reviews". */
     showMoreReviews: string;
     /** Template with a "{date}" placeholder, e.g. "Data updated {date}". */
@@ -358,6 +364,12 @@ const en: Dict = {
   },
   place: {
     reviewsTitle: "What reviewers say",
+    readMore: "Read more",
+    mostCriticalTitle: "Most critical review",
+    noCriticalReviews: "No review rated 3★ or below among the {n} we analysed — none to hide.",
+    stickyReviewsCta: "Read {n} real reviews",
+    ownerCtaTitle: "Run this place?",
+    ownerCtaLink: "Get featured on chillanel",
     showMoreReviews: "Show {n} more reviews",
     dataUpdatedLabel: "Data updated {date}",
     therapistMentionsTitle: "Reviewers mentioned",
@@ -762,6 +774,12 @@ const th: Dict = {
   },
   place: {
     reviewsTitle: "รีวิวจากผู้ใช้บริการ",
+    readMore: "อ่านต่อ",
+    mostCriticalTitle: "รีวิวเชิงวิจารณ์ที่สุด",
+    noCriticalReviews: "ไม่มีรีวิวต่ำกว่า 3★ ใน {n} รีวิวที่เราวิเคราะห์ — ไม่มีอะไรต้องซ่อน",
+    stickyReviewsCta: "อ่าน {n} รีวิวจริง",
+    ownerCtaTitle: "คุณเป็นเจ้าของร้านนี้?",
+    ownerCtaLink: "ลงโฆษณากับ chillanel",
     showMoreReviews: "ดูอีก {n} รีวิว",
     dataUpdatedLabel: "อัปเดตข้อมูลล่าสุด {date}",
     therapistMentionsTitle: "ชื่อที่ถูกกล่าวถึงในรีวิว",
@@ -1165,6 +1183,12 @@ const ko: Dict = {
   },
   place: {
     reviewsTitle: "리뷰어들의 후기",
+    readMore: "더보기",
+    mostCriticalTitle: "가장 비판적인 리뷰",
+    noCriticalReviews: "분석한 {n}건 중 3★ 이하 리뷰 없음 — 숨긴 게 아니라 없는 겁니다.",
+    stickyReviewsCta: "실제 리뷰 {n}건 읽기",
+    ownerCtaTitle: "이 가게 사장님이신가요?",
+    ownerCtaLink: "chillanel에 소개하기",
     showMoreReviews: "리뷰 {n}개 더 보기",
     dataUpdatedLabel: "{date} 기준 데이터 업데이트",
     therapistMentionsTitle: "리뷰에서 언급된 이름",

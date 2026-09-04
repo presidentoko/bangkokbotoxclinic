@@ -25,7 +25,7 @@ import { placeSummary, priceMedian, priceRange } from "@/lib/summary";
 import { relatedPlaces } from "@/lib/related";
 import type { Review } from "@/lib/types";
 
-function ReviewItem({ review, anonymousLabel }: { review: Review; anonymousLabel: string }) {
+function ReviewItem({ review, anonymousLabel, readMoreLabel }: { review: Review; anonymousLabel: string; readMoreLabel: string }) {
   return (
     <div className="rounded-xl border border-border bg-bg-elev p-4">
       <div className="flex items-center gap-2.5 mb-1.5">
@@ -36,7 +36,23 @@ function ReviewItem({ review, anonymousLabel }: { review: Review; anonymousLabel
         {review.rating != null && <span className="text-xs text-accent font-bold">★ {review.rating}</span>}
         <span className="text-muted text-xs">{review.relativeDate}</span>
       </div>
-      <p className="text-sm text-muted leading-relaxed">{review.text}</p>
+      {/* 2026-09-04: 긴 리뷰 접기. 700자짜리 리뷰가 통짜로 펼쳐져 "텍스트 벽"이
+          되고, 모바일에서 리뷰 하나가 화면을 다 먹는다 — 검증하러 온 방문자는
+          처음 몇 문장으로 톤을 읽고 다음 리뷰로 넘어가고 싶어한다.
+          Faq.tsx 와 같은 zero-JS <details> 패턴. */}
+      {review.text.length > 280 ? (
+        <details className="group">
+          <summary className="cursor-pointer list-none">
+            <p className="text-sm text-muted leading-relaxed group-open:hidden">
+              {review.text.slice(0, 260).trimEnd()}…{" "}
+              <span className="text-accent font-semibold">{readMoreLabel}</span>
+            </p>
+          </summary>
+          <p className="text-sm text-muted leading-relaxed">{review.text}</p>
+        </details>
+      ) : (
+        <p className="text-sm text-muted leading-relaxed">{review.text}</p>
+      )}
     </div>
   );
 }
@@ -159,6 +175,10 @@ export default async function PlacePage({
   const summary = placeSummary(place, lang);
   const cityData = loadCity(city);
   const related = relatedPlaces(place, cityData.places);
+  // 3★ 이하 중 가장 낮은 평점의 실패 텍스트 있는 리뷰 하나 (정직 신호용)
+  const criticalReview = [...place.reviews]
+    .filter((r) => r.rating != null && r.rating <= 3 && r.text.trim().length > 0)
+    .sort((a, b) => (a.rating ?? 9) - (b.rating ?? 9) || b.text.length - a.text.length)[0];
   const visibleReviews = place.reviews.slice(0, 10);
   const moreReviews = place.reviews.slice(10, 20);
 
@@ -215,6 +235,15 @@ export default async function PlacePage({
         </span>
         {badge && (
           <span className="rounded-full border border-border px-3 py-1 text-muted font-medium">{badge}</span>
+        )}
+        {/* 2026-09-04: 가격을 첫 화면에. 리뷰에서 추출한 실측 가격(priceMentions)이
+            1,437곳에 있는데 페이지 중반 가격 문단에만 있었다 — 검증 방문자의 3대
+            질문은 "진짜 좋아? 얼마야? 어디야?"다. 상세 범위는 아래 문단이 계속 담당. */}
+        {priceMedianValue != null && (
+          <span className="rounded-full bg-accent-warm/10 text-accent-warm font-semibold px-3 py-1">
+            ฿{priceMedianValue.toLocaleString(localeFor(lang))}
+            {priceRangeValue && priceRangeValue.min !== priceRangeValue.max ? "~" : ""}
+          </span>
         )}
       </div>
 
@@ -350,11 +379,29 @@ export default async function PlacePage({
         </details>
       )}
 
-      <section>
+      <section id="reviews" className="scroll-mt-4">
         <h2 className="text-lg font-bold mb-3">💬 {t.place.reviewsTitle}</h2>
+        {/* 2026-09-04: 가장 비판적인 리뷰를 숨기지 않고 먼저 보여준다.
+            칭찬 일색 페이지는 광고처럼 읽힌다 — 검증 사이트의 신뢰는 "나쁜 것도
+            보여주는가"에서 나온다. 낮은 평점 리뷰가 아예 없으면 그 사실 자체를
+            한 줄로 명시한다(그것도 정보다). */}
+        {criticalReview ? (
+          <div className="rounded-xl border-l-4 border-l-amber-500 rounded-l-none bg-bg-elev mb-4">
+            <div className="px-4 pt-3 text-xs uppercase tracking-wide text-muted font-semibold">
+              ⚖️ {t.place.mostCriticalTitle}
+            </div>
+            <ReviewItem review={criticalReview} anonymousLabel={t.place.anonymousReviewer} readMoreLabel={t.place.readMore} />
+          </div>
+        ) : (
+          place.reviews.length >= 5 && (
+            <p className="text-xs text-muted mb-4">
+              {t.place.noCriticalReviews.replace("{n}", String(place.reviews.length))}
+            </p>
+          )
+        )}
         <div className="space-y-4">
           {visibleReviews.map((r) => (
-            <ReviewItem key={r.id} review={r} anonymousLabel={t.place.anonymousReviewer} />
+            <ReviewItem key={r.id} review={r} anonymousLabel={t.place.anonymousReviewer} readMoreLabel={t.place.readMore} />
           ))}
         </div>
         {/* build-data.mjs stores up to 20 reviews per place, but this only
@@ -373,7 +420,7 @@ export default async function PlacePage({
             </summary>
             <div className="space-y-4 mt-4">
               {moreReviews.map((r) => (
-                <ReviewItem key={r.id} review={r} anonymousLabel={t.place.anonymousReviewer} />
+                <ReviewItem key={r.id} review={r} anonymousLabel={t.place.anonymousReviewer} readMoreLabel={t.place.readMore} />
               ))}
             </div>
           </details>
@@ -395,6 +442,16 @@ export default async function PlacePage({
 
       <CorrectionForm placeId={place.id} placeName={place.name} lang={lang} />
 
+      {/* 2026-09-04: 광고 문의 진입로. /advertise 폼(텔레그램 연동)은 있었는데
+          푸터 링크 하나뿐이라 업주가 자기 가게 페이지를 보고도 찾을 수 없었다.
+          업주가 실제로 보는 곳은 자기 place 페이지다 — 전체 페이지에 깔린다. */}
+      <div className="mt-8 rounded-xl border border-dashed border-accent-warm/40 bg-accent-warm/5 p-4 text-sm">
+        <span className="font-semibold">{t.place.ownerCtaTitle}</span>{" "}
+        <Link href={`/${lang}/advertise`} className="text-accent font-semibold hover:underline">
+          {t.place.ownerCtaLink} →
+        </Link>
+      </div>
+
       {place.district && (
         <Link
           href={`/${lang}/district/${slugifyDistrict(place.district)}`}
@@ -404,14 +461,16 @@ export default async function PlacePage({
         </Link>
       )}
 
-      {place.mapsUrl && (
+      {/* 2026-09-04: 고정 CTA 를 구글맵 → 페이지 내 리뷰로 바꾸었다.
+          이 버튼은 화면을 항상 덮는 최우선 행동인데, 그게 "구글로 나가기"였다 —
+          검증하러 온 방문자를 우리가 먼저 내보내고 있던 것. 체류시간이 0에
+          수렴하는 직접 원인. 지도 링크는 위 정보 카드에 그대로 있다. */}
+      {place.reviews.length > 0 && (
         <a
-          href={place.mapsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+          href="#reviews"
           className="sm:hidden fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] left-4 right-4 z-20 flex items-center justify-center gap-2 rounded-full bg-accent-warm text-ink font-semibold px-5 py-3.5 shadow-xl shadow-accent-warm/30 active:scale-[0.98] transition-transform"
         >
-          {t.place.viewOnMaps} <ArrowRightIcon className="w-4 h-4" />
+          💬 {t.place.stickyReviewsCta.replace("{n}", String(place.reviews.length))}
         </a>
       )}
     </div>
