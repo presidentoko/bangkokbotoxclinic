@@ -1353,19 +1353,42 @@ def main():
     #   - partial: 하나만 수집됨 (타임아웃 등) → 재처리
     #   - none/failed: 0건인데 리뷰 30+ → 재처리
     def _review_status(pid_fn: str) -> str:
+        """none = 아직 못 모음, partial = 더 모을 여지, complete = 그만해도 됨.
+
+        원래는 relevant + newest 두 정렬이 다 있어야만 complete 였다. 그 기준으로는
+        큐가 사실상 줄지 않는다 — 2026-09-04 실측으로 파일 2,768개 중 완료는 760개
+        뿐이고 2,008개가 매 실행마다 다시 큐에 들어왔다. 그 결과 이틀 동안 신규 처리
+        대상이 7,313에서 7,269으로 44 줄었을 뿐이고, 스크래퍼는 이미 모아둔 리뷰
+        13만 건을 계속 다시 긁고 있었다.
+
+        한쪽 정렬만 있는 파일도 리뷰 중앙값이 50개다(양쪽이면 80개). trust_score,
+        mentioned_topics, 샘플 리뷰, 언어 분포 모두 그 정도면 계산된다. 그래서
+        MIN_REVIEW_COUNT 이상 모았으면 완료로 본다.
+
+        받아들이는 손해: 이 업소들은 리뷰가 80개 대신 50개이고, relevant 만 있는
+        경우 최근 리뷰가 얇아 rating_trend 의 recent 버킷이 작을 수 있다. 판정
+        레이어는 recent/old 각각 8건 미만이면 '평점 하락' 판정을 아예 안 하므로,
+        그런 업소는 틀린 판정을 받는 게 아니라 판정에서 조용히 빠진다.
+        """
         p = reviews_dir / f"{pid_fn}_reviews.csv"
         if not p.exists():
             return "none"
         try:
             with open(p, encoding="utf-8-sig", errors="replace") as f:
-                r = csv.DictReader(f)
-                sources = {(row.get("sort_source") or "").strip() for row in r}
+                sources = set()
+                rows = 0
+                for row in csv.DictReader(f):
+                    rows += 1
+                    s = (row.get("sort_source") or "").strip()
+                    if s:
+                        sources.add(s)
         except Exception:
             return "none"
-        sources.discard("")
         if not sources:
             return "none"
         if "relevant" in sources and "newest" in sources:
+            return "complete"
+        if rows >= config.MIN_REVIEW_COUNT:
             return "complete"
         return "partial"
 
