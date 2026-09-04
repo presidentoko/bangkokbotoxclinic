@@ -24,6 +24,7 @@ import { districtLabel, slugifyDistrict } from "@/lib/district-labels";
 import { placeSummary, priceMedian, priceRange } from "@/lib/summary";
 import { relatedPlaces } from "@/lib/related";
 import type { Review } from "@/lib/types";
+import VerificationCheck from "@/components/VerificationCheck";
 
 function ReviewItem({ review, anonymousLabel, readMoreLabel }: { review: Review; anonymousLabel: string; readMoreLabel: string }) {
   return (
@@ -248,6 +249,11 @@ export default async function PlacePage({
       </div>
 
       <TrustScoreDetail place={place} lang={lang} />
+
+      {/* 2026-09-04: Chillanel Check — 구글과의 차별점. 별점 재배열이 아니라
+          리뷰 원문 마이닝(바가지·팁강요·강매·위생·불친절) + 최근 추세 +
+          지역 내 순위 + 지역 시세 비교 — 전부 빌드타임 계산. */}
+      <VerificationCheck place={place} cityPlaces={cityData.places} lang={lang} />
 
       <PlaceActions placeId={place.id} t={t.place} />
 

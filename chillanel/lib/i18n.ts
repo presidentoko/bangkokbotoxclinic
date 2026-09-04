@@ -70,6 +70,22 @@ export type Dict = {
   place: {
     reviewsTitle: string;
     readMore: string;
+    checkTitle: string;
+    checkSubtitle: string;
+    checkAllClear: string;
+    flagOvercharge: string;
+    flagTipPressure: string;
+    flagUpsell: string;
+    flagHygiene: string;
+    flagRude: string;
+    flagMentions: string;
+    trendUp: string;
+    trendDown: string;
+    trendSteady: string;
+    standingLine: string;
+    priceBelow: string;
+    priceTypical: string;
+    priceAbove: string;
     mostCriticalTitle: string;
     noCriticalReviews: string;
     stickyReviewsCta: string;
@@ -365,6 +381,22 @@ const en: Dict = {
   place: {
     reviewsTitle: "What reviewers say",
     readMore: "Read more",
+    checkTitle: "Chillanel Check",
+    checkSubtitle: "What the star rating won’t tell you — mined from {n} real reviews",
+    checkAllClear: "No overcharging, tip-pressure, hard-sell, hygiene or rudeness complaints found across {n} reviews",
+    flagOvercharge: "Overcharging signals",
+    flagTipPressure: "Tip pressure",
+    flagUpsell: "Hard selling",
+    flagHygiene: "Cleanliness complaints",
+    flagRude: "Rudeness complaints",
+    flagMentions: "flagged in {n} review(s)",
+    trendUp: "Recent reviews (12 mo): ★{recent} across {n} reviews — trending above the ★{overall} all-time average",
+    trendDown: "Recent reviews (12 mo): ★{recent} across {n} reviews — slipping below the ★{overall} all-time average",
+    trendSteady: "Recent reviews (12 mo): ★{recent} across {n} reviews — consistent with the ★{overall} all-time average",
+    standingLine: "Rated higher than {pct}% of {total} established places in {district}",
+    priceBelow: "~฿{price} per session — below the {district} going rate (฿{median})",
+    priceTypical: "~฿{price} per session — in line with the {district} going rate (฿{median})",
+    priceAbove: "~฿{price} per session — above the {district} going rate (฿{median})",
     mostCriticalTitle: "Most critical review",
     noCriticalReviews: "No review rated 3★ or below among the {n} we analysed — none to hide.",
     stickyReviewsCta: "Read {n} real reviews",
@@ -775,6 +807,22 @@ const th: Dict = {
   place: {
     reviewsTitle: "รีวิวจากผู้ใช้บริการ",
     readMore: "อ่านต่อ",
+    checkTitle: "Chillanel Check",
+    checkSubtitle: "สิ่งที่ดาวไม่บอกคุณ — วิเคราะห์จาก {n} รีวิวจริง",
+    checkAllClear: "ไม่พบการร้องเรียนเรื่องโก่งราคา บังคับทิป ยัดเยียดขาย ความสะอาด หรือความหยาบคายใน {n} รีวิว",
+    flagOvercharge: "สัญญาณโก่งราคา",
+    flagTipPressure: "บังคับทิป",
+    flagUpsell: "ยัดเยียดขาย",
+    flagHygiene: "ร้องเรียนความสะอาด",
+    flagRude: "ร้องเรียนความหยาบคาย",
+    flagMentions: "พบใน {n} รีวิว",
+    trendUp: "รีวิว 12 เดือนล่าสุด: ★{recent} จาก {n} รีวิว — สูงกว่าค่าเฉลี่ยรวม ★{overall}",
+    trendDown: "รีวิว 12 เดือนล่าสุด: ★{recent} จาก {n} รีวิว — ต่ำกว่าค่าเฉลี่ยรวม ★{overall}",
+    trendSteady: "รีวิว 12 เดือนล่าสุด: ★{recent} จาก {n} รีวิว — สอดคล้องกับค่าเฉลี่ยรวม ★{overall}",
+    standingLine: "คะแนนสูงกว่า {pct}% ของ {total} ร้านใน{district}",
+    priceBelow: "~฿{price} ต่อครั้ง — ถูกกว่าราคากลางใน{district} (฿{median})",
+    priceTypical: "~฿{price} ต่อครั้ง — ใกล้เคียงราคากลางใน{district} (฿{median})",
+    priceAbove: "~฿{price} ต่อครั้ง — แพงกว่าราคากลางใน{district} (฿{median})",
     mostCriticalTitle: "รีวิวเชิงวิจารณ์ที่สุด",
     noCriticalReviews: "ไม่มีรีวิวต่ำกว่า 3★ ใน {n} รีวิวที่เราวิเคราะห์ — ไม่มีอะไรต้องซ่อน",
     stickyReviewsCta: "อ่าน {n} รีวิวจริง",
@@ -1184,6 +1232,22 @@ const ko: Dict = {
   place: {
     reviewsTitle: "리뷰어들의 후기",
     readMore: "더보기",
+    checkTitle: "Chillanel Check",
+    checkSubtitle: "별점이 말해주지 않는 것 — 실제 리뷰 {n}건 분석",
+    checkAllClear: "리뷰 {n}건에서 바가지·팁 강요·강매·위생·불친절 불만 신호 없음",
+    flagOvercharge: "바가지 신호",
+    flagTipPressure: "팁 강요",
+    flagUpsell: "강매/업셀",
+    flagHygiene: "위생 불만",
+    flagRude: "불친절 불만",
+    flagMentions: "리뷰 {n}건에서 감지",
+    trendUp: "최근 12개월 리뷰: ★{recent} ({n}건) — 전체 평균 ★{overall}보다 상승세",
+    trendDown: "최근 12개월 리뷰: ★{recent} ({n}건) — 전체 평균 ★{overall}보다 하락세",
+    trendSteady: "최근 12개월 리뷰: ★{recent} ({n}건) — 전체 평균 ★{overall}과 일치",
+    standingLine: "{district} 검증된 {total}곳 중 {pct}%보다 평점 우위",
+    priceBelow: "회당 ~฿{price} — {district} 시세(฿{median})보다 저렴",
+    priceTypical: "회당 ~฿{price} — {district} 시세(฿{median}) 수준",
+    priceAbove: "회당 ~฿{price} — {district} 시세(฿{median})보다 비쌀",
     mostCriticalTitle: "가장 비판적인 리뷰",
     noCriticalReviews: "분석한 {n}건 중 3★ 이하 리뷰 없음 — 숨긴 게 아니라 없는 겁니다.",
     stickyReviewsCta: "실제 리뷰 {n}건 읽기",
