@@ -180,6 +180,10 @@ export default async function PlacePage({
   const criticalReview = [...place.reviews]
     .filter((r) => r.rating != null && r.rating <= 3 && r.text.trim().length > 0)
     .sort((a, b) => (a.rating ?? 9) - (b.rating ?? 9) || b.text.length - a.text.length)[0];
+  // 에디토리얼 풀쿼트용 베스트 한 줄: 짧고 강한 고평점 리뷰
+  const pullQuote = place.reviews
+    .filter((r) => r.rating != null && r.rating >= 4 && r.text.trim().length >= 60 && r.text.trim().length <= 220)
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || a.text.length - b.text.length)[0];
   const visibleReviews = place.reviews.slice(0, 10);
   const moreReviews = place.reviews.slice(10, 20);
 
@@ -216,37 +220,52 @@ export default async function PlacePage({
       {/* FAQPage schema is emitted once, by <Faq> further down -- this used
           to also call FaqJsonLd here with the same faqItems, emitting the
           identical FAQPage block twice on the page. */}
-      <Breadcrumbs
-        items={[
-          { name: t.nav.home, href: `/${lang}` },
-          { name: label, href: `/${lang}/city/${city}` },
-          { name: place.name, href: `/${lang}/place/${place.id}` },
-        ]}
-      />
-
-      <h1 className="font-display italic font-semibold text-3xl sm:text-4xl mb-3 tracking-tight">{place.name}</h1>
-      <div className="flex items-center flex-wrap gap-2 text-sm mb-6">
-        {place.rating != null && (
-          <span className="inline-flex items-center gap-1 rounded-full bg-accent/10 text-accent font-bold px-3 py-1">
-            <span aria-hidden="true">★</span> {place.rating.toFixed(1)}
-          </span>
-        )}
-        <span className="text-muted">
-          {place.reviewCount} {t.place.reviewCountLabel}
-        </span>
-        {badge && (
-          <span className="rounded-full border border-border px-3 py-1 text-muted font-medium">{badge}</span>
-        )}
+      {/* 2026-09-04: 상단을 홈과 같은 잎크 히어로 밴드로. 주 수요층(인스타·틱톡
+          보고 온 모바일 유저)은 페이지 첫 인상으로 머무를지 결정한다 —
+          균일한 회색 카드 나열 대신 홈의 디자인 언어(잎크+글로우+금밖 포인트)를 이식. */}
+      <section className="relative overflow-hidden bg-ink text-on-ink -mx-4 -mt-10 sm:-mt-12 sm:mx-[calc(50%-50vw)] mb-8">
+        <div className="spa-glow bg-accent w-[320px] h-[320px] -top-24 -left-24" aria-hidden="true" />
+        <div className="spa-glow bg-accent-warm w-[280px] h-[280px] -bottom-24 -right-16" aria-hidden="true" />
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-8 sm:pb-10">
+          <Breadcrumbs
+            variant="ink"
+            items={[
+              { name: t.nav.home, href: `/${lang}` },
+              { name: label, href: `/${lang}/city/${city}` },
+              { name: place.name, href: `/${lang}/place/${place.id}` },
+            ]}
+          />
+          {place.district && (
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-on-ink-muted mb-4">
+              <span className="text-accent-warm" aria-hidden="true">✦</span>
+              {districtLabel(place.district, lang)} · {label}
+            </div>
+          )}
+          <h1 className="font-display italic font-semibold text-3xl sm:text-5xl mb-4 tracking-tight leading-[1.12] text-balance">{place.name}</h1>
+          <div className="flex items-center flex-wrap gap-2 text-sm">
+            {place.rating != null && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-accent-warm text-ink font-bold px-3.5 py-1 shadow-lg shadow-accent-warm/20">
+                <span aria-hidden="true">★</span> {place.rating.toFixed(1)}
+              </span>
+            )}
+            <span className="text-on-ink-muted">
+              {place.reviewCount} {t.place.reviewCountLabel}
+            </span>
+            {badge && (
+              <span className="rounded-full border border-white/15 bg-white/5 backdrop-blur px-3 py-1 text-on-ink-muted font-medium">{badge}</span>
+            )}
         {/* 2026-09-04: 가격을 첫 화면에. 리뷰에서 추출한 실측 가격(priceMentions)이
             1,437곳에 있는데 페이지 중반 가격 문단에만 있었다 — 검증 방문자의 3대
             질문은 "진짜 좋아? 얼마야? 어디야?"다. 상세 범위는 아래 문단이 계속 담당. */}
-        {priceMedianValue != null && (
-          <span className="rounded-full bg-accent-warm/10 text-accent-warm font-semibold px-3 py-1">
-            ฿{priceMedianValue.toLocaleString(localeFor(lang))}
-            {priceRangeValue && priceRangeValue.min !== priceRangeValue.max ? "~" : ""}
-          </span>
-        )}
-      </div>
+            {priceMedianValue != null && (
+              <span className="rounded-full border border-accent-warm/40 bg-white/5 text-accent-warm font-semibold px-3 py-1">
+                ฿{priceMedianValue.toLocaleString(localeFor(lang))}
+                {priceRangeValue && priceRangeValue.min !== priceRangeValue.max ? "~" : ""}
+              </span>
+            )}
+          </div>
+        </div>
+      </section>
 
       <TrustScoreDetail place={place} lang={lang} />
 
@@ -264,6 +283,19 @@ export default async function PlacePage({
           <h2 className="text-xs uppercase tracking-wide text-muted font-semibold mb-2">{t.place.prosTitle}</h2>
           <ProsList items={place.moodKeywords} lang={lang} />
         </>
+      )}
+
+      {/* 데이터 블록 사이의 호흡 조절용 풀쿼트 — 홈의 세리프 리듬을 본문에도. */}
+      {pullQuote && (
+        <figure className="relative my-10 sm:my-12">
+          <span className="absolute -top-8 -left-1 text-7xl font-display italic text-accent/15 select-none leading-none" aria-hidden="true">“</span>
+          <blockquote className="relative font-display italic text-xl sm:text-2xl leading-relaxed pl-6 sm:pl-8 text-balance">
+            {pullQuote.text.trim()}
+          </blockquote>
+          <figcaption className="pl-6 sm:pl-8 mt-3 text-xs text-muted">
+            — {pullQuote.authorName || t.place.anonymousReviewer} · ★{pullQuote.rating} · {pullQuote.relativeDate}
+          </figcaption>
+        </figure>
       )}
 
       <div className="rounded-2xl border border-border bg-bg-elev p-5 mb-8">
@@ -345,7 +377,7 @@ export default async function PlacePage({
       )}
 
       <section className="mb-10">
-        <h2 className="text-lg font-bold mb-3">🙋 {t.place.therapistMentionsTitle}</h2>
+        <h2 className="font-display italic text-2xl sm:text-3xl mb-4">🙋 {t.place.therapistMentionsTitle}</h2>
         <TherapistMentions mentions={place.therapistMentions} lang={lang} />
       </section>
 
@@ -386,7 +418,7 @@ export default async function PlacePage({
       )}
 
       <section id="reviews" className="scroll-mt-4">
-        <h2 className="text-lg font-bold mb-3">💬 {t.place.reviewsTitle}</h2>
+        <h2 className="font-display italic text-2xl sm:text-3xl mb-4">💬 {t.place.reviewsTitle}</h2>
         {/* 2026-09-04: 가장 비판적인 리뷰를 숨기지 않고 먼저 보여준다.
             칭찬 일색 페이지는 광고처럼 읽힌다 — 검증 사이트의 신뢰는 "나쁜 것도
             보여주는가"에서 나온다. 낮은 평점 리뷰가 아예 없으면 그 사실 자체를
@@ -435,7 +467,7 @@ export default async function PlacePage({
 
       {related.length > 0 && (
         <section className="mt-10">
-          <h2 className="text-lg font-bold mb-3">{t.place.similarPlacesTitle}</h2>
+          <h2 className="font-display italic text-2xl sm:text-3xl mb-4">{t.place.similarPlacesTitle}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {related.map((r) => (
               <PlaceCard key={r.id} place={r} lang={lang} />
