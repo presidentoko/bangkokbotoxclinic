@@ -70,6 +70,13 @@ export type Dict = {
   place: {
     reviewsTitle: string;
     readMore: string;
+    wlTitle: string;
+    wlMetaDesc: string;
+    wlHeroSubtitle: string;
+    wlRedTitle: string;
+    wlMethodNote: string;
+    wlCleanTitle: string;
+    wlCleanSubtitle: string;
     checkTitle: string;
     checkSubtitle: string;
     checkAllClear: string;
@@ -381,6 +388,13 @@ const en: Dict = {
   place: {
     reviewsTitle: "What reviewers say",
     readMore: "Read more",
+    wlTitle: "Chillanel Watchlist",
+    wlMetaDesc: "Massage & spa places where multiple recent reviews mention overcharging, tip pressure, hard selling, hygiene or rudeness — with the receipts, mined from real Google reviews. Plus the clean list that passed every check.",
+    wlHeroSubtitle: "We mined every review in our database for warning signals — overcharging, tip pressure, hard selling, hygiene, rudeness. These places tripped the alarm more than once. And the ones that didn’t? They’re here too.",
+    wlRedTitle: "Places reviewers warn about",
+    wlMethodNote: "A flag means 2+ reviews rated ★4 or below mention the same problem, in the reviewers’ own words. It’s a pattern, not a verdict — open the full report before judging.",
+    wlCleanTitle: "Clean sweep",
+    wlCleanSubtitle: "Zero warning signals across every review we analysed, ★4.7+, 100+ reviews. Same test, opposite result.",
     checkTitle: "Chillanel Check",
     checkSubtitle: "What the star rating won’t tell you — mined from {n} real reviews",
     checkAllClear: "No overcharging, tip-pressure, hard-sell, hygiene or rudeness complaints found across {n} reviews",
@@ -807,6 +821,13 @@ const th: Dict = {
   place: {
     reviewsTitle: "รีวิวจากผู้ใช้บริการ",
     readMore: "อ่านต่อ",
+    wlTitle: "Chillanel Watchlist",
+    wlMetaDesc: "ร้านนวดและสปาที่หลายรีวิวพูดถึงการโก่งราคา บังคับทิป ยัดเยียดขาย ความสะอาด หรือความหยาบคาย พร้อมหลักฐานจากรีวิวจริง และรายชื่อร้านที่ผ่านทุกการตรวจ",
+    wlHeroSubtitle: "เราวิเคราะห์ทุกรีวิวในฐานข้อมูลเพื่อหาสัญญาณเตือน — โก่งราคา บังคับทิป ยัดเยียดขาย ความสะอาด ความหยาบคาย ร้านเหล่านี้มีสัญญาณซ้ำมากกว่าหนึ่งครั้ง ส่วนร้านที่ไม่มีเลยก็อยู่ที่นี่เช่นกัน",
+    wlRedTitle: "ร้านที่ผู้รีวิวเตือน",
+    wlMethodNote: "ธงหมายถึงรีวิว ★4 ลงมา 2+ รีวิวพูดถึงปัญหาเดียวกัน — เป็นแพทเทิร์น ไม่ใช่คำตัดสิน โปรดอ่านรายงานเต็มก่อนตัดสินใจ",
+    wlCleanTitle: "ผ่านทุกการตรวจ",
+    wlCleanSubtitle: "ไม่พบสัญญาณเตือนในทุกรีวิวที่วิเคราะห์ ★4.7+ รีวิว 100+ การทดสอบเดียวกัน ผลตรงกันข้าม",
     checkTitle: "Chillanel Check",
     checkSubtitle: "สิ่งที่ดาวไม่บอกคุณ — วิเคราะห์จาก {n} รีวิวจริง",
     checkAllClear: "ไม่พบการร้องเรียนเรื่องโก่งราคา บังคับทิป ยัดเยียดขาย ความสะอาด หรือความหยาบคายใน {n} รีวิว",
@@ -1232,6 +1253,13 @@ const ko: Dict = {
   place: {
     reviewsTitle: "리뷰어들의 후기",
     readMore: "더보기",
+    wlTitle: "Chillanel Watchlist",
+    wlMetaDesc: "바가지·팁 강요·강매·위생·불친절 — 여러 리뷰가 반복 경고하는 마사지·스파 업소를 증거 인용과 함께 공개. 모든 검사를 통과한 클린 리스트도.",
+    wlHeroSubtitle: "데이터베이스의 모든 리뷰를 경고 신호(바가지·팁 강요·강매·위생·불친절)로 분석했습니다. 아래는 경보가 두 번 이상 울린 곳들 — 그리고 한 번도 안 울린 곳들입니다.",
+    wlRedTitle: "리뷰어들이 경고하는 곳",
+    wlMethodNote: "깃발 하나 = ★4 이하 리뷰 2건 이상이 같은 문제를 언급. 패턴이지 판결이 아닙니다 — 전체 리포트를 읽고 판단하세요.",
+    wlCleanTitle: "클린 스윗",
+    wlCleanSubtitle: "분석한 모든 리뷰에서 경고 신호 0건, ★4.7+, 리뷰 100+. 같은 검사, 정반대 결과.",
     checkTitle: "Chillanel Check",
     checkSubtitle: "별점이 말해주지 않는 것 — 실제 리뷰 {n}건 분석",
     checkAllClear: "리뷰 {n}건에서 바가지·팁 강요·강매·위생·불친절 불만 신호 없음",

@@ -60,7 +60,7 @@ export default function VerificationCheck({
                 — {t.flagMentions.replace("{n}", String(f.count))}
               </span>
               <blockquote className="mt-1 text-xs text-muted italic border-l-2 border-amber-500/40 pl-2">
-                “{f.quote}”{f.quoteRating != null && <span className="not-italic"> (★{f.quoteRating})</span>}
+                “{f.quote}”{f.quoteRating != null && f.quoteRating >= 1 && <span className="not-italic"> (★{f.quoteRating})</span>}
               </blockquote>
             </div>
           </li>

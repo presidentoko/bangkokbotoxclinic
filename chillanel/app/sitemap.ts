@@ -55,6 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 유일한 페이지이고, 광고 네트워크 심사도 광고주 안내를 크롤해서 본다.
   // 중복 보일러플레이트 우려는 우선순위를 낮게 유지하는 것으로 갈음한다.
   entries.push(...entriesFor((l) => `/${l}/advertise`, { changeFrequency: "monthly", priority: 0.4 }));
+  entries.push(...entriesFor((l) => `/${l}/watchlist`, { changeFrequency: "weekly", priority: 0.7 }));
 
   for (const city of listCities()) {
     entries.push(

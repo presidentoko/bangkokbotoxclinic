@@ -152,3 +152,34 @@ export function priceVsDistrict(place: Place, cityPlaces: Place[]): PriceContext
   const verdict = mine < dm * 0.85 ? "below" : mine > dm * 1.15 ? "above" : "typical";
   return { verdict, districtMedian: dm };
 }
+
+// ---------- 워치리스트 ----------
+// 같은 카테고리 불만이 ≥2건 리뷰에서 반복될 때만 "경보"로 실어 공개
+// 페이지에 올린다(1건은 place 페이지 Check에만). 클린 리스트는 신호 0 +
+// 분석 표본 ≥8건 + ★4.7 + 리뷰수 100+ — 경보와 같은 기준의 반대쪽 증명.
+export const FLAG_EMOJI: Record<FlagKey, string> = {
+  overcharge: "💸", tipPressure: "🤲", upsell: "🛍️",
+  hygiene: "🧼", rude: "🗣️",
+};
+
+export type WatchEntry = { place: Place; flags: Flag[]; flaggedReviews: number };
+
+export function buildWatchlist(places: Place[]): { flagged: WatchEntry[]; clean: Place[] } {
+  const flagged: WatchEntry[] = [];
+  const clean: Place[] = [];
+  for (const p of places) {
+    const all = scanRedFlags(p.reviews);
+    const strong = all.filter((f) => f.count >= 2);
+    if (strong.length > 0) {
+      flagged.push({ place: p, flags: strong, flaggedReviews: strong.reduce((s, f) => s + f.count, 0) });
+    } else if (
+      all.length === 0 && p.reviews.length >= 8 &&
+      (p.rating ?? 0) >= 4.7 && (p.reviewCount ?? 0) >= 100
+    ) {
+      clean.push(p);
+    }
+  }
+  flagged.sort((a, b) => b.flaggedReviews - a.flaggedReviews);
+  clean.sort((a, b) => (b.reviewCount ?? 0) - (a.reviewCount ?? 0));
+  return { flagged, clean };
+}
