@@ -624,8 +624,8 @@ def build_services() -> list[Service]:
         # 2026-09-01: RAM 상한. 실측 워커당 940MB, 여유 3.3GB → 총 4워커가 한계다.
         # 클리닉 3 + 여기 1. 여유가 생기면 2~3 으로 올려도 포트는 이미 확보돼
         # 있다(식당 블록 2085-2087).
-        "N_WORKERS": "1",
-        "PROXY_PORT_BASE": "2087",
+        "N_WORKERS": "3",
+        "PROXY_PORT_BASE": "2085",
     }
     chiang_mai_env = {
         "CITY_LAT": "18.7883",
