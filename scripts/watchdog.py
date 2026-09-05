@@ -938,12 +938,23 @@ def build_services() -> list[Service]:
         spa_proxy_base="2083", spa_grid_port="2083",
         massage_proxy_base="2083", massage_grid_port="2083",
         n_workers="2", grid_n_workers="2")
+    # 2026-09-05 신규 3도시 동시 가동: 기본값이면 셀이 전부 2080/2082에 몰려
+    # 터널 충돌(vpn-tunnel-collision)로 서로 차단을 자초한다. 도시별로 분산:
+    # koh_samui 2080/2081 · hua_hin 2082/2084 · krabi 2085/2086 (chiang_mai는 2083).
+    # n_workers 4→2: 머신 상한도 이유지만, krabi massage 2086+4-1=2089>2087이면
+    # _validate_proxy_ports 가 부팅 자체를 거부하는 함정도 있다(08-07 실측).
     spa_koh_samui_env, massage_koh_samui_env = _spa_massage_env(
-        "koh_samui", "9.5018", "99.9648", "15000", "../spa_output/koh_samui")
+        "koh_samui", "9.5018", "99.9648", "15000", "../spa_output/koh_samui",
+        spa_proxy_base="2080", spa_grid_port="2080",
+        massage_proxy_base="2081", massage_grid_port="2081", n_workers="2")
     spa_hua_hin_env, massage_hua_hin_env = _spa_massage_env(
-        "hua_hin", "12.5684", "99.9577", "12000", "../spa_output/hua_hin")
+        "hua_hin", "12.5684", "99.9577", "12000", "../spa_output/hua_hin",
+        spa_proxy_base="2082", spa_grid_port="2082",
+        massage_proxy_base="2084", massage_grid_port="2084", n_workers="2")
     spa_krabi_env, massage_krabi_env = _spa_massage_env(
-        "krabi", "8.0863", "98.9063", "15000", "../spa_output/krabi")
+        "krabi", "8.0863", "98.9063", "15000", "../spa_output/krabi",
+        spa_proxy_base="2085", spa_grid_port="2085",
+        massage_proxy_base="2086", massage_grid_port="2086", n_workers="2")
 
     # progress 패턴 (각 서비스의 "실제 작업 진척" 시그널)
     # scraper 한 건 완료 라인 + "의도적으로 쉬는 중" 라인.
