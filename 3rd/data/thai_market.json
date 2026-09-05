@@ -1,13 +1,13 @@
 {
-  "generated": "2026-08-31",
-  "listing_count": 2882,
+  "generated": "2026-09-05",
+  "listing_count": 2889,
   "sources": [
     {
       "id": "usedbrand88",
       "label": "UsedBrand88",
       "url": "https://usedbrand88.com",
       "focus": "handbags",
-      "listings": 147,
+      "listings": 144,
       "ok": true,
       "complete": true,
       "buys": true,
@@ -18,7 +18,7 @@
       "label": "Brandname Voyage",
       "url": "https://brandnamevoyage.com",
       "focus": "handbags",
-      "listings": 2000,
+      "listings": 1999,
       "ok": true,
       "complete": true,
       "buys": true,
@@ -29,18 +29,18 @@
       "label": "Time Thai by TAG",
       "url": "https://www.timethaibytag.com",
       "focus": "watches",
-      "listings": 67,
+      "listings": 68,
       "ok": true,
       "complete": true,
       "buys": true,
-      "consigns": false
+      "consigns": true
     },
     {
       "id": "conradtime",
       "label": "Conrad Time",
       "url": "https://conradtime.com",
       "focus": "watches",
-      "listings": 576,
+      "listings": 583,
       "ok": true,
       "complete": true,
       "buys": true,
@@ -51,7 +51,7 @@
       "label": "Pixiu Watch",
       "url": "https://pixiuwatch.com",
       "focus": "watches",
-      "listings": 92,
+      "listings": 95,
       "ok": true,
       "complete": true,
       "buys": true,
@@ -338,7 +338,7 @@
         }
       ],
       "family": {
-        "n": 48,
+        "n": 50,
         "min": 14900,
         "median": 19900,
         "max": 59900,
@@ -406,7 +406,7 @@
         "max": 49900
       },
       "family": {
-        "n": 30,
+        "n": 29,
         "min": 22900,
         "median": 29900,
         "max": 49900,
@@ -470,7 +470,7 @@
         }
       ],
       "variant": {
-        "n": 86,
+        "n": 89,
         "min": 229000,
         "median": 429000,
         "max": 1649000
@@ -700,14 +700,6 @@
           "image": "https://usedbrand88.com/wp-content/uploads/2026/08/Used-Like-New-Chanel-Mini-7.5-Adjustable-Perfect-Bag-Microchip-Full-Set-1-300x300.jpg"
         },
         {
-          "title": "Used Like New Chanel Mini 7 Caviar SHW Holo22 Full Set no receipt",
-          "price": 135000,
-          "url": "https://usedbrand88.com/product/used-like-new-chanel-mini-7-caviar-shw-holo22-full-set-no-receipt/",
-          "source": "usedbrand88",
-          "in_stock": true,
-          "image": "https://usedbrand88.com/wp-content/uploads/2026/06/Used-Like-New-Chanel-Mini-7-Caviar-SHW-Holo22-Full-Set-no-receipt-1-300x300.jpg"
-        },
-        {
           "title": "CHANEL   MINI CLASSIC FLAP BAG",
           "price": 139000,
           "url": "https://brandnamevoyage.com/product/chanel-mini-classic-flap-bag/",
@@ -717,15 +709,15 @@
         }
       ],
       "variant": {
-        "n": 5,
+        "n": 4,
         "min": 79900,
-        "median": 129900,
+        "median": 114450,
         "max": 139000
       },
       "aliases": [
         {
           "name": "Mini 7",
-          "count": 3
+          "count": 2
         }
       ]
     },
@@ -859,7 +851,7 @@
         }
       ],
       "family": {
-        "n": 48,
+        "n": 50,
         "min": 14900,
         "median": 19900,
         "max": 59900,
@@ -921,7 +913,7 @@
         }
       ],
       "family": {
-        "n": 48,
+        "n": 50,
         "min": 14900,
         "median": 19900,
         "max": 59900,
@@ -1442,13 +1434,13 @@
         }
       ],
       "variant": {
-        "n": 12,
+        "n": 11,
         "min": 22900,
         "median": 26900,
-        "max": 30900
+        "max": 29900
       },
       "family": {
-        "n": 30,
+        "n": 29,
         "min": 22900,
         "median": 29900,
         "max": 49900,
@@ -1609,9 +1601,9 @@
         }
       ],
       "variant": {
-        "n": 80,
+        "n": 81,
         "min": 309000,
-        "median": 564000,
+        "median": 569000,
         "max": 1299000
       }
     },
@@ -1668,9 +1660,9 @@
         "max": 529000
       },
       "family": {
-        "n": 37,
+        "n": 38,
         "min": 92500,
-        "median": 258000,
+        "median": 256500,
         "max": 729000,
         "label": "Oyster Perpetual"
       }
@@ -1740,9 +1732,18 @@
     },
     "cartier/santos-medium": {
       "sources": [
-        "conradtime"
+        "conradtime",
+        "pixiuwatch"
       ],
       "listings": [
+        {
+          "title": "Cartier Santos Large Model Steel W20073X8",
+          "price": 168000,
+          "url": "https://pixiuwatch.com/products/cartier-santos100-w20073x8-large-model-after-diamonds-secondhand",
+          "source": "pixiuwatch",
+          "in_stock": true,
+          "image": "https://cdn.shopify.com/s/files/1/0247/5871/4456/files/cartier-santos100-w20073x8-large-model-after-diamonds-secondhand_400x.jpg?v=1788509712"
+        },
         {
           "title": "Santos De WSSA0029 Silver Dial Stainless steel 2022 35mm.",
           "price": 189000,
@@ -1782,19 +1783,11 @@
           "source": "conradtime",
           "in_stock": true,
           "image": "https://conradtime.com/wp-content/uploads/2025/10/CT2877-Ref.WSSA0062-300x300.jpg"
-        },
-        {
-          "title": "Santos 2960 Silver Dial Stainless steel 1996 29 mm.",
-          "price": 249000,
-          "url": "https://conradtime.com/shop/cartier/santos-2960-silver-dial-stainless-steel-1996-29-mm/",
-          "source": "conradtime",
-          "in_stock": true,
-          "image": "https://conradtime.com/wp-content/uploads/2026/06/CT00787-Ref.2960-300x300.jpg"
         }
       ],
       "family": {
-        "n": 6,
-        "min": 189000,
+        "n": 7,
+        "min": 168000,
         "median": 229000,
         "max": 249000,
         "label": "Santos"
@@ -2162,7 +2155,7 @@
         }
       ],
       "variant": {
-        "n": 15,
+        "n": 14,
         "min": 29900,
         "median": 53900,
         "max": 62900
@@ -2498,63 +2491,44 @@
     },
     "rolex/day-date-40-president": {
       "sources": [
-        "conradtime",
-        "pixiuwatch"
+        "conradtime"
       ],
       "listings": [
         {
-          "title": "Day-Date 18038 Champagne Dial Yellow Gold President 36mm.",
-          "price": 499000,
-          "url": "https://conradtime.com/shop/rolex/day-date-18038-champagne-dial-yellow-gold-president-36mm/",
+          "title": "Day-Date 228239 Slate Gray Dial President 2023 40 mm.",
+          "price": 1229000,
+          "url": "https://conradtime.com/shop/rolex/day-date-228239-slate-gray-dial-president-2023-40-mm/",
           "source": "conradtime",
           "in_stock": true,
-          "image": "https://conradtime.com/wp-content/uploads/2026/02/CT2990-Ref.18038-300x300.jpg"
+          "image": "https://conradtime.com/wp-content/uploads/2026/09/IMG_6967-300x300.png"
         },
         {
-          "title": "Day-Date 18238 Champagne Diamond Dial Yellow Gold President 1990 36mm.",
-          "price": 559000,
-          "url": "https://conradtime.com/shop/rolex/day-date-18238-champagne-diamond-dial-yellow-gold-president-1990-36mm/",
+          "title": "Day-Date 228238 Champagne Dial Yellow Gold President 2018 40mm.",
+          "price": 1289000,
+          "url": "https://conradtime.com/shop/rolex/day-date-228238-champagne-dial-yellow-gold-president-2018-40mm/",
           "source": "conradtime",
           "in_stock": true,
-          "image": "https://conradtime.com/wp-content/uploads/2024/11/CT2624-Ref.18238-300x300.jpg"
+          "image": "https://conradtime.com/wp-content/uploads/2026/05/CT3059-Ref.228238-300x300.jpg"
         },
         {
-          "title": "Day-Date 18238 Champagne dial Yellow Gold President 1991 36 mm.",
-          "price": 589000,
-          "url": "https://conradtime.com/shop/rolex/day-date-18238-champagne-dial-yellow-gold-president-1991-36-mm/",
+          "title": "New Day-Date 228236 Ice Blue Dial Platinum President 2026 40mm.",
+          "price": 2699000,
+          "url": "https://conradtime.com/shop/rolex/new-day-date-228236-ice-blue-dial-platinum-president-2026-40mm/",
           "source": "conradtime",
           "in_stock": true,
-          "image": "https://conradtime.com/wp-content/uploads/2026/04/CT3025-Ref.18238-300x300.jpg"
-        },
-        {
-          "title": "Day-Date 118239 White Gold Black Diamond Dial President 2006 36mm.",
-          "price": 679000,
-          "url": "https://conradtime.com/shop/rolex/day-date-118239-white-gold-black-diamond-dial-president-2006-36mm/",
-          "source": "conradtime",
-          "in_stock": true,
-          "image": "https://conradtime.com/wp-content/uploads/2025/06/CT2773-Ref.118239-300x300.jpg"
-        },
-        {
-          "title": "Rolex Day-Date President Full Gold 118239",
-          "price": 880000,
-          "url": "https://pixiuwatch.com/products/rolex-day-date-president-full-gold-118239-secondhand",
-          "source": "pixiuwatch",
-          "in_stock": true,
-          "image": "https://cdn.shopify.com/s/files/1/0247/5871/4456/files/rolex-day-date-president-full-gold-118239-secondhand_400x.jpg?v=1787898067"
-        },
-        {
-          "title": "Day-Date 118238 Meteorite Diamond Dial Yellow gold President 2001 36mm.",
-          "price": 899000,
-          "url": "https://conradtime.com/shop/rolex/day-date-118238-meteorite-diamond-dial-yellow-gold-president-2001-36mm/",
-          "source": "conradtime",
-          "in_stock": true,
-          "image": "https://conradtime.com/wp-content/uploads/2025/02/CT2682-Ref.118238-300x300.jpg"
+          "image": "https://conradtime.com/wp-content/uploads/2026/04/CT3030-Ref.228236-300x300.jpg"
         }
       ],
+      "variant": {
+        "n": 3,
+        "min": 1229000,
+        "median": 1289000,
+        "max": 2699000
+      },
       "family": {
-        "n": 10,
+        "n": 11,
         "min": 499000,
-        "median": 889500,
+        "median": 899000,
         "max": 2699000,
         "label": "Day Date President"
       }
@@ -2777,7 +2751,7 @@
         }
       ],
       "family": {
-        "n": 27,
+        "n": 28,
         "min": 19900,
         "median": 36900,
         "max": 48900,
@@ -2803,7 +2777,7 @@
           "url": "https://brandnamevoyage.com/product/balenciagacity-classic/",
           "source": "brandnamevoyage",
           "in_stock": false,
-          "image": ""
+          "image": "https://brandnamevoyage.com/wp-content/uploads/2025/10/CBA2503M10P113-324x324.jpg"
         },
         {
           "title": "BALENCIAGA CITY CLASSIC",
@@ -2848,16 +2822,17 @@
     },
     "cartier/santos-large": {
       "sources": [
-        "conradtime"
+        "conradtime",
+        "pixiuwatch"
       ],
       "listings": [
         {
-          "title": "Santos De WSSA0029 Silver Dial Stainless steel 2022 35mm.",
-          "price": 189000,
-          "url": "https://conradtime.com/shop/cartier/santos-de-wssa0029-silver-dial-stainless-steel-2022-35mm/",
-          "source": "conradtime",
+          "title": "Cartier Santos Large Model Steel W20073X8",
+          "price": 168000,
+          "url": "https://pixiuwatch.com/products/cartier-santos100-w20073x8-large-model-after-diamonds-secondhand",
+          "source": "pixiuwatch",
           "in_stock": true,
-          "image": "https://conradtime.com/wp-content/uploads/2025/04/CT2743-Ref.WSSA0029-300x300.jpg"
+          "image": "https://cdn.shopify.com/s/files/1/0247/5871/4456/files/cartier-santos100-w20073x8-large-model-after-diamonds-secondhand_400x.jpg?v=1788509712"
         },
         {
           "title": "Santos WSSA0009 Large Silver Dial Stainless steel 2019 47.5 x 39.8 mm.",
@@ -2874,35 +2849,17 @@
           "source": "conradtime",
           "in_stock": true,
           "image": "https://conradtime.com/wp-content/uploads/2026/06/CTS0369-Ref.WSSA0018-300x300.jpg"
-        },
-        {
-          "title": "Santos De WSSA0030 Blue Dial 2023 39.8 x 47.5mm.",
-          "price": 229000,
-          "url": "https://conradtime.com/shop/cartier/santos-de-wssa0030-blue-dial-2023-39-8-x-47-5mm/",
-          "source": "conradtime",
-          "in_stock": true,
-          "image": "https://conradtime.com/wp-content/uploads/2024/10/CT2592-Ref.WSSA0030-300x300.jpg"
-        },
-        {
-          "title": "Santos WSSA0062 Green Dial Stainless steel 2024 47.5 x 39.8 mm.",
-          "price": 239000,
-          "url": "https://conradtime.com/shop/cartier/santos-wssa0062-green-dial-stainless-steel-2024-47-5-x-39-8-mm/",
-          "source": "conradtime",
-          "in_stock": true,
-          "image": "https://conradtime.com/wp-content/uploads/2025/10/CT2877-Ref.WSSA0062-300x300.jpg"
-        },
-        {
-          "title": "Santos 2960 Silver Dial Stainless steel 1996 29 mm.",
-          "price": 249000,
-          "url": "https://conradtime.com/shop/cartier/santos-2960-silver-dial-stainless-steel-1996-29-mm/",
-          "source": "conradtime",
-          "in_stock": true,
-          "image": "https://conradtime.com/wp-content/uploads/2026/06/CT00787-Ref.2960-300x300.jpg"
         }
       ],
+      "variant": {
+        "n": 3,
+        "min": 168000,
+        "median": 199000,
+        "max": 229000
+      },
       "family": {
-        "n": 6,
-        "min": 189000,
+        "n": 7,
+        "min": 168000,
         "median": 229000,
         "max": 249000,
         "label": "Santos Cartier"
@@ -2994,14 +2951,6 @@
       ],
       "listings": [
         {
-          "title": "Used In very good condition Chanel Coco 9.5 Caviar Microchip Full Set",
-          "price": 129000,
-          "url": "https://usedbrand88.com/product/used-in-very-good-condition-chanel-coco-9-5-caviar-microchip-full-set-2/",
-          "source": "usedbrand88",
-          "in_stock": true,
-          "image": "https://usedbrand88.com/wp-content/uploads/2024/09/Used-In-very-good-condition-Chanel-Coco-9.5-Caviar-Microchip-Full-Set-1-300x300.jpg"
-        },
-        {
           "title": "Keep Unused Chanel Coco 9.5  Iridescent Caviar Microchip Full Set",
           "price": 139900,
           "url": "https://usedbrand88.com/product/keep-unused-chanel-coco-9-5-iridescent-caviar-microchip-full-set/",
@@ -3027,8 +2976,8 @@
         }
       ],
       "variant": {
-        "n": 4,
-        "min": 129000,
+        "n": 3,
+        "min": 139900,
         "median": 139900,
         "max": 199900
       },
@@ -3042,11 +2991,11 @@
       "aliases": [
         {
           "name": "Coco 9",
-          "count": 4
+          "count": 3
         },
         {
           "name": "Coco 9.5",
-          "count": 4
+          "count": 3
         }
       ]
     }
@@ -3065,9 +3014,9 @@
       ]
     },
     "balenciaga": {
-      "n": 49,
+      "n": 50,
       "p25": 19900,
-      "median": 24900,
+      "median": 25400,
       "p75": 29900,
       "brand": "Balenciaga",
       "sources": [
@@ -3075,9 +3024,9 @@
       ]
     },
     "bottega-veneta": {
-      "n": 26,
+      "n": 25,
       "p25": 12900,
-      "median": 20400,
+      "median": 24900,
       "p75": 32900,
       "brand": "Bottega Veneta",
       "sources": [
@@ -3085,7 +3034,7 @@
       ]
     },
     "cartier": {
-      "n": 33,
+      "n": 35,
       "p25": 99000,
       "median": 119000,
       "p75": 188000,
@@ -3097,7 +3046,7 @@
       ]
     },
     "celine": {
-      "n": 137,
+      "n": 136,
       "p25": 23900,
       "median": 29900,
       "p75": 37900,
@@ -3107,9 +3056,9 @@
       ]
     },
     "chanel": {
-      "n": 287,
+      "n": 285,
       "p25": 49900,
-      "median": 99000,
+      "median": 95900,
       "p75": 135900,
       "brand": "Chanel",
       "sources": [
@@ -3138,10 +3087,10 @@
       ]
     },
     "hermes": {
-      "n": 41,
+      "n": 43,
       "p25": 18900,
       "median": 28900,
-      "p75": 54900,
+      "p75": 55900,
       "brand": "Hermès",
       "sources": [
         "brandnamevoyage",
@@ -3149,20 +3098,20 @@
       ]
     },
     "loewe": {
-      "n": 18,
+      "n": 19,
       "p25": 14900,
       "median": 29900,
-      "p75": 33900,
+      "p75": 38900,
       "brand": "Loewe",
       "sources": [
         "brandnamevoyage"
       ]
     },
     "louis-vuitton": {
-      "n": 475,
+      "n": 473,
       "p25": 15900,
       "median": 24900,
-      "p75": 36900,
+      "p75": 37900,
       "brand": "Louis Vuitton",
       "sources": [
         "brandnamevoyage"
@@ -3202,9 +3151,9 @@
       ]
     },
     "prada": {
-      "n": 120,
+      "n": 119,
       "p25": 15900,
-      "median": 24400,
+      "median": 23900,
       "p75": 28900,
       "brand": "Prada",
       "sources": [
@@ -3212,7 +3161,7 @@
       ]
     },
     "rolex": {
-      "n": 493,
+      "n": 501,
       "p25": 279000,
       "median": 409000,
       "p75": 599000,
@@ -3224,9 +3173,9 @@
       ]
     },
     "tag-heuer": {
-      "n": 21,
+      "n": 22,
       "p25": 37800,
-      "median": 48900,
+      "median": 47900,
       "p75": 55900,
       "brand": "TAG Heuer",
       "sources": [
@@ -3241,55 +3190,55 @@
       "term": "Jubilee / Oyster / Oysterflex",
       "en": "Rolex bracelets: Jubilee is the five-piece link, Oyster the flatter three-piece, Oysterflex the rubber-over-metal strap. \"Oyster Perpetual\" is a model line, not a bracelet.",
       "th": "สายนาฬิกาโรเล็กซ์ — Jubilee คือสายห้าข้อ Oyster คือสายสามข้อที่แบนกว่า ส่วน Oysterflex เป็นสายยางหุ้มโครงโลหะ ส่วนคำว่า \"Oyster Perpetual\" คือชื่อคอลเลกชัน ไม่ใช่ชื่อสาย",
-      "count": 439
+      "count": 445
     },
     {
       "term": "Classic 10\" / Boy 8\" / 19 Size 26",
       "en": "Thai dealers size Chanel flaps by width rather than by the name Chanel uses. Classic 10 is the Medium, Classic 12 the Jumbo, Boy 8 the Small. The 19 is sized in centimetres instead.",
       "th": "ร้านไทยเรียกขนาดกระเป๋าชาแนลตามความกว้างเป็นนิ้ว แทนชื่อขนาดที่ชาแนลใช้เอง Classic 10 คือไซซ์ Medium, Classic 12 คือ Jumbo, Boy 8 คือ Small ส่วนรุ่น 19 นับเป็นเซนติเมตร",
-      "count": 164
+      "count": 163
     },
     {
       "term": "Full Set",
       "en": "The piece with everything it was sold with — box, dust bag, authenticity card or warranty papers, and usually the receipt. A full set resells for meaningfully more than the item alone.",
       "th": "ของครบชุด — กล่อง ถุงผ้า การ์ดของแท้หรือใบรับประกัน และมักมีใบเสร็จด้วย ของครบชุดขายต่อได้ราคาสูงกว่าตัวสินค้าเปล่าอย่างมีนัยสำคัญ",
-      "count": 117
+      "count": 114
     },
     {
       "term": "WOC (Wallet on Chain)",
       "en": "A wallet with a detachable chain, carried as a small shoulder bag. The cheapest way into most maisons, and priced well below the flap bag it resembles.",
       "th": "กระเป๋าสตางค์ที่มีสายโซ่ถอดได้ ใช้สะพายเป็นกระเป๋าใบเล็ก เป็นรุ่นที่ราคาเข้าถึงง่ายที่สุดของหลายแบรนด์ และถูกกว่ากระเป๋าฝาปิดที่หน้าตาคล้ายกันมาก",
-      "count": 107
+      "count": 108
     },
     {
       "term": "Like New / Unused",
       "en": "The dealer's top condition grade: little or no visible wear. It is the shop's own judgement, not a graded standard — inspect it yourself or ask for corner and hardware photographs.",
       "th": "เกรดสภาพสูงสุดที่ร้านให้ — แทบไม่มีร่องรอยการใช้งาน แต่เป็นการประเมินของร้านเอง ไม่ใช่มาตรฐานกลาง ควรดูของจริงหรือขอรูปมุมกระเป๋าและอะไหล่",
-      "count": 69
+      "count": 68
     },
     {
       "term": "Microchip",
       "en": "Chanel replaced its serial sticker with an embedded chip from around 2021. A listing that says microchip is describing a recent bag, not an older one.",
       "th": "ชาแนลเปลี่ยนจากสติกเกอร์ซีเรียลมาเป็นชิปฝังในตัวกระเป๋าตั้งแต่ราวปี 2021 ประกาศที่ระบุ microchip จึงหมายถึงกระเป๋ารุ่นใหม่ ไม่ใช่ของเก่า",
-      "count": 62
+      "count": 60
     },
     {
       "term": "Caviar",
       "en": "Chanel's grained, pebbled calfskin. It resists scratches far better than lambskin and normally carries a higher resale price in the same model and size.",
       "th": "หนังลูกวัวลายเม็ดของชาแนล ทนรอยขีดข่วนกว่าหนังแกะมาก และมักขายต่อได้ราคาสูงกว่าในรุ่นและขนาดเดียวกัน",
-      "count": 61
+      "count": 59
     },
     {
       "term": "Holo / Hologram",
       "en": "Chanel's older serial sticker. Dealers write it with its series number — \"Holo 27\" — which is how the bag gets dated.",
       "th": "สติกเกอร์ซีเรียลแบบเก่าของชาแนล ร้านมักเขียนพร้อมเลขซีรีส์ เช่น \"Holo 27\" ซึ่งใช้ระบุปีที่ผลิตของกระเป๋าใบนั้น",
-      "count": 52
+      "count": 51
     },
     {
       "term": "No Receipt",
       "en": "Full set except the original sales slip. Common, and not a warning sign on its own — but it does cost something at resale, so it belongs in the price you negotiate.",
       "th": "ครบชุดแต่ไม่มีใบเสร็จตัวจริง พบบ่อยและไม่ใช่สัญญาณอันตรายในตัวเอง แต่มีผลต่อราคาขายต่อ จึงควรนำมาต่อรองราคา",
-      "count": 25
+      "count": 24
     },
     {
       "term": "Lambskin",
@@ -3298,16 +3247,16 @@
       "count": 20
     },
     {
-      "term": "GHW / SHW / RHW / PHW",
-      "en": "Gold, silver, rose gold and palladium hardware. Dealers abbreviate it because it changes the price: on some models one finish is materially harder to resell than another.",
-      "th": "อะไหล่สีทอง เงิน พิงค์โกลด์ และแพลเลเดียม ตามลำดับ ร้านย่อไว้เพราะมีผลต่อราคา — บางรุ่นสีอะไหล่ต่างกันขายต่อยากง่ายไม่เท่ากัน",
-      "count": 20
-    },
-    {
       "term": "Vintage",
       "en": "An older piece, typically pre-2000s. Condition varies enormously and so does price — vintage is a date, not a grade.",
       "th": "ของรุ่นเก่า มักหมายถึงก่อนยุค 2000 สภาพและราคาต่างกันมาก คำว่า vintage บอกยุค ไม่ได้บอกสภาพ",
-      "count": 18
+      "count": 20
+    },
+    {
+      "term": "GHW / SHW / RHW / PHW",
+      "en": "Gold, silver, rose gold and palladium hardware. Dealers abbreviate it because it changes the price: on some models one finish is materially harder to resell than another.",
+      "th": "อะไหล่สีทอง เงิน พิงค์โกลด์ และแพลเลเดียม ตามลำดับ ร้านย่อไว้เพราะมีผลต่อราคา — บางรุ่นสีอะไหล่ต่างกันขายต่อยากง่ายไม่เท่ากัน",
+      "count": 19
     },
     {
       "term": "Clemence / Togo / Epsom",
@@ -3319,12 +3268,6 @@
       "term": "Chevron",
       "en": "V-shaped quilting instead of the usual diamond. Produced in far smaller numbers, so comparable pieces are thinner on the ground.",
       "th": "การเย็บลายตัว V แทนลายข้าวหลามตัดปกติ ผลิตจำนวนน้อยกว่ามาก ของเทียบเคียงในตลาดจึงหายากกว่า",
-      "count": 5
-    },
-    {
-      "term": "GM / PM / MM",
-      "en": "Louis Vuitton, Goyard and Hermès size suffixes — grand, petit and moyen modèle, so large, small and medium. Note that \"mm\" on a watch listing is a case diameter in millimetres instead.",
-      "th": "ตัวย่อบอกขนาดของ Louis Vuitton, Goyard และ Hermès — grand, petit, moyen modèle คือใหญ่ เล็ก และกลาง ส่วน \"mm\" ในประกาศนาฬิกาคือขนาดหน้าปัดเป็นมิลลิเมตร คนละความหมาย",
       "count": 5
     }
   ]
