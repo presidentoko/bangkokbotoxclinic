@@ -66,12 +66,23 @@ export const metadata: Metadata = {
       "x-default": "/",
     },
   },
-  // Search Console + Bing 검증 메타. Vercel ENV 로 주입 (옵션).
+  // Search Console + Bing + AdSense 검증 메타. Vercel ENV 로 주입 (옵션).
+  //
+  // AdSense 는 loader 스크립트만으로도 사이트를 확인할 수 있어야 하지만,
+  // 실제로는 확인이 계속 실패했다. 스크립트는 Next 의 Script 컴포넌트가
+  // 넣기 때문에 프리렌더 HTML 안에서 위치가 본문 쪽이고, 크롤러가 그걸
+  // 놓치는 경우가 있다. google-adsense-account 메타는 <head> 최상단에
+  // 정적으로 박히므로 확인 경로가 하나 더 생긴다. 둘은 배타적이지 않다.
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
-    other: process.env.NEXT_PUBLIC_BING_VERIFICATION
-      ? { "msvalidate.01": [process.env.NEXT_PUBLIC_BING_VERIFICATION] }
-      : undefined,
+    other: {
+      ...(process.env.NEXT_PUBLIC_BING_VERIFICATION
+        ? { "msvalidate.01": [process.env.NEXT_PUBLIC_BING_VERIFICATION] }
+        : {}),
+      ...(process.env.NEXT_PUBLIC_ADSENSE_CLIENT
+        ? { "google-adsense-account": [process.env.NEXT_PUBLIC_ADSENSE_CLIENT] }
+        : {}),
+    },
   },
 };
 
