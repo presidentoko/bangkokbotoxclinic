@@ -10,10 +10,24 @@ import type { NextConfig } from "next";
 // `CDN-Cache-Control` is the header for *downstream* CDNs (Vercel forwards it
 // rather than consuming it, unlike Vercel-CDN-Cache-Control), so it gives
 // Cloudflare a real TTL while leaving the browser header and Vercel's own ISR
-// behaviour untouched. One origin fetch per URL per PoP per hour instead of one
-// per request; stale-while-revalidate keeps a deploy from causing a thundering
-// herd, and means a new deploy propagates in the background within the hour.
-const CDN_CACHE = "public, s-maxage=3600, stale-while-revalidate=86400";
+// behaviour untouched.
+//
+// This was one hour until 2026-09-06, when the usage page read ISR Reads
+// 868K/1M. An hour is the wrong unit for this site: every route under [locale]
+// is `revalidate = false`, so a page is byte-identical until the next deploy,
+// and auto_deploy.py is throttled to one deploy per 72 hours. Revalidating
+// hourly asked the origin to re-prove that ~72 times per URL per PoP between
+// deploys. A day cuts that by 24x and is still well inside the deploy interval.
+//
+// Deliberately not longer: Cloudflare's purge tokens for this zone both return
+// 401 (2026-09-03), so a wrong value at the edge cannot be cleared by hand and
+// has to age out. s-maxage + stale-while-revalidate bounds that at two days.
+const CDN_CACHE = "public, s-maxage=86400, stale-while-revalidate=86400";
+
+// Crawl-control files are a handful of URLs, so caching them longer saves
+// nothing measurable, while a stale sitemap or robots.txt delays every
+// correction made through them. They keep the old one-hour TTL.
+const CDN_CACHE_CRAWL = "public, s-maxage=3600, stale-while-revalidate=86400";
 
 const nextConfig: NextConfig = {
   trailingSlash: false,
@@ -48,9 +62,9 @@ const nextConfig: NextConfig = {
         source: "/:locale(th|en)/:path*",
         headers: [{ key: "CDN-Cache-Control", value: CDN_CACHE }],
       },
-      { source: "/sitemap.xml", headers: [{ key: "CDN-Cache-Control", value: CDN_CACHE }] },
-      { source: "/llms.txt", headers: [{ key: "CDN-Cache-Control", value: CDN_CACHE }] },
-      { source: "/robots.txt", headers: [{ key: "CDN-Cache-Control", value: CDN_CACHE }] },
+      { source: "/sitemap.xml", headers: [{ key: "CDN-Cache-Control", value: CDN_CACHE_CRAWL }] },
+      { source: "/llms.txt", headers: [{ key: "CDN-Cache-Control", value: CDN_CACHE_CRAWL }] },
+      { source: "/robots.txt", headers: [{ key: "CDN-Cache-Control", value: CDN_CACHE_CRAWL }] },
     ];
   },
   async redirects() {
