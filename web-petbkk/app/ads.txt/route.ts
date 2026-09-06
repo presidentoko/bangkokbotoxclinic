@@ -3,17 +3,19 @@
  *
  * Without it, most demand-side platforms treat the domain's inventory as
  * unauthorised and bid far lower or not at all, so it is worth having in place
- * before the first ad is served rather than after. The publisher id comes from
- * the environment: `NEXT_PUBLIC_ADSENSE_ID` is the same `ca-pub-…` value the ad
- * script uses, and ads.txt wants it without the `ca-` prefix.
+ * before the first ad is served rather than after. The publisher id is the same
+ * `ca-pub-…` value the ad script uses (`lib/ads.ts`); ads.txt wants it without
+ * the `ca-` prefix.
  *
- * Served with a 404 while unset — an ads.txt listing no sellers is worse than
- * none, because crawlers cache the empty file.
+ * Served with a 404 if that id is ever blank — an ads.txt listing no sellers is
+ * worse than none, because crawlers cache the empty file.
  */
+
+import { ADSENSE_CLIENT } from '@/lib/ads'
 
 export const dynamic = 'force-static'
 
-const ADSENSE_ID = process.env.NEXT_PUBLIC_ADSENSE_ID
+const ADSENSE_ID = ADSENSE_CLIENT
 
 export function GET() {
   if (!ADSENSE_ID) {

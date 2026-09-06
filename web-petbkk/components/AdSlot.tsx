@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { ADSENSE_CLIENT } from '@/lib/ads'
 
 /**
  * A display-ad slot that reserves its height before the ad arrives.
@@ -18,7 +19,21 @@ import { useEffect, useRef } from 'react'
  * environment-variable change rather than a code change.
  */
 
-const CLIENT = process.env.NEXT_PUBLIC_ADSENSE_ID
+const CLIENT = ADSENSE_CLIENT
+
+/**
+ * The seven slot ids used across `app/` are still the placeholder sequence
+ * (1234567890–1234567896) invented before an AdSense account existed. A slot id
+ * only becomes real once the ad unit is created in the AdSense dashboard, and
+ * an `<ins>` pointing at an id that does not exist never fills — it just leaves
+ * a labelled ~280px hole on every page it sits on.
+ *
+ * So a placeholder id renders nothing even once the client id is set. The
+ * loader script still ships from `Analytics.tsx`, which is what AdSense needs
+ * to verify ownership of the site and what Auto ads runs on; replacing these
+ * ids with the real ones is what turns the hand-placed units on.
+ */
+const PLACEHOLDER_SLOT = /^123456789\d$/
 
 // Heights are the shortest creative each format can serve, so the reserved box
 // is never taller than the ad that fills it.
@@ -52,7 +67,7 @@ export default function AdSlot({ slot, format = 'inline', label = 'โฆษณ�
   const pushed = useRef(false)
 
   useEffect(() => {
-    if (!CLIENT || pushed.current || !ref.current) return
+    if (!CLIENT || PLACEHOLDER_SLOT.test(slot) || pushed.current || !ref.current) return
     // React 18/19 double-invokes effects in development; pushing twice makes
     // AdSense throw "All ins elements... already have ads in them".
     pushed.current = true
@@ -61,9 +76,9 @@ export default function AdSlot({ slot, format = 'inline', label = 'โฆษณ�
     } catch {
       /* blocked by an ad blocker, or the script never loaded */
     }
-  }, [])
+  }, [slot])
 
-  if (!CLIENT) return null
+  if (!CLIENT || PLACEHOLDER_SLOT.test(slot)) return null
 
   const cfg = FORMATS[format]
 
