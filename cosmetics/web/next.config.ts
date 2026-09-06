@@ -24,48 +24,50 @@ import type { NextConfig } from "next";
 // has to age out. s-maxage + stale-while-revalidate bounds that at two days.
 //
 // ---------------------------------------------------------------------------
-// READ THIS BEFORE CHANGING THE TWO VALUES BELOW.
+// Cloudflare honours these headers per-route. Measured, not assumed.
 //
-// The zone's Cache Rule is what actually decides the edge TTL, and on
-// 2026-09-06 its Edge TTL was set to "Ignore cache-control header and use this
-// TTL / 1 day". While it says that, Cloudflare does not read these headers at
-// all and editing them changes nothing on the live site. They are the intent;
-// the dashboard is the authority.
+// 2026-09-06, sampling one URL of each kind at the same PoP (CF-RAY ...-BKK)
+// every three minutes for ninety minutes:
 //
-// Where the two currently agree and disagree:
+//   /sitemap.xml     s-maxage=3600    Age climbed to 3490, then EXPIRED at
+//                                     age 0; climbed to 3429, then
+//                                     REVALIDATED at age 0. Two clean cycles,
+//                                     both turning over at 3600.
+//   /th/brand/nars   s-maxage=86400   Age ran past 3600 without pausing and
+//                                     reached 5703, still HIT.
 //
-//   pages          86400 == 1 day    same either way, which is why the
-//                                    2026-09-06 ISR Reads fix took effect
-//   sitemap.xml    3600  vs 1 day    Cloudflare wins; the crawl files are
-//   robots.txt                       cached a day, not an hour
-//   llms.txt
+// One capped at its own s-maxage while the other sailed through the same
+// number, so the value being obeyed is this file's, per route. A fixed edge
+// TTL would have moved them together.
 //
-// They are kept accurate anyway so that switching the rule to "Use
-// cache-control header if present" is a no-op for pages rather than a second
-// change to reason about. That switch was considered on 2026-09-06 and not
-// made: it is unverified whether the rule reads `CDN-Cache-Control` or the
-// `Cache-Control: max-age=0` that Vercel also sends, and if it is the latter
-// then HTML stops being edge-cached entirely and every request becomes an ISR
-// read — with the meter at 868K/1M, the downside was worse than the upside.
+// This corrects the block written earlier the same day, which claimed the zone
+// ignored these headers in favour of a dashboard TTL of one day. That was
+// inferred from the Cache Rule editor showing a filled-in TTL field, and the
+// inference was wrong -- the field renders whether or not its option is the
+// selected one. The measurement above is what settles it. Concretely: the
+// crawl files really do get one hour, not a day, and CDN_CACHE_CRAWL below is
+// doing its job.
 //
-// To re-check which is in force without opening the dashboard: /sitemap.xml
-// carries s-maxage=3600 while pages carry 86400, so it is the one URL where
-// the two disagree. Warm it, then watch its Age (same PoP — check CF-RAY):
+// So the edge is tuned from here, and the dashboard needs no change. Re-check
+// the same way if that ever seems in doubt -- /sitemap.xml and a product or
+// brand page are the pair that disagree, and Age is the whole signal:
 //
 //   curl -sSI https://bangkokfillers.com/sitemap.xml | grep -i 'age\|cf-'
 //
-// Age climbing past 3600 means the header is being ignored and the dashboard
-// value is in force. Age resetting near 3600 means the header is honoured.
+// Watch one PoP only; CF-RAY's suffix names it, and a different PoP starts its
+// own Age at zero. Keep the URL warm while measuring -- at this site's traffic
+// Cloudflare will otherwise evict it before the TTL is reached, which reads as
+// a reset and means nothing.
 //
-// The rule does not match /admin or /api/* — both answer DYNAMIC, verified
+// The rule does not match /admin or /api/* -- both answer DYNAMIC, verified
 // 2026-09-06. Do not widen it; those responses are per-user.
 // ---------------------------------------------------------------------------
 const CDN_CACHE = "public, s-maxage=86400, stale-while-revalidate=86400";
 
 // Crawl-control files are a handful of URLs, so caching them longer saves
 // nothing measurable, while a stale sitemap or robots.txt delays every
-// correction made through them. They keep the old one-hour TTL — subject to
-// the dashboard override described above.
+// correction made through them. They keep the old one-hour TTL, and the
+// measurement above confirms they actually get it.
 const CDN_CACHE_CRAWL = "public, s-maxage=3600, stale-while-revalidate=86400";
 
 const nextConfig: NextConfig = {
