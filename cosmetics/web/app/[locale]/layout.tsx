@@ -7,6 +7,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAdsense } from "@/components/GoogleAdsense";
 import { getBanner } from "@/lib/adminData";
 import { getNoindexLocales } from "@/lib/indexing";
 
@@ -139,6 +140,7 @@ export default async function LocaleLayout({
         <Footer locale={loc} />
         <Analytics />
         <SpeedInsights />
+        <GoogleAdsense />
       </body>
     </html>
   );
