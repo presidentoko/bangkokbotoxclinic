@@ -99,6 +99,81 @@ def _vpn_idx_for(port: int) -> int:
     return port - config.VPN_PORT_BASE
 
 
+# ── 살아있는 터널 고르기 ──────────────────────────────────────────────────────
+#
+# 워커는 원래 PROXY_PORT_BASE + w 로 포트를 고정 배정받고 끝까지 그걸 썼다.
+# 그런데 nordvpn_runner 의 터널은 개별적으로 죽었다 살아난다. 그래서 어떤 배정도
+# 언젠가는 출구 없는 터널에 걸리고, 그 워커 몫이 통째로 버려진다 — 페이지가 안
+# 열리니 전부 "0 리뷰 완료"로 집계된다. 2026-09-05 파타야에서 세 시간 동안
+# 완료 52건 중 27건이 그랬고, 같은 주에 방콕에서도 두 번 겪었다. 그때마다
+# 사람이 로그를 보고 살아있는 포트로 옮겨줘야 했다.
+#
+# runner 는 이미 vpn_status.json 에 포트별 alive 를 쓰고 있으므로, 배정을
+# 맹신하지 말고 그걸 읽어서 고른다.
+_PORT_LOCK = threading.Lock()
+_PORTS_IN_USE: set[int] = set()
+
+
+def _live_ports() -> list[int]:
+    """vpn_status.json 이 alive 로 보고하는 포트. 읽기 실패하면 빈 목록."""
+    try:
+        data = json.loads((_TMPDIR / "vpn_status.json").read_text())
+    except Exception:
+        return []
+    out = []
+    for p in data.get("ports", []):
+        if p.get("alive") and isinstance(p.get("port"), int):
+            out.append(p["port"])
+    return out
+
+
+def claim_live_port(preferred: int, current: int | None = None) -> int:
+    """살아있으면서 이 프로세스의 다른 워커가 안 쓰는 포트를 확보한다.
+
+    우선순위:
+      1. 배정받은 포트가 살아있으면 그대로 (도시별 포트 분리 유지)
+      2. 이 서비스에 배정된 범위 안의 다른 살아있는 포트
+      3. 그래도 없으면 아무 살아있는 포트 — 다른 도시 범위를 빌리는 것이므로
+         경고를 남긴다. 터널을 공유하면 느려지지만, 죽은 터널을 붙들고
+         0건을 쌓는 것보다는 낫다.
+      4. 상태 파일을 못 읽으면 배정대로 (기존 동작)
+
+    current 를 주면 그 포트를 먼저 반납한다(교체 시).
+    """
+    lo = config.PROXY_PORT_BASE
+    hi = lo + config.N_WORKERS - 1
+    with _PORT_LOCK:
+        if current is not None:
+            _PORTS_IN_USE.discard(current)
+        live = _live_ports()
+        if not live:
+            _PORTS_IN_USE.add(preferred)
+            return preferred
+        if preferred in live and preferred not in _PORTS_IN_USE:
+            _PORTS_IN_USE.add(preferred)
+            return preferred
+        for p in sorted(live):
+            if lo <= p <= hi and p not in _PORTS_IN_USE:
+                _PORTS_IN_USE.add(p)
+                return p
+        for p in sorted(live):
+            if p not in _PORTS_IN_USE:
+                _PORTS_IN_USE.add(p)
+                log.warning(
+                    f"  배정 범위({lo}-{hi})에 살아있는 터널이 없어 {p} 를 빌림"
+                )
+                return p
+        # 살아있는 터널이 워커 수보다 적다. 남는 게 없으니 공유할 수밖에 없는데,
+        # 죽은 배정 포트를 돌려주면 그 워커는 계속 0건만 쌓는다. 살아있는 것 중
+        # 하나를 나눠 쓰는 편이 낫다 — 대신 조용히 넘어가지 않고 남긴다.
+        share = preferred if preferred in live else sorted(live)[0]
+        log.warning(
+            f"  살아있는 터널 {len(live)}개 < 워커 수 — {share} 를 공유한다 "
+            f"(배정 {preferred})"
+        )
+        return share
+
+
 # ── 데이터 구조 ──────────────────────────────────────────────
 
 @dataclass
@@ -1108,7 +1183,14 @@ def worker(
     - 전용 프록시 포트 (고정 IP)
     - task_queue에서 href를 받아 상세 + 리뷰 수집 → result_queue로 보냄
     """
+    assigned_port = proxy_port
+    proxy_port = claim_live_port(assigned_port)
     proxy_url = f"socks5://{config.PROXY_HOST}:{proxy_port}"
+    if proxy_port != assigned_port:
+        log.warning(
+            f"[W{worker_id}] 배정 포트 {assigned_port} 가 죽어 있어 "
+            f"{proxy_port} 로 시작"
+        )
     log.info(f"[W{worker_id}] 시작 (proxy={proxy_url})")
 
     # config.HEADLESS=False 면 모든 워커 visible (디버그 용도)
@@ -1253,7 +1335,28 @@ def worker(
                 elapsed = time.time() - t0
                 log.warning(f"[W{worker_id}] #{idx} 실패 ({elapsed:.0f}s): {e}")
                 # 즉시 VPN rotate + 브라우저 context 재생성
-                _rotate_vpn_and_wait(_vpn_idx_for(proxy_port))
+                if not _rotate_vpn_and_wait(_vpn_idx_for(proxy_port)):
+                    # 이 터널은 runner 가 되살리지 못했다. 붙들고 있어봐야
+                    # 계속 0건을 쌓으므로 살아있는 다른 포트로 옮긴다.
+                    new_port = claim_live_port(assigned_port, current=proxy_port)
+                    if new_port != proxy_port:
+                        log.warning(
+                            f"[W{worker_id}] 터널 {proxy_port} 회복 실패 → "
+                            f"{new_port} 로 이동 (browser 재시작)"
+                        )
+                        proxy_port = new_port
+                        proxy_url = f"socks5://{config.PROXY_HOST}:{proxy_port}"
+                        try: browser.close()
+                        except Exception: pass
+                        browser = pw.chromium.launch(
+                            headless=not is_visible,
+                            slow_mo=config.SLOW_MO,
+                            proxy={"server": proxy_url},
+                            args=[
+                                "--disable-blink-features=AutomationControlled",
+                                "--disable-features=IsolateOrigins,site-per-process",
+                            ],
+                        )
                 try: context.close()
                 except Exception: pass
                 try:
