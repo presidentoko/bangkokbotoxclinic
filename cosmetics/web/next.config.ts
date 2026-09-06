@@ -77,12 +77,28 @@ const nextConfig: NextConfig = {
       // ko/ar content is thin (falls back to English) and already noindexed —
       // redirect at the routing layer so bots/crawlers never reach the app's
       // rendering pipeline for them (cuts ISR reads/writes, Fast Origin
-      // Transfer, and image transformations roughly in half). Temporary
-      // (not permanent) in case full translations get built out later.
-      { source: "/ko", destination: "/en", permanent: false },
-      { source: "/ko/:path*", destination: "/en/:path*", permanent: false },
-      { source: "/ar", destination: "/en", permanent: false },
-      { source: "/ar/:path*", destination: "/en/:path*", permanent: false },
+      // Transfer, and image transformations roughly in half).
+      //
+      // These were 307 from 2026-07-26 to 2026-09-06, "in case full
+      // translations get built out later". They were not, and the shape of the
+      // site says they will not be soon: page copy is a binary
+      // `isTh ? thai : english` in 574 places against 47 dictionary lookups,
+      // the dictionary holds 42 UI strings, and product `description` in
+      // master_db is a single Thai string with no per-locale field at all. A
+      // /ko page is the English page with 37 nav labels swapped.
+      //
+      // Meanwhile a 307 tells Google the original URL still stands, so the 117
+      // /ko and /ar URLs it knows stay in the crawl queue and never hand their
+      // accumulated signal to /en — which, as of b178f38, is submitted again.
+      // 308 consolidates them. It is also cacheable where 307 is not, which
+      // ends the `cf-cache-status: EXPIRED` origin hit these took per request.
+      //
+      // If real Korean or Arabic content ever gets written, it earns a new URL
+      // and a fresh crawl; it does not need these redirects held open for it.
+      { source: "/ko", destination: "/en", permanent: true },
+      { source: "/ko/:path*", destination: "/en/:path*", permanent: true },
+      { source: "/ar", destination: "/en", permanent: true },
+      { source: "/ar/:path*", destination: "/en/:path*", permanent: true },
     ];
   },
 };
