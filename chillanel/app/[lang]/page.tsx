@@ -113,6 +113,15 @@ export default async function HomePage({
                 <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
               <SurpriseMeButton lang={lang} />
+              {/* 2026-09-07: Watchlist 를 푸터에서 히어로 끌어올렸다.
+                  사이트에서 제일 공유되기 좋은 페이지인데 하단 링크 하나라
+                  방문자도 크롤러도 사실상 닿지 않았다. */}
+              <Link
+                href={`/${lang}/watchlist`}
+                className="text-sm font-semibold text-on-ink-muted hover:text-on-ink transition-colors underline decoration-white/20 underline-offset-4"
+              >
+                ⚠️ {t.place.wlTitle}
+              </Link>
               <Link
                 href={`/${lang}/guide`}
                 className="text-sm font-semibold text-on-ink-muted hover:text-on-ink transition-colors underline decoration-white/20 underline-offset-4"

@@ -7,6 +7,10 @@ import { slugifyTheme } from "@/lib/theme-labels";
 import { allDistricts, slugifyDistrict } from "@/lib/district-labels";
 import { isRelevantCategory } from "@/lib/categories";
 
+// 장소 페이지 템플릿이 실제로 바뀐 날. 데이터 재빌드 시각이 아니다 —
+// 아래 place 루프 주석 참고. 템플릿이 실질적으로 개편될 때만 손으로 올릴 것.
+const PLACE_TEMPLATE_REVISED = new Date("2026-09-05T00:00:00.000Z");
+
 // One entry per (route, lang) pair, each declaring its own hreflang
 // alternates -- previously each URL entry stood alone with no
 // cross-language link, even though every page itself renders full
@@ -69,16 +73,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const guide of listGuides()) {
     entries.push(...entriesFor((l) => `/${l}/guide/${guide.slug}`, { changeFrequency: "monthly", priority: 0.4 }));
   }
-  // No `lastModified` on the per-place/service/district entries below:
-  // cityDates/latestCityDate are the data pipeline's *rebuild* timestamp,
-  // which advances on every deploy regardless of whether that specific
-  // place actually changed -- Google explicitly warns against a lastmod
-  // that doesn't reflect a real per-URL change, since it teaches crawlers
-  // to stop trusting the field. The city entries above keep it: a city
-  // page's own content (its place listing) does legitimately change
-  // whenever any place in it is added/updated, so a city-level rebuild
-  // date is an honest signal there in a way it isn't for 7,800 individual
-  // place URLs.
+  // Per-place `lastModified` is the template revision date, NOT the data
+  // pipeline's rebuild timestamp. The distinction is the whole point: a
+  // rebuild stamp advances on every deploy whether or not that place
+  // changed, and Google explicitly warns that a lastmod which doesn't
+  // track a real per-URL change teaches crawlers to ignore the field.
+  //
+  // PLACE_TEMPLATE_REVISED is different -- it is the date every place
+  // page's rendered content actually changed, because the template did:
+  // 2026-09-05 added the Chillanel Check verdict block (review-mined red
+  // flags, 12-month trend, district standing, price-vs-district), the
+  // most-critical-review block, folded long reviews, the price chip, the
+  // ink hero, and the owner CTA. That is a real content change on all
+  // 5,708 URLs, so claiming it is honest.
+  //
+  // Why it matters here (GSC 2026-09-07): 5,852 submitted / 126 indexed,
+  // with 5,696 "Discovered - currently not indexed" and 3,862 "Crawled -
+  // currently not indexed". The crawled-not-indexed bucket is a quality
+  // judgement made on the OLD thin template; without a lastmod signal
+  // Google has no reason to re-fetch and re-judge them against the new
+  // one. Bump this constant only when the template genuinely changes
+  // again -- never per deploy, or it becomes the untrustworthy stamp the
+  // paragraph above warns about.
   for (const { place } of relevantPlaces) {
     // 2026-08-23: 장소 상세는 **en 한 벌만** 제출한다 (3언어 → 1언어).
     // 사이트맵 17,115 개 중 17,681 이 "크롤 후 미색인" 이었다 — 구글이 전부 보고
@@ -90,6 +106,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // 허브(도시·지역·서비스·가이드)는 실제로 번역돼 있으므로 3언어를 유지한다.
     entries.push({
       url: `${SITE.origin}/en/place/${place.id}`,
+      lastModified: PLACE_TEMPLATE_REVISED,
       changeFrequency: "weekly",
       priority: 0.6,
     });
