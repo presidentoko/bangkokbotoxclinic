@@ -3,7 +3,7 @@ import { BLOCKED_PLACE_PATHS } from "@/lib/placeIndexing";
 
 export const dynamic = "force-static";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export default function robots(): MetadataRoute.Robots {
   return {

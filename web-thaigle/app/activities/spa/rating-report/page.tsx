@@ -4,7 +4,7 @@ import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { ShareButton } from "@/components/ShareButton";
 
 export const dynamic = "force-static";
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 /**
  * A findings page built from the spa dataset, published to be cited.

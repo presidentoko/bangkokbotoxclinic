@@ -14,7 +14,7 @@ import { ShareButton } from "@/components/ShareButton";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 // The niche hub links 60 venues; the rest sit behind /activities/[niche]/all,
 // a single page carrying 615 links. Google's response to that shape was 3,751

@@ -26,7 +26,7 @@ import { BangkokCabaret } from "@/components/BangkokCabaret";
 import { BangkokCraftsWorkshops } from "@/components/BangkokCraftsWorkshops";
 import type { Metadata } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const dynamicParams = false;
 

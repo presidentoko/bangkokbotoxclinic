@@ -15,7 +15,7 @@ import { GUIDE_TOPICS } from "@/lib/guideTopics";
 import { getAllPlaceSlugsServer } from "@/lib/places-server";
 import { INDEXABLE_PLACE_LANGS, PLACE_TREE_INDEXABLE } from "@/lib/placeIndexing";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 const CUISINES = Object.keys(CUISINE_LABELS);
 
 export const dynamic = "force-static";

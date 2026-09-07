@@ -14,7 +14,7 @@ import { SimCardGuide } from "@/components/SimCardGuide";
 import { BangkokVisaGuide } from "@/components/BangkokVisaGuide";
 import { BangkokTechScene } from "@/components/BangkokTechScene";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const dynamic = "force-static";
 

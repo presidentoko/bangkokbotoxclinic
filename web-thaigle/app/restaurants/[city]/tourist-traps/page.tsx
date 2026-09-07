@@ -8,7 +8,7 @@ import { LocalsChoice } from "@/components/LocalsChoice";
 import { BangkokTip } from "@/components/BangkokTip";
 import type { Metadata } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const dynamicParams = false;
 

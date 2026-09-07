@@ -9,7 +9,7 @@ import { FaqJsonLd } from "@/components/JsonLd";
 
 export const dynamic = "force-static";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const metadata: Metadata = {
   title: "Verify a Place You Saw on TikTok or Instagram — Is It Real, Good, or a Tourist Trap?",

@@ -1,7 +1,7 @@
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 const BRAND = process.env.NEXT_PUBLIC_BRAND || "Thaigle";
 
 export const dynamic = "force-static";

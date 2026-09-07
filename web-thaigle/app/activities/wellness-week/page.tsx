@@ -12,7 +12,7 @@ import { BangkokWellnessWeek } from "@/components/BangkokWellnessWeek";
 import { BangkokWellnessPrices } from "@/components/BangkokWellnessPrices";
 import { BangkokSpaTypes } from "@/components/BangkokSpaTypes";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const dynamic = "force-static";
 

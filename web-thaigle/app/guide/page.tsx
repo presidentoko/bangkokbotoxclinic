@@ -46,7 +46,7 @@ import { BangkokMovingGuide } from "@/components/BangkokMovingGuide";
 import { BangkokMedicalCheckup } from "@/components/BangkokMedicalCheckup";
 import type { Metadata } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const metadata: Metadata = {
   title: "Bangkok Guides — Food, Activities & Local Tips (2026)",

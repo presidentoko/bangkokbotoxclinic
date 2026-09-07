@@ -9,7 +9,7 @@ import { LocalsChoice } from "@/components/LocalsChoice";
 import { NearbyThings } from "@/components/NearbyThings";
 import { BangkokHalalGuide } from "@/components/BangkokHalalGuide";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const dynamic = "force-static";
 

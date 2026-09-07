@@ -100,7 +100,7 @@ const OCCASION_VERSUS: Partial<Record<OccasionSlug, VersusData>> = {
 
 
 export const dynamic = "force-static";
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const dynamicParams = false;
 

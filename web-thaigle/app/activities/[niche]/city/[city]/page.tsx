@@ -18,7 +18,7 @@ import { ShareButton } from "@/components/ShareButton";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 // GSC data showed real search volume for area/city-qualified queries
 // ("wellness spa sukhumvit", "cooking class chiang mai") that the

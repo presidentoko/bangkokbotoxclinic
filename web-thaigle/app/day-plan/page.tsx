@@ -29,7 +29,7 @@ import { BangkokNightTrains } from "@/components/BangkokNightTrains";
 import { BangkokIslandHopping } from "@/components/BangkokIslandHopping";
 
 export const revalidate = 86400;
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const metadata: Metadata = {
   title: "Bangkok Day Plan — Eat · Train · Treat · Learn · Relax",

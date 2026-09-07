@@ -18,7 +18,7 @@ export const dynamic = "force-static";
 export const dynamicParams = false;
 // dynamicParams=false already makes this pure SSG — data only changes at
 // deploy time, so a revalidate window just burns ISR writes for nothing.
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 // True only for actual self-hosted paths ("/img/foo.jpg"). A protocol-relative
 // URL ("//host/foo.jpg") also starts with "/" but is a remote URL — treating

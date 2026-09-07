@@ -13,7 +13,7 @@ import { BangkokCountdown } from "@/components/BangkokCountdown";
 import { BangkokFoodGlossary } from "@/components/BangkokFoodGlossary";
 import { NightlifeGuide } from "@/components/NightlifeGuide";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export async function generateMetadata({
   searchParams,

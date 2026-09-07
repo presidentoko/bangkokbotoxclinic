@@ -66,7 +66,7 @@ import { BangkokTravelHacks } from "@/components/BangkokTravelHacks";
 import { BangkokAntiques } from "@/components/BangkokAntiques";
 import { BangkokNaturalWine } from "@/components/BangkokNaturalWine";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const dynamic = "force-static";
 

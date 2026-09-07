@@ -44,7 +44,7 @@ import { upscaleGooglePhoto, isLikelyAvatarThumbnail } from "@/lib/googlePhotoSi
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export async function generateStaticParams() {
   const params: { niche: string; slug: string }[] = [];

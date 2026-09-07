@@ -6,7 +6,7 @@ import { RatingLegend } from "@/components/RatingLegend";
 import { TrustScoreExplainer } from "@/components/TrustScoreExplainer";
 import type { Metadata } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const metadata: Metadata = {
   title: "How Thaigle Detects Fake Reviews & Influencer Manipulation | Methodology",

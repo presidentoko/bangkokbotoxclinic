@@ -9,7 +9,7 @@ import { NearbyLink } from "@/components/NearbyLink";
 import { AreaGuide } from "@/components/AreaGuide";
 import { OpenNow } from "@/components/OpenNow";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const dynamic = "force-static";
 

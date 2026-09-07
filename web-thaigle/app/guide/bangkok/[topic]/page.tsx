@@ -7,7 +7,7 @@ import { ShareButton } from "@/components/ShareButton";
 import { AdSlot } from "@/components/AdSlot";
 import { venuesForTopic } from "@/lib/guideCommerce";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;

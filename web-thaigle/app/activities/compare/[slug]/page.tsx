@@ -7,7 +7,7 @@ import { ShareButton } from "@/components/ShareButton";
 import { BangkokTip } from "@/components/BangkokTip";
 import { ActivityFinder } from "@/components/ActivityFinder";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;

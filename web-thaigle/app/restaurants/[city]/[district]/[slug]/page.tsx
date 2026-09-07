@@ -27,7 +27,7 @@ import { restaurantContext, restaurantVerdict } from "@/lib/verdict";
 import { CardImage } from "@/components/CardImage";
 import type { Metadata } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 // All 3,269 restaurants are already in the sitemap, so pre-render all of them
 // — leaving 2,769 to render on-demand (dynamicParams=true) turned every

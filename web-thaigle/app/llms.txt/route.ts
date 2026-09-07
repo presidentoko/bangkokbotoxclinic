@@ -6,7 +6,7 @@ import type { NicheSlug } from "@/lib/niches";
 import { AREA_DEFS, THEME_DEFS } from "@/lib/day-plans";
 import type { AreaSlug, ThemeSlug } from "@/lib/day-plans";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 const BRAND = process.env.NEXT_PUBLIC_BRAND || "Thaigle";
 
 export const dynamic = "force-static";

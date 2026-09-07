@@ -7,7 +7,7 @@ import { BangkokTip } from "@/components/BangkokTip";
 import { BangkokChallenge } from "@/components/BangkokChallenge";
 import { HighlightReel } from "@/components/HighlightReel";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const metadata: Metadata = {
   title: "Perfect For... — Bangkok Restaurants by Occasion | Thaigle",

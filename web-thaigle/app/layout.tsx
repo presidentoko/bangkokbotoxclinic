@@ -17,7 +17,7 @@ import { ConsentMode } from "@/components/ConsentMode";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { GoogleAdsense } from "@/components/GoogleAdsense";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 const cfg = getSiteConfig();
 
 export const viewport: Viewport = {

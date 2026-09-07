@@ -6,7 +6,7 @@ import { loadMasterDb } from "@/lib/data";
 import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { CUISINE_LABELS, TOPIC_LABELS } from "@/lib/types";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 const BRAND = process.env.NEXT_PUBLIC_BRAND || "Thaigle";
 
 export const dynamic = "force-static";

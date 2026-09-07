@@ -18,7 +18,7 @@ import { NearbyThings } from "@/components/NearbyThings";
 import { BangkokTransportGuide } from "@/components/BangkokTransportGuide";
 import type { Metadata } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const revalidate = 86400;
 // All valid districts are already covered by generateStaticParams below —

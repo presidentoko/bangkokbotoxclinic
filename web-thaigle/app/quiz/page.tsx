@@ -11,7 +11,7 @@ import { NeighborhoodMatcher } from "@/components/NeighborhoodMatcher";
 import { ThaiWordOfDay } from "@/components/ThaiWordOfDay";
 import { ThaiEtiquetteQuiz } from "@/components/ThaiEtiquetteQuiz";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export async function generateMetadata({
   searchParams,

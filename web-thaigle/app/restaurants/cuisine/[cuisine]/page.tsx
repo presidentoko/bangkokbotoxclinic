@@ -120,7 +120,7 @@ import { BangkokPeruvianFood } from "@/components/BangkokPeruvianFood";
 import { BangkokSingaporeanFood } from "@/components/BangkokSingaporeanFood";
 import type { Metadata } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 // Cuisine lists span both Bangkok and Pattaya — label "Bangkok" only when
 // this cuisine's restaurants are actually Bangkok-majority.

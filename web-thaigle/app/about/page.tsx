@@ -9,7 +9,7 @@ import { RelatedGuides } from "@/components/RelatedGuides";
 import { BangkokThingsNearBTS } from "@/components/BangkokThingsNearBTS";
 import type { Metadata } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const metadata: Metadata = {
   title: "About — Methodology & Data Sources",

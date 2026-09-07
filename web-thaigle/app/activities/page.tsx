@@ -28,7 +28,7 @@ import { BangkokGamingCafes } from "@/components/BangkokGamingCafes";
 import { BangkokVolunteer } from "@/components/BangkokVolunteer";
 import { BangkokFilmPhotography } from "@/components/BangkokFilmPhotography";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const dynamic = "force-static";
 

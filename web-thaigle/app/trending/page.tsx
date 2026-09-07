@@ -41,7 +41,7 @@ import { BangkokSilentDisco } from "@/components/BangkokSilentDisco";
 import { BangkokSportsWatching } from "@/components/BangkokSportsWatching";
 import { BangkokChristmasNewYear } from "@/components/BangkokChristmasNewYear";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export const metadata: Metadata = {
   title: "Trending in Bangkok This Week — Top-Rated Restaurants & Activities",
@@ -71,7 +71,7 @@ export default async function TrendingPage() {
     .sort((a, b) => b.trust_score - a.trust_score)
     .slice(0, 6);
 
-  const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+  const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
   return (
     <>

@@ -22,7 +22,7 @@ import { withKlookAid } from "@/lib/affiliate";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 export function generateStaticParams() {
   return NICHES.map((n) => ({ niche: n.slug }));

@@ -7,7 +7,7 @@ import { NicheItemListJsonLd, FaqJsonLd, BreadcrumbJsonLd } from "@/components/J
 import { ShareButton } from "@/components/ShareButton";
 
 export const dynamic = "force-static";
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 
 /**
  * "boutique spa bangkok" (596 impressions) + "boutique spa and wellness

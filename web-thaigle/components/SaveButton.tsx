@@ -85,7 +85,7 @@ export function SavedListHome() {
   const shareWishlist = async () => {
     trackShare("native", "wishlist");
     const payload = encodeURIComponent(encodeWishlist(items));
-    const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com"}/my-trip?w=${payload}&utm_source=share&utm_medium=native&utm_campaign=wishlist`;
+    const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com"}/my-trip?w=${payload}&utm_source=share&utm_medium=native&utm_campaign=wishlist`;
     const text = `🇹🇭 My Bangkok wishlist (${items.length} places):\n${items.map(i => `${i.icon ?? "📍"} ${i.name}`).join("\n")}\n\nAll ranked by real Google reviews → ${shareUrl}`;
     if (navigator.share) {
       try { await navigator.share({ text }); return; } catch {}
