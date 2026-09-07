@@ -84,17 +84,25 @@ export function AffiliateInline({ category, district }: {
   );
 }
 
-export function AdSlot({ slot }: { slot: string }) {
-  const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
-  if (!client) return null;
-  return (
-    <ins
-      className="adsbygoogle block my-4"
-      style={{ display: "block" }}
-      data-ad-client={client}
-      data-ad-slot={slot}
-      data-ad-format="auto"
-      data-full-width-responsive="true"
-    />
-  );
+/**
+ * Deliberately renders nothing, and did not serve an impression before either.
+ *
+ * The previous body emitted an `<ins>` and stopped there: no
+ * `adsbygoogle.push()` to initialise it, no loader script on the page, and a
+ * `slot` prop carrying a label like "home-mid" where AdSense requires the
+ * numeric slot ID issued by the dashboard. It was inert only because
+ * NEXT_PUBLIC_ADSENSE_CLIENT was unset; the moment that variable is filled in
+ * it would have put fourteen empty, never-filled ad frames across the site —
+ * in front of the AdSense reviewer, on a site whose review has not happened
+ * yet.
+ *
+ * The fourteen call sites stay so that rebuilding them is a one-file change.
+ * web-thaigle/components/AdSlot.tsx is the working version to port: it pushes
+ * exactly once per mount, reserves the creative's height so the ad does not
+ * shift the page, and resolves a named placement to a real slot ID through
+ * lib/ads.ts. Slot IDs cannot be created until the account is approved, which
+ * is why that port waits.
+ */
+export function AdSlot(_: { slot: string }) {
+  return null;
 }

@@ -6,6 +6,8 @@ import { Logo } from "@/components/Logo";
 import { MobileMenuButton } from "@/components/MobileNav";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAdsense } from "@/components/GoogleAdsense";
+import { ADS_ENABLED, ADSENSE_CLIENT } from "@/lib/ads";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thailandgolfguide.com";
 const cfg = getSiteConfig();
@@ -46,6 +48,13 @@ export const metadata: Metadata = {
     }
     if (process.env.NEXT_PUBLIC_NAVER_VERIFICATION) {
       other["naver-site-verification"] = [process.env.NEXT_PUBLIC_NAVER_VERIFICATION];
+    }
+    // AdSense reads this to confirm ownership during the site review. It has
+    // to be on every page rather than only the homepage — the reviewer's
+    // crawler lands wherever it likes — which is why it sits in the root
+    // layout alongside the other webmaster verifications.
+    if (ADS_ENABLED) {
+      other["google-adsense-account"] = [ADSENSE_CLIENT];
     }
     // Agoda partner verification is injected as a raw <meta /> (no content attr)
     // directly in the body — React 19 auto-hoists to <head>. Metadata API
@@ -141,6 +150,7 @@ export default function RootLayout({
         </footer>
         <Analytics />
         <SpeedInsights />
+        <GoogleAdsense />
       </body>
     </html>
   );
