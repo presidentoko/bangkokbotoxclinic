@@ -759,20 +759,77 @@ def parse_review_metadata(review_id: str, place_id: str, text: str) -> ReviewMet
 
 # ── 리뷰 수집 ───────────────────────────────────────────────
 
-def _select_sort(page: Page, data_index: str):
+REVIEW_CARD_SEL = 'div[data-review-id]'
+
+
+def _wait_for_review_cards(page: Page, timeout: float = 15.0) -> int:
+    """리뷰 카드가 최소 1장 렌더될 때까지 기다린다.
+
+    고정 sleep 으로 세면 안 되는 이유: 리뷰 목록은 탭 클릭/정렬 변경 후
+    비동기로 채워진다. VPN 을 거치면 이게 4초보다 오래 걸리는 일이 흔하다.
+    그 시점에 세면 0개가 나오고, 스크롤 루프는 cur == prev(0 == 0) 로
+    "더 나올 게 없다"고 판단해 즉시 빠져나간다. 실제로 2026-09-01~08
+    로그에서 [Most relevant] 가 96~100% 0개로 찍힌 게 이 경로였다.
+    """
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        try:
+            n = page.locator(REVIEW_CARD_SEL).count()
+        except Exception:
+            n = 0
+        if n > 0:
+            return n
+        safe_sleep(0.5)
+    return 0
+
+
+def _select_sort(page: Page, data_index: str) -> bool:
+    """정렬 메뉴에서 data_index 항목을 고른다. 성공하면 True.
+
+    실패해도 조용히 넘어가면 안 된다 — 메뉴가 열린 채로 남으면 리뷰 카드가
+    그 뒤에 가려서 파싱이 0개가 된다. 못 고르면 Escape 로 반드시 닫는다.
+    """
     sort_btn = page.locator('button[aria-label="Sort reviews"]')
-    if sort_btn.count() > 0:
+    if sort_btn.count() == 0:
+        log.warning("    정렬 버튼 없음 — 기본 정렬로 진행")
+        return False
+    try:
         sort_btn.first.click()
         safe_sleep(1)
         option = page.locator(f'div[role="menuitemradio"][data-index="{data_index}"]')
-        if option.count() > 0:
-            option.first.click()
-            safe_sleep(2)
+        if option.count() == 0:
+            log.warning(f"    정렬 옵션 data-index={data_index} 없음 — 메뉴 닫고 진행")
+            page.keyboard.press("Escape")
+            safe_sleep(0.5)
+            return False
+        option.first.click()
+        safe_sleep(2)
+    except Exception as e:
+        log.warning(f"    정렬 선택 실패: {str(e)[:60]} — 메뉴 닫고 진행")
+        try:
+            page.keyboard.press("Escape")
+            safe_sleep(0.5)
+        except Exception:
+            pass
+        return False
+    # 메뉴가 남아 있으면 카드가 가려진다.
+    try:
+        if page.locator('div[role="menuitemradio"]').count() > 0:
+            page.keyboard.press("Escape")
+            safe_sleep(0.5)
+    except Exception:
+        pass
+    return True
 
 
 def _scroll_and_load(page: Page, target: int) -> int:
+    # 세기 전에 첫 카드가 뜨는 걸 먼저 확인한다.
+    if _wait_for_review_cards(page) == 0:
+        log.info("    리뷰 카드 미렌더 (15초 대기)")
+        return 0
     prev = 0
-    for i in range(20):
+    stagnant = 0
+    for i in range(30):
         scroll_all_panels(page, times=2, delay=1.0)
         try:
             btns = page.locator('button.w8nwRe.kyuRq')
@@ -781,12 +838,21 @@ def _scroll_and_load(page: Page, target: int) -> int:
                 safe_sleep(0.15)
         except Exception:
             pass
-        cur = page.locator('div[data-review-id]').count()
+        cur = page.locator(REVIEW_CARD_SEL).count()
         log.info(f"    스크롤 {i+1}: {cur}개")
-        if cur >= target or cur == prev:
+        if cur >= target:
             break
+        # 한 바퀴 안 늘었다고 바로 포기하지 않는다. 지연 로딩이라 한 박자
+        # 쉬면 더 들어오는 경우가 많다. 3회 연속 정체면 진짜 끝으로 본다.
+        if cur == prev:
+            stagnant += 1
+            if stagnant >= 3:
+                break
+            safe_sleep(1.5)
+        else:
+            stagnant = 0
         prev = cur
-    return page.locator('div[data-review-id]').count()
+    return page.locator(REVIEW_CARD_SEL).count()
 
 
 AUTHOR_ID_RE = re.compile(r"/contrib/(\d+)")
@@ -946,7 +1012,8 @@ def collect_reviews_for_restaurant(
         log.warning(f"  Reviews 탭 없음: {restaurant.name}")
         return [], []
     review_tab.first.click()
-    safe_sleep(3)
+    safe_sleep(2)
+    _wait_for_review_cards(page)
 
     all_reviews: list[ReviewItem] = []
     all_metas: list[ReviewMeta] = []
@@ -962,17 +1029,22 @@ def collect_reviews_for_restaurant(
                 added += 1
         return added
 
+    # 기본 정렬이 이미 Most relevant 다. 여기서 정렬 메뉴를 열어 이미 선택된
+    # 항목을 다시 고르면 상태 변화가 없어 메뉴가 닫히지 않는 경우가 있고,
+    # 그러면 열린 메뉴가 카드를 가려 0개로 파싱된다. 그래서 첫 패스는
+    # 정렬을 건드리지 않는다.
     log.info("  [Most relevant] 수집")
-    _select_sort(page, "0")
     _scroll_and_load(page, target=100)
     p1_r, p1_m = _parse_cards(page, restaurant.place_id, "relevant", restaurant.name)
     n1 = add_unique(p1_r, p1_m)
     log.info(f"  [Most relevant] DOM {len(p1_r)}개 → 고유 {n1}개")
 
     log.info("  [Newest] 수집")
-    _select_sort(page, "1")
-    safe_sleep(2)
-    _scroll_and_load(page, target=100)
+    if _select_sort(page, "1"):
+        safe_sleep(2)
+        _scroll_and_load(page, target=100)
+    else:
+        log.warning("  [Newest] 정렬 전환 실패 — relevant 분만 사용")
     p2_r, p2_m = _parse_cards(page, restaurant.place_id, "newest", restaurant.name)
     n2 = add_unique(p2_r, p2_m)
     log.info(f"  [Newest] DOM {len(p2_r)}개 → 신규 {n2}개")
