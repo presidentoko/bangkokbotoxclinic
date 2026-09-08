@@ -1294,6 +1294,12 @@ def worker(
             viewport={"width": 1280, "height": 800},
             extra_http_headers={"Accept-Language": "en-US,en;q=0.9"},
         )
+        # 타임아웃을 명시하지 않으면 워커 하나가 한 업소에서 영원히 멈춘다.
+        # 2026-09-08 13:27 W4 가 #132 에서 27분간 로그 한 줄 없이 멈춰
+        # 있었다. 다른 워커들은 정상이라 watchdog 의 정체 감지도
+        # 걸리지 않고, 그냥 용량이 20% 줄어든 채로 계속 돌았다.
+        ctx.set_default_timeout(45000)
+        ctx.set_default_navigation_timeout(60000)
         ctx.add_cookies([
             {"name": "CONSENT", "value": "PENDING+987",
              "domain": ".google.com", "path": "/"},
