@@ -7,6 +7,7 @@ Bangkok Restaurant Google Maps Scraper (Full metadata edition)
 
 from __future__ import annotations
 
+import contextlib
 import csv
 import json
 import os
@@ -1061,6 +1062,35 @@ def collect_reviews_for_restaurant(
 
 # ── CSV 저장 ─────────────────────────────────────────────────
 
+@contextlib.contextmanager
+def _atomic_csv_open(path: Path):
+    """임시 파일에 쓴 뒤 원자적으로 갈아끼운다.
+
+    open(path, "w") 는 호출 즉시 파일을 0바이트로 만든다. 이
+    스크래퍼는 restaurants.csv 전체를 성공 1건마다 다시 쓰고,
+    watchdog 은 정체를 감지하면 프로세스 트리를 강제 종료한다
+    (2026-09-09~10 사이에만 3회). 그 둘이 겹치면 수천 행이 잘린
+    파일만 남고, 다음 부팅 때 큐 필터가 그 깨진 파일을 기준으로
+    재구성된다 — 이미 모은 업소가 미수집으로 되돌아간다.
+
+    읽는 쪽도 같이 구제된다. 예전엔 재작성 중인 파일을 읽으면
+    절반만 보였다(같은 파일을 연속으로 세도 4,501 / 3,568 / 5,344 로
+    제각각이었다). os.replace 는 원자적이라 독자는 옵지음 전후
+    중 하나를 온전하게 본다.
+    """
+    tmp = path.with_name(f"{path.name}.tmp{os.getpid()}")
+    try:
+        with open(tmp, "w", newline="", encoding="utf-8-sig") as f:
+            yield f
+        os.replace(tmp, path)
+    finally:
+        try:
+            if tmp.exists():
+                tmp.unlink()
+        except OSError:
+            pass
+
+
 def _merge_and_save_restaurants(
     path: Path, new_restaurants: list[Restaurant], existing_ids: set[str]
 ):
@@ -1081,7 +1111,7 @@ def _merge_and_save_restaurants(
             if rows and rows[0] == header:
                 preserved = [row for row in rows[1:]
                               if row and row[0] and row[0] not in new_pids]
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
+    with _atomic_csv_open(path) as f:
         w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
         w.writerow(header)
         for row in preserved:
@@ -1110,7 +1140,7 @@ def _merge_and_save_features(
             if rows and rows[0] == header:
                 preserved = [row for row in rows[1:]
                               if row and row[0] and row[0] not in new_pids]
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
+    with _atomic_csv_open(path) as f:
         w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
         w.writerow(header)
         for row in preserved:
@@ -1132,7 +1162,7 @@ def _merge_and_save_hours(
             if rows and rows[0] == header:
                 preserved = [row for row in rows[1:]
                               if row and row[0] and row[0] not in new_pids]
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
+    with _atomic_csv_open(path) as f:
         w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
         w.writerow(header)
         for row in preserved:
@@ -1142,7 +1172,7 @@ def _merge_and_save_hours(
 
 
 def save_restaurants_csv(restaurants: list[Restaurant], path: Path):
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
+    with _atomic_csv_open(path) as f:
         w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
         w.writerow([
             "place_id", "name", "primary_type",
@@ -1163,7 +1193,7 @@ def save_restaurants_csv(restaurants: list[Restaurant], path: Path):
 
 
 def save_features_csv(features: list[RestaurantFeature], path: Path):
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
+    with _atomic_csv_open(path) as f:
         w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
         w.writerow(["place_id", "section", "feature", "present"])
         for x in features:
@@ -1172,7 +1202,7 @@ def save_features_csv(features: list[RestaurantFeature], path: Path):
 
 
 def save_hours_csv(hours: list[RestaurantHours], path: Path):
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
+    with _atomic_csv_open(path) as f:
         w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
         w.writerow(["place_id", "day", "hours_text"])
         for h in hours:
@@ -1181,7 +1211,7 @@ def save_hours_csv(hours: list[RestaurantHours], path: Path):
 
 
 def save_reviews_csv(reviews: list[ReviewItem], path: Path):
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
+    with _atomic_csv_open(path) as f:
         w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
         w.writerow([
             "review_id", "place_id", "restaurant_name", "rating", "text",
@@ -1199,7 +1229,7 @@ def save_reviews_csv(reviews: list[ReviewItem], path: Path):
 
 
 def save_metas_csv(metas: list[ReviewMeta], path: Path):
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
+    with _atomic_csv_open(path) as f:
         w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
         w.writerow([
             "review_id", "place_id",
