@@ -1082,7 +1082,22 @@ def _atomic_csv_open(path: Path):
     try:
         with open(tmp, "w", newline="", encoding="utf-8-sig") as f:
             yield f
-        os.replace(tmp, path)
+        # Windows 에선 대상 파일을 누군가 열고 있으면 os.replace 가
+        # WinError 5 로 터진다. 이 저장소에서는 restaurants_db_builder
+        # 같은 다른 서비스가 같은 CSV 를 읽으며 지나간다. 잠긐은
+        # 보통 수백 ms 안에 풀리므로 몇 번 다시 시도한다.
+        for attempt in range(6):
+            try:
+                os.replace(tmp, path)
+                break
+            except PermissionError:
+                if attempt == 5:
+                    # 이 저장은 매번 전체 데이터를 다시 쓴다. 한 번
+                    # 건너뛰어도 다음 성공 때 같은 내용이 다시 쓰인다.
+                    # 예외로 프로세스를 죽이는 것보다 건너뛰는 게 낫다.
+                    log.warning(f"  {path.name} 교체 실패(파일 잠김) — 이번 저장 건너뜀")
+                    return
+                time.sleep(0.5)
     finally:
         try:
             if tmp.exists():
