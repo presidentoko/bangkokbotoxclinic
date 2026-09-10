@@ -20,17 +20,27 @@ Free plan optimization:
   scraper trigger a deploy every few hours and put ISR Writes at 406K/200K.
   Deploying is now the scarce resource, not the product count.
 
+  A second, tighter limit turned up on 2026-09-10: Deployment Storage hit
+  25.63GB against a 10GB cap. Every deploy of this site weighs ~1.1GB (5,878
+  prerendered routes: 21K .rsc payloads, 2.3K .html, 1.2K OG images) and
+  Vercel had kept all 23 of them, back to 2026-07-13. The project carries a
+  retention policy (30 days, keep 10) but Hobby does not enforce it — the
+  API returns the setting and ignores it. At 1.1GB each the cap allows only
+  nine retained deploys, which is tighter than the ISR write budget, so the
+  pruning below is not housekeeping: without it deploys eventually fail.
+
 Optional env vars:
   ANTHROPIC_API_KEY            — enables gen_summaries for new products
   COSMETICS_DEPLOY_POLL        — poll interval in seconds (default: 300)
   COSMETICS_MIN_NEW_PRODUCTS   — min new products before deploying (default: 40)
   COSMETICS_MIN_INTERVAL_HOURS — min hours between deploys (default: 72)
+  COSMETICS_KEEP_DEPLOYMENTS   — deploys retained after pruning (default: 3)
 
 Run via ensure_collector.ps1 (auto-started) or manually:
   python -m cosmetics.auto_deploy
 """
 from __future__ import annotations
-import json, logging, os, subprocess, sys, time
+import json, logging, os, subprocess, sys, time, urllib.error, urllib.request
 from pathlib import Path
 
 WT        = Path(__file__).resolve().parent.parent
@@ -43,6 +53,7 @@ PY        = sys.executable
 POLL      = int(os.getenv("COSMETICS_DEPLOY_POLL", "300"))         # 5 min
 MIN_NEW   = int(os.getenv("COSMETICS_MIN_NEW_PRODUCTS", "40"))    # ISR write guard
 MIN_HOURS = int(os.getenv("COSMETICS_MIN_INTERVAL_HOURS", "72"))  # ISR write guard
+KEEP_DEPLOYS = int(os.getenv("COSMETICS_KEEP_DEPLOYMENTS", "3"))  # storage guard
 LAST_DEPLOY = STATE_DIR / "last_deploy.json"
 
 # Vercel CLI auth file — written by `vercel login`
@@ -110,6 +121,59 @@ def run(cmd: list[str], cwd: Path | None = None, extra_env: dict | None = None) 
     return True
 
 
+def _vercel_api(token: str, path: str, method: str = "GET"):
+    req = urllib.request.Request(f"https://api.vercel.com{path}",
+                                 headers={"Authorization": f"Bearer {token}"},
+                                 method=method)
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.loads(r.read() or b"{}")
+
+
+def prune_deployments(token: str) -> None:
+    """Delete every deployment past the newest KEEP_DEPLOYS, sparing aliased ones.
+
+    Hobby ignores the project's retention policy, so nothing expires on its own
+    and Deployment Storage climbs by ~1.1GB per deploy against a 10GB cap.
+
+    What counts as "live" is the alias table, not the deployment record. Every
+    production deployment's own `alias` field lists the hostnames it was given
+    when it was created, so all 23 of them claimed bangkokfillers.com and a
+    guard reading that field refuses to delete anything. /v4/aliases is the
+    only view that says where a hostname points *now*; any deployment still
+    referenced there is spared regardless of age.
+    """
+    try:
+        link = json.loads((WEB_DIR / ".vercel" / "project.json").read_text(encoding="utf-8"))
+        team, proj = link["orgId"], link["projectId"]
+    except Exception as e:
+        log.warning(f"prune skipped — cannot read .vercel/project.json ({e})")
+        return
+
+    try:
+        aliases = _vercel_api(token, f"/v4/aliases?teamId={team}&projectId={proj}&limit=100")
+        pinned = {a.get("deploymentId") for a in aliases.get("aliases", [])}
+        deploys = _vercel_api(token, f"/v6/deployments?teamId={team}&projectId={proj}&limit=100")
+        ordered = sorted(deploys.get("deployments", []), key=lambda d: -d["created"])
+    except Exception as e:
+        log.warning(f"prune skipped — Vercel API unreachable ({e})")
+        return
+
+    stale = [d for d in ordered[KEEP_DEPLOYS:] if d["uid"] not in pinned]
+    if not stale:
+        log.info(f"prune: {len(ordered)} deployments, nothing to remove")
+        return
+
+    removed = 0
+    for d in stale:
+        try:
+            _vercel_api(token, f"/v13/deployments/{d['uid']}?teamId={team}", method="DELETE")
+            removed += 1
+        except Exception as e:
+            log.warning(f"prune: could not delete {d['uid']} ({e})")
+    log.info(f"prune: removed {removed}/{len(stale)}, "
+             f"{len(ordered) - removed} deployments retained")
+
+
 # ── deploy pipeline ───────────────────────────────────────────────────────────
 
 def build_and_deploy(prev_count: int, new_count: int) -> bool:
@@ -148,6 +212,8 @@ def build_and_deploy(prev_count: int, new_count: int) -> bool:
                   "--cwd", str(WEB_DIR)]
     if not run(vercel_cmd, cwd=WEB_DIR, extra_env={"VERCEL_TOKEN": token}):
         log.error("vercel deploy failed"); return False
+
+    prune_deployments(token)
 
     log.info(f"=== ✓ bangkokfillers.com updated with {new_count} products ===")
     return True
