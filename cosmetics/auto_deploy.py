@@ -5,8 +5,11 @@ Watches the scraped product count. When it increases (run_forever added new prod
   2. python -m cosmetics.gen_summaries    — LLM summaries (if ANTHROPIC_API_KEY set)
   3. vercel deploy --prod                 — deploy directly to bangkokfillers.com
 
-The Vercel token is read automatically from the CLI's local auth file —
-no manual login or env var needed as long as `vercel login` was done once.
+The Vercel token is resolved by trying every source and keeping the first that
+actually authenticates: COSMETICS_VERCEL_TOKEN or VERCEL_TOKEN (real env vars
+first, then the repo's .env), then whatever `vercel login` left in auth.json.
+Validating rather than trusting matters — an expired auth.json used to shadow a
+working token and fail every deploy silently.
 
 Free plan optimization:
   - Only deploys when MIN_NEW_PRODUCTS or more new products accumulate, AND at
@@ -91,16 +94,72 @@ def _record_deploy() -> None:
         log.warning(f"could not record deploy time: {exc}")
 
 
+def _env_file() -> dict:
+    """Read KEY=VALUE pairs out of the repo's .env.
+
+    ensure_collector.ps1 starts this loop with Start-Process, which inherits the
+    launching service's environment rather than a shell that sourced .env, so
+    anything stored there never arrives as a real env var. Reading the file here
+    is the only way secrets kept in .env reach this process.
+    """
+    out: dict[str, str] = {}
+    try:
+        raw = (WT / ".env").read_text(encoding="utf-8-sig")
+    except Exception:
+        return out
+    for line in raw.splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        out[k.strip()] = v.strip().strip('"').strip("'")
+    return out
+
+
+def _token_works(token: str) -> bool:
+    try:
+        _vercel_api(token, "/v2/user")
+        return True
+    except Exception:
+        return False
+
+
 def _vercel_token() -> str:
-    """Read the Vercel auth token from the CLI's local config (set by vercel login)."""
+    """Return the first Vercel token that actually authenticates.
+
+    The previous version returned the first token it could *read*, which is a
+    different thing. `vercel login` leaves auth.json in place forever, so once
+    that token expired it shadowed every other source — including a perfectly
+    good VERCEL_TOKEN — and every deploy failed with "Not authorized" while the
+    working credential sat one branch away, unused (observed 2026-09-10).
+
+    Each candidate is now spent on a cheap /v2/user call before being trusted,
+    and the winning source is logged so a stale credential is visible in the log
+    rather than silent.
+    """
+    envf = _env_file()
+    candidates = [
+        ("COSMETICS_VERCEL_TOKEN (env)",  os.getenv("COSMETICS_VERCEL_TOKEN", "")),
+        ("VERCEL_TOKEN (env)",            os.getenv("VERCEL_TOKEN", "")),
+        ("COSMETICS_VERCEL_TOKEN (.env)", envf.get("COSMETICS_VERCEL_TOKEN", "")),
+        ("VERCEL_TOKEN (.env)",           envf.get("VERCEL_TOKEN", "")),
+    ]
     for path in [_VERCEL_AUTH,
                  Path(os.getenv("APPDATA", "")) / "xdg.data" / "com.vercel.cli" / "auth.json"]:
         try:
-            raw = path.read_text(encoding="utf-8-sig")
-            return json.loads(raw).get("token", "")
+            tok = json.loads(path.read_text(encoding="utf-8-sig")).get("token", "")
         except Exception:
             continue
-    return os.getenv("VERCEL_TOKEN", "")
+        candidates.append((f"vercel login ({path.parent.name})", tok))
+
+    for source, token in candidates:
+        if not token:
+            continue
+        if _token_works(token):
+            log.info(f"vercel auth: using {source}")
+            return token
+        log.warning(f"vercel auth: {source} rejected — trying next source")
+    return ""
 
 
 def run(cmd: list[str], cwd: Path | None = None, extra_env: dict | None = None) -> bool:
