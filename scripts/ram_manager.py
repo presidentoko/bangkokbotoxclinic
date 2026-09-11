@@ -73,13 +73,31 @@ PAUSE_THRESHOLDS = [
 # resume 은 pause(0.9) + 그 서비스가 실제로 쓰는 양(워커당 0.94GB) 위여야
 # 진동하지 않는다. 1워커 서비스 기준 1.9 가 그 선이다. 기존 2.4~3.5 는 목표
 # 상태(1.0~1.2GB)에서 영원히 도달 못 해 "일시정지"가 영구정지가 됐다.
+# 2026-09-11: bangkok_review 를 맨 앞으로 올렸다. resume 루프는 리스트 순서대로
+# 돌면서 하나 켜면 break 한다. 이게 맨 뒤에 있어서, 동시에 멈춰 있으면 항상
+# 다른 넷이 먼저 깨어나고 그들이 RAM 을 가져갔다.
 RESUME_THRESHOLDS = [
+    ("bangkok_review",         2.0),
     ("bangkok_clinics_review", 1.9),
     ("dental_review_bangkok",  2.2),
     ("spa_review_pattaya",     2.2),
     ("pattaya_review",         2.0),
-    ("bangkok_review",         2.0),
 ]
+
+# 우선 서비스가 돌고 있는 동안에는 다른 스크래퍼를 함부로 깨우지 않는다.
+# 여유가 PRIORITY_RESERVE_GB 를 넘어 진짜 여유분일 때만 깨운다.
+#
+# 왜 필요한가: 2026-09-10 밤 ram_manager 가 여유가 생길 때마다 다른 사이트
+# 스크래퍼 4개를 차례로 깨웠고, 그때마다 여유가 0.6GB 로 다시 말랐다. 방콕
+# 식당 스크래퍼는 메모리가 마르면 죽지 않고 조용히 나빠진다 — 크롬이 리뷰를
+# 지연 로딩하지 못해 스크롤이 10개에서 멈추고, 업소당 수집이 31개에서 13.6개로
+# 떨어졌다. 그래서 워커를 줄이는 것만으로는 부족하다. 비운 자리를 다른
+# 서비스가 곧바로 채우기 때문이다.
+#
+# 이건 다른 사이트 수집을 며칠 밀어두는 결정이다(사용자 지시, C안).
+# 방콕 식당 수집이 끝나면 PRIORITY_SERVICE 를 None 으로 되돌릴 것.
+PRIORITY_SERVICE = "bangkok_review"
+PRIORITY_RESERVE_GB = 3.5
 
 
 class _MEMORYSTATUSEX(ctypes.Structure):
@@ -202,12 +220,23 @@ def main():
         # resume — 여유가 임계값 위로 RESUME_STREAK 틱 연속 유지될 때만.
         # 한 번 넘겼다고 바로 켜면 스크래퍼가 브라우저를 띄우는 순간 다시
         # 말라서, 진동만 하고 진도는 안 나간다.
+        held_back: list[str] = []
         if actions:
             good_streak.clear()
         else:
             for name, threshold in RESUME_THRESHOLDS:
                 if not is_paused(name):
                     good_streak.pop(name, None)
+                    continue
+                # 우선 서비스가 돌고 있으면 나머지는 진짜 여유분에서만 깨운다.
+                # 붙잡았다는 사실을 로그에 남긴다 — 안 그러면 "일시정지"가
+                # 영구정지로 굳는 걸 아무도 모른다.
+                if (PRIORITY_SERVICE
+                        and name != PRIORITY_SERVICE
+                        and not is_paused(PRIORITY_SERVICE)
+                        and free < PRIORITY_RESERVE_GB):
+                    good_streak.pop(name, None)
+                    held_back.append(name)
                     continue
                 if free > threshold:
                     good_streak[name] = good_streak.get(name, 0) + 1
@@ -220,6 +249,9 @@ def main():
                     good_streak.pop(name, None)
 
         status = f"여유={free:.1f}GB" + (f" | {','.join(actions)}" if actions else " | OK")
+        if not actions and held_back:
+            status += (f" | {PRIORITY_SERVICE} 우선으로 보류 {len(held_back)}개"
+                       f"(<{PRIORITY_RESERVE_GB}GB): {','.join(held_back)}")
         log(f"[tick] {status}")
         time.sleep(CHECK_INTERVAL)
 
