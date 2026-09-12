@@ -1791,8 +1791,25 @@ def main():
         # 0건은 "이 가게에 리뷰가 없다"가 아니라 대개 "이번엔 못 가져왔다"이다.
         # 구글 목록이 리뷰 수천 개라고 말하는 가게가 0건으로 나오면 그건 실패다.
         # 그러니 기존 파일이 있으면 남긴다.
-        if reviews:
+        # 0건 뿐 아니라 "전보다 적게 모았을 때"도 덮어쓰면 안 된다.
+        # 2026-09-12: 구글이 리뷰 UI 를 바꿔 정렬 메뉴 선택자가 죽었고,
+        # 스크롤도 10개에서 멈춰 업소당 5개만 들어온다. 그 상태로
+        # 재방문하면 이미 50개를 모아둔 가게가 5개로 깎인다 — 0건
+        # 가드는 그걸 막지 못한다. 적게 모았으면 가지고 있는 쪽을 남긴다.
+        prev_rows = 0
+        if rp.exists():
+            try:
+                with open(rp, encoding="utf-8-sig", errors="replace") as _f:
+                    prev_rows = sum(1 for _ in csv.DictReader(_f))
+            except Exception:
+                prev_rows = 0
+        if reviews and len(reviews) >= prev_rows:
             save_reviews_csv(reviews, rp)
+        elif reviews:
+            log.warning(
+                f"  이번 {len(reviews)}개 < 기존 {prev_rows}개 — 기존 수집분 유지: "
+                f"{rest.name[:40]}"
+            )
         elif rp.exists():
             log.warning(
                 f"  0건이지만 기존 수집분 유지: {rest.name[:40]} "
