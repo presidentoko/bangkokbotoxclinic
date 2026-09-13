@@ -96,7 +96,11 @@ RESUME_THRESHOLDS = [
 #
 # 이건 다른 사이트 수집을 며칠 밀어두는 결정이다(사용자 지시, C안).
 # 방콕 식당 수집이 끝나면 PRIORITY_SERVICE 를 None 으로 되돌릴 것.
-PRIORITY_SERVICE = "bangkok_review"
+# 2026-09-13: 해제. 구글이 9/11 Maps 리뷰 패널을 5개짜리 미리보기로 바꿔
+# bangkok_review 자체가 못 쓰게 됐고(스크롤·IP·헤드리스 전부 배제 후 확인),
+# 남은 수집은 Apify 로 넘어갔다. 돌지도 않는 서비스가 RAM 을 예약하고 있으면
+# 다른 사이트 스크래퍼 4개가 영영 못 깨어난다.
+PRIORITY_SERVICE = None
 PRIORITY_RESERVE_GB = 3.5
 
 
