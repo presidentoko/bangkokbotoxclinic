@@ -16,8 +16,11 @@ export const dynamic = "force-static";
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
+  const { loadMasterDb } = await import("@/lib/data");
+  const { hasLocaleDetail } = await import("@/lib/site");
   const db = await loadMasterDb();
-  return db.restaurants.map((r) => ({ id: r.id }));
+  // 전량이 아니라 상위 식당만 — lib/site.ts 의 주석 참고.
+  return db.restaurants.filter(hasLocaleDetail).map((r) => ({ id: r.id }));
 }
 
 export async function generateMetadata(

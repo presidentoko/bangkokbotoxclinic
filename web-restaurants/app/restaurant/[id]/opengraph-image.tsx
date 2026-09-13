@@ -7,17 +7,21 @@ import { CUISINE_LABELS } from "@/lib/types";
 import { getSiteConfig } from "@/lib/site";
 
 // Edge runtime 제거 — loadMasterDb 가 fs 사용 (Node only).
-export const dynamic = "force-static";
-export const dynamicParams = false;
+//
+// 2026-09-14: 전량 프리렌더를 중단했다. 식당이 8,625곳이 되면서 상세 페이지가
+// 로케일 3벌(en/ko/th) + 이 OG 이미지로 34,500장이 됐고, Vercel 빌드가
+// ENOSPC 로 죽었다("no space left on device", functions.tmp 아래 .segment.rsc.func).
+// 그중 이 라우트가 단위당 제일 무겁다 — 1200×630 PNG 를 8,625장 굽는다.
+//
+// OG 이미지는 그 링크가 실제로 공유될 때만 불린다. 페이지 HTML 과 달리
+// 검색 색인 대상이 아니라서 미리 구울 이유가 없다. 요청 시 생성하고 엣지에서
+// 캐시한다. 앞단에 Cloudflare 도 있어 실제 오리진 호출은 더 줄어든다.
+//
+// dynamicParams 를 지우는 것과 별개로 페이지 라우트는 그대로 force-static 이다
+// — 그쪽은 색인되므로 존재하지 않는 id 가 soft 404 가 되면 안 된다.
 export const alt = "Restaurant — Real Reviews, Not SNS Hype";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-export async function generateStaticParams() {
-  const { loadMasterDb } = await import("@/lib/data");
-  const db = await loadMasterDb();
-  return db.restaurants.map((r) => ({ id: r.id }));
-}
 
 function simpleFallback(label: string, size: { width: number; height: number }) {
   return new ImageResponse(

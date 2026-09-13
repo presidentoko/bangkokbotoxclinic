@@ -1,4 +1,5 @@
 import { loadMasterDb, filterByCuisine, filterByDistrict, slugify } from "@/lib/data";
+import { hasLocaleDetail } from "@/lib/site";
 import { BEST_FOR } from "@/lib/bestFor";
 import { VERDICT_HUBS } from "@/lib/verdict";
 import { CUISINE_LABELS } from "@/lib/types";
@@ -99,8 +100,12 @@ export async function GET() {
   for (const r of db.restaurants) {
     const priority = r.trust_score >= 70 ? 0.8 : r.trust_score >= 50 ? 0.6 : 0.4;
     items.push({ url: `${SITE}/restaurant/${r.id}`, lastModified: updated, changeFrequency: "weekly", priority });
-    items.push({ url: `${SITE}/th/restaurant/${r.id}`, lastModified: updated, changeFrequency: "weekly", priority: priority - 0.1 });
-    items.push({ url: `${SITE}/ko/restaurant/${r.id}`, lastModified: updated, changeFrequency: "weekly", priority: priority - 0.1 });
+    // ko/th 상세는 상위 식당만 빌드된다(lib/site.ts). 안 만든 URL 을 여기
+    // 넣으면 구글에 404 를 제출하는 셈이라, 같은 기준을 봐야 한다.
+    if (hasLocaleDetail(r)) {
+      items.push({ url: `${SITE}/th/restaurant/${r.id}`, lastModified: updated, changeFrequency: "weekly", priority: priority - 0.1 });
+      items.push({ url: `${SITE}/ko/restaurant/${r.id}`, lastModified: updated, changeFrequency: "weekly", priority: priority - 0.1 });
+    }
   }
 
   return new Response(xmlFor(items), {
