@@ -83,6 +83,39 @@ function pct(n: number): string {
  * headline rating (Google will show 4.9 forever; we're the ones who can say the
  * last fifteen visitors averaged 4.27).
  */
+/**
+ * Build the SERP title: venue name, then the verdict clause.
+ *
+ * The clause is the whole point of the title and it sits at the end, so when
+ * the name is long Google renders the name and cuts the verdict off. 20% of
+ * titles ran past the ~60 characters Google shows, and a few names are long
+ * enough to eat the clause entirely ("Blue Sky Rooftop Restaurant & Bar at
+ * Centara Grand at Central Plaza Ladprao Bangkok — holds up, 94/100").
+ *
+ * So the name yields, not the verdict. Trim the name to whatever is left
+ * after the clause, on a word boundary where there is one. Names shorter
+ * than MIN_NAME_CHARS are never trimmed — a title that cannot show both
+ * legibly is better long than mangled.
+ *
+ * Some venue names carry the separator themselves ("Choorotz — ห้องอาหารชูรส").
+ * Callers that need to split a title back apart must use lastIndexOf.
+ */
+const SERP_LIMIT = 60;
+const MIN_NAME_CHARS = 18;
+
+export function verdictTitle(name: string, clause: string): string {
+  const full = `${name} — ${clause}`;
+  if (full.length <= SERP_LIMIT) return full;
+
+  const room = SERP_LIMIT - clause.length - 3 - 1; // " — " and the ellipsis
+  if (room < MIN_NAME_CHARS) return full;
+
+  let short = name.slice(0, room);
+  const space = short.lastIndexOf(" ");
+  if (space >= MIN_NAME_CHARS) short = short.slice(0, space);
+  return `${short.trimEnd()}… — ${clause}`;
+}
+
 export function getVerdict(r: Restaurant): Verdict {
   const analysed = r.scraped_review_count ?? 0;
 
@@ -91,7 +124,7 @@ export function getVerdict(r: Restaurant): Verdict {
       kind: "thin_data",
       label: "Not enough data",
       reason: `We've analysed ${pct(analysed)} recent review${analysed === 1 ? "" : "s"} — too few to call. Google's overall score is ${r.rating.toFixed(1)}.`,
-      headline: `${r.name} — too few recent reviews to judge`,
+      headline: verdictTitle(r.name, "too few recent reviews to judge"),
       icon: "○",
       fg: "#64748b",
       bg: "#f1f5f9",
@@ -113,7 +146,7 @@ export function getVerdict(r: Restaurant): Verdict {
       label: "Ratings falling",
       // Data, not a verdict on the food. The reader draws the conclusion.
       reason: `Its ${pct(recent!.count)} most recent reviews average ${recent!.avg!.toFixed(2)}★, against ${old!.avg!.toFixed(2)}★ from ${pct(old!.count)} older ones.`,
-      headline: `${r.name} — recent reviews are lower`,
+      headline: verdictTitle(r.name, "recent reviews are lower"),
       icon: "▼",
       fg: "#b45309",
       bg: "#fffbeb",
@@ -128,7 +161,7 @@ export function getVerdict(r: Restaurant): Verdict {
       kind: "hidden_gem",
       label: "Under the radar",
       reason: `Scores ${r.trust_score.toFixed(0)}/100 on just ${pct(r.total_reviews)} Google reviews — strong marks without the crowds. ${credibility}.`,
-      headline: `${r.name} — under the radar, ${r.trust_score.toFixed(0)}/100`,
+      headline: verdictTitle(r.name, `under the radar, ${r.trust_score.toFixed(0)}/100`),
       icon: "◆",
       fg: "#7c3aed",
       bg: "#f5f3ff",
@@ -140,7 +173,7 @@ export function getVerdict(r: Restaurant): Verdict {
       kind: "holds_up",
       label: "Holds up",
       reason: `Scores ${r.trust_score.toFixed(0)}/100 across ${pct(r.total_reviews)} Google reviews, with no drop in recent ratings. ${credibility}.`,
-      headline: `${r.name} — holds up, ${r.trust_score.toFixed(0)}/100`,
+      headline: verdictTitle(r.name, `holds up, ${r.trust_score.toFixed(0)}/100`),
       icon: "✓",
       fg: "#15803d",
       bg: "#f0fdf4",
@@ -152,7 +185,7 @@ export function getVerdict(r: Restaurant): Verdict {
       kind: "solid",
       label: "Solid",
       reason: `Scores ${r.trust_score.toFixed(0)}/100 across ${pct(r.total_reviews)} Google reviews. ${credibility}.`,
-      headline: `${r.name} — worth it? ${r.trust_score.toFixed(0)}/100`,
+      headline: verdictTitle(r.name, `worth it? ${r.trust_score.toFixed(0)}/100`),
       icon: "•",
       fg: "#0f766e",
       bg: "#f0fdfa",
@@ -163,7 +196,7 @@ export function getVerdict(r: Restaurant): Verdict {
     kind: "mixed",
     label: "Mixed reviews",
     reason: `Scores ${r.trust_score.toFixed(0)}/100 across ${pct(r.total_reviews)} Google reviews${lgRatio < 0.2 ? ", and few of its reviewers are Local Guides" : ""}.`,
-    headline: `${r.name} — mixed reviews, ${r.trust_score.toFixed(0)}/100`,
+    headline: verdictTitle(r.name, `mixed reviews, ${r.trust_score.toFixed(0)}/100`),
     icon: "~",
     fg: "#a16207",
     bg: "#fefce8",

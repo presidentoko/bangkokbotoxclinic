@@ -127,15 +127,28 @@ check(
 // limit; this keeps that from creeping back.
 console.log("\nTitle length (SERP renders ~60 chars)");
 const SERP_LIMIT = 60;
+// lib/verdict.ts 와 같은 규칙으로 짧게 만든다. 여기서 따로 조립하면
+// 둘이 어긋나도 감사는 통과해버린다.
+const SERP_TRIM_MIN_NAME = 18;
+function shorten(name, clause) {
+  const full = `${name} — ${clause}`;
+  if (full.length <= SERP_LIMIT) return full;
+  const room = SERP_LIMIT - clause.length - 3 - 1;
+  if (room < SERP_TRIM_MIN_NAME) return full;
+  let short = name.slice(0, room);
+  const space = short.lastIndexOf(" ");
+  if (space >= SERP_TRIM_MIN_NAME) short = short.slice(0, space);
+  return `${short.trimEnd()}… — ${clause}`;
+}
 function headline(r) {
   const t = r.trust_score.toFixed(0);
   const kind = classify(r);
-  if (kind === "thin_data") return `${r.name} — too few recent reviews to judge`;
-  if (kind === "slipping") return `${r.name} — recent reviews are lower`;
-  if (kind === "hidden_gem") return `${r.name} — under the radar, ${t}/100`;
-  if (kind === "holds_up") return `${r.name} — holds up, ${t}/100`;
-  if (kind === "solid") return `${r.name} — worth it? ${t}/100`;
-  return `${r.name} — mixed reviews, ${t}/100`;
+  if (kind === "thin_data") return shorten(r.name, "too few recent reviews to judge");
+  if (kind === "slipping") return shorten(r.name, "recent reviews are lower");
+  if (kind === "hidden_gem") return shorten(r.name, `under the radar, ${t}/100`);
+  if (kind === "holds_up") return shorten(r.name, `holds up, ${t}/100`);
+  if (kind === "solid") return shorten(r.name, `worth it? ${t}/100`);
+  return shorten(r.name, `mixed reviews, ${t}/100`);
 }
 const titles = restaurants.map(headline);
 const over = titles.filter((t) => t.length > SERP_LIMIT);
@@ -149,11 +162,13 @@ check(
   `${((over.length / titles.length) * 100).toFixed(0)}% over — shorten the headlines in lib/verdict.ts`
 );
 // Long venue names we can't shorten; a verdict clause we can.
-const clauseTooLong = titles.filter((t) => t.length - (t.indexOf(" — ") + 3) > 32);
+// 이름 자체에 " — " 를 가진 식당이 있다(Choorotz — ห้องอาหารชูรส).
+// indexOf 로 자르면 이름 일부가 판정 문구로 잡혀 오탐이 난다.
+const clauseTooLong = titles.filter((t) => t.length - (t.lastIndexOf(" — ") + 3) > 32);
 check(
   "no verdict clause is longer than 32 chars",
   clauseTooLong.length === 0,
-  clauseTooLong.length ? `e.g. "${clauseTooLong[0].slice(clauseTooLong[0].indexOf(" — ") + 3)}"` : ""
+  clauseTooLong.length ? `e.g. "${clauseTooLong[0].slice(clauseTooLong[0].lastIndexOf(" — ") + 3)}"` : ""
 );
 
 // ── Spot-check the claims we'd actually publish ────────────────────────────────
