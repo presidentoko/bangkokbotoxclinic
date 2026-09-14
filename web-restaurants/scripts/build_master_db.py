@@ -308,6 +308,39 @@ def load_photos(photos_dir: Path, place_id: str) -> list[dict]:
     return photos
 
 
+def load_local_ratings() -> dict[str, dict]:
+    """태국 현지 플랫폼(Wongnai) 평점. bangkok_reviews/wongnai_fetch.py 산출물.
+
+    구글 하나만 보고 점수를 내는 건 검증이 아니라 재계산이다. 같은 가게를
+    현지인이 어떻게 보는지가 붙어야 "외국인 평가와 현지인 평가가 갈린다"는
+    말을 할 수 있다. 162곳 표본에서 구글이 현지보다 평균 0.50 높았고,
+    90%(146/162)에서 구글이 더 후했다.
+
+    전화번호가 어긋난 건 넣지 않는다 — 다른 가게의 평점을 남의 페이지에
+    붙이는 사고가 된다. 201곳 중 39곳이 이 이유로 빠졌다.
+    """
+    p = ROOT / "bangkok_reviews" / "wongnai" / "wongnai.json"
+    if not p.exists():
+        return {}
+    try:
+        raw = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    out: dict[str, dict] = {}
+    for pid, v in raw.items():
+        if v.get("status") != "ok" or v.get("phone_match") == "no":
+            continue
+        if not v.get("wongnai_rating"):
+            continue
+        out[pid] = {
+            "source": "wongnai",
+            "rating": v["wongnai_rating"],
+            "rating_count": v.get("wongnai_rating_count") or 0,
+            "url": v.get("url", ""),
+        }
+    return out
+
+
 def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
     fn = place_id.replace(":", "_")
     p = reviews_dir / f"{fn}_reviews.csv"
@@ -395,6 +428,9 @@ def main():
     city_counter: Counter[str] = Counter()
     lang_total = Counter()
     seen_place_ids: set[str] = set()  # place_id dedup — same Google place, multiple CSV rows
+    local_ratings = load_local_ratings()
+    if local_ratings:
+        print(f"  local ratings (wongnai): {len(local_ratings)}")
 
     for city_id, output_dir, display_name in CITIES:
         rest_csv = output_dir / "restaurants.csv"
@@ -494,6 +530,7 @@ def main():
                     "business_status": row.get("business_status", ""),
                     "maps_url": row.get("maps_url", ""),
                     "photos": load_photos(photos_dir, place_id),
+                    "local_rating": local_ratings.get(place_id),
                 })
 
     restaurants.sort(key=lambda c: (-c["trust_score"], -c["total_reviews"]))

@@ -4,6 +4,7 @@ import { loadMasterDb, getRestaurantById, topByTrust, slugify } from "@/lib/data
 import { deriveLocalityFromAddress } from "@/lib/locality";
 import { getVerdict } from "@/lib/verdict";
 import { VerdictPanel } from "@/components/Verdict";
+import { LocalRating } from "@/components/LocalRating";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import type { Restaurant } from "@/lib/types";
 import { BreadcrumbJsonLd, RestaurantJsonLd } from "@/components/JsonLd";
@@ -271,6 +272,7 @@ export default async function RestaurantPage(
             score breakdowns they didn't ask for. */}
         <div className="mt-5">
           <VerdictPanel r={r} />
+          <LocalRating r={r} />
         </div>
 
         {r.cuisines.length > 0 && (

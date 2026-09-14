@@ -51,6 +51,13 @@ export type Restaurant = {
   business_status: string;
   maps_url: string;
   photos: { url: string; alt: string }[];
+  /** 태국 현지 플랫폼 평점. 전화번호가 일치한 곳만 채워진다. 대부분은 null. */
+  local_rating?: {
+    source: "wongnai";
+    rating: number;
+    rating_count: number;
+    url: string;
+  } | null;
 };
 
 export type MasterDb = {
