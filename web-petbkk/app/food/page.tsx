@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+import { aafcoStatus } from '@/lib/aafco'
 import FoodListClient from '@/components/FoodListClient'
 import RecentFoods from '@/components/RecentFoods'
 import RelatedGuides from '@/components/RelatedGuides'
@@ -54,7 +55,8 @@ function KeyFacts() {
   const gradeA = graded.filter(f => getFoodGrade(f) === 'A').length
   const dogs = foods.filter(f => f.animal === 'dog').length
   const cats = foods.filter(f => f.animal === 'cat').length
-  const aafco = foods.filter(f => f.aafco_meets).length
+  const aafco = foods.filter(f => aafcoStatus(f) === 'meets').length
+  const withPanel = foods.filter(f => f.ing_total > 0).length
 
   return (
     <section className="bg-white border border-orange-100 rounded-xl p-4 mb-5">
@@ -63,8 +65,8 @@ function KeyFacts() {
         <strong>อาหารสัตว์เลี้ยงที่ขายในไทย {foods.length.toLocaleString()} รายการ</strong>{' '}
         (อาหารสุนัข {dogs.toLocaleString()} · อาหารแมว {cats.toLocaleString()}) และให้เกรด A–F
         จากลำดับและชนิดของส่วนประกอบบนฉลาก โดยมี <strong>{gradeA.toLocaleString()} รายการที่ได้เกรด A</strong>{' '}
-        และ {aafco.toLocaleString()} รายการที่ระบุว่าผ่านมาตรฐาน AAFCO
-        ทุกรายการแสดงรายการส่วนผสมแบบเต็มและการจัดกลุ่มคุณภาพของแต่ละส่วนผสม ฟรี
+        และ {aafco.toLocaleString()} รายการที่โปรตีนและไขมันถึงขั้นต่ำ AAFCO
+        {' '}มีรายการส่วนผสมจากฉลาก {withPanel.toLocaleString()} รายการ — สินค้าที่ผู้ขายไม่เปิดเผยส่วนผสม เราจะแสดงว่า “ไม่มีข้อมูล” แทนการเดา
       </p>
       <dl className="grid grid-cols-4 gap-2 mt-3 text-center">
         {[

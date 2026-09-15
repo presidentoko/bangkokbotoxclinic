@@ -287,6 +287,18 @@ export default function HospitalPage() {
         ค้นหาโรงพยาบาลสัตว์และคลินิกสัตว์ใกล้คุณ — {all.length} แห่งในกรุงเทพ
       </p>
       <KeyFacts all={all} />
+      {/* The register check is the one thing here that is not a Google Maps
+          copy, so it gets a place above the fold rather than a footer link. */}
+      <a
+        href="/hospital/license"
+        className="flex items-center justify-between gap-3 mb-5 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3 hover:border-emerald-400 transition-colors"
+      >
+        <span>
+          <span className="block text-sm font-bold text-emerald-900">✅ ตรวจสอบใบอนุญาตคลินิกสัตว์</span>
+          <span className="block text-xs text-emerald-800">ค้นจากทะเบียนกรมปศุสัตว์ — ได้รับอนุญาตไหม รับแอดมิทค้างคืนได้หรือเปล่า</span>
+        </span>
+        <span className="text-emerald-700 font-bold">→</span>
+      </a>
       <AdSlot slot="1234567891" format="leaderboard" />
       <OtherCities />
       <DistrictIndex />

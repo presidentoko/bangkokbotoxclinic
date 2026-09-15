@@ -5,7 +5,7 @@
   "scripts": {
     "predev": "node scripts/build-food-index.js && tsx scripts/build-hospital-index.ts",
     "dev": "next dev",
-    "prebuild": "node scripts/build-food-index.js && tsx scripts/build-hospital-index.ts",
+    "prebuild": "node scripts/build-food-index.js && tsx scripts/build-hospital-index.ts && tsx scripts/build-registry-search.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

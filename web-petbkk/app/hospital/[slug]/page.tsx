@@ -1,12 +1,13 @@
 import { notFound } from 'next/navigation'
 import { getHours, summarizeHours, toSchemaHours, isAlwaysOpen } from '@/lib/hospitalHours'
 import AdSlot from '@/components/AdSlot'
+import LicenseVerification from '@/components/LicenseVerification'
+import { getLicense } from '@/lib/licenses'
 import { getHospitalBySlug, loadHospitals, hospitalSlug, hasPreciseCoord } from '@/lib/hospitals'
 import { getHospitalReviews } from '@/lib/petreviews'
 import NearbyHospitals from '@/components/NearbyHospitals'
 import HospitalShareButtons from '@/components/HospitalShareButtons'
 import PantipReviews from '@/components/PantipReviews'
-import RelatedGuides from '@/components/RelatedGuides'
 import type { Metadata } from 'next'
 import type { Hospital } from '@/lib/types'
 import { districtForHospital } from '@/lib/districts'
@@ -107,26 +108,31 @@ function HospitalFaqJsonLd({ h }: { h: Hospital }) {
   // not open 24 hours, i.e. most of them.
   const hours = getHours(h.id)
   const hoursLine = hours ? summarizeHours(hours) : ''
-  const faqs: { q: string; a: string }[] = [
-    {
+  // Only questions the record can answer. `price_consult` is null on all 980
+  // clinics, so the consult-fee question used to be answered "please call" on
+  // every page — the same non-answer, in FAQPage markup, 980 times. Hours fall
+  // back the same way on the ~500 clinics without a weekly schedule.
+  const faqs: { q: string; a: string }[] = []
+  if (hoursLine || h.is_24h) {
+    faqs.push({
       q: `${h.name_th} เปิดทำการกี่โมง?`,
       a: hoursLine
         ? `${h.name_th} เปิดทำการ ${hoursLine}`
-        : h.is_24h
-          ? `${h.name_th} เปิดให้บริการ 24 ชั่วโมง ทุกวัน ไม่มีวันหยุด`
-          : `กรุณาโทรสอบถามเวลาเปิด-ปิดโดยตรง${h.phone ? ` ที่เบอร์ ${h.phone}` : ''}`,
-    },
-    {
+        : `${h.name_th} เปิดให้บริการ 24 ชั่วโมง ทุกวัน ไม่มีวันหยุด`,
+    })
+  }
+  if (h.address) {
+    faqs.push({
       q: `${h.name_th} อยู่ที่ไหน?`,
-      a: `${h.name_th} ตั้งอยู่ที่ ${h.address} ประเทศไทย สามารถดูเส้นทางได้จาก Google Maps`,
-    },
-    {
+      a: `${h.name_th} ตั้งอยู่ที่ ${h.address}`,
+    })
+  }
+  if (h.price_consult != null) {
+    faqs.push({
       q: `${h.name_th} ราคาค่าตรวจเท่าไหร่?`,
-      a: h.price_consult != null
-        ? `ค่าตรวจเริ่มต้นประมาณ ${h.price_consult.toLocaleString()} บาท${h.price_emergency_surcharge != null ? ` ค่าบริการนอกเวลา ${h.price_emergency_surcharge.toLocaleString()} บาท` : ''}`
-        : `กรุณาโทรสอบถามราคา${h.phone ? ` ที่เบอร์ ${h.phone}` : 'โดยตรง'}`,
-    },
-  ]
+      a: `ค่าตรวจเริ่มต้นประมาณ ${h.price_consult.toLocaleString()} บาท${h.price_emergency_surcharge != null ? ` ค่าบริการนอกเวลา ${h.price_emergency_surcharge.toLocaleString()} บาท` : ''}`,
+    })
+  }
 
   // A "ใช่ …มีบริการผ่าตัด" FAQ used to be emitted here on every page, gated on
   // `has_surgery` — which petvet/transform.py hardcodes to True. It asserted an
@@ -158,6 +164,8 @@ function HospitalFaqJsonLd({ h }: { h: Hospital }) {
         : `ใช่ ${h.name_th} มีบริการฉุกเฉิน${h.phone ? ` โทร ${h.phone}` : ' กรุณาโทรสอบถามก่อนเดินทาง'}`,
     })
   }
+
+  if (faqs.length === 0) return null
 
   const schema = {
     '@context': 'https://schema.org',
@@ -240,6 +248,16 @@ function LocalBusinessJsonLd({ h, slug }: { h: Hospital; slug: string }) {
       ? { '@type': 'Place', name: `เขต${h.district} กรุงเทพมหานคร` }
       : { '@type': 'City', name: CITY_LABEL[h.city].en, alternateName: CITY_LABEL[h.city].th },
     ...(h.website ? { sameAs: [h.website] } : {}),
+    // The DLD licence number, when the clinic was matched to the register. It
+    // is an identifier issued by a government body, which is exactly what
+    // `identifier` + `propertyID` exists to carry.
+    ...(getLicense(h.id) ? {
+      identifier: {
+        '@type': 'PropertyValue',
+        propertyID: 'ใบอนุญาตสถานพยาบาลสัตว์ กรมปศุสัตว์',
+        value: getLicense(h.id)!.license_no,
+      },
+    } : {}),
     // Only published for the 40 records with a coordinate of their own. The
     // other 463 carry the grid probe point, and feeding Google a GeoCoordinates
     // that puts a Thonburi clinic in Pathum Wan is worse than sending none.
@@ -377,6 +395,10 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
           </div>
         </div>
       </div>
+
+      {/* The licence check sits directly under the rating: it is the one thing
+          on this page a Google Maps listing does not already say. */}
+      <LicenseVerification hospitalId={h.id} displayName={h.name_th} />
 
       {/* Info card */}
       <div className="bg-white rounded-xl border p-4 mb-4 space-y-3 text-sm">
@@ -557,6 +579,7 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
 
       {/* Related guides */}
       <div className="flex flex-wrap gap-2 mt-6">
+        <a href="/hospital/license" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">✅ ตรวจสอบใบอนุญาต</a>
         <a href="/emergency" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">🚨 คู่มือฉุกเฉิน</a>
         <a href="/neutering" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">✂️ ทำหมัน</a>
         <a href="/cost" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">💰 ค่ารักษา</a>
@@ -564,7 +587,10 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
         <a href="/insurance" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">🛡️ ประกันสัตว์เลี้ยง</a>
       </div>
 
-      <RelatedGuides current="hospital" count={4} />
+      {/* The generic RelatedGuides rail used to sit here: the same four guides
+          (why dogs eat grass, litter-box problems …) on all 980 clinic pages,
+          plus a second set of share buttons. The contextual links above are the
+          related guides for a clinic page; the rail only added identical text. */}
 
       <HospitalFaqJsonLd h={h} />
 

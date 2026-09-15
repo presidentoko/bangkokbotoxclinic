@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation'
 import { getFoodBySlug, loadFoods, getFoodGrade, foodSlug } from '@/lib/petfood'
 import { getBetterAlternatives, getComparableFoods, isPrescriptionDiet } from '@/lib/alternatives'
-import { hasPublishableData } from '@/lib/grading'
+import { isIndexableFood } from '@/lib/indexing'
+import { aafcoStatus, AAFCO_LABEL } from '@/lib/aafco'
+import { foodKind } from '@/lib/foodKind'
 import { affiliateUrl } from '@/lib/affiliate'
 import { getFoodReviews } from '@/lib/petreviews'
 import GradeBar from '@/components/GradeBar'
@@ -11,7 +13,6 @@ import BetterAlternatives from '@/components/BetterAlternatives'
 import ShareCard from '@/components/ShareCard'
 import TrackRecentFood from '@/components/TrackRecentFood'
 import PantipReviews from '@/components/PantipReviews'
-import RelatedGuides from '@/components/RelatedGuides'
 import AdSlot from '@/components/AdSlot'
 import type { Metadata } from 'next'
 import type { FoodGrade, PetFood } from '@/lib/types'
@@ -28,20 +29,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!food) return { title: 'ไม่พบสินค้า' }
   const grade = getFoodGrade(food)
   const name = food.name_th || food.name_en
-  // 713 of the 986 products have no ingredient panel, no nutrition figures and
-  // no price — once the fabricated ingredient rows were removed there is
-  // nothing on the page but a brand and a name. They stay reachable and
-  // internally linked, but asking Google to index that many near-empty pages
-  // drags the whole site's quality signal down and is the single most common
-  // reason an ad network rejects a directory.
-  const publishable = hasPublishableData(food)
+  // Indexable only when the page says something checkable about the product —
+  // see lib/indexing.ts for why a price alone stopped being enough.
+  const indexable = isIndexableFood(food, slug)
+  const hasPanel = food.ing_total > 0
   return {
-    ...(publishable ? {} : { robots: { index: false, follow: true } }),
+    ...(indexable ? {} : { robots: { index: false, follow: true } }),
     // The root layout's title template already appends "| ThailandPetHub";
     // hardcoding a second brand here produced "… | PetBKK | ThailandPetHub",
     // which pushed the product name out of the truncated SERP title.
     title: `${food.brand} ${food.name_en}${grade ? ` — เกรด ${grade}` : ''}`,
-    description: `ตรวจสอบส่วนประกอบ ${name} พร้อมเกรดคุณภาพ เปรียบเทียบโปรตีน ไขมัน และส่วนประกอบแต่ละชนิด`,
+    // Promising an ingredient check on a page that has no panel is the kind of
+    // mismatch between snippet and page that teaches users to skip the result.
+    description: hasPanel
+      ? `ตรวจสอบส่วนประกอบ ${name} พร้อมเกรดคุณภาพ เปรียบเทียบโปรตีน ไขมัน และส่วนประกอบแต่ละชนิด`
+      : `${food.brand} ${name} — ข้อมูลโภชนาการตามฉลาก ราคา และสินค้าที่ใกล้เคียงกันในไทย`,
     alternates: {
       canonical: `https://www.thailandpethub.com/food/${slug}`,
     },
@@ -137,22 +139,31 @@ function FoodFaqJsonLd({ food, grade }: { food: PetFood; grade: FoodGrade | null
     F: `มีส่วนประกอบที่เป็นอันตราย ${food.black_count} รายการ ไม่แนะนำ`,
   }
 
-  const faqs = [
-    {
+  // Only questions the data can actually answer. The template used to emit all
+  // three on every page, so ~1,400 products carried an FAQ — and FAQPage markup
+  // — whose answers were "no ingredient data" and "not enough data to grade".
+  // A question answered with "we don't know" is filler, and filler repeated
+  // across a thousand pages is the pattern scaled-content systems look for.
+  const aafco = aafcoStatus(food)
+  const faqs: { q: string; a: string }[] = []
+  if (food.ingredients.length > 0) {
+    faqs.push({
       q: `${name} มีส่วนผสมอะไรบ้าง?`,
-      a: food.ingredients.length > 0
-        ? `ส่วนผสมหลักของ ${name} ได้แก่ ${topIngredients}${food.ingredients.length > 5 ? ` และอีก ${food.ingredients.length - 5} รายการ` : ''}`
-        : `ยังไม่มีข้อมูลส่วนผสมโดยละเอียด กรุณาตรวจสอบที่ฉลากผลิตภัณฑ์`,
-    },
-    {
-      q: `${name} ได้เกรด ${grade ?? '?'} เพราะอะไร?`,
-      a: grade && gradeReasons[grade] ? gradeReasons[grade]! : `ยังไม่มีข้อมูลส่วนประกอบเพียงพอสำหรับการให้เกรด`,
-    },
-    {
-      q: `${name} เหมาะสำหรับ${animalTh}วัยอะไร?`,
-      a: `${name} ออกแบบมาสำหรับ${animalTh}วัย${stageTh[food.life_stage] ?? food.life_stage}${food.aafco_meets ? ' และผ่านมาตรฐาน AAFCO' : ''}`,
-    },
-  ]
+      a: `ส่วนผสมหลักของ ${name} ได้แก่ ${topIngredients}${food.ingredients.length > 5 ? ` และอีก ${food.ingredients.length - 5} รายการ` : ''}`,
+    })
+  }
+  if (grade && gradeReasons[grade]) {
+    faqs.push({ q: `${name} ได้เกรด ${grade} เพราะอะไร?`, a: gradeReasons[grade]! })
+  }
+  if (aafco === 'meets' || aafco === 'below') {
+    faqs.push({
+      q: `${name} มีโปรตีนและไขมันถึงเกณฑ์ขั้นต่ำ AAFCO ไหม?`,
+      a: aafco === 'meets'
+        ? `ถึง — โปรตีน ${food.protein_dm}% และไขมัน ${food.fat_dm}% (คิดแบบ dry matter) ไม่ต่ำกว่าขั้นต่ำ AAFCO สำหรับ${animalTh}วัย${stageTh[food.life_stage] ?? food.life_stage}`
+        : `ไม่ถึง — โปรตีน ${food.protein_dm}% และไขมัน ${food.fat_dm}% (คิดแบบ dry matter) มีค่าอย่างน้อยหนึ่งตัวต่ำกว่าขั้นต่ำ AAFCO สำหรับ${animalTh}วัย${stageTh[food.life_stage] ?? food.life_stage}`,
+    })
+  }
+  if (faqs.length === 0) return null
 
   const schema = {
     '@context': 'https://schema.org',
@@ -217,6 +228,9 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
   const similar = getComparableFoods(food)
   const alternatives = getBetterAlternatives(food)
   const prescription = isPrescriptionDiet(food)
+  const kind = foodKind(food)
+  // Moisture alone (retail listings often carry just that) is not an analysis.
+  const hasNutrition = food.protein_pct > 0 || food.fat_pct > 0
   const total = food.green_count + food.yellow_count + food.red_count + food.black_count
   const pantipReview = getFoodReviews(food.id)
   const conditionLinks = getConditionLinks(food)
@@ -303,7 +317,20 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
         </div>
       </div>
 
-      {/* Nutrition section */}
+      {/* Nutrition section — a table of four dashes says nothing, so a label
+          with no guaranteed analysis gets one honest line instead. */}
+      {!hasNutrition ? (
+        <section className="mb-4 bg-white border rounded-xl p-4">
+          <h2 className="text-base font-bold text-gray-900 mb-1">คุณค่าทางโภชนาการ</h2>
+          <p className="text-sm text-gray-600">
+            ผู้ขายไม่ได้เปิดเผยค่าวิเคราะห์โภชนาการ (โปรตีน ไขมัน ใยอาหาร ความชื้น) ของสินค้านี้
+            เราจึงไม่แสดงตัวเลขและไม่ประเมินเกณฑ์ AAFCO
+          </p>
+          {kind === 'treat' && (
+            <p className="mt-2 text-xs text-gray-500">{AAFCO_LABEL.not_applicable}</p>
+          )}
+        </section>
+      ) : (
       <section className="mb-4 bg-white border rounded-xl p-4">
         <h2 className="text-base font-bold text-gray-900 mb-3">คุณค่าทางโภชนาการ</h2>
         <div className="overflow-x-auto">
@@ -324,10 +351,15 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
             </tbody>
           </table>
         </div>
-        <p className="mt-3 text-sm font-medium">
-          AAFCO: {food.aafco_meets ? '✅ ผ่านเกณฑ์' : '❌ ไม่ผ่านเกณฑ์'}
-        </p>
+        <p className="mt-3 text-sm font-medium">{AAFCO_LABEL[aafcoStatus(food)]}</p>
+        {(aafcoStatus(food) === 'meets' || aafcoStatus(food) === 'below') && (
+          <p className="mt-1 text-xs text-gray-400">
+            เทียบค่า dry matter กับขั้นต่ำ AAFCO ของ{food.animal === 'cat' ? 'แมว' : 'สุนัข'}
+            วัย{food.life_stage === 'puppy' ? 'กำลังโต' : 'โต'} — ไม่ใช่การรับรองจาก AAFCO
+          </p>
+        )}
       </section>
+      )}
 
       <AdSlot slot="1234567895" format="inline" />
 
@@ -403,7 +435,8 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
         ))}
       </div>
 
-      <RelatedGuides current="food" count={4} />
+      {/* No generic RelatedGuides rail: it printed the same four guides on every
+          product page. The condition links above are chosen for this product. */}
 
       <BreadcrumbJsonLd name={food.name_th || food.name_en} />
     </main>

@@ -4,6 +4,7 @@ import { getBuyUrl } from '@/lib/foodBuyUrls'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { loadFoodsLight } from '@/lib/petfood'
 import { getFoodGrade } from '@/lib/grading'
+import { aafcoStatus } from '@/lib/aafco'
 import type { PetFoodLight } from '@/lib/types'
 import GradeBar from '@/components/GradeBar'
 import SocialShare from '@/components/SocialShare'
@@ -108,8 +109,8 @@ export default function CompareContent() {
             <Row rowIndex={5} label="ไฟเบอร์" values={foods.map(f => f.fiber_pct > 0  ? `${f.fiber_pct}%`   : '—')} />
             <Row rowIndex={6} label="ความชื้น" values={foods.map(f => f.moisture_pct > 0 ? `${f.moisture_pct}%` : '—')} />
             <Row rowIndex={7} label="AAFCO" values={foods.map(f => (
-              <span className={f.aafco_meets ? 'text-green-600' : 'text-gray-400'}>
-                {f.aafco_meets ? '✓ ผ่าน' : '—'}
+              <span className={aafcoStatus(f) === 'meets' ? 'text-green-600' : aafcoStatus(f) === 'below' ? 'text-orange-600' : 'text-gray-400'}>
+                {aafcoStatus(f) === 'meets' ? '✓ ถึงขั้นต่ำ' : aafcoStatus(f) === 'below' ? 'ต่ำกว่าขั้นต่ำ' : '—'}
               </span>
             ))} />
             {/* Shown only where a retail listing supplied the pack size; the

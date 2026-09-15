@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import type { PetFoodLight } from '@/lib/types'
 import { getFoodGrade } from '@/lib/grading'
+import { aafcoStatus } from '@/lib/aafco'
 import { getCompareIds, toggleCompare } from '@/lib/compare'
 import SaveFoodButton from './SaveFoodButton'
 
@@ -139,7 +140,7 @@ export default function FoodCard({ food }: { food: PetFoodLight }) {
               โปรตีน
             </span>
           )}
-          {food.aafco_meets && (
+          {aafcoStatus(food) === 'meets' && (
             <span className="ml-auto text-green-600 font-medium">✓ AAFCO</span>
           )}
         </div>

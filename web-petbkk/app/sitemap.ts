@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { loadFoods, foodSlug } from '@/lib/petfood'
-import { hasPublishableData } from '@/lib/grading'
+import { isIndexableFood } from '@/lib/indexing'
 import { loadHospitals, hospitalSlug } from '@/lib/hospitals'
 import { getIndexableDistricts } from '@/lib/districts'
 import { CITY_META } from '@/lib/cityHub'
@@ -38,6 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/hospital`,                 priority: 0.9,  changeFrequency: 'weekly'  },
     { url: `${BASE}/hospital/24h`,             priority: 0.9,  changeFrequency: 'weekly'  },
     { url: `${BASE}/hospital/emergency`,       priority: 0.9,  changeFrequency: 'weekly'  },
+    { url: `${BASE}/hospital/license`,         priority: 0.9,  changeFrequency: 'monthly' },
     { url: `${BASE}/mri`,                      priority: 0.8,  changeFrequency: 'monthly' },
     { url: `${BASE}/compare`,                  priority: 0.7,  changeFrequency: 'weekly'  },
     { url: `${BASE}/adopt`,                    priority: 0.8,  changeFrequency: 'weekly'  },
@@ -104,12 +105,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/advertise`,                priority: 0.5,  changeFrequency: 'monthly' },
   ]
 
-  // Only the 273 products that actually carry data. The other 713 have no
-  // ingredient panel, no nutrition and no price, and their pages set
-  // robots:noindex — listing a noindex URL in a sitemap spends crawl budget to
-  // be told to go away, and reads as a quality signal problem in Search Console.
+  // Exactly the set the product page leaves indexable (lib/indexing.ts) — a
+  // noindex URL in the sitemap spends crawl budget to be told to go away.
   const foodPages: MetadataRoute.Sitemap = foods
-    .filter(hasPublishableData)
+    .filter(f => isIndexableFood(f, foodSlug(f)))
     .map(f => ({
       url: `${BASE}/food/${foodSlug(f)}`,
       lastModified: parsedDate(f.updated_at),

@@ -19,7 +19,7 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
-import { loadBangkokHospitals, hospitalSlug } from '../lib/hospitals'
+import { loadBangkokHospitals, toLightHospital } from '../lib/hospitals'
 import type { HospitalLight } from '../lib/types'
 
 // Bangkok only: this index feeds the search/filter widget on the /hospital hub
@@ -27,20 +27,9 @@ import type { HospitalLight } from '../lib/types'
 // Chiang Mai, Pattaya and Phuket clinics now share hospitals.json but have no
 // hub of their own yet; indexing them here would surface them in a search box
 // that claims to be Bangkok-only.
-const index: HospitalLight[] = loadBangkokHospitals().map(h => ({
-  id: h.id,
-  slug: hospitalSlug(h),
-  name_th: h.name_th,
-  name_en: h.name_en,
-  address: h.address,
-  lat: h.lat,
-  lng: h.lng,
-  phone: h.phone,
-  is_24h: h.is_24h,
-  google_rating: h.google_rating,
-  google_review_count: h.google_review_count,
-  ...(h.district ? { district: h.district } : {}),
-}))
+// Same narrowing the server pages use, so the hub's cards carry the same
+// fields (including the licence class) as the district and 24h pages.
+const index: HospitalLight[] = loadBangkokHospitals().map(toLightHospital)
 
 const out = path.join(__dirname, '..', 'data', 'hospital-index.json')
 fs.writeFileSync(out, JSON.stringify(index))

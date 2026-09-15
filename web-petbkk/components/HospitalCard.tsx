@@ -59,6 +59,14 @@ export default function HospitalCard({ hospital: h, distanceKm }: Props) {
             all 503, so these two badges were pure noise: one never showed, the
             other showed on every card and carried no information. Review volume
             actually differs between clinics. */}
+        {h.license_class && (
+          <span
+            className="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded-full text-[11px] font-semibold"
+            title="พบในทะเบียนสถานพยาบาลสัตว์ กรมปศุสัตว์"
+          >
+            ✓ ใบอนุญาต{h.license_class === '03' ? ' · แอดมิท 10+' : h.license_class === '02' ? ' · แอดมิทได้' : ''}
+          </span>
+        )}
         {h.google_review_count != null && h.google_review_count >= 500 && (
           <span className="px-2 py-0.5 bg-amber-100 text-amber-800 rounded-full text-[11px] font-semibold">
             {h.google_review_count.toLocaleString()} รีวิว

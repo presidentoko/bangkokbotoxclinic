@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import type { PetFood } from '@/lib/types'
 import type { FoodGrade } from '@/lib/types'
 import { getFoodGrade } from '@/lib/grading'
+import { aafcoStatus } from '@/lib/aafco'
 
 const GRADE_CFG: Record<FoodGrade, { bg1: string; bg2: string; color: string; label: string }> = {
   A: { bg1: '#f0fdf4', bg2: '#dcfce7', color: '#16a34a', label: 'ดีเยี่ยม' },
@@ -113,7 +114,11 @@ export default function ShareCard({ food }: Props) {
     ctx.font = '15px sans-serif'
     // 0 means the label never listed it — printing "โปรตีน 0%" reads as a real claim.
     const proteinPart = food.protein_pct > 0 ? `โปรตีน ${food.protein_dm}%  ·  ` : ''
-    ctx.fillText(`${proteinPart}AAFCO ${food.aafco_meets ? 'ผ่าน' : 'ไม่ผ่าน'}`, cx, 472)
+    // Only a verdict the figures support goes on an image people share — a
+    // missing nutrition panel used to print "AAFCO ไม่ผ่าน" against the brand.
+    const aafco = aafcoStatus(food)
+    const aafcoPart = aafco === 'meets' ? 'ถึงขั้นต่ำ AAFCO' : aafco === 'below' ? 'ต่ำกว่าขั้นต่ำ AAFCO' : ''
+    ctx.fillText(`${proteinPart}${aafcoPart}`.replace(/\s+·\s+$/, ''), cx, 472)
 
     // URL
     ctx.fillStyle = '#9ca3af'

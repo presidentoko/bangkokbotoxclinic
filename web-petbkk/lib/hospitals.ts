@@ -1,4 +1,5 @@
 import type { Hospital, HospitalFilters, HospitalLight } from './types'
+import { getLicense } from './licenses'
 import rawData from '../data/hospitals.json'
 import { toSlug } from './slugify'
 import { romanizeThai, trimSlug } from './thai'
@@ -119,6 +120,7 @@ export function toLightHospital(h: Hospital): HospitalLight {
     google_rating: h.google_rating,
     google_review_count: h.google_review_count,
     ...(h.district ? { district: h.district } : {}),
+    ...(getLicense(h.id)?.license_class ? { license_class: getLicense(h.id)!.license_class } : {}),
   }
 }
 
@@ -186,8 +188,11 @@ export function getNearbyHospitals(
   if (!anchorPrecise) {
     // No usable origin, so "nearby" is unknowable. Fall back to the strongest
     // alternatives by rating — still a useful card, just not a distance claim.
+    // Same city at least: a Phuket clinic's page offering Bangkok clinics as
+    // "other highly rated" is no use to someone standing in Phuket.
     return others
       .filter(h => h.google_rating != null)
+      .filter(h => !hospital.city || h.city === hospital.city)
       .sort((a, b) => (b.google_rating ?? 0) - (a.google_rating ?? 0))
       .slice(0, count)
       .map(h => ({ hospital: h, distKm: null }))

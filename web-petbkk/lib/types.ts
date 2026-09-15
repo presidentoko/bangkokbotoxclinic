@@ -155,6 +155,8 @@ export interface HospitalLight {
   google_rating: number | null
   google_review_count: number | null
   district?: string
+  /** DLD licence class, present only when matched to the register (lib/licenses.ts). */
+  license_class?: '01' | '02' | '03' | '04' | 'gov' | ''
 }
 
 export interface FoodFilters {

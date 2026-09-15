@@ -46,7 +46,7 @@ export default function NearbyHospitals({ hospital }: Props) {
                   className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-xs"
                   style={{ backgroundColor: ratingColor }}
                 >
-                  {h.google_rating != null ? h.google_rating.toFixed(1) : 'N/A'}
+                  {h.google_rating != null ? h.google_rating.toFixed(1) : '–'}
                 </div>
 
                 <div className="flex-1 min-w-0">

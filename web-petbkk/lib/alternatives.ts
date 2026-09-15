@@ -1,6 +1,7 @@
 import type { PetFood, FoodGrade } from './types'
 import { getFoodGrade } from './grading'
 import { loadFoods, foodSlug } from './petfood'
+import { foodKind } from './foodKind'
 
 /**
  * "This bag scores C — what should I buy instead?"
@@ -92,6 +93,10 @@ export function getBetterAlternatives(food: PetFood, count = 3): Alternative[] {
   if (currentRank >= GRADE_RANK.A) return []
   // A therapeutic diet is a treatment, not a purchase to be improved on.
   if (isPrescriptionDiet(food)) return []
+  // Nothing to compare a treat dispenser with, and an unrated item has no
+  // grade for anything to be "better" than — the heading would be a lie.
+  const kind = foodKind(food)
+  if (kind === 'nonfood' || !currentGrade) return []
 
   const basePrice = pricePerKg(food)
 
@@ -99,6 +104,7 @@ export function getBetterAlternatives(food: PetFood, count = 3): Alternative[] {
     .filter(f => f.id !== food.id)
     .filter(f => f.animal === food.animal)
     .filter(f => f.sub_category === food.sub_category)
+    .filter(f => foodKind(f) === kind)
     .filter(f => !isPrescriptionDiet(f))
     .map(f => ({ f, grade: getFoodGrade(f) }))
     .filter((c): c is { f: PetFood; grade: FoodGrade } => c.grade !== null)
@@ -163,9 +169,16 @@ export function getBetterAlternatives(food: PetFood, count = 3): Alternative[] {
  * every page in a group.
  */
 export function getComparableFoods(food: PetFood, count = 3): PetFood[] {
+  const kind = foodKind(food)
+  if (kind === 'nonfood') return []
+  // A renal formula is only "similar" to another renal formula — shown next to
+  // a dog chew it reads as a recommendation.
+  const prescription = isPrescriptionDiet(food)
   const basePrice = pricePerKg(food)
   return loadFoods()
     .filter(f => f.id !== food.id)
+    .filter(f => foodKind(f) === kind)
+    .filter(f => isPrescriptionDiet(f) === prescription)
     .filter(f => f.animal === food.animal)
     .filter(f => f.sub_category === food.sub_category)
     .filter(f => f.life_stage === food.life_stage)
