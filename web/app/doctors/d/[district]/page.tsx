@@ -40,6 +40,8 @@ export async function generateMetadata(
   return {
     title: `Best doctors in ${r.district} — patient-rated specialists`,
     description: `${doctors.length} specialist physicians in ${r.district}, Bangkok. Patient review-based rankings with language breakdown (Korean / English / Thai / Japanese).`,
+    // 2026-09-15: 합성 의사 목록 — 조합 생성 허브라 색인에서 뺀다.
+    robots: { index: false, follow: true },
     alternates: { canonical: `/doctors/d/${district}` },
   };
 }

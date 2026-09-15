@@ -57,7 +57,10 @@ export async function generateMetadata(
   return {
     title: { absolute: title },
     description,
-    ...((!inSite || thinContent) && { robots: { index: false, follow: true } }),
+    // 2026-09-15: 전부 noindex. 리뷰에서 뽑아 합성한 의사 인물 페이지는
+    // YMYL 에서 가장 위험한 프로그램 생성물이다(08-18 스팸 업데이트 피격).
+    // 링크는 따라가게 두어 클리닉 페이지로 신호는 흘려보낸다.
+    robots: { index: false, follow: true },
     alternates: { canonical },
     // 2026-09-02: 페이지가 openGraph 를 정의하면 루트의 siteName 이 사라진다.
     openGraph: { siteName: cfg.brand, title, description, url: `/doctor/${slug}`, type: "profile" },

@@ -8,6 +8,8 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Bangkok specialist doctors — reviews & ratings",
   description: "Browse 900+ specialist physicians across Bangkok, Pattaya, Phuket. Filter by city, specialty, and patient language. Real review-based rankings.",
+  // 2026-09-15: 합성 의사 목록 — 조합 생성 허브라 색인에서 뺀다.
+  robots: { index: false, follow: true },
   alternates: { canonical: "/doctors" },
 };
 

@@ -25,6 +25,8 @@ export async function generateMetadata(
   return {
     title: `Best ${label} doctors in Bangkok — patient reviews`,
     description: `${label} specialist physicians in Bangkok, Pattaya, Phuket. Patient review-based rankings with language breakdown for Korean / English / Thai patients.`,
+    // 2026-09-15: 합성 의사 목록 — 조합 생성 허브라 색인에서 뺀다.
+    robots: { index: false, follow: true },
     alternates: { canonical: `/doctors/s/${specialty}` },
   };
 }

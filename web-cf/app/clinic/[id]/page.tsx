@@ -121,16 +121,6 @@ export async function generateMetadata(
     ...(!inSite && { robots: { index: false, follow: true } }),
     alternates: {
       canonical,
-      // hreflang — Google에게 같은 클리닉의 TH/EN/KO 다국어 변형 알림 (소관 클리닉만)
-      ...(inSite && {
-        languages: {
-          "en-US": `/clinic/${c.id}`,
-          "th-TH": `/th/clinic/${c.id}`,
-          // 캡 밖 클리닉은 ko 페이지가 실재하지 않는다 — 광고하면 404 를 낳는다.
-          ...(koExists && { "ko-KR": `/ko/clinic/${c.id}` }),
-          "x-default": `/clinic/${c.id}`,
-        },
-      }),
     },
     openGraph: {
       // 2026-09-02: 페이지가 openGraph 를 정의하면 루트 layout 의 siteName 이

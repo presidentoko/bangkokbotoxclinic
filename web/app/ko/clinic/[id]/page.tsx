@@ -84,22 +84,16 @@ export async function generateMetadata(
   const cfg = getSiteConfig();
   const inSite = applySiteFilter([c], cfg).length > 0;
   const ownerUrl = !inSite ? resolveOwnerUrl(c.categories) : null;
-  const canonical = ownerUrl ? `${ownerUrl}/ko/clinic/${c.id}` : `${SITE}/ko/clinic/${c.id}`;
+  // 2026-09-15: 영어판과 본문 99% 동일(실측, 태국어 글자 15%) — 번역 페이지가
+  // 아니라 복제본이다. 영어판으로 canonical 을 모으고 색인에서 뺀다.
+  const canonical = `${ownerUrl ?? SITE}/clinic/${c.id}`;
 
   return {
     title,
     description,
-    ...(!inSite && { robots: { index: false, follow: true } }),
+    robots: { index: false, follow: true },
     alternates: {
       canonical,
-      ...(inSite && {
-        languages: {
-          "en-US": `${SITE}/clinic/${c.id}`,
-          "th-TH": `${SITE}/th/clinic/${c.id}`,
-          "ko-KR": `${SITE}/ko/clinic/${c.id}`,
-          "x-default": `${SITE}/clinic/${c.id}`,
-        },
-      }),
     },
     openGraph: {
       // 2026-09-02: 페이지가 openGraph 를 정의하면 루트 layout 의 siteName 이

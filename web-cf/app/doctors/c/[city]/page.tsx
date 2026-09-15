@@ -37,6 +37,8 @@ export async function generateMetadata(
   return {
     title: `${cityLabel} specialist doctors — reviews & ratings`,
     description: `${cityLabel} specialist physicians — botox, filler, HIFU, laser, dental. Filterable by patient language (Korean / English / Thai / Japanese). Real review-based rankings.`,
+    // 2026-09-15: 합성 의사 목록 — 조합 생성 허브라 색인에서 뺀다.
+    robots: { index: false, follow: true },
     alternates: { canonical: `/doctors/c/${citySlug}` },
   };
 }

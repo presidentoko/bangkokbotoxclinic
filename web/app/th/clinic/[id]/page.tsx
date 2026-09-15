@@ -45,7 +45,9 @@ export async function generateMetadata(
   const cfg = getSiteConfig();
   const inSite = applySiteFilter([c], cfg).length > 0;
   const ownerUrl = !inSite ? resolveOwnerUrl(c.categories) : null;
-  const canonical = ownerUrl ? `${ownerUrl}/th/clinic/${c.id}` : `${SITE}/th/clinic/${c.id}`;
+  // 2026-09-15: 영어판과 본문 99% 동일(실측, 태국어 글자 15%) — 번역 페이지가
+  // 아니라 복제본이다. 영어판으로 canonical 을 모으고 색인에서 뺀다.
+  const canonical = `${ownerUrl ?? SITE}/clinic/${c.id}`;
 
   return {
     // absolute — EN 라우트(app/clinic/[id]/page.tsx)는 이미 이렇게 쓰는데 여기만
@@ -54,18 +56,9 @@ export async function generateMetadata(
     // 구글 표시 한도를 한참 넘겨 뒤가 잘렸다 (2026-08-06 감사).
     title: { absolute: title },
     description,
-    ...(!inSite && { robots: { index: false, follow: true } }),
+    robots: { index: false, follow: true },
     alternates: {
       canonical,
-      ...(inSite && {
-        languages: {
-          "en-US": `${SITE}/clinic/${c.id}`,
-          "th-TH": `${SITE}/th/clinic/${c.id}`,
-          // 캡 밖 클리닉은 ko 페이지가 실재하지 않는다 — 광고하면 404 를 낳는다.
-          ...(koExists && { "ko-KR": `${SITE}/ko/clinic/${c.id}` }),
-          "x-default": `${SITE}/clinic/${c.id}`,
-        },
-      }),
     },
     openGraph: {
       // 2026-09-02: 페이지가 openGraph 를 정의하면 루트 layout 의 siteName 이

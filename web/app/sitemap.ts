@@ -205,5 +205,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 하고, /compare/ 는 파라미터 조합 폭발 때문에 색인 대상이 아니라고 이미
   // 판단한 상태다. 따라서 제출 쪽을 없앤다 (2026-08-06 감사).
 
-  return items;
+  // 2026-09-15: 의사 프로필·의사 목록은 전부 noindex 로 바꿨다(스팸 업데이트 복구).
+  // 넣는 곳이 여섯 군데라 여기서 한 번에 거른다.
+  return items.filter((e) => !/^\/doctors?(\/|$)/.test(new URL(e.url).pathname));
 }

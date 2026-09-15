@@ -20,7 +20,6 @@ export async function GET() {
   <sitemap><loc>${SITE}/sitemap.xml</loc></sitemap>
   <sitemap><loc>${SITE}/sitemap-priority.xml</loc></sitemap>
   <sitemap><loc>${SITE}/sitemap-clinics.xml</loc></sitemap>
-  <sitemap><loc>${SITE}/sitemap-locale.xml</loc></sitemap>
 </sitemapindex>`;
 
   return new NextResponse(xml, {
