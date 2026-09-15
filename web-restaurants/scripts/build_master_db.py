@@ -309,35 +309,50 @@ def load_photos(photos_dir: Path, place_id: str) -> list[dict]:
 
 
 def load_local_ratings() -> dict[str, dict]:
-    """태국 현지 플랫폼(Wongnai) 평점. bangkok_reviews/wongnai_fetch.py 산출물.
+    """태국 현지 플랫폼(Wongnai) 평점.
 
     구글 하나만 보고 점수를 내는 건 검증이 아니라 재계산이다. 같은 가게를
     현지인이 어떻게 보는지가 붙어야 "외국인 평가와 현지인 평가가 갈린다"는
-    말을 할 수 있다. 162곳 표본에서 구글이 현지보다 평균 0.50 높았고,
-    90%(146/162)에서 구글이 더 후했다.
+    말을 할 수 있다.
 
-    전화번호가 어긋난 건 넣지 않는다 — 다른 가게의 평점을 남의 페이지에
-    붙이는 사고가 된다. 201곳 중 39곳이 이 이유로 빠졌다.
+    두 출처를 합친다.
+      wongnai/matched.json  지역 리스팅 3,142곳을 전화·좌표로 매칭한 것
+                            (bangkok_reviews/wongnai_match.py)
+      wongnai/wongnai.json  구글 목록에 Wongnai 링크가 걸려 있던 277곳
+                            (전화 대조 통과분만)
+
+    matched.json 의 geo50(이름을 안 보고 50m 이내로만 붙인 것)은 넣지 않는다.
+    푸드코트·쇼핑몰에서는 50m 안에 식당이 수십 개라, 옆 가게 평점을 남의
+    페이지에 붙이게 된다. 실제 영업 중인 업소에 대한 허위 표시다.
     """
-    p = ROOT / "bangkok_reviews" / "wongnai" / "wongnai.json"
-    if not p.exists():
-        return {}
-    try:
-        raw = json.loads(p.read_text(encoding="utf-8"))
-    except Exception:
-        return {}
+    base = ROOT / "bangkok_reviews" / "wongnai"
     out: dict[str, dict] = {}
-    for pid, v in raw.items():
-        if v.get("status") != "ok" or v.get("phone_match") == "no":
-            continue
-        if not v.get("wongnai_rating"):
-            continue
-        out[pid] = {
-            "source": "wongnai",
-            "rating": v["wongnai_rating"],
-            "rating_count": v.get("wongnai_rating_count") or 0,
-            "url": v.get("url", ""),
-        }
+
+    legacy = base / "wongnai.json"
+    if legacy.exists():
+        try:
+            for pid, v in json.loads(legacy.read_text(encoding="utf-8")).items():
+                if v.get("status") != "ok" or v.get("phone_match") == "no":
+                    continue
+                if not v.get("wongnai_rating"):
+                    continue
+                out[pid] = {"source": "wongnai", "rating": v["wongnai_rating"],
+                            "rating_count": v.get("wongnai_rating_count") or 0,
+                            "url": v.get("url", "")}
+        except Exception:
+            pass
+
+    matched = base / "matched.json"
+    if matched.exists():
+        try:
+            for pid, v in json.loads(matched.read_text(encoding="utf-8")).items():
+                if v.get("match") == "geo50":
+                    continue
+                out[pid] = {"source": "wongnai", "rating": v["rating"],
+                            "rating_count": v.get("rating_count") or 0,
+                            "url": v.get("url", "")}
+        except Exception:
+            pass
     return out
 
 

@@ -27,6 +27,23 @@ from urllib.request import Request, urlopen
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
 
+HEADERS = {
+    "User-Agent": UA,
+    "Accept": ("text/html,application/xhtml+xml,application/xml;q=0.9,"
+               "image/avif,image/webp,*/*;q=0.8"),
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "identity",
+    "Connection": "keep-alive",
+    "Upgrade-Insecure-Requests": "1",
+    "Sec-Fetch-Dest": "document",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-Site": "none",
+    "Sec-Fetch-User": "?1",
+}
+# User-Agent 만 보내면 Wongnai 가 403 을 준다 — curl 은 통과하는데 urllib 은
+# 막혀서 한동안 속도 제한으로 오해했다. Sec-Fetch-* 와 Accept 까지 갖춘
+# 브라우저 헤더 묶음이어야 200 이 온다.
+
 RATING = re.compile(r'"ratingValue"\s*:\s*([0-9.]+)')
 RCOUNT = re.compile(r'"ratingCount"\s*:\s*([0-9]+)')
 VCOUNT = re.compile(r'"reviewCount"\s*:\s*([0-9]+)')
@@ -69,8 +86,7 @@ def fetch(url: str, timeout: int = 25) -> tuple[str | None, str]:
     from urllib.error import HTTPError
     for attempt in range(3):
         try:
-            req = Request(url, headers={"User-Agent": UA,
-                                        "Accept-Language": "en-US,en;q=0.9"})
+            req = Request(url, headers=HEADERS)
             with urlopen(req, timeout=timeout) as r:
                 return r.read().decode("utf-8", "replace"), "ok"
         except HTTPError as e:
