@@ -33,14 +33,14 @@ function BestPicksStrip({ animal }: { animal?: Animal }) {
     <section className="mb-6">
       <div className="flex items-center justify-between mb-3">
         <h2 className="font-bold text-gray-900">⭐ แนะนำ เกรด A/B</h2>
-        <Link href="/food/best" className="text-xs text-orange-500 hover:underline">ดูทั้งหมด →</Link>
+        <Link prefetch={false} href="/food/best" className="text-xs text-orange-500 hover:underline">ดูทั้งหมด →</Link>
       </div>
       <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 snap-x snap-mandatory">
         {picks.map(food => {
           const g = getFoodGrade(food)
           const gradeCls = g === 'A' ? 'bg-green-500' : 'bg-lime-500'
           return (
-            <Link
+            <Link prefetch={false}
               key={food.id}
               href={`/food/${food.slug}`}
               className="flex-shrink-0 w-36 bg-white border rounded-2xl p-3 hover:shadow-md transition-shadow snap-start"

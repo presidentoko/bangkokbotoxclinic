@@ -135,7 +135,7 @@ export default function SavedPage() {
                   const style = grade ? (GRADE_STYLES[grade] ?? GRADE_STYLES.C) : { bg: 'bg-gray-50', text: 'text-gray-500', border: 'border-gray-300' }
                   const label = grade ? (GRADE_LABEL[grade] ?? '') : '?'
                   return (
-                    <Link key={f.id} href={`/food/${f.slug}`}
+                    <Link prefetch={false} key={f.id} href={`/food/${f.slug}`}
                       className={`bg-white rounded-2xl border-l-4 ${style.border} shadow-sm hover:shadow-md transition-all p-4 block`}
                     >
                       <div className="flex items-start gap-3 mb-3">

@@ -70,7 +70,7 @@ export default function FoodCard({ food }: { food: PetFoodLight }) {
     <div
       className={`bg-white rounded-2xl border-l-4 ${style.border} shadow-sm hover:shadow-md transition-all group overflow-hidden`}
     >
-      <Link href={`/food/${food.slug}`} className="block p-4">
+      <Link prefetch={false} href={`/food/${food.slug}`} className="block p-4">
         {/* Grade badge + brand / name row */}
         <div className="flex items-start gap-3 mb-3">
           {/* Grade circle */}

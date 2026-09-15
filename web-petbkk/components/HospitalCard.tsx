@@ -21,7 +21,11 @@ interface Props {
 
 export default function HospitalCard({ hospital: h, distanceKm }: Props) {
   return (
-    <Link
+    // prefetch off: list pages render up to hundreds of these, and every one
+    // that scrolls into view fetched its RSC payload from Vercel — a request
+    // Cloudflare cannot cache (cf-cache-status: DYNAMIC) and Vercel bills as an
+    // ISR read. The click still loads the page; it just isn't fetched in advance.
+    <Link prefetch={false}
       href={`/hospital/${h.slug}`}
       className="block bg-white rounded-2xl shadow-sm hover:shadow-md border border-gray-100 hover:border-orange-200 transition-all p-4 group"
     >

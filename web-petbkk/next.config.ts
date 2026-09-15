@@ -86,11 +86,16 @@ const config: NextConfig = {
       // alias whether or not anything links to it, and a canonical tag cannot
       // stop a request that has already been served.
       //
-      // Matching the exact host leaves per-deployment preview URLs
-      // (petbkk-<hash>-<team>.vercel.app) alone, so previews still work.
+      // It was not the only one. On 2026-09-16 `petbkk-umma-5829s-projects`,
+      // `petbkk-umma-5829-umma-5829s-projects` and a branch alias left over
+      // from June were all answering 200 with the full site, unprotected. The
+      // stale ones went with their deployments; this rule covers every
+      // `*.vercel.app` host, including any alias Vercel mints in future.
+      // Checking a deployment before it is promoted still works through
+      // `vercel curl`, which does not depend on the hostname serving HTML.
       {
         source: '/:path*',
-        has: [{ type: 'host', value: 'petbkk.vercel.app' }],
+        has: [{ type: 'host', value: '(?<vercelHost>.+\\.vercel\\.app)' }],
         destination: 'https://www.thailandpethub.com/:path*',
         permanent: true,
       },

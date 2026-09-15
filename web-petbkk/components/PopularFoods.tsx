@@ -39,7 +39,7 @@ export default function PopularFoods() {
           const style = grade ? (GRADE_STYLES[grade] ?? GRADE_STYLES.C) : GRADE_STYLES.C
           const total = f.green_count + f.yellow_count + f.red_count + f.black_count
           return (
-            <Link
+            <Link prefetch={false}
               key={f.id}
               href={`/food/${f.slug}`}
               className={`flex-shrink-0 w-40 bg-white rounded-xl border-l-4 ${style.border} shadow-sm hover:shadow-md transition-all p-3 block`}
