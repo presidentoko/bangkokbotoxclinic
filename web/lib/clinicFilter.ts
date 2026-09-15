@@ -38,6 +38,8 @@ const NON_CLINIC_TYPES = new Set([
   "Bank", "ATM", "Gas station", "Parking",
   // Fitness (unless explicitly medical)
   "Gym", "Fitness center", "Yoga studio", "Muay Thai gym",
+  // 2026-09-15: 이름에 dental/clinic 이 들어가 허용목록을 통과하던 비진료 업체
+  "Marketing consultant", "Foundation", "Stores and shopping",
 ]);
 
 // 이름에 명백한 비-클리닉 시그널
@@ -49,6 +51,9 @@ const NAME_BLOCKLIST_PATTERNS: RegExp[] = [
   // 신호"라는 원칙은 유지하되 수의 신호를 의료 신호보다 먼저 본다.
   // 실측 162곳 전수 확인 — 사람 대상 클리닉 오탐 0.
   /\b(veterinary|veterinarian|vet)\b/i, /\banimal\b/i, /\bpets?\b/i, /สัตว/,
+  // 2026-09-15: 시술 교육기관·마케팅 대행사 — 환자가 방문하는 곳이 아니다.
+  // 허용목록(dental/clinic)보다 먼저 봐야 "Dental Marketing" 류가 걸린다.
+  /\btraining cent(er|re)\b/i, /\bmarketing\b/i,
 ];
 
 // 이름에 강한 클리닉 시그널 — Google이 primary_type 잘못 매겨도 이건 클리닉
