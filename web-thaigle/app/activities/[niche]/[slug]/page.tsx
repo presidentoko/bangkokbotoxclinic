@@ -35,10 +35,8 @@ import { nicheContext, nicheVerdict } from "@/lib/verdict";
 import { getDayPlansForVenue } from "@/lib/venue-day-plans";
 import { ReportButton } from "@/components/ReportButton";
 import { VenueStamp } from "@/components/VenueStamp";
-import { PhotoHints } from "@/components/PhotoHints";
 import { KlookBanner } from "@/components/KlookBanner";
 import { NearbyThings } from "@/components/NearbyThings";
-import { SeasonalTip } from "@/components/SeasonalTip";
 import { VenueBadge } from "@/components/VenueBadge";
 import { upscaleGooglePhoto, isLikelyAvatarThumbnail } from "@/lib/googlePhotoSize";
 
@@ -344,8 +342,13 @@ export default async function PlaceDetailPage({
         fallbackProvider={fallback?.provider ?? null}
       />
 
-      <SeasonalTip />
-      <PhotoHints niche={niche} />
+      {/* SeasonalTip (Bangkok weather) and PhotoHints (market/rooftop photo
+          times) used to sit here. Both render identical text on all ~3,800
+          venue pages and neither says anything about the venue: measured on
+          2026-09-16, 41-46% of the text inside <main> on a venue page was
+          shared verbatim with every other venue page. Only 181 of the 3,818
+          venue URLs earned a single impression in three months of GSC data.
+          They stay on the hub and guide pages, where they fit the content. */}
       <NearbyThings context="activity" />
       {/* Generic cross-sell banner only when this venue has no direct
           product of its own — otherwise it competes with (and sits above)

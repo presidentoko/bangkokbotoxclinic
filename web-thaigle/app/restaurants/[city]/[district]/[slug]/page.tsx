@@ -51,10 +51,18 @@ export async function generateMetadata(
   const cuisines = r.cuisines.map((c) => CUISINE_LABELS[c] ?? c).join(", ");
   const cityLabel = r.city_label || city.charAt(0).toUpperCase() + city.slice(1);
   const districtName = r.district || cityLabel;
-  // Star-count-first titles ("★4.5 (1,234 Reviews)") target zero-search-
-  // volume decoration — Google/Maps/TripAdvisor already own the brand-name
-  // query. Leading with the cuisine targets what people actually search
-  // ("mookata thonglor", "korean bbq sukhumvit").
+  // The title leads with the venue name and "Reviews" because that is the
+  // only query shape this template ranks for. GSC, 2026-06-20..09-16:
+  // venue-name queries sit at positions 4-10 ("alif laila (al rayan)
+  // reviews" 328 impressions at 4.2, "indiagate restaurant sukhumvit soi 47
+  // reviews" 191 at 7.5), while cuisine+area queries ("vegetarian restaurant
+  // bangkok") sit at 60+ with zero clicks. An earlier version bet on the
+  // cuisine phrase; the data did not bear it out.
+  //
+  // It used to end "(Menu, Prices & Reviews)". No venue has menu data and 4%
+  // have a price level, so the title promised two things 96% of pages do not
+  // have — and page-one positions 3-10 converted 2,712 impressions into 3
+  // clicks, a CTR far below what those positions normally earn.
   // 567 venues have no cuisine, where the old fallback "Restaurant" met the
   // literal " Restaurant in " and produced "Restaurant Restaurant in ...".
   // 937 have no district, where districtName falls back to cityLabel and gave
@@ -63,10 +71,23 @@ export async function generateMetadata(
   const cuisineFragment = r.cuisines.length > 0 ? (CUISINE_LABELS[r.cuisines[0]] ?? r.cuisines[0]) : "";
   const kind = cuisineFragment ? `${cuisineFragment} Restaurant` : "Restaurant";
   const where = r.district && r.district !== cityLabel ? `${r.district}, ${cityLabel}` : cityLabel;
-  const title = `${r.name} — ${kind} in ${where} (Menu, Prices & Reviews)`;
+  // Five venues have no rating or review count; they get the descriptive form
+  // rather than "★0 · 0 reviews".
+  const hasRating = Boolean(r.rating) && r.total_reviews > 0;
+  const reviewCount = r.total_reviews.toLocaleString();
+  const title = hasRating
+    ? `${r.name} Reviews — ★${r.rating} (${reviewCount}) · ${kind} in ${where}`
+    : `${r.name} — ${kind} in ${where}`;
   const trustLabel = trustTierLong(r.trust_score);
   const verdict = restaurantVerdict(r, restaurantContext(db.restaurants, r.city));
-  const description = `${verdict.label}: ${verdict.summary} ${r.name} in ${where} — ★${r.rating} from ${r.total_reviews.toLocaleString()} Google reviews, Trust Score ${r.trust_score}/100 (${trustLabel}).`;
+  // Facts first. The snippet is truncated around 155 characters, and the old
+  // order spent them on the verdict boilerplate ("Good scores and enough
+  // reviews to trust them. Not a standout, not a mistake."), which is shared
+  // by every venue in a tier, so the numbers unique to the venue were the
+  // part that got cut.
+  const description = hasRating
+    ? `${r.name}, ${where}: ★${r.rating} from ${reviewCount} Google reviews, Trust Score ${r.trust_score}/100 (${trustLabel}). ${verdict.label} — ${verdict.summary}`
+    : `${r.name} — ${kind} in ${where}. ${verdict.label} — ${verdict.summary}`;
   const canonical = restaurantUrl({ city, district, slug });
 
   return {
