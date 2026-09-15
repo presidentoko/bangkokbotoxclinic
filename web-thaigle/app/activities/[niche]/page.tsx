@@ -9,6 +9,7 @@ import {
   buildKlookIndex,
   cityScopeLabel,
   nicheCityCounts,
+  cityPageDuplicatesHub,
 } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { nicheAreaCounts } from "@/lib/areas";
@@ -377,7 +378,10 @@ export default async function NichePage({
   // note in generateMetadata.
   const scope = cityScopeLabel(qualifying);
   const klookMap = await buildKlookIndex(top.map((p) => p.id));
-  const cityLinks = nicheCityCounts(niche, db.places);
+  // A city page that only repeats this hub is not a way to "browse by city".
+  const cityLinks = nicheCityCounts(niche, db.places).filter(
+    (c) => !cityPageDuplicatesHub(niche, db.places, c.city)
+  );
   // Bangkok areas sit a level below the city split. They carry the bulk of the
   // impressions this niche already earns ("wellness spa sukhumvit" alone drew
   // 667 in three months) and they are the shorter path to the ~850 venue pages

@@ -4,7 +4,7 @@ import { getSlugMap, restaurantUrl, slugifySegment } from "@/lib/restaurants";
 import { BEST_FOR } from "@/lib/bestFor";
 import { CUISINE_LABELS } from "@/lib/types";
 import { GUIDES } from "@/lib/guides";
-import { NICHES, loadNicheDb, qualifyingNichePlaces, nicheCityCounts } from "@/lib/niches";
+import { NICHES, loadNicheDb, qualifyingNichePlaces, nicheCityCounts, cityPageDuplicatesHub } from "@/lib/niches";
 import { nicheAreaCounts } from "@/lib/areas";
 import type { NicheSlug } from "@/lib/niches";
 import { allDayPlanParams, buildDayPlan, AREA_DEFS, THEME_DEFS } from "@/lib/day-plans";
@@ -113,8 +113,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
   // Niche×city landing pages (app/activities/[niche]/city/[city]) — same
   // MIN_VENUES gate as generateStaticParams there.
+  // Minus city pages that canonicalise to their hub (cityPageDuplicatesHub) —
+  // the sitemap lists the canonical URL, not the copy.
   const nicheCityLinks = await Promise.all(
-    NICHES.map(async (n) => nicheCityCounts(n.slug, (await loadNicheDb(n.slug as NicheSlug)).places))
+    NICHES.map(async (n) => {
+      const places = (await loadNicheDb(n.slug as NicheSlug)).places;
+      return nicheCityCounts(n.slug, places).filter((c) => !cityPageDuplicatesHub(n.slug, places, c.city));
+    })
   );
   for (let i = 0; i < NICHES.length; i++) {
     for (const c of nicheCityLinks[i]) {

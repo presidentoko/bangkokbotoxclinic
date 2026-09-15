@@ -131,12 +131,52 @@ async function loadKlook(): Promise<KlookMap> {
   return _klookCache;
 }
 
+/**
+ * Places the scrape filed under "Bangkok" whose own address says otherwise.
+ *
+ * The niche scrapes ran from Bangkok search centres and stamped every result
+ * `city: "Bangkok"`, so a Koh Tao dive shop came back as a Bangkok venue.
+ * Measured 2026-09-16: 12 Koh Tao and 3 Phang Nga diving centres, Chiang Mai
+ * muay thai and coworking venues, a Phuket gym, Koh Phangan wellness — each
+ * listed on a Bangkok hub and described as "in Bangkok" on its own page.
+ *
+ * Conservative on purpose. It only moves a place whose address names one of
+ * these localities AND does not mention Bangkok at all. Nonthaburi, Samut
+ * Prakan and Pathum Thani stay: they are the Bangkok metro area someone
+ * searching "spa bangkok" would still accept, and moving them would drain the
+ * Bangkok hubs without making anything more accurate.
+ *
+ * Fixed at load rather than in the JSON so a re-scrape cannot quietly bring
+ * it back. Venue URLs carry no city, so no URL moves.
+ */
+const MISFILED_LOCALITIES: [RegExp, string][] = [
+  [/\bKoh? Tao\b/i, "Koh Tao"],
+  [/\bKoh? Pha-?ngan\b|\bKoh Phanghan\b/i, "Koh Phangan"],
+  [/\bKoh? Samui\b/i, "Koh Samui"],
+  [/\bPhang Nga\b/i, "Phang Nga"],
+  [/\bKrabi\b/i, "Krabi"],
+  [/\bChiang Mai\b/i, "Chiang Mai"],
+  [/\bPhuket\b/i, "Phuket"],
+  [/\bPattaya\b|\bBang Lamung\b/i, "Pattaya"],
+  [/\bHua Hin\b/i, "Hua Hin"],
+];
+
+function correctedCity(p: NichePlace): string {
+  if (p.city !== "Bangkok" || !p.address) return p.city;
+  if (/Bangkok|Krung Thep|กรุงเทพ/i.test(p.address)) return p.city;
+  for (const [pattern, city] of MISFILED_LOCALITIES) {
+    if (pattern.test(p.address)) return city;
+  }
+  return p.city;
+}
+
 export async function loadNicheDb(niche: NicheSlug): Promise<NicheDb> {
   if (_nicheCache.has(niche)) return _nicheCache.get(niche)!;
   const raw = await fs.readFile(path.join(process.cwd(), "data", "by-niche", `${niche}.json`), "utf-8");
   const db = JSON.parse(raw) as NicheDb;
   for (const p of db.places) {
     p.trust_score = Math.max(0, Math.min(100, p.trust_score));
+    p.city = correctedCity(p);
   }
   _nicheCache.set(niche, db);
   return db;
@@ -245,6 +285,24 @@ export function nicheCityCounts(nicheSlug: string, places: NichePlace[]): { city
     .filter(([, count]) => count >= NICHE_CITY_MIN_VENUES)
     .map(([city, count]) => ({ city, slug: NICHE_CITY_SLUGS[city], count }))
     .sort((a, b) => b.count - a.count);
+}
+
+/**
+ * True when /activities/{niche}/city/{city} would be a copy of the niche hub.
+ *
+ * The hub titles itself with cityScopeLabel(): a niche that is 60%+ Bangkok is
+ * "Best X in Bangkok". Its Bangkok city page then carries the same title for
+ * the same query — on 2026-09-16 wellness, coworking and diving had identical
+ * titles and venue counts on both URLs, and muay-thai differed only in the
+ * count. In three months of GSC data the hubs drew impressions and not one of
+ * these city pages drew any.
+ *
+ * The page keeps existing (URLs Google already knows must not 404) but its
+ * canonical points at the hub, and it is left out of the sitemap and out of
+ * the hub's "Browse by city" links.
+ */
+export function cityPageDuplicatesHub(nicheSlug: string, places: NichePlace[], city: string): boolean {
+  return cityScopeLabel(qualifyingNichePlaces(nicheSlug, places)) === city;
 }
 
 // Several niches (spa, cooking, yoga-pilates) are majority non-Bangkok in

@@ -8,6 +8,7 @@ import {
   NICHE_CITY_SLUGS,
   NICHE_CITY_MIN_VENUES,
   nicheCityCounts,
+  cityPageDuplicatesHub,
 } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { nicheAreaCounts } from "@/lib/areas";
@@ -63,10 +64,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const count = qualifyingNichePlaces(niche, db.places).filter((p) => p.city === city).length;
   if (count < MIN_VENUES) return {};
 
+  // See cityPageDuplicatesHub: when the hub already is "Best X in {city}",
+  // this page defers to it instead of competing for the same query.
+  const canonical = cityPageDuplicatesHub(niche, db.places, city)
+    ? `/activities/${niche}`
+    : `/activities/${niche}/city/${citySlug}`;
+
   return {
     title: `Best ${info.label} in ${city} 2026 — ${count} Ranked by Real Reviews`,
     description: `Find the best ${info.label.toLowerCase()} in ${city} in 2026. ${count} venues ranked by Trust Score from real Google reviews — prices and Klook booking. No paid picks.`,
-    alternates: { canonical: `/activities/${niche}/city/${citySlug}` },
+    alternates: { canonical },
     openGraph: {
       title: `Best ${info.label} in ${city} 2026`,
       description: `${count} ${info.label.toLowerCase()} venues in ${city} ranked by Trust Score from verified Google reviews.`,
@@ -84,7 +91,14 @@ export default async function NicheCityPage({ params }: Props) {
   const cityPlaces = qualifyingNichePlaces(niche, db.places).filter((p) => p.city === city);
   if (cityPlaces.length < MIN_VENUES) notFound();
 
-  const klookMap = await buildKlookIndex(cityPlaces.map((p) => p.id));
+  // Same card cap as the hub and the area pages. This page used to render
+  // every venue as a card: /activities/spa/city/bangkok was 5.2 MB of HTML for
+  // 1,130 cards, Chiang Mai and Phuket 1.7 MB each. The crawl value of the
+  // tail is the link, so it is listed as plain links below the cards.
+  const CARD_CAP = 60;
+  const carded = cityPlaces.slice(0, CARD_CAP);
+  const rest = cityPlaces.slice(CARD_CAP);
+  const klookMap = await buildKlookIndex(carded.map((p) => p.id));
   const pageUrl = `${SITE}/activities/${niche}/city/${citySlug}`;
   const areaLinks = city === "Bangkok" ? nicheAreaCounts(niche, db.places) : [];
 
@@ -165,13 +179,41 @@ export default async function NicheCityPage({ params }: Props) {
       )}
 
       <NicheGrid
-        places={cityPlaces.map(toGridPlace)}
+        places={carded.map(toGridPlace)}
         klookData={toGridKlook([...klookMap.entries()])}
         nicheSlug={niche}
         nicheIcon={info.icon}
         planType={info.planType}
         PRICE_BAND_LABELS={PRICE_BAND_LABELS}
       />
+
+      {rest.length > 0 && (
+        <section className="mt-8">
+          <h2 className="text-xl font-black mb-3">
+            All {cityPlaces.length} {info.label} in {city}
+          </h2>
+          <p className="text-sm text-[var(--muted)] mb-3">
+            Ranked {carded.length + 1}–{cityPlaces.length} by Trust Score.
+          </p>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 text-sm">
+            {rest.map((p) => (
+              <li key={p.slug} className="flex items-baseline gap-2 min-w-0">
+                <a
+                  href={`/activities/${niche}/${encodeURIComponent(p.slug)}`}
+                  className="truncate hover:text-orange-600 hover:underline"
+                >
+                  {p.name}
+                </a>
+                {p.rating ? (
+                  <span className="shrink-0 text-xs text-[var(--muted)] tabular-nums">
+                    ★{p.rating}
+                  </span>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <NicheItemListJsonLd
         name={`Best ${info.label} in ${city} 2026`}

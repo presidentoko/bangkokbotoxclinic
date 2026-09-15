@@ -16,6 +16,7 @@ import { HtmlLangSync } from "@/components/HtmlLangSync";
 import { ConsentMode } from "@/components/ConsentMode";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { GoogleAdsense } from "@/components/GoogleAdsense";
+import { ADS_ENABLED, ADSENSE_CLIENT } from "@/lib/ads";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thaigle.com";
 const cfg = getSiteConfig();
@@ -69,9 +70,16 @@ export const metadata: Metadata = {
   // Search Console + Bing 검증 메타. Vercel ENV 로 주입 (옵션).
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
-    other: process.env.NEXT_PUBLIC_BING_VERIFICATION
-      ? { "msvalidate.01": [process.env.NEXT_PUBLIC_BING_VERIFICATION] }
-      : undefined,
+    other: (() => {
+      const other: Record<string, string[]> = {};
+      if (process.env.NEXT_PUBLIC_BING_VERIFICATION) {
+        other["msvalidate.01"] = [process.env.NEXT_PUBLIC_BING_VERIFICATION];
+      }
+      // AdSense site ownership, on every page — the reviewer's crawler can
+      // land anywhere, not only on the homepage.
+      if (ADS_ENABLED) other["google-adsense-account"] = [ADSENSE_CLIENT];
+      return Object.keys(other).length > 0 ? other : undefined;
+    })(),
   },
 };
 
