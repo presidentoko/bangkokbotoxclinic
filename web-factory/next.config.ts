@@ -17,6 +17,9 @@ const config: NextConfig = {
   turbopack: { root: import.meta.dirname },
   experimental: {
     largePageDataBytes: 4 * 1024 * 1024,
+    // 기본값(코어 수 - 1 = 11)이면 워커 하나가 master_db 를 통째로 들고 300MB~1GB 씩
+    // 먹는다. 스크래퍼·VPN 이 같이 도는 16GB 머신에서 OOM 으로 빌드가 죽었다(2026-09-16).
+    cpus: 5,
   },
 };
 

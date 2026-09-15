@@ -19,6 +19,7 @@ import { CompanyTimeline } from "@/components/CompanyTimeline";
 import { OverallScore } from "@/components/OverallScore";
 import { computeTrustScore } from "@/lib/trustScore";
 import { isIndexable } from "@/lib/supplierTier";
+import { CATEGORY_LABELS_TH, hasThaiScript, provinceTh, provinceThFull } from "@/lib/thaiNames";
 import { CapitalHistogram } from "@/components/CapitalHistogram";
 import { PeerCompare } from "@/components/PeerCompare";
 import { industryStatsByTsic, relScore } from "@/lib/industryStats";
@@ -74,22 +75,35 @@ export async function generateMetadata(
     r.sample_reviews_th?.[0]?.text?.slice(0, 100) ||
     r.dbd?.purpose?.slice(0, 100) ||
     "";
+  // 태국어 상호(전체의 절반 이상)는 태국어로 검색된다 — "บจก. ... อำเภอเมืองปทุมธานี".
+  // 영어 지명만 있는 스니펫은 검색어와 겹치는 글자가 상호뿐이라, 순위가 나와도
+  // 클릭이 안 났다 (Search Console: 8.7위 41회 노출 0클릭). 태국어 지명·업종을 앞에 둔다.
+  const thaiNamed = hasThaiScript(r.name);
+  const provTh = provinceTh(r.city);
+  const provThFull = provinceThFull(r.city);
+  const catTh = r.categories.map((c) => CATEGORY_LABELS_TH[c]).filter(Boolean).slice(0, 2).join(" · ");
+  const thaiLead = thaiNamed && provThFull
+    ? `${catTh || "ซัพพลายเออร์"} ${r.district ? r.district + " " : ""}${provThFull} — เบอร์โทร ที่ตั้ง รีวิว และช่องทางติดต่อโดยตรง.`
+    : "";
+
   const descParts = [
+    thaiLead,
     `${verified}${cats || "Supplier"} in ${loc}.`,
     founded ? founded : "",
     capital ? capital + "." : "",
     reviewSnippet,
   ].filter(Boolean).join(" ");
-  const desc = descParts.slice(0, 200);
+  const desc = descParts.slice(0, thaiLead ? 240 : 200);
 
   const catKeywords = r.categories.map((c) => CATEGORY_LABELS[c] ?? c);
+  const place = thaiNamed && provTh ? `${provTh} · ${loc}` : loc;
 
   return {
     title: r.verified
-      ? `${r.name} — DBD-Verified ${cats || "Thai Supplier"} in ${loc}`
-      : `${r.name} — Thai ${cats || "Supplier"} in ${loc}`,
+      ? `${r.name} — DBD-Verified ${cats || "Thai Supplier"} in ${place}`
+      : `${r.name} — Thai ${cats || "Supplier"} in ${place}`,
     description: desc || `${r.name} — ${cats || "Thai B2B supplier"} in ${loc}. Contact directly for quotes.`,
-    keywords: [r.name, ...catKeywords, loc, "Thailand supplier", "B2B"].filter(Boolean),
+    keywords: [r.name, ...catKeywords, loc, provTh ?? "", "Thailand supplier", "B2B"].filter(Boolean),
     alternates: { canonical: `/supplier/${id}` },
     // No `images` here — this route also has app/supplier/[id]/opengraph-image.tsx
     // (Next.js file-convention OG image), which always takes precedence over an
@@ -101,9 +115,6 @@ export async function generateMetadata(
       type: "profile",
     },
     twitter: { card: "summary_large_image" },
-    // follow 는 항상 남긴다 — 이 페이지에서 나가는 카테고리·도시·related 링크의
-    // 신호는 계속 흘러야 하고, 사용자에게는 아무것도 달라지지 않는다.
-    // index 여부만 lib/supplierTier.ts 가 정한다 (E·F 등급 = Maps 사본).
     robots: { index: isIndexable(r), follow: true },
   };
 }
@@ -407,6 +418,19 @@ export default async function SupplierPage(
           mapsUrl={r.maps_url}
           website={r.website}
         />
+
+        {hasThaiScript(r.name) && provinceThFull(r.city) && (
+          <p lang="th" className="mb-8 text-sm text-stone-600 leading-relaxed">
+            <strong className="text-stone-800">{r.name}</strong>{" "}
+            — {r.categories.map((c) => CATEGORY_LABELS_TH[c]).filter(Boolean).slice(0, 2).join(" / ") || r.primary_type || "ซัพพลายเออร์"}{" "}
+            ตั้งอยู่ที่{r.district ? ` ${r.district}` : ""} {provinceThFull(r.city)}.
+            {r.phone ? ` โทร ${r.phone}.` : ""}
+            {r.rating > 0 && r.total_reviews > 0 ? ` คะแนนรีวิว Google ${r.rating} จาก ${r.total_reviews.toLocaleString()} รีวิว.` : ""}
+            {r.dbd?.reg_no
+              ? ` จดทะเบียนกับกรมพัฒนาธุรกิจการค้า (DBD) เลขทะเบียน ${r.dbd.reg_no}${r.dbd.legal_name ? ` ในชื่อ ${r.dbd.legal_name}` : ""}.`
+              : " ข้อมูลรวบรวมจาก Google Business Profile สาธารณะ."}
+          </p>
+        )}
 
         {/* Overall composite score — big circular scoreboard */}
         <section className="mb-8">

@@ -5,10 +5,18 @@ import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
-import { TH_CITY_VALID } from "@/lib/thBuildSets";
+import { TH_CATEGORY_VALID, TH_CITY_VALID } from "@/lib/thBuildSets";
+import { CATEGORY_LABELS_TH, provinceTh, provinceThFull } from "@/lib/thaiNames";
+import type { Supplier } from "@/lib/types";
 import type { Metadata } from "next";
 
 export const dynamicParams = false;
+
+function categoriesIn(suppliers: Supplier[]): [string, number][] {
+  const m = new Map<string, number>();
+  for (const r of suppliers) for (const c of r.categories) m.set(c, (m.get(c) ?? 0) + 1);
+  return [...m.entries()].sort((a, b) => b[1] - a[1]);
+}
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
@@ -38,10 +46,17 @@ export async function generateMetadata(
   const db = await loadMasterDb();
   const display =
     Object.keys(db.city_counts).find((k) => citySlugFromDisplay(k) === name) ?? name.replace(/_/g, " ");
+  const th = provinceTh(name) ?? display;
   const note = CITY_NOTES_TH[name];
+  const topCats = categoriesIn(filterByCity(db.suppliers, name))
+    .slice(0, 3)
+    .map(([c]) => CATEGORY_LABELS_TH[c])
+    .filter(Boolean);
   return {
-    title: `ผู้ผลิตและซัพพลายเออร์ใน${display} — ไดเรกทอรี B2B`,
-    description: note ? `${display} — ${note}` : `ผู้ผลิต คลังสินค้า และผู้ดำเนินการอุตสาหกรรมใน${display}`,
+    title: topCats.length
+      ? `${topCats.join(" · ")} ${th} — รายชื่อซัพพลายเออร์ B2B`
+      : `โรงงานและซัพพลายเออร์ ${th} — ไดเรกทอรี B2B`,
+    description: `${topCats.length ? topCats.join(" ") + " " : ""}ใน${provinceThFull(name) ?? th} (${display}) — ${note ?? "รายชื่อผู้ผลิตและผู้ให้บริการอุตสาหกรรม พร้อมเบอร์โทร ที่ตั้ง และคะแนนความน่าเชื่อถือ"}`,
     alternates: {
       canonical: `/th/city/${name}`,
       languages: {
@@ -66,41 +81,42 @@ export default async function ThCityPage(
   if (filtered.length === 0) notFound();
 
   const display = filtered[0]?.city_label ?? name.replace(/_/g, " ");
+  const th = provinceTh(name) ?? display;
+  const thFull = provinceThFull(name) ?? th;
   const note = CITY_NOTES_TH[name];
-
-  const catMap = new Map<string, number>();
-  for (const r of filtered) {
-    for (const c of r.categories) catMap.set(c, (catMap.get(c) ?? 0) + 1);
-  }
-  const categories = [...catMap.entries()].sort((a, b) => b[1] - a[1]);
+  const categories = categoriesIn(filtered);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       <nav className="text-sm text-[var(--muted)] mb-4">
         <a href="/th" className="hover:text-[var(--fg)]">หน้าแรก</a>
         <span className="mx-2">›</span>
-        <span>{display}</span>
+        <span>{th}</span>
       </nav>
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
-        ซัพพลายเออร์ใน{display}
+        โรงงานและซัพพลายเออร์ใน{thFull}
       </h1>
+      <p className="text-sm text-[var(--muted)] mb-2">{display}, Thailand</p>
       {note && <p className="text-[var(--muted)] mb-2 leading-relaxed text-balance">{note}</p>}
       <p className="text-[var(--muted)] mb-6">
-        {filtered.length.toLocaleString()} ราย ตรวจสอบแล้ว เรียงตามคะแนนความน่าเชื่อถือ.
+        {filtered.length.toLocaleString()} ราย ใน{th} เรียงตามคะแนนความน่าเชื่อถือ
+        {categories.length > 0 && (
+          <> — {categories.slice(0, 4).map(([c, n]) => `${CATEGORY_LABELS_TH[c] ?? CATEGORY_LABELS[c] ?? c} ${n} ราย`).join(", ")}</>
+        )}
       </p>
 
       {categories.length > 0 && (
         <section className="mb-8">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">ตามหมวดหมู่</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">ตามหมวดหมู่ใน{th}</h2>
           <div className="flex flex-wrap gap-2">
             {categories.slice(0, 16).map(([c, n]) => (
               <a
                 key={c}
-                href={`/th/c/${c}`}
+                href={`#cat-${c}`}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
               >
                 <span aria-hidden>{CATEGORY_ICONS[c] ?? "🏭"}</span>
-                {CATEGORY_LABELS[c] ?? c}
+                {CATEGORY_LABELS_TH[c] ?? CATEGORY_LABELS[c] ?? c} {th}
                 <span className="text-[var(--muted)] tabular-nums">{n}</span>
               </a>
             ))}
@@ -108,8 +124,28 @@ export default async function ThCityPage(
         </section>
       )}
 
+      {/* หมวดหลักแยกเป็นหัวข้อ "คลังสินค้า ขอนแก่น" — ตรงกับรูปแบบที่ผู้ซื้อชาวไทยค้นหา */}
+      {categories.filter(([, n]) => n >= 3).slice(0, 4).map(([c, n]) => (
+        <section key={c} id={`cat-${c}`} className="mb-10 scroll-mt-20">
+          <h2 className="text-xl font-bold mb-1">
+            {CATEGORY_LABELS_TH[c] ?? CATEGORY_LABELS[c] ?? c} {th}
+          </h2>
+          <p className="text-sm text-[var(--muted)] mb-4">
+            {n.toLocaleString()} ราย ·{" "}
+            {TH_CATEGORY_VALID.has(c)
+              ? <a href={`/th/c/${c}`} className="underline hover:text-[var(--fg)]">ดู{CATEGORY_LABELS_TH[c]}ทั่วประเทศ →</a>
+              : `${CATEGORY_LABELS[c] ?? c} in ${display}`}
+          </p>
+          <div className="grid gap-3">
+            {filtered.filter((r) => r.categories.includes(c)).slice(0, 10).map((r, i) => (
+              <SupplierCard key={r.id} r={r} rank={i + 1} />
+            ))}
+          </div>
+        </section>
+      ))}
+
       <section>
-        <h2 className="text-xl font-bold mb-4">Top {Math.min(filtered.length, 100)}</h2>
+        <h2 className="text-xl font-bold mb-4">ซัพพลายเออร์ทั้งหมดใน{th} — Top {Math.min(filtered.length, 100)}</h2>
         <div className="grid gap-3">
           {filtered.slice(0, 100).map((r, i) => (
             <SupplierCard key={r.id} r={r} rank={i + 1} />
@@ -123,18 +159,18 @@ export default async function ThCityPage(
       </div>
 
       <CollectionPageJsonLd
-        name={`ซัพพลายเออร์ ${display}`}
-        description={note ?? `ผู้ผลิตและซัพพลายเออร์ใน${display}`}
+        name={`ซัพพลายเออร์ ${th}`}
+        description={note ?? `ผู้ผลิตและซัพพลายเออร์ใน${thFull}`}
         url={`/th/city/${name}`}
         lang="th"
         numberOfItems={filtered.length}
       />
       <BreadcrumbJsonLd items={[
         { name: "หน้าแรก", url: "/th" },
-        { name: display, url: `/th/city/${name}` },
+        { name: th, url: `/th/city/${name}` },
       ]} />
       <ItemListJsonLd
-        name={`Top suppliers ${display}`}
+        name={`ซัพพลายเออร์ ${th}`}
         items={filtered.slice(0, 20).map((r) => ({ name: r.name, url: `/supplier/${r.id}` }))}
       />
     </div>

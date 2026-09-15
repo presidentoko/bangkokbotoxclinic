@@ -44,6 +44,7 @@ WEB = HERE.parent
 MASTER_DB = WEB / "data" / "master_db.json"
 APIFY_RAW = WEB / "data" / "apify_raw"
 WEBSITE_CORRECTIONS = WEB / "data" / "website_corrections.json"
+GSC_DEMAND = WEB / "data" / "gsc_demand.json"
 
 # 배포 사고 후 이 선 아래로 떨어지면 뭔가 잘못된 것이다. 2026-08-09 사고 당시
 # 3,305 까지 떨어졌는데 아무도 못 막았다. 이제 여기서 막는다.
@@ -67,12 +68,28 @@ def count() -> int:
     return len(json.loads(MASTER_DB.read_text(encoding="utf-8"))["suppliers"])
 
 
+def _load_gsc_supplier_ids() -> set[str]:
+    if not GSC_DEMAND.exists():
+        return set()
+    pages = json.loads(GSC_DEMAND.read_text(encoding="utf-8")).get("pages", {})
+    return {p.split("/supplier/", 1)[1] for p in pages if p.startswith("/supplier/")}
+
+
+GSC_SUPPLIER_IDS = _load_gsc_supplier_ids()
+
+
 def has_signal(s: dict) -> bool:
     """dead lead 판정 — 바이어가 접촉할 방법도, 우리가 보여줄 것도 없는 레코드.
 
     이름과 별점만 있는 항목은 Google Maps 를 그대로 베낀 것이라 검색엔진에
     줄 게 없다. 크롤 예산만 먹고 discovered-not-indexed 로 쌓인다.
+
+    단, 구글이 실제로 검색 결과에 노출해준 페이지는 예외다 (data/gsc_demand.json).
+    이 규칙이 SCG 시멘트 공장·NMB-Minebea 처럼 클릭까지 받던 공급사를 지웠다 —
+    전화·웹사이트가 없다는 이유만으로. 추측보다 구글의 실측이 우선한다.
     """
+    if s.get("id") in GSC_SUPPLIER_IDS:
+        return True
     score = s.get("b2b_score") or s.get("trust_score") or 0
     return bool(s.get("verified") or s.get("website") or s.get("phone") or score >= 8)
 

@@ -1,26 +1,29 @@
 // Supplier 페이지가 검색엔진에 줄 게 있는지 한 곳에서 판정한다.
 //
-// 왜 필요한가 — Search Console (2026-08-13) 기준:
-//   색인됨                        ~1,600
-//   discovered, currently not indexed  6,989  (증가 추세)
-//   사이트맵에 넣던 supplier 페이지     6,233
-//
-// 구글이 소화하는 양의 4배를 사이트맵으로 밀고 있었다는 뜻이다. 도메인 권위가
-// 감당 못 하는 URL 을 계속 제출하면 대기열만 길어지고, 정작 색인돼야 할 카테고리·
-// 도시 페이지의 크롤 예산까지 같이 밀린다.
-//
-// 판정 기준은 하나다: 이 페이지에 Google Maps 를 그대로 열어봐선 알 수 없는 것이
-// 있는가. 없으면 우리는 Maps 의 사본이고, 구글이 사본을 색인할 이유가 없다.
-//
 //   A verified   DBD 등기 — 법인명·13자리 등록번호·자본금·설립일·TSIC. Maps 에 없다.
 //   B reviews    리뷰 본문 — 우리가 긁어서 언어별로 분류해 둔 것.
 //   C site+photo 자사 웹사이트 + 시설 사진. 둘 다 있으면 프로필로서 최소한의 실체.
-//   D contact    웹사이트나 이메일만. 색인은 두되 사이트맵에선 뺀다.
-//   E photo      사진뿐.        ─┐ Maps 가 이미 더 잘 보여주는 것들.
-//   F mirror     이름·전화뿐.   ─┘ noindex 로 대기열에서 빼낸다.
+//   D contact    웹사이트나 이메일만.
+//   E photo      사진뿐.
+//   F mirror     이름·전화뿐.
+//
+// 등급은 사이트맵 제출 여부만 정한다. 색인은 막지 않는다.
+//
+// 2026-08-13 에 E·F 를 noindex 로 돌렸다가 되돌렸다 (2026-09-16). Search Console
+// 실측 결과 noindex 가 걸린 페이지 중 218 개가 구글 1~7위에 노출되고 있었다 —
+// 노출 905 회, 전체 클릭의 17%. 태국어 상호 검색("บจก. ... อำเภอ...")에서 구글은
+// 이름·전화만 있는 소규모 업체 페이지를 기꺼이 올려줬다. 같은 기간 색인 페이지는
+// 1,647 → 1,148 로 줄었다.
+//
+// noindex 는 크롤 대기열도 줄여주지 않는다 — 구글은 noindex 를 확인하려고 어차피
+// 크롤한다. 대기열을 결정하는 건 사이트맵과 내부 링크다. 그래서 사이트맵만 좁히고
+// 색인 판단은 구글에 맡긴다.
 import type { Supplier } from "./types";
+import gscDemand from "../data/gsc_demand.json";
 
 export type SupplierTier = "A" | "B" | "C" | "D" | "E" | "F";
+
+const GSC_PAGES = (gscDemand as { pages: Record<string, unknown> }).pages;
 
 function hasReviewText(r: Supplier): boolean {
   return Boolean(
@@ -40,21 +43,18 @@ export function supplierTier(r: Supplier): SupplierTier {
   return "F";
 }
 
-/** 사이트맵에 제출할 가치가 있는가 (A–C). */
-export function inSitemap(r: Supplier): boolean {
-  const t = supplierTier(r);
-  return t === "A" || t === "B" || t === "C";
+/** Search Console 에 노출 기록이 있는 페이지인가 (data/gsc_demand.json). */
+export function hasSearchDemand(r: Supplier): boolean {
+  return `/supplier/${r.id}` in GSC_PAGES;
 }
 
-/**
- * 색인 허용 여부 (A–D).
- *
- * noindex 는 붙이되 follow 는 남긴다 — 페이지 자체는 그대로 서빙되고, 즐겨찾기·비교·
- * 검색·related 에서 들어오는 사용자에게는 아무 차이가 없으며, 여기서 나가는 링크의
- * 신호도 계속 흐른다. 달라지는 건 구글이 이 URL 을 색인 대기열에서 뺀다는 것뿐이다.
- *
- * 되돌리려면 이 함수만 true 로 바꾸면 된다 — 반영에는 몇 주가 걸린다.
- */
-export function isIndexable(r: Supplier): boolean {
-  return supplierTier(r) !== "E" && supplierTier(r) !== "F";
+/** 사이트맵에 제출할 가치가 있는가 — A–C, 또는 구글이 이미 노출해준 페이지. */
+export function inSitemap(r: Supplier): boolean {
+  const t = supplierTier(r);
+  return t === "A" || t === "B" || t === "C" || hasSearchDemand(r);
+}
+
+/** 색인 허용 여부. 위 설명대로 전 등급 허용. */
+export function isIndexable(_r: Supplier): boolean {
+  return true;
 }

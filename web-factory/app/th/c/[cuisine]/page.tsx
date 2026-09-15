@@ -11,6 +11,7 @@ import { sortWithSponsored } from "@/lib/sponsored";
 import { DbdRegistryTable } from "@/components/DbdRegistryTable";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
 import { TH_CATEGORY_VALID as TH_VALID, TH_CITY_VALID } from "@/lib/thBuildSets";
+import { CATEGORY_LABELS_TH, provinceTh } from "@/lib/thaiNames";
 import type { Metadata } from "next";
 
 export const dynamicParams = false;
@@ -80,7 +81,7 @@ export default async function ThCategoryPage(
       <nav className="text-sm text-[var(--muted)] mb-4">
         <a href="/th" className="hover:text-[var(--fg)]">หน้าแรก</a>
         <span className="mx-2">›</span>
-        <span>{label}</span>
+        <span>{CATEGORY_LABELS_TH[cuisine] ?? label}</span>
       </nav>
 
       <header className="mb-8">
@@ -137,7 +138,7 @@ export default async function ThCategoryPage(
                 href={`/th/city/${citySlugFromDisplay(city)}`}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition font-medium"
               >
-                {city}
+                {CATEGORY_LABELS_TH[cuisine] ?? label} {provinceTh(citySlugFromDisplay(city)) ?? city}
                 <span className="text-[var(--muted)] tabular-nums">{n}</span>
               </a>
             ))}
@@ -171,7 +172,7 @@ export default async function ThCategoryPage(
       />
       <BreadcrumbJsonLd items={[
         { name: "หน้าแรก", url: "/th" },
-        { name: label, url: `/th/c/${cuisine}` },
+        { name: CATEGORY_LABELS_TH[cuisine] ?? label, url: `/th/c/${cuisine}` },
       ]} />
       <ItemListJsonLd
         name={`Top ${label} in Thailand`}

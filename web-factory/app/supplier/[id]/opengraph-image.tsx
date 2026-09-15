@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { loadMasterDb, getSupplierById } from "@/lib/data";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { computeTrustScore } from "@/lib/trustScore";
-import { isIndexable } from "@/lib/supplierTier";
+import { inSitemap } from "@/lib/supplierTier";
 
 export const dynamicParams = false;
 export const size = { width: 1200, height: 630 };
@@ -11,17 +11,17 @@ export const alt = "Thai Supply Hub — verified B2B supplier profile";
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
-  // 색인되는 supplier 만 전용 카드를 굽는다.
+  // 사이트맵에 올리는 supplier 만 전용 카드를 굽는다.
   //
   // Cloudflare Pages 배포는 20,000 파일이 한도인데 supplier 한 곳이 HTML 1 + OG 1
   // 로 두 개를 먹는다. 전량 생성하면 19,458/20,000 — 다음 스크랩 배치를 못 올린다.
-  // OG 이미지가 그 절반이고, 그중 4,100 개는 lib/supplierTier.ts 에서 noindex 로
-  // 분류된 페이지 것이다. 검색에 안 나오는 페이지의 전용 공유 카드다.
+  // 예전엔 색인 여부(isIndexable)로 잘랐지만 이제 전 등급이 색인 허용이라, 공유될
+  // 가능성이 있는 페이지 기준(사이트맵 대상 = A–C + 검색 노출 기록)으로 자른다.
   //
   // 빠진 id 도 페이지 메타에는 og:image URL 이 그대로 박힌다 (Next 는 이 목록과
   // 무관하게 URL 을 emit 한다 — 실측 확인). 그 404 는
   // functions/supplier/_middleware.ts 가 사이트 공용 카드로 302 시킨다.
-  return db.suppliers.filter(isIndexable).map((r) => ({ id: r.id }));
+  return db.suppliers.filter(inSitemap).map((r) => ({ id: r.id }));
 }
 
 export default async function Image({ params }: { params: Promise<{ id: string }> }) {

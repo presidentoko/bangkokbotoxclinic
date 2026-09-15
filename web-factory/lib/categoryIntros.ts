@@ -35,10 +35,12 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
     bestForSlug: "auto-parts",
   },
   industrial_estate: {
-    title: "Industrial Estates in Thailand",
-    metaTitle: "Industrial Estates in Thailand — Pinthong, Amata, WHA, Rojana",
+    // Search Console 2026-09: "industrial estate in thailand" 50회 66위,
+    // "thailand industrial park" 39회 76위 — 제목에 "industrial park" 표현이 없었다.
+    title: "Industrial Estates & Industrial Parks in Thailand",
+    metaTitle: "Industrial Estates & Industrial Parks in Thailand — Amata, WHA, Pinthong",
     metaDescription:
-      "Major Thai industrial estates ranked by Trust Score. Pinthong, Amata City, WHA Logistics Park, Hemaraj, Rojana — Eastern Seaboard manufacturing belt mapped.",
+      "Every industrial estate and industrial park in Thailand we track — Amata City, WHA, Pinthong, Hemaraj, Rojana, Bang Phli — with tenant lists, locations and direct contact.",
     intro:
       "Thailand's industrial estates concentrate manufacturing tenants, infrastructure, and customs incentives in defined zones. The four major operators — Pinthong, Amata, WHA (post-Hemaraj merger), and Rojana — anchor most flagship estates along the Eastern Seaboard.",
     longContext:
@@ -46,10 +48,11 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
     bestForSlug: "industrial-estates",
   },
   warehouse: {
-    title: "Warehouses in Thailand",
-    metaTitle: "Warehouses for Lease in Thailand — Eastern Seaboard Logistics",
+    // "distribution center thailand" 41회 80위 — 제목·H1 에 distribution center 가 없었다.
+    title: "Warehouses & Distribution Centers in Thailand",
+    metaTitle: "Warehouses & Distribution Centers in Thailand — For Lease & 3PL",
     metaDescription:
-      "Verified warehouse facilities across Thailand's manufacturing belt. Sriracha, Bowin, Bang Lamung — within 30-45 minutes of Laem Chabang port.",
+      "Warehouses and distribution centers in Thailand — ready-built for lease, bonded, cold storage and 3PL-operated DCs near Laem Chabang, Bangna and Suvarnabhumi. Direct contact.",
     intro:
       "Warehouse supply concentrates around Thailand's two major export gateways — Laem Chabang (containers) and Suvarnabhumi (air cargo). Listings prioritize ready-built facilities operated by major 3PL providers and industrial estate tenants.",
     longContext:
@@ -57,10 +60,11 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
     bestForSlug: "warehouses",
   },
   logistics: {
-    title: "Logistics Providers in Thailand",
-    metaTitle: "Logistics Companies in Thailand — Eastern Seaboard 3PL Directory",
+    // "3pl provider thailand" 158회 60위 — 사이트 전체에서 노출 1위 쿼리.
+    title: "3PL & Logistics Providers in Thailand",
+    metaTitle: "3PL Providers in Thailand — Logistics, Freight & Warehousing Companies",
     metaDescription:
-      "Thai logistics providers — Whale Logistics, Linfox Thailand, DHL, Kerry, Yusen — ranked by Trust Score. Eastern Seaboard 3PL coverage.",
+      "3PL providers and logistics companies in Thailand — contract warehousing, freight forwarding, customs and distribution. DHL, Yusen, Linfox, Kerry and local operators with direct contact.",
     intro:
       "Logistics providers serving Thailand's manufacturing belt range from international 3PL giants to specialized Eastern Seaboard operators. Listings here focus on operators with public Google Business profiles and verified operational reviews.",
   },
@@ -78,8 +82,9 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
       "Most packaging manufacturers cluster around Pathum Thani (proximity to food and pharma factories) and Chon Buri / Samut Sakhon (industrial estates). Food-grade packaging operators commonly hold HACCP or GMP certification. Direct contact details shown where available.",
   },
   food_mfg: {
-    title: "Food Manufacturers in Thailand",
-    metaTitle: "Food Manufacturers in Thailand — Frozen, Processed, Packaged",
+    // "thailand factory food" 40회 71위, "food manufacturers" 류 다수.
+    title: "Food Factories & Food Manufacturers in Thailand",
+    metaTitle: "Food Factories in Thailand — Food Manufacturers, OEM & Processing Plants",
     metaDescription:
       "Thai food manufacturers — frozen seafood, poultry, processed food, packaged snacks. HACCP / FSSC 22000 / GMP certifications standard.",
     intro:
