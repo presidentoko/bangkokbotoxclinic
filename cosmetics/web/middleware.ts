@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import routeIndex from "@/data/route-index.json";
+import { slugify } from "@/lib/format";
 
 /**
  * Recovers product URLs that Google still has indexed but master_db.json no
@@ -48,10 +49,18 @@ function brandSlugFromProductSlug(slug: string): string | null {
   return null;
 }
 
+// Everything in the query is dropped except `_rsc`. Cloudflare keys its cache on
+// the URL alone and ignores `Vary: RSC`, so Next's client router tags every
+// flight request with `?_rsc=` to keep the payload off the HTML cache key. A
+// redirect that strips it sends the router's retry to the bare URL with
+// `RSC: 1`, and Cloudflare then stores text/x-component under that URL and
+// serves it to every browser and crawler for the edge TTL (reproduced
+// 2026-09-15 against /th/brand/curesys).
 function permanentRedirect(request: NextRequest, pathname: string) {
   const url = request.nextUrl.clone();
+  const rsc = url.searchParams.get("_rsc");
   url.pathname = pathname;
-  url.search = "";
+  url.search = rsc === null ? "" : `?_rsc=${encodeURIComponent(rsc)}`;
   return NextResponse.redirect(url, 308);
 }
 
@@ -73,8 +82,16 @@ export function middleware(request: NextRequest) {
     } catch {
       // Malformed %-sequence — compare the raw value.
     }
-    if (THIN_BRAND_SLUGS.has(brand) || THIN_BRAND_SLUGS.has(rawBrand)) {
-      return permanentRedirect(request, `/${locale}/brand/${rawBrand}`);
+    // Older builds linked dupe pages by the raw brand name (/th/dupe/CeraVe,
+    // /en/dupe/Melano CC). 109 of those still sat in Search Console as 404s on
+    // 2026-09-15 while /th/dupe/cerave served 200. Normalise to the slug first,
+    // then apply the thin-brand rule to the slug.
+    const slug = slugify(brand);
+    if (THIN_BRAND_SLUGS.has(slug)) {
+      return permanentRedirect(request, `/${locale}/brand/${encodeURIComponent(slug)}`);
+    }
+    if (slug !== brand && BRAND_SLUGS.has(slug)) {
+      return permanentRedirect(request, `/${locale}/dupe/${encodeURIComponent(slug)}`);
     }
     return NextResponse.next();
   }
@@ -84,20 +101,13 @@ export function middleware(request: NextRequest) {
 
   const [, locale, rawSlug] = match;
 
-  // Every /en product page carried `noindex` because none of them has an
-  // English body: llm_summary.en is empty for all 1,003 products, so the page
-  // reused the Thai description verbatim. That made 1,003 pages (plus 1,003
-  // generated OG images) permanently ineligible to rank while still consuming
-  // crawl budget. Consolidating them onto the Thai URL removes ~2,000 pages
-  // from the crawl surface and loses no search value, since none of them could
-  // ever appear in results.
-  //
-  // To reinstate the English product pages, delete this block and restore the
-  // "en" entry in localeAlternates for the product route — the pages become
-  // worth having again once the pipeline produces real English summaries.
-  if (locale === "en") {
-    return permanentRedirect(request, `/th/product/${rawSlug}`);
-  }
+  // /en/product/* used to 308 onto the Thai URL here (96b9f4d, 2026-08-17), on
+  // the belief that the English pages "could never rank". They were ranking:
+  // the GSC export for 2026-06-15..09-12 has 79 of them drawing 253
+  // impressions, several at position 7-10, and site-wide impressions fell from
+  // 70-105/day to 17 the day after that redirect shipped. Product names are
+  // Latin script, so English-language queries land on these pages. Do not
+  // consolidate a page class again without first reading its impressions.
 
   // Live product — hand straight to the prerendered page.
   if (PRODUCT_IDS.has(idFromSlug(rawSlug))) return NextResponse.next();

@@ -17,7 +17,6 @@ import { currentSaleEvent } from "@/lib/sale";
 import { hasTrendingData } from "@/lib/trending";
 
 const BASE = "https://bangkokfillers.com";
-const NOW = new Date();
 
 type Freq = "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
 
@@ -36,19 +35,18 @@ type Freq = "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "n
 // that was already earning, it does not demote the primary one.
 const SITEMAP_LOCALES = ["th", "en"] as const satisfies readonly Locale[];
 
-// Products are the exception: /en/product/* 308s to the Thai URL, because
-// llm_summary.en is empty for all 1,003 products and the English page would
-// repeat the Thai body verbatim (2026-08-17, 96b9f4d). A sitemap must never
-// name a redirect, so products stay TH-only until the pipeline produces real
-// English summaries — at which point this becomes SITEMAP_LOCALES.
-const PRODUCT_LOCALES = ["th"] as const satisfies readonly Locale[];
-
+// No lastModified. It used to be the build time on every URL, so each deploy
+// told Google all ~2,700 pages had just changed. Google stops trusting lastmod
+// on a site where it is always "now", and until then it spends crawls
+// re-fetching byte-identical pages. There is no per-page change date to put
+// here honestly (product fetched_at is the scrape time, not the time the
+// page's content changed), so the field is left out.
 function entry(
   path: string,
   priority: number,
   changeFrequency: Freq = "weekly"
 ): MetadataRoute.Sitemap[number] {
-  return { url: encodeURI(path), lastModified: NOW, changeFrequency, priority };
+  return { url: encodeURI(path), changeFrequency, priority };
 }
 
 // Sitemap 0: core pages
@@ -148,7 +146,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...locales.flatMap(coreEntries),
-    ...PRODUCT_LOCALES.filter((l) => !noindex.has(l)).flatMap(productEntries),
+    ...locales.flatMap(productEntries),
     ...locales.flatMap(ingredientEntries),
     ...locales.flatMap(brandEntries),
   ];

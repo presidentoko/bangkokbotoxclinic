@@ -13,7 +13,7 @@ import {
   pricePosition,
   CONCERNS,
 } from "@/lib/data";
-import { STATIC_LOCALES, thaiOnlyAlternates, t, toBaseLocale, concernLabel, type Locale } from "@/lib/i18n";
+import { STATIC_LOCALES, localeAlternates, t, toBaseLocale, concernLabel, type Locale } from "@/lib/i18n";
 import { productLd, breadcrumbLd, faqLd } from "@/lib/schema";
 import { thaiAlias } from "@/lib/thai-names";
 import { fdaRecord, originLabel, type FdaRecord } from "@/lib/fda";
@@ -51,15 +51,12 @@ const BASE = "https://bangkokfillers.com";
 // permanently 404 those products, not "render on-demand" as the old comment
 // claimed — if a future selective filter is reintroduced, make sure excluded
 // products are also dropped from app/sitemap.ts.)
-// Thai only. The /en product pages were `noindex` for every product (no
-// llm_summary.en exists, so the body reused the Thai copy verbatim), which made
-// 1,003 pages plus 1,003 generated OG images permanently unable to rank while
-// still costing a crawl each — on a site where Google indexes 548 pages total.
-// middleware.ts now 308s /en/product/* onto the Thai URL. Restore
-// STATIC_LOCALES.flatMap here, the "en" hreflang entry below, and remove the
-// middleware block once the pipeline produces real English summaries.
+// Both locales. /en was cut to Thai-only on 2026-08-17 as "unable to rank";
+// see middleware.ts for the GSC numbers that showed otherwise.
 export function generateStaticParams() {
-  return allProducts().map((p) => ({ locale: "th", slug: productSlug(p) }));
+  return STATIC_LOCALES.flatMap((locale) =>
+    allProducts().map((p) => ({ locale, slug: productSlug(p) }))
+  );
 }
 
 export async function generateMetadata({
@@ -135,21 +132,16 @@ export async function generateMetadata({
           .filter(Boolean)
           .join(" · ")
           .slice(0, 158);
-  // The English page reuses the (Thai-language) `p.description` body copy verbatim
-  // whenever no `llm_summary.en` exists — which is every product today — making
-  // /en/product/* near-duplicates of /th/product/*. Keep them crawlable (so the
-  // canonical/hreflang graph stays intact) but out of the index until real
-  // English summaries exist in the pipeline.
-  const hasEnglishSummary = Boolean(p.llm_summary?.en);
+  // No noindex on /en. Only the vendor blurb (`p.description`) is Thai; the
+  // verdict, ingredient explanations, flags, FDA block, title and description
+  // are all English, and these pages held positions 7-10 on English queries
+  // until they were noindexed (2026-08-01) and then redirected (2026-08-17).
   return {
     title,
     description,
-    ...(locale === "en" && !hasEnglishSummary
-      ? { robots: { index: false, follow: true } }
-      : {}),
     alternates: {
       canonical: `${BASE}/${locale}/product/${slug}`,
-      languages: thaiOnlyAlternates(`${BASE}/th/product/${slug}`),
+      languages: localeAlternates((l) => `${BASE}/${l}/product/${slug}`),
     },
     openGraph: {
       title,

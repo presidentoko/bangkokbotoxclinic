@@ -39,13 +39,20 @@ describe("sitemap", () => {
     }
   });
 
-  it("keeps products out of every locale that redirects them away", async () => {
-    // /en/product/* 308s to the Thai URL because no product has an English
-    // summary (96b9f4d). A sitemap entry that resolves to a redirect spends a
-    // crawl and returns nothing.
-    const products = (await urls).filter((u) => u.includes("/product/"));
-    expect(products.length).toBeGreaterThan(0);
-    for (const u of products) expect(locOf(u)).toBe("th");
+  it("submits products in every built locale", async () => {
+    // /en products were dropped from the sitemap and 308'd to /th on
+    // 2026-08-17 while 79 of them were drawing impressions at positions 7-10;
+    // site impressions fell ~80% the next day.
+    const all = await urls;
+    const byLocale = STATIC_LOCALES.map(
+      (l) => all.filter((u) => u.startsWith(`${BASE}/${l}/product/`)).length
+    );
+    expect(Math.min(...byLocale)).toBeGreaterThan(0);
+    expect(new Set(byLocale).size).toBe(1);
+  });
+
+  it("does not stamp every URL with the build time", async () => {
+    for (const e of await sitemap()) expect(e.lastModified).toBeUndefined();
   });
 
   it("mirrors brands and ingredients across locales", async () => {
