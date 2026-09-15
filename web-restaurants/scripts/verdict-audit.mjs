@@ -59,6 +59,7 @@ function classify(r) {
   if (comparable && old.avg - recent.avg >= MIN_TREND_DROP) return "slipping";
   if (r.trust_score >= STRONG_TRUST && r.total_reviews < GEM_MAX_REVIEWS) return "hidden_gem";
   if (r.trust_score >= STRONG_TRUST) return "holds_up";
+  if (r.trust_score >= SOLID_TRUST && comparable) return "steady";
   if (r.trust_score >= SOLID_TRUST) return "solid";
   return "mixed";
 }
@@ -70,6 +71,25 @@ for (const { kind } of tagged) counts[kind] = (counts[kind] || 0) + 1;
 console.log("\nVerdict distribution");
 for (const [k, n] of Object.entries(counts).sort((a, b) => b[1] - a[1])) {
   console.log(`  ${k.padEnd(12)} ${String(n).padStart(5)}  ${((n / restaurants.length) * 100).toFixed(1)}%`);
+}
+
+// ── Drift guard ───────────────────────────────────────────────────────────────
+//
+// classify() above is a copy of lib/verdict.ts's getVerdict(). A copy can drift
+// and this audit would still pass — it has happened with the title builder.
+// When the real module can be loaded (node --experimental-strip-types), compare
+// every restaurant and fail on any disagreement.
+try {
+  const { getVerdict } = await import("../lib/verdict.ts");
+  let mismatch = 0, example = "";
+  for (const { r, kind } of tagged) {
+    const real = getVerdict(r).kind;
+    if (real !== kind) { mismatch++; if (!example) example = `${r.name}: audit=${kind} real=${real}`; }
+  }
+  check("audit classify() matches lib/verdict.ts for every restaurant", mismatch === 0,
+        mismatch ? `${mismatch} differ — e.g. ${example}` : "");
+} catch (e) {
+  console.log(`  skip drift guard (run with --experimental-strip-types): ${String(e.message).slice(0, 60)}`);
 }
 
 // ── Guardrail assertions ──────────────────────────────────────────────────────
@@ -107,7 +127,7 @@ check(
 // A hub page needs enough entries to be worth indexing, and no bucket should
 // swallow the database (a label everything shares says nothing).
 console.log("\nBucket sanity");
-for (const kind of ["slipping", "hidden_gem", "holds_up", "mixed"]) {
+for (const kind of ["slipping", "hidden_gem", "holds_up", "steady", "mixed"]) {
   const n = counts[kind] || 0;
   check(`${kind} has enough entries for a hub page (>=25)`, n >= 25, `${n} entries`);
 }
@@ -147,6 +167,7 @@ function headline(r) {
   if (kind === "slipping") return shorten(r.name, "recent reviews are lower");
   if (kind === "hidden_gem") return shorten(r.name, `under the radar, ${t}/100`);
   if (kind === "holds_up") return shorten(r.name, `holds up, ${t}/100`);
+  if (kind === "steady") return shorten(r.name, `consistent, ${t}/100`);
   if (kind === "solid") return shorten(r.name, `worth it? ${t}/100`);
   return shorten(r.name, `mixed reviews, ${t}/100`);
 }

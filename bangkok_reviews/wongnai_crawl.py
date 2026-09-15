@@ -46,7 +46,18 @@ HEADERS = {
 # 브라우저 헤더 묶음이어야 200 이 온다.
 
 BASE = "https://www.wongnai.com"
-REGIONS = {"bangkok": "9681", "chiang_mai": "9722", "phuket": "9736", "pattaya": "9727"}
+# pattaya 는 방라뭉 군(district) 301 이다. 4월 wongnai/config.py 에 적혀 있던
+# 9727 은 파타야 전체가 아니라 작은 하위 구역이라 1페이지 17곳에서 목록이
+# 끝났다(방콕은 페이지당 23곳이 수백 페이지 이어진다). regions= 는 city/district
+# id 도 받는다 — 목록 JSON 의 "district":{"id":301,"name":"บางละมุง"} 에서 찾았다.
+#
+# chiang_mai 와 phuket 도 4월 값이 틀려 있었고, 더 위험한 방식으로 틀렸다.
+# 9722 는 이탈리아 Lombardia, 9736 은 도쿄였다. 둘 다 페이지가 21곳씩 정상으로
+# 넘어가서 "페이지당 몇 곳 나오나" 검사는 통과한다. 그대로 돌렸으면 밀라노와
+# 도쿄 식당에 치앙마이·푸켓 라벨을 붙여 발행했을 것이다. 결과의 "city" 이름
+# 분포를 봐야 잡힌다 — 새 지역 id 를 넣을 땐 반드시 그걸 확인할 것.
+#   chiang_mai 56681 → เชียงใหม่ 20/21 · phuket 843 → ภูเก็ต 23/24 (p2, p8 동일)
+REGIONS = {"bangkok": "9681", "chiang_mai": "56681", "phuket": "843", "pattaya": "301"}
 
 LINK = re.compile(r'/restaurants/([A-Za-z0-9%_-]+)')
 RATING = re.compile(r'"ratingValue"\s*:\s*([0-9.]+)')

@@ -22,6 +22,7 @@ export type VerdictKind =
   | "slipping"
   | "hidden_gem"
   | "holds_up"
+  | "steady"
   | "solid"
   | "mixed"
   | "thin_data";
@@ -172,11 +173,33 @@ export function getVerdict(r: Restaurant): Verdict {
     return {
       kind: "holds_up",
       label: "Holds up",
-      reason: `Scores ${r.trust_score.toFixed(0)}/100 across ${pct(r.total_reviews)} Google reviews, with no drop in recent ratings. ${credibility}.`,
+      // "no drop in recent ratings" 는 최근·과거를 실제로 비교한 곳에만 쓴다.
+      // 전엔 무조건 붙어서 holds_up 1,584곳 중 600곳이 확인 안 한 주장을 달고
+      // 있었다 — 리뷰가 한 시기에 몰려 비교 버킷이 비는 가게들이다.
+      reason: `Scores ${r.trust_score.toFixed(0)}/100 across ${pct(r.total_reviews)} Google reviews${comparable ? ", with no drop in recent ratings" : ""}. ${credibility}.`,
       headline: verdictTitle(r.name, `holds up, ${r.trust_score.toFixed(0)}/100`),
       icon: "✓",
       fg: "#15803d",
       bg: "#f0fdf4",
+    };
+  }
+
+  // steady: solid 점수대이면서 최근·과거를 비교할 수 있는 곳. 여기까지 왔다면
+  // slipping 분기를 이미 통과했으니 하락폭은 MIN_TREND_DROP 미만이다.
+  //
+  // solid 가 DB 절반(51%)을 넘어 감사 가드레일에 걸렸다. 기준점을 올려서
+  // 줄이면 실제 식당을 "mixed reviews" 로 강등하는 것이라 하지 않았다. 대신
+  // 증거가 더 있는 곳에 더 구체적인 — 그리고 확인된 — 긍정 판정을 준다.
+  // "뜨고 나서 변했나?" 에 답하는 판정이라 이 사이트 포지션에도 맞는다.
+  if (r.trust_score >= SOLID_TRUST && comparable) {
+    return {
+      kind: "steady",
+      label: "Consistent",
+      reason: `Its ${pct(recent!.count)} most recent reviews average ${recent!.avg!.toFixed(2)}★, in line with ${old!.avg!.toFixed(2)}★ from ${pct(old!.count)} older ones. Scores ${r.trust_score.toFixed(0)}/100. ${credibility}.`,
+      headline: verdictTitle(r.name, `consistent, ${r.trust_score.toFixed(0)}/100`),
+      icon: "=",
+      fg: "#1d4ed8",
+      bg: "#eff6ff",
     };
   }
 
@@ -241,7 +264,15 @@ export const VERDICT_HUBS: VerdictHub[] = [
     title: "Bangkok & Pattaya restaurants that live up to the hype",
     heading: "Lives up to it",
     blurb:
-      "Heavily reviewed, still scoring high, and not sliding. The famous ones that are actually worth the trip.",
+      "Heavily reviewed and still scoring high. The famous ones that are actually worth the trip.",
+  },
+  {
+    kind: "steady",
+    slug: "consistent",
+    title: "Bangkok & Pattaya restaurants that haven't changed",
+    heading: "Still as good as it was",
+    blurb:
+      "Places often slip once they go viral. These score as well in their recent reviews as in their older ones — the quality held.",
   },
   {
     kind: "mixed",
