@@ -18,12 +18,7 @@ describe("middleware", () => {
     expect(res.headers.get("location")).toBeNull();
   });
 
-  it("keeps _rsc on a redirect so Cloudflare cannot cache a flight payload as HTML", () => {
-    const loc = location(`/th/dupe/${thin}?_rsc=abc12&utm_source=x`);
-    expect(loc).toBe(`${BASE}/th/brand/${thin}?_rsc=abc12`);
-  });
-
-  it("drops every other query param on a redirect", () => {
+  it("drops the query string on a redirect", () => {
     expect(location(`/th/dupe/${thin}?utm_source=x`)).toBe(`${BASE}/th/brand/${thin}`);
   });
 

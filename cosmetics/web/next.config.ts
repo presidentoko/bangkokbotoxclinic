@@ -98,10 +98,37 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
-      { source: "/", headers: [{ key: "CDN-Cache-Control", value: CDN_CACHE }] },
+      // The long edge TTL is for HTML only. A request carrying `RSC: 1` gets
+      // the flight payload (text/x-component) at the *same URL*, and Cloudflare
+      // keys on the URL and ignores `Vary: RSC` — so caching that response
+      // serves it as the page to every later visitor and crawler for a day.
+      // Reproduced 2026-09-15: RSC request to /th/brand/curesys?x, then a plain
+      // GET to the same URL -> x-component, cf-cache-status HIT.
+      //
+      // Next 16 does reject RSC requests without a matching `_rsc` param, but
+      // only on the render path; Vercel serves prerendered .rsc files straight
+      // from its CDN on the header, so that check never runs here. Middleware
+      // cannot fix it either — the adapter strips `_rsc` before middleware sees
+      // the URL. Marking RSC responses no-store at the edge is what works.
+      {
+        source: "/",
+        missing: [{ type: "header", key: "rsc" }],
+        headers: [{ key: "CDN-Cache-Control", value: CDN_CACHE }],
+      },
       {
         source: "/:locale(th|en)/:path*",
+        missing: [{ type: "header", key: "rsc" }],
         headers: [{ key: "CDN-Cache-Control", value: CDN_CACHE }],
+      },
+      {
+        source: "/",
+        has: [{ type: "header", key: "rsc" }],
+        headers: [{ key: "CDN-Cache-Control", value: "no-store" }],
+      },
+      {
+        source: "/:locale(th|en)/:path*",
+        has: [{ type: "header", key: "rsc" }],
+        headers: [{ key: "CDN-Cache-Control", value: "no-store" }],
       },
       { source: "/sitemap.xml", headers: [{ key: "CDN-Cache-Control", value: CDN_CACHE_CRAWL }] },
       { source: "/llms.txt", headers: [{ key: "CDN-Cache-Control", value: CDN_CACHE_CRAWL }] },

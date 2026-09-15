@@ -49,18 +49,13 @@ function brandSlugFromProductSlug(slug: string): string | null {
   return null;
 }
 
-// Everything in the query is dropped except `_rsc`. Cloudflare keys its cache on
-// the URL alone and ignores `Vary: RSC`, so Next's client router tags every
-// flight request with `?_rsc=` to keep the payload off the HTML cache key. A
-// redirect that strips it sends the router's retry to the bare URL with
-// `RSC: 1`, and Cloudflare then stores text/x-component under that URL and
-// serves it to every browser and crawler for the edge TTL (reproduced
-// 2026-09-15 against /th/brand/curesys).
+// Query is dropped. (`_rsc` never reaches here — Next's middleware adapter strips
+// it before building request.nextUrl — so RSC cache safety is handled by the
+// CDN-Cache-Control rules in next.config.ts, not by preserving params here.)
 function permanentRedirect(request: NextRequest, pathname: string) {
   const url = request.nextUrl.clone();
-  const rsc = url.searchParams.get("_rsc");
   url.pathname = pathname;
-  url.search = rsc === null ? "" : `?_rsc=${encodeURIComponent(rsc)}`;
+  url.search = "";
   return NextResponse.redirect(url, 308);
 }
 
