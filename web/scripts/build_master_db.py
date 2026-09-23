@@ -813,6 +813,35 @@ _PRICE_NEG_RE = re.compile(
 _CTX_BEFORE, _CTX_AFTER = 90, 60
 
 
+# 2026-09-23: ประกันสังคม(사회보장) 수용 여부.
+#
+# 앞서 "새로 스크래핑하지 않으면 불가능"이라고 판단했는데 틀렸다. 가격 추출의
+# 부정 가드에 사회보장 언급이 178건 걸리는 걸 보고 역으로 찾아보니, 방콕 덴탈
+# 483곳의 리뷰에 언급이 있었다. 태국인에게 이건 스케일링이 공짜냐 ฿900이냐를
+# 가르는 정보라 near-me 쿼리에서 가치가 크다.
+#
+# 다만 언급 ≠ 수용이다. 실제 원문에는 "Can I use social security benefits?" 처럼
+# 묻기만 하는 리뷰가 섞여 있다. 그래서 "썼다/된다"는 표현이 함께 있을 때만 세고,
+# 부정 표현이 한 번이라도 있으면 그 클리닉은 통째로 제외한다.
+_SSO_RE = re.compile(r"ประกันสังคม|social security|\bSSO\b", re.I)
+_SSO_POS_RE = re.compile(
+    r"ใช้ได้|เบิกได้|ใช้สิทธิ|accept|cover(ed|s)?\b|claim|used my|ไม่เสียค่า", re.I)
+_SSO_NEG_RE = re.compile(
+    r"ไม่รับ|ใช้ไม่ได้|เบิกไม่ได้|not accept|don'?t accept|doesn'?t accept|no social security", re.I)
+
+
+def scan_social_security(text: str) -> tuple[int, int]:
+    """(긍정, 부정) 언급 수. 질문형은 어느 쪽도 아니므로 둘 다 0."""
+    pos = neg = 0
+    for m in _SSO_RE.finditer(text):
+        ctx = text[max(0, m.start() - 80): m.end() + 80]
+        if _SSO_NEG_RE.search(ctx):
+            neg += 1
+        elif _SSO_POS_RE.search(ctx):
+            pos += 1
+    return pos, neg
+
+
 def extract_price_points(text: str) -> list[dict]:
     """금액과 그 금액이 가리키는 시술을 함께 뽑는다. 시술 불명이면 버린다."""
     out: list[dict] = []
@@ -903,6 +932,7 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
         "doctor_stats": [],
         "derived_categories": [],
         "price_points": [],
+        "social_security": {"pos": 0, "neg": 0, "confirmed": False},
     }
     if not p.exists():
         return empty
@@ -937,11 +967,15 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
     # doctor name → { ratings: [], lang_count: {}, sample: str }
     doctor_data: dict[str, dict] = {}
     price_points: list[dict] = []
+    sso_pos = sso_neg = 0
     for r in rows:
         text = (r.get("text") or "").strip()
         if not text:
             continue
         price_points.extend(extract_price_points(text))
+        p, n = scan_social_security(text)
+        sso_pos += p
+        sso_neg += n
         lang = detect_lang(text)
         lang_count[lang] += 1
         try:
@@ -1056,6 +1090,10 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
         "doctor_stats": doctor_stats,
         "derived_categories": categories,
         "price_points": sorted(price_points, key=lambda p: (p["proc"], p["amt"])),
+        # 환자 2명 이상이 독립적으로 "썼다"고 적었고 반대 증언이 없을 때만 확정.
+        # 1명이면 오탐 하나가 그대로 사실이 되므로 세지 않는다.
+        "social_security": {"pos": sso_pos, "neg": sso_neg,
+                            "confirmed": sso_pos >= 2 and sso_neg == 0},
     }
 
 
@@ -1231,6 +1269,7 @@ def process_source(
                 "language_breakdown": review_sig["language_breakdown"],
                 # 허브 비교표 재료 (2026-09-23)
                 "price_points": review_sig.get("price_points", []),
+                "social_security": review_sig.get("social_security"),
                 "hours": hours_by_pid.get(place_id) or None,
                 "service_mentions": review_sig["service_mentions"],
                 "mentioned_topics": review_sig["mentioned_topics"],
