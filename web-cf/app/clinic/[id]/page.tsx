@@ -112,19 +112,16 @@ export async function generateMetadata(
   // "See prices, photos & book a free consult" 같은 광고 문구 대신 사람이
   // 방문 전에 실제로 확인하는 값(가격대·주말/야간 진료)을 앞으로 뺀다.
   // 값이 없으면 그 조각을 통째로 뺀다 — 빈 라벨은 스팸처럼 보인다.
-  const _pm = (c as unknown as { price_mentions?: number[] }).price_mentions;
+  //
+  // 가격은 일부러 안 넣는다. 처음엔 리뷰에서 캔 금액의 범위를 넣었는데, 원문을
+  // 읽어보니 한 곳당 표본이 0~1건인 데다 스케일링(฿900)·독감주사·프로모션 금액이
+  // 뒤섞여 있었다. 그런 범위를 "이 치과 가격"으로 내보내는 건 거짓말이다.
+  // 시술별로 분류한 가격은 도시 단위로만 말이 되고, 그건 PriceBands 가 맡는다.
   const _hours = (c as unknown as { hours?: { open_weekend?: boolean; open_evening?: boolean } }).hours;
-  const _priceBit = (() => {
-    if (!_pm || _pm.length < 2) return "";
-    const s = [..._pm].sort((a, b) => a - b);
-    const cut = Math.floor(s.length * 0.1);
-    const core = s.slice(cut, s.length - cut || undefined);
-    return core.length ? ` Reported prices ฿${core[0].toLocaleString()}–${core[core.length - 1].toLocaleString()}.` : "";
-  })();
   const _hoursBit = _hours
     ? ` ${[_hours.open_weekend ? "Open weekends" : "", _hours.open_evening ? "open late" : ""].filter(Boolean).join(", ")}.`.replace(" .", "")
     : "";
-  const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} from ${c.total_reviews} Google reviews.${_priceBit}${_hoursBit} ${cats || "Aesthetic clinic"}.`.replace(/\s+/g, " ").trim();
+  const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} from ${c.total_reviews} Google reviews.${_hoursBit} ${cats || "Aesthetic clinic"}.`.replace(/\s+/g, " ").trim();
 
   // 이 사이트 소관이 아닌 클리닉이면 (예: 덴탈 사이트에 뜬 보톡스 전용 클리닉)
   // 절대 URL로 진짜 소유 도메인을 캐노니컬로 지정 + noindex — 두 도메인 동시 색인 방지.

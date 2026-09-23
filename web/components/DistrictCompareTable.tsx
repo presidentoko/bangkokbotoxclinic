@@ -11,21 +11,13 @@ import type { Lang } from "@/lib/i18n";
 // 된다 (경쟁 디렉터리 대부분이 이름+별점만 보여준다).
 //
 // 데이터 출처는 전부 기존 수집분이다 — 새 스크래핑 없음:
-//   가격  = 리뷰 원문에서 캔 실제 지불액(price_mentions, 덴탈 527곳)
 //   영업  = clinic_hours.csv 요약(hours, 덴탈 1,750곳)
 //   영어  = language_breakdown 의 영어 리뷰 비율(30%+ 를 "영어 가능"으로)
 // 값이 없는 칸은 "—" 로 비운다. 모르는 걸 지어내면 이 표의 존재 이유가 없다.
-
-function priceRange(mentions: number[] | undefined): { lo: number; hi: number } | null {
-  if (!mentions || mentions.length < 2) return null;
-  const s = [...mentions].sort((a, b) => a - b);
-  // 양 끝 10%를 버린다 — 한 건짜리 고액(임플란트 전체)이 범위를 왜곡한다.
-  const cut = Math.floor(s.length * 0.1);
-  const core = s.slice(cut, s.length - cut || undefined);
-  const lo = core[0];
-  const hi = core[core.length - 1];
-  return lo && hi ? { lo, hi } : null;
-}
+//
+// 가격 칸은 뺐다(2026-09-23). 클리닉당 금액 표본이 0~1건이고 시술이 섞여 있어서
+// 범위를 내면 스케일링 가격이 그 병원의 시술가처럼 읽힌다. 가격은 도시 단위로만
+// 통계가 서므로 PriceBands 가 표 위에서 따로 보여준다.
 
 function englishShare(c: Clinic): number | null {
   const lb = (c as unknown as { language_breakdown?: Record<string, number> }).language_breakdown;
@@ -38,15 +30,15 @@ function englishShare(c: Clinic): number | null {
 const T = {
   en: {
     head: "Compare clinics in this area",
-    sub: "Prices are what reviewers actually reported paying. Hours and language come from Google reviews and listings.",
-    clinic: "Clinic", rating: "Rating", price: "Typical price", hours: "Hours", english: "English",
+    sub: "Hours and language come from Google listings and the reviews themselves.",
+    clinic: "Clinic", rating: "Rating", hours: "Hours", english: "English",
     weekend: "Weekends", evening: "Open late", yes: "Yes", reviews: "reviews",
     note: "Open late = closes 7pm or later. English = 30%+ of reviews written in English.",
   },
   th: {
     head: "เปรียบเทียบคลินิกในย่านนี้",
-    sub: "ราคาคือยอดที่ผู้รีวิวระบุว่าจ่ายจริง เวลาเปิดและภาษามาจากรีวิวและข้อมูล Google",
-    clinic: "คลินิก", rating: "คะแนน", price: "ราคาที่พบบ่อย", hours: "เวลาเปิด", english: "อังกฤษ",
+    sub: "เวลาเปิดและภาษามาจากข้อมูล Google และตัวรีวิวเอง",
+    clinic: "คลินิก", rating: "คะแนน", hours: "เวลาเปิด", english: "อังกฤษ",
     weekend: "เสาร์-อาทิตย์", evening: "เปิดถึงค่ำ", yes: "มี", reviews: "รีวิว",
     note: "เปิดถึงค่ำ = ปิด 19:00 เป็นต้นไป · อังกฤษ = รีวิวภาษาอังกฤษ 30% ขึ้นไป",
   },
@@ -70,7 +62,6 @@ export function DistrictCompareTable({
             <tr className="text-left border-b border-gray-300 dark:border-gray-700">
               <th className="py-2 pr-3 font-semibold">{t.clinic}</th>
               <th className="py-2 px-3 font-semibold whitespace-nowrap">{t.rating}</th>
-              <th className="py-2 px-3 font-semibold whitespace-nowrap">{t.price}</th>
               <th className="py-2 px-3 font-semibold whitespace-nowrap">{t.weekend}</th>
               <th className="py-2 px-3 font-semibold whitespace-nowrap">{t.evening}</th>
               <th className="py-2 pl-3 font-semibold whitespace-nowrap">{t.english}</th>
@@ -78,7 +69,6 @@ export function DistrictCompareTable({
           </thead>
           <tbody>
             {rows.map((c) => {
-              const pr = priceRange((c as unknown as { price_mentions?: number[] }).price_mentions);
               const hours = (c as unknown as { hours?: { open_weekend?: boolean; open_evening?: boolean } }).hours;
               const en = englishShare(c);
               return (
@@ -94,9 +84,6 @@ export function DistrictCompareTable({
                   <td className="py-2 px-3 whitespace-nowrap tabular-nums">
                     ★{c.rating.toFixed(1)}{" "}
                     <span className="text-gray-500">({c.total_reviews.toLocaleString()})</span>
-                  </td>
-                  <td className="py-2 px-3 whitespace-nowrap tabular-nums">
-                    {pr ? `฿${pr.lo.toLocaleString()}–${pr.hi.toLocaleString()}` : "—"}
                   </td>
                   <td className="py-2 px-3 whitespace-nowrap">{hours?.open_weekend ? t.yes : "—"}</td>
                   <td className="py-2 px-3 whitespace-nowrap">{hours?.open_evening ? t.yes : "—"}</td>

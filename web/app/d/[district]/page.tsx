@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { loadMasterDb, filterByDistrict } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
 import { DistrictCompareTable } from "@/components/DistrictCompareTable";
+import { PriceBands } from "@/components/PriceBands";
 import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
@@ -183,6 +184,11 @@ export default async function DistrictPage(
       )}
 
       {/* 2026-09-23: near-me 비교 의도 대응 비교표 */}
+      {/* 가격은 클리닉별이 아니라 도시 단위로만 통계가 선다 — 이유는 PriceBands 주석 참고. */}
+      {cfg.focus === "dental" && (
+        <PriceBands bands={(db as unknown as { price_bands?: Record<string, Record<string, { n: number; p25: number; median: number; p75: number }>> }).price_bands?.[citySlug ?? ""]} cityLabel={cityLabel} />
+      )}
+
       <DistrictCompareTable clinics={filtered} />
 
       <div className="grid gap-3">

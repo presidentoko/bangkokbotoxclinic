@@ -777,16 +777,105 @@ _PRICE_RE = re.compile(
 )
 
 
-def extract_price_mentions(text: str) -> list[int]:
-    out: list[int] = []
+# 금액만 캐면 못 쓴다 — 2026-09-23 실측으로 확인. 방콕 덴탈 리뷰 1,190건의 금액
+# 언급을 눈으로 보니 절반이 스케일링(฿900)이고, 거기에 "flu shot 550 baht",
+# "spend 1500 baht get a free keychain", "splinter pull 4000 baht" 같은 치과와
+# 무관한 금액이 섞여 있었다. 이걸 섞어 평균내면 "이 치과 시술가 ฿500~1,800"
+# 같은 문장이 나오는데, 임플란트를 찾는 사람에게 이건 거짓말이다.
+#
+# 그래서 금액 주변 텍스트에 시술어가 있을 때만 채택하고, 어떤 시술인지 함께
+# 기록한다. 부수 효과로 위의 독감주사·키홀더 금액이 전부 자동 탈락한다.
+_PROC_PATTERNS: list[tuple[str, re.Pattern]] = [
+    ("implant", re.compile(r"implant|รากฟันเทียม", re.I)),
+    ("veneer", re.compile(r"veneer|วีเนียร์", re.I)),
+    ("root", re.compile(r"root canal|รักษารากฟัน", re.I)),
+    ("braces", re.compile(r"brace|orthodont|จัดฟัน|retainer", re.I)),
+    ("whiten", re.compile(r"whiten|bleach|ฟอกสีฟัน", re.I)),
+    # \b 가 중요하다 — 경계 없이 "fill" 을 받으면 미용 "filler" 가격(฿8,000~15,000)이
+    # 충치 치료 가격대로 들어온다. 2026-09-23 실측: 방콕 filling 164건 중 17건이
+    # 보톡스·필러 클리닉에서 온 오염이었다.
+    ("filling", re.compile(r"\bfillings?\b|\bfilled\b|cavit|อุดฟัน", re.I)),
+    ("extract", re.compile(r"extract|ถอนฟัน|wisdom", re.I)),
+    # clean 도 같은 이유로 치아를 명시한 표현만 받는다. 그냥 "cleaning" 은
+    # 페이셜 클렌징·청소 상태 칭찬과 구분이 안 된다.
+    ("clean", re.compile(r"scal(e|ing)\b|ขูดหินปูน|(teeth|tooth|dental)\s+(clean|polish)|clean(ing)?\s+(my\s+)?teeth", re.I)),
+]
+
+# 태국 치과 리뷰에는 사회보장(ประกันสังคม) 혜택 금액이 자주 나온다 —
+# "Social Security: Free 900 baht benefit" 은 낸 돈이 아니라 정부가 대는 한도액이다.
+# 가드 없이 받으면 ฿900 이 스케일링 가격으로 둔갑한다(실측 178건).
+_PRICE_NEG_RE = re.compile(
+    r"\bfree\b|ฟรี|social security|ประกันสังคม|\bSSO\b|เบิกได้", re.I
+)
+
+# 시술어를 찾을 때 금액 앞뒤로 보는 범위. 앞을 넓게 잡는 건 "x를 했는데 N밧이었다"
+# 어순이 태국어·영어 리뷰 모두에서 지배적이기 때문.
+_CTX_BEFORE, _CTX_AFTER = 90, 60
+
+
+def extract_price_points(text: str) -> list[dict]:
+    """금액과 그 금액이 가리키는 시술을 함께 뽑는다. 시술 불명이면 버린다."""
+    out: list[dict] = []
     for m in _PRICE_RE.finditer(text):
         raw = m.group(1) or m.group(2) or ""
         try:
             v = int(raw.replace(",", ""))
         except ValueError:
             continue
-        if 100 <= v <= 200_000:
-            out.append(v)
+        if not (100 <= v <= 200_000):
+            continue
+        ctx = text[max(0, m.start() - _CTX_BEFORE): m.end() + _CTX_AFTER]
+        if _PRICE_NEG_RE.search(ctx):
+            continue
+        # 순서가 의미 있다 — "implant crown" 은 implant 로 잡혀야 한다.
+        for proc, rx in _PROC_PATTERNS:
+            if rx.search(ctx):
+                out.append({"proc": proc, "amt": v})
+                break
+    return out
+
+
+# 개별 클리닉의 가격은 공개하지 않는다 — 한 곳당 시술별 표본이 보통 0~1건이라
+# "이 치과 스케일링 ฿900" 은 리뷰 한 줄을 가격표로 둔갑시키는 것이다.
+# 대신 도시 단위로 묶으면 스케일링 n=217 처럼 실제로 말이 되는 표본이 나온다.
+# (구 단위도 시도했으나 2026-09-23 실측 결과 n>=5 를 넘는 구가 하나도 없었다.)
+_BAND_MIN_N = 12  # 이보다 적으면 사분위수가 표본 몇 개에 휘둘린다
+# 표본 수만으로는 부족하다 — 방콕 임플란트는 n=15 를 넘겼지만 ฿2,000~฿50,000 이
+# 나왔다. 25배 범위는 "임플란트 얼마예요"에 아무 답도 못 한다(선금·부분결제·
+# 1개당 가격이 뒤섞인 결과). 이런 띠는 다른 숫자의 신뢰까지 깎으므로 뺀다.
+_BAND_MAX_SPREAD = 6.0
+_BAND_PROC_ORDER = ["clean", "filling", "extract", "braces", "root", "whiten", "implant", "veneer"]
+
+
+def build_price_bands(clinics: list[dict]) -> dict:
+    """도시 × 시술별 가격대. 표본이 얇으면 그 조합을 통째로 뺀다.
+
+    덴탈로 분류된 클리닉만 센다 — 시술어가 다 치과 용어라 대부분 자동으로
+    걸러지지만, 보톡스·페이셜 클리닉 리뷰에도 치과 얘기가 섞여 들어온다.
+    가격대는 덴탈 사이트에서만 쓰므로 원천에서 좁히는 게 맞다.
+    """
+    buckets: dict[str, dict[str, list[int]]] = {}
+    for c in clinics:
+        city = c.get("city_slug") or ""
+        if not city or "dental" not in (c.get("categories") or []):
+            continue
+        for p in c.get("price_points") or []:
+            buckets.setdefault(city, {}).setdefault(p["proc"], []).append(p["amt"])
+
+    out: dict[str, dict] = {}
+    for city, procs in buckets.items():
+        bands = {}
+        for proc in _BAND_PROC_ORDER:
+            vals = sorted(procs.get(proc, []))
+            n = len(vals)
+            if n < _BAND_MIN_N:
+                continue
+            p25, p75 = vals[n // 4], vals[(3 * n) // 4]
+            if p25 <= 0 or p75 / p25 > _BAND_MAX_SPREAD:
+                continue
+            bands[proc] = {"n": n, "p25": p25, "median": vals[n // 2], "p75": p75}
+        if bands:
+            out[city] = bands
     return out
 
 
@@ -813,7 +902,7 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
         "sample_reviews_ko": [],
         "doctor_stats": [],
         "derived_categories": [],
-        "price_mentions": [],
+        "price_points": [],
     }
     if not p.exists():
         return empty
@@ -847,12 +936,12 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
     }
     # doctor name → { ratings: [], lang_count: {}, sample: str }
     doctor_data: dict[str, dict] = {}
-    price_mentions: list[int] = []
+    price_points: list[dict] = []
     for r in rows:
         text = (r.get("text") or "").strip()
         if not text:
             continue
-        price_mentions.extend(extract_price_mentions(text))
+        price_points.extend(extract_price_points(text))
         lang = detect_lang(text)
         lang_count[lang] += 1
         try:
@@ -966,7 +1055,7 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
         "sample_reviews_negative": pick_negative(text_chunks_by_lang, n=3),
         "doctor_stats": doctor_stats,
         "derived_categories": categories,
-        "price_mentions": sorted(price_mentions),
+        "price_points": sorted(price_points, key=lambda p: (p["proc"], p["amt"])),
     }
 
 
@@ -1141,7 +1230,7 @@ def process_source(
                 "avg_author_review_count": review_sig["avg_author_review_count"],
                 "language_breakdown": review_sig["language_breakdown"],
                 # 허브 비교표 재료 (2026-09-23)
-                "price_mentions": review_sig.get("price_mentions", []),
+                "price_points": review_sig.get("price_points", []),
                 "hours": hours_by_pid.get(place_id) or None,
                 "service_mentions": review_sig["service_mentions"],
                 "mentioned_topics": review_sig["mentioned_topics"],
@@ -1311,6 +1400,7 @@ def main():
 
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
+        "price_bands": build_price_bands(clinics),
         "total_clinics": len(clinics),
         "with_district": sum(1 for c in clinics if c["district"]),
         "with_categories": sum(1 for c in clinics if c["categories"]),

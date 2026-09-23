@@ -16,6 +16,7 @@ import { notFound } from "next/navigation";
 import { loadMasterDb, filterByDistrict } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
 import { DistrictCompareTable } from "@/components/DistrictCompareTable";
+import { PriceBands } from "@/components/PriceBands";
 import { BreadcrumbJsonLd, CollectionPageJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { BookingForm } from "@/components/BookingForm";
 import { applySiteFilter, getSiteConfig, getSiteUrl } from "@/lib/site";
@@ -127,6 +128,7 @@ export default async function ThaiDistrictPage(
   const scoped = applySiteFilter(db.clinics, cfg);
   const filtered = filterByDistrict(scoped, districtName).sort((a, b) => b.trust_score - a.trust_score);
   const cityLabel = filtered.find((c) => c.city_label)?.city_label ?? "Bangkok";
+  const citySlug = filtered.find((c) => c.city_slug)?.city_slug;
   const dn = thName(districtName);
   const cn = thCity(cityLabel);
   const totalReviews = filtered.reduce((s, c) => s + c.total_reviews, 0);
@@ -165,7 +167,12 @@ export default async function ThaiDistrictPage(
       : []),
     {
       q: `ทำฟันใน${dn}ราคาประมาณเท่าไร`,
-      a: `ราคาโดยประมาณของคลินิกในกรุงเทพฯ โดยรวม (ไม่ใช่เฉพาะ${dn}): รากฟันเทียม ฿35,000–80,000 ต่อซี่ · วีเนียร์ ฿12,000–30,000 ต่อซี่ · ครอบฟัน ฿8,000–20,000 · ฟอกสีฟัน ฿4,000–12,000 ราคาจริงขึ้นกับแต่ละคลินิกและความซับซ้อนของเคส ควรสอบถามคลินิกโดยตรง`,
+      // 2026-09-23: 이 답변의 숫자는 원래 출처 없는 시세 추정이었다. 이제 리뷰
+      // 원문에서 실제 지불액을 캤더니 ฟอกสีฟัน(미백)이 실측 ฿1,599~4,450 으로
+      // 기존 표기 ฿4,000~12,000 과 정면으로 어긋났다 — 같은 페이지 위쪽 표와
+      // 모순되면 둘 다 못 믿게 된다. 표본이 선 항목은 실측으로 교체하고,
+      // 표본이 안 선 항목(임플란트·베니어)은 시세 추정임을 문장에 남긴다.
+      a: `รีวิวจริงในกรุงเทพฯ ระบุว่าจ่ายประมาณนี้ (ไม่ใช่เฉพาะ${dn}): ขูดหินปูน ฿900–1,200 · อุดฟัน ฿800–2,000 · ถอนฟัน ฿640–2,000 · จัดฟัน เริ่ม ฿1,000–4,890 · ฟอกสีฟัน ฿1,599–4,450 ส่วนรากฟันเทียม (฿35,000–80,000 ต่อซี่) และวีเนียร์ (฿12,000–30,000 ต่อซี่) เป็นราคาตลาดโดยประมาณ เพราะรีวิวที่ระบุยอดยังน้อยเกินกว่าจะสรุปได้ ราคาจริงขึ้นกับคลินิกและความซับซ้อนของเคส ควรสอบถามคลินิกโดยตรง`,
     },
     {
       q: `เลือกคลินิกทำฟันใน${dn}อย่างไร`,
@@ -211,7 +218,12 @@ export default async function ThaiDistrictPage(
       </div>
 
       {/* 2026-09-23: 태국어 near-me 쿼리("คลินิกทำฟัน[เขต]")가 이 사이트의 주력인데
-          허브가 카드 나열뿐이었다. 가격·เวลาเปิด·영어 가능 여부 비교표를 얹는다. */}
+          허브가 카드 나열뿐이었다. เวลาเปิด·영어 가능 여부 비교표를 얹는다. */}
+      {/* 가격은 클리닉별이 아니라 도시 단위로만 통계가 선다 — 이유는 PriceBands 주석 참고. */}
+      {cfg.focus === "dental" && (
+        <PriceBands bands={(db as unknown as { price_bands?: Record<string, Record<string, { n: number; p25: number; median: number; p75: number }>> }).price_bands?.[citySlug ?? ""]} cityLabel={cityLabel} lang="th" />
+      )}
+
       <DistrictCompareTable clinics={filtered} lang="th" />
 
       <div className="grid gap-4">

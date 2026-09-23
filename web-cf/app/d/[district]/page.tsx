@@ -3,6 +3,7 @@ import { loadMasterDb, filterByDistrict } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
 import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { DistrictCompareTable } from "@/components/DistrictCompareTable";
+import { PriceBands } from "@/components/PriceBands";
 import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { BookingForm } from "@/components/BookingForm";
@@ -193,7 +194,12 @@ export default async function DistrictPage(
       )}
 
       {/* 2026-09-23: near-me 검색의 핵심은 "여러 곳 비교"인데 카드 나열만으로는
-          그게 안 됐다. 가격·주말/야간 진료·영어 가능 여부를 한 표에 모은다. */}
+          그게 안 됐다. 주말/야간 진료·영어 가능 여부를 한 표에 모은다. */}
+      {/* 가격은 클리닉별이 아니라 도시 단위로만 통계가 선다 — 이유는 PriceBands 주석 참고. */}
+      {cfg.focus === "dental" && (
+        <PriceBands bands={(db as unknown as { price_bands?: Record<string, Record<string, { n: number; p25: number; median: number; p75: number }>> }).price_bands?.[citySlug ?? ""]} cityLabel={cityLabel} />
+      )}
+
       <DistrictCompareTable clinics={filtered} />
 
       <div className="grid gap-3">
