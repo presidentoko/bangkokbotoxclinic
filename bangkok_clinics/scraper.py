@@ -2305,15 +2305,23 @@ def main():
         pid_fn = place_id_to_filename(rest.place_id)
         rp = reviews_dir / f"{pid_fn}_reviews.csv"
         mp = reviews_dir / f"{pid_fn}_meta.csv"
-        # 리뷰 0건이면 파일 생성 안 함 (스크래핑 실패 구분 용이)
+        # 리뷰 0건이면 파일 생성 안 함 (스크래핑 실패 구분 용이).
+        #
+        # 단, **이미 있는 파일은 절대 지우지 않는다** (2026-09-23).
+        # 원래는 0건일 때 unlink(missing_ok=True) 를 했는데, 이건 "파일을 안
+        # 만든다"가 아니라 "예전에 성공한 수집을 파괴한다"로 동작했다.
+        # 방콕 갭필 실측: 90초마다 3개씩 사라지고 새로 생기는 건 0개,
+        # 35분 동안 4,050 → 4,015 로 줄었다. 빈칸이 460 → 553 으로 늘어난 것도
+        # 새 곳을 못 채워서가 아니라 채워둔 곳이 지워져서였다.
+        #
+        # 0건은 대개 진실이 아니다 — clinics.csv 의 total_reviews 가 5 이상인
+        # 곳만 큐에 들어오므로, 0건으로 돌아왔다면 구글이 스로틀링으로 빈
+        # 지도를 준 것이다(메모: empty-map-is-throttling). 즉 VPN 이 나쁠수록
+        # 더 많이 지운다 — 가장 데이터를 잃으면 안 될 때 가장 많이 잃는다.
         if reviews:
             save_reviews_csv(reviews, rp)
-        else:
-            rp.unlink(missing_ok=True)
         if metas:
             save_metas_csv(metas, mp)
-        else:
-            mp.unlink(missing_ok=True)
         # append_restaurant 모드: 첫 성공 시 헤더 포함하여 기존 행 + 신규 통합 저장
         # 그 후부터는 매번 전체 다시 쓰기 (간단 + 크기 작음)
         _merge_and_save_restaurants(restaurants_path, restaurants, existing_ids)
