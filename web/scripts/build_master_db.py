@@ -763,6 +763,33 @@ def extract_experience_signals(text: str) -> set[str]:
     return sigs
 
 
+# 2026-09-23: 리뷰 원문에서 실제 지불 금액을 캔다. 구글 장소 정보의 price_level 은
+# 이 데이터셋에서 전부 비어 있어서(실측 1,825곳 중 0곳) 가격 비교표를 만들 재료가
+# 없었다. chillanel 에서 검증한 방식과 같다 — 태국 클리닉 리뷰는 "3,500 บาท",
+# "฿2000", "1500 baht" 처럼 금액을 그대로 적는 경우가 많다.
+#
+# 범위를 100~200,000 로 제한하는 이유: 100 미만은 팁·주차비, 20만 초과는 전화번호나
+# 연도(2026)·리뷰수 오인식이다. 쉼표 없는 4자리 이상만 받는 것도 같은 이유.
+_PRICE_RE = re.compile(
+    r"(?:฿|THB|บาท|baht)\s*([0-9][0-9,]{2,7})"          # 통화 기호가 앞
+    r"|([0-9][0-9,]{2,7})\s*(?:฿|THB|บาท|baht)",        # 통화 기호가 뒤
+    re.IGNORECASE,
+)
+
+
+def extract_price_mentions(text: str) -> list[int]:
+    out: list[int] = []
+    for m in _PRICE_RE.finditer(text):
+        raw = m.group(1) or m.group(2) or ""
+        try:
+            v = int(raw.replace(",", ""))
+        except ValueError:
+            continue
+        if 100 <= v <= 200_000:
+            out.append(v)
+    return out
+
+
 def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> dict:
     """reviews/<pid>_reviews.csv 분석.
     리턴: scraped_count, local_guide_count, avg_author_review_count,
@@ -786,6 +813,7 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
         "sample_reviews_ko": [],
         "doctor_stats": [],
         "derived_categories": [],
+        "price_mentions": [],
     }
     if not p.exists():
         return empty
@@ -819,10 +847,12 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
     }
     # doctor name → { ratings: [], lang_count: {}, sample: str }
     doctor_data: dict[str, dict] = {}
+    price_mentions: list[int] = []
     for r in rows:
         text = (r.get("text") or "").strip()
         if not text:
             continue
+        price_mentions.extend(extract_price_mentions(text))
         lang = detect_lang(text)
         lang_count[lang] += 1
         try:
@@ -936,10 +966,77 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
         "sample_reviews_negative": pick_negative(text_chunks_by_lang, n=3),
         "doctor_stats": doctor_stats,
         "derived_categories": categories,
+        "price_mentions": sorted(price_mentions),
     }
 
 
 # ── 단일 도시 처리 ────────────────────────────────────────────
+# 2026-09-23: clinic_hours.csv(place_id, day, hours_text) 를 읽어 place_id 별
+# 요약을 만든다. 스크래퍼는 이미 이 파일을 쓰고 있었는데(방콕 덴탈 9,855행)
+# master_db 가 안 읽어서 구별 허브에 "야간·주말 진료" 를 넣을 수 없었다.
+#
+# 원문(요일별 문자열)을 그대로 싣지 않고 불리언 2개로 줄이는 이유: 허브 비교표에
+# 필요한 건 "주말에 여는가 / 저녁에 여는가" 두 가지고, 요일 7줄을 1,825곳에
+# 실으면 master_db 가 수 MB 늘어 Worker CPU(10ms) 예산에 그대로 얹힌다.
+_CLOSED_RE = re.compile(r"closed|ปิด", re.IGNORECASE)
+_OPEN24_RE = re.compile(r"24\s*hours|ตลอด\s*24", re.IGNORECASE)
+# 실측 포맷 분포(덴탈 방콕 9,855행): "10 am–8 pm"(2,617) > "9 am–8 pm"(644) >
+# "8 AM–7:30 PM" … 즉 **분이 없는 형태가 다수**다. 분을 필수로 잡으면 야간 진료가
+# 6% 로 과소 집계된다(실측 288곳 → 수정 후 재집계). 분은 선택으로 둔다.
+_TIME_RE = re.compile(r"(\d{1,2})(?:[:.](\d{2}))?\s*(a\.?m\.?|p\.?m\.?)?", re.IGNORECASE)
+
+
+def _closing_hour(hours_text: str) -> int | None:
+    """"10 am–8 pm" / "09:00–20:00" 류에서 닫는 시각(24h)을 뽑는다. 못 읽으면 None."""
+    txt = hours_text or ""
+    if _OPEN24_RE.search(txt):
+        return 24
+    times = [m for m in _TIME_RE.finditer(txt) if m.group(1)]
+    if len(times) < 2:
+        return None
+    m = times[-1]
+    try:
+        hh = int(m.group(1))
+    except (TypeError, ValueError):
+        return None
+    ap = (m.group(3) or "").lower().replace(".", "")
+    if ap == "pm" and hh != 12:
+        hh += 12
+    elif ap == "am" and hh == 12:
+        hh = 0
+    elif not ap and hh <= 11:
+        # am/pm 표기가 없는데 닫는 시각이 한 자리면 오후로 읽는다
+        # ("9–6" = 오전 9시~오후 6시). 24시간 표기(20:00)는 그대로 둔다.
+        hh += 12
+    return hh if 0 <= hh <= 24 else None
+
+
+def load_hours_summary(hours_csv: Path) -> dict[str, dict]:
+    if not hours_csv.exists():
+        return {}
+    by_pid: dict[str, dict] = {}
+    try:
+        with open(hours_csv, encoding="utf-8-sig", errors="replace", newline="") as f:
+            for row in csv.DictReader(f):
+                pid = (row.get("place_id") or "").strip()
+                day = (row.get("day") or "").strip().lower()
+                txt = (row.get("hours_text") or "").strip()
+                if not pid or not day:
+                    continue
+                e = by_pid.setdefault(pid, {"open_weekend": False, "open_evening": False, "days_open": 0})
+                if not txt or _CLOSED_RE.search(txt):
+                    continue
+                e["days_open"] += 1
+                if day.startswith(("sat", "sun", "เสาร", "อาทิตย")):
+                    e["open_weekend"] = True
+                ch = _closing_hour(txt)
+                if ch is not None and ch >= 19:
+                    e["open_evening"] = True
+    except Exception:
+        return by_pid
+    return by_pid
+
+
 def process_source(
     source: dict,
     clinics: list[dict],
@@ -954,6 +1051,8 @@ def process_source(
     seen_place_ids: 이미 다른 도시에서 처리한 place_id 는 skip (CSV 내 또는 도시간 중복). """
     csv_path: Path = source["clinics_csv"]
     reviews_dir: Path = source["reviews_dir"]
+    # 영업시간은 clinics.csv 와 같은 폴더의 clinic_hours.csv 에 있다(스크래퍼가 함께 씀).
+    hours_by_pid = load_hours_summary(csv_path.parent / "clinic_hours.csv")
     city_label: str = source["city_label"]
     city_slug: str = source["city_slug"]
     if not csv_path.exists():
@@ -1041,6 +1140,9 @@ def process_source(
                 "local_guide_count": review_sig["local_guide_count"],
                 "avg_author_review_count": review_sig["avg_author_review_count"],
                 "language_breakdown": review_sig["language_breakdown"],
+                # 허브 비교표 재료 (2026-09-23)
+                "price_mentions": review_sig.get("price_mentions", []),
+                "hours": hours_by_pid.get(place_id) or None,
                 "service_mentions": review_sig["service_mentions"],
                 "mentioned_topics": review_sig["mentioned_topics"],
                 "rating_trend": review_sig["rating_trend"],

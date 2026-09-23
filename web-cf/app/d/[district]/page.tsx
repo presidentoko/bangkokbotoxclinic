@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { loadMasterDb, filterByDistrict } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
 import { ClinicCardCompact } from "@/components/ClinicCardCompact";
+import { DistrictCompareTable } from "@/components/DistrictCompareTable";
 import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { BookingForm } from "@/components/BookingForm";
@@ -190,6 +191,10 @@ export default async function DistrictPage(
           </div>
         </section>
       )}
+
+      {/* 2026-09-23: near-me 검색의 핵심은 "여러 곳 비교"인데 카드 나열만으로는
+          그게 안 됐다. 가격·주말/야간 진료·영어 가능 여부를 한 표에 모은다. */}
+      <DistrictCompareTable clinics={filtered} />
 
       <div className="grid gap-3">
         {filtered.slice(0, 10).map((c, i) => (

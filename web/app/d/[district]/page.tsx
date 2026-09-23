@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByDistrict } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
+import { DistrictCompareTable } from "@/components/DistrictCompareTable";
 import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
@@ -180,6 +181,9 @@ export default async function DistrictPage(
           </div>
         </section>
       )}
+
+      {/* 2026-09-23: near-me 비교 의도 대응 비교표 */}
+      <DistrictCompareTable clinics={filtered} />
 
       <div className="grid gap-3">
         {filtered.slice(0, 10).map((c, i) => (

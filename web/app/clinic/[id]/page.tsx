@@ -103,7 +103,25 @@ export async function generateMetadata(
   // 스팸처럼 보이는 것을 막는다. H1·JSON-LD 는 원본 c.name 그대로.
   const dispName = c.display_name || c.name;
   const title = `${dispName} — Reviews & Prices ★${c.rating} (${c.total_reviews.toLocaleString()})`;
-  const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} rating from ${c.total_reviews} Google reviews. ${cats || "Aesthetic clinic"}. See prices, photos & book a free consult.`;
+  // 2026-09-23: 스니펫에 실제 정보를 넣는다. GSC 에서 업체명 쿼리
+  // (thantakit reviews 621노출 8.7위, ic smile 569노출 4.6위)가 노출은 나는데
+  // 클릭이 0이었다 — 1페이지권에서 클릭이 0이면 순위가 아니라 스니펫 문제다.
+  // "See prices, photos & book a free consult" 같은 광고 문구 대신 사람이
+  // 방문 전에 실제로 확인하는 값(가격대·주말/야간 진료)을 앞으로 뺀다.
+  // 값이 없으면 그 조각을 통째로 뺀다 — 빈 라벨은 스팸처럼 보인다.
+  const _pm = (c as unknown as { price_mentions?: number[] }).price_mentions;
+  const _hours = (c as unknown as { hours?: { open_weekend?: boolean; open_evening?: boolean } }).hours;
+  const _priceBit = (() => {
+    if (!_pm || _pm.length < 2) return "";
+    const s = [..._pm].sort((a, b) => a - b);
+    const cut = Math.floor(s.length * 0.1);
+    const core = s.slice(cut, s.length - cut || undefined);
+    return core.length ? ` Reported prices ฿${core[0].toLocaleString()}–${core[core.length - 1].toLocaleString()}.` : "";
+  })();
+  const _hoursBit = _hours
+    ? ` ${[_hours.open_weekend ? "Open weekends" : "", _hours.open_evening ? "open late" : ""].filter(Boolean).join(", ")}.`.replace(" .", "")
+    : "";
+  const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} from ${c.total_reviews} Google reviews.${_priceBit}${_hoursBit} ${cats || "Aesthetic clinic"}.`.replace(/\s+/g, " ").trim();
 
   // 이 사이트 소관이 아닌 클리닉이면 (예: 덴탈 사이트에 뜬 보톡스 전용 클리닉)
   // 절대 URL로 진짜 소유 도메인을 캐노니컬로 지정 + noindex — 두 도메인 동시 색인 방지.

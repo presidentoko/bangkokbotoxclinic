@@ -15,6 +15,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByDistrict } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
+import { DistrictCompareTable } from "@/components/DistrictCompareTable";
 import { BreadcrumbJsonLd, CollectionPageJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { BookingForm } from "@/components/BookingForm";
 import { applySiteFilter, getSiteConfig, getSiteUrl } from "@/lib/site";
@@ -208,6 +209,10 @@ export default async function ThaiDistrictPage(
           English version
         </a>
       </div>
+
+      {/* 2026-09-23: 태국어 near-me 쿼리("คลินิกทำฟัน[เขต]")가 이 사이트의 주력인데
+          허브가 카드 나열뿐이었다. 가격·เวลาเปิด·영어 가능 여부 비교표를 얹는다. */}
+      <DistrictCompareTable clinics={filtered} lang="th" />
 
       <div className="grid gap-4">
         {filtered.slice(0, 40).map((c, i) => (
