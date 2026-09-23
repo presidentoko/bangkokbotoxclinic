@@ -42,6 +42,25 @@ CITY_PROVINCES = {
     "phuket": {"ภูเก็ต"},
 }
 
+# `city` records which grid scan found the clinic, not where it is: the Bangkok
+# scan reached 50 clinics in Nonthaburi and 18 in Samut Prakan, and looking for
+# those in the Bangkok half of the register could only ever fail. The address
+# decides, exactly as it does on the site (lib/hospitals.ts).
+ADDRESS_PROVINCES = {
+    "นนทบุรี": {"นนทบุรี"},
+    "สมุทรปราการ": {"สมุทรปราการ"},
+    "ปทุมธานี": {"ปทุมธานี"},
+    "นครปฐม": {"นครปฐม"},
+}
+
+
+def provinces_for(h: dict) -> set[str]:
+    address = h.get("address") or ""
+    for needle, provinces in ADDRESS_PROVINCES.items():
+        if needle in address:
+            return provinces
+    return CITY_PROVINCES.get(h.get("city") or "bangkok", set())
+
 # Longest first, so "โรงพยาบาลสัตว์" is removed before "สัตว์" could be.
 GENERIC = sorted([
     "สถานพยาบาลสัตว์", "โรงพยาบาลสัตว์", "โรงพยาบาลสัตว์เล็ก", "โรงพยาบาล", "รพ.สัตว์", "รพ สัตว์", "รพ.",
@@ -114,7 +133,7 @@ def main() -> None:
                 out[h["id"]] = rec
             continue
 
-        provinces = CITY_PROVINCES.get(h.get("city") or "bangkok", set())
+        provinces = provinces_for(h)
         address = re.sub(r"\s+", "", h.get("address") or "")
         h_core, h_branch = core(h.get("name_th") or "")
         if thai_len(h_core) < 2:

@@ -41,7 +41,26 @@ const GSC_EARNING = new Set([
   'acana-classics-beef-and-barley-recipedry-dog-food',
 ])
 
+/**
+ * 2026-09-23: no product page is indexable, whatever its data.
+ *
+ * The gate below cut the sitemap from 973 product URLs to 558 and left the
+ * graded ones in. A week later the section still reads as what Google's spam
+ * systems call a thin affiliate: 558 near-identical pages, each a name, a
+ * panel, a buy button, most of the wording shared. Its whole contribution to
+ * search in three months was 59 impressions and no clicks, so there is nothing
+ * to protect and the section is the clearest remaining scaled-content signal on
+ * the site.
+ *
+ * The pages stay live, linked and usable — the grades are the reason people are
+ * sent here from a video — they are simply not offered to Search. The way back
+ * in is a handful of problem-led comparison guides ("แมวเป็นโรคไต ควรกินอาหาร
+ * อะไร") that cite these pages, not the product pages themselves.
+ */
+const PRODUCT_PAGES_INDEXABLE = false
+
 export function isIndexableFood(food: PetFood, slug: string): boolean {
+  if (!PRODUCT_PAGES_INDEXABLE) return false
   if (foodKind(food) === 'nonfood') return false
   if (GSC_EARNING.has(slug)) return true
   if (getFoodGrade(food)) return true

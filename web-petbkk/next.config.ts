@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next'
 import hospitalRedirects from './data/hospital-redirects.json'
+import excludedRedirects from './data/hospital-excluded-redirects.json'
 
 const config: NextConfig = {
   /**
@@ -70,12 +71,22 @@ const config: NextConfig = {
     // the Thai name (/hospital/rong-phayaban-sat-siriwech-hawlamphong). The old
     // URLs are indexed, so each one gets a 308 rather than being left to 404.
     // Regenerate with: npx tsx scripts/build-hospital-redirects.ts
+    // A moved URL whose new slug has since been unpublished would otherwise
+    // 308 twice; send it straight to the final destination.
+    const unpublishedBySlug = excludedRedirects as Record<string, string>
     const slugMoves = Object.entries(hospitalRedirects as Record<string, string>).map(
       ([from, to]) => ({
         source: `/hospital/${from}`,
-        destination: `/hospital/${to}`,
+        destination: unpublishedBySlug[to] ?? `/hospital/${to}`,
         permanent: true,
       }),
+    )
+
+    // Entries the directory no longer publishes because they are not
+    // veterinary facilities (petvet/classify_directory.py). Their URLs were
+    // crawled, so they go to the city's clinic list rather than 404.
+    const unpublished = Object.entries(unpublishedBySlug).map(
+      ([from, to]) => ({ source: `/hospital/${from}`, destination: to, permanent: true }),
     )
 
     return [
@@ -100,6 +111,7 @@ const config: NextConfig = {
         permanent: true,
       },
       ...slugMoves,
+      ...unpublished,
       // /hospital/surgery listed all 503 hospitals, because `has_surgery` is
       // hardcoded true in petvet/transform.py — byte-for-byte the same list as
       // /hospital, which is why Search Console reports 16 pages under

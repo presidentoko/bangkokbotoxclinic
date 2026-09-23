@@ -8,6 +8,8 @@ export const CITY_META: Record<
   Exclude<Hospital['city'], 'bangkok'>,
   { th: string; slug: string; keywords: string[] }
 > = {
+  nonthaburi: { th: 'นนทบุรี', slug: 'nonthaburi', keywords: ['โรงพยาบาลสัตว์นนทบุรี', 'คลินิกสัตว์นนทบุรี', 'สัตวแพทย์บางกรวย', 'โรงพยาบาลสัตว์ราชพฤกษ์'] },
+  samutprakan: { th: 'สมุทรปราการ', slug: 'samutprakan', keywords: ['โรงพยาบาลสัตว์สมุทรปราการ', 'คลินิกสัตว์สมุทรปราการ', 'สัตวแพทย์บางพลี'] },
   chiangmai: { th: 'เชียงใหม่', slug: 'chiangmai', keywords: ['โรงพยาบาลสัตว์เชียงใหม่', 'สัตวแพทย์เชียงใหม่', 'vet Chiang Mai'] },
   pattaya:   { th: 'พัทยา',     slug: 'pattaya',   keywords: ['โรงพยาบาลสัตว์พัทยา', 'สัตวแพทย์พัทยา', 'vet Pattaya'] },
   phuket:    { th: 'ภูเก็ต',     slug: 'phuket',    keywords: ['โรงพยาบาลสัตว์ภูเก็ต', 'สัตวแพทย์ภูเก็ต', 'vet Phuket'] },

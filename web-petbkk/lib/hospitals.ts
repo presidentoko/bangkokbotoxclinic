@@ -1,6 +1,7 @@
 import type { Hospital, HospitalFilters, HospitalLight } from './types'
 import { getLicense } from './licenses'
 import rawData from '../data/hospitals.json'
+import excludedFile from '../data/hospital-excluded.json'
 import { toSlug } from './slugify'
 import { romanizeThai, trimSlug } from './thai'
 
@@ -18,13 +19,59 @@ export function haversineKm(lat1: number, lng1: number, lat2: number, lng2: numb
 // rather than at each of the dozen render sites.
 let cleaned: Hospital[] | null = null
 
-export function loadHospitals(): Hospital[] {
+/**
+ * Every scraped record, including the ones that are not veterinary facilities.
+ *
+ * Only the slug map needs this. Slugs are handed out in file order and a
+ * collision takes the next free "-2", so building the map from the published
+ * subset would hand a survivor a slug that currently belongs to a neighbour —
+ * silently moving live URLs. Publication is a filter applied after naming.
+ */
+export function loadAllHospitals(): Hospital[] {
   if (cleaned) return cleaned
   cleaned = (rawData as Hospital[]).map(h => {
     const address = (h.address ?? '').replace(/^[\s·•\-,|]+/, '').trim()
-    return address === h.address ? h : { ...h, address }
+    const city = cityFromAddress(address, h.city)
+    return address === h.address && city === h.city ? h : { ...h, address, city }
   })
   return cleaned
+}
+
+/**
+ * The province the address states, for records the Bangkok grid scan filed as
+ * Bangkok. Nothing is inferred from a coordinate: a clinic moves hubs only when
+ * its own address names another province.
+ */
+function cityFromAddress(address: string, scanned: Hospital['city']): Hospital['city'] {
+  if (scanned !== 'bangkok') return scanned
+  if (/นนทบุรี/.test(address)) return 'nonthaburi'
+  if (/สมุทรปราการ/.test(address)) return 'samutprakan'
+  return 'bangkok'
+}
+
+/**
+ * Entries the directory does not publish, because they are not veterinary
+ * facilities: human hospitals and sub-district health centres, tourist hotels,
+ * groomers and pet hotels, pet shops, a Makro, a Lotus, two massage shops, a
+ * petrol station, a locksmith — everything a Google Maps grid scan collects
+ * along with the clinics. petvet/classify_directory.py decides, and records the
+ * reason for each one; between them they drew 167 impressions and 4 clicks in
+ * three months, on queries like "Café Amazon ทองหล่อ" that are not this site's
+ * business anyway.
+ */
+const EXCLUDED_IDS = new Set(
+  Object.keys((excludedFile as { excluded: Record<string, string> }).excluded),
+)
+
+export function isPublishedHospital(h: Hospital): boolean {
+  return !EXCLUDED_IDS.has(h.id)
+}
+
+let published: Hospital[] | null = null
+
+export function loadHospitals(): Hospital[] {
+  if (!published) published = loadAllHospitals().filter(isPublishedHospital)
+  return published
 }
 
 /**
@@ -82,7 +129,7 @@ function getSlugMap(): WeakMap<Hospital, string> {
   // taken, is what makes collisions structurally impossible rather than just
   // less likely.
   const taken = new Set<string>()
-  for (const h of loadHospitals()) {
+  for (const h of loadAllHospitals()) {
     const base = baseHospitalSlug(h)
     let slug = base
     let n = 2

@@ -132,7 +132,14 @@ export interface Hospital {
    *  publish "โรงพยาบาลสัตว์ในกรุงเทพ 985 แห่ง" once Chiang Mai, Pattaya and
    *  Phuket records exist in the same file.
    */
-  city: 'bangkok' | 'chiangmai' | 'pattaya' | 'phuket'
+  /**
+   * Which hub the clinic belongs to. The scrapers record the grid scan it came
+   * from, so every clinic the Bangkok scan reached was filed as 'bangkok' —
+   * including 50 in Nonthaburi and 18 in Samut Prakan, which made the hub's
+   * "โรงพยาบาลสัตว์ในกรุงเทพ N แห่ง" wrong and left those provinces with no
+   * page of their own. `loadAllHospitals()` re-reads it from the address.
+   */
+  city: 'bangkok' | 'nonthaburi' | 'samutprakan' | 'chiangmai' | 'pattaya' | 'phuket'
 }
 
 /**

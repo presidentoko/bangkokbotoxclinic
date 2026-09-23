@@ -107,6 +107,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Exactly the set the product page leaves indexable (lib/indexing.ts) — a
   // noindex URL in the sitemap spends crawl budget to be told to go away.
+  // That set is currently empty by design; the category and hub pages below
+  // still carry the catalogue into Search.
   const foodPages: MetadataRoute.Sitemap = foods
     .filter(f => isIndexableFood(f, foodSlug(f)))
     .map(f => ({

@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import { getHours, summarizeHours, toSchemaHours, isAlwaysOpen } from '@/lib/hospitalHours'
 import AdSlot from '@/components/AdSlot'
 import LicenseVerification from '@/components/LicenseVerification'
-import { getLicense } from '@/lib/licenses'
+import { getLicense, LICENSE_CLASS } from '@/lib/licenses'
 import { getHospitalBySlug, loadHospitals, hospitalSlug, hasPreciseCoord } from '@/lib/hospitals'
 import { getHospitalReviews } from '@/lib/petreviews'
 import NearbyHospitals from '@/components/NearbyHospitals'
@@ -17,6 +17,8 @@ import { districtForHospital } from '@/lib/districts'
 // have published that literal address for a real Chiang Mai or Phuket clinic.
 const CITY_LABEL: Record<Hospital['city'], { th: string; en: string; region: string }> = {
   bangkok:   { th: 'กรุงเทพมหานคร', en: 'Bangkok',   region: 'กรุงเทพมหานคร' },
+  nonthaburi:  { th: 'นนทบุรี',      en: 'Nonthaburi', region: 'นนทบุรี' },
+  samutprakan: { th: 'สมุทรปราการ',  en: 'Samut Prakan', region: 'สมุทรปราการ' },
   chiangmai: { th: 'เชียงใหม่',     en: 'Chiang Mai', region: 'เชียงใหม่' },
   pattaya:   { th: 'พัทยา',         en: 'Pattaya',    region: 'ชลบุรี' },
   phuket:    { th: 'ภูเก็ต',         en: 'Phuket',     region: 'ภูเก็ต' },
@@ -50,7 +52,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   // Thai category term gives Thai searchers something to recognise in the SERP.
   const needsThaiAnchor = !/[ก-๙]/.test(h.name_th)
   const titleName = needsThaiAnchor ? `${h.name_th} โรงพยาบาลสัตว์` : h.name_th
-  const title = [titleName, ratingPart, serviceStr].filter(Boolean).join(' · ')
+  // On a clinic's own name the competition in the result page is the clinic's
+  // own site and its Google listing, and a directory that repeats the rating
+  // they already show gives nobody a reason to click: กรีนเว็ทสัตวแพทย์ drew 615
+  // impressions at position 6.7 and one click. The licence is the one line in
+  // that result that nothing else there can say.
+  const licence = getLicense(h.id)
+  const licencePart = licence ? '✅ มีใบอนุญาต' : ''
+  const title = [titleName, ratingPart, serviceStr, licencePart].filter(Boolean).join(' · ')
 
   const priceInfo = h.price_consult ? ` · ค่าตรวจ ${h.price_consult.toLocaleString()} บาท` : ''
   // Put the actual opening hours in the snippet rather than the phrase
@@ -58,12 +67,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   // for a time, and 442 of the clinics can now show one.
   const hours = getHours(h.id)
   const hoursLine = hours ? summarizeHours(hours) : ''
+  const licenceLine = licence && licence.license_class
+    ? `ใบอนุญาตสถานพยาบาลสัตว์ ${licence.license_no} (${LICENSE_CLASS[licence.license_class].short})`
+    : ''
   const description = [
     `${h.name_th}${serviceStr ? ` (${serviceStr})` : ''}`,
     ratingPart,
     hoursLine,
+    licenceLine,
     h.address,
-  ].filter(Boolean).join(' · ') + `${priceInfo} · ดูแผนที่ เบอร์โทร เส้นทาง`
+  ].filter(Boolean).join(' · ') + `${priceInfo} · ${h.phone ? 'เบอร์โทร ' : ''}แผนที่ เส้นทาง`
 
   const hasEnName = h.name_en && h.name_en !== h.name_th
   const keywords = [h.name_th, ...(hasEnName ? [h.name_en!] : []), 'โรงพยาบาลสัตว์', 'สัตวแพทย์', ...services]
