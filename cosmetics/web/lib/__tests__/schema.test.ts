@@ -11,11 +11,14 @@ describe("schema", () => {
     expect(ld["@type"]).toBe("ItemList");
     expect(ld.itemListElement[0].position).toBe(1);
   });
-  it("product has AggregateRating + Review", () => {
+  it("product carries no third-party rating markup", () => {
     const ld = productLd(P, "https://site/th/product/1");
     expect(ld["@type"]).toBe("Product");
-    expect(ld.aggregateRating.ratingValue).toBe(4.6);
-    expect(ld.review.length).toBeGreaterThan(0);
+    // No rating markup: the stars and review text on these pages come from
+    // Konvy and Watsons, and Google's review-snippet policy only allows markup
+    // for reviews the site collected itself.
+    expect(ld.aggregateRating).toBeUndefined();
+    expect(ld.review).toBeUndefined();
   });
   it("ingredient is DefinedTerm", () => {
     expect(ingredientLd({inci:"Niacinamide",en_name:"Niacinamide",mechanism_en:"m"} as any,"https://site/th/ingredient/niacinamide")["@type"]).toBe("DefinedTerm");

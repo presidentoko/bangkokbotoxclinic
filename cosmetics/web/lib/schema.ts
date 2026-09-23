@@ -90,54 +90,15 @@ export function productLd(p: Product, pageUrl: string) {
       // stale value is strictly worse than no value.
     },
   };
-  if (p.konvy_review_count > 0 && p.konvy_rating > 0) {
-    ld.aggregateRating = {
-      "@type": "AggregateRating",
-      ratingValue: p.konvy_rating,
-      reviewCount: p.konvy_review_count,
-      bestRating: 5,
-      worstRating: 1,
-    };
-  }
-  // Individual review text. review_summary.samples is empty for every product in
-  // master_db — the Konvy/Boots/iHerb review scrapers currently return 0 snippets
-  // across the board — which was emitting `"review": []` on all ~1,000 product
-  // pages. An empty array is a schema validation error, not a neutral omission.
-  //
-  // Watsons is the one source that does return review text (1,905 snippets across
-  // 166 products), and WatsonsModule already renders those quotes visibly on the
-  // page, so marking them up here describes on-page content rather than inventing
-  // it. They are attributed to Watsons via `publisher`, since BangkokFillers did
-  // not collect them.
-  type Rev = { rating: number; author?: string; body: string; date?: string; fromWatsons: boolean };
-  const fromSamples: Rev[] = (p.review_summary?.samples ?? []).map((r) => {
-    const rr = r as typeof r & { body?: string; text?: string };
-    return { rating: r.rating ?? 0, author: r.author, body: rr.body || rr.text || "", fromWatsons: false };
-  });
-  const fromWatsons: Rev[] = (p.watsons?.snippets ?? []).map((s) => ({
-    rating: s.rating ?? 0,
-    author: s.author,
-    body: s.text ?? "",
-    date: s.date,
-    fromWatsons: true,
-  }));
-  const reviews = [...fromSamples, ...fromWatsons]
-    .filter((r) => r.body.trim() !== "" && r.rating > 0)
-    // WatsonsModule shows 4; keeping the markup to the same 4 avoids describing
-    // reviews the visitor cannot actually see on the page.
-    .slice(0, 4);
-  if (reviews.length > 0) {
-    ld.review = reviews.map((r) => ({
-      "@type": "Review",
-      reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5, worstRating: 1 },
-      author: { "@type": "Person", name: r.author || "Verified buyer" },
-      reviewBody: r.body.trim(),
-      ...(r.date ? { datePublished: String(r.date).slice(0, 10) } : {}),
-      ...(r.fromWatsons
-        ? { publisher: { "@type": "Organization", name: "Watsons Thailand" } }
-        : {}),
-    }));
-  }
+  // No aggregateRating and no review markup. Both described ratings this site
+  // did not collect: aggregateRating republished Konvy's star average and review
+  // count, and the review array carried Watsons' review text under named
+  // authors. Google's review-snippet policy allows markup only for reviews the
+  // site itself gathered about the item; republishing a retailer's ratings as
+  // your own structured data is self-serving markup and is what manual actions
+  // are issued for. The Konvy rating and the Watsons quotes stay visible on the
+  // page (ReviewModule, WatsonsModule) with their source named — showing them is
+  // fine, claiming them in schema is not.
   return ld;
 }
 

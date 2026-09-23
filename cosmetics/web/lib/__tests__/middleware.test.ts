@@ -36,3 +36,26 @@ describe("middleware", () => {
     expect(location(`/en/product/${thick}-999999999`)).toBe(`${BASE}/en/brand/${thick}`);
   });
 });
+
+describe("dead WordPress paths", () => {
+  // These were indexed when a WordPress site lived here; /privacy-policy9 acted
+  // as a catch-all, so Google holds URLs like /privacy-policy9/oilcontrol.
+  const gone = [
+    "/privacy-policy9",
+    "/privacy-policy9/oilcontrol",
+    "/privacy-policy9/product/her-hyness-109669",
+    "/privacy-policy9/ingredient/centella-asiatica-extract",
+    "/author/ploy",
+  ];
+  for (const p of gone) {
+    it(`410s ${p}`, () => {
+      expect(run(p).status).toBe(410);
+    });
+  }
+
+  it("leaves the site's own privacy page alone", () => {
+    const res = run("/th/privacy");
+    expect(res.status).toBe(200);
+    expect(res.headers.get("location")).toBeNull();
+  });
+});

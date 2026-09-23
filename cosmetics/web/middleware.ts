@@ -28,6 +28,8 @@ const PRODUCT_IDS = new Set(routeIndex.productIds);
 const BRAND_SLUGS = new Set(routeIndex.brandSlugs);
 const THIN_BRAND_SLUGS = new Set(routeIndex.thinBrandSlugs ?? []);
 
+const GONE = /^\/(privacy-policy\d*|author)(\/|$)/;
+
 // Mirrors productIdFromSlug() in lib/format.ts.
 function idFromSlug(slug: string): string {
   return slug.split("-").pop() ?? "";
@@ -61,6 +63,19 @@ function permanentRedirect(request: NextRequest, pathname: string) {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Leftovers from the WordPress site that used to live here: /privacy-policy9
+  // and everything Google crawled beneath it (it behaved as a catch-all then,
+  // so /privacy-policy9/oilcontrol, /privacy-policy9/product/... all resolved),
+  // plus /author/*. They already 404, but 404 means "maybe later" and Google
+  // re-checks such URLs for months; 410 means gone and drops them faster. There
+  // is nothing to redirect them to — none of these paths has a successor page.
+  if (GONE.test(pathname)) {
+    return new NextResponse("Gone", {
+      status: 410,
+      headers: { "content-type": "text/plain; charset=utf-8", "x-robots-tag": "noindex" },
+    });
+  }
 
   // Thin brands have fewer than three products, so their dupe page has nothing
   // to compare against. Those pages already carried noindex, meaning they were
@@ -118,5 +133,15 @@ export function middleware(request: NextRequest) {
 export const config = {
   // Only product and dupe detail URLs reach this. Everything else — static
   // assets, the sitemap, every other route — skips middleware entirely.
-  matcher: ["/:locale(th|en)/product/:slug", "/:locale(th|en)/dupe/:brand"],
+  matcher: [
+    "/:locale(th|en)/product/:slug",
+    "/:locale(th|en)/dupe/:brand",
+    // Dead WordPress paths, answered with 410 above. `:rest(.*)` rather than
+    // `:path*` because the live URLs are /privacy-policy9/... — the digits sit
+    // inside the first segment, which a segment-wise matcher never sees.
+    // (`/privacy-policy:suffix*` does not merely miss them, it throws at build:
+    // "Can not repeat without a prefix and suffix".)
+    "/privacy-policy:rest(.*)",
+    "/author:rest(.*)",
+  ],
 };
