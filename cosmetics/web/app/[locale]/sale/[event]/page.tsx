@@ -97,7 +97,10 @@ function saleFaqs(
   when: Date
 ): { q: string; a: string }[] {
   const isTh = loc === "th";
-  const label = isTh ? ev.labelTh : ev.labelEn;
+  // labelEn already ends in "Sale" ("10.10 Sale"), so using it inside a sentence
+  // that also says "sale" printed "the 10.10 Sale sale". The numeric label is
+  // the same in both languages, so English prose takes that and adds its own noun.
+  const label = ev.labelTh;
   const date = fmtDate(when, loc);
   const seller = stats.retailer ?? (isTh ? "ร้านค้าออนไลน์" : "the retailers we track");
   const asOf = stats.asOf ?? "";
