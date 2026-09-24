@@ -2,8 +2,17 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { LOCALES, STATIC_LOCALES, localeAlternates, localeOgImage, type Locale } from "@/lib/i18n";
 import { productSlug } from "@/lib/data";
-import { SALE_EVENTS, getSaleEvent, getSaleRanking, currentSaleEvent } from "@/lib/sale";
+import {
+  SALE_EVENTS,
+  getSaleEvent,
+  getSaleRanking,
+  currentSaleEvent,
+  saleEventDate,
+  saleStats,
+} from "@/lib/sale";
 import { JsonLd } from "@/components/JsonLd";
+import { FaqSection } from "@/components/FaqSection";
+import { faqLd } from "@/lib/schema";
 
 export const revalidate = 86400;
 // 2026-07-13 긴급 픽스 — ISR Writes 한도 초과 대응. event는 고정 목록뿐이라
@@ -65,6 +74,74 @@ export async function generateMetadata({
   };
 }
 
+const fmtDate = (d: Date, loc: Locale) =>
+  d.toLocaleDateString(loc === "th" ? "th-TH" : "en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+
+/**
+ * Event-specific copy and FAQs.
+ *
+ * Every figure comes from saleStats() — counted from the catalogue — and each
+ * block names the date the prices were collected. The dataset holds no price
+ * history, so these pages never claim a product is cheaper *because* of the
+ * event, and never predict the day's discounts.
+ */
+function saleFaqs(
+  ev: (typeof SALE_EVENTS)[number],
+  loc: Locale,
+  stats: ReturnType<typeof saleStats>,
+  when: Date
+): { q: string; a: string }[] {
+  const isTh = loc === "th";
+  const label = isTh ? ev.labelTh : ev.labelEn;
+  const date = fmtDate(when, loc);
+  const seller = stats.retailer ?? (isTh ? "ร้านค้าออนไลน์" : "the retailers we track");
+  const asOf = stats.asOf ?? "";
+  const out: { q: string; a: string }[] = [
+    isTh
+      ? {
+          q: `เซล ${ev.labelTh} ปีนี้ตรงกับวันไหน?`,
+          a: `${date} — แคมเปญ ${ev.labelTh} ของร้านค้าไทยส่วนใหญ่เริ่มก่อนหน้านั้นไม่กี่วันและจบในวันนั้น ราคาบนหน้านี้เก็บจาก ${seller} เมื่อ ${asOf} จึงเป็นราคาก่อนแคมเปญ ไม่ใช่ราคาวันงาน`,
+        }
+      : {
+          q: `When is the ${label} sale this year?`,
+          a: `${date}. Most Thai retailers open the ${label} campaign a few days early and close it that night. The prices on this page were collected from ${seller} on ${asOf}, so they are pre-campaign prices, not the prices of the day.`,
+        },
+    isTh
+      ? {
+          q: "อันดับนี้คิดจากอะไร?",
+          a: `ส่วนลด × คะแนนรวมจากส่วนผสมและรีวิวจริง สินค้าที่ลดเยอะแต่คะแนนต่ำจะไม่ขึ้นมาอยู่บนสุด ตอนนี้มีสินค้าที่ติดส่วนลด ${stats.discounted} จาก ${stats.total} รายการในฐานข้อมูล`,
+        }
+      : {
+          q: "How is this ranking built?",
+          a: `Discount multiplied by the product's overall score from its ingredients and real reviews, so a deep cut on a weak product does not reach the top. ${stats.discounted} of the ${stats.total} products in the database currently carry a discount.`,
+        },
+    isTh
+      ? {
+          q: `ส่วนลดช่วง ${ev.labelTh} ปกติลดกี่เปอร์เซ็นต์?`,
+          a: `จากชุดข้อมูลนี้ ส่วนลดกลาง ๆ อยู่ที่ ${stats.medianPct}% สูงสุด ${stats.maxPct}% และมี ${stats.halfOffCount} รายการที่ลดตั้งแต่ครึ่งราคาขึ้นไป คิดเป็นเงินที่ประหยัดได้กลาง ๆ ประมาณ ฿${stats.medianSavingThb} ต่อชิ้น ตัวเลขนี้เป็นภาพรวมของวันที่เก็บข้อมูล ไม่ใช่การพยากรณ์ราคาวัน ${ev.labelTh}`,
+        }
+      : {
+          q: `How deep do ${label} discounts usually go?`,
+          a: `In this dataset the median discount is ${stats.medianPct}%, the deepest is ${stats.maxPct}%, and ${stats.halfOffCount} products are at half price or better — a median saving of about ฿${stats.medianSavingThb} per item. That describes the snapshot, and is not a forecast of ${label} pricing.`,
+        },
+    isTh
+      ? {
+          q: "ราคาตัดจากราคาเต็มจริงหรือเปล่า?",
+          a: `เราเก็บทั้งราคาขายและราคาเต็มที่ร้านแสดงไว้ แล้วคำนวณส่วนลดจากสองค่านั้น เราไม่มีประวัติราคาย้อนหลัง จึงยืนยันไม่ได้ว่าราคาเต็มนั้นเคยขายจริงหรือไม่ — ถ้าต้องการความแน่ใจ ให้เทียบราคากับร้านอื่นก่อนกดซื้อ`,
+        }
+      : {
+          q: "Are the crossed-out prices real?",
+          a: `We record both the selling price and the list price the retailer displays, and compute the discount from those two. We hold no price history, so we cannot verify that the list price was ever charged — compare against another retailer before buying if that matters to you.`,
+        },
+  ];
+  return out;
+}
+
 export default async function SalePage({
   params,
 }: {
@@ -79,6 +156,9 @@ export default async function SalePage({
 
   const products = getSaleRanking(60);
   const isTh = loc === "th";
+  const stats = saleStats();
+  const when = saleEventDate(ev);
+  const faqs = saleFaqs(ev, loc, stats, when);
 
   const heading = isTh
     ? `ดีลสกินแคร์ ${ev.labelTh} คุ้มสุด`
@@ -106,7 +186,13 @@ export default async function SalePage({
   return (
     <main className="max-w-4xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold mb-1">{heading}</h1>
-      <p className="text-gray-500 mb-8">{sub}</p>
+      <p className="text-gray-500 mb-4">{sub}</p>
+
+      <p className="mb-8 max-w-2xl text-sm leading-relaxed text-neutral-600">
+        {isTh
+          ? `${ev.labelTh} ปีนี้ตรงกับ${fmtDate(when, loc)} หน้านี้จัดอันดับสินค้าที่ติดส่วนลดอยู่ ${stats.discounted} รายการจากทั้งหมด ${stats.total} รายการ โดยเรียงตามส่วนลดคูณคะแนนจริง ไม่ใช่ตามงบโฆษณาของแบรนด์`
+          : `${ev.labelEn} falls on ${fmtDate(when, loc)}. This page ranks the ${stats.discounted} discounted products out of ${stats.total} in the database by discount multiplied by their real score — not by what a brand paid to appear.`}
+      </p>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {products.map((p, i) => {
@@ -140,13 +226,21 @@ export default async function SalePage({
         })}
       </div>
 
-      <p className="mt-12 text-sm text-gray-500 max-w-2xl">
+      <div className="mt-12">
+        <FaqSection faqs={faqs} locale={loc} />
+      </div>
+
+      {/* The old line here claimed the list was "updated every 5 minutes". It is
+          not: this route renders from the build-time master_db.json import, so
+          the prices are as old as the last scrape. Say the date instead. */}
+      <p className="mt-8 max-w-2xl text-sm text-gray-500">
         {isTh
-          ? `รายการนี้คัดจากสินค้าที่มีส่วนลด จัดอันดับโดยสูตร "ส่วนลด × คะแนนจากรีวิวจริง" อัปเดตทุก 5 นาที`
-          : `This list is compiled from discounted products ranked by "discount × real review score", updated every 5 minutes.`}
+          ? `ราคาและส่วนลดเก็บจาก${stats.retailer ? ` ${stats.retailer}` : "ร้านค้า"} เมื่อ ${stats.asOf ?? "-"} และอาจเปลี่ยนแปลงแล้ว — กดเข้าไปดูราคาล่าสุดที่หน้าร้านก่อนสั่งซื้อเสมอ`
+          : `Prices and discounts were collected from ${stats.retailer ?? "the retailers we track"} on ${stats.asOf ?? "-"} and may have changed since — always check the current price at the shop before ordering.`}
       </p>
 
       <JsonLd data={itemList} />
+      <JsonLd data={faqLd(faqs)} />
     </main>
   );
 }

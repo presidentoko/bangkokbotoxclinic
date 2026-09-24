@@ -15,6 +15,10 @@ export interface Product {
   value_score: number; total_score: Record<string, number>;
   review_summary: ReviewSummary; concern_seeds: string | string[];
   konvy_rating: number; konvy_review_count: number; sold_count: number;
+  /** ISO timestamp of the scrape this row's price came from. Present on every
+   * row in master_db.json; the sale pages publish the latest one so a stale
+   * price is dated rather than passed off as current. */
+  fetched_at?: string;
   source?: string; beautrium_rating?: number; beautrium_review_count?: number;
   llm_summary?: { th: string; en: string };
   pantip?: PantipData;
