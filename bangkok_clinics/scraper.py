@@ -2112,10 +2112,38 @@ def main():
     # partial/완전실패 재시도 대상 — discovered_places.csv 에 더 이상 없어도
     # clinics.csv 에 기록된 maps_url 로 재시도 큐에 편입 (예전엔 retry_ids 만
     # 계산하고 실제로 큐에 안 넣는 버그가 있었음)
+    #
+    # 2026-09-24: skipped_hrefs 전체를 차단으로 쓰던 걸 closed 만으로 좁힌다.
+    # 아래 재스캔 경로가 09-01 에 이미 통과한 것과 같은 판단인데, 그때 재시도
+    # 경로는 안 고쳐서 여기만 남아 있었다.
+    #
+    # 실측(방콕 스파, 빈칸 525곳): 506곳이 skipped 에 막혀 있었고 사유는
+    #   low_reviews:0            470
+    #   category:off_vertical     34   (그 중 27곳이 "Massage spa" — 스파
+    #                                   스크래퍼가 마사지 스파를 제외했다)
+    #   closed                     2
+    # low_reviews:0 은 "그 순간 페이지에 리뷰가 0개로 보였다"는 일시적 관측인데,
+    # **같은 장소가 clinics.csv 에는 전부 total_reviews >= 5 로 기록돼 있다.**
+    # 우리 데이터 둘이 모순이고 틀린 쪽은 한 번 본 화면이다. off_vertical 도
+    # 오분류이며, 통과시켜도 수집 후 필터에서 다시 걸리므로 안전하다.
+    # 폐업(closed)만 영구 사유로 남긴다.
+    #
+    # 범위를 여기로 좁히는 게 핵심 — skipped_hrefs 의 의미를 전역으로 바꾸면
+    # 다른 도시·버티컬의 발견 단계까지 영향이 간다.
+    _PERMANENT_SKIP = ("closed",)
+
+    def _retry_blocked(href: str) -> bool:
+        if href not in skipped_hrefs:
+            return False
+        return skipped_reasons.get(href, "").startswith(_PERMANENT_SKIP)
+
     retry_added = 0
+    retry_unblocked = 0
     for pid in retry_ids:
         href = retry_hrefs.get(pid)
-        if href and pid not in seen_filtered_pids and href not in skipped_hrefs:
+        if href and pid not in seen_filtered_pids and not _retry_blocked(href):
+            if href in skipped_hrefs:
+                retry_unblocked += 1
             filtered_hrefs.append(href)
             seen_filtered_pids.add(pid)
             retry_added += 1
@@ -2149,7 +2177,7 @@ def main():
             refresh_added += 1
 
     target_n = config.MAX_RESTAURANTS  # None이면 무제한
-    log.info(f"전체 후보: {len(unique_hrefs)} | 신규 처리 대상: {len(filtered_hrefs)} (재시도 편입 {retry_added}개, 리뷰 재스캔 편입 {refresh_added}개)")
+    log.info(f"전체 후보: {len(unique_hrefs)} | 신규 처리 대상: {len(filtered_hrefs)} (재시도 편입 {retry_added}개[skipped 해제 {retry_unblocked}개], 리뷰 재스캔 편입 {refresh_added}개)")
     log.info(f"목표: {'무제한' if target_n is None else target_n}")
     log.info(f"워커: {config.N_WORKERS}개 "
              f"(포트 {config.PROXY_PORT_BASE}~{config.PROXY_PORT_BASE + config.N_WORKERS - 1})")
