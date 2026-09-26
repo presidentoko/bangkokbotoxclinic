@@ -2,11 +2,13 @@ import type { Metadata } from 'next'
 import { filterHospitals, hospitalSlug, toLightHospital } from '@/lib/hospitals'
 import type { Hospital } from '@/lib/types'
 import HospitalCard from '@/components/HospitalCard'
+import { CITY_META } from '@/lib/cityHub'
+import { cities24h } from '@/lib/city24h'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
   title: 'โรงพยาบาลสัตว์ 24 ชั่วโมง กรุงเทพ — รายการครบที่สุด',
-  description: 'รวมโรงพยาบาลสัตว์ที่เปิด 24 ชั่วโมงในกรุงเทพและปริมณฑล พร้อมที่อยู่ เบอร์โทร คะแนน Google และเส้นทาง ค้นหาฟรี ไม่มีค่าใช้จ่าย',
+  description: 'รวมโรงพยาบาลสัตว์ที่เปิด 24 ชั่วโมงในกรุงเทพ พร้อมที่อยู่ เบอร์โทร คะแนน Google เส้นทาง และประเภทใบอนุญาตสถานพยาบาลสัตว์ ค้นหาฟรี',
   alternates: { canonical: 'https://www.thailandpethub.com/hospital/24h' },
   keywords: ['โรงพยาบาลสัตว์ 24 ชั่วโมง', 'โรงพยาบาลสัตว์ 24 ชม กรุงเทพ', 'หมอสัตว์ 24 ชั่วโมง', 'คลินิกสัตว์ 24 ชั่วโมง'],
   openGraph: {
@@ -124,6 +126,21 @@ export default function Hospital24hPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
         {hospitals.map(h => <HospitalCard key={h.id} hospital={toLightHospital(h)} />)}
+      </div>
+
+      {/* Nonthaburi and Samut Prakan used to be counted as Bangkok here; they
+          have their own lists now, as do the other cities with enough clinics
+          open around the clock. */}
+      <div className="flex flex-wrap gap-2 mt-6">
+        {cities24h().map(c => (
+          <a
+            key={c}
+            href={`/hospital/${CITY_META[c].slug}/24h`}
+            className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-red-200 hover:text-red-600 transition-colors"
+          >
+            🚨 24 ชม. ใน{CITY_META[c].th}
+          </a>
+        ))}
       </div>
 
       <section className="bg-white border rounded-2xl p-6 mb-6">

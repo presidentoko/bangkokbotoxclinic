@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { loadAllHospitals, hospitalSlug, isPublishedHospital } from '../lib/hospitals'
+import excluded from '../data/hospital-excluded.json'
 
 /**
  * data/hospital-excluded-redirects.json — where an unpublished directory entry's
@@ -18,10 +19,15 @@ const CITY_HUB: Record<string, string> = {
   phuket: '/hospital/phuket',
 }
 
+// A duplicate map listing goes to the clinic page that survived it, not to the
+// city list: the visitor was looking for that clinic and it does have a page.
+const duplicateOf = (excluded as { duplicate_of?: Record<string, string> }).duplicate_of ?? {}
+
 const out: Record<string, string> = {}
 for (const h of loadAllHospitals()) {
   if (isPublishedHospital(h)) continue
-  out[hospitalSlug(h)] = CITY_HUB[h.city] ?? '/hospital'
+  const twin = duplicateOf[h.id]
+  out[hospitalSlug(h)] = twin ? `/hospital/${twin}` : CITY_HUB[h.city] ?? '/hospital'
 }
 
 const file = path.join(__dirname, '..', 'data', 'hospital-excluded-redirects.json')

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { loadHospitals, hospitalSlug } from './hospitals'
+import { cities24h } from './city24h'
 import type { Hospital } from './types'
 
 const SITE = 'https://www.thailandpethub.com'
@@ -240,6 +241,22 @@ export function CityHospitalPage({ city }: { city: CityKey }) {
         ค้นหาโรงพยาบาลสัตว์และคลินิกสัตว์ใกล้คุณ — {all.length} แห่งใน{th}
       </p>
       <KeyFacts city={city} all={all} />
+      {/* The emergency question is the one that cannot wait for a visitor to
+          scroll a 200-row directory. */}
+      {cities24h().includes(city) && (
+        <a
+          href={`/hospital/${CITY_META[city].slug}/24h`}
+          className="flex items-center justify-between gap-3 mb-6 bg-red-50 border border-red-200 rounded-xl px-4 py-3 hover:border-red-400 transition-colors"
+        >
+          <span>
+            <span className="block text-sm font-bold text-red-900">🚨 โรงพยาบาลสัตว์ 24 ชั่วโมงใน{th}</span>
+            <span className="block text-xs text-red-800">
+              {all.filter(h => h.is_24h).length} แห่ง · เบอร์โทร เส้นทาง และประเภทใบอนุญาต
+            </span>
+          </span>
+          <span className="text-red-700 font-bold">→</span>
+        </a>
+      )}
       <TopRatedList city={city} all={all} />
       <HospitalDirectory city={city} all={all} />
       <CityHubJsonLd city={city} all={all} />

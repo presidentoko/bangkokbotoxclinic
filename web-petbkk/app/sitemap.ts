@@ -4,6 +4,7 @@ import { isIndexableFood } from '@/lib/indexing'
 import { loadHospitals, hospitalSlug } from '@/lib/hospitals'
 import { getIndexableDistricts } from '@/lib/districts'
 import { CITY_META } from '@/lib/cityHub'
+import { cities24h } from '@/lib/city24h'
 import { BREEDS } from '@/lib/breeds'
 
 const BASE = 'https://www.thailandpethub.com'
@@ -134,6 +135,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }))
 
+  // "โรงพยาบาลสัตว์ 24 ชั่วโมง <city>" — only the cities with enough clinics
+  // open around the clock to be worth a page of their own (lib/city24h.tsx).
+  const city24hPages: MetadataRoute.Sitemap = cities24h().map(c => ({
+    url: `${BASE}/hospital/${CITY_META[c].slug}/24h`,
+    lastModified: BUILD_DATE,
+    changeFrequency: 'weekly' as const,
+    priority: 0.9,
+  }))
+
   const hospitalPages: MetadataRoute.Sitemap = hospitals.map(h => ({
     url: `${BASE}/hospital/${hospitalSlug(h)}`,
     lastModified: parsedDate(h.updated_at),
@@ -153,6 +163,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...foodPages,
     ...districtPages,
     ...cityHubPages,
+    ...city24hPages,
     ...hospitalPages,
     ...breedPages,
   ]

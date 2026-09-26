@@ -87,6 +87,17 @@ MANUAL_DROPS = {
     "รานหลงมอยาสตว": "animal-medicine shop",
     "รานหมา": "pet retail",
     "บรษท-ยนเพสท-จำกด-เชยงใหม-unipest-chiang-mai": "pest control company",
+    # Same business listed twice on the map. Both are 15 m or less from the
+    # listing that keeps the reviews, and both are the copy with none.
+    "芭提雅通罗宠物医院": "duplicate listing (Chinese name) of Thonglor Pet Hospital Pattaya",
+    "โรงพยาบาลสตวหมาแมวสนปาตอง-2": "duplicate listing of โรงพยาบาลสัตว์หมาแมวสันป่าตอง",
+}
+
+# Where a dropped entry is a duplicate, its URL belongs on the surviving clinic
+# page rather than on the city list.
+DUPLICATE_OF = {
+    "芭提雅通罗宠物医院": "thonglor-pet-hospital-2",
+    "โรงพยาบาลสตวหมาแมวสนปาตอง-2": "rong-phayaban-sat-hmamaewsanpatong",
 }
 
 
@@ -125,6 +136,7 @@ def main() -> None:
         json.dumps({
             "note": "Directory entries that are not veterinary facilities. See petvet/classify_directory.py.",
             "excluded": dict(sorted(excluded.items())),
+            "duplicate_of": DUPLICATE_OF,
         }, ensure_ascii=False, indent=1),
         encoding="utf-8",
     )
