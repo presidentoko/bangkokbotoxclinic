@@ -13,11 +13,13 @@ import {
 import { STATIC_LOCALES, localeAlternates, localeOgImage, t, concernLabel, SAFETY_FLAG_LABELS, type Locale } from "@/lib/i18n";
 import { ingredientLd, faqLd } from "@/lib/schema";
 import { ingredientNarrative } from "@/lib/ingredient-narrative";
+import { thaiNameWithVariant } from "@/lib/ingredient-name";
 import { JsonLd } from "@/components/JsonLd";
 import { FaqSection } from "@/components/FaqSection";
 import Link from "next/link";
 
 const BASE = "https://bangkokfillers.com";
+
 // 2026-07-13 긴급 픽스 — ISR Writes 한도 초과 대응. 유효 성분은
 // generateStaticParams가 전부 열거하므로 온디맨드 렌더 허용할 이유 없음.
 export const dynamicParams = false;
@@ -37,15 +39,21 @@ export async function generateMetadata({
   const locale = localeRaw as Locale;
   const ing = getIngredient(slug);
   if (!ing) return {};
-  const name = locale === "th" ? ing.th_name : ing.en_name;
-  const title =
-    locale === "th"
-      ? `${name} คืออะไร — ส่วนผสมสกินแคร์`
-      : `${name} — What is it? Skincare Ingredient`;
-  const description =
-    locale === "th"
-      ? `${name} (${ing.inci}) คืออะไร ทำงานอย่างไร และพบในผลิตภัณฑ์ใดบ้าง`
-      : `${name} (${ing.inci}) — what it is, how it works, and which products contain it.`;
+  const isThMeta = locale === "th";
+  const name = isThMeta ? ing.th_name : ing.en_name;
+  // With a variant the "— ส่วนผสมสกินแคร์" tail is dropped: the two spellings
+  // already say the page is about an ingredient, and both have to survive the
+  // truncation that the appended site name brings closer.
+  const titleName = thaiNameWithVariant(ing, isThMeta, (a, b) => `${a} / ${b}`);
+  const title = isThMeta
+    ? titleName !== null
+      ? `${titleName} คืออะไร`
+      : `${name} คืออะไร — ส่วนผสมสกินแคร์`
+    : `${name} — What is it? Skincare Ingredient`;
+  const altList = isThMeta && ing.alt_th_names?.length ? ` หรือ ${ing.alt_th_names.join(" / ")}` : "";
+  const description = isThMeta
+    ? `${name}${altList} (${ing.inci}) คืออะไร ทำงานอย่างไร และพบในผลิตภัณฑ์ใดบ้าง`
+    : `${name} (${ing.inci}) — what it is, how it works, and which products contain it.`;
   return {
     title,
     description,
@@ -153,7 +161,7 @@ export default async function IngredientPage({
       {/* ── Header ── */}
       <header className="space-y-1 border-b border-neutral-100 pb-6">
         <h1 className="font-serif-display text-2xl sm:text-3xl font-semibold text-neutral-900 leading-snug break-words">
-          {name}
+          {thaiNameWithVariant(ing, isTh, (a, b) => `${a} (${b})`) ?? name}
         </h1>
         <p className="text-sm text-neutral-400 font-mono tracking-wide break-all">{ing.inci}</p>
         {ing.aliases?.length > 0 && (
