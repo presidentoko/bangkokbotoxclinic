@@ -30,13 +30,10 @@ import PriceLockGuarantee from "@/components/PriceLockGuarantee";
 import MultiCityCompare from "@/components/MultiCityCompare";
 import WaitingRoomTour from "@/components/WaitingRoomTour";
 import AlternativeProcedures from "@/components/AlternativeProcedures";
-import AwardsShowcase from "@/components/AwardsShowcase";
 import AgeGroupResults from "@/components/AgeGroupResults";
 import SeasonalBestTime from "@/components/SeasonalBestTime";
-import AvailabilityHeatmap from "@/components/AvailabilityHeatmap";
 import InstantQuoteButton from "@/components/InstantQuoteButton";
 import EmergencyContactsBar from "@/components/EmergencyContactsBar";
-import CertificationsBar from "@/components/CertificationsBar";
 import GuaranteeBadge from "@/components/GuaranteeBadge";
 import ClinicPhoneWidget from "@/components/ClinicPhoneWidget";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
@@ -444,8 +441,16 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
 
             <CollapsibleSection title="Trust, safety & certifications" emoji="🛡️">
               <GuaranteeBadge focus="hair" />
-              <AwardsShowcase />
-              <CertificationsBar />
+              {/* AwardsShowcase 제거 (2026-09-26): 실존 기관(Newsweek Best Hospitals,
+                  TripAdvisor Travelers' Choice, MTQUA)이 준 적 없는 상을 연도까지
+                  박아 145개 병원 페이지 전부에 띄우고 있었다. 수상 데이터가 실제로
+                  생기면 그때 클리닉별 출처와 함께 붙인다.
+
+                  CertificationsBar 도 같은 이유로 뺐다 — JCI·ISO 9001·태국의사협회를
+                  하드코딩해놓고 "Accreditations across our partner clinics" 라고
+                  띄우는데, 개별 병원 페이지의 "Trust, safety & certifications" 안에
+                  있으면 그 병원 인증으로 읽힌다. JCI 는 검증 가능한 인증이라
+                  없는 곳에 붙이면 그냥 거짓이다. (/about 에는 아직 남아 있다.) */}
               <IntlPatientServices />
               <EmergencyContactsBar />
               <VisaInfoBar />
@@ -454,7 +459,9 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
             <CollapsibleSection title="Personalized planning" emoji="🎯">
               <AgeGroupResults focus="hair" />
               <SeasonalBestTime focus="hair" />
-              <AvailabilityHeatmap clinicId={c.id} />
+              {/* AvailabilityHeatmap 제거 (2026-09-26): 예약 혼잡도를 클리닉 ID
+                  해시로 만들어 "Book early"라고 띄우고 있었다. 의료관광 일정을
+                  이 표 보고 잡는다. 실제 예약 데이터가 없으면 띄우지 않는다. */}
             </CollapsibleSection>
 
             <CollapsibleSection title="Community & social proof" emoji="💬">
