@@ -24,6 +24,22 @@ import { qualifyingNichePlaces, type NichePlace } from "./niches";
 export type Area = {
   slug: string;
   label: string;
+  /**
+   * The name to use in <title>, the H1 and the meta description, when the
+   * area's own label leaves out a place it actually covers.
+   *
+   * Only "silom" needs it. Its pattern matches sathorn/sathon/bang rak, so the
+   * page really does list the Sathorn venues, but the label it inherits from
+   * the restaurant tree is the single word "Silom" — so the page never wrote
+   * "Sathorn" anywhere a searcher or Google could see it. GSC, three months to
+   * 2026-09-16: "boutique spa sathon" 204 impressions, "wellness spa sathon"
+   * 127, "thai restaurant in sathorn" 40, none of them clicked.
+   *
+   * Kept separate from `label` rather than renaming it, because `label` is
+   * shared with ./neighborhoods.ts — renaming it would move the restaurant
+   * tree's Silom pages too, and those have their own sathon district.
+   */
+  searchLabel?: string;
   transit: string;
   blurb: string;
   /** Matched case-insensitively against `${address} ${name}`. */
@@ -31,10 +47,15 @@ export type Area = {
 };
 
 /** Reuse the restaurant tree's identity for a slug both trees know. */
-function shared(slug: string, pattern: RegExp, blurb: string): Area {
+function shared(slug: string, pattern: RegExp, blurb: string, searchLabel?: string): Area {
   const n = NEIGHBORHOODS.find((x) => x.city === "bangkok" && x.slug === slug);
   if (!n) throw new Error(`areas.ts: "${slug}" is not a bangkok neighbourhood`);
-  return { slug, label: n.label, transit: n.transit, blurb, pattern };
+  return { slug, label: n.label, searchLabel, transit: n.transit, blurb, pattern };
+}
+
+/** The name to show search engines and searchers. See Area.searchLabel. */
+export function areaSearchLabel(area: Area): string {
+  return area.searchLabel ?? area.label;
 }
 
 export const AREAS: Area[] = [
@@ -57,6 +78,7 @@ export const AREAS: Area[] = [
     "silom",
     /silom|sathorn|sathon|bang ?rak|surawong|si ?lom|chong ?nonsi/i,
     "The business district, which means lunchtime massage, after-work gyms and hotel spas at the top end. Busiest on weekdays, calm on Sundays.",
+    "Silom & Sathorn",
   ),
   shared(
     "siam",

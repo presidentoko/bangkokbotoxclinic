@@ -6,7 +6,7 @@ import {
   buildKlookIndex,
 } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
-import { AREA_MIN_VENUES, findArea, nicheAreaCounts, placesInArea } from "@/lib/areas";
+import { AREA_MIN_VENUES, findArea, nicheAreaCounts, placesInArea, areaSearchLabel } from "@/lib/areas";
 import { NicheGrid } from "@/components/NicheGrid";
 import { toGridPlace, toGridKlook } from "@/lib/gridPlace";
 import { NicheItemListJsonLd, FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
@@ -61,13 +61,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const places = placesInArea(area, niche, db.places);
   if (places.length < AREA_MIN_VENUES) return {};
 
+  // areaSearchLabel, not area.label: Silom's page also lists every Sathorn
+  // venue, and the label alone never said so. See Area.searchLabel.
+  const where = areaSearchLabel(area);
+
   return {
-    title: `Best ${info.label} in ${area.label}, Bangkok 2026 — ${places.length} Ranked by Real Reviews`,
-    description: `${places.length} ${info.label.toLowerCase()} venues in ${area.label}, Bangkok, ranked by Trust Score from real Google reviews. ${area.transit}. Prices, hours and booking — no paid placements.`,
+    title: `Best ${info.label} in ${where}, Bangkok 2026 — ${places.length} Ranked by Real Reviews`,
+    description: `${places.length} ${info.label.toLowerCase()} venues in ${where}, Bangkok, ranked by Trust Score from real Google reviews. ${area.transit}. Prices, hours and booking — no paid placements.`,
     alternates: { canonical: `/activities/${niche}/area/${areaSlug}` },
     openGraph: {
-      title: `Best ${info.label} in ${area.label}, Bangkok`,
-      description: `${places.length} ${info.label.toLowerCase()} venues in ${area.label} ranked by Trust Score from verified Google reviews.`,
+      title: `Best ${info.label} in ${where}, Bangkok`,
+      description: `${places.length} ${info.label.toLowerCase()} venues in ${where} ranked by Trust Score from verified Google reviews.`,
     },
   };
 }
@@ -141,7 +145,7 @@ export default async function NicheAreaPage({ params }: Props) {
             <span className="text-4xl">{info.icon}</span>
             <div>
               <h1 className="text-3xl md:text-4xl font-black tracking-tight leading-tight">
-                Best {info.label} in {area.label}
+                Best {info.label} in {areaSearchLabel(area)}
               </h1>
               <p className="text-sm text-[var(--muted)] mt-1">
                 {places.length} venues in Bangkok · ranked by real Google reviews
