@@ -7,6 +7,7 @@ import { sortWithSponsored } from "@/lib/sponsored";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
 import { TH_CATEGORY_VALID, TH_CITY_VALID } from "@/lib/thBuildSets";
 import { CATEGORY_LABELS_TH, provinceTh, provinceThFull } from "@/lib/thaiNames";
+import { MIN_CITY_CATEGORY_SUPPLIERS_TH, cityCategoryPairs } from "@/lib/cityCategory";
 import type { Supplier } from "@/lib/types";
 import type { Metadata } from "next";
 
@@ -85,6 +86,12 @@ export default async function ThCityPage(
   const thFull = provinceThFull(name) ?? th;
   const note = CITY_NOTES_TH[name];
   const categories = categoriesIn(filtered);
+  // 이 도에서 별도 페이지가 있는 업종 — 있으면 앵커 대신 그 페이지로 보낸다.
+  const thCityCatSet = new Set(
+    cityCategoryPairs(db, MIN_CITY_CATEGORY_SUPPLIERS_TH)
+      .filter((p) => p.citySlug === name && TH_CATEGORY_VALID.has(p.category))
+      .map((p) => p.category),
+  );
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
@@ -112,7 +119,7 @@ export default async function ThCityPage(
             {categories.slice(0, 16).map(([c, n]) => (
               <a
                 key={c}
-                href={`#cat-${c}`}
+                href={thCityCatSet.has(c) ? `/th/city/${name}/${c}` : `#cat-${c}`}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
               >
                 <span aria-hidden>{CATEGORY_ICONS[c] ?? "🏭"}</span>
@@ -132,9 +139,11 @@ export default async function ThCityPage(
           </h2>
           <p className="text-sm text-[var(--muted)] mb-4">
             {n.toLocaleString()} ราย ·{" "}
-            {TH_CATEGORY_VALID.has(c)
-              ? <a href={`/th/c/${c}`} className="underline hover:text-[var(--fg)]">ดู{CATEGORY_LABELS_TH[c]}ทั่วประเทศ →</a>
-              : `${CATEGORY_LABELS[c] ?? c} in ${display}`}
+            {thCityCatSet.has(c)
+              ? <a href={`/th/city/${name}/${c}`} className="underline hover:text-[var(--fg)]">ดู{CATEGORY_LABELS_TH[c]}ใน{th}ทั้งหมด ({n}) →</a>
+              : TH_CATEGORY_VALID.has(c)
+                ? <a href={`/th/c/${c}`} className="underline hover:text-[var(--fg)]">ดู{CATEGORY_LABELS_TH[c]}ทั่วประเทศ →</a>
+                : `${CATEGORY_LABELS[c] ?? c} in ${display}`}
           </p>
           <div className="grid gap-3">
             {filtered.filter((r) => r.categories.includes(c)).slice(0, 10).map((r, i) => (

@@ -13,6 +13,7 @@ import { computeTrustScore } from "@/lib/trustScore";
 import { SupplierListWithFilter, type FilterableSupplier } from "@/components/SupplierListWithFilter";
 import { SupplierAlertSignup } from "@/components/SupplierAlertSignup";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
+import { cityCategoryPairs } from "@/lib/cityCategory";
 import { TH_CATEGORY_VALID } from "@/lib/thBuildSets";
 import type { Metadata } from "next";
 
@@ -83,6 +84,12 @@ export default async function CategoryPage(
   const cities = Array.from(byCity.entries()).sort((a, b) => b[1] - a[1]);
 
   // District breakdown — only districts with an actually-built /c/<cat>/<district> page.
+  // 이 업종 전용 페이지가 있는 도 — 지역 pill 을 도 페이지가 아니라
+  // 도+업종 페이지로 보낸다. 사용자가 업종을 다시 고르지 않아도 된다.
+  const catCitySet = new Set(
+    cityCategoryPairs(db).filter((p) => p.category === cuisine).map((p) => p.citySlug),
+  );
+
   const combos = districtCategoryCombos(db);
   const districts = Array.from(combos.entries())
     .filter(([k, n]) => k.startsWith(`${cuisine}::`) && n >= MIN_COMBO_SUPPLIERS)
@@ -238,7 +245,11 @@ export default async function CategoryPage(
             {cities.map(([city, n]) => (
               <a
                 key={city}
-                href={`/city/${citySlugFromDisplay(city)}`}
+                href={
+                  catCitySet.has(citySlugFromDisplay(city))
+                    ? `/city/${citySlugFromDisplay(city)}/${cuisine}`
+                    : `/city/${citySlugFromDisplay(city)}`
+                }
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--gold-light)] hover:bg-[var(--gold-bg)] hover:text-[var(--gold-deep)] transition font-medium"
               >
                 {city}

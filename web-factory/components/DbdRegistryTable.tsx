@@ -76,7 +76,10 @@ export function DbdRegistryTable({
     },
   }[locale];
 
-  const prefix = locale === "en" ? "" : `/${locale}`;
+  // supplier 상세는 /supplier/[id] 하나뿐이다 — /ko, /th 아래에는 없다.
+  // 로케일 접두어를 붙이면 /th/supplier/... 처럼 없는 URL 로 링크가 나간다
+  // (2026-09-26 실측: 라이브에서 404, 59개 페이지가 이런 링크를 달고 있었다).
+  // 언어별 링크가 필요해지면 그때 라우트를 먼저 만들고 여기를 되돌릴 것.
 
   return (
     <section className="mt-12">
@@ -101,7 +104,7 @@ export function DbdRegistryTable({
             {rows.map((s) => (
               <tr key={s.id} className="border-b border-[var(--border)] hover:bg-[var(--gold-bg)]/30">
                 <td className="py-2 pr-3">
-                  <a href={`${prefix}/supplier/${s.id}`} className="font-medium hover:text-[var(--gold-deep)] hover:underline">
+                  <a href={`/supplier/${s.id}`} className="font-medium hover:text-[var(--gold-deep)] hover:underline">
                     {s.name}
                   </a>
                 </td>

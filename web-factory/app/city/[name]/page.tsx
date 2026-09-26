@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCity } from "@/lib/data";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
 import { districtsForCity } from "@/lib/districts";
+import { cityCategoryPairs } from "@/lib/cityCategory";
 import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, FaqJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
@@ -189,6 +190,13 @@ export default async function CityPage(
   // Canonical districts in this city (Mueang/Muang 등 병합, supplier 5+ 만).
   const districts = districtsForCity(db, name);
 
+  // 이 도에서 별도 페이지가 있는 업종 (lib/cityCategory.ts 기준). 있으면 pill 을
+  // 그쪽으로 건다 — 전국 페이지로 보내면 "warehouse chonburi" 로 들어온 사람이
+  // 지역을 다시 골라야 한다.
+  const cityCatSet = new Set(
+    cityCategoryPairs(db).filter((p) => p.citySlug === name).map((p) => p.category),
+  );
+
   const withWebsite = filtered.filter((r) => r.website).length;
   const verifiedCount = filtered.filter((r) => r.verified).length;
   const avgTrust =
@@ -308,7 +316,7 @@ export default async function CityPage(
             {categories.slice(0, 16).map(([c, n]) => (
               <a
                 key={c}
-                href={`/c/${c}`}
+                href={cityCatSet.has(c) ? `/city/${name}/${c}` : `/c/${c}`}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--gold-light)] hover:bg-[var(--gold-bg)] hover:text-[var(--gold-deep)] transition"
               >
                 <span aria-hidden>{CATEGORY_ICONS[c] ?? "🏭"}</span>

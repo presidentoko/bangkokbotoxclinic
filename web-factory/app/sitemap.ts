@@ -14,6 +14,7 @@ import { POSTS_TH } from "@/lib/posts_th";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
 import { TH_CATEGORY_VALID, TH_CITY_VALID } from "@/lib/thBuildSets";
 import { inSitemap } from "@/lib/supplierTier";
+import { MIN_CITY_CATEGORY_SUPPLIERS_TH, cityCategoryPairs } from "@/lib/cityCategory";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaisupplyhub.com";
 const CATEGORIES = Object.keys(CATEGORY_LABELS);
@@ -93,6 +94,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (TH_CITY_VALID.has(c)) {
       items.push({ url: `${SITE}/th/city/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.8 });
     }
+  }
+
+  // 도(province) x 업종 — 지역 검색어("warehouse chonburi", "คลังสินค้า ขอนแก่น")가
+  // 실제로 향하는 단위. 공급사 10곳 이상인 조합만 만든다 (lib/cityCategory.ts).
+  for (const p of cityCategoryPairs(db)) {
+    items.push({
+      url: `${SITE}/city/${p.citySlug}/${p.category}`,
+      lastModified: updated, changeFrequency: "weekly", priority: 0.8,
+    });
+  }
+  // 태국어는 기준이 낮다 (lib/cityCategory.ts 주석 참고) — 목록도 그 기준으로.
+  for (const p of cityCategoryPairs(db, MIN_CITY_CATEGORY_SUPPLIERS_TH)) {
+    if (!TH_CITY_VALID.has(p.citySlug) || !TH_CATEGORY_VALID.has(p.category)) continue;
+    items.push({
+      url: `${SITE}/th/city/${p.citySlug}/${p.category}`,
+      lastModified: updated, changeFrequency: "weekly", priority: 0.75,
+    });
   }
 
   for (const c of CATEGORIES) {

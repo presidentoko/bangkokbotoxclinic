@@ -12,6 +12,7 @@ import { DbdRegistryTable } from "@/components/DbdRegistryTable";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
 import { TH_CATEGORY_VALID as TH_VALID, TH_CITY_VALID } from "@/lib/thBuildSets";
 import { CATEGORY_LABELS_TH, provinceTh } from "@/lib/thaiNames";
+import { MIN_CITY_CATEGORY_SUPPLIERS_TH, cityCategoryPairs } from "@/lib/cityCategory";
 import type { Metadata } from "next";
 
 export const dynamicParams = false;
@@ -62,6 +63,11 @@ export default async function ThCategoryPage(
     byCity.set(r.city_label, (byCity.get(r.city_label) ?? 0) + 1);
   }
   const cities = Array.from(byCity.entries()).sort((a, b) => b[1] - a[1]);
+
+  // 이 업종 전용 페이지가 있는 도 — "คลังสินค้า ขอนแก่น" 형태 페이지로 바로 보낸다.
+  const thCatCitySet = new Set(
+    cityCategoryPairs(db, MIN_CITY_CATEGORY_SUPPLIERS_TH).filter((p) => p.category === cuisine).map((p) => p.citySlug),
+  );
 
   const totalReviews = filtered.reduce((s, r) => s + r.total_reviews, 0);
   const withWebsite = filtered.filter((r) => r.website).length;
@@ -135,7 +141,11 @@ export default async function ThCategoryPage(
             {cities.map(([city, n]) => (
               <a
                 key={city}
-                href={`/th/city/${citySlugFromDisplay(city)}`}
+                href={
+                  thCatCitySet.has(citySlugFromDisplay(city))
+                    ? `/th/city/${citySlugFromDisplay(city)}/${cuisine}`
+                    : `/th/city/${citySlugFromDisplay(city)}`
+                }
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition font-medium"
               >
                 {CATEGORY_LABELS_TH[cuisine] ?? label} {provinceTh(citySlugFromDisplay(city)) ?? city}
