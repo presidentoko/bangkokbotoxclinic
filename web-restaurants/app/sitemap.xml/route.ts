@@ -1,5 +1,4 @@
 import { loadMasterDb, filterByCuisine, filterByDistrict, slugify } from "@/lib/data";
-import { hasLocaleDetail } from "@/lib/site";
 import { BEST_FOR } from "@/lib/bestFor";
 import { VERDICT_HUBS } from "@/lib/verdict";
 import { CUISINE_LABELS } from "@/lib/types";
@@ -100,12 +99,15 @@ export async function GET() {
   for (const r of db.restaurants) {
     const priority = r.trust_score >= 70 ? 0.8 : r.trust_score >= 50 ? 0.6 : 0.4;
     items.push({ url: `${SITE}/restaurant/${r.id}`, lastModified: updated, changeFrequency: "weekly", priority });
-    // ko/th 상세는 상위 식당만 빌드된다(lib/site.ts). 안 만든 URL 을 여기
-    // 넣으면 구글에 404 를 제출하는 셈이라, 같은 기준을 봐야 한다.
-    if (hasLocaleDetail(r)) {
-      items.push({ url: `${SITE}/th/restaurant/${r.id}`, lastModified: updated, changeFrequency: "weekly", priority: priority - 0.1 });
-      items.push({ url: `${SITE}/ko/restaurant/${r.id}`, lastModified: updated, changeFrequency: "weekly", priority: priority - 0.1 });
-    }
+    // 2026-09-26: th/ko 상세는 사이트맵에서 뺀다.
+    //
+    // 이 라우트들은 EN 페이지 본문을 그대로 import 해서 렌더하고 title·description
+    // 만 번역한다. 3,511곳 × 2 = 7,022 URL 이 서로 거의 동일한데 각자 자기를
+    // canonical 로 선언하고 있었다 — 2026-08-18 에 형제 사이트를 사이트 단위로
+    // 강등시킨 구성과 같다. 이제 canonical 은 EN 을 가리키고 noindex 다
+    // (app/{th,ko}/restaurant/[id]/page.tsx 주석 참고), 그러니 제출도 하지 않는다.
+    // 페이지는 그대로 살아 있고 내부 링크도 유지된다 — 색인만 뺀다.
+    // 되돌릴 시점: 본문이 실제로 번역되면 그때 다시 넣는다.
   }
 
   return new Response(xmlFor(items), {
