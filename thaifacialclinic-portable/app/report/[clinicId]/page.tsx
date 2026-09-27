@@ -3,7 +3,13 @@ import { loadClinics, getClinicById } from "@/lib/data";
 import { buildReportData } from "@/lib/reportData";
 import type { Metadata } from "next";
 
-export const revalidate = 3600;
+// 2026-09-27: 3600(시간당) → 86400(하루). 이 프로젝트에서 유일하게 남은 짧은
+// 주기였고, 클리닉 145곳이면 시간당 갱신은 이론상 월 10만 ISR write 다
+// (Hobby 포함량이 200K). 리포트가 보여주는 건 스크랩 데이터 집계라 시간 단위로
+// 바뀔 내용이 아니다 — 수집 파이프라인 자체가 하루 주기다.
+// ⚠️ 이건 예방 조치다. 팀 ISR Writes 386K/200K 초과의 원인으로 확인된 것은
+// 아니다 (web 쪽은 큰 라우트가 전부 30일로 이미 조정돼 있어 무혐의).
+export const revalidate = 86400;
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://thaifacialclinic.com";
 const BRAND = "Hair by Thai Facial Clinic";
