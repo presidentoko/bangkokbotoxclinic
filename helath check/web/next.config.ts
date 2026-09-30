@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 import data from "./data/checkup_db.json";
+import profiles from "./data/hospital_profiles.json";
 import { CATEGORIES } from "./lib/i18n";
+import { citySlug } from "./lib/citySlug";
 
 /**
  * Category names with no priced package behind them.
@@ -84,16 +86,31 @@ const CITY_TO_GUIDE: Record<string, string> = {
   "surat-thani": "surat-thani", "phitsanulok": "phitsanulok", "trang": "trang",
 };
 
-const CITIES_WITH_PACKAGES = new Set(
-  data.packages
-    .filter((p) => p.price != null && parseFloat(p.price) > 0)
-    .map((p) => data.hospitals.find((h) => h.id === p.hospital_id)?.city)
-    .filter((c): c is string => !!c)
-    .map((c) => c.toLowerCase().replace(/\s+/g, "-")),
-);
+// A city page earns its URL when the *province* holds a hospital, not when a
+// scraped `city` string happens to spell the slug.
+//
+// "health check up package chonburi" is the largest query this site has —
+// 1,475 impressions at position 27, no clicks, in the three months to
+// 2026-09-30 — and /city/chon-buri answered with a 308 to an editorial guide,
+// because the seven Chon Buri hospitals are filed under "Pattaya" and
+// "Chonburi" and neither matches. hospital_profiles.json resolves each
+// hospital's province from its address; using that, the page has seventeen
+// priced packages and seven hospitals to show.
+const PROVINCE_OF: Record<string, string> = profiles.province ?? {};
+
+// Both sides go through citySlug(), which is the one table that knows
+// "Chonburi" is chon-buri, "Koh Samui" is ko-samui and Nakhon Ratchasima is
+// published as korat. Without it those three spellings fell between the
+// scraped label and the register's province name.
+const citiesWithContent = new Set<string>();
+for (const h of data.hospitals) {
+  for (const c of [citySlug(h.city), citySlug(PROVINCE_OF[h.slug])]) {
+    if (c && Object.hasOwn(CITY_TO_GUIDE, c)) citiesWithContent.add(c);
+  }
+}
 
 const EMPTY_CITIES = Object.keys(CITY_TO_GUIDE).filter(
-  (slug) => !CITIES_WITH_PACKAGES.has(slug),
+  (slug) => !citiesWithContent.has(slug),
 );
 
 const securityHeaders = [

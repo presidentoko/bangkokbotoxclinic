@@ -115,7 +115,23 @@ export default async function PackageDetailPage({
   const price = pkg.price ? `฿${parseFloat(pkg.price).toLocaleString()}` : "Price on request";
   const bookUrl = pkg.source_url || pkg.checkup_url || "#";
   const label = catLabel(loc, type);
-  const otherPkgs = similar.filter((r) => r.hospital_slug !== hospital).slice(0, 3);
+  // A price comparison, not a three-item rail.
+  //
+  // Every one of the 396 of these pages carries exactly one package — no
+  // hospital publishes two in the same category — so on its own each is a
+  // single price row. They were submitted anyway: 302 appeared in search over
+  // the three months to 2026-09-30, drew 8,515 impressions and 62 clicks, and
+  // 259 of them earned nothing at all. The page's reason to exist is the
+  // comparison, so show the whole ranked category and mark where this hospital
+  // falls in it.
+  const ranked = similar
+    .filter((r) => r.price != null && parseFloat(r.price) > 0)
+    .sort((a, b) => parseFloat(a.price!) - parseFloat(b.price!));
+  const otherPkgs = ranked.filter((r) => r.hospital_slug !== hospital).slice(0, 12);
+  const myRank = ranked.findIndex((r) => r.hospital_slug === hospital);
+  // "in Bangkok" was hardcoded on all 396, including every Chiang Mai, Phuket
+  // and Pattaya hospital.
+  const scope = pkg.city || "Thailand";
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
@@ -199,7 +215,15 @@ export default async function PackageDetailPage({
       {/* Similar packages */}
       {otherPkgs.length > 0 && (
         <section>
-          <h2 className="text-base font-bold text-slate-800 mb-3">Other {label.toLowerCase()} packages in Bangkok</h2>
+          <h2 className="text-base font-bold text-slate-800 mb-1">
+            {label} packages compared — {ranked.length} hospitals
+          </h2>
+          <p className="text-sm text-slate-500 mb-3">
+            Cheapest first.
+            {myRank >= 0 && ranked.length > 1
+              ? ` ${pkg.hospital_name} is #${myRank + 1} of ${ranked.length} on price.`
+              : ""}
+          </p>
           <div className="space-y-3">
             {otherPkgs.map((r) => (
               <div key={r.package_id} className="bg-white border border-slate-200 rounded-lg px-4 py-3 flex items-center justify-between gap-3">
@@ -207,7 +231,10 @@ export default async function PackageDetailPage({
                   <Link href={`/${locale}/checkup/${type}/${r.hospital_slug}`} className="font-medium text-slate-800 hover:text-blue-700">
                     {r.hospital_name}
                   </Link>
-                  <p className="text-xs text-slate-500">{r.package_name}</p>
+                  <p className="text-xs text-slate-500">
+                    {r.package_name}
+                    {r.city && r.city !== scope ? ` · ${r.city}` : ""}
+                  </p>
                 </div>
                 <p className="font-bold text-slate-900 whitespace-nowrap">
                   {r.price ? `฿${parseFloat(r.price).toLocaleString()}` : "—"}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { type Locale, localeAlternates } from "@/lib/i18n";
-import { getPackagesByCity } from "@/lib/db";
+import { getPackagesByCitySlug, getHospitalsByCitySlug } from "@/lib/db";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
 import type { PackageRow } from "@/lib/db";
 
@@ -53,10 +53,21 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { city, locale } = await params;
   const cityName = CITY_SLUGS[city] || city;
+  // Thirteen of the twenty city pages hold hospitals but no published price —
+  // the province page exists because the hospitals do. Promising "Compare
+  // Prices" on those repeats the mistake the hospital titles were just cured
+  // of: a title that sells something the page then admits it lacks.
+  const rows = await getPackagesByCitySlug(city);
+  const hospitalCount = (await getHospitalsByCitySlug(city)).length;
+  const priced = rows.length > 0;
   return {
-    title: `Health Check-Up Packages in ${cityName} — Compare Prices`,
-    description: `Compare health check-up packages at hospitals in ${cityName}, Thailand. Real prices, all hospitals, all package types. Find the best value health screening in ${cityName}.`,
-    keywords: [`health checkup ${cityName}`, `health screening ${cityName}`, `hospital ${cityName} health package`, `ตรวจสุขภาพ${cityName}`],
+    title: priced
+      ? `Health Check-Up Packages in ${cityName} — Compare ${rows.length} Prices`
+      : `Hospitals in ${cityName} — Address, Phone & Opening Hours`,
+    description: priced
+      ? `Compare ${rows.length} health check-up packages across hospitals in ${cityName}, Thailand — published prices, every package type, no booking fee.`
+      : `Every hospital we hold details for in ${cityName}, Thailand: address, phone number, opening hours, patient rating and official register status. ${hospitalCount} listed.`,
+    keywords: [`health checkup ${cityName}`, `hospital ${cityName}`, `hospitals in ${cityName}`, `ตรวจสุขภาพ${cityName}`],
     alternates: localeAlternates(locale, `/city/${city}`),
   };
 }
@@ -75,9 +86,17 @@ export default async function CityPage({
   // caches that 200 for the full revalidate window, so a brief outage leaves
   // Google looking at an empty page for a day and filing it as a soft 404.
   // Throwing yields a 500, which is never cached and which crawlers retry.
-  const rows: PackageRow[] = await getPackagesByCity(cityName);
+  // By province slug, not by the scraped city string — see
+  // getPackagesByCitySlug. Chon Buri's seven hospitals sit under two
+  // different `city` labels and its page was empty because of it.
+  const rows: PackageRow[] = await getPackagesByCitySlug(city);
+  const cityHospitals = await getHospitalsByCitySlug(city);
 
   const hospitals = new Set(rows.map((r) => r.hospital_slug)).size;
+  // Hospitals in the province that publish no package still belong on the
+  // page: a name search for one of them is the traffic this site actually
+  // converts, and an address and phone number is a real answer.
+  const unpriced = cityHospitals.filter((h) => !rows.some((r) => r.hospital_slug === h.slug));
   const prices = rows.map((r) => parseFloat(r.price ?? "0")).filter(Boolean);
   const minPrice = prices.length ? Math.min(...prices) : 0;
   const maxPrice = prices.length ? Math.max(...prices) : 0;
@@ -94,11 +113,14 @@ export default async function CityPage({
       {/* Hero */}
       <div className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
-          Health Check-Up in {cityName}
+          {rows.length > 0 ? `Health Check-Up in ${cityName}` : `Hospitals in ${cityName}`}
         </h1>
         <p className="text-slate-600 text-lg max-w-2xl">
-          Compare {rows.length} health checkup packages across {hospitals} hospitals in {cityName}.
+          {rows.length > 0
+            ? `Compare ${rows.length} health checkup packages across ${hospitals} hospital${hospitals === 1 ? "" : "s"} in ${cityName}.`
+            : `Hospitals in ${cityName}, with address, phone and opening hours for each.`}
           {minPrice > 0 && ` Prices from ฿${minPrice.toLocaleString()} to ฿${maxPrice.toLocaleString()}.`}
+          {unpriced.length > 0 && ` ${unpriced.length} more hospital${unpriced.length === 1 ? "" : "s"} listed without an online price.`}
         </p>
 
         {/* Stats strip */}
@@ -120,7 +142,7 @@ export default async function CityPage({
         </div>
       </div>
 
-      {rows.length === 0 ? (
+      {rows.length === 0 && unpriced.length === 0 ? (
         <div className="text-center py-16 text-slate-400">
           <p className="text-4xl mb-3">🏥</p>
           <p className="font-medium">No packages found for {cityName} yet.</p>
@@ -129,7 +151,40 @@ export default async function CityPage({
           </Link>
         </div>
       ) : (
-        <FilteredPackageGrid rows={rows} loc={loc} />
+        <>
+        {rows.length > 0 && <FilteredPackageGrid rows={rows} loc={loc} />}
+
+        {/* Hospitals in the province with no package published online.
+            Leaving them off made /city/chon-buri look empty when it holds
+            seven hospitals, and a name search for one of them is the traffic
+            that actually converts here. */}
+        {unpriced.length > 0 && (
+          <section className="mt-10">
+            <h2 className="text-xl font-bold text-slate-900 mb-1">
+              Other hospitals in {cityName}
+            </h2>
+            <p className="text-sm text-slate-500 mb-4">
+              These publish no check-up price online. Address, phone and opening hours are on
+              each page.
+            </p>
+            <ul className="grid gap-2 sm:grid-cols-2">
+              {unpriced.map((h) => (
+                <li key={h.slug}>
+                  <Link
+                    href={`/${locale}/hospital/${h.slug}`}
+                    className="flex items-baseline justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 hover:border-blue-400"
+                  >
+                    <span className="font-medium text-slate-800">{h.name}</span>
+                    <span className="shrink-0 text-sm text-slate-500">
+                      {h.rating ? `★ ${parseFloat(h.rating).toFixed(1)}` : "details"} →
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+        </>
       )}
 
       {/* SEO content */}

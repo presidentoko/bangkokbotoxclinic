@@ -355,6 +355,44 @@ export async function getPackagesByCity(city: string, sort = "price"): Promise<P
   return sortRows(allRows.filter((r) => r.city === city), sort).slice(0, 600);
 }
 
+/**
+ * Packages for a /city/<slug> page, gathered by province rather than by the
+ * scraped `city` string.
+ *
+ * "health check up package chonburi" is this site's single largest query —
+ * 1,475 impressions at position 27 with no clicks in the three months to
+ * 2026-09-30 — and /city/chon-buri answered it with a 308 to an editorial
+ * guide, because no hospital row carries the literal city "Chon Buri". The
+ * province holds seven of them: two filed under "Pattaya", four under
+ * "Chonburi", and Bangkok Hospital Pattaya alone publishes 17 priced
+ * packages. Matching on the province resolved in hospital_profiles.json
+ * (which reads the address, not the scraped label) rolls them up under the
+ * name people actually search.
+ */
+export async function getPackagesByCitySlug(slug: string, sort = "price"): Promise<PackageRow[]> {
+  const { provinceOf } = await import("./registry");
+  const { citySlug } = await import("./citySlug");
+  const wanted = new Set<string>();
+  for (const h of data.hospitals) {
+    const byProvince = provinceOf(h.slug);
+    const byCity = citySlug(h.city);
+    if (byProvince === slug || byCity === slug) wanted.add(h.slug);
+  }
+  if (wanted.size === 0) return getPackagesByCity(slug);
+  return sortRows(allRows.filter((r) => wanted.has(r.hospital_slug)), sort).slice(0, 600);
+}
+
+/** Hospitals on a /city/<slug> page, including those with no packages. */
+export async function getHospitalsByCitySlug(slug: string): Promise<HospitalSummary[]> {
+  const { provinceOf } = await import("./registry");
+  const { citySlug } = await import("./citySlug");
+  const all = await getHospitals();
+  return all.filter((h) => {
+    const rec = hospitalsById.get(h.id);
+    return provinceOf(h.slug) === slug || citySlug(rec?.city ?? h.city) === slug;
+  });
+}
+
 export async function getCities(): Promise<{ city: string; count: number }[]> {
   // INNER JOIN: only cities that actually have packages.
   const counts = new Map<string, number>();

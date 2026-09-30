@@ -211,9 +211,21 @@ async function getRealComboKeys(): Promise<Set<string>> {
 // in the DB. Only emit cities that actually have package data.
 async function getRealCitySlugs(): Promise<Set<string>> {
   try {
-    const { getCities } = await import("@/lib/db");
-    const cities = await getCities();
-    return new Set(cities.map((c) => c.city.toLowerCase().replace(/\s+/g, "-")));
+    // Same rule as next.config's EMPTY_CITIES: a city page exists when the
+    // province holds a hospital, whatever the scraped `city` label spells.
+    // Matching on the label alone submitted ten fewer cities than the site
+    // publishes and left /city/chon-buri — the largest query on the property —
+    // out of the sitemap while it 308'd to a guide.
+    const { getHospitals } = await import("@/lib/db");
+    const { provinceOf } = await import("@/lib/registry");
+    const { citySlug, CITY_ROUTE_SLUGS } = await import("@/lib/citySlug");
+    const out = new Set<string>();
+    for (const h of await getHospitals()) {
+      for (const c of [citySlug(h.city), citySlug(provinceOf(h.slug))]) {
+        if (c && CITY_ROUTE_SLUGS.has(c)) out.add(c);
+      }
+    }
+    return out;
   } catch {
     return new Set();
   }

@@ -7,7 +7,7 @@ import { SLUG_REDIRECTS } from "@/lib/slug-redirects";
 import { Sparkline } from "@/app/components/Sparkline";
 import { ShareButtons } from "@/app/components/ShareButtons";
 import { VerifiedStrip } from "@/app/components/VerifiedStrip";
-import { registryMatch, nearbyHospitals, isMedicalFacility, thaiName } from "@/lib/registry";
+import { registryMatch, nearbyHospitals, isMedicalFacility, thaiName, haBadge } from "@/lib/registry";
 import { citySlug } from "@/lib/citySlug";
 import { ReportButton } from "@/app/components/ReportButton";
 import { HospitalTracker } from "@/app/components/HospitalTracker";
@@ -55,12 +55,18 @@ export async function generateMetadata({
     const minPrice = hospital.min_price
       ? fmt(loc, "hosp_meta_from", { price: parseFloat(hospital.min_price).toLocaleString() })
       : "";
+    // Only promise prices when the page has them. 188 of 321 hospitals carry
+    // no scraped package, and the old single title advertised "Health Check-Up
+    // Packages & Prices" on every one of them.
+    const priced = hospital.package_count > 0 && !!hospital.min_price;
+    const match = registryMatch(slug);
     return {
-      title: fmt(loc, "hosp_meta_title", vars),
+      title: fmt(loc, priced ? "hosp_meta_title_priced" : "hosp_meta_title", vars),
       description:
         fmt(loc, "hosp_meta_desc", vars) +
+        (match ? " " + haBadge(match.ha_level).label + "." : "") +
         (hospital.jci ? t(loc, "hosp_meta_jci") : "") +
-        minPrice,
+        (priced ? fmt(loc, "hosp_meta_desc_packages", vars) + minPrice : ""),
       alternates: localeAlternates(locale, `/hospital/${slug}`),
       openGraph: {
         title: fmt(loc, "hosp_og_title", vars),

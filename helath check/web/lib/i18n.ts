@@ -269,21 +269,56 @@ const STRINGS: Record<string, Record<Locale, string>> = {
   // on a page that now declares an Arabic canonical would be the localisation
   // equivalent of a shop sign in the wrong language: the ranking is in Arabic,
   // the snippet is not. Placeholders are substituted by fmt().
+  // Two titles, because two different searches land here and only one of them
+  // is about prices.
+  //
+  // Every click this site earns comes from a hospital-name search — "mccormick
+  // hospital reviews", "ladprao hospital bangkok", "pattaya international
+  // hospital price list" — and those pages sit at position 7-10. Yet across the
+  // 105 pages ranking in the top twelve, 12,835 impressions produced 145
+  // clicks: 1.13%, against the 2-4% a top-ten result normally takes
+  // (2026-09-30 export). A searcher looking up a hospital was offered
+  // "Health Check-Up Packages & Prices" and scrolled past.
+  //
+  // Worse, 188 of 321 hospitals have no scraped package at all, so that title
+  // promised prices the page then admits it does not have — the same broken
+  // promise that cost thaigle its click-through in September.
+  //
+  // `hosp_meta_title` now describes the hospital, with prices named only when
+  // the page has them (`hosp_meta_title_priced`).
   hosp_meta_title:   {
-    en: "{name} Health Check-Up Packages & Prices — {city}",
-    zh: "{name} 体检套餐与价格 — {city}",
-    ar: "باقات وأسعار الفحص الصحي في {name} — {city}",
-    ja: "{name} 健康診断パッケージと料金 — {city}",
-    th: "แพ็กเกจตรวจสุขภาพและราคา {name} — {city}",
-    ko: "{name} 건강검진 패키지·가격 — {city}",
+    en: "{name}, {city} — Hours, Address, Phone & Verified Details",
+    zh: "{name}（{city}）— 营业时间、地址、电话与官方资质",
+    ar: "{name}، {city} — ساعات العمل والعنوان والهاتف والبيانات الموثقة",
+    ja: "{name}（{city}）— 診療時間・住所・電話・公式認定情報",
+    th: "{name} {city} — เวลาทำการ ที่ตั้ง เบอร์โทร และข้อมูลที่ตรวจสอบแล้ว",
+    ko: "{name}({city}) — 진료시간·주소·전화·공식 인증정보",
   },
+  hosp_meta_title_priced: {
+    en: "{name}, {city} — Check-Up Prices, Hours & Verified Details",
+    zh: "{name}（{city}）— 体检价格、营业时间与官方资质",
+    ar: "{name}، {city} — أسعار الفحص وساعات العمل والبيانات الموثقة",
+    ja: "{name}（{city}）— 健診料金・診療時間・公式認定情報",
+    th: "{name} {city} — ราคาตรวจสุขภาพ เวลาทำการ และข้อมูลที่ตรวจสอบแล้ว",
+    ko: "{name}({city}) — 검진 가격·진료시간·공식 인증정보",
+  },
+  // The description opens on what a name search wants — where it is and how to
+  // reach it — and only then on what we compare.
   hosp_meta_desc:    {
-    en: "Compare all health check-up packages at {name}, {city}, Thailand. {n} packages compared.",
-    zh: "对比{name}（{city}，泰国）的全部体检套餐，共收录 {n} 个套餐。",
-    ar: "قارن جميع باقات الفحص الصحي في {name}، {city}، تايلاند. {n} باقة تمت مقارنتها.",
-    ja: "タイ・{city}の{name}の健康診断パッケージを比較。{n}件のパッケージを掲載。",
-    th: "เปรียบเทียบแพ็กเกจตรวจสุขภาพทั้งหมดที่ {name} {city} ประเทศไทย เปรียบเทียบ {n} แพ็กเกจ",
-    ko: "태국 {city}의 {name} 건강검진 패키지 전체 비교. {n}개 패키지 수록.",
+    en: "{name} in {city}, Thailand: address, phone, opening hours, patient rating and its entry on Thailand's official hospital register.",
+    zh: "{name}（泰国{city}）：地址、电话、营业时间、患者评分，以及泰国官方医院登记信息。",
+    ar: "{name} في {city}، تايلاند: العنوان، الهاتف، ساعات العمل، تقييم المراجعين، وبياناته في السجل الرسمي للمستشفيات في تايلاند.",
+    ja: "タイ・{city}の{name}：住所、電話番号、診療時間、患者評価、タイ公式病院登録情報。",
+    th: "{name} {city} ประเทศไทย: ที่ตั้ง เบอร์โทร เวลาทำการ คะแนนจากผู้ใช้บริการ และข้อมูลในทะเบียนสถานพยาบาลของไทย",
+    ko: "태국 {city} {name}: 주소·전화·진료시간·환자 평점, 그리고 태국 공식 병원 등록부 정보.",
+  },
+  hosp_meta_desc_packages: {
+    en: " {n} check-up packages compared.",
+    zh: " 收录 {n} 个体检套餐对比。",
+    ar: " مقارنة {n} باقة فحص.",
+    ja: " 健診パッケージ{n}件を比較。",
+    th: " เปรียบเทียบแพ็กเกจตรวจสุขภาพ {n} รายการ",
+    ko: " 검진 패키지 {n}개 비교.",
   },
   hosp_meta_jci:     { en: " JCI accredited.", zh: " 通过 JCI 认证。", ar: " معتمد من JCI.", ja: " JCI認証取得。", th: " ได้รับการรับรอง JCI", ko: " JCI 인증." },
   hosp_meta_from:    { en: " Packages from ฿{price}.", zh: " 套餐起价 ฿{price}。", ar: " الباقات تبدأ من {price} بات.", ja: " パッケージは฿{price}から。", th: " แพ็กเกจเริ่มต้น ฿{price}", ko: " 패키지 ฿{price}부터." },
