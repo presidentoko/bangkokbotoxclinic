@@ -8,6 +8,8 @@ import { CATEGORY_FAQS } from "@/lib/faq";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { BookingForm } from "@/components/BookingForm";
 import { StatsBar } from "@/components/StatsBar";
+import { DistrictCompareTable } from "@/components/DistrictCompareTable";
+import { PriceBands } from "@/components/PriceBands";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { GUIDES } from "@/lib/guides";
 import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
@@ -140,6 +142,23 @@ export default async function ServicePage(
       <p className="text-[var(--muted)] mb-8">
         {filtered.length} clinics ranked by Trust Score. Categorisation derived from Google review text and clinic listing data.
       </p>
+
+      {/* 2026-09-30: GSC 실측 — 개별 클리닉은 5~9위인데 이 허브는 53.8위다.
+          (/c/dental 2,418노출 3클릭, /c/botox 3,575노출 2클릭, /c/filler 1,586노출)
+          목록만 있는 페이지를 구글이 "프로그램 생성 디렉터리"로 판정한 모양이라,
+          구 허브(/d/)에 넣어 둔 비교표·가격대를 여기에도 넣는다. 노출은 이쪽이
+          훨씬 크다 — /d/ 합계 1,207 대 /c/ 합계 7,579. */}
+      {/* price_bands 는 덴탈 클리닉에서만 뽑은 값이라(build_price_bands 참고)
+          보톡스 사이트에 그대로 띄우면 치과 가격이 미용 시술 페이지에 붙는다. */}
+      {cfg.focus === "dental" && (
+        <PriceBands
+          bands={(db as unknown as { price_bands?: Record<string, Record<string, { n: number; p25: number; median: number; p75: number }>> })
+            .price_bands?.[filtered[0]?.city_slug ?? ""]}
+          cityLabel={filtered[0]?.city_label ?? "Bangkok"}
+        />
+      )}
+
+      <DistrictCompareTable clinics={filtered} />
 
       {districts.length > 0 && (
         <section className="mb-10">
