@@ -623,6 +623,7 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
       {/* Related guides */}
       <div className="flex flex-wrap gap-2 mt-6">
         <a href="/hospital/license" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">✅ ตรวจสอบใบอนุญาต</a>
+        <a href="/vet-license" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">📋 สิทธิที่คลินิกต้องแสดง</a>
         <a href="/emergency" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">🚨 คู่มือฉุกเฉิน</a>
         <a href="/neutering" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">✂️ ทำหมัน</a>
         <a href="/cost" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">💰 ค่ารักษา</a>

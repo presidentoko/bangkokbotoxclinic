@@ -109,6 +109,17 @@ export default function LicenseCheckPage() {
 
       <LicenseSearch provinces={provinces} />
 
+      <a
+        href="/vet-license"
+        className="flex items-center justify-between gap-3 mb-6 bg-white border rounded-xl px-4 py-3 hover:border-emerald-400 transition-colors"
+      >
+        <span>
+          <span className="block text-sm font-bold text-gray-900">📋 กฎหมายบังคับอะไรไว้บ้าง</span>
+          <span className="block text-xs text-gray-600">ใบอนุญาต 2 ใบ · อายุ 3 ปี · ต้องติดรายการค่ารักษาให้เห็น — เช็กลิสต์ 5 ข้อ</span>
+        </span>
+        <span className="text-emerald-700 font-bold">→</span>
+      </a>
+
       <section className="bg-white border rounded-xl p-4 mb-6">
         <h2 className="text-base font-bold text-gray-900 mb-3">ประเภทใบอนุญาตบอกอะไร</h2>
         <div className="space-y-3">
