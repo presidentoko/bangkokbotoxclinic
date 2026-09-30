@@ -1,0 +1,1692 @@
+{
+ "source": "https://hosp.hss.moph.go.th/",
+ "publisher": "กรมสนับสนุนบริการสุขภาพ กระทรวงสาธารณสุข",
+ "retrieved": "2026-09-30",
+ "licenses": {
+  "0x2f1ca40364177ea5_0xe23e4ace3707323a": {
+   "license_no": "11103001967",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมรายา"
+  },
+  "0x30502e3764660359_0x748e5764d00e322e": {
+   "license_no": "83103001862",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมภูเก็ตสไมล์"
+  },
+  "0x30502f2a3af02717_0x200f1a2f0812996d": {
+   "license_no": "83103001761",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรมนาวา"
+  },
+  "0x30502fbe92c2418d_0x7a3b0136d2983c57": {
+   "license_no": "83103000367",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมลัคกี้ทูธ"
+  },
+  "0x30502feb036262bf_0x230e28b806d3d5b8": {
+   "license_no": "83103000269",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมพราวด์สไมล์"
+  },
+  "0x30503192e8a73b9b_0x7923d7c310ddac98": {
+   "license_no": "83103000562",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมสามกอง"
+  },
+  "0x305031d9e1266f95_0xade3750cf9e77a3f": {
+   "license_no": "83103000465",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมหมอสมใจ"
+  },
+  "0x305031ef107bbf25_0x7eac2a8cb43b9a35": {
+   "license_no": "83103000263",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมปฏิพัทธ์"
+  },
+  "0x305031fa497225bd_0xa6865d710d4e6bac": {
+   "license_no": "83103000361",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรม ฟ ฟันใจดี"
+  },
+  "0x305036e77411fcf5_0x515aed4f1b11a91e": {
+   "license_no": "83103000656",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมน้องปลื้ม"
+  },
+  "0x305037074466b4fd_0xd937888ba4cdedc4": {
+   "license_no": "83103001065",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมทีพีสไมล์ สาขาถลาง"
+  },
+  "0x305039dc30caa3cf_0x1f2dd2c570cb2885": {
+   "license_no": "83103000461",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรมเชิงทะเลทันตแพทย์"
+  },
+  "0x305195783c4bee8b_0xf5baf42c1ee3e484": {
+   "license_no": "81103000168",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมเคซี"
+  },
+  "0x30519578ce1366a5_0xbd41d86dfb4c693c": {
+   "license_no": "81103000167",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมหมอปาล์ม"
+  },
+  "0x30da234bf593d989_0xa95f7ea25f815386": {
+   "license_no": "50103001767",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "มดตะนอยคลินิกทันตกรรม"
+  },
+  "0x30da25004051a4cf_0x88340e7c0965649e": {
+   "license_no": "50103004868",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมสไมล์ ซีเอ็นเอ็กซ์"
+  },
+  "0x30da2f54a1e4f2d1_0x125322a33c51673b": {
+   "license_no": "50103002664",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมสไมล์โซน"
+  },
+  "0x30da3004937b141f_0xbbf2ae3fe5fedf35": {
+   "license_no": "50103000365",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมสไมล์ทูยู"
+  },
+  "0x30da315d1c7b3d8d_0xf944de49f7fdd5d0": {
+   "license_no": "50103002868",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมอาร์ททีธ"
+  },
+  "0x30da316527be9359_0x5d0a94c4b542377d": {
+   "license_no": "50103001569",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "ปลาวาฬคลินิกทันตกรรม"
+  },
+  "0x30da318b24c7e0b3_0x45f3952c01fb0277": {
+   "license_no": "50103001761",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรม กู๊ด ฟ.ฟัน"
+  },
+  "0x30da31907ac97197_0xb5f7d9bd0b43b6af": {
+   "license_no": "50103000663",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมวันใส"
+  },
+  "0x30da31a6d26d788f_0x5599a693e54bd2f4": {
+   "license_no": "50103003166",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมมีทูธ"
+  },
+  "0x30da31fd4d6a5685_0xac2e8c9f275ea00b": {
+   "license_no": "50103003262",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมโมทกะ"
+  },
+  "0x30da3401c6c50e81_0xc942ffbaec1c8d71": {
+   "license_no": "50103004169",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมซีเอสดีซี สาขาหางดง"
+  },
+  "0x30da3401cf670af1_0x950d2b58eebee166": {
+   "license_no": "50103004359",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมฮักยิ้ม"
+  },
+  "0x30da37b368af4247_0xa35e3cd70e20a409": {
+   "license_no": "50103000463",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมหางดง"
+  },
+  "0x30da3a42b4fe59cf_0xeb4d2fa7cc6f5d2f": {
+   "license_no": "50103002260",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "คลินิกทันตกรรมเดอะเดนทิส"
+  },
+  "0x30da3a7bca971d23_0xf336c026a6dbd3d6": {
+   "license_no": "50103001960",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "คลินิกทันตกรรมอบอุ่น"
+  },
+  "0x30da3a92c7d769ab_0xf43b738e24df8f91": {
+   "license_no": "50103000959",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกพีระยศทันตกรรม"
+  },
+  "0x30da3af4e3014a9d_0xac5ae965afc3e9d5": {
+   "license_no": "50103000461",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรมพรเทวา"
+  },
+  "0x30da3afd2aeefe23_0x3eed2a0c2603f49d": {
+   "license_no": "50103000157",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมหมอปูน"
+  },
+  "0x30da3b003e02693f_0xdfa60ba7800ce281": {
+   "license_no": "50103005367",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมทีสมายล์ ซีเอ็มอาร์ยู"
+  },
+  "0x30da3b1e686a77f3_0xcd8383bf07d829df": {
+   "license_no": "50103004162",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "ด๊อกเตอร์เจนคลินิกทันตกรรม"
+  },
+  "0x30da3b2aa738cb69_0x26fd84c02294726d": {
+   "license_no": "50103000456",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมรวมโชค"
+  },
+  "0x30da3b657ce92647_0xcfe4755f973e4007": {
+   "license_no": "50103003666",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมแม่ริมสไมล์"
+  },
+  "0x30da3b75762c2059_0x207368bc100f6307": {
+   "license_no": "50103003460",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "ไวร์คลับคลินิกทันตกรรม"
+  },
+  "0x30da3bf5e483fb89_0x8e2c0e1d6c8666d3": {
+   "license_no": "50103002865",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมทูธดรีม"
+  },
+  "0x30da3d48e75940b7_0x3baa44341d6d70c9": {
+   "license_no": "50103003667",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมทีสมายล์ แม่โจ้"
+  },
+  "0x30da3da5f9a5fe6d_0xbd832797ea74e54": {
+   "license_no": "50103000764",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมเดอะเดนทิสแอทแม่ริม"
+  },
+  "0x30e2810049cbb4d3_0xc17333b5ca693fbf": {
+   "license_no": "13103000168",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมเทคแคร์"
+  },
+  "0x30e28112bb77f09d_0x65b6d45d05477bce": {
+   "license_no": "13103001966",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "เอย์เมย์ คลินิกทันตกรรม"
+  },
+  "0x30e281569150d283_0xf28f40ef9ca5b54": {
+   "license_no": "13103003364",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมพาสุข สาขาติวานนท์"
+  },
+  "0x30e281c60ba29e09_0x2abc7eff8bf05da1": {
+   "license_no": "13103001567",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมบ้านฟันปทุม"
+  },
+  "0x30e281d10a956a0d_0x946fa2c41257b209": {
+   "license_no": "13103004165",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมสไมล์สเปซ"
+  },
+  "0x30e281dc1ce1a623_0xb00fee3dca8c5ccf": {
+   "license_no": "13 1 03 0005 63",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมพารากอน"
+  },
+  "0x30e281de84bbeaf5_0xad078e4d050bff65": {
+   "license_no": "13 1 03 0011 62",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรม คลินิกทันตแพทย์สว่าง"
+  },
+  "0x30e281dee7419343_0xf5fa61c0e870efa7": {
+   "license_no": "13103002164",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "เดนทัล แพลนเน็ต คลินิกทันตกรรม สาขารังสิต"
+  },
+  "0x30e282678e174063_0x639d4239e2ef40c0": {
+   "license_no": "10103016159",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมยิ้มแฉ่ง"
+  },
+  "0x30e282990d278aa1_0xbd22abc2a0544436": {
+   "license_no": "10103001559",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมนิต้าเดนทัลคลินิก"
+  },
+  "0x30e2829a22335b7f_0x7a821f6eb8f91a15": {
+   "license_no": "10103015264",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "ลิษาคลินิกทันตกรรม สาขาสะพานใหม่"
+  },
+  "0x30e282b62e4dd9e1_0xee4cee88c299123b": {
+   "license_no": "10103006157",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "ศูนย์ทันตกรรมเด็นทัลแคร์ คลินิกทันตกรรม"
+  },
+  "0x30e282d68045ba87_0xbcc74b316bc12e01": {
+   "license_no": "10103006664",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมเดนเต้พลัส"
+  },
+  "0x30e283002925225b_0xc0296532b40accd2": {
+   "license_no": "10103012567",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมบ้านเธียรสวน"
+  },
+  "0x30e28317a5bd049f_0xb1a93f605762441f": {
+   "license_no": "10103000956",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมเด็นทัลสตาร์"
+  },
+  "0x30e2834ea0a7202b_0x8e62b5252387c51f": {
+   "license_no": "10103000266",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมการ์เด้นเดนเต้"
+  },
+  "0x30e2835eb6d150ad_0x1f1e22789fc0e11d": {
+   "license_no": "10103027862",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรม ไดมอนด์"
+  },
+  "0x30e2837f2bc4e4d7_0x630ab8a4d6c4b85d": {
+   "license_no": "10103015459",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมแอทดอนเมือง"
+  },
+  "0x30e2838e787794c3_0x5d4143e0f0542411": {
+   "license_no": "12103001859",
+   "valid_until": "31 ธันวาคม 2568",
+   "registered_name": "คลินิกทันตกรรมเชิงสะพานปากเกร็ด"
+  },
+  "0x30e283bbc835f5eb_0xb19a02f1385ddd91": {
+   "license_no": "12103002665",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมแมนฮัตตัน"
+  },
+  "0x30e283c363bd84c7_0xceb81d07bb46884c": {
+   "license_no": "10103051962",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมแอทโฮม"
+  },
+  "0x30e2846bd6960a5f_0xb437d44621f46000": {
+   "license_no": "12103000356",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมเสริมสุข"
+  },
+  "0x30e284f19aa591c7_0xac9b06f96261828d": {
+   "license_no": "12103002462",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "ชวิสเด็นทอลคลินิกทันตกรรม"
+  },
+  "0x30e284f3aa0baa8d_0xe712d7a8bfa1bf30": {
+   "license_no": "12103000256",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมยิ้มแย้ม"
+  },
+  "0x30e285006e0f7053_0x568fcc1d92bc4254": {
+   "license_no": "12103000268",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมออมฟัน"
+  },
+  "0x30e28504f141082d_0x477aef2816e3c63f": {
+   "license_no": "13103002562",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมมายด์เดนทัล"
+  },
+  "0x30e28515fd1dc1c1_0x3b739f26fec6984e": {
+   "license_no": "12103000366",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมพาสุข สาขาโรบินสันไลฟ์สไตล์ ราชพฤกษ์"
+  },
+  "0x30e2854cd3b16f6d_0x370427e18b1c0ea5": {
+   "license_no": "12103000458",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมสวนนนท์เดนทัล"
+  },
+  "0x30e2854edcda9751_0xddbc4643b0d2a3cc": {
+   "license_no": "12103000364",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมเลอทูธ"
+  },
+  "0x30e2859cc6503f03_0x552d759ad2a5e4a": {
+   "license_no": "12103000669",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมชูก้าฟิค"
+  },
+  "0x30e285f6538f1627_0xc9d9bfab4fa96a50": {
+   "license_no": "12103000766",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมชิววี"
+  },
+  "0x30e287295b9137e9_0x5dba4f32813877a8": {
+   "license_no": "13103001161",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรม บี.เอ"
+  },
+  "0x30e28f02d52b5601_0xf6cb1d80f7dd46a7": {
+   "license_no": "12103000160",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "คลินิกทันตกรรมไทรน้อย 2"
+  },
+  "0x30e28f27f339758b_0x5eca89e51f4a0288": {
+   "license_no": "12110000362",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "สยามนนท์ สหคลินิก (สาขาบางบัวทอง)"
+  },
+  "0x30e28f2d53f2b8db_0xd87cae25a50d9f53": {
+   "license_no": "12103000758",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมไทรน้อย"
+  },
+  "0x30e28f56eacc630d_0x1686bebb167462de": {
+   "license_no": "12103001163",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "เรดดี้ คลินิกทันตกรรม"
+  },
+  "0x30e28f7b9721543f_0x41efdddac5cbbf62": {
+   "license_no": "12103003266",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมพาสุข สาขาบางบัวทอง"
+  },
+  "0x30e28fac23b40e77_0xe766283643428565": {
+   "license_no": "12103007862",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมเดนท์แอนด์สไมล์"
+  },
+  "0x30e28fbcd0f791bd_0xd543a3b53f795a87": {
+   "license_no": "12103001259",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "พีสไมล์บางใหญ่ คลินิกทันตกรรม"
+  },
+  "0x30e28fc150c2e169_0x95e5566bf0b32d7e": {
+   "license_no": "12103002465",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมเดอะเฟิสต์"
+  },
+  "0x30e28fcf79bd3ebf_0xbe978fd09edcce9e": {
+   "license_no": "12103005462",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมชูชาติทันตแพทย์"
+  },
+  "0x30e28ff18147ae2b_0x14dcf9e72e343942": {
+   "license_no": "12103001962",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "ดวงใจทันตแพทย์คลินิกทันตกรรม"
+  },
+  "0x30e29057f9dcf869_0x4bd3a0d6b81ee275": {
+   "license_no": "12103002658",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "อรนุชทันตแพทย์คลินิกทันตกรรม"
+  },
+  "0x30e290823b7b106d_0x4e13ece81606c14e": {
+   "license_no": "12103000565",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมสไมล์ไอเดีย"
+  },
+  "0x30e290a7b1d389ef_0xba338231c1ca68a0": {
+   "license_no": "10103026062",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมจตุรพร"
+  },
+  "0x30e29132f63966c9_0x62682625af303834": {
+   "license_no": "12103006062",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "พรีม คลินิกทันตกรรม"
+  },
+  "0x30e291de9c2f13c1_0x889341be194fc666": {
+   "license_no": "12103001764",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรม บ้านรักยิ้ม2"
+  },
+  "0x30e2937093cbd675_0x7c781eabb9ee6d9f": {
+   "license_no": "73103000360",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "คลินิกทันตกรรมออร่าสไมล์"
+  },
+  "0x30e293eff3780a71_0x40781d0d69527b05": {
+   "license_no": "73103000758",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมศาลายาทันตแพทย์"
+  },
+  "0x30e2950079824883_0x260a8d3b5e99e214": {
+   "license_no": "10103007868",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "หรรษาคลินิกทันตกรรม"
+  },
+  "0x30e29513682c01df_0x44bf1c5a2c4c435": {
+   "license_no": "73103000369",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมสตาร์ไลท์"
+  },
+  "0x30e2954df5d15e2b_0x3c6fcc068c4d1b19": {
+   "license_no": "73103000258",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมหมอเกศริน"
+  },
+  "0x30e295555a252da7_0x36847b59b4046f59": {
+   "license_no": "73103001766",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมทูธดี"
+  },
+  "0x30e29580008469ad_0xf06d96b6a8769c72": {
+   "license_no": "10103009766",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมเดอะฟันบางแค"
+  },
+  "0x30e295af6219d48b_0xc594e4a92298e460": {
+   "license_no": "73103001165",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรม ทูธโทน"
+  },
+  "0x30e295c2a6929bb5_0x1115aab62958d7c3": {
+   "license_no": "74103000268",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมพาสุข สาขาอ้อมน้อย"
+  },
+  "0x30e295f3dc450b25_0xba7a1498958afd0": {
+   "license_no": "74103000867",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมยู้ฮู"
+  },
+  "0x30e296177dfc597b_0xd18cd664db67d9e5": {
+   "license_no": "10103003358",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมยิ้มสุขใจ"
+  },
+  "0x30e2963c9d8f74e7_0xb6eea48880caf594": {
+   "license_no": "10103002664",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมเดนทอลสไมล์พลัส"
+  },
+  "0x30e296408892af91_0xc345605412be185c": {
+   "license_no": "10103011861",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "สมสิริ คลินิกทันตกรรม"
+  },
+  "0x30e29702d5e8a509_0x476524b6614f9f73": {
+   "license_no": "12103002760",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "ดิออเร้นจ์คลินิกทันตกรรม สาขาบางใหญ่"
+  },
+  "0x30e297581b0634d5_0x6fa5c66ad367ac53": {
+   "license_no": "10103008367",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมไคนด์แอนด์แคร์"
+  },
+  "0x30e29782154a212d_0xb81555a46c41dbd2": {
+   "license_no": "10103007466",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมบางแวก"
+  },
+  "0x30e297d163683efd_0xd13cddbeb419b81e": {
+   "license_no": "10103004566",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมด็อกเตอร์สไมล์"
+  },
+  "0x30e29822609167a1_0x1c853d161eb1a2ef": {
+   "license_no": "10103028462",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมเพชร 46"
+  },
+  "0x30e2985bea8bda7f_0xa01fe855692022d7": {
+   "license_no": "10103006356",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมเทอดไท"
+  },
+  "0x30e29861485dffcf_0x592c1eb951db49f2": {
+   "license_no": "10103026762",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมเด็นทัลเวิร์ค"
+  },
+  "0x30e29870aed1bfd1_0x4248aa319bc5565a": {
+   "license_no": "10103003564",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "จอมทองทันตแพทย์คลินิกทันตกรรม"
+  },
+  "0x30e2989b852d026d_0xad2a06c7a703ecfe": {
+   "license_no": "10103002356",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมบ้านฟ้า"
+  },
+  "0x30e298a3b7683f0b_0x8b9972bd0c50c4e1": {
+   "license_no": "10103000264",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "บ้านทันตแพทย์คลินิกทันตกรรม"
+  },
+  "0x30e298a72ac6039f_0xb14146f7875a08b0": {
+   "license_no": "10103008661",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรมเจริญราษฎร์"
+  },
+  "0x30e298c2f24698d7_0xfde87652f8f225f6": {
+   "license_no": "10103003666",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมทูธรีพับลิค"
+  },
+  "0x30e298cc5a47f369_0xc34b2e76152c4cc5": {
+   "license_no": "10103004263",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมสาทร 11 เดนทอลโฮม"
+  },
+  "0x30e29901baabae6f_0x9a7704e3c108397f": {
+   "license_no": "10103010562",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "พัฒนคลินิกทันตกรรม"
+  },
+  "0x30e29919f279ba77_0x71657472a6167df": {
+   "license_no": "10103039462",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมวังบูรพา"
+  },
+  "0x30e2991c70aadca7_0x8b3d16f6e7ba1da9": {
+   "license_no": "10103007158",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมตรงข้ามพาต้า"
+  },
+  "0x30e29921dcc33a25_0x6a8b5cbd04022908": {
+   "license_no": "10103007666",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมพาสุข สาขาไอซีเอส"
+  },
+  "0x30e2992524f7b787_0x5351b77db646641a": {
+   "license_no": "10103008064",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "ศิริลักษณ์ทันตแพทย์คลินิกทันตกรรม"
+  },
+  "0x30e29927a3869d3f_0xc15db1680f94481b": {
+   "license_no": "10103008561",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "แรบบิทเดนทัลคลินิกทันตกรรม"
+  },
+  "0x30e2992c348e3e89_0x94c568e477aea6d4": {
+   "license_no": "10103010760",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "คลินิกทันตกรรมเดนทิสคลับ"
+  },
+  "0x30e29949edb406d5_0x3a3b050d1c14890a": {
+   "license_no": "10103013065",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมมายโฮม"
+  },
+  "0x30e2994ad04f5897_0x9b5efe99070727f5": {
+   "license_no": "10103013365",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมเชอรับ"
+  },
+  "0x30e2995f04fdd817_0x121779bf25d855e4": {
+   "license_no": "10103001860",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "คลินิกทันตกรรมสวนอ้อย"
+  },
+  "0x30e2996cd00b4b6f_0x69ce7f3aca89551f": {
+   "license_no": "10103036562",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมบลูทูธ"
+  },
+  "0x30e2997f056535bb_0xca373a778eed275f": {
+   "license_no": "10103014766",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมเด็นทอลวัน"
+  },
+  "0x30e29982c5bdcf49_0x7c9c5e93943b127": {
+   "license_no": "10103017259",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมรักษ์ฟันเด็นทัลเพลส 2"
+  },
+  "0x30e299869afbd86f_0x28355139c5abacba": {
+   "license_no": "10103015063",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมเอจีเดนทัลพลัส"
+  },
+  "0x30e29986f00200e1_0x6bb3c98c57716ea8": {
+   "license_no": "10103002559",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "ปารีนารถคลินิกทันตกรรม สาขาปิ่นเกล้า"
+  },
+  "0x30e299919314a8f5_0xf163adaa7b54cb1e": {
+   "license_no": "10103004965",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมบ้านหมอปิ๋ม"
+  },
+  "0x30e299a8d23ab7c1_0xfb9d208c08bbe4b9": {
+   "license_no": "10103037762",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมณรงค์ศักดิ์"
+  },
+  "0x30e299b960526a19_0xd2172f0614ca5ceb": {
+   "license_no": "10103008863",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมไอโคนิค"
+  },
+  "0x30e299d95d28962f_0x7ea1d415120ab9c9": {
+   "license_no": "10103014664",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมยูทูธ"
+  },
+  "0x30e299e77bd9d003_0xb24cffcd33192cf3": {
+   "license_no": "10103002359",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมราชวัตร"
+  },
+  "0x30e299e9798a606f_0x630cb43cc77b8caa": {
+   "license_no": "10103050562",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "ราชเทวีเด็นทัลคลินิกทันตกรรม"
+  },
+  "0x30e29b1cacb21e1b_0x37c5a309bd4e6992": {
+   "license_no": "12103001558",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมบางกรวย"
+  },
+  "0x30e29b1d90b02509_0x9d3428f8c2436ce8": {
+   "license_no": "10103001459",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมบีเด็นท์โฮม"
+  },
+  "0x30e29b25006d30dd_0x676589bdd9d5295c": {
+   "license_no": "12103000257",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมสมฤทัย สไมล์ลิ่ง"
+  },
+  "0x30e29b2fafe38aeb_0xbc69159a78d1c6db": {
+   "license_no": "10103013866",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมเด็นต้าคลาวด์"
+  },
+  "0x30e29b3357bec819_0x799e1e3f5c3f9b46": {
+   "license_no": "12103006962",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมเดนทัลไทม์"
+  },
+  "0x30e29b4d055a3771_0x25c837d329214aa6": {
+   "license_no": "12103000866",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมชิคแอนด์ชีส"
+  },
+  "0x30e29b7b38497f49_0x2040e1f643f81bd7": {
+   "license_no": "10103003859",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมวงศ์สว่าง"
+  },
+  "0x30e29bba2489399b_0x9f71f9715bc25126": {
+   "license_no": "12103000663",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมกรุงเทพ-นนท์2"
+  },
+  "0x30e29bd7339e2905_0x5595b60612ca2f67": {
+   "license_no": "12103000561",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "โฮมเด็นทัลคลินิกทันตกรรม"
+  },
+  "0x30e29bfc3707ad1f_0xc66bbc0663839ee4": {
+   "license_no": "10103004260",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "คลินิกทันตกรรมเอสซีเด็นทัลกรุ๊ป"
+  },
+  "0x30e29c015e8b1a8b_0x6114be55af46128": {
+   "license_no": "10103004359",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมเดนต้าสมายล์ สาขาอารีย์สัมพันธ์"
+  },
+  "0x30e29c1771245b43_0x990a9cdb21c76e2e": {
+   "license_no": "10103004358",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกบางกอกทันตกรรม"
+  },
+  "0x30e29c2291a8db29_0x14dff4a5f8c18981": {
+   "license_no": "10103003857",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "เด็นทัลแลนด์คลินิกทันตกรรม"
+  },
+  "0x30e29c5ab5f008a1_0xb1acc8c0c571fcae": {
+   "license_no": "10103008160",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "ซีสไมล์คลินิกทันตกรรม"
+  },
+  "0x30e29c8550f43159_0xb84e9ab9631831bb": {
+   "license_no": "10103009859",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมสไมล์โซลูชั่น"
+  },
+  "0x30e29ca4d85ef89b_0xa54929473e9dbe87": {
+   "license_no": "12103001666",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมเดนทัลโซน"
+  },
+  "0x30e29cfd24bf9681_0x3abe8635896588ed": {
+   "license_no": "10103001658",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมบางเขน"
+  },
+  "0x30e29d0037b3fc4f_0x2a5e4b877cbd05fe": {
+   "license_no": "12103002367",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "เวลา คลินิกทันตกรรม"
+  },
+  "0x30e29d0058033a13_0xba52e4f2c9c714d1": {
+   "license_no": "10103003767",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมอัลมอนด์"
+  },
+  "0x30e29d00594bc6bf_0x9aeb0219341a68a9": {
+   "license_no": "10103009265",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "เวลาเดนทัลดีไซน์คลินิกทันตกรรม"
+  },
+  "0x30e29d070d83742d_0x5102ebf03028369a": {
+   "license_no": "10103003668",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมแฮปปี้โมลาร์"
+  },
+  "0x30e29d5ddf294f7d_0x5108073eabf042ef": {
+   "license_no": "10103017065",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมกิฟสไมล์"
+  },
+  "0x30e29d696e79b043_0x917e9d02c8ba0877": {
+   "license_no": "10103017765",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมคาซ่า"
+  },
+  "0x30e29d71227c9ebb_0xd6b0ea6279a5debf": {
+   "license_no": "10103011461",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรมศิลป์ฟ้า"
+  },
+  "0x30e29dabcfb41caf_0xf5601cfc4ffcc518": {
+   "license_no": "10103002267",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมฟันแฟ็กทอรี่"
+  },
+  "0x30e29db90ac93b0b_0x3c20aa9dcfa20a4d": {
+   "license_no": "10103007663",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "ชิวชิวเดนทัลคลินิกทันตกรรม"
+  },
+  "0x30e29dbe04687d49_0xaabd9ea991600a1c": {
+   "license_no": "10103028762",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมนิทราทันตแพทย์"
+  },
+  "0x30e29df94e6b37fd_0x217e505ef484cf4d": {
+   "license_no": "10103006165",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมลาดพร้าวสไมล์"
+  },
+  "0x30e29e0702183123_0x3d06f4a1b93e043b": {
+   "license_no": "10103008963",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมสุขสันต์สไมล์พลัส"
+  },
+  "0x30e29e2bf756652f_0x989b75cd1fe5055b": {
+   "license_no": "10103014762",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมพัฒนาการ"
+  },
+  "0x30e29e4e870f1a39_0xe4437edad85767fc": {
+   "license_no": "10103001562",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมเดอะทูธคลับ"
+  },
+  "0x30e29e522fb6ab3f_0x744b76d9e53d43f9": {
+   "license_no": "10103014861",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรมแอ๊บโซลูท"
+  },
+  "0x30e29e705658b941_0x9400486e984e5b48": {
+   "license_no": "10103002358",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมเด็นตัลสแควร์"
+  },
+  "0x30e29e944e40c79f_0x3c4ad299a1b908d7": {
+   "license_no": "10103000759",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมเดนทัลอาร์ต"
+  },
+  "0x30e29e95b4ea734b_0xf888ac7a009ee632": {
+   "license_no": "10103032562",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมทันตแพทย์ณรงค์"
+  },
+  "0x30e29e9d75399b41_0xa3904095249c632e": {
+   "license_no": "10103003559",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "แอทเดนต้าแคร์คลินิกทันตกรรม"
+  },
+  "0x30e29ecf2e227cb9_0xb6a4c0138ca802a3": {
+   "license_no": "10103002262",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "พัฒนทันตคลินิกทันตกรรม"
+  },
+  "0x30e29efe51d7c06f_0x10020a891148306e": {
+   "license_no": "10103006661",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรมเดนเต้อไลน์"
+  },
+  "0x30e29f0036d696d5_0x1526128f060e08d1": {
+   "license_no": "10103002869",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมเอเวอร์แคร์เดนทัล"
+  },
+  "0x30e29f003f8ba4fb_0xa57986c76b58a648": {
+   "license_no": "10103008068",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมก้อนเมฆ"
+  },
+  "0x30e29f005cb1ff4d_0x1eef80b9e1bf9bbf": {
+   "license_no": "10103007161",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรมชิว"
+  },
+  "0x30e29f104a4533f1_0x2b75553b82ef74da": {
+   "license_no": "10103025462",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมคลองเตยทันตแพทย์"
+  },
+  "0x30e29f1785e66569_0x93d924b5b7b1fc1": {
+   "license_no": "10103054562",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "เอ็มเอสคลินิกทันตกรรม"
+  },
+  "0x30e29f5292f90f69_0x28c852a0c9467106": {
+   "license_no": "10103017162",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "โฮมเด็นตัลคลินิกทันตกรรม"
+  },
+  "0x30e29f58c59e1f2f_0xd814b8f64c475ef4": {
+   "license_no": "10103009161",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรมสไมล์เวิร์ค"
+  },
+  "0x30e29f8287c248b1_0x8960460c308b105a": {
+   "license_no": "10103011164",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมเด็นโทรโพลิส"
+  },
+  "0x30e29faacfbf2beb_0x79c82f5d89716ac7": {
+   "license_no": "10103000367",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "พรศักดิ์ทันตแพทย์คลินิกทันตกรรม"
+  },
+  "0x30e29fb59bad6deb_0x653e81619df24bbd": {
+   "license_no": "10103005263",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมเดียร์เด็นทิสต์"
+  },
+  "0x30e29fc78d60ac4f_0x57ce612020fbe29d": {
+   "license_no": "10103012966",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมเดนท์อินดี๊ด"
+  },
+  "0x30e29fcef47daf7b_0x79329ed872d83791": {
+   "license_no": "10103011767",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมพาสุข สาขาดินแดง"
+  },
+  "0x30e29fd2ae7637ad_0x21a120eec1662d2c": {
+   "license_no": "10103008361",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรมสุขใจ"
+  },
+  "0x30e29fd9a8ab8b7d_0xcbdbd059cb8450b1": {
+   "license_no": "10103011866",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมทูธบอกซ์ สาขาสีลม ซอย 1"
+  },
+  "0x30e29fdce17896fd_0xfef06c7aaa07e010": {
+   "license_no": "10103002965",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรม เอส สไมล์"
+  },
+  "0x30e29ff904498c07_0x9344ed07dfdf5ce0": {
+   "license_no": "10103009367",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมพาสุข สาขาสุขุมวิท"
+  },
+  "0x30e2a0046607efc7_0x350dccf36b2880c0": {
+   "license_no": "10103035162",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมอุดมสุขทันตแพทย์"
+  },
+  "0x30e2a004becc1f31_0x557293f07b790889": {
+   "license_no": "10103009259",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมยิ้มฟันดี"
+  },
+  "0x30e2a09b921563f1_0x968e98e0a8bbc3f2": {
+   "license_no": "11103002256",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "ดี.เอส.คลินิกทันตกรรม"
+  },
+  "0x30e2a133492c31f9_0xa41d2e4ce7fee008": {
+   "license_no": "11103002366",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "หมอรักษ์ฟันคลินิกทันตกรรม"
+  },
+  "0x30e2a14645b8d4b1_0x8bcdb869a1ec587d": {
+   "license_no": "10103014564",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "ไอดีลสไมล์คลินิกทันตกรรม สาขาสาธุประดิษฐ์"
+  },
+  "0x30e2a15924c17799_0x730c45240cfe7f05": {
+   "license_no": "11103003064",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "ยิ้มหวาน คลินิกทันตกรรม สาขาทรัพย์บุญชัย"
+  },
+  "0x30e2a23ca9cb61f3_0x73803a41d9374833": {
+   "license_no": "11103000256",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมพระประแดง"
+  },
+  "0x30e2a27b1008d833_0xdcf5abdd5b0a4ce3": {
+   "license_no": "10103001256",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "ทันตแพทย์มนตรีคลินิกทันตกรรม"
+  },
+  "0x30e2a29f463b098d_0xdfbf37b96d51e74b": {
+   "license_no": "10103001458",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกสุขภาพฟันพระราม 2 คลินิกทันตกรรม"
+  },
+  "0x30e2a2bf2ba39447_0xad23b6da338313f8": {
+   "license_no": "10103008760",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "คลินิกทันตกรรมบางมด"
+  },
+  "0x30e2a3a273d5196f_0xd763794775bca72e": {
+   "license_no": "10103011963",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมเดนทิเนียร์"
+  },
+  "0x30e2a3b8dcf2a54d_0x712cde17c0b8c828": {
+   "license_no": "10110002362",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "ทรัพย์สมบูรณ์สหคลินิก"
+  },
+  "0x30e2a3f2bb441221_0xa2884bae65d46017": {
+   "license_no": "10103013859",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมเดนต้าวิลล์"
+  },
+  "0x30e2a50045b86719_0x3dd198b19a7ebdb4": {
+   "license_no": "11103004567",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมแอทประชาอุทิศ"
+  },
+  "0x30e2a5f66cc91af3_0x1e7df30c748439d1": {
+   "license_no": "11103000360",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "คลินิกทันตแพทย์พรเอก"
+  },
+  "0x30e2a750dbe8a173_0x69e191e83edaae78": {
+   "license_no": "11103000259",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรม เอส.บี"
+  },
+  "0x30e2a75cc7cb3459_0xbe37bf431b196456": {
+   "license_no": "11103003963",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมบ้านฟันฟ้า สาขาพระสมุทรเจดีย์"
+  },
+  "0x30e2a7623e54a65b_0x7015f869f6ce5470": {
+   "license_no": "11103002266",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมบีบีสไมล์"
+  },
+  "0x30e2a76819fe8b23_0x50d7dfe44354e88b": {
+   "license_no": "11103000260",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "คลินิกทันตกรรมสินสมบูรณ์"
+  },
+  "0x30e2b900019dd8e3_0x5010a16f3059fe7b": {
+   "license_no": "74103000468",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรม โอ๊ต มารุสไมล์"
+  },
+  "0x30e2b970a1f094c1_0xf1e61b083c3f2db6": {
+   "license_no": "74103000758",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมสารินสไมล์"
+  },
+  "0x30e2b99653b7d28d_0xb2731c8aea5df5c9": {
+   "license_no": "74103000764",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมซัมเมอร์"
+  },
+  "0x30e2b9a14d744067_0x3c7b4ce75b6240f0": {
+   "license_no": "74103000462",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมซุปเปอร์เดนท์"
+  },
+  "0x30e2b9b306fb5b97_0x618827341b1055b2": {
+   "license_no": "74103000763",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "ทีสไมล์คลินิกทันตกรรม สาขาสินสาคร"
+  },
+  "0x30e2b9de65ad761b_0x3d3b25064bd2f031": {
+   "license_no": "74103001465",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมพีบีเอส มหาชัย"
+  },
+  "0x30e2bbd5b9dd306d_0xdc20823094c5f56a": {
+   "license_no": "74103000263",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมสินสาคร"
+  },
+  "0x30e2bc8c82dff8f1_0x61f783068be7e6b1": {
+   "license_no": "10103008861",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรมบางกระดี่"
+  },
+  "0x30e2bd247bd0b7dd_0x49602c64f7f7c795": {
+   "license_no": "10103000659",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมสไมล์โฟกัส สาขาถนนจันทน์"
+  },
+  "0x30e2bd282574d45f_0x6c585c82386a2584": {
+   "license_no": "10103018163",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรม ฟ.ฟัน สะอาดจัง"
+  },
+  "0x30e2bd28446ea5bb_0x8e618445a56e642a": {
+   "license_no": "10103054862",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมทูธแมกซ์"
+  },
+  "0x30e2bd33365cbf05_0x64bd36d3bfbb8f6e": {
+   "license_no": "10103008856",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "ศูนย์ทันตกรรมพระราม 2 คลินิกทันตกรรม"
+  },
+  "0x30e2bd381b82c83b_0x64f823c168eb8185": {
+   "license_no": "10103002460",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "บ้านฟอฟันคลินิกทันตกรรม"
+  },
+  "0x30e2bd3820f94891_0xf0cc2d678a84f460": {
+   "license_no": "10103015758",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมสไมล์โฟกัส สาขาพระราม 2"
+  },
+  "0x30e2bdc50deacd95_0xa836ea92ed1d4d85": {
+   "license_no": "10103003566",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมดีเอ็นเอส"
+  },
+  "0x30e2bdd54edaec81_0xee3cd389ac7985c1": {
+   "license_no": "10103019165",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมอะโลฮ่า"
+  },
+  "0x30e2bdfbadbb0ffb_0x25a9d9d01eeef7eb": {
+   "license_no": "10103007264",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมพีสไมล์"
+  },
+  "0x30e2bf7996d20669_0xd598ffa92d67a480": {
+   "license_no": "74103000464",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรม เดนทัล ฮัก"
+  },
+  "0x30e2eb30452afd81_0x3517f6eddd7b3938": {
+   "license_no": "73103000468",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "เป็นมิตร คลินิกทันตกรรม"
+  },
+  "0x30e2ebcd41c235ad_0x42fd3e8a6520e266": {
+   "license_no": "73103000667",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมหมอแป้ง"
+  },
+  "0x30e2f39cc56a832f_0xdd5a9c5960e643d3": {
+   "license_no": "73103000169",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมหมอแพรพลอยใจดี"
+  },
+  "0x30fd03ae3cd3e29d_0xee964cda51b6203a": {
+   "license_no": "76103000366",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมฟันไทม์"
+  },
+  "0x30fdaa5319eea7a3_0x98f98203176b8172": {
+   "license_no": "77103000163",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมเอสสไมล์"
+  },
+  "0x30fdab162d1ed013_0xafa25468c93b2551": {
+   "license_no": "77103000466",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมเด็นทัลเฮ้าส์"
+  },
+  "0x30fdab91592714c3_0xb6b80ad4d1e01cd5": {
+   "license_no": "77103000859",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมเอสเด็นทัล"
+  },
+  "0x30fdabb1b7042a15_0x122993be5c7f10b": {
+   "license_no": "77103000960",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "คลินิกทันตกรรมดีเด้นท์"
+  },
+  "0x31028df71a23303d_0x182f32905912ca4a": {
+   "license_no": "20103002557",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมบางเสร่สไมล์"
+  },
+  "0x310295001ce3664f_0xd70d788182ed0951": {
+   "license_no": "20103001468",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมใกล้ฉัน"
+  },
+  "0x3102950599e0b8b7_0x93803ffd88da1eba": {
+   "license_no": "20103003165",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมอรุณโรจน์ ไร่วนาสินธุ์"
+  },
+  "0x3102953efad36441_0xc1e9305f79e2f703": {
+   "license_no": "20103001363",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมเพลินดี"
+  },
+  "0x310295f186ddeec5_0xd66c5c3de9cf0a2b": {
+   "license_no": "20103003963",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมเขาตาโลเดนทัลแคร์"
+  },
+  "0x3102969a5132a507_0xf71a1fbf0176757d": {
+   "license_no": "20103004465",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมไทยสไมล์"
+  },
+  "0x310297d58c04af23_0xbb8f82571fa4a50": {
+   "license_no": "20103003656",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมฮอลลีวูดสไมล์"
+  },
+  "0x3102b7286c1b0223_0xcc369e4e24f9ac43": {
+   "license_no": "20103004166",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมคิเรอิ"
+  },
+  "0x3102b917235cee79_0x901cea28a9af5e8a": {
+   "license_no": "20103002566",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมยินดี"
+  },
+  "0x3102b9386d9b6a4b_0xf5831771f273c64a": {
+   "license_no": "20103002767",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมออร่าสไมล์"
+  },
+  "0x3102b95962375abf_0x8100bd907f16e9b9": {
+   "license_no": "20103000467",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "เฟรนด์ลี่คลินิกทันตกรรม"
+  },
+  "0x3102b9a04b0a2a05_0x897d20599dffaf77": {
+   "license_no": "20103002961",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรมหมอฟันคู่ใจ สาขาแหลมฉบัง"
+  },
+  "0x3102b9a381f2d4c1_0x4b808dc896527422": {
+   "license_no": "20103005060",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "แหลมฉบังคลินิกทันตกรรม"
+  },
+  "0x3102b9a48425ba2d_0xaa86e1407d159669": {
+   "license_no": "20103000565",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรม สไมล์ ดี"
+  },
+  "0x3102b9d01ee668ad_0x6e515d963245cc2c": {
+   "license_no": "20103000659",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมสไมล์แฟคทอรี่ สาขาอ่าวอุดม"
+  },
+  "0x3102b9fcc4a6cf23_0x23f6f7846cfc4d9": {
+   "license_no": "20103004561",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรมสไมล์แฟคทอรี่ สาขาแหลมฉบัง"
+  },
+  "0x3102bdb2018f4ca7_0x7e0cc0997094a6dd": {
+   "license_no": "20103003563",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมดิเอชสไมล์พัทยา"
+  },
+  "0x3102bdfe6d6f19a5_0x5238b6dfee1aaa93": {
+   "license_no": "20103001260",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "คลินิกทันตกรรมพัทยากลาง"
+  },
+  "0x3102c7611f4083d7_0xead132f473fca39b": {
+   "license_no": "20103003366",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมบึง"
+  },
+  "0x311d59003d180af1_0x237d1401d26275ff": {
+   "license_no": "11103004367",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมฟลอร่าเดนทอลโฮม"
+  },
+  "0x311d5921bcf23beb_0xe0baf9ceb55aeaeb": {
+   "license_no": "11103001767",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "หมอก็อฟคลินิกทันตกรรม"
+  },
+  "0x311d594fd2bd1fa1_0x6e7c0cdad753c63a": {
+   "license_no": "11103000957",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมเดนทัลแลนด์"
+  },
+  "0x311d5950af43e44d_0xef74c4915537c564": {
+   "license_no": "11103002062",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมตำหรุฟันดี"
+  },
+  "0x311d59740470811f_0x511e42176cbb402f": {
+   "license_no": "11103002068",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมหมอฟันคู่ใจ สาขาซอยมังกร"
+  },
+  "0x311d59a50f94dab9_0xe1177500217ab722": {
+   "license_no": "11103004762",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมดราก้อนสไมล์"
+  },
+  "0x311d59c3383633eb_0x329c77aaef5d8d94": {
+   "license_no": "11103001564",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมแนททิส"
+  },
+  "0x311d5d049e714bbb_0x8c700fc845889da0": {
+   "license_no": "11103003068",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมวันเดอร์ทูธ"
+  },
+  "0x311d5d3083b27443_0xc823b4d57eed22d9": {
+   "license_no": "11103003267",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมโซเด้นท์ สาขาหัวเฉียว"
+  },
+  "0x311d5d97ff888615_0xcce33fb908c76b7a": {
+   "license_no": "11103003666",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมโปรเดนท์"
+  },
+  "0x311d5da77585155d_0x867c81d845a14da5": {
+   "license_no": "11103005565",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมไดโนเดนท์"
+  },
+  "0x311d5dba3a36c055_0x6f27351818e7f650": {
+   "license_no": "11103001063",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "กาหลงทันตแพทย์คลินิก"
+  },
+  "0x311d5dd48b524ce5_0xf1b34058c9358aca": {
+   "license_no": "11103002764",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมมิตร"
+  },
+  "0x311d5dfa6d8b9dbb_0x5642c264e7aec7e6": {
+   "license_no": "11103002665",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมอัลตร้าสไมล์"
+  },
+  "0x311d5ebc2a683695_0xd9ab0d0262b94acb": {
+   "license_no": "11103001558",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมเก็ทสไมล์"
+  },
+  "0x311d5f0017f6c51b_0x7073b5f4741e7f2d": {
+   "license_no": "11103003168",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมแบริ่ง 48"
+  },
+  "0x311d5f002da5be41_0x25277e1cbcf73585": {
+   "license_no": "11103002868",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมโอมายทีช"
+  },
+  "0x311d5f1424d4d3bb_0x44db98d4227f527f": {
+   "license_no": "11103000157",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมเทพารักษ์"
+  },
+  "0x311d5faa31105405_0x848b0de86682c347": {
+   "license_no": "11103004066",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมไอชิ"
+  },
+  "0x311d5fd61ab57b13_0x9a0312019155d285": {
+   "license_no": "11103004967",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมทูธเจอร์นีย์"
+  },
+  "0x311d5ffff8c1628f_0x6618850b4b93c4c": {
+   "license_no": "10103001563",
+   "valid_until": "31 ธันวาคม 2572",
+   "registered_name": "คลินิกทันตกรรมบ้านฟันฟ้าใส"
+  },
+  "0x311d6009bdd40be1_0x4c14a839e48b5252": {
+   "license_no": "10103001561",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "มายเด้นท์คลินิกทันตกรรม"
+  },
+  "0x311d600c83512557_0xd1d76359559a1d74": {
+   "license_no": "50103003859",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมเชิงดอย"
+  },
+  "0x311d602a91edfac5_0x567a79420483016a": {
+   "license_no": "10103003957",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกอรจิราทันตแพทย์คลินิกทันตกรรม"
+  },
+  "0x311d603c39c88ad1_0x861505f2321cdeeb": {
+   "license_no": "10103029062",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมอ่อนนุช"
+  },
+  "0x311d6040b3b7f779_0x8bbd72d1467cb401": {
+   "license_no": "10103000760",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "คลินิกทันตกรรมฉัตรชเนตร์ทันตแพทย์"
+  },
+  "0x311d60d9f6f0d99f_0xec186c88ea95d119": {
+   "license_no": "10103032962",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมประเวศ"
+  },
+  "0x311d6100146a7ec3_0xc5103dde0eafc2d": {
+   "license_no": "10103006667",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "ด็อกเตอร์จูคลินิกทันตกรรม"
+  },
+  "0x311d6115d3dc0d2d_0x4f0db5057313cce": {
+   "license_no": "10103010967",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมมิสเตอร์เด็นทิสต์ สาขาอ่อนนุช"
+  },
+  "0x311d61673b8a7139_0x4fc397b6435a7bbe": {
+   "license_no": "10103056862",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมพีพีเค"
+  },
+  "0x311d617185df581f_0xa9c1a3bdd03bae2c": {
+   "license_no": "10103020365",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมเดอะยูนีคสไมล์"
+  },
+  "0x311d6178c5184407_0x553ee19f937d97dc": {
+   "license_no": "10103003364",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมพระจันทร์ยิ้ม"
+  },
+  "0x311d6186d0b86c9f_0xa229f3d327aa9f4b": {
+   "license_no": "10103009768",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมดอลฟิน สไมล์"
+  },
+  "0x311d61d3333483e3_0x48b05712ad23c821": {
+   "license_no": "10103008568",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "ปรมาภรณ์ คลินิกทันตกรรม"
+  },
+  "0x311d61e2802de227_0xeefccab89d6994ed": {
+   "license_no": "10103014964",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมออลสไมล์"
+  },
+  "0x311d61e52a3ed9d9_0xe2ad9899410eb78b": {
+   "license_no": "10103018265",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมเมตตาเดนทอลคลินิก"
+  },
+  "0x311d61e91c4c3e15_0x606a3cc68097a434": {
+   "license_no": "10103009164",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมเดนทัลวิศ"
+  },
+  "0x311d6261f5d0a971_0xd694e45ac1d1d685": {
+   "license_no": "10103004364",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "ลัคกี้ทูธเด็นทัลคลินิกคลินิกทันตกรรม"
+  },
+  "0x311d6300101863dd_0xfac4f5d75e497105": {
+   "license_no": "10103001268",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมศิริ"
+  },
+  "0x311d630033b74681_0xac482a7a7ac64ee6": {
+   "license_no": "10103014165",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมเซตสไมล์"
+  },
+  "0x311d630d2650621f_0x2518edc946a8ecdd": {
+   "license_no": "10103008368",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมดีนีย์ รามอินทรา กม.8"
+  },
+  "0x311d6326c978c82b_0xeb73aab5e2fa184d": {
+   "license_no": "10103013760",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "คลินิกทันตกรรมเดอะปริญ"
+  },
+  "0x311d63397c753a35_0x5bf24a307a48d354": {
+   "license_no": "10103002367",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมเบามือ"
+  },
+  "0x311d63544c827dd3_0xd8aad998724d2aaf": {
+   "license_no": "10103002565",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมเฟรชสไมล์ สาขาซาฟารีเวิลด์"
+  },
+  "0x311d63585eeabf17_0x99068cb16c57a54b": {
+   "license_no": "10103008961",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรมเดนทัลพาราไดซ์"
+  },
+  "0x311d637677f6248d_0xb1d409a0fc6616ca": {
+   "license_no": "10103005666",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมหมอหมิงเดนทัล"
+  },
+  "0x311d637dbc250711_0x7c804f92275e0d55": {
+   "license_no": "10103002366",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมเนโกะ"
+  },
+  "0x311d639c0097d2ef_0xdd79aee6eded9d73": {
+   "license_no": "10103010265",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมพาสุข สาขาคู้บอน"
+  },
+  "0x311d63d97fcc877f_0xc2aef1c30075d1ad": {
+   "license_no": "10103001662",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมพฤกษชาติ"
+  },
+  "0x311d63da2977ce4f_0x52a50a49015e77e7": {
+   "license_no": "10103001365",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมรามคำแหง"
+  },
+  "0x311d64899db414fb_0x68c551b1bd8bd78e": {
+   "license_no": "10103002659",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมฟอร์จูนเดนทัลโฮม"
+  },
+  "0x311d6500331b5a33_0x386b1fdee0f64de": {
+   "license_no": "10103011266",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมเดนทัลไพรซ์"
+  },
+  "0x311d654e33d2dabf_0xc25e43d735771ddb": {
+   "license_no": "10103053762",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมทรีโอ"
+  },
+  "0x311d655926d6490d_0x18e79262dc0ac8aa": {
+   "license_no": "10103013161",
+   "valid_until": "31 ธันวาคม 2570",
+   "registered_name": "คลินิกทันตกรรมบ้านฟันมีนบุรี"
+  },
+  "0x311d656176c9997b_0xc0cb2d03f4d8243": {
+   "license_no": "10103001369",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมเอดีซี"
+  },
+  "0x311d661cda83af71_0x9ec505cf55c9833f": {
+   "license_no": "10103015659",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมบลูเดนทัล"
+  },
+  "0x311d6725c4ec51b3_0x7a9f47b4f409e308": {
+   "license_no": "10103008766",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมคุณหมอฟันเด็นทัลเฮ้าส์"
+  },
+  "0x311d672e8d32da97_0xae9dbcbd41834da2": {
+   "license_no": "10103014459",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมเลิฟสไมล์ สาขาลาดกระบัง"
+  },
+  "0x311d675ae8e88b9f_0x911a99792c73c42f": {
+   "license_no": "10103002365",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมสไมล์แอทร่มเกล้า"
+  },
+  "0x311d675d2d5d3825_0x2122d9d5c1bb7919": {
+   "license_no": "10103013366",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมไอทีธ"
+  },
+  "0x311d677dc7b84051_0xe619566b843e8870": {
+   "license_no": "11103005165",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรม เอซ"
+  },
+  "0x311d69003059c0ff_0x5ca1362dd4df70a3": {
+   "license_no": "10103009168",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมฟันไบรท์"
+  },
+  "0x311d69e6707012eb_0x5fd116c1d0a89c03": {
+   "license_no": "10103008067",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมเฉลิม"
+  },
+  "0x311d7b0012e8fdc3_0xad31a4e9b8ddbf54": {
+   "license_no": "13103002567",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรม ดีต่อฟัน"
+  },
+  "0x311d7b43008497ab_0xf64fc40feb2717aa": {
+   "license_no": "13 1 03 0034 64",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมลำลูกกาเด้นท์"
+  },
+  "0x311d7bb7789a0c7f_0x68455e3c9a3196ff": {
+   "license_no": "10103015365",
+   "valid_until": "31 ธันวาคม 2574",
+   "registered_name": "คลินิกทันตกรรมเพิ่มยิ้ม"
+  },
+  "0x311d7bf050509f9f_0x1997bf8319be6465": {
+   "license_no": "10103053262",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมเมืองประชา"
+  },
+  "0x311d7c3d02f94313_0xff20e4462e4e990d": {
+   "license_no": "13103000362",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรม เอส พี"
+  },
+  "0x311d7c5dacda8b8f_0x80ba13afe65291ff": {
+   "license_no": "10103000762",
+   "valid_until": "31 ธันวาคม 2571",
+   "registered_name": "คลินิกทันตกรรมแมกไม้"
+  },
+  "0x311d7d0a98ef2555_0xe11bb637b1dac3aa": {
+   "license_no": "10103011966",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมใจดี"
+  },
+  "0x311d7da2bda8ff61_0x78c2a68a597ecc01": {
+   "license_no": "10103010059",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมเอซีสายไหมเดนทัลโฮม"
+  },
+  "0x311d7db6603be7e9_0xa55d10efe4a07df7": {
+   "license_no": "13 1 03 0018 56",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมบ้านปันยิ้ม"
+  },
+  "0x311d7dc11a5200bb_0x38f73ab5873fe8b0": {
+   "license_no": "10103012564",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "เดนทัลสไมล์ สายไหม คลินิกทันตกรรม"
+  },
+  "0x311d7def689ca40d_0x91417b50962208ae": {
+   "license_no": "10103006366",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมดูโอ้"
+  },
+  "0x311d7dff685d12b7_0x52282d398ea1a409": {
+   "license_no": "10103009657",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมสไมล์อะลอท"
+  },
+  "0x311d7e23b9b9b4e9_0x4a0afa3c069595ea": {
+   "license_no": "13 1 03 0001 60",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "มายมายด์คลินิกทันตกรรม"
+  },
+  "0x311d7e98d18e3fb9_0xdb08642e2d3e40f7": {
+   "license_no": "13103000659",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมวิชุณี"
+  },
+  "0x311d7f0036ab4063_0xf4d2d8351c6f93c8": {
+   "license_no": "13 1 03 0004 60",
+   "valid_until": "31 ธันวาคม 2569",
+   "registered_name": "คลินิกทันตกรรมสะพานแดง"
+  },
+  "0x311d7f08454ec98b_0x4b9e12b6f6f7be40": {
+   "license_no": "13 1 03 0014 64",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรมฮัลโหลสไมล์"
+  },
+  "0x311d7f717bd81097_0x2c00972e971cc8df": {
+   "license_no": "13103000369",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรม เดอะลูนาร์ สาขาลำลูกกา-รังสิต คลองสอง"
+  },
+  "0x311d7fa500fe5d5f_0x13ebfc5be0d09234": {
+   "license_no": "13 1 03 0001 64",
+   "valid_until": "31 ธันวาคม 2573",
+   "registered_name": "คลินิกทันตกรรม เดนท์ออฟอาท"
+  },
+  "0x311d7fca86c69723_0x807e292d714949da": {
+   "license_no": "13103000169",
+   "valid_until": "31 ธันวาคม 2578",
+   "registered_name": "คลินิกทันตกรรมดีสมาย"
+  },
+  "0x311d7fe0d610832d_0xbebb869ce92a00c4": {
+   "license_no": "13103001668",
+   "valid_until": "31 ธันวาคม 2577",
+   "registered_name": "คลินิกทันตกรรมปังปัง"
+  },
+  "0x311d7fe7b2e1d09d_0xc44a90517f1c3635": {
+   "license_no": "13 1 03 0012 66",
+   "valid_until": "31 ธันวาคม 2575",
+   "registered_name": "คลินิกทันตกรรมพบพลอย"
+  },
+  "0x43489d5a889924b9_0xbe51a0aac9018b8a": {
+   "license_no": "10103001867",
+   "valid_until": "31 ธันวาคม 2576",
+   "registered_name": "คลินิกทันตกรรมเดนทรีต"
+  }
+ }
+}

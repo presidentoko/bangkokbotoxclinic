@@ -62,6 +62,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // /compare(robots.ts 에서 Disallow — 제출하면 서로 모순되는 지시가 된다).
     { url: `${SITE}/c`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE}/methodology`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
+    // The licence guide: what the law makes a clinic show you, and the official
+    // lookup. The only page here that is not built from the directory.
+    { url: `${SITE}/verify`, lastModified: updated, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE}/about/trust-score`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE}/insights`, lastModified: updated, changeFrequency: "weekly", priority: 0.6 },
     { url: `${SITE}/corrections`, lastModified: updated, changeFrequency: "monthly", priority: 0.4 },

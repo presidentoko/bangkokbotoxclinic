@@ -6,6 +6,7 @@
 // 미래 확장: ClinicDetailView 서버 컴포넌트로 추출 후 lang prop 으로
 // 라벨/우선순위 변경 가능. 지금은 hreflang + locale metadata 만 차이.
 import type { Metadata } from "next";
+import { getClinicLicense } from "@/lib/licenses";
 import ClinicPage, { generateStaticParams as parentGSP } from "../../../clinic/[id]/page";
 import { loadMasterDb, getClinicByRouteKey } from "@/lib/data";
 import { getSiteUrl, getSiteConfig, applySiteFilter, resolveOwnerUrl, safeEncodeURIComponent } from "@/lib/site";
@@ -36,9 +37,11 @@ export async function generateMetadata(
   // 스팸처럼 보이는 것을 막는다. H1·JSON-LD 는 원본 c.name 그대로.
   const dispName = c.display_name || c.name;
   const title = `${dispName} — รีวิว & ราคา | ${c.district || c.city_label}`;
+  const lic = getClinicLicense(c.id);
+  const licBit = lic ? ` เลขที่ใบอนุญาตสถานพยาบาล ${lic.license_no}.` : "";
   const description = c.address
-    ? `${c.name} ใน ${c.district || c.city_label} — คะแนน ${c.rating.toFixed(1)} จาก ${c.total_reviews.toLocaleString()} รีวิว Google. ที่อยู่: ${c.address.slice(0, 80)}.`
-    : `${c.name} — คะแนน ${c.rating.toFixed(1)} จาก ${c.total_reviews.toLocaleString()} รีวิว Google.`;
+    ? `${c.name} ใน ${c.district || c.city_label} — คะแนน ${c.rating.toFixed(1)} จาก ${c.total_reviews.toLocaleString()} รีวิว Google.${licBit} ที่อยู่: ${c.address.slice(0, 70)}.`
+    : `${c.name} — คะแนน ${c.rating.toFixed(1)} จาก ${c.total_reviews.toLocaleString()} รีวิว Google.${licBit}`;
 
   // EN 페이지와 동일 가드 — parentGSP가 이제 사이트 소관 클리닉만 prerender
   // 하므로(2026-07-17 감사) 실질적으론 도달 불가하지만, 방어적으로 유지.

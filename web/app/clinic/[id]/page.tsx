@@ -1,4 +1,6 @@
 import { notFound, permanentRedirect } from "next/navigation";
+import { LicenseCheck } from "@/components/LicenseCheck";
+import { getClinicLicense } from "@/lib/licenses";
 import { loadMasterDb, getClinicById, getClinicByRouteKey, isLegacyClinicKey, makeCompositeDoctorSlug } from "@/lib/data";
 import { loadPricing, summarisePackages, priceRangeTHB } from "@/lib/pricing";
 import { loadPhotos } from "@/lib/photos";
@@ -130,7 +132,11 @@ export async function generateMetadata(
   const _hoursBit = _hours
     ? ` ${[_hours.open_weekend ? "Open weekends" : "", _hours.open_evening ? "open late" : ""].filter(Boolean).join(", ")}.`.replace(" .", "")
     : "";
-  const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} from ${c.total_reviews} Google reviews.${_hoursBit} ${cats || "Aesthetic clinic"}.`.replace(/\s+/g, " ").trim();
+  // The licence is what this result can say that the clinic's own Google
+  // listing, sitting next to it in the SERP, cannot.
+  const _lic = getClinicLicense(c.id);
+  const _licBit = _lic ? ` MOPH licence ${_lic.license_no}.` : "";
+  const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} from ${c.total_reviews} Google reviews.${_hoursBit}${_licBit} ${cats || "Aesthetic clinic"}.`.replace(/\s+/g, " ").trim();
 
   // 이 사이트 소관이 아닌 클리닉이면 (예: 덴탈 사이트에 뜬 보톡스 전용 클리닉)
   // 절대 URL로 진짜 소유 도메인을 캐노니컬로 지정 + noindex — 두 도메인 동시 색인 방지.
@@ -454,6 +460,10 @@ export default async function ClinicPage(
           {photos && photos.photos.length > 0 && (
             <PhotoGallery photos={photos.photos} clinicName={c.name} />
           )}
+
+          {/* The licence sits above the review analysis: it is the only block on
+              this page that a Google listing cannot also show. */}
+          <LicenseCheck clinicId={c.id} lang={lang} />
 
           {/* Pantip — 태국 최대 커뮤니티 토픽 인용 + 외부 backlink */}
           <ReviewSignals clinic={c} />
