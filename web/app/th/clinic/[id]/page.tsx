@@ -7,7 +7,7 @@
 // 라벨/우선순위 변경 가능. 지금은 hreflang + locale metadata 만 차이.
 import type { Metadata } from "next";
 import ClinicPage, { generateStaticParams as parentGSP } from "../../../clinic/[id]/page";
-import { loadMasterDb, getClinicById } from "@/lib/data";
+import { loadMasterDb, getClinicByRouteKey } from "@/lib/data";
 import { getSiteUrl, getSiteConfig, applySiteFilter, resolveOwnerUrl, safeEncodeURIComponent } from "@/lib/site";
 import { hasKoPage } from "@/lib/ko-cap";
 
@@ -28,7 +28,7 @@ export async function generateMetadata(
   const { id } = await params;
   const koExists = await hasKoPage(id);
   const db = await loadMasterDb();
-  const c = getClinicById(db.clinics, id);
+  const c = getClinicByRouteKey(db.clinics, id);
   if (!c) return { title: "ไม่พบคลินิก" };
   // 2026-08-14 감사: ", ที่ตั้ง"(위치) 제거 — รีวิว(리뷰)·ราคา(가격) 검색어와
   // 지역명은 유지. TH 클리닉이 60자 초과 최다 그룹(표본 404건)이었다.
@@ -47,7 +47,7 @@ export async function generateMetadata(
   const ownerUrl = !inSite ? resolveOwnerUrl(c.categories) : null;
   // 2026-09-15: 영어판과 본문 99% 동일(실측, 태국어 글자 15%) — 번역 페이지가
   // 아니라 복제본이다. 영어판으로 canonical 을 모으고 색인에서 뺀다.
-  const canonical = `${ownerUrl ?? SITE}/clinic/${c.id}`;
+  const canonical = `${ownerUrl ?? SITE}/clinic/${c.url_slug}`;
 
   return {
     // absolute — EN 라우트(app/clinic/[id]/page.tsx)는 이미 이렇게 쓰는데 여기만
@@ -68,7 +68,7 @@ export async function generateMetadata(
       locale: "th_TH",
       title,
       description,
-      url: `${SITE}/th/clinic/${c.id}`,
+      url: `${SITE}/th/clinic/${c.url_slug}`,
       // 2026-08-14 감사: og:image 누락 1,319건 중 1,166건이 이 라우트였다 —
       // EN 클리닉 페이지(app/clinic/[id]/page.tsx)와 동일한 /api/og 카드.
       images: [{

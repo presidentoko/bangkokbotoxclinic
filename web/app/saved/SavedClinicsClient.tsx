@@ -6,7 +6,7 @@ import WishlistButton from "@/components/WishlistButton";
 const KEY = "wishlist_v1";
 const EVENT = "wishlist:changed";
 
-type Saved = { id: string; name?: string; district?: string; rating?: number; reviews?: number; trust?: number };
+type Saved = { id: string; url_slug?: string; name?: string; district?: string; rating?: number; reviews?: number; trust?: number };
 
 export default function SavedClinicsClient() {
   const [ids, setIds] = useState<string[]>([]);
@@ -61,7 +61,7 @@ export default function SavedClinicsClient() {
         <article key={c.id} className="relative rounded-xl border bg-white p-4 flex items-center gap-4" style={{ borderColor: "var(--border)" }}>
           <div className="grid h-12 w-12 place-items-center rounded-xl bg-red-50 text-2xl shrink-0">❤️</div>
           <div className="flex-1 min-w-0">
-            <a href={`/clinic/${c.id}`} className="font-bold hover:underline truncate block">{c.name || `Clinic · ${c.id.slice(0, 12)}…`}</a>
+            <a href={`/clinic/${c.url_slug ?? c.id}`} className="font-bold hover:underline truncate block">{c.name || `Clinic · ${c.id.slice(0, 12)}…`}</a>
             <p className="text-xs text-[var(--muted)] mt-0.5">Tap to view full details + reviews + photos</p>
           </div>
           <WishlistButton clinicId={c.id} variant="full" />

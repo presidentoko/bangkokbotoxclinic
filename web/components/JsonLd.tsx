@@ -138,7 +138,7 @@ export function ClinicJsonLd({ c, photos, priceRange, localePrefix = "" }: {
     "@context": "https://schema.org",
     "@type": schemaType,
     name: c.name,
-    url: `${SITE}${localePrefix}/clinic/${c.id}`,
+    url: `${SITE}${localePrefix}/clinic/${c.url_slug}`,
     address: {
       "@type": "PostalAddress",
       streetAddress: c.address,
@@ -288,7 +288,7 @@ export function CollectionPageJsonLd({ name, description, url, items }: {
   name: string;
   description: string;
   url: string;
-  items: Pick<Clinic, "id" | "name" | "rating" | "total_reviews" | "trust_score" | "district" | "city_label" | "categories">[];
+  items: Pick<Clinic, "id" | "name" | "rating" | "total_reviews" | "trust_score" | "district" | "city_label" | "categories" | "url_slug">[];
 }) {
   const fullUrl = url.startsWith("http") ? url : `${SITE}${url}`;
   // 평균 평점 가중평균 (review count 가중)
@@ -312,9 +312,9 @@ export function CollectionPageJsonLd({ name, description, url, items }: {
         position: i + 1,
         item: {
           "@type": c.categories?.includes("dental") ? "Dentist" : "MedicalBusiness",
-          "@id": `${SITE}/clinic/${c.id}`,
+          "@id": `${SITE}/clinic/${c.url_slug}`,
           name: c.name,
-          url: `${SITE}/clinic/${c.id}`,
+          url: `${SITE}/clinic/${c.url_slug}`,
           // 리뷰 0건이면 aggregateRating 생략 — ClinicJsonLd와 동일 가드
           ...(c.rating && c.total_reviews && {
             aggregateRating: {

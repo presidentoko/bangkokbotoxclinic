@@ -218,6 +218,7 @@ export default async function HomePage(
       rating: c.rating,
       review: c.sample_reviews_en[0],
       id: c.id,
+      url_slug: c.url_slug ?? c.id,
     }));
 
   const accent = cfg.themeAccent;
@@ -592,7 +593,7 @@ export default async function HomePage(
                 return (
                   <a
                     key={c.id}
-                    href={`${clinicPrefix}/clinic/${c.id}`}
+                    href={`${clinicPrefix}/clinic/${c.url_slug}`}
                     className="group block border border-[var(--border)] rounded-2xl bg-white hover:shadow-xl hover:-translate-y-0.5 transition relative overflow-hidden"
                   >
                     {/* Photo header — 실제 사진 있을 때만 표시 */}
@@ -672,7 +673,7 @@ export default async function HomePage(
               {reviewQuotes.map((q, i) => (
                 <a
                   key={i}
-                  href={`${clinicPrefix}/clinic/${q.id}`}
+                  href={`${clinicPrefix}/clinic/${q.url_slug}`}
                   className="group block bg-white border border-[var(--border)] rounded-2xl p-5 hover:shadow-md transition"
                 >
                   <div className="text-3xl leading-none mb-2" style={{ color: accent }}>"</div>
@@ -1014,7 +1015,7 @@ export default async function HomePage(
           name={`Top ${cfg.brand} by Trust Score`}
           items={top.slice(0, 20).map((c) => ({
             name: c.name,
-            url: `/clinic/${c.id}`,
+            url: `/clinic/${c.url_slug}`,
           }))}
         />
       </div>

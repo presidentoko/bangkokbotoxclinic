@@ -27,7 +27,7 @@ export async function GET() {
   const urls = remaining
     .map((c) => {
       const prio = c.trust_score >= 70 ? "0.8" : c.trust_score >= 50 ? "0.6" : "0.45";
-      return `  <url><loc>${SITE}/clinic/${c.id}</loc><lastmod>${updated.slice(0, 10)}</lastmod><changefreq>weekly</changefreq><priority>${prio}</priority></url>`;
+      return `  <url><loc>${SITE}/clinic/${c.url_slug}</loc><lastmod>${updated.slice(0, 10)}</lastmod><changefreq>weekly</changefreq><priority>${prio}</priority></url>`;
     })
     .join("\n");
 

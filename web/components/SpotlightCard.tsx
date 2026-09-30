@@ -24,7 +24,7 @@ export async function SpotlightCard({ c, accent = "#0f766e", lang = "en" }: { c:
     <article className="my-8 group relative overflow-hidden rounded-3xl bg-white shadow-xl border border-[var(--border)]">
       <div className="grid lg:grid-cols-[1.4fr_1fr]">
         {/* Photo side */}
-        <a href={`/clinic/${c.id}`} className="relative block aspect-[16/10] overflow-hidden bg-slate-100 lg:aspect-auto">
+        <a href={`/clinic/${c.url_slug}`} className="relative block aspect-[16/10] overflow-hidden bg-slate-100 lg:aspect-auto">
           {hero ? (
             <ClinicPhoto
               src={hero.thumb}
@@ -93,7 +93,7 @@ export async function SpotlightCard({ c, accent = "#0f766e", lang = "en" }: { c:
 
           <div className="mt-6 flex flex-wrap gap-2">
             <a
-              href={`/clinic/${c.id}`}
+              href={`/clinic/${c.url_slug}`}
               className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-white text-sm font-bold transition shadow-md hover:opacity-90"
               style={{ background: accent }}
             >

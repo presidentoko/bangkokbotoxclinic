@@ -50,6 +50,6 @@ export async function GET(req: NextRequest) {
     has_korean_reviewers: clinic.language_breakdown.ko > 0,
     has_japanese_reviewers: clinic.language_breakdown.ja > 0,
     dashboard_url: `${url.origin}/dashboard/${clinic.id}`,
-    public_url: `${url.origin}/clinic/${clinic.id}`,
+    public_url: `${url.origin}/clinic/${clinic.url_slug}`,
   });
 }

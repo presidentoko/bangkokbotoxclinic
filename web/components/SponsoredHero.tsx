@@ -96,7 +96,7 @@ export async function SponsoredHero({ c, lang = "en" }: { c: Clinic; lang?: Lang
 
             <div className="flex gap-2 flex-wrap">
               <a
-                href={`/clinic/${c.id}`}
+                href={`/clinic/${c.url_slug}`}
                 className={`inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-white text-sm font-bold ${styles.badgeBg} hover:opacity-90 transition shadow-md`}
               >
                 {t.viewDetails}

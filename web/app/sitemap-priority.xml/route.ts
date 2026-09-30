@@ -27,7 +27,7 @@ export async function GET() {
 
   const urls = priority
     .map((c) => {
-      return `  <url><loc>${SITE}/clinic/${c.id}</loc><lastmod>${updated.slice(0, 10)}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>`;
+      return `  <url><loc>${SITE}/clinic/${c.url_slug}</loc><lastmod>${updated.slice(0, 10)}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>`;
     })
     .join("\n");
 

@@ -170,7 +170,7 @@ export default async function ComparePage(
         <div>
           <h3 className="text-sm font-semibold mb-2">{ca.name}</h3>
           <a
-            href={`/clinic/${ca.id}`}
+            href={`/clinic/${ca.url_slug}`}
             className="inline-flex items-center justify-center gap-2 rounded-lg font-bold py-2.5 px-4 text-sm text-white hover:opacity-90 transition"
             style={{ background: "var(--accent)" }}
           >
@@ -180,7 +180,7 @@ export default async function ComparePage(
         <div>
           <h3 className="text-sm font-semibold mb-2">{cb.name}</h3>
           <a
-            href={`/clinic/${cb.id}`}
+            href={`/clinic/${cb.url_slug}`}
             className="inline-flex items-center justify-center gap-2 rounded-lg font-bold py-2.5 px-4 text-sm text-white hover:opacity-90 transition"
             style={{ background: "var(--accent)" }}
           >
@@ -270,7 +270,7 @@ function StatRow({ label, a, b, winner }: { label: string; a: string; b: string;
 function TrustVisual({ clinic, winner }: { clinic: Clinic; winner: boolean }) {
   const color = clinic.trust_score >= 80 ? "#059669" : clinic.trust_score >= 65 ? "#2563eb" : "#d97706";
   return (
-    <a href={`/clinic/${clinic.id}`} className={`block bg-white rounded-2xl p-6 border-2 transition hover:shadow-lg ${winner ? "border-green-400" : "border-[var(--border)]"}`}>
+    <a href={`/clinic/${clinic.url_slug}`} className={`block bg-white rounded-2xl p-6 border-2 transition hover:shadow-lg ${winner ? "border-green-400" : "border-[var(--border)]"}`}>
       <div className="flex items-start justify-between mb-3">
         <div className="min-w-0 flex-1">
           <h3 className="font-bold text-lg truncate">{clinic.name}</h3>

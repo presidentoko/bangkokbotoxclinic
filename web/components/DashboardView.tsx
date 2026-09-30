@@ -352,7 +352,7 @@ export function DashboardView({
           </div>
           <div className="flex items-center gap-2 flex-wrap">
             <a
-              href={`/clinic/${c.id}`}
+              href={`/clinic/${c.url_slug}`}
               target="_blank"
               rel="noopener"
               className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50 print:hidden"

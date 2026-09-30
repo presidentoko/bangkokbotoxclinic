@@ -138,7 +138,7 @@ export function HiddenGem({
             </p>
 
             <a
-              href={`/clinic/${pick.id}`}
+              href={`/clinic/${pick.url_slug}`}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm font-bold hover:shadow-md hover:-translate-y-0.5 transition-all"
               style={{ background: accent }}
             >

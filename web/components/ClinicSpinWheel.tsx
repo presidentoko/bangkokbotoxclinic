@@ -113,13 +113,13 @@ export default function ClinicSpinWheel({ clinics }: { clinics: Clinic[] }) {
         {winner ? (
           <div className="animate-fade-up">
             <div className="text-xs font-black uppercase tracking-widest text-emerald-700">✨ Your pick</div>
-            <a href={`/clinic/${winner.id}`}
+            <a href={`/clinic/${winner.url_slug}`}
               className="block mt-1 font-display text-xl font-bold tracking-tighter-display hover:underline">
               {winner.name}
             </a>
             <p className="text-xs muted">{winner.city_label || winner.district} · ★ {(winner.rating ?? 0).toFixed(1)} · Trust {winner.trust_score}</p>
             <div className="mt-3 flex gap-2 justify-center">
-              <a href={`/clinic/${winner.id}`}
+              <a href={`/clinic/${winner.url_slug}`}
                 className="rounded-xl bg-navy-900 dark:bg-gold-400 dark:text-navy-950 text-white px-5 py-2.5 text-sm font-black hover:opacity-90">
                 View clinic →
               </a>

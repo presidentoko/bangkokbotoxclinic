@@ -79,7 +79,7 @@ export async function ClinicCardCompact({ clinic, rank, lang = "en" }: { clinic:
 
   return (
     <a
-      href={`/clinic/${clinic.id}`}
+      href={`/clinic/${clinic.url_slug}`}
       className={`group flex items-center gap-3 px-4 py-3 bg-white border border-[var(--border)] rounded-lg hover:shadow-sm hover:border-gray-300 transition ${tierBorder}`}
     >
       {/* Rank */}

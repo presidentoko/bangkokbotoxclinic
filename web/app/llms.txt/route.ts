@@ -76,7 +76,7 @@ export async function GET() {
 
   for (const c of top) {
     lines.push(
-      `- [${c.name}](${SITE}/clinic/${c.id}) — ${c.district || "Bangkok"} · ★${c.rating} (${c.total_reviews} reviews) · Trust ${c.trust_score} · ${c.categories.join(", ") || "general"}`
+      `- [${c.name}](${SITE}/clinic/${c.url_slug}) — ${c.district || "Bangkok"} · ★${c.rating} (${c.total_reviews} reviews) · Trust ${c.trust_score} · ${c.categories.join(", ") || "general"}`
     );
   }
 

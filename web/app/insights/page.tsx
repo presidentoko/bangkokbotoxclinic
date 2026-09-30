@@ -200,7 +200,7 @@ export default async function InsightsPage() {
         <ol className="space-y-2">
           {topReviewed.map((c, i) => (
             <li key={c.id}>
-              <a href={`/clinic/${c.id}`} className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 border border-[var(--border)]">
+              <a href={`/clinic/${c.url_slug}`} className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 border border-[var(--border)]">
                 <span className="grid place-items-center h-8 w-8 rounded-full bg-slate-900 text-white text-xs font-bold shrink-0">{i + 1}</span>
                 <div className="flex-1 min-w-0">
                   <div className="font-bold text-sm truncate">{c.name}</div>
@@ -222,7 +222,7 @@ export default async function InsightsPage() {
           <ol className="space-y-2">
             {gems.map((c) => (
               <li key={c.id}>
-                <a href={`/clinic/${c.id}`} className="flex items-center gap-3 p-3 rounded-lg hover:bg-amber-50 border-2 border-amber-200">
+                <a href={`/clinic/${c.url_slug}`} className="flex items-center gap-3 p-3 rounded-lg hover:bg-amber-50 border-2 border-amber-200">
                   <span className="grid place-items-center h-8 w-8 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 text-white text-xs font-black shrink-0">💎</span>
                   <div className="flex-1 min-w-0">
                     <div className="font-bold text-sm truncate">{c.name}</div>

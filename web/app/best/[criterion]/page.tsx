@@ -113,7 +113,7 @@ export default async function BestForPage(
                   return (
                     <a
                       key={c.id}
-                      href={`/clinic/${c.id}`}
+                      href={`/clinic/${c.url_slug}`}
                       className={`relative group block ${height} ${scale}`}
                     >
                       <div className={`bg-white rounded-xl border-2 ${border} overflow-hidden shadow-md group-hover:shadow-xl group-hover:-translate-y-1 transition-all`}>
@@ -224,7 +224,7 @@ export default async function BestForPage(
         name={cfg.title}
         items={filtered.slice(0, 20).map((c) => ({
           name: c.name,
-          url: `/clinic/${c.id}`,
+          url: `/clinic/${c.url_slug}`,
         }))}
       />
     </div>

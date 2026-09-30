@@ -31,8 +31,8 @@ export async function GET() {
   const items = top.map((c) => `
     <item>
       <title>${escape(c.name)} — Trust ${c.trust_score} · ★${c.rating} (${c.total_reviews} reviews)</title>
-      <link>${SITE}/clinic/${c.id}</link>
-      <guid isPermaLink="true">${SITE}/clinic/${c.id}</guid>
+      <link>${SITE}/clinic/${c.url_slug}</link>
+      <guid isPermaLink="true">${SITE}/clinic/${c.url_slug}</guid>
       <description>${escape(`${c.primary_type}${c.district ? ` in ${c.district}` : ""}. ${c.categories.join(", ")}.`)}</description>
       <pubDate>${updated}</pubDate>
       <category>${escape(c.district || "Bangkok")}</category>
