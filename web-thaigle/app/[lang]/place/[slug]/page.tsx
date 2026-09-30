@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import {
   CATEGORY_SCHEMA,
   PRICE_TIER_LABEL,
@@ -167,7 +167,34 @@ export default async function PlacePage({
   const place = await getPlaceServer(slug, lang as Lang);
   if (!place) notFound();
 
+  // Redirect, not canonical, for the th/ko trees.
+  //
+  // These pages got a cross-URL canonical to their /activities twin on
+  // 2026-08-21 because a canonical is the right instrument for two URLs about
+  // one venue and, unlike noindex, it moves the signal across. Five weeks of
+  // GSC data say Google did not act on it:
+  // /ko/place/wellness-sathorn-boutique-spa-wellness-v8omde was the site's
+  // top page at 948 impressions / position 67 on 2026-09-16 and was still
+  // 926 / 67 on 2026-09-30, with 1 click. Across the ko tree: 57 pages,
+  // 2,207 impressions, 2 clicks — more impressions than the whole English
+  // site, all of it for English spa queries that /activities/wellness is
+  // trying to rank for at position 44.
+  //
+  // Google reads a Korean page and an English page as two different pages
+  // rather than duplicates, so it keeps both and ranks the wrong one. A
+  // redirect is not a hint: the duplicate stops existing and the signal
+  // lands on the page that can convert it.
+  //
+  // `en` keeps the canonical. It is INDEXABLE_PLACE_LANGS and the cluster's
+  // x-default, its text is the same language as the target, and it is the
+  // version a canonical can actually consolidate.
+  //
+  // Unmapped venues (no /activities twin) keep their noindex — there is
+  // nowhere better to send them. See lib/placeCanonical.ts.
   const activity = await activityForPlace(slug);
+  if (activity && (lang === "th" || lang === "ko")) {
+    permanentRedirect(activity.path);
+  }
   const t = place.i18n[lang as Lang] ?? place.i18n["en"];
   // Some scraped places carry lat:0/lng:0 (missing geocode) — that resolves
   // to a real point in the Gulf of Guinea, so treat it as "no coordinates".
