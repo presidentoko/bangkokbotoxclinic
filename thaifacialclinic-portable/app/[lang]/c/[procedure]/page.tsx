@@ -24,6 +24,40 @@ const PROC_MAP: Record<string, { name: string; match: RegExp; priceHint: string 
   "scalp-care": { name: "Scalp Care / Scaling", match: /Scalp|head spa/i, priceHint: "฿3,000–12,000 per session" },
 };
 
+// 2026-09-30: 태국어 제목.
+//
+// GSC 상위 쿼리 5개 중 2개가 태국어인데(คลินิคปลูกผม fue 3,004 노출,
+// คลินิกปลูกผม 2,492) 제목이 영어라 태국어 검색자가 영어 제목을 본다.
+// 어휘는 지어내지 않았다 — "ปลูกผม"(모발이식)는 GSC 쿼리 자체에서 왔고,
+// "คลินิก"·"รีวิวจริง" 는 lib/i18n.ts 에 이미 있는 번역이다.
+// FUE/DHI/FUT/PRP/SMP 는 태국어 문맥에서도 영문 약어 그대로 쓴다.
+const PROC_TH: Record<string, string> = {
+  "fue": "ปลูกผม FUE",
+  "dhi": "ปลูกผม DHI",
+  "fut": "ปลูกผม FUT",
+  "prp": "PRP รักษาผมร่วง",
+  "smp": "SMP สักหนังศีรษะ",
+  "stem-cell": "สเต็มเซลล์รักษาผมร่วง",
+  "eyebrow": "ปลูกคิ้ว",
+  "beard": "ปลูกหนวดเครา",
+  "scalp-care": "ดูแลหนังศีรษะ",
+};
+
+// priceHint 가 영어라 그대로 쓰면 "109 คลินิก from ฿65,000 (2,000 grafts)" 처럼
+// 반만 태국어가 된다. 숫자는 그대로 두고 연결어만 태국어로.
+// เริ่มต้น=부터, กราฟต์=graft(음차), ต่อครั้ง=회당
+const PRICE_TH: Record<string, string> = {
+  "fue": "เริ่มต้น ฿65,000 (2,000 กราฟต์)",
+  "dhi": "เริ่มต้น ฿85,000 (2,000 กราฟต์)",
+  "fut": "เริ่มต้น ฿55,000 (2,000 กราฟต์)",
+  "prp": "฿5,000–15,000 ต่อครั้ง",
+  "smp": "฿15,000–50,000 ต่อครั้ง",
+  "stem-cell": "เริ่มต้น ฿40,000 ต่อครั้ง",
+  "eyebrow": "฿35,000–80,000",
+  "beard": "฿50,000–120,000",
+  "scalp-care": "฿3,000–12,000 ต่อครั้ง",
+};
+
 export function generateStaticParams() {
   return SUPPORTED_LANGS.flatMap((lang) =>
     Object.keys(PROC_MAP).map((procedure) => ({ lang, procedure }))
@@ -35,22 +69,46 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
   const proc = PROC_MAP[procedure];
   if (!proc) return {};
   const url = `${SITE.origin}/${lang}/c/${procedure}/`;
-  const canonicalUrl = lang === "en" ? url : `${SITE.origin}/en/c/${procedure}/`;
+  // th 만 자기 canonical 을 갖는다. 태국어 쿼리에 실측 수요가 있고(노출 5,496)
+  // 제목·설명이 실제로 태국어라서다. ar/zh/ko 는 본문·제목이 영어 그대로라
+  // 계속 en 으로 통합한다 — 번역 없는 로케일을 색인시키면 중복만 늘어난다.
+  const ownCanonical = lang === "en" || lang === "th";
+  const canonicalUrl = ownCanonical ? url : `${SITE.origin}/en/c/${procedure}/`;
   const { clinics: allClinics } = loadClinics();
   const count = allClinics.filter((c) =>
     c.procedures.some((p) => proc.match.test(p)) || proc.match.test(c.category) || proc.match.test(c.name)
   ).length;
+  const thName = PROC_TH[procedure];
+  const isTh = lang === "th" && !!thName;
+  const title = isTh
+    ? `${thName} ในไทย — ${count} คลินิก ${PRICE_TH[procedure] ?? proc.priceHint}`
+    : `${proc.name} in Thailand — ${count} Verified Clinics, ${proc.priceHint}`;
+  const description = isTh
+    ? `เปรียบเทียบคลินิก${thName} ${count} แห่งในกรุงเทพฯ และทั่วไทย ${PRICE_TH[procedure] ?? proc.priceHint} จัดอันดับด้วยคะแนนความน่าเชื่อถือจากรีวิวจริง`
+    : `Compare ${count} verified ${proc.name} clinics in Bangkok & Thailand. ${proc.priceHint}. Trust Score ranked from real Google + Bookimed + Reddit + Naver reviews. Free consultation.`;
   return {
-    title: `${proc.name} in Thailand — ${count} Verified Clinics, ${proc.priceHint}`,
-    description: `Compare ${count} verified ${proc.name} clinics in Bangkok & Thailand. ${proc.priceHint}. Trust Score ranked from real Google + Bookimed + Reddit + Naver reviews. Free consultation.`,
-    alternates: { canonical: canonicalUrl },
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+      // 두 로케일이 각자 색인되므로 서로를 가리키는 클러스터가 필요하다.
+      ...(ownCanonical
+        ? {
+            languages: {
+              en: `${SITE.origin}/en/c/${procedure}/`,
+              th: `${SITE.origin}/th/c/${procedure}/`,
+              "x-default": `${SITE.origin}/en/c/${procedure}/`,
+            },
+          }
+        : {}),
+    },
     openGraph: {
       // 2026-09-02: siteName 은 페이지마다 다시 넣어야 한다. Next 메타데이터는
       // openGraph 를 객체 단위로 교체하므로, 루트 layout 에 siteName 이 있어도
       // 페이지가 openGraph 를 정의하는 순간 통째로 사라진다. 실측: 라이브
       // og:site_name 태그가 아예 없었다.
       siteName: SITE.name,
-      title: `${proc.name} in Bangkok — ${count} Verified Clinics`,
+      title: isTh ? `${thName} กรุงเทพฯ — ${count} คลินิก` : `${proc.name} in Bangkok — ${count} Verified Clinics`,
       description: `${count} clinics · ${proc.priceHint} · Trust Score ranked from real patient reviews.`,
       url,
     },
