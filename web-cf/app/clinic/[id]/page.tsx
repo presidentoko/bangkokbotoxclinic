@@ -57,6 +57,10 @@ const PantipMentions = dynamic(
   () => import("@/components/PantipMentions").then((m) => m.PantipMentions),
   { ssr: true }
 );
+const ReviewSignals = dynamic(
+  () => import("@/components/ReviewSignals").then((m) => m.ReviewSignals),
+  { ssr: true }
+);
 
 // top 500 클리닉 pre-build — Google 크롤 시 cold start 없애서 인덱싱 개선.
 // 데이터는 배포(재빌드) 시에만 바뀌고 배포는 어차피 전체 prerender를 무효화
@@ -451,6 +455,11 @@ export default async function ClinicPage(
             domain={publishedPriceDomain}
             generatedAt={priceDataGeneratedAt}
           />
+
+          {/* 2026-09-30: 리뷰 원문에서 캔 불만 신호 + 평점 추세.
+              아래 TrustDonut·RatingChart 는 전부 별점에서 파생된 값이라
+              1,825곳이 같은 모양이었다. 여기만 페이지마다 다른 문장이 나온다. */}
+          <ReviewSignals clinic={c} />
 
           {/* Pantip — 태국 최대 커뮤니티 토픽 인용 + 외부 backlink */}
           <PantipMentions clinic={c} />

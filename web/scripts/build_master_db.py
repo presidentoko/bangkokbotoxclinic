@@ -830,6 +830,72 @@ _SSO_NEG_RE = re.compile(
     r"ไม่รับ|ใช้ไม่ได้|เบิกไม่ได้|not accept|don'?t accept|doesn'?t accept|no social security", re.I)
 
 
+# 2026-09-30: 리뷰 원문에서 불만 신호를 캔다 — 스팸 업데이트 대응의 본작업.
+#
+# 강등 사유는 "프로그램으로 찍어낸 디렉터리"였는데, 클리닉 페이지가 보여주는 게
+# 전부 별점에서 파생된 숫자(TrustDonut·RatingChart·RelativeRanking)라 1,825곳이
+# 같은 템플릿에 숫자만 바뀐 모양이었다. 리뷰 원문은 93%가 수집돼 있는데 안 쓰고
+# 있었다. 이건 구글 비즈니스 프로필에도 없는 정보라, 업체명 검색에서 지도팩과
+# 차별화되는 유일한 축이기도 하다.
+#
+# 패턴은 실측으로 좁혔다(방콕 덴탈 리뷰 50,500건). 처음엔 ★4 이하를 봤는데
+# "rough but a good job", "hidden costs 를 explain 해줘서 안심" 같은 대조·칭찬
+# 표현이 오탐으로 잡혀서 ★3 이하로 내리고 PRAISE 가드를 넣었다. 치과는 실명
+# 업체 대상 YMYL 이라 오탐 하나가 없느니만 못하다.
+_SIG_PATTERNS: list[tuple[str, re.Pattern]] = [
+    # 견적과 다른 청구 — 치과 불만 1순위
+    ("billing", re.compile(
+        r"(?:extra|hidden|additional|unexpected)\s+(?:charge|fee|cost)"
+        r"|charged\s+(?:me|us)\s+(?:more|extra|double)"
+        r"|price\s+(?:was\s+)?different|คิดเงินเกิน|ราคาไม่ตรง", re.I)),
+    # 불필요한 시술 권유
+    ("upsell", re.compile(
+        r"unnecessary\s+(?:treatment|work|procedure)|tried\s+to\s+sell"
+        r"|push\w+\s+(?:me|us)\s+to|upsell\w*|hard\s+sell|ยัดเยียด", re.I)),
+    # 재시술 / 보철 탈락
+    ("redo", re.compile(
+        r"(?:crown|filling|veneer|implant)\s+(?:fell|came)\s+(?:out|off)"
+        r"|(?:had|have)\s+to\s+(?:redo|do\s+it\s+again)|ทำใหม่|หลุด", re.I)),
+    # 통증 처치
+    ("pain", re.compile(
+        r"(?:very|so|extremely)\s+painful|hurt\s+(?:a\s+lot|so\s+much|badly)"
+        r"|heavy-?handed|didn'?t\s+numb|no\s+anesthe|เจ็บมาก|ไม่ชา", re.I)),
+    # 대기
+    ("wait", re.compile(
+        r"wait(?:ed|ing)?\s+(?:for\s+)?(?:over\s+)?\d+\s*(?:hour|hr|min)"
+        r"|long\s+wait|kept\s+waiting|รอนาน", re.I)),
+]
+
+# "설명을 잘해줘서 안심" / "거칠었지만 결과는 좋았다" 류는 불만이 아니다.
+_SIG_PRAISE_RE = re.compile(
+    r"explain\w*|to\s+put\s+my\s+mind|transparent|no\s+hidden|up\s?front"
+    r"|but\s+(?:the\s+)?(?:work|job|result)\s+(?:was\s+)?(?:excellent|great|good)", re.I)
+# 앞쪽 부정어 가드 (chillanel verdict.ts 와 같은 방식)
+_SIG_NEG_RE = re.compile(
+    r"(?:no|not|never|without|didn'?t|don'?t|wasn'?t|isn'?t"
+    r"|zero|far from)[\s\w]{0,20}$", re.I)
+
+_SIG_CTX_BEFORE, _SIG_CTX_AFTER = 90, 60
+
+
+def scan_review_signals(text: str, rating: int) -> tuple[str, str] | None:
+    """불만 신호 1건과 증거 스니펫. 없으면 None. 리뷰당 최대 1건만 센다."""
+    # ★4 는 "거칠었지만 좋았다" 대조 표현의 온상이라 제외(실측).
+    if rating > 3 or rating <= 0:
+        return None
+    for key, rx in _SIG_PATTERNS:
+        m = rx.search(text)
+        if not m:
+            continue
+        if _SIG_NEG_RE.search(text[max(0, m.start() - 40): m.start()]):
+            continue
+        ctx = text[max(0, m.start() - _SIG_CTX_BEFORE): m.end() + _SIG_CTX_AFTER]
+        if _SIG_PRAISE_RE.search(ctx):
+            continue
+        return key, " ".join(ctx.split())
+    return None
+
+
 def scan_social_security(text: str) -> tuple[int, int]:
     """(긍정, 부정) 언급 수. 질문형은 어느 쪽도 아니므로 둘 다 0."""
     pos = neg = 0
@@ -932,6 +998,7 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
         "doctor_stats": [],
         "derived_categories": [],
         "price_points": [],
+        "review_signals": [],
         "social_security": {"pos": 0, "neg": 0, "confirmed": False},
     }
     if not p.exists():
@@ -968,6 +1035,8 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
     doctor_data: dict[str, dict] = {}
     price_points: list[dict] = []
     sso_pos = sso_neg = 0
+    sig_counts: dict[str, int] = {}
+    sig_quotes: dict[str, tuple[int, str]] = {}   # key -> (rating, quote) — 가장 낮은 평점 것
     for r in rows:
         text = (r.get("text") or "").strip()
         if not text:
@@ -982,6 +1051,13 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
             rt = int(float(r.get("rating") or 0))
         except ValueError:
             rt = 0
+        hit = scan_review_signals(text, rt)
+        if hit:
+            key, quote = hit
+            sig_counts[key] = sig_counts.get(key, 0) + 1
+            # 증거는 가장 낮은 평점 리뷰에서 뽑는다 — 그게 가장 구체적이다
+            if key not in sig_quotes or rt < sig_quotes[key][0]:
+                sig_quotes[key] = (rt, quote)
         text_chunks_by_lang[lang].append((text, rt, r.get("author_name", "")))
 
         # 의사 mention — 한 리뷰에 여러 의사 가능
@@ -1092,6 +1168,10 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
         "price_points": sorted(price_points, key=lambda p: (p["proc"], p["amt"])),
         # 환자 2명 이상이 독립적으로 "썼다"고 적었고 반대 증언이 없을 때만 확정.
         # 1명이면 오탐 하나가 그대로 사실이 되므로 세지 않는다.
+        "review_signals": [
+            {"key": k, "count": n, "quote": sig_quotes[k][1], "quote_rating": sig_quotes[k][0]}
+            for k, n in sorted(sig_counts.items(), key=lambda kv: -kv[1])
+        ],
         "social_security": {"pos": sso_pos, "neg": sso_neg,
                             "confirmed": sso_pos >= 2 and sso_neg == 0},
     }
@@ -1269,6 +1349,7 @@ def process_source(
                 "language_breakdown": review_sig["language_breakdown"],
                 # 허브 비교표 재료 (2026-09-23)
                 "price_points": review_sig.get("price_points", []),
+                "review_signals": review_sig.get("review_signals", []),
                 "social_security": review_sig.get("social_security"),
                 "hours": hours_by_pid.get(place_id) or None,
                 "service_mentions": review_sig["service_mentions"],

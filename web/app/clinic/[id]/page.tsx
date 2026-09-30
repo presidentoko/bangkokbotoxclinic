@@ -51,6 +51,10 @@ const PantipMentions = dynamic(
   () => import("@/components/PantipMentions").then((m) => m.PantipMentions),
   { ssr: true }
 );
+const ReviewSignals = dynamic(
+  () => import("@/components/ReviewSignals").then((m) => m.ReviewSignals),
+  { ssr: true }
+);
 
 // top 500 클리닉 pre-build — Google 크롤 시 cold start 없애서 인덱싱 개선.
 // 데이터는 배포(재빌드) 시에만 바뀌고 배포는 어차피 전체 prerender를 무효화
@@ -439,6 +443,8 @@ export default async function ClinicPage(
           )}
 
           {/* Pantip — 태국 최대 커뮤니티 토픽 인용 + 외부 backlink */}
+          <ReviewSignals clinic={c} />
+
           <PantipMentions clinic={c} />
 
           <TrustDonut score={c.trust_score} breakdown={breakdown} />
