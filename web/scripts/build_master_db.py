@@ -878,6 +878,37 @@ _SIG_NEG_RE = re.compile(
 _SIG_CTX_BEFORE, _SIG_CTX_AFTER = 90, 60
 
 
+# 인용문 정리. 2026-09-30 라이브에서 실제로 이런 게 나갔다:
+#   "\",\"ck the CCTV footage. For a massage appointment..."
+# 앞의 \",\" 는 리뷰 CSV 의 필드 구분자 잔재이고 "ck the" 는 check 가 중간에서
+# 잘린 것이다. 실명 업체 페이지에 실리는 문장이라 이런 조각은 만들지 않는다.
+# 잘린 조각과 멀쩡한 짧은 단어를 가르는 사전. 없으면 "the biggest gripe" 가
+# "biggest gripe" 가 된다(실측).
+_COMMON_HEAD = {
+    "the", "a", "an", "i", "we", "they", "he", "she", "it", "my", "our", "their",
+    "this", "that", "there", "and", "but", "so", "if", "when", "after", "before",
+    "at", "in", "on", "for", "to", "of", "with", "from", "was", "is", "were",
+    "had", "have", "did", "do", "not", "no", "very", "too", "also", "then",
+}
+
+_QUOTE_JUNK = re.compile(r'"\s*,\s*"|\\+"|[\r\n\t]+')
+
+
+def _clean_quote(ctx: str) -> str:
+    q = _QUOTE_JUNK.sub(" ", ctx)
+    q = " ".join(q.split())
+    # 양끝이 단어 중간에서 잘렸으면 그 조각을 버린다.
+    # 단, 짧다고 다 자르면 "the biggest gripe..." 의 the 까지 날아간다 —
+    # 흔한 단어면 온전한 것으로 보고 남긴다.
+    first = q.find(" ")
+    if 0 < first <= 12 and q[:first].lower() not in _COMMON_HEAD:
+        q = q[first + 1:]
+    last = q.rfind(" ")
+    if last > 0 and len(q) - last <= 12 and not q.endswith((".", "!", "?")):
+        q = q[:last]
+    return q.strip(" ,;:-\"'")
+
+
 def scan_review_signals(text: str, rating: int) -> tuple[str, str] | None:
     """불만 신호 1건과 증거 스니펫. 없으면 None. 리뷰당 최대 1건만 센다."""
     # ★4 는 "거칠었지만 좋았다" 대조 표현의 온상이라 제외(실측).
@@ -892,8 +923,14 @@ def scan_review_signals(text: str, rating: int) -> tuple[str, str] | None:
         ctx = text[max(0, m.start() - _SIG_CTX_BEFORE): m.end() + _SIG_CTX_AFTER]
         if _SIG_PRAISE_RE.search(ctx):
             continue
-        return key, " ".join(ctx.split())
+        return key, _clean_quote(ctx)
     return None
+
+
+# CSV 필드가 인용문에 딸려오는 걸 막는다. 2026-09-30 라이브에서 실제로 나온 것:
+#   “\",\"ck the CCTV footage. For a massage appointment…”
+# 앞의 \",\" 는 CSV 구분자 잔재고 "ck the" 는 check 중간에서 잘린 것이다.
+# 실명 업체 페이지에 나갈 문장이라 이런 건 애초에 만들지 않는다.
 
 
 def scan_social_security(text: str) -> tuple[int, int]:
