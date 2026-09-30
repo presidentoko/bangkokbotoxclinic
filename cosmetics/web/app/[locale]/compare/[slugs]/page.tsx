@@ -5,6 +5,7 @@ import { CONCERNS, getRanking, getProduct, productSlug, productIdFromSlug } from
 import { STATIC_LOCALES, localeAlternates, type Locale, concernLabel, concernLabelShort } from "@/lib/i18n";
 import { baht, scoreColor } from "@/lib/format";
 import { JsonLd } from "@/components/JsonLd";
+import compareKeep from "@/data/compare-keep.json";
 import { faqLd, breadcrumbLd } from "@/lib/schema";
 import { buildComparablePairs } from "@/lib/search-index";
 import type { Product } from "@/lib/types";
@@ -33,6 +34,25 @@ export function generateStaticParams() {
   const result: { locale: string; slugs: string }[] = [];
   const seen = new Set<string>();
 
+  const push = (pA: Product, pB: Product, idA: string, idB: string) => {
+    const key = [idA, idB].sort().join("~");
+    if (seen.has(key)) return;
+    seen.add(key);
+    const slugs = `${productSlug(pA)}-vs-${productSlug(pB)}`;
+    for (const locale of STATIC_LOCALES) result.push({ locale, slugs });
+  };
+
+  // Pairs Google already has indexed, kept regardless of today's top five.
+  // The August scoring rebuild reshuffled the rankings and silently 404'd
+  // these: /en/compare/cetaphil-113796-vs-vaseline-110238 was drawing 29
+  // impressions at position 9.0 when it stopped existing. A pair drops out
+  // only when one of its products leaves the catalogue.
+  for (const [idA, idB] of compareKeep.pairs) {
+    const pA = getProduct(idA);
+    const pB = getProduct(idB);
+    if (pA && pB) push(pA, pB, idA, idB);
+  }
+
   for (const concern of CONCERNS) {
     const top = getRanking(concern).slice(0, 5);
     for (let i = 0; i < top.length; i++) {
@@ -40,13 +60,7 @@ export function generateStaticParams() {
         const pA = getProduct(top[i].product_id);
         const pB = getProduct(top[j].product_id);
         if (!pA || !pB) continue;
-        const key = [top[i].product_id, top[j].product_id].sort().join("~");
-        if (seen.has(key)) continue;
-        seen.add(key);
-        const slugs = `${productSlug(pA)}-vs-${productSlug(pB)}`;
-        for (const locale of STATIC_LOCALES) {
-          result.push({ locale, slugs });
-        }
+        push(pA, pB, top[i].product_id, top[j].product_id);
       }
     }
   }

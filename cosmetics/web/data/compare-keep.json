@@ -1,0 +1,25 @@
+{
+  "_comment": "Compare pairs Google has indexed. generateStaticParams builds the top-5-per-concern combinations, and the August scoring rebuild moved products out of those top fives, which turned already-indexed compare URLs into hard 404s (dynamicParams=false). These are the pairs the 2026-09-30 Coverage export still lists, with what the 2026-09-23 Performance export says they were earning. Pairs are kept only while both products remain in the catalogue. Add to this list rather than widening the top-N, which would generate hundreds of pages nobody asked for.",
+  "pairs": [
+    [
+      "113796",
+      "110238"
+    ],
+    [
+      "117098",
+      "51781"
+    ],
+    [
+      "37946",
+      "81075"
+    ],
+    [
+      "91628",
+      "65309"
+    ],
+    [
+      "37955",
+      "76358"
+    ]
+  ]
+}

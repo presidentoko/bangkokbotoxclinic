@@ -548,14 +548,7 @@ export const FILTER_CONFIGS: FilterConfig[] = [
   { slug: "cleanser",       th: "คลีนเซอร์/เจลล้างหน้า", en: "Cleanser",         emoji: "🧼", apply: (p) => /cleans|facial wash|foam|face wash/i.test(p.name) },
 ];
 
-export const CONCERN_FILTER_SLUGS: Record<string, string[]> = {
-  acne:       ["under-300", "under-500", "fragrance-free", "niacinamide", "salicylic-acid", "serum", "cleanser"],
-  whitening:  ["under-300", "under-500", "fragrance-free", "vitamin-c", "niacinamide", "serum", "cleanser"],
-  antiaging:  ["under-500", "under-1000", "retinol", "vitamin-c", "hyaluronic-acid", "serum", "moisturizer"],
-  pores:      ["under-300", "under-500", "niacinamide", "salicylic-acid", "serum", "cleanser"],
-  oilcontrol: ["under-300", "under-500", "niacinamide", "salicylic-acid", "toner", "cleanser"],
-  sensitive:  ["under-300", "under-500", "fragrance-free", "hyaluronic-acid", "moisturizer", "cleanser"],
-};
+export { CONCERN_FILTER_SLUGS } from "./concern-filters";
 
 export function getFilter(slug: string): FilterConfig | undefined {
   return FILTER_CONFIGS.find((f) => f.slug === slug);

@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import routeIndex from "@/data/route-index.json";
 import { slugify } from "@/lib/format";
+import { CONCERN_FILTER_SLUGS } from "@/lib/concern-filters";
 
 /**
  * Recovers product URLs that Google still has indexed but master_db.json no
@@ -29,6 +30,28 @@ const BRAND_SLUGS = new Set(routeIndex.brandSlugs);
 const THIN_BRAND_SLUGS = new Set(routeIndex.thinBrandSlugs ?? []);
 
 const GONE = /^\/(privacy-policy\d*|author)(\/|$)/;
+
+const CONCERNS = Object.keys(CONCERN_FILTER_SLUGS);
+const CONCERN_RE = new RegExp(`^/(th|en)/(${CONCERNS.join("|")})/([^/]+)$`);
+const BRAND_RE = /^\/(th|en)\/brand\/([^/]+)$/;
+const OG_RE = /^\/(th|en)\/product\/([^/]+)\/opengraph-image$/;
+
+/** 410 with a body, for a URL whose content is gone and has no successor. */
+function gone() {
+  return new NextResponse("Gone", {
+    status: 410,
+    headers: { "content-type": "text/plain; charset=utf-8", "x-robots-tag": "noindex" },
+  });
+}
+
+/** decodeURIComponent that tolerates a malformed %-sequence. */
+function decode(s: string): string {
+  try {
+    return decodeURIComponent(s);
+  } catch {
+    return s;
+  }
+}
 
 // Mirrors productIdFromSlug() in lib/format.ts.
 function idFromSlug(slug: string): string {
@@ -70,12 +93,7 @@ export function middleware(request: NextRequest) {
   // plus /author/*. They already 404, but 404 means "maybe later" and Google
   // re-checks such URLs for months; 410 means gone and drops them faster. There
   // is nothing to redirect them to — none of these paths has a successor page.
-  if (GONE.test(pathname)) {
-    return new NextResponse("Gone", {
-      status: 410,
-      headers: { "content-type": "text/plain; charset=utf-8", "x-robots-tag": "noindex" },
-    });
-  }
+  if (GONE.test(pathname)) return gone();
 
   // Thin brands have fewer than three products, so their dupe page has nothing
   // to compare against. Those pages already carried noindex, meaning they were
@@ -103,7 +121,41 @@ export function middleware(request: NextRequest) {
     if (slug !== brand && BRAND_SLUGS.has(slug)) {
       return permanentRedirect(request, `/${locale}/dupe/${encodeURIComponent(slug)}`);
     }
+    // A brand the catalogue no longer carries. 40 of these are still in the
+    // 2026-09-30 Coverage export as 404s, most of them from the 1,820 -> 1,003
+    // shrink. There is no page to send them to — the products are gone — so
+    // they answer 410 rather than being re-crawled as 404s for months.
+    if (!BRAND_SLUGS.has(slug)) return gone();
     return NextResponse.next();
+  }
+
+  // Same, for brand pages themselves: 70 distinct dead brands in that export.
+  const brandMatch = BRAND_RE.exec(pathname);
+  if (brandMatch) {
+    const slug = slugify(decode(brandMatch[2]));
+    return BRAND_SLUGS.has(slug) ? NextResponse.next() : gone();
+  }
+
+  // A concern page still exists even when one of its filters does not: the
+  // filter list has changed since these were indexed (/en/sensitive/centella,
+  // /th/pores/hyaluronic-acid, /ja/antiaging/peptides via the ja redirect).
+  // The narrower page is gone, the broader one covers the same subject, so
+  // this is a redirect rather than a 410.
+  const concernMatch = CONCERN_RE.exec(pathname);
+  if (concernMatch) {
+    const [, locale, concern, filter] = concernMatch;
+    const valid = CONCERN_FILTER_SLUGS[concern] ?? [];
+    if (!valid.includes(decode(filter))) {
+      return permanentRedirect(request, `/${locale}/${concern}`);
+    }
+    return NextResponse.next();
+  }
+
+  // OG images for products that left the catalogue. The page they belong to
+  // already 308s to its brand; the image has no equivalent.
+  const ogMatch = OG_RE.exec(pathname);
+  if (ogMatch) {
+    return PRODUCT_IDS.has(idFromSlug(ogMatch[2])) ? NextResponse.next() : gone();
   }
 
   const match = /^\/(th|en)\/product\/([^/]+)$/.exec(pathname);
@@ -135,7 +187,10 @@ export const config = {
   // assets, the sitemap, every other route — skips middleware entirely.
   matcher: [
     "/:locale(th|en)/product/:slug",
+    "/:locale(th|en)/product/:slug/opengraph-image",
     "/:locale(th|en)/dupe/:brand",
+    "/:locale(th|en)/brand/:brand",
+    "/:locale(th|en)/:concern/:filter",
     // Dead WordPress paths, answered with 410 above. `:rest(.*)` rather than
     // `:path*` because the live URLs are /privacy-policy9/... — the digits sit
     // inside the first segment, which a segment-wise matcher never sees.
