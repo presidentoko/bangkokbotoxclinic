@@ -153,6 +153,20 @@ export function hospitalSlug(h: Hospital): string {
  * hold complete `Hospital` objects; the card is a client component and must not
  * pull in the slug map to build its own URL.
  */
+/**
+ * The khet or amphoe to show next to a clinic's name.
+ *
+ * `district` is only filled on the 306 records the Places backfill covered, but
+ * the address states it for 728 of the 857 published clinics, and it is the
+ * word a Thai searcher pairs with a clinic name ("กรีนเว็ท ภาษีเจริญ"). Read
+ * from the address, never inferred from a coordinate.
+ */
+export function districtLabel(h: Hospital): string | null {
+  if (h.district) return h.district
+  const m = (h.address ?? '').match(/(?:เขต|อำเภอ)\s*([^\s,]+)/)
+  return m ? m[1] : null
+}
+
 export function toLightHospital(h: Hospital): HospitalLight {
   return {
     id: h.id,

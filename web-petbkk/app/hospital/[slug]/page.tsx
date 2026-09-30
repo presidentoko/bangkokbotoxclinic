@@ -3,7 +3,7 @@ import { getHours, summarizeHours, toSchemaHours, isAlwaysOpen } from '@/lib/hos
 import AdSlot from '@/components/AdSlot'
 import LicenseVerification from '@/components/LicenseVerification'
 import { getLicense, LICENSE_CLASS } from '@/lib/licenses'
-import { getHospitalBySlug, loadHospitals, hospitalSlug, hasPreciseCoord } from '@/lib/hospitals'
+import { getHospitalBySlug, loadHospitals, hospitalSlug, hasPreciseCoord, districtLabel } from '@/lib/hospitals'
 import { getHospitalReviews } from '@/lib/petreviews'
 import NearbyHospitals from '@/components/NearbyHospitals'
 import HospitalShareButtons from '@/components/HospitalShareButtons'
@@ -58,8 +58,38 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   // impressions at position 6.7 and one click. The licence is the one line in
   // that result that nothing else there can say.
   const licence = getLicense(h.id)
-  const licencePart = licence ? '✅ มีใบอนุญาต' : ''
-  const title = [titleName, ratingPart, serviceStr, licencePart].filter(Boolean).join(' · ')
+
+  /**
+   * Titles were a median of 73 characters and a p90 of 105, so the parts that
+   * distinguish this page — the licence above all — were being truncated out of
+   * the SERP before anyone read them. Parts are now added in order of what a
+   * searcher on a clinic's name actually wants, and stop at a width a Thai
+   * result still shows in full. The site name is dropped from clinic pages for
+   * the same reason: Google prints it beside the result anyway.
+   *
+   * `ค่าบริการ` is deliberately absent. No clinic in the dataset has a consult
+   * price, and a title that promises fees the page does not carry is the same
+   * mistake as a menu promised on a restaurant page — it buys one click and
+   * teaches the searcher to skip the domain.
+   */
+  const TITLE_BUDGET = 60
+  const district = districtLabel(h)
+  // A long clinic name is already at the budget; adding its khet would only
+  // push the licence out of the visible part of the result.
+  const showDistrict = district && !titleName.includes(district)
+    && `${titleName} ${district}`.length <= TITLE_BUDGET - 12
+  const titleParts = [showDistrict ? `${titleName} ${district}` : titleName]
+  // Licence before rating: the clinic's own Google listing already shows the
+  // rating in the same result page, so it buys nothing, while the licence is
+  // ours alone. "มีใบอนุญาต" — found in the register — not "valid", which the
+  // register does not tell us.
+  for (const part of [licence ? 'มีใบอนุญาต' : '', ratingPart, serviceStr, getHours(h.id) ? 'เวลาเปิด-ปิด' : '']) {
+    if (!part) continue
+    const next = [...titleParts, part].join(' · ')
+    if (next.length > TITLE_BUDGET) break
+    titleParts.push(part)
+  }
+  const title = titleParts.join(' · ')
 
   const priceInfo = h.price_consult ? ` · ค่าตรวจ ${h.price_consult.toLocaleString()} บาท` : ''
   // Put the actual opening hours in the snippet rather than the phrase
@@ -82,7 +112,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const keywords = [h.name_th, ...(hasEnName ? [h.name_en!] : []), 'โรงพยาบาลสัตว์', 'สัตวแพทย์', ...services]
 
   return {
-    title,
+    title: { absolute: title },
     description,
     keywords,
     alternates: {
