@@ -58,7 +58,22 @@ export default async function ForSuppliersPage() {
 
       <section className="space-y-8 mb-16">
         <Offering
-          tag="00 — Verified Supplier"
+          tag="00 — Sourcing Partner"
+          title="Overseas buyer inquiries, routed to you first"
+          price="No upfront fee — success fee on closed orders only"
+          body="Buyers who want help sourcing send us a quote request instead of calling around. We shortlist factories, run the English-Thai correspondence, compare the quotes, and coordinate samples and QC. Partners get those requests first and carry a labelled Sourcing Partner badge. You pay nothing until an order actually closes — then a success fee on that order. No lead fees, no monthly minimum."
+          bullets={[
+            "Quote requests routed to partners before the rest of the list",
+            "Labelled 🤝 Sourcing Partner badge on your card and profile — buyers see the arrangement, we do not hide it",
+            "We handle English and Thai correspondence, spec clarification, and sample / QC coordination",
+            "Success fee only — nothing owed on inquiries that do not convert",
+            "Your phone number and website stay published either way; buyers can always call you directly and pay us nothing",
+          ]}
+          accent="#047857"
+        />
+
+        <Offering
+          tag="01 — Verified Supplier"
           title="Verified badge — proof beats marketing"
           price="฿5,000 (Verified) · ฿15,000 (Premium) · ฿40,000 (Enterprise) — one-time"
           body="A blue/green/gold Verified badge on your listing card and supplier page. Buyers shortlisting Thai suppliers explicitly filter for verification — many won't open an unverified listing for first-time orders. One-time fee, badge stays as long as your registration & certs remain valid."
@@ -73,7 +88,7 @@ export default async function ForSuppliersPage() {
         />
 
         <Offering
-          tag="01 — Editor's Pick"
+          tag="02 — Editor's Pick"
           title="Top spot on every category & province page"
           price="฿15,000 / month"
           body="Permanent ranked-first position with gold Editor's Pick badge across /c/manufacturer, /c/auto_parts, /city/[your-province] and best-of pages. Real organic listings appear below — never deleted."
@@ -87,7 +102,7 @@ export default async function ForSuppliersPage() {
         />
 
         <Offering
-          tag="02 — International Buyer Channel"
+          tag="03 — International Buyer Channel"
           title="Featured on /ko (Korean) and /en buyer landing pages"
           price="฿20,000 / month"
           body="Korean and Japanese sourcing teams research extensively before contacting suppliers. Be the first manufacturer they see on the Korean-language landing page. Includes priority placement on the English buyer-onboarding flow."
@@ -101,7 +116,7 @@ export default async function ForSuppliersPage() {
         />
 
         <Offering
-          tag="03 — Recommended"
+          tag="04 — Recommended"
           title="Mid-page sponsored placement"
           price="฿8,000 / month"
           body="Sponsored slot in the mid-page position with a blue Recommended badge. Less prominent than Editor's Pick but more affordable for suppliers building visibility."
@@ -115,7 +130,7 @@ export default async function ForSuppliersPage() {
         />
 
         <Offering
-          tag="04 — Lead Generation (CPL)"
+          tag="05 — Lead Generation (CPL)"
           title="Pre-qualified buyer inquiries"
           price="฿2,500 / lead · or ฿30,000 / month flat"
           body="Buyer inquiries that match your supplier profile (category, region, language). Each lead includes contact name, company, sourcing volume estimate, and target product/service."

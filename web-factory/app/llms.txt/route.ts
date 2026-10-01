@@ -53,7 +53,7 @@ export async function GET() {
     "A: A naive Google Maps search for 'factory in Thailand' returns shopping malls (literally named 'Factory Outlet'), butcher shops, mattress stores called 'Latex Factory'. We aggressively filter B2C noise so the listing only shows real B2B suppliers — manufacturers, factories, warehouses, industrial estates, logistics operators.",
     "",
     "**Q: How is this different from Alibaba or sourcing agencies?**",
-    "A: We don't broker, take commission, or markup quotes. Every listing shows the supplier's public phone and website so buyers contact them directly. The directory monetizes via clearly-labelled sponsored slots and (eventually) verified-supplier subscription tiers.",
+    "A: Two paths. The directory is free and unbrokered — every listing shows the supplier's public phone and website, so buyers contact factories directly and we never mark up a quote or hide contact details. Separately, buyers who want sourcing help (shortlisting, English-Thai correspondence, quote comparison, sample and QC coordination) can ask us; in that case the factory pays a success fee when the order closes and the buyer pays nothing. Sponsored slots and verified-supplier tiers are labelled wherever they appear.",
     "",
     "**Q: Are listings sponsored?**",
     "A: Organic listings are never paid. Sponsored slots (Editor's Pick / Recommended / Featured) are explicitly badged and never replace organic ranking.",

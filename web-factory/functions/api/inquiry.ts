@@ -15,6 +15,7 @@ interface Env {
 const LIMITS: Record<string, number> = {
   name: 120, company: 160, email: 200, phone: 60, country: 80,
   category: 80, volume: 80, message: 2000, _supplier_name: 200, suppliers: 600,
+  _source_path: 300, _referrer: 300,
 };
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
@@ -65,6 +66,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const supplierName = get("_supplier_name");
   const supplierUrl  = get("_supplier_url");
   const suppliers    = get("suppliers");
+  const sourcePath   = get("_source_path");
+  const inboundRef   = get("_referrer");
 
   if (!name || !email || !message) {
     return json({ ok: false, error: "Missing required fields" }, 400);
@@ -89,6 +92,9 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     category && `📦 ${category}`,
     volume   && `📊 ${volume}`,
     locale !== "en" && `🌐 ${locale.toUpperCase()}`,
+    // 리드 출처 — 어느 페이지가 문의를 만들었는지. 응대보다 투자 판단에 쓰인다.
+    sourcePath && `📍 From: ${sourcePath}`,
+    inboundRef && `↩️ Via: ${inboundRef}`,
     ``,
     `💬 Message:`,
     message,

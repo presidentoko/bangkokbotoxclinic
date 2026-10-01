@@ -22,6 +22,7 @@ import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { TrustBadge } from "./TrustBadge";
 import { AIVerifiedBadge } from "./Badges";
 import { sponsoredTier } from "@/lib/sponsored";
+import { isSourcingPartner } from "@/lib/partners";
 import { verifiedTier, VERIFIED_BADGE } from "@/lib/verified";
 import { photoUrl } from "@/lib/photoUrl";
 import { computeTrustScore } from "@/lib/trustScore";
@@ -118,6 +119,14 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
                     style={{ background: verifiedConf.bg, color: verifiedConf.fg }}
                   >
                     {verifiedConf.icon} {verifiedConf.shortLabel}
+                  </span>
+                )}
+                {isSourcingPartner(r.id) && (
+                  <span
+                    title="Sourcing partner — quote requests go to them first. Their published phone number works without us."
+                    className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-bold shrink-0 mt-0.5 bg-emerald-600 text-white"
+                  >
+                    🤝 Partner
                   </span>
                 )}
               </h3>

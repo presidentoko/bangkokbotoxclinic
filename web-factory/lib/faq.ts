@@ -235,11 +235,11 @@ export const HOME_FAQS: Faq[] = [
   },
   {
     q: "Do you broker deals or take commission?",
-    a: "No. We're an independent directory. Buyers contact suppliers directly via the phone or website listed. No middleman markup. We monetize via clearly-labelled sponsored slots and (eventually) verified-supplier subscription tiers — never via deal commission.",
+    a: "Yes, on one path only. If you ask us to source for you — we shortlist factories, handle the English and Thai back-and-forth, compare quotes, and coordinate samples and QC — the factory pays us a success fee when an order closes. You pay us nothing. The other path stays free and unchanged: every listing publishes the factory's own phone number and website, and you are welcome to contact them directly and never involve us. We do not hide contact details to force introductions. Note that a success fee can be reflected in a factory's quoted price, which is why we tell you it exists instead of burying it.",
   },
   {
     q: "What if my company isn't listed?",
-    a: "Visit /for-suppliers — listings are free for verified Thai manufacturers and industrial operators. Verification is a one-time process to confirm operational status.",
+    a: "Visit /for-suppliers — listings are free for verified Thai manufacturers and industrial operators. Verification is a one-time process to confirm operational status. Factories that want us to route overseas buyer inquiries to them can also register as a sourcing partner on that page; partner slots are labelled as such wherever they appear.",
   },
   {
     q: "What types of suppliers are listed on Thai Supply Hub?",

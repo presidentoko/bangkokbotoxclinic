@@ -88,7 +88,13 @@ Three real scenarios where 20-30% is fair:
 
 Use a directory like Thai Supply Hub to get supplier phone + website directly. Send your first RFQ in English. Pay agents only when their value-add is real — not as a default tax.
 
-See our [sourcing guide](/guide/sourcing-thai-suppliers-direct) for the 5-step process.`,
+See our [sourcing guide](/guide/sourcing-thai-suppliers-direct) for the 5-step process.
+
+## Where we stand, since we are one of the options
+
+We also do sourcing work, so read the above knowing that. Our arrangement: the factory pays us a success fee when an order closes, and buyers pay us nothing. We publish every factory's phone number and website anyway, so the direct route stays open and free — that is the point of the directory.
+
+A success fee can still show up inside a quoted price. That is true of any intermediary, including us, which is why the three tests above are the right ones to apply to us too. Single SKU, proven vendor, English-speaking supplier? Call them yourself. See [our terms](/terms) for the full arrangement.`,
     related: ["eastern-seaboard-by-the-numbers", "korean-smes-thailand-quick-map"],
   },
   {
@@ -296,8 +302,9 @@ Each listing shows the supplier's public phone and website — same data Google 
 
 ## What we don't do
 
-- Don't broker deals. Buyers contact suppliers directly.
-- Don't take commission. No conflict-of-interest pressure on rankings.
+- Don't hide contact details. Every listing publishes the factory's phone and website, so the direct route is always open and free.
+- Don't mark up quotes or sell rankings. Trust Score ordering is computed from public data; paid placement is labelled.
+- Don't charge buyers. If you ask us to source for you we will, and the factory pays a success fee on the closed order — never you. See [our terms](/terms).
 - Don't write fake reviews. Reviews shown are direct excerpts from public Google reviews, attributed.
 
 ## How we monetize

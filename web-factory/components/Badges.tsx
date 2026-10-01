@@ -2,6 +2,7 @@
 
 import type { Supplier } from "@/lib/types";
 import { sponsoredTier, SPONSORED_BADGE } from "@/lib/sponsored";
+import { isSourcingPartner } from "@/lib/partners";
 
 // AI Verified — Local Guide 비율 기반 "real review" 신뢰도.
 export function AIVerifiedBadge({ r, size = "sm" }: { r: Supplier; size?: "sm" | "md" }) {
@@ -39,6 +40,27 @@ export function SponsoredBadge({ id }: { id: string }) {
     >
       <span>{cfg.icon}</span>
       {cfg.label}
+    </span>
+  );
+}
+
+/**
+ * 소싱 파트너 배지.
+ *
+ * 성사 수수료 계약을 맺은 공장이고, RFQ 가 먼저 라우팅된다. 상업적 배치라
+ * 반드시 눈에 보이게 표시한다 — 약관에 "표시한다" 고 공개해 뒀다. title 로
+ * 무슨 뜻인지도 밝혀 둔다. 계약 공장이 없으면 아무것도 렌더되지 않는다.
+ */
+export function PartnerBadge({ id }: { id: string }) {
+  if (!isSourcingPartner(id)) return null;
+  return (
+    <span
+      title="Sourcing partner — pays us a success fee on closed orders, and gets quote requests first. Their published phone number works without us."
+      className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] uppercase tracking-widest font-bold whitespace-nowrap text-white shadow-md"
+      style={{ background: "linear-gradient(135deg, #34d399 0%, #059669 50%, #047857 100%)" }}
+    >
+      <span aria-hidden>🤝</span>
+      Sourcing partner
     </span>
   );
 }

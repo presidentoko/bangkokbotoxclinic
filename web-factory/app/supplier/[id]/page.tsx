@@ -7,7 +7,7 @@ import { CATEGORY_LABELS, CATEGORY_ICONS, type Supplier } from "@/lib/types";
 import { BreadcrumbJsonLd, SupplierJsonLd, ProfilePageJsonLd } from "@/components/JsonLd";
 import { MapEmbed } from "@/components/MapEmbed";
 import { sponsoredTier } from "@/lib/sponsored";
-import { SponsoredBadge } from "@/components/Badges";
+import { PartnerBadge, SponsoredBadge } from "@/components/Badges";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { RfqForm } from "@/components/RfqForm";
 import { photoUrl } from "@/lib/photoUrl";
@@ -19,6 +19,7 @@ import { CompanyTimeline } from "@/components/CompanyTimeline";
 import { OverallScore } from "@/components/OverallScore";
 import { computeTrustScore } from "@/lib/trustScore";
 import { isIndexable } from "@/lib/supplierTier";
+import { isSourcingPartner } from "@/lib/partners";
 import { CATEGORY_LABELS_TH, hasThaiScript, provinceTh, provinceThFull } from "@/lib/thaiNames";
 import { CapitalHistogram } from "@/components/CapitalHistogram";
 import { PeerCompare } from "@/components/PeerCompare";
@@ -394,7 +395,12 @@ export default async function SupplierPage(
       </div>
 
       <div className="max-w-6xl mx-auto px-4 mt-4">
-        {tier && <div className="mb-3"><SponsoredBadge id={r.id} /></div>}
+        {(tier || isSourcingPartner(r.id)) && (
+          <div className="mb-3 flex flex-wrap items-center gap-2">
+            {tier && <SponsoredBadge id={r.id} />}
+            <PartnerBadge id={r.id} />
+          </div>
+        )}
 
         {/* HERO — gold certificate */}
         <HeroCertificate
@@ -675,7 +681,7 @@ export default async function SupplierPage(
               <div className="cert-frame rounded-2xl p-6 mb-2">
                 <h2 className="text-2xl font-bold text-amber-900 font-display">Request a quote from {r.name}</h2>
                 <p className="text-sm text-amber-900/85 mt-1">
-                  Tell us what you need — we&apos;ll forward to the supplier and copy you on the response. No middleman fees.
+                  Tell us what you need — we&apos;ll forward to the supplier and copy you on the response. Free for you — if we broker an order, the factory pays the fee.
                 </p>
                 <div className="mt-3 flex items-center gap-3 flex-wrap">
                   <ShortlistButton id={r.id} name={r.name} cityLabel={r.city_label} variant="full" />

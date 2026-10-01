@@ -72,6 +72,14 @@ export function RfqForm({ locale = "en", suppliers, supplierName, supplierUrl }:
     const form = e.currentTarget;
     const fd = new FormData(form);
     fd.set("_locale", locale);
+    // 어느 페이지가 리드를 만드는지가 이 사이트의 유일한 KPI 인데 지금까지
+    // 기록이 없었다 — 문의는 텔레그램으로만 가고 출처는 어디에도 남지 않았다.
+    // 쿠키도 동의 배너도 필요 없는 방식으로, 제출 시점에 경로만 같이 보낸다.
+    if (typeof window !== "undefined") {
+      fd.set("_source_path", window.location.pathname + window.location.search);
+      const ref = document.referrer;
+      if (ref && !ref.includes(window.location.host)) fd.set("_referrer", ref);
+    }
 
     setStatus("submitting");
     setErrorMsg("");

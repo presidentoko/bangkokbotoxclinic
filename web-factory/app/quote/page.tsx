@@ -19,7 +19,7 @@ export default function QuotePage() {
       </nav>
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">Request one quote from your shortlist</h1>
       <p className="text-[var(--muted)] leading-relaxed mb-8">
-        Tell us what you need once — we relay your request to every supplier you selected. No middleman fee,
+        Tell us what you need once — we relay your request to every supplier you selected. No fee for you,
         no repeating yourself for each company.
       </p>
       <BulkQuoteClient />

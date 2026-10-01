@@ -41,7 +41,7 @@ const FAQS = [
   },
   {
     q: "Do you take commission on deals?",
-    a: "No. We're an independent directory. Buyers contact suppliers directly via the public phone or website on each listing. No middleman markup. Monetization is via clearly-labelled sponsored slots and (eventually) a verified-supplier subscription tier — never via deal commission.",
+    a: "Only when you ask us to source for you. The directory itself is free and unbrokered: every listing shows the supplier's public phone and website, and you can contact them directly without us. If instead you ask us to shortlist factories, run the English-Thai correspondence, compare quotes, and coordinate samples and QC, then the factory pays us a success fee when the order closes — you pay nothing. We publish contact details either way, so the free path is always open. Full terms on the /terms page.",
   },
   {
     q: "How do I get my company listed?",

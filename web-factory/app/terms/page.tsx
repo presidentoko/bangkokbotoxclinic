@@ -33,10 +33,15 @@ export default function TermsPage() {
         <Section title="What this site is">
           <p>
             {cfg.brand} is an independent directory of Thai manufacturers, industrial estates,
-            logistics operators, and B2B suppliers. We are not a broker, agent, or marketplace. We
-            do not take commission on any transaction, and we never mark up a supplier&apos;s quote.
-            You contact suppliers directly using the public phone number and website shown on each
-            listing.
+            logistics operators, and B2B suppliers. Every listing shows the supplier&apos;s public
+            phone number and website, and contacting them directly is free and always will be — we
+            do not mark up a supplier&apos;s quote or gate contact details.
+          </p>
+          <p className="mt-3">
+            We also offer sourcing help to buyers who want it, and that side is paid: the factory
+            pays us a success fee when an order we brokered closes. Both paths are described in{" "}
+            <a className="underline font-medium" href="#sourcing">Sourcing introductions and success
+            fees</a> below. If you are only using the directory, none of it applies to you.
           </p>
         </Section>
 
@@ -85,14 +90,49 @@ export default function TermsPage() {
               the checks fail, we refund the fee rather than issue the badge.
             </li>
             <li>
-              <b>Advertisers do not receive visitor data.</b> Placement buys visibility, not our
-              inquiry pipeline. See the <a className="underline font-medium" href="/privacy">Privacy Policy</a>.
+              <b>Advertisers do not receive visitor data.</b> Buying a sponsored slot buys
+              visibility, not our inquiry pipeline. Sourcing partners are the one exception, and
+              only for inquiries you send us on purpose: if you submit a quote request, we pass your
+              details to the factories we shortlist for you. See the{" "}
+              <a className="underline font-medium" href="/privacy">Privacy Policy</a>.
             </li>
           </ul>
           <p className="mt-3">
             Current rates and tiers are on the{" "}
             <a className="underline font-medium" href="/for-suppliers">For Suppliers</a> page. Monthly
             placements can be cancelled at any time and run to the end of the paid period.
+          </p>
+        </Section>
+
+        <Section title="Sourcing introductions and success fees" id="sourcing">
+          <p>
+            Two ways to use this directory, and the difference matters:
+          </p>
+          <ul className="mt-2 space-y-2 list-disc pl-5">
+            <li>
+              <b>Direct, free, no involvement from us.</b> Every listing publishes the factory&apos;s
+              own phone number and website, taken from its public Google Business Profile. Call them
+              yourself. We do not hide, paywall, or withhold contact details to force an
+              introduction, and we never will.
+            </li>
+            <li>
+              <b>Sourcing help, paid by the factory.</b> If you ask us to source — shortlisting
+              factories, handling English and Thai correspondence, comparing quotes, coordinating
+              samples and quality checks — the factory pays us a success fee when an order closes.
+              Buyers pay us nothing.
+            </li>
+          </ul>
+          <p className="mt-3">
+            We would rather state the obvious than let you discover it: a success fee can be
+            reflected in the price a factory quotes. That is true of every sourcing agent; the
+            difference is that we tell you the arrangement exists and you can always bypass it with
+            the published phone number.
+          </p>
+          <p className="mt-3">
+            Factories that register as sourcing partners get quote requests routed to them first and
+            carry a labelled partner badge. That routing is a commercial arrangement and is marked
+            as one wherever it appears. It does not change any other supplier&apos;s Trust Score,
+            position, or listing, and non-partners are never removed or downranked for not paying.
           </p>
         </Section>
 
@@ -146,9 +186,9 @@ export default function TermsPage() {
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ title, children, id }: { title: string; children: React.ReactNode; id?: string }) {
   return (
-    <section>
+    <section id={id} className={id ? "scroll-mt-20" : undefined}>
       <h2 className="text-xl font-bold mb-2">{title}</h2>
       <div className="text-[var(--muted)] space-y-2">{children}</div>
     </section>
