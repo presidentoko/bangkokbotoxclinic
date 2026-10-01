@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { displayAuthorName } from "@/lib/authorName";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
@@ -31,9 +32,9 @@ function ReviewItem({ review, anonymousLabel, readMoreLabel }: { review: Review;
     <div className="rounded-xl border border-border bg-bg-elev p-4">
       <div className="flex items-center gap-2.5 mb-1.5">
         <div className="flex items-center justify-center w-7 h-7 rounded-full bg-accent/15 text-accent text-xs font-bold shrink-0">
-          {(review.authorName || anonymousLabel).charAt(0).toUpperCase()}
+          {displayAuthorName(review.authorName, anonymousLabel).charAt(0).toUpperCase()}
         </div>
-        <span className="font-semibold text-sm">{review.authorName || anonymousLabel}</span>
+        <span className="font-semibold text-sm">{displayAuthorName(review.authorName, anonymousLabel)}</span>
         {review.rating != null && <span className="text-xs text-accent font-bold">★ {review.rating}</span>}
         <span className="text-muted text-xs">{review.relativeDate}</span>
       </div>
@@ -293,7 +294,7 @@ export default async function PlacePage({
             {pullQuote.text.trim()}
           </blockquote>
           <figcaption className="pl-6 sm:pl-8 mt-3 text-xs text-muted">
-            — {pullQuote.authorName || t.place.anonymousReviewer} · ★{pullQuote.rating} · {pullQuote.relativeDate}
+            — {displayAuthorName(pullQuote.authorName, t.place.anonymousReviewer)} · ★{pullQuote.rating} · {pullQuote.relativeDate}
           </figcaption>
         </figure>
       )}

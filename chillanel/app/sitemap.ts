@@ -41,6 +41,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // this directory's topical relevance for the niche it's actually about.
   const relevantPlaces = getAllPlaces().filter(({ place }) => isRelevantCategory(place.primaryType));
 
+  // 2026-10-01: 장소 URL 은 **프리렌더되는 것만** 제출한다.
+  //
+  // 사이트맵과 프리렌더가 서로 다른 기준을 쓰고 있었다:
+  //   사이트맵   isRelevantCategory 만            → 8,157
+  //   프리렌더   + reviewCount >= 50              → 3,495
+  // 차이 4,662 개는 구글이 제출받아 크롤하러 갔다가 place/[id]/page.tsx 의
+  // notFound() 를 만난다. GSC 404 가 26,039 건인 이유가 이것이다(과거에 더
+  // 많이 제출한 누적분 포함 — 미색인이 122,941 → 34,375 로 줄어든 흔적).
+  //
+  // 기준을 프리렌더 쪽에 맞춘다. 제출하지 않는 장소도 페이지는 요청 시
+  // 생성되므로 사용자 링크는 안 끊긴다 — 구글에 없는 URL 을 권하지 않을 뿐이다.
+  // ⚠️ place/[id]/page.tsx 의 PRERENDER_MIN_REVIEWS 와 같은 값을 써야 한다.
+  //    한쪽만 바꾸면 이 404 가 그대로 되살아난다.
+  const SITEMAP_MIN_REVIEWS = 50;
+  const submittablePlaces = relevantPlaces.filter(
+    ({ place }) => (place.reviewCount ?? 0) >= SITEMAP_MIN_REVIEWS,
+  );
+
   // Google mostly ignores changeFrequency/priority but does use lastModified
   // for crawl scheduling — CityData.generatedAt (set at build-data.mjs time)
   // was already available and simply wasn't being passed through.
@@ -95,7 +113,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // one. Bump this constant only when the template genuinely changes
   // again -- never per deploy, or it becomes the untrustworthy stamp the
   // paragraph above warns about.
-  for (const { place } of relevantPlaces) {
+  for (const { place } of submittablePlaces) {
     // 2026-08-23: 장소 상세는 **en 한 벌만** 제출한다 (3언어 → 1언어).
     // 사이트맵 17,115 개 중 17,681 이 "크롤 후 미색인" 이었다 — 구글이 전부 보고
     // 전부 거부했다는 뜻이다. 원인은 th/ko 장소 페이지가 사실상 en 의 복제라는
