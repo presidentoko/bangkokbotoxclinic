@@ -1,7 +1,14 @@
 import type { NextRequest } from "next/server";
 import { loadMasterDb, legacyDoctorSlugMap } from "@/lib/data";
 import { legacyDoctorClinicId } from "@/lib/legacyDoctors";
-import { getSiteConfig, applySiteFilter, resolveOwnerUrl } from "@/lib/site";
+import {
+  getSiteConfig,
+  applySiteFilter,
+  configForFocus,
+  resolveOwnerFocusCandidates,
+  urlForFocus,
+} from "@/lib/site";
+import type { Clinic } from "@/lib/types";
 
 /**
  * Where a pre-2026-07-31 doctor URL should go now.
@@ -64,13 +71,36 @@ export async function GET(
   const clinicId = legacyDoctorClinicId(slug);
   if (clinicId) {
     const c = db.clinics.find((x) => x.id === clinicId);
-    if (c?.url_slug) {
-      const cfg = getSiteConfig();
-      if (applySiteFilter([c], cfg).length > 0) return redirect(`/clinic/${encodeURI(c.url_slug)}`);
-      const owner = resolveOwnerUrl(c.categories);
-      if (owner) return redirect(`${owner}/clinic/${encodeURI(c.url_slug)}`);
-    }
+    const to = c?.url_slug ? clinicUrl(c) : null;
+    if (to) return redirect(to);
   }
 
   return new Response("Not found", { status: 404, headers: { "Cache-Control": CACHE } });
+}
+
+/**
+ * The clinic's page, on whichever site actually builds it — or null.
+ *
+ * Deliberately not `resolveOwnerUrl()`, which picks a domain by category
+ * priority without asking whether that domain publishes the clinic. Measured on
+ * the first deploy: 11 of a 50-URL live sample redirected to a 404, because an
+ * aesthetic clinic in Si Racha or Chaweng is outside the botox site's city
+ * filter, a dental category sent the visitor back to this same site for a page
+ * it does not build, and the hair domain has no /clinic routes at all. A
+ * redirect to a page that does not exist is worse than the 404 it replaced.
+ *
+ * So each candidate site is asked its own filter, in priority order — the order
+ * lib/site.ts prescribes for exactly this.
+ */
+function clinicUrl(c: Clinic): string | null {
+  const slug = encodeURI(c.url_slug!);
+  const cfg = getSiteConfig();
+  if (applySiteFilter([c], cfg).length > 0) return `/clinic/${slug}`;
+  for (const focus of resolveOwnerFocusCandidates(c.categories)) {
+    if (focus === cfg.focus || focus === "hair") continue;
+    if (applySiteFilter([c], configForFocus(focus)).length > 0) {
+      return `${urlForFocus(focus)}/clinic/${slug}`;
+    }
+  }
+  return null;
 }
