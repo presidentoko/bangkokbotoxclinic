@@ -170,11 +170,15 @@ async function staleDoctorSlugRedirects() {
     const staleSlugs = (entry.all_slugs || []).filter((s) => !activeSet.has(s));
     if (staleSlugs.length === 0) continue;
 
+    // 목적지는 place id 가 아니라 슬러그 — 2026-09-30 에 클리닉 URL 이 슬러그로
+    // 바뀌었고, place id 로 보내면 301 두 번을 타게 된다.
+    const target = clinicById.get(cid);
+    const targetSlug = target?.url_slug ?? cid;
     let destination: string | null = null;
     if (scopedIds.has(cid)) {
-      destination = `/clinic/${cid}`;
+      destination = `/clinic/${encodeURI(targetSlug)}`;
     } else {
-      const clinic = clinicById.get(cid);
+      const clinic = target;
       if (clinic) {
         const candidates = resolveOwnerFocusCandidates(clinic.categories).filter((focus) => {
           if (focus === cfg.focus) return false;
@@ -182,7 +186,7 @@ async function staleDoctorSlugRedirects() {
           return scopedIdsFor(focus).has(cid);
         });
         const ownerFocus = candidates[0];
-        if (ownerFocus) destination = `${urlForFocus(ownerFocus)}/clinic/${cid}`;
+        if (ownerFocus) destination = `${urlForFocus(ownerFocus)}/clinic/${encodeURI(targetSlug)}`;
       }
     }
     if (!destination) continue;
