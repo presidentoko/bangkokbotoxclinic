@@ -3,6 +3,7 @@ import Link from "next/link";
 import { type Locale, catLabel, CATEGORIES, localeAlternates } from "@/lib/i18n";
 import { permanentRedirect } from "next/navigation";
 import { getCheckupCombos, getPackagesByCategory, getStatsForHome, type PackageRow } from "@/lib/db";
+import { NotMedicalAdvice } from "@/app/components/NotMedicalAdvice";
 // PackageRow used for type annotation below
 
 // Static — see the note in app/[locale]/page.tsx.
@@ -277,6 +278,7 @@ export default async function CheckupTypePage({
           }) }} />
         );
       })()}
+      <NotMedicalAdvice locale={locale} />
     </div>
   );
 }

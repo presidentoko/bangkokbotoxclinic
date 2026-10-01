@@ -257,6 +257,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/enquiry", priority: 0.7, changeFrequency: "monthly" },
     { path: "/compare-hospitals", priority: 0.6, changeFrequency: "monthly" },
     { path: "/about", priority: 0.5, changeFrequency: "yearly" },
+    { path: "/editorial", priority: 0.6, changeFrequency: "monthly" },
     // /for-clinics is deliberately noindex (B2B pitch page) — listing a
     // noindexed URL here is a contradictory signal, so it stays out.
     { path: "/privacy", priority: 0.1, changeFrequency: "yearly" },
@@ -338,17 +339,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     specs.push({ path: `/guide/${enc(guideSlug)}`, priority: 0.7, changeFrequency: "monthly" });
   }
 
-  for (const cat of CATEGORIES) {
-    if (!realCategories.has(cat)) continue;
-    for (const slug of slugs) {
-      if (!realCombos.has(`${cat}::${slug}`)) continue;
-      specs.push({
-        path: `/checkup/${enc(cat)}/${enc(slug)}`,
-        priority: 0.6,
-        changeFrequency: "weekly",
-      });
-    }
-  }
+  // /checkup/<category>/<hospital> is no longer submitted, and the pages
+  // themselves are noindex — see the note in that route. 395 URLs whose text
+  // is 85% shared with each other were 30% of everything this sitemap asked
+  // for, while every one of the 1,667 URLs Google has discovered here remains
+  // uncrawled. The same intent is served by /compare/<category> and by the
+  // hospital page, both of which are submitted above.
 
   // NOTE: /saved is intentionally absent — it's a client-side, localStorage-only
   // bookmarks page with no indexable content, and robots.txt disallows

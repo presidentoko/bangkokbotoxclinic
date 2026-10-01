@@ -176,6 +176,10 @@ function Footer({ locale }: { locale: Locale }) {
           <Link href={`${base}/trends`} className="block hover:text-blue-600 py-0.5 text-xs">📊 Price trends</Link>
           <Link href={`${base}/saved`} className="block hover:text-blue-600 py-0.5 text-xs">★ Saved packages</Link>
           <Link href={`${base}/about`} className="block hover:text-blue-600 py-0.5 text-xs">About</Link>
+          {/* Who publishes this, where the prices come from, and what the
+              site does not claim to do. On a health property that is the
+              page a quality rater looks for first, and it had none. */}
+          <Link href={`${base}/editorial`} className="block hover:text-blue-600 py-0.5 text-xs">Editorial policy &amp; sources</Link>
           <Link href={`${base}/privacy`} className="block hover:text-blue-600 py-0.5 text-xs">Privacy</Link>
           <Link href={`${base}/enquiry`} className="block hover:text-blue-600 py-0.5 text-xs">Book / Enquire</Link>
         </div>

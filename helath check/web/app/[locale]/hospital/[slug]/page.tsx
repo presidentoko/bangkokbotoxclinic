@@ -2,15 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { type Locale, catLabel, localeAlternates, t, fmt } from "@/lib/i18n";
-import { getHospitals, getHospital, getAllHospitalSlugs, getHospitalReviews, getPriceHistoryBatch, type PackageRow, type ReviewRow } from "@/lib/db";
+import { DATA_GENERATED_AT, getHospitals, getHospital, getAllHospitalSlugs, getHospitalReviews, getPriceHistoryBatch, type PackageRow, type ReviewRow } from "@/lib/db";
 import { SLUG_REDIRECTS } from "@/lib/slug-redirects";
 import { Sparkline } from "@/app/components/Sparkline";
 import { ShareButtons } from "@/app/components/ShareButtons";
 import { VerifiedStrip } from "@/app/components/VerifiedStrip";
+import { PriceSource } from "@/app/components/PriceSource";
 import { registryMatch, nearbyHospitals, isMedicalFacility, thaiName, haBadge } from "@/lib/registry";
 import { citySlug } from "@/lib/citySlug";
 import { ReportButton } from "@/app/components/ReportButton";
 import { HospitalTracker } from "@/app/components/HospitalTracker";
+import { NotMedicalAdvice } from "@/app/components/NotMedicalAdvice";
 
 // Static — see the note in app/[locale]/page.tsx.
 export const revalidate = false;
@@ -197,6 +199,7 @@ function PackageCard({ pkg, locale, history }: { pkg: PackageRow; locale: string
           </a>
         )}
       </div>
+      <PriceSource url={pkg.source_url} asOf={DATA_GENERATED_AT} className="mt-2" />
     </div>
   );
 }
@@ -660,6 +663,7 @@ export default async function HospitalPage({
           }),
         }}
       />
+      <NotMedicalAdvice locale={locale} />
     </div>
   );
 }

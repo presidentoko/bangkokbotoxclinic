@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { type Locale, catLabel, CATEGORIES, hreflangMap } from "@/lib/i18n";
 import { compareT } from "@/lib/compare-i18n";
-import { getCheckupCombos, getPackagesByCategory, type PackageRow } from "@/lib/db";
+import { getCheckupCombos, getPackagesByCategory, DATA_GENERATED_AT, type PackageRow } from "@/lib/db";
 import { ShareButtons } from "@/app/components/ShareButtons";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
 import { RecentlyViewedBar } from "@/app/components/RecentlyViewed";
@@ -180,7 +180,7 @@ export async function CompareView({ locale, activeCat }: { locale: string; activ
         <p className="text-slate-400 text-center py-16">{cc.noPackagesFound}</p>
       ) : (
         <Suspense fallback={<div className="h-20" />}>
-          <FilteredPackageGrid rows={rows} loc={loc} serverCategory={activeCat} />
+          <FilteredPackageGrid rows={rows} loc={loc} serverCategory={activeCat} asOf={DATA_GENERATED_AT} />
         </Suspense>
       )}
 

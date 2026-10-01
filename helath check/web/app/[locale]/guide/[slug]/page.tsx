@@ -3,6 +3,7 @@ import Link from "next/link";
 import { type Locale, localeAlternates } from "@/lib/i18n";
 import { guideT } from "@/lib/guide-i18n";
 import { ShareButtons } from "@/app/components/ShareButtons";
+import { NotMedicalAdvice } from "@/app/components/NotMedicalAdvice";
 
 // Static — see the note in app/[locale]/page.tsx.
 export const revalidate = false;
@@ -7304,6 +7305,7 @@ export default async function GuidePage({
           })),
         }) }} />
       )}
+      <NotMedicalAdvice locale={locale} />
     </div>
   );
 }

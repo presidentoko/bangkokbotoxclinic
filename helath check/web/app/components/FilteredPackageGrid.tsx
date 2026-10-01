@@ -8,6 +8,7 @@ import Link from "next/link";
 import type { PackageRow } from "@/lib/db";
 import type { Locale } from "@/lib/i18n";
 import { CompareProvider, CompareCheckbox, CompareDrawer } from "./CompareDrawer";
+import { PriceSource } from "@/app/components/PriceSource";
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
@@ -59,7 +60,9 @@ function valueScore(r: PackageRow): number {
   return inclusions / (parseFloat(r.price) / 1000);
 }
 
-function PackageCard({ row, loc, cheapest, topValueScore }: { row: PackageRow; loc: Locale; cheapest: number; topValueScore: number }) {
+// asOf arrives as a prop rather than importing DATA_GENERATED_AT: this is a
+// client component, and lib/db pulls the whole 1.5 MB dataset in with it.
+function PackageCard({ row, loc, cheapest, topValueScore, asOf }: { row: PackageRow; loc: Locale; cheapest: number; topValueScore: number; asOf?: string }) {
   const bookUrl = row.source_url || row.checkup_url || "#";
   const inclusions = [
     { label: "MRI", val: row.has_mri },
@@ -140,6 +143,9 @@ function PackageCard({ row, loc, cheapest, topValueScore }: { row: PackageRow; l
           className="text-sm text-blue-600 border border-blue-100 px-3 py-3 rounded-xl hover:bg-blue-50 transition-colors font-medium">
           Details
         </Link>
+      </div>
+      <div className="px-5 -mt-2 pb-1">
+        <PriceSource url={row.source_url} asOf={asOf} />
       </div>
       <div className="px-5 pb-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -226,7 +232,7 @@ function getCity(r: PackageRow): string {
 
 // ── Main component ────────────────────────────────────────────────────────────
 
-export function FilteredPackageGrid({ rows, loc, serverCategory }: { rows: PackageRow[]; loc: Locale; serverCategory?: string }) {
+export function FilteredPackageGrid({ rows, loc, serverCategory, asOf }: { rows: PackageRow[]; loc: Locale; serverCategory?: string; asOf?: string }) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [activeFeatures, setActiveFeatures] = useState<Set<FeatureKey>>(new Set());
@@ -471,7 +477,7 @@ export function FilteredPackageGrid({ rows, loc, serverCategory }: { rows: Packa
       {/* Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-6">
         {visible.map((row) => (
-          <PackageCard key={row.package_id} row={row} loc={loc} cheapest={cheapest} topValueScore={topValueScore} />
+          <PackageCard key={row.package_id} row={row} loc={loc} cheapest={cheapest} topValueScore={topValueScore} asOf={asOf} />
         ))}
       </div>
 

@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { type Locale, localeAlternates } from "@/lib/i18n";
-import { getAllPackages, type PackageRow } from "@/lib/db";
+import { getAllPackages, DATA_GENERATED_AT, type PackageRow } from "@/lib/db";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
+import { NotMedicalAdvice } from "@/app/components/NotMedicalAdvice";
 
 // Static — see the note in app/[locale]/page.tsx.
 export const revalidate = false;
@@ -378,7 +379,7 @@ export default async function LongtailPage({
 
       {/* Package grid */}
       {rows.length > 0 ? (
-        <FilteredPackageGrid rows={rows} loc={loc} />
+        <FilteredPackageGrid rows={rows} loc={loc} asOf={DATA_GENERATED_AT} />
       ) : (
         <div className="text-center py-16 text-slate-400">
           <p className="text-4xl mb-3">🏥</p>
@@ -487,6 +488,7 @@ export default async function LongtailPage({
           })),
         }) }} />
       )}
+      <NotMedicalAdvice locale={locale} />
     </div>
   );
 }

@@ -62,6 +62,28 @@ export async function generateMetadata({
       ? `${pkg.package_name} at ${hospitalName}, ${pkg.city ?? "Thailand"}.${price ? ` ${price}.` : ""} What is included, results timeline, and how to book — no booking fee, no mark-up.`
       : `${label} check-up package at ${hospitalName}, Thailand. Real price, inclusions (blood, ultrasound, MRI, cancer markers), results timeline, and booking info.`,
     alternates: localeAlternates(locale, `/checkup/${type}/${hospital}`),
+    // Out of the index, kept on the site.
+    //
+    // Measured on the 2026-09-30 build: across 40 sampled pages, the median
+    // share of this template's text that appears nowhere else on the site is
+    // 14.9% — the other 85% is boilerplate. Word counts across all 395 run
+    // from 351 to 395. They are that uniform because no hospital publishes two
+    // packages in one category, so each page is a single price row, and the
+    // data cannot make them differ: 1,001 priced packages carry only 58
+    // distinct inclusion combinations and one of those covers 372 of them.
+    //
+    // Three hundred and ninety-five near-identical pages is 30% of everything
+    // this site submits, and all 1,667 URLs in "Discovered - currently not
+    // indexed" have never been crawled once. The intent they serve is already
+    // answered better elsewhere: /compare/<category> carries 1,467-2,517 words
+    // comparing every hospital in that category, and the hospital page lists
+    // all of that hospital's packages at 490 words with 46% unique text. Both
+    // already rank.
+    //
+    // The cost is the 62 clicks these took in the three months to 2026-09-30.
+    // `follow` is deliberate: the pages keep passing link equity to the
+    // hospital and category pages that now answer for them.
+    robots: { index: false, follow: true },
   };
 }
 

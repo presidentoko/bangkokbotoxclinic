@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { type Locale, localeAlternates } from "@/lib/i18n";
-import { getPackagesByCitySlug, getHospitalsByCitySlug } from "@/lib/db";
+import { getPackagesByCitySlug, getHospitalsByCitySlug, DATA_GENERATED_AT } from "@/lib/db";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
 import type { PackageRow } from "@/lib/db";
 
@@ -152,7 +152,7 @@ export default async function CityPage({
         </div>
       ) : (
         <>
-        {rows.length > 0 && <FilteredPackageGrid rows={rows} loc={loc} />}
+        {rows.length > 0 && <FilteredPackageGrid rows={rows} loc={loc} asOf={DATA_GENERATED_AT} />}
 
         {/* Hospitals in the province with no package published online.
             Leaving them off made /city/chon-buri look empty when it holds
