@@ -8,14 +8,18 @@ import { CUISINE_LABELS } from "@/lib/types";
 import RestaurantPage from "@/app/restaurant/[id]/page";
 
 export const dynamic = "force-static";
-export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const { loadMasterDb } = await import("@/lib/data");
-  const { hasLocaleDetail } = await import("@/lib/site");
-  const db = await loadMasterDb();
-  // 전량이 아니라 상위 식당만 — lib/site.ts 의 주석 참고.
-  return db.restaurants.filter(hasLocaleDetail).map((r) => ({ id: r.id }));
+  // 2026-10-01: 정적 생성을 중단한다 — 이 라우트는 noindex 다.
+  //
+  // 사이트맵에서 뺀 건(9/27) 색인 중복만 해결했고, 빌드는 그대로 7,022 페이지를
+  // 계속 구웠다. Deployment Storage 가 23.1GB / 10GB (231%) 로 넘쳐서 Vercel 이
+  // 프로젝트를 정지시켰는데(DEPLOYMENT_DISABLED, 전 경로 402), 그 절반이 색인도
+  // 안 되는 페이지를 굽는 데 쓰이고 있었다.
+  //
+  // 빈 배열 + dynamicParams(기본 true)이면 요청 시에만 생성된다. 내부 링크로
+  // 들어오는 사용자에게는 그대로 보이고, 빌드 산출물에서는 사라진다.
+  return [];
 }
 
 export async function generateMetadata(
