@@ -50,6 +50,13 @@ PAUSE_THRESHOLDS = [
     ("spa_review_pattaya",     0.9),
     ("dental_review_bangkok",  0.9),
     ("bangkok_clinics_review", 0.8),   # 핵심 파이프라인 — 마지막 수단
+    # 2026-10-01 추가. 이 셋은 사다리에 아예 없어서 관리 대상 밖이었다 —
+    # 메모리가 말라도 아무도 멈춰주지 않는다. 커버리지 구멍(끄라비 67%,
+    # 꼬사무이 75%, 후아힌 80%)을 메우려 재가동하면서 넣는다. 각 1워커.
+    # pause 를 1.0 으로 둬서 방콕 핵심 파이프라인보다 **먼저** 양보하게 한다.
+    ("spa_review_krabi",       1.0),
+    ("spa_review_koh_samui",   1.0),
+    ("spa_review_hua_hin",     1.0),
 ]
 # resume 값은 이 머신이 실제로 도달하는 범위 안에 있어야 한다. 그렇지 않으면
 # pause 는 걸리는데 resume 은 영원히 안 걸려서, "일시정지"가 사실상 영구정지가
@@ -82,6 +89,13 @@ RESUME_THRESHOLDS = [
     ("dental_review_bangkok",  2.2),
     ("spa_review_pattaya",     2.2),
     ("pattaya_review",         2.0),
+    # resume 은 pause(1.0) + 그 서비스가 실제로 쓰는 양(1워커 0.94GB) 위여야
+    # 진동하지 않는다 → 2.0. 3개가 동시에 돌면 여유가 1.0~1.5GB 라 이 선에
+    # 못 닿을 수 있다. 그 경우 "일시정지가 영구정지"가 되는 걸 이 파일이
+    # 경고하고 있으니, pause 가 걸리면 로그를 보고 사람이 판단할 것.
+    ("spa_review_krabi",       2.0),
+    ("spa_review_koh_samui",   2.0),
+    ("spa_review_hua_hin",     2.0),
 ]
 
 # 우선 서비스가 돌고 있는 동안에는 다른 스크래퍼를 함부로 깨우지 않는다.
@@ -172,11 +186,28 @@ def pause(name: str):
         print(f"[RAM] pause {name} (여유 RAM 부족)", flush=True)
 
 
-def resume(name: str):
+def owned_pause(name: str) -> bool:
+    """이 `.disabled` 가 ram_manager 가 만든 것인가.
+
+    사람이나 watchdog(체인·자연종료)이 끈 것은 ram_manager 가 되살릴 권한이 없다.
+    이 구분이 없으면 수동 중단을 매 틱 되돌리려 시도한다."""
     marker = RUN / f"{name}.disabled"
-    if marker.exists() and marker.read_text().strip() == "ram_manager":
-        marker.unlink()
-        print(f"[RAM] resume {name} (여유 RAM 충분)", flush=True)
+    try:
+        return marker.exists() and marker.read_text(errors="replace").strip() == "ram_manager"
+    except OSError:
+        return False
+
+
+def resume(name: str) -> bool:
+    """실제로 되살렸으면 True. 남의 마커면 아무것도 하지 않고 False."""
+    if not owned_pause(name):
+        return False
+    try:
+        (RUN / f"{name}.disabled").unlink()
+    except OSError:
+        return False
+    print(f"[RAM] resume {name} (여유 RAM 충분)", flush=True)
+    return True
 
 
 def log(msg: str):
@@ -225,12 +256,22 @@ def main():
         # 한 번 넘겼다고 바로 켜면 스크래퍼가 브라우저를 띄우는 순간 다시
         # 말라서, 진동만 하고 진도는 안 나간다.
         held_back: list[str] = []
+        not_ours: list[str] = []
         if actions:
             good_streak.clear()
         else:
             for name, threshold in RESUME_THRESHOLDS:
                 if not is_paused(name):
                     good_streak.pop(name, None)
+                    continue
+                # 2026-10-02: 남의 마커(사람·watchdog)는 후보에서 빼고 **다음
+                # 서비스로 넘어간다**. 전에는 resume() 이 no-op 인 걸 모른 채
+                # actions 에 기록하고 break 해서, 리스트 맨 앞의 수동 중단
+                # 서비스(bangkok_review) 하나가 뒤의 전부를 영구히 막았다
+                # (가짜 resume 로그 11,092건 / 실제 기동 0회).
+                if not owned_pause(name):
+                    good_streak.pop(name, None)
+                    not_ours.append(name)
                     continue
                 # 우선 서비스가 돌고 있으면 나머지는 진짜 여유분에서만 깨운다.
                 # 붙잡았다는 사실을 로그에 남긴다 — 안 그러면 "일시정지"가
@@ -245,14 +286,17 @@ def main():
                 if free > threshold:
                     good_streak[name] = good_streak.get(name, 0) + 1
                     if good_streak[name] >= RESUME_STREAK:
-                        resume(name)
-                        actions.append(f"resume:{name}")
                         good_streak.pop(name, None)
-                        break   # 켠 효과도 마찬가지로 다음 틱에 잰다
+                        # 실제로 되살렸을 때만 기록하고 break 한다.
+                        if resume(name):
+                            actions.append(f"resume:{name}")
+                            break   # 켠 효과도 마찬가지로 다음 틱에 잰다
                 else:
                     good_streak.pop(name, None)
 
         status = f"여유={free:.1f}GB" + (f" | {','.join(actions)}" if actions else " | OK")
+        if not actions and not_ours:
+            status += f" | 남의 마커로 제외 {len(not_ours)}개: {','.join(not_ours)}"
         if not actions and held_back:
             status += (f" | {PRIORITY_SERVICE} 우선으로 보류 {len(held_back)}개"
                        f"(<{PRIORITY_RESERVE_GB}GB): {','.join(held_back)}")

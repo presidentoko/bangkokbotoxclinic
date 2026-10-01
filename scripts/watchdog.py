@@ -1592,7 +1592,13 @@ def build_services() -> list[Service]:
             name="spa_review_koh_samui",
             cmd=["scraper.py"],
             cwd=bk_clinics,
-            env_extra=spa_koh_samui_env,
+            # 2026-10-01: 커버리지 구멍 메우기로 재가동하면서 워커를
+            # 2 → 1 로 내렸다. 포트는 안 겹치지만(2085/2080/2082) RAM 이
+            # 상한이다 — 워커 1개가 실측 약 0.94GB(크롬 4~5개)를 물어서
+            # 3도시 × 2워커면 여유가 0 밑으로 간다. 1워커 × 3도시면
+            # 여유 1.0~1.5GB 로, ram_manager.py 가 목표라 적어둔 범위다.
+            # 그리드는 이 값을 공유하지 않는다(massage_* 는 별도 env).
+            env_extra={**spa_koh_samui_env, "N_WORKERS": "1"},
             log_file=LOGS / "spa_review_koh_samui.log",
             chrome_heavy=True,
             review_done_check=True,
@@ -1638,7 +1644,13 @@ def build_services() -> list[Service]:
             name="spa_review_hua_hin",
             cmd=["scraper.py"],
             cwd=bk_clinics,
-            env_extra=spa_hua_hin_env,
+            # 2026-10-01: 커버리지 구멍 메우기로 재가동하면서 워커를
+            # 2 → 1 로 내렸다. 포트는 안 겹치지만(2085/2080/2082) RAM 이
+            # 상한이다 — 워커 1개가 실측 약 0.94GB(크롬 4~5개)를 물어서
+            # 3도시 × 2워커면 여유가 0 밑으로 간다. 1워커 × 3도시면
+            # 여유 1.0~1.5GB 로, ram_manager.py 가 목표라 적어둔 범위다.
+            # 그리드는 이 값을 공유하지 않는다(massage_* 는 별도 env).
+            env_extra={**spa_hua_hin_env, "N_WORKERS": "1"},
             log_file=LOGS / "spa_review_hua_hin.log",
             chrome_heavy=True,
             review_done_check=True,
@@ -1684,7 +1696,13 @@ def build_services() -> list[Service]:
             name="spa_review_krabi",
             cmd=["scraper.py"],
             cwd=bk_clinics,
-            env_extra=spa_krabi_env,
+            # 2026-10-01: 커버리지 구멍 메우기로 재가동하면서 워커를
+            # 2 → 1 로 내렸다. 포트는 안 겹치지만(2085/2080/2082) RAM 이
+            # 상한이다 — 워커 1개가 실측 약 0.94GB(크롬 4~5개)를 물어서
+            # 3도시 × 2워커면 여유가 0 밑으로 간다. 1워커 × 3도시면
+            # 여유 1.0~1.5GB 로, ram_manager.py 가 목표라 적어둔 범위다.
+            # 그리드는 이 값을 공유하지 않는다(massage_* 는 별도 env).
+            env_extra={**spa_krabi_env, "N_WORKERS": "1"},
             log_file=LOGS / "spa_review_krabi.log",
             chrome_heavy=True,
             review_done_check=True,
