@@ -90,86 +90,6 @@ async function offFocusServiceRedirects() {
   });
 }
 
-async function offScopeClinicRedirects() {
-  const cfg = getSiteConfig();
-  if (cfg.focus === "all") return [];
-  const db = await loadMasterDb();
-  const scopedIds = new Set(applySiteFilter(db.clinics, cfg).map((c) => c.id));
-
-  // 상대 도메인이 그 클리닉을 실제로 prerender 하는지 확인하기 위한 id 집합.
-  // 판정 기준이 두 개로 갈려 있었던 게 문제였다: 리다이렉트 대상은 넓은
-  // resolveOwnerUrl(카테고리 하나만 걸리면 소유권 인정)로 정하는데, 정작 그
-  // 도메인이 빌드하는 페이지는 좁은 applySiteFilter(덴탈은 primary_type까지
-  // 봄)로 정해진다. 그 틈에서 "301 → 상대 도메인에 없는 페이지 → 404" 가
-  // 1,374건 발생했다 (2026-08-06 감사).
-  const targetScoped = new Map<SiteFocus, Set<string>>();
-  const scopedIdsFor = (focus: SiteFocus) => {
-    let s = targetScoped.get(focus);
-    if (!s) {
-      s = new Set(applySiteFilter(db.clinics, configForFocus(focus)).map((c) => c.id));
-      targetScoped.set(focus, s);
-    }
-    return s;
-  };
-
-  const out: { source: string; destination: string; permanent: boolean }[] = [];
-  for (const c of db.clinics) {
-    if (scopedIds.has(c.id)) continue;
-
-    // 소유 후보를 **전부** 받아서 걸러낸다. 예전엔 resolveOwnerFocus 로 하나만
-    // 받았는데, 그게 구멍을 만들었다 (2026-08-08 실측):
-    // Ratchada Medical General Clinic 은 categories 에 hair_transplant 와
-    // botox/facial/laser 가 같이 있어 우선순위상 "hair" 로 판정됐고, hair 는
-    // 아래 이유로 건너뛰므로 리다이렉트가 아예 발급되지 않아 덴탈에서 404 가
-    // 났다 — 정작 botox 는 그 페이지를 200 으로 서빙하고 있었다.
-    const candidates = resolveOwnerFocusCandidates(c.categories).filter((focus) => {
-      // 소유 도메인이 자기 자신인 경우. 넓은 소유권 판정은 통과했는데 좁은
-      // 빌드 필터에서 탈락한 클리닉들로, 예전엔 /clinic/X → (같은 호스트)/clinic/X
-      // 라는 자기 자신 리다이렉트를 발급했다. 페이지가 실행되기도 전에 라우팅
-      // 테이블에서 끝나는 무한 301 루프였고 덴탈 374건 / 보톡스 1,016건이었다.
-      // (덤으로 데이터 품질 문제도 드러났다 — 한식당·쇼핑몰에 dental 카테고리가
-      // 붙어 있어서 이 경로로 샜다.)
-      if (focus === cfg.focus) return false;
-
-      // 헤어(thaifacialclinic)는 라우트 구조 자체가 다르다: /[lang]/clinic/[slug]
-      // 뿐이고 lang 없는 /clinic/* 라우트가 없으며, 슬러그도 master_db id가 아니라
-      // slugify(이름)-{id 뒤 6자리} 형식이다. 즉 /clinic/{id} 로 보내면 100% 404다.
-      // 두 파이프라인의 이름 표기가 달라 슬러그를 여기서 재구성하는 건 또 다른
-      // 404를 만들 위험이 커서, 잘못된 301을 발급하느니 다음 후보로 넘어간다.
-      if (focus === "hair") return false;
-
-      // 상대 도메인이 이 클리닉을 실제로 빌드하지 않으면 보내봐야 404다.
-      return scopedIdsFor(focus).has(c.id);
-    });
-
-    // 카테고리 미분류거나, 후보가 전부 위 조건에 걸리면 404로 둔다 —
-    // 잘못된 도메인으로 보내는 것보다 안전.
-    const ownerFocus = candidates[0];
-    if (!ownerFocus) continue;
-
-    // URL 은 resolveOwnerUrl(categories) 이 아니라 고른 focus 로 만든다.
-    // 전자는 카테고리 우선순위로 다시 판정해서 엉뚱한 도메인(위 예시라면
-    // thaifacialclinic)을 돌려줄 수 있다.
-    // Send the slug, not the place id: the other domain would only redirect the
-    // id to its own slug, and a searcher following an indexed link should not
-    // take two hops to arrive.
-    const slug = c.url_slug ?? c.id;
-    out.push({
-      source: `/clinic/${c.id}`,
-      destination: `${urlForFocus(ownerFocus)}/clinic/${slug}`,
-      permanent: true,
-    });
-    if (slug !== c.id) {
-      out.push({
-        source: `/clinic/${slug}`,
-        destination: `${urlForFocus(ownerFocus)}/clinic/${slug}`,
-        permanent: true,
-      });
-    }
-  }
-  return out;
-}
-
 // 2026-08-01 커밋 45560b5 가 doctor URL 체계를 바꿨다:
 //   이전  /doctor/{의사명}-at-{slugify(클리닉명).slice(0,50)}
 //   이후  /doctor/{의사명}-at-{place_id 뒤 12자리 hex}
@@ -310,9 +230,20 @@ const config: NextConfig = {
   compress: true,
   poweredByHeader: false,
   async redirects() {
-    const [serviceRedirects, clinicRedirects, doctorRedirects, staleDoctorRedirects] = await Promise.all([
+    // 2026-10-01: offScopeClinicRedirects() 를 뺐다 — Vercel 라우트 한도.
+    //
+    // 소관 밖 클리닉마다 301 을 하나씩 만들던 함수다. 전체 5,489곳 중 botox
+    // 소관이 923곳이라 4,500개 넘게 생기고, 배포가 "Maximum number of routes
+    // exceeded. Max is 2048, received 3825" 로 죽었다. 빌드는 성공하고 배포
+    // 단계에서만 죽어 원인이 안 보인다 — 메모의 "dental 배포 만성 실패"가
+    // 이것일 가능성이 크다(그때는 산출물 1.48GB 탓으로 보고 Cloudflare 로 옮겼다).
+    //
+    // 같은 일을 페이지가 이미 한다: app/clinic/[id]/page.tsx 가 소관 밖이면
+    // canonical 을 상대 도메인으로 보내고 robots noindex 를 건다(9/16 작업).
+    // 리다이렉트가 먼저 발동해서 그 코드는 도달조차 못 하고 있었다 — 수단이
+    // 둘인데 비싼 쪽만 쓰고 있었던 셈이다.
+    const [serviceRedirects, doctorRedirects, staleDoctorRedirects] = await Promise.all([
       offFocusServiceRedirects(),
-      offScopeClinicRedirects(),
       legacyDoctorSlugRedirects(),
       staleDoctorSlugRedirects(),
     ]);
@@ -329,8 +260,10 @@ const config: NextConfig = {
         permanent: true,
       },
       ...serviceRedirects,
-      ...clinicRedirects,
-      ...doctorRedirects,
+      // legacyDoctorSlugRedirects() used to live here. The doctor route now
+      // prerenders the old name-based slug for *every* doctor and redirects it,
+      // which is a superset of what this generated (it only covered doctors with
+      // 10+ mentions) and keeps ~1,600 rules out of the routing table.
       ...staleDoctorRedirects,
     ];
   },
