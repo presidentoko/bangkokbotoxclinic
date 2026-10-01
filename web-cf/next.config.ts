@@ -186,26 +186,8 @@ async function offScopeClinicRedirects() {
 // 색인하지 않았으니 복구할 순위도 없다.
 const DOCTOR_INDEXABLE_MENTIONS = 10;
 
-async function legacyDoctorSlugRedirects() {
-  const cfg = getSiteConfig();
-  const db = await loadMasterDb();
-  const { getAllDoctors, slugify } = await import("./lib/data");
-  const scoped = applySiteFilter(db.clinics, cfg);
-  const out: { source: string; destination: string; permanent: boolean }[] = [];
-  const seen = new Set<string>();
-  for (const d of getAllDoctors(scoped)) {
-    if (d.mentions < DOCTOR_INDEXABLE_MENTIONS) continue;
-    const legacy = `${d.slug}-at-${slugify(d.clinic.name).slice(0, 50)}`;
-    if (legacy === d.composite_slug || seen.has(legacy)) continue;
-    seen.add(legacy);
-    out.push({
-      source: `/doctor/${encodeURI(legacy)}`,
-      destination: `/doctor/${encodeURI(d.composite_slug)}`,
-      permanent: true,
-    });
-  }
-  return out;
-}
+// legacyDoctorSlugRedirects() removed 2026-10-01 — app/doctor/[slug] now
+// prerenders and redirects every legacy slug, not just the 10+ mention ones.
 
 // 2026-08-17 GSC 감사(web/next.config.ts 이식, 2026-08-18): doctor URL 404 —
 // legacyDoctorSlugRedirects()는 "이름 기반 → place_id 기반" 한 번의 포맷
@@ -306,10 +288,9 @@ const config: NextConfig = {
   compress: true,
   poweredByHeader: false,
   async redirects() {
-    const [serviceRedirects, clinicRedirects, doctorRedirects, staleDoctorRedirects] = await Promise.all([
+    const [serviceRedirects, clinicRedirects, staleDoctorRedirects] = await Promise.all([
       offFocusServiceRedirects(),
       offScopeClinicRedirects(),
-      legacyDoctorSlugRedirects(),
       staleDoctorSlugRedirects(),
     ]);
     return [
@@ -326,7 +307,10 @@ const config: NextConfig = {
       },
       ...serviceRedirects,
       ...clinicRedirects,
-      ...doctorRedirects,
+      // legacyDoctorSlugRedirects() used to live here. The doctor route now
+      // prerenders the old name-based slug for *every* doctor and redirects it,
+      // which is a superset of what this generated (it only covered doctors with
+      // 10+ mentions) and keeps ~1,600 rules out of the routing table.
       ...staleDoctorRedirects,
     ];
   },

@@ -269,6 +269,34 @@ export function getAllDoctors(clinics: Clinic[]): DoctorWithClinic[] {
   return out;
 }
 
+/**
+ * The doctor slug as it was before 2026-07-31: name + the clinic's *name*
+ * slugified. The format changed to name + place id because a clinic renaming
+ * itself on Google orphaned every doctor URL under it — but the old URLs are
+ * still indexed, and 223 of the 1,000 404s in the 2026-08-29 Search Console
+ * export are exactly this shape.
+ */
+export function legacyDoctorSlug(d: DoctorStat, c: Clinic): string {
+  return `${d.slug}-at-${slugify(c.name).slice(0, 50)}`;
+}
+
+let _legacyDocSrc: Clinic[] | null = null;
+let _legacyDocMap: Map<string, string> | null = null;
+
+/** legacy doctor slug → the slug the page lives at now. */
+export function legacyDoctorSlugMap(clinics: Clinic[]): Map<string, string> {
+  if (_legacyDocSrc !== clinics || !_legacyDocMap) {
+    const m = new Map<string, string>();
+    for (const d of getAllDoctors(clinics)) {
+      const legacy = legacyDoctorSlug(d, d.clinic);
+      if (legacy !== d.composite_slug && !m.has(legacy)) m.set(legacy, d.composite_slug);
+    }
+    _legacyDocMap = m;
+    _legacyDocSrc = clinics;
+  }
+  return _legacyDocMap;
+}
+
 export function getDoctorByCompositeSlug(clinics: Clinic[], slug: string): DoctorWithClinic | undefined {
   // App Router 전달값이 percent-encoded로 남는 케이스가 있어 (태국어 slug),
   // 디코드된 값과 원본 값 둘 다 비교 — 둘 중 하나라도 일치하면 매치.

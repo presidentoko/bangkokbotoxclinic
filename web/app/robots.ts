@@ -8,7 +8,12 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
+        // /api/og is the OG image every clinic and hub page points at, four
+        // times over (og:image, twitter:image, JSON-LD). Disallowing /api/
+        // blocked 1,922 URLs in Search Console — and, more to the point, stopped
+        // Google, LINE and every other preview fetcher from loading the card
+        // image for a shared link. It is content; the rest of /api/ is not.
+        allow: ["/", "/api/og"],
         // 여기서 막는 건 "콘텐츠가 아닌 것"만이다 (2026-08-08 GSC 경고 대응).
         //
         // 뺀 것과 이유:
@@ -22,6 +27,11 @@ export default function robots(): MetadataRoute.Robots {
         //
         // 남긴 것: /api/ 는 콘텐츠가 아니고, /dashboard/·/onboarding/ 은 인증 뒤라
         // 공개 링크가 없다.
+        // /api/og is the OG image every clinic and hub page points at, four
+        // times over (og:image, twitter:image, JSON-LD). Blocking it blocked
+        // 1,922 URLs in Search Console — and, more to the point, stopped Google,
+        // LINE and every other preview fetcher from loading the card image for a
+        // shared link. It is content; the rest of /api/ is not.
         disallow: ["/api/", "/dashboard/", "/onboarding/"],
       },
       // 2026-08-24: AI 크롤러를 차단으로 전환한다.
@@ -46,7 +56,12 @@ export default function robots(): MetadataRoute.Robots {
           "Google-Extended", "Applebot-Extended", "cohere-ai",
           "anthropic-ai", "Gemini-Google", "CCBot", "Bytespider",
           "Amazonbot", "meta-externalagent", "Diffbot", "Omgilibot",
-          "FacebookBot", "Timpibot", "YouBot", "ImagesiftBot",
+          // "FacebookBot" was here. It is the crawler that builds the link
+          // preview when someone shares a page on Facebook or Messenger —
+          // blocking it means a shared clinic link renders as a bare URL.
+          // Meta's AI training crawler is "meta-externalagent", listed above
+          // and still blocked.
+          "Timpibot", "YouBot", "ImagesiftBot",
         ],
         disallow: "/",
         allow: [],

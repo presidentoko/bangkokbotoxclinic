@@ -1,5 +1,5 @@
-import { notFound } from "next/navigation";
-import { loadMasterDb, getAllDoctors, getDoctorByCompositeSlug, makeCompositeDoctorSlug } from "@/lib/data";
+import { notFound, permanentRedirect } from "next/navigation";
+import { loadMasterDb, getAllDoctors, getDoctorByCompositeSlug, legacyDoctorSlugMap, makeCompositeDoctorSlug } from "@/lib/data";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { BookingForm } from "@/components/BookingForm";
@@ -23,7 +23,16 @@ export async function generateStaticParams() {
   // 보톡스 의사) 대량 pre-render 후 noindex 처리하는 낭비 방지 (clinic/[id]와
   // 동일 이슈, 2026-07-10 감사).
   const docs = getAllDoctors(db.clinics).filter((d) => applySiteFilter([d.clinic], cfg).length > 0);
-  return docs.map((d) => ({ slug: d.composite_slug! }));
+  // Plus the pre-2026-07-31 URL shape (name + clinic *name*), which Google
+  // still crawls — 223 of the 1,000 404s in the 08-29 export are these. Those
+  // params render nothing; the page redirects them to the current slug.
+  const legacy = legacyDoctorSlugMap(db.clinics);
+  const live = new Set(docs.map((d) => d.composite_slug!));
+  const params = docs.map((d) => ({ slug: d.composite_slug! }));
+  for (const [from, to] of legacy) {
+    if (live.has(to) && !live.has(from)) params.push({ slug: from });
+  }
+  return params;
 }
 
 export async function generateMetadata(
@@ -81,6 +90,8 @@ export default async function DoctorPage(
   const { slug } = await params;
   const db = await loadMasterDb();
   const cfg = getSiteConfig();
+  const legacyTarget = legacyDoctorSlugMap(db.clinics).get(slug);
+  if (legacyTarget) permanentRedirect(`/doctor/${encodeURI(legacyTarget)}`);
   const d = getDoctorByCompositeSlug(db.clinics, slug);
   if (!d) notFound();
 
