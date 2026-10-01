@@ -89,10 +89,11 @@ const CATEGORY_FAQS: Record<string, { q: string; a: string }[]> = {
     { q: "What is a basic health check-up in Bangkok?", a: "A basic health check-up includes essential tests: complete blood count (CBC), fasting blood sugar, lipid panel, liver enzymes, kidney function, urine analysis, blood pressure, and BMI. Ideal for young, healthy adults as an annual baseline." },
     { q: "How much is a basic health check-up in Bangkok?", a: "Basic health check-up packages in Bangkok typically cost ฿1,500–฿5,000. Most hospitals offer annual basic packages at this price point." },
   ],
-  age: [
-    { q: "What health check-up should I get based on my age in Bangkok?", a: "Bangkok hospitals offer age-tailored programmes: Under 30 — basic blood panel (฿3,000–฿6,000). Age 30–45 — adds cholesterol, blood sugar, liver (฿8,000–฿18,000). Age 45–60 — adds cardiac, bone density (฿15,000–฿35,000). Age 60+ — comprehensive geriatric screen (฿20,000–฿50,000)." },
-    { q: "Which Bangkok hospital has the best age-based health check-up packages?", a: "Bangkok Hospital (BDMS) and Phyathai Hospital group offer the most detailed age-stratified packages, with specific programmes for each age bracket clearly listed by gender." },
-  ],
+  // The "age" set is deliberately empty. Its two answers priced four age
+  // brackets and named the hospitals with "the most detailed age-stratified
+  // packages"; this dataset has no age dimension and no such ranking, so both
+  // were invented. CATEGORIES no longer contains "age" either.
+  age: [],
   senior: [
     { q: "What is a senior health check-up package in Bangkok?", a: "Senior packages are designed for adults 60+ and include age-appropriate tests: bone density scan (DEXA), cognitive function assessment, prostate health (PSA for men), colorectal cancer markers, cardiac risk assessment, thyroid, and a geriatric physician consultation. Prices range from ฿3,500 for a basic senior screen to ฿40,000 for an executive senior package." },
     { q: "Which Bangkok hospital is best for senior health check-ups?", a: "Bumrungrad International has a dedicated Geriatric & Senior Health Centre. Samitivej Sukhumvit has the most comprehensive senior packages for women. Bangkok Hospital (BDMS) has the widest senior programme range across all cities." },
@@ -123,7 +124,29 @@ export async function CompareView({ locale, activeCat }: { locale: string; activ
   );
 
   const aeoSummary = buildAeoSummary(loc, activeCat, rows);
-  const faqs = activeCat === "executive" ? cc.executiveFaqs : (CATEGORY_FAQS[activeCat] ?? []);
+  // Price answers come from the rows on the page, not from prose.
+  //
+  // The hardcoded sets below each carried a range someone typed. Against this
+  // site's own data most were wrong: "basic ... typically cost ฿1,500-฿5,000"
+  // when the 236 priced basic packages run from ฿300 with a median of ฿1,331,
+  // so the claimed floor sat above the typical price. The "age" set invented
+  // four price bands for an age dimension this dataset does not have at all.
+  // Any FAQ whose question asks how much something costs is now answered from
+  // the packages being compared, and the age-band answer is gone.
+  const priced = rows
+    .map((r) => parseFloat(r.price ?? "0"))
+    .filter((n) => n > 0)
+    .sort((a, b) => a - b);
+  const money = (n: number) => `฿${Math.round(n).toLocaleString()}`;
+  const priceAnswer = priced.length >= 8
+    ? `Across the ${priced.length} ${catLabel(loc, activeCat).toLowerCase()} packages on this page, the middle price is ${money(priced[Math.floor(priced.length / 2)])}. Eight in ten fall between ${money(priced[Math.floor(priced.length * 0.1)])} and ${money(priced[Math.floor(priced.length * 0.9)])}, and the cheapest published is ${money(priced[0])}. Every figure is read from the hospital's own listing and linked under the price.`
+    : null;
+  const baseFaqs = activeCat === "executive" ? cc.executiveFaqs : (CATEGORY_FAQS[activeCat] ?? []);
+  const faqs = baseFaqs.flatMap((f) => {
+    const asksPrice = /how much|cost|price/i.test(f.q);
+    if (!asksPrice) return [f];
+    return priceAnswer ? [{ q: f.q, a: priceAnswer }] : [];
+  });
   const shareUrl = `${BASE}${categoryHref(locale, activeCat)}`;
   const shareTitle = `${catLabel(loc, activeCat)} Health Check-Up Bangkok — Compare Prices`;
 

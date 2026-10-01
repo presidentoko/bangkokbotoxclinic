@@ -134,7 +134,7 @@ export default function TrustScoreGame({ clinics }: { clinics: Clinic[] }) {
               className="rounded-xl bg-navy-900 dark:bg-gold-400 dark:text-navy-950 text-white py-3 text-sm font-black hover:opacity-90">
               Next clinic →
             </button>
-            <a href={`/clinic/${clinic.id}`}
+            <a href={`/clinic/${clinic.url_slug}`}
               className="rounded-xl border-2 text-center py-3 text-sm font-bold hover:bg-white/50"
               style={{ borderColor: "var(--border)" }}>
               See full data →

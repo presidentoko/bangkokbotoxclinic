@@ -7213,7 +7213,15 @@ export default async function GuidePage({
             are the real, sourced prices — so say which is which rather than
             letting a reader assume a guide range carries the same provenance
             as a package listing. */}
-        {guide.sections.some((s) => /price|cost/i.test(s.heading)) && (
+        {/* The gate also reads the FAQ block and the body, not just section
+            headings. Several guides keep every number in an FAQ answer — the
+            age-banded "how much does a full check-up cost" answer is one — and
+            those pages were showing bands with no note at all. A baht figure
+            anywhere on the page is enough to owe the reader this. */}
+        {[
+          ...guide.sections.map((s) => `${s.heading} ${s.content ?? ""} ${(s.list ?? []).join(" ")}`),
+          ...guide.faqs.map((f) => `${f.q} ${f.a}`),
+        ].some((t) => /฿\s?[\d,]{3,}/.test(t) || /price|cost/i.test(t)) && (
           <aside className="rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-900">
             <p className="font-semibold mb-1">About the price ranges on this page</p>
             <p className="leading-relaxed">

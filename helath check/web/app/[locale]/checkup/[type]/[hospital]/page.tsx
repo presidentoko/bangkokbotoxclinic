@@ -230,7 +230,7 @@ export default async function PackageDetailPage({
           href={`/${locale}/compare/${type}`}
           className="text-blue-600 hover:underline text-sm"
         >
-          ← Compare all {label.toLowerCase()} packages in Bangkok
+          ← Compare all {label.toLowerCase()} packages in Thailand
         </Link>
       </div>
 

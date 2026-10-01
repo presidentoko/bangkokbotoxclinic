@@ -80,7 +80,7 @@ export function DistrictCompareTable({
                 <tr key={c.id} className="border-b border-gray-200 dark:border-gray-800 align-top">
                   <td className="py-2 pr-3">
                     <Link
-                      href={`${lang === "en" ? "" : `/${lang}`}/clinic/${c.id}`}
+                      href={`${lang === "en" ? "" : `/${lang}`}/clinic/${c.url_slug}`}
                       className="font-medium text-blue-700 dark:text-blue-400 hover:underline"
                     >
                       {c.display_name || c.name}

@@ -129,7 +129,7 @@ export default async function DoctorPage(
             </h1>
             <p className="text-[var(--muted)] flex items-center gap-2 flex-wrap">
               <span>at</span>
-              <a href={`/clinic/${c.id}`} className="font-bold text-[var(--accent)] hover:underline">
+              <a href={`/clinic/${c.url_slug}`} className="font-bold text-[var(--accent)] hover:underline">
                 {c.name}
               </a>
               {c.district && (
@@ -318,7 +318,7 @@ export default async function DoctorPage(
               </a>
             )}
             <a
-              href={`/clinic/${c.id}`}
+              href={`/clinic/${c.url_slug}`}
               className="block w-full bg-black text-white py-2.5 px-4 rounded-lg font-bold text-center hover:bg-gray-800 text-sm"
             >
               View {c.name} →
@@ -366,7 +366,7 @@ export default async function DoctorPage(
             "@type": "MedicalBusiness",
             name: c.name,
             address: c.address || undefined,
-            url: `${SITE}/clinic/${c.id}`,
+            url: `${SITE}/clinic/${c.url_slug}`,
           },
           medicalSpecialty: c.categories.map((cat) => CATEGORY_LABELS[cat] ?? cat),
           aggregateRating: d.mentions >= 3 ? {

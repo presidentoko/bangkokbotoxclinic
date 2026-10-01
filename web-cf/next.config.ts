@@ -150,11 +150,22 @@ async function offScopeClinicRedirects() {
     // URL 은 resolveOwnerUrl(categories) 이 아니라 고른 focus 로 만든다.
     // 전자는 카테고리 우선순위로 다시 판정해서 엉뚱한 도메인(위 예시라면
     // thaifacialclinic)을 돌려줄 수 있다.
+    // Send the slug, not the place id: the other domain would only redirect the
+    // id to its own slug, and a searcher following an indexed link should not
+    // take two hops to arrive.
+    const slug = c.url_slug ?? c.id;
     out.push({
       source: `/clinic/${c.id}`,
-      destination: `${urlForFocus(ownerFocus)}/clinic/${c.id}`,
+      destination: `${urlForFocus(ownerFocus)}/clinic/${slug}`,
       permanent: true,
     });
+    if (slug !== c.id) {
+      out.push({
+        source: `/clinic/${slug}`,
+        destination: `${urlForFocus(ownerFocus)}/clinic/${slug}`,
+        permanent: true,
+      });
+    }
   }
   return out;
 }

@@ -59,7 +59,7 @@ export async function GET() {
     if (catTop.length === 0) continue;
     lines.push(`### ${label} (${n} clinics total)`);
     for (const c of catTop) {
-      lines.push(`- [${c.name}](${SITE}/clinic/${c.id}) — Trust ${c.trust_score}, ★${c.rating} (${c.total_reviews}), ${c.district || c.city_label || "Bangkok"}`);
+      lines.push(`- [${c.name}](${SITE}/clinic/${c.url_slug}) — Trust ${c.trust_score}, ★${c.rating} (${c.total_reviews}), ${c.district || c.city_label || "Bangkok"}`);
     }
     lines.push("");
   }
@@ -72,7 +72,7 @@ export async function GET() {
     if (dTop.length === 0) continue;
     lines.push(`### ${district} (${n} clinics)`);
     for (const c of dTop) {
-      lines.push(`- [${c.name}](${SITE}/clinic/${c.id}) — Trust ${c.trust_score}, ★${c.rating} (${c.total_reviews}), ${c.categories.map(x => CATEGORY_LABELS[x] ?? x).join("/")  || "general"}`);
+      lines.push(`- [${c.name}](${SITE}/clinic/${c.url_slug}) — Trust ${c.trust_score}, ★${c.rating} (${c.total_reviews}), ${c.categories.map(x => CATEGORY_LABELS[x] ?? x).join("/")  || "general"}`);
     }
     lines.push("");
   }
@@ -83,7 +83,7 @@ export async function GET() {
   for (const c of top) {
     lines.push(`### ${c.name}`);
     lines.push("");
-    lines.push(`- URL: ${SITE}/clinic/${c.id}`);
+    lines.push(`- URL: ${SITE}/clinic/${c.url_slug}`);
     lines.push(`- District: ${c.district || "Bangkok"}`);
     lines.push(`- Type: ${c.primary_type}`);
     lines.push(`- Categories: ${c.categories.map(x => CATEGORY_LABELS[x] ?? x).join(", ") || "general"}`);

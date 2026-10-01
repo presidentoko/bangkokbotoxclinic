@@ -155,7 +155,7 @@ export default function CuratedCollections({ clinics, focus = "all", lang = "en"
             <ul className="divide-y" style={{ borderColor: "var(--border)" }}>
               {col.clinics.map((c, i) => (
                 <li key={c.id}>
-                  <a href={`/clinic/${c.id}`} className="flex items-center gap-4 p-4 transition hover:bg-slate-50">
+                  <a href={`/clinic/${c.url_slug}`} className="flex items-center gap-4 p-4 transition hover:bg-slate-50">
                     <span className="text-xl font-black tabular-nums text-[var(--muted)] w-6 text-center">{i + 1}</span>
                     <div className="h-14 w-14 rounded-xl bg-slate-100 shrink-0" />
                     <div className="min-w-0 flex-1">

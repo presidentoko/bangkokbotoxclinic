@@ -53,6 +53,12 @@ export type DoctorStat = {
 export type Clinic = {
   id: string;
   place_id: string;
+  /**
+   * URL segment for this clinic's page, assigned in loadMasterDb().
+   * Readable name + district; the place id lived here until 2026-10-01 and
+   * still redirects. See clinicSlug() in lib/data.ts.
+   */
+  url_slug?: string;
   name: string;
   /** title 전용 정제 이름. 원본 name 은 H1·JSON-LD 에 그대로 쓴다 (2026-09-02) */
   display_name?: string;

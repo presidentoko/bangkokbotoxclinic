@@ -1,5 +1,7 @@
-import { notFound } from "next/navigation";
-import { loadMasterDb, getClinicById, makeCompositeDoctorSlug } from "@/lib/data";
+import { notFound, permanentRedirect } from "next/navigation";
+import { LicenseCheck } from "@/components/LicenseCheck";
+import { getClinicLicense } from "@/lib/licenses";
+import { loadMasterDb, getClinicById, getClinicByRouteKey, isLegacyClinicKey, makeCompositeDoctorSlug } from "@/lib/data";
 import { loadPricing, summarisePackages, priceRangeTHB } from "@/lib/pricing";
 import { loadPhotos } from "@/lib/photos";
 import { PhotoGallery } from "@/components/PhotoGallery";
@@ -83,7 +85,15 @@ export async function generateStaticParams() {
   // 소관 클리닉으로만 한정돼 있어(scopedClinics) 신규 유입 경로는 없음.
   const cfg = getSiteConfig();
   const scoped = applySiteFilter(db.clinics, cfg);
-  return scoped.map((c) => ({ id: c.id }));
+  // Both URL shapes are prerendered: the slug the page lives at now, and the
+  // Google place id it lived at until 2026-10-01, which every indexed link and
+  // every backlink still points to. The legacy one renders nothing — the page
+  // below redirects it permanently to the slug — but it has to be a known param
+  // because `dynamicParams` is false, or those 844 indexed URLs would 404.
+  return scoped.flatMap((c) => {
+    const slug = c.url_slug ?? c.id;
+    return slug === c.id ? [{ id: slug }] : [{ id: slug }, { id: c.id }];
+  });
 }
 
 export async function generateMetadata(
@@ -94,7 +104,7 @@ export async function generateMetadata(
   const { id } = await params;
   const koExists = await hasKoPage(id);
   const db = await loadMasterDb();
-  const c = getClinicById(db.clinics, id);
+  const c = getClinicByRouteKey(db.clinics, id);
   if (!c) return { title: "Clinic not found" };
   const cats = c.categories.map((x) => CATEGORY_LABELS[x] ?? x).join(", ");
   // "Reviews & Trust Score"는 1,846개 클리닉 페이지 전부에 동일하게 붙던
@@ -125,14 +135,18 @@ export async function generateMetadata(
   const _hoursBit = _hours
     ? ` ${[_hours.open_weekend ? "Open weekends" : "", _hours.open_evening ? "open late" : ""].filter(Boolean).join(", ")}.`.replace(" .", "")
     : "";
-  const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} from ${c.total_reviews} Google reviews.${_hoursBit} ${cats || "Aesthetic clinic"}.`.replace(/\s+/g, " ").trim();
+  // The licence is what this result can say that the clinic's own Google
+  // listing, sitting next to it in the SERP, cannot.
+  const _lic = getClinicLicense(c.id);
+  const _licBit = _lic ? ` MOPH licence ${_lic.license_no}.` : "";
+  const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} from ${c.total_reviews} Google reviews.${_hoursBit}${_licBit} ${cats || "Aesthetic clinic"}.`.replace(/\s+/g, " ").trim();
 
   // 이 사이트 소관이 아닌 클리닉이면 (예: 덴탈 사이트에 뜬 보톡스 전용 클리닉)
   // 절대 URL로 진짜 소유 도메인을 캐노니컬로 지정 + noindex — 두 도메인 동시 색인 방지.
   const cfg = getSiteConfig();
   const inSite = applySiteFilter([c], cfg).length > 0;
   const ownerUrl = !inSite ? resolveOwnerUrl(c.categories) : null;
-  const canonical = ownerUrl ? `${ownerUrl}/clinic/${c.id}` : `/clinic/${c.id}`;
+  const canonical = ownerUrl ? `${ownerUrl}/clinic/${c.url_slug}` : `/clinic/${c.url_slug}`;
 
   return {
     title: { absolute: title },
@@ -147,7 +161,7 @@ export async function generateMetadata(
       siteName: cfg.brand,
       title,
       description,
-      url: `/clinic/${c.id}`,
+      url: `/clinic/${c.url_slug}`,
       type: "article",
       locale: "en_US",
       images: [{
@@ -177,8 +191,13 @@ export default async function ClinicPage(
   const localePrefix = LOCALE_PREFIX[lang];
   const { id } = await params;
   const db = await loadMasterDb();
-  const c = getClinicById(db.clinics, id);
+  const c = getClinicByRouteKey(db.clinics, id);
   if (!c) notFound();
+  // A place-id URL is one of the 844 Google still has indexed. Send it, once
+  // and permanently, to the readable slug the page lives at now.
+  if (isLegacyClinicKey(id) && c.url_slug && c.url_slug !== id) {
+    permanentRedirect(`${localePrefix}/clinic/${c.url_slug}`);
+  }
 
   // 추천 후보 풀은 항상 현재 사이트 소관 클리닉으로 한정 — 다른 도메인 클리닉을
   // similar/nearby로 내부링크해서 크롤러가 발견하는 걸 방지 (교차 도메인 중복 콘텐츠).
@@ -459,6 +478,10 @@ export default async function ClinicPage(
           {/* 2026-09-30: 리뷰 원문에서 캔 불만 신호 + 평점 추세.
               아래 TrustDonut·RatingChart 는 전부 별점에서 파생된 값이라
               1,825곳이 같은 모양이었다. 여기만 페이지마다 다른 문장이 나온다. */}
+          {/* The licence sits above the review analysis: it is the only block on
+              this page that a Google listing cannot also show. */}
+          <LicenseCheck clinicId={c.id} lang={lang} />
+
           <ReviewSignals clinic={c} />
 
           {/* Pantip — 태국 최대 커뮤니티 토픽 인용 + 외부 backlink */}
@@ -658,7 +681,7 @@ export default async function ClinicPage(
                 {nearbyClinics.map((s) => (
                   <a
                     key={s.id}
-                    href={`/clinic/${s.id}`}
+                    href={`/clinic/${s.url_slug}`}
                     className="group flex flex-col gap-1 p-3 rounded-lg border border-[var(--border)] hover:border-[var(--accent)] transition"
                   >
                     <div className="font-medium text-sm group-hover:text-[var(--accent)] transition line-clamp-2 leading-snug">
@@ -827,7 +850,7 @@ export default async function ClinicPage(
               <div className="space-y-2">
                 {similar.map((s) => (
                   <div key={s.id} className="group flex items-start justify-between gap-2">
-                    <a href={`/clinic/${s.id}`} className="flex-1 min-w-0">
+                    <a href={`/clinic/${s.url_slug}`} className="flex-1 min-w-0">
                       <div className="font-medium text-sm group-hover:text-[var(--accent)] truncate transition">
                         {s.name}
                       </div>
@@ -874,12 +897,12 @@ export default async function ClinicPage(
       <BreadcrumbJsonLd items={[
         { name: HOME_CRUMB[lang], url: `${localePrefix}/` },
         ...(c.district ? [{ name: c.district, url: `${localePrefix}/d/${c.district.toLowerCase().replace(/\s+/g, "-")}` }] : []),
-        { name: c.name, url: `${localePrefix}/clinic/${c.id}` },
+        { name: c.name, url: `${localePrefix}/clinic/${c.url_slug}` },
       ]} />
       {/* AEO: FAQ schema — Google PAA / LLM 인용 친화 */}
       <FaqJsonLd faqs={faqs} />
       {/* AEO: Speakable — 음성검색 (Google Assistant 등) 응답 elig */}
-      <SpeakableJsonLd url={`${localePrefix}/clinic/${c.id}`} />
+      <SpeakableJsonLd url={`${localePrefix}/clinic/${c.url_slug}`} />
     </div>
   );
 }

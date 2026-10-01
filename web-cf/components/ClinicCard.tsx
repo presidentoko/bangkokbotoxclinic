@@ -190,7 +190,7 @@ export async function ClinicCard({ clinic, rank, lang = "en" }: { clinic: Clinic
   // /th/clinic/[id], /ko/clinic/[id] 모두 EN과 동일 클리닉 set으로 이미
   // 존재하는데(parentGSP 재사용) 링크만 lang 무시하고 하드코딩돼 있었음
   // (2026-07-31 감사).
-  const clinicHref = `${lang === "en" ? "" : `/${lang}`}/clinic/${clinic.id}`;
+  const clinicHref = `${lang === "en" ? "" : `/${lang}`}/clinic/${clinic.url_slug}`;
   const tier = await sponsoredTier(clinic.id);
   // 카드 목록(허브/best/홈)이 텍스트만 있어서 사진 있는 구글 로컬팩 대비
   // 이탈률이 높았을 가능성 — 이미 스크랩된 사진(1,395개 클리닉)을 카드에도

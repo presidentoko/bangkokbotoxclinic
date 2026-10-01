@@ -79,7 +79,7 @@ export default async function BrandPage(
         name={`${brand.name} branches`}
         items={brand.clinics.map((c) => ({
           name: c.name,
-          url: `${getSiteUrl()}/clinic/${c.id}`,
+          url: `${getSiteUrl()}/clinic/${c.url_slug}`,
         }))}
       />
 
@@ -99,7 +99,7 @@ export default async function BrandPage(
       {best ? (
         <p className="mt-4 rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-sm dark:border-neutral-800 dark:bg-neutral-900">
           Highest Trust Score:{" "}
-          <Link href={`/clinic/${best.id}`} className="font-medium underline">
+          <Link href={`/clinic/${best.url_slug}`} className="font-medium underline">
             {best.name}
           </Link>
           {best.district ? ` (${best.district})` : ""} — ★{best.rating} from{" "}

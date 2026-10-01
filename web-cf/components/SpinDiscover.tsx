@@ -9,6 +9,7 @@ import { ClinicPhoto } from "./ClinicPhoto";
 
 type Mini = {
   id: string;
+  url_slug?: string;
   name: string;
   district: string;
   rating: number;
@@ -158,7 +159,7 @@ export function SpinDiscover({
 
           {phase === "revealed" && current && (
             <a
-              href={`/clinic/${current.id}`}
+              href={`/clinic/${current.url_slug}`}
               className="block bg-white rounded-xl border-2 p-4 md:p-5 shadow-md hover:shadow-xl transition-shadow group"
               style={{ borderColor: accent }}
             >
@@ -217,7 +218,7 @@ export function SpinDiscover({
           </button>
           {current && (
             <a
-              href={`/clinic/${current.id}`}
+              href={`/clinic/${current.url_slug}`}
               className="text-sm font-bold hover:underline"
               style={{ color: accent }}
             >

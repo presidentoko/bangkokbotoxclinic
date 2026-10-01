@@ -192,7 +192,7 @@ export default async function ServiceDistrictPage(
         name={`${label} clinics in ${districtName}`}
         items={filtered.slice(0, 20).map((c) => ({
           name: c.name,
-          url: `/clinic/${c.id}`,
+          url: `/clinic/${c.url_slug}`,
         }))}
       />
     </div>

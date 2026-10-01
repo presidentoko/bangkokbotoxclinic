@@ -4,6 +4,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import type { Clinic, MasterDb } from "./types";
+import { romanizeThai, trimSlug } from "./thai";
 
 const DATA_PATH = path.join(process.cwd(), "data", "master_db.json");
 const EXTRA_PATH = path.join(process.cwd(), "data", "extra_clinics.json");
@@ -92,6 +93,12 @@ export async function loadMasterDb(): Promise<MasterDb> {
     // 파일 없거나 잘못된 형식 → 조용히 무시
   }
 
+  // Every clinic carries its URL segment from here on. Computing it once, over
+  // the whole list, is what makes the slugs unique and stable; doing it at each
+  // link site would give a client component no way to know about collisions.
+  const slugs = clinicSlugMap(parsed.clinics);
+  for (const c of parsed.clinics) c.url_slug = slugs.get(c.id) ?? c.id;
+
   _cache = parsed;
   return _cache;
 }
@@ -110,6 +117,95 @@ export function slugify(s: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9฀-๿]+/g, "-")
     .replace(/^-+|-+$/g, "");
+}
+
+/**
+ * A clinic's URL segment: a name a person can read, not the map pin's id.
+ *
+ * Every clinic page on this site has lived at `/clinic/0x30e296ca49e740e7_0x…`
+ * since it was built — the raw Google place id. 844 such URLs carry all of the
+ * site's search traffic, and nothing about them tells a searcher, or anyone
+ * they paste the link to, which clinic it is. They also say plainly how the
+ * page was made: one row per scraped pin.
+ *
+ * The slug is the clinic's name plus its district, so two branches of the same
+ * chain stay apart, with the place id's last six hex characters appended only
+ * when that is still not unique. Thai-only names are transliterated rather than
+ * dropped (lib/thai.ts) — `slugify` strips non-ASCII, which is exactly how the
+ * hex fallback got in.
+ *
+ * Old URLs keep working: scripts/build-clinic-redirects.ts writes the map that
+ * next.config.ts turns into permanent redirects.
+ */
+export function clinicSlug(c: Clinic): string {
+  const asciiName = slugify(c.name.replace(/[฀-๿]+/g, " ")).replace(/-+/g, "-");
+  const base = asciiName.replace(/^-|-$/g, "") ||
+    trimSlug(romanizeThai(c.name)) ||
+    slugify(c.display_name ?? "");
+  const district = c.district ? slugify(c.district) : "";
+  const joined = [base, district].filter(Boolean).join("-").replace(/-+/g, "-");
+  return trimSlug(joined || c.id, 70) || c.id;
+}
+
+/**
+ * Slugs for a whole set, made unique. Order follows the input array, so a
+ * clinic keeps its slug as long as the ones before it do.
+ */
+export function clinicSlugMap(clinics: Clinic[]): Map<string, string> {
+  const taken = new Set<string>();
+  const out = new Map<string, string>();
+  for (const c of clinics) {
+    let slug = clinicSlug(c);
+    if (taken.has(slug)) {
+      const tail = c.id.replace(/[^0-9a-fA-F]/g, "").slice(-6).toLowerCase();
+      slug = `${slug}-${tail}`;
+      let n = 2;
+      while (taken.has(slug)) slug = `${slug}-${n++}`;
+    }
+    taken.add(slug);
+    out.set(c.id, slug);
+  }
+  return out;
+}
+
+/** Cached slug map over the full clinic list (the array identity is stable). */
+let _slugMapSrc: Clinic[] | null = null;
+let _slugMap: Map<string, string> | null = null;
+let _bySlug: Map<string, Clinic> | null = null;
+
+function slugIndex(clinics: Clinic[]): { byId: Map<string, string>; bySlug: Map<string, Clinic> } {
+  if (_slugMapSrc !== clinics || !_slugMap || !_bySlug) {
+    _slugMap = clinicSlugMap(clinics);
+    _bySlug = new Map<string, Clinic>();
+    for (const c of clinics) _bySlug.set(_slugMap.get(c.id)!, c);
+    _slugMapSrc = clinics;
+  }
+  return { byId: _slugMap, bySlug: _bySlug };
+}
+
+/** The URL for a clinic page, in the locale asked for. */
+export function clinicPath(clinics: Clinic[], c: Clinic, lang: "en" | "th" | "ko" = "en"): string {
+  const slug = slugIndex(clinics).byId.get(c.id) ?? c.id;
+  return `${lang === "en" ? "" : `/${lang}`}/clinic/${slug}`;
+}
+
+export function clinicSlugOf(clinics: Clinic[], c: Clinic): string {
+  return slugIndex(clinics).byId.get(c.id) ?? c.id;
+}
+
+/** A Google place id as it used to appear in the URL. */
+export function isLegacyClinicKey(key: string): boolean {
+  return /^0x[0-9a-f]+_0x[0-9a-f]+$/i.test(key);
+}
+
+/**
+ * Resolve whatever is in the URL — the new slug, or the place id every clinic
+ * URL used until 2026-09-30.
+ */
+export function getClinicByRouteKey(clinics: Clinic[], key: string): Clinic | undefined {
+  const bySlug = slugIndex(clinics).bySlug.get(key);
+  if (bySlug) return bySlug;
+  return getClinicById(clinics, key);
 }
 
 export function unslugifyDistrict(slug: string, allDistricts: string[]): string | null {

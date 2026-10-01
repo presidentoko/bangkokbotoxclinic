@@ -46,7 +46,7 @@ export async function GET() {
   const urls: string[] = [];
   for (const loc of LOCALES) {
     for (const c of clinics) {
-      const id = xmlEscape(c.id);
+      const id = xmlEscape(c.url_slug ?? c.id);
       urls.push(
         `  <url>\n` +
           `    <loc>${SITE}${loc.prefix}/clinic/${id}</loc>\n` +

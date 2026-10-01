@@ -5,7 +5,7 @@
 // layout의 ko hreflang 광고와 실제 페이지 존재가 불일치했던 문제 해결).
 import type { Metadata } from "next";
 import ClinicPage from "../../../clinic/[id]/page";
-import { loadMasterDb, getClinicById } from "@/lib/data";
+import { loadMasterDb, getClinicByRouteKey } from "@/lib/data";
 import { getSiteUrl, getSiteConfig, applySiteFilter, resolveOwnerUrl } from "@/lib/site";
 import { KO_PRERENDER } from "@/lib/ko-cap";
 
@@ -34,7 +34,7 @@ export async function generateStaticParams() {
     .slice()
     .sort((a, b) => b.trust_score - a.trust_score)
     .slice(0, KO_PRERENDER)
-    .map((c) => ({ id: c.id }));
+    .map((c) => ({ id: c.url_slug ?? c.id }));
 }
 
 export async function generateMetadata(
@@ -42,7 +42,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { id } = await params;
   const db = await loadMasterDb();
-  const c = getClinicById(db.clinics, id);
+  const c = getClinicByRouteKey(db.clinics, id);
   if (!c) return { title: "클리닉을 찾을 수 없습니다" };
   const place = c.district || c.city_label;
   // 2026-09-02: title 에는 정제 이름을 쓴다 — 키워드 나열·잘림이 SERP 에서
@@ -60,7 +60,7 @@ export async function generateMetadata(
   const ownerUrl = !inSite ? resolveOwnerUrl(c.categories) : null;
   // 2026-09-15: 영어판과 본문 99% 동일(실측, 태국어 글자 15%) — 번역 페이지가
   // 아니라 복제본이다. 영어판으로 canonical 을 모으고 색인에서 뺀다.
-  const canonical = `${ownerUrl ?? SITE}/clinic/${c.id}`;
+  const canonical = `${ownerUrl ?? SITE}/clinic/${c.url_slug}`;
 
   return {
     title,
@@ -77,7 +77,7 @@ export async function generateMetadata(
       locale: "ko_KR",
       title,
       description,
-      url: `${SITE}/ko/clinic/${c.id}`,
+      url: `${SITE}/ko/clinic/${c.url_slug}`,
     },
   };
 }
