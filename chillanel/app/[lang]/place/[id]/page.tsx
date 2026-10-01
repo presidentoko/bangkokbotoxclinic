@@ -75,6 +75,11 @@ function ReviewItem({ review, anonymousLabel, readMoreLabel }: { review: Review;
 // 6,708 이면 터진 지점의 절반 이하라 방콕이 더 쌓여도 여유가 있다.
 //
 // SEO 손실은 없다: 걸러진 롱테일도 dynamicParams 로 접근 가능하고 정상 200 을 낸다.
+// ⚠️ 2026-10-01: 이 문장은 **2026-10-01 까지 사실이 아니었다.** 부모
+// [lang]/layout.tsx 의 dynamicParams=false 가 (lang,id) 조합을 고정해서,
+// 리뷰 50 미만 4,662곳이 전부 404 였다(라이브 실측: 50 경계로 200/404 가
+// 정확히 갈림). 부모의 false 를 걷어내서 이제 참이 됐다. 그 줄을 다시
+// 넣으면 이 사이트의 내부 링크 77%(파타야 기준)가 또 깨진다.
 // ISR 쓰기 부담도 낮다 — 이 페이지엔 revalidate 가 없어서 한 번 생성되면 다음
 // 배포까지 캐시되므로, 페이지당 쓰기가 1회다 (Hobby ISR Writes 한도에 안전).
 const PRERENDER_MIN_REVIEWS = 50;
@@ -137,7 +142,20 @@ export async function generateMetadata({
   // ⚠️ 되돌릴 시점: en 장소가 실제로 색인되기 시작하면, th 를 **진짜 번역**으로
   // 채운 뒤 다시 색인시킨다. 태국 현지 스파 검색은 태국어라 th 는 결국 필요하다.
   // 지금 상태(13%)로 되살리면 같은 문제가 재발한다.
-  const indexable = lang === "en";
+  // 2026-10-01: 리뷰가 적은 장소는 렌더는 하되 색인은 요청하지 않는다.
+  //
+  // [lang]/layout.tsx 의 dynamicParams=false 를 걷어내면서 4,662곳이 404 에서
+  // 200 으로 돌아온다. 그대로 두면 권위 0 인 도메인이 얇은 페이지 4,662개를
+  // 새로 내미는 셈이고, 이 사이트는 이미 "크롤 후 미색인 17,681" 을 맞고
+  // 사이트맵을 17,115 → 5,658 로 줄여서 빠져나온 전력이 있다. 같은 실수를
+  // 반복하지 않는다 — 링크는 살리고 색인만 뺀다.
+  //
+  // 50 은 사이트맵(app/sitemap.ts SITEMAP_MIN_REVIEWS)·프리렌더
+  // (PRERENDER_MIN_REVIEWS)와 **같은 선**이다. 셋이 갈리면 "사이트맵엔 있는데
+  // 404", "색인 요청해놓고 프리렌더 안 함" 같은 모순이 생긴다.
+  const THIN_MIN_REVIEWS = PRERENDER_MIN_REVIEWS;
+  const thin = (found.place.reviewCount ?? 0) < THIN_MIN_REVIEWS;
+  const indexable = lang === "en" && !thin;
   return {
     // 2026-09-02: 평점·리뷰수를 title 에. 넷 중 이 사이트만 브랜드명만 달고
     // 있었는데 데이터에는 rating·reviewCount 가 이미 있었다. 검증 검색에서

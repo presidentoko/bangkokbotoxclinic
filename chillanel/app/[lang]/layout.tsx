@@ -17,17 +17,31 @@ export function generateStaticParams() {
   return [{ lang: "en" }, { lang: "th" }, { lang: "ko" }];
 }
 
-// Every route under this layout (home, city/district/service indexes, guide
-// index, about, advertise, compare, favorites — anything without its own
-// nested dynamic segment) shares this [lang] segment as its only dynamic
-// param. Without this, a lang value outside en/th/ko/isLang() still gets
-// on-demand rendered (function invocation + ISR write) before the page's own
-// isLang()+notFound() check runs — every bot probe (/wp-login.php, /fr, /de,
-// random slugs) burns one, repeated after every deploy. false makes it a
-// free edge 404 with zero function invocation. Nested dynamic segments
-// (city/[city], place/[id], etc.) set their own dynamicParams independently
-// and are unaffected by this.
-export const dynamicParams = false;
+// 2026-10-01: `export const dynamicParams = false` 를 제거했다.
+//
+// 원래 의도는 봇 차단이었다 — /fr, /wp-login.php 같은 잘못된 lang 이 on-demand
+// 렌더(함수 호출 + ISR 쓰기)를 태우기 전에 엣지에서 공짜 404 를 내려는 것. 그
+// 주석은 "중첩 동적 세그먼트(city/[city], place/[id])는 각자 dynamicParams 를
+// 설정하므로 영향받지 않는다"고 적고 있었다. **실측 결과 그게 틀렸다.**
+//
+// place/[id] 는 `dynamicParams = true` 와 함께 리뷰 50개 이상만 프리렌더하고,
+// "걸러진 롱테일도 요청 시 200 을 낸다"고 주석에 적어뒀는데 — 라이브에서 리뷰
+// 수 구간별로 찍어보면 50 을 경계로 딱 갈린다:
+//     리뷰 200+ → 200    리뷰 50~199 → 200
+//     리뷰 20~49 → 404   리뷰 1~19  → 404
+// 부모 세그먼트의 false 가 (lang, id) 조합 전체를 고정시키기 때문이다. 즉 관련
+// 장소 8,157곳 중 **4,662곳이 404** 였다.
+//
+// 그냥 "색인 안 되는 롱테일"이 아니라 **사이트 자신의 링크가 깨져 있었다**:
+//   /en/city/pattaya          place 링크 90개 중 69개(77%)가 404
+//   /en/service/hot-stone     90개 중 27개가 404
+//   /en/district/thonglor…    90개 중 2개
+// 파타야 도시 페이지가 노출 36 · 클릭 0 · 평균 58.5위인 것도 이것으로 설명된다.
+//
+// 봇 비용은 감수한다. ISR 폭주(읽기 1.5M)의 원인은 잘못된 lang 프로브가 아니라
+// AI·SEO 상업 크롤러였고 그건 app/robots.ts 에서 이미 막았다. 얇은 장소가 색인에
+// 다시 불어나는 것은 dynamicParams 가 아니라 noindex 로 막는다
+// (place/[id] 의 THIN_MIN_REVIEWS 참조) — 사람에겐 200, 구글에겐 noindex.
 
 // This is the real root layout for every content page (everything except
 // the bare "/" redirect -- see app/(root)/layout.tsx). Owning <html> here
