@@ -35,6 +35,7 @@ const CONCERNS = Object.keys(CONCERN_FILTER_SLUGS);
 const CONCERN_RE = new RegExp(`^/(th|en)/(${CONCERNS.join("|")})/([^/]+)$`);
 const BRAND_RE = /^\/(th|en)\/brand\/([^/]+)$/;
 const OG_RE = /^\/(th|en)\/product\/([^/]+)\/opengraph-image$/;
+const COMPARE_RE = /^\/(th|en)\/compare\/([^/]+)$/;
 
 /** 410 with a body, for a URL whose content is gone and has no successor. */
 function gone() {
@@ -151,6 +152,18 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // A comparison against a product that has left the catalogue can never be
+  // rendered again — data/compare-keep.json drops such a pair, which is how
+  // /th/compare/banobagi-51781-vs-citra-98676 was left 404ing. Pairs of live
+  // products stay a 404: those are URLs this site never published, not ones
+  // it withdrew.
+  const compareMatch = COMPARE_RE.exec(pathname);
+  if (compareMatch) {
+    const ids = compareMatch[2].split("-vs-").map(idFromSlug);
+    if (ids.length === 2 && !ids.every((id) => PRODUCT_IDS.has(id))) return gone();
+    return NextResponse.next();
+  }
+
   // OG images for products that left the catalogue. The page they belong to
   // already 308s to its brand; the image has no equivalent.
   const ogMatch = OG_RE.exec(pathname);
@@ -190,6 +203,7 @@ export const config = {
     "/:locale(th|en)/product/:slug/opengraph-image",
     "/:locale(th|en)/dupe/:brand",
     "/:locale(th|en)/brand/:brand",
+    "/:locale(th|en)/compare/:slugs",
     "/:locale(th|en)/:concern/:filter",
     // Dead WordPress paths, answered with 410 above. `:rest(.*)` rather than
     // `:path*` because the live URLs are /privacy-policy9/... — the digits sit

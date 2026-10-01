@@ -98,6 +98,17 @@ describe("URLs the catalogue no longer covers", () => {
     expect(run(`/th/product/x-${liveId}/opengraph-image`).status).toBe(200);
   });
 
+  it("410s a comparison whose product has left the catalogue", () => {
+    expect(run("/th/compare/banobagi-51781-vs-citra-98676").status).toBe(410);
+  });
+
+  it("leaves a comparison of two live products to the route", () => {
+    // Not published is not the same as withdrawn: an ungenerated pair of live
+    // products stays a 404.
+    const res = run(`/th/compare/a-${liveId}-vs-b-${routeIndex.productIds[1]}`);
+    expect(res.status).toBe(200);
+  });
+
   it("does not intercept other three-segment routes", () => {
     const res = run("/th/ingredient/niacinamide");
     expect(res.status).toBe(200);
