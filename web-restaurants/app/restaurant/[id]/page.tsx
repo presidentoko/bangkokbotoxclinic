@@ -24,6 +24,7 @@ import { EmailSignup } from "@/components/EmailSignup";
 import { SaveButton } from "@/components/SaveButton";
 import { CommunityButtons } from "@/components/CommunityButtons";
 import { RestaurantCard } from "@/components/RestaurantCard";
+import { isThin } from "@/lib/site";
 
 export const dynamic = "force-static";
 // All valid ids are enumerated below at build time — reject anything else at
@@ -72,13 +73,21 @@ export async function generateMetadata(
     description,
     alternates: {
       canonical: `/restaurant/${id}`,
+      // th/ko 는 hreflang 에서 뺐다(2026-10-01). 그 두 라우트는 EN 본문을 그대로
+      // 렌더하면서 canonical 로 여기를 가리키고 noindex 다 — noindex 페이지를
+      // hreflang 대안으로 선언하는 건 서로 모순된 신호다. 본문이 실제로 번역되면
+      // 그때 되돌린다.
       languages: {
         en: `/restaurant/${id}`,
-        th: `/th/restaurant/${id}`,
-        ko: `/ko/restaurant/${id}`,
         "x-default": `/restaurant/${id}`,
       },
     },
+    // 사진도 없고 리뷰도 50개 미만이면 색인을 요청하지 않는다(1,036곳).
+    // 구글 자체 패널이 보여주는 것 외에 우리가 더할 게 없는 페이지이고,
+    // 2026-08-18 스팸 업데이트가 형제 사이트를 사이트 단위로 강등시킨 게
+    // 정확히 이 종류다. follow 는 남겨서 내부 링크 흐름은 끊지 않는다.
+    // 기준은 lib/site.ts (isThin).
+    ...(isThin(r) ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       title,
       description,

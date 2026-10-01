@@ -4,6 +4,7 @@ import { VERDICT_HUBS } from "@/lib/verdict";
 import { CUISINE_LABELS } from "@/lib/types";
 import { GUIDES } from "@/lib/guides";
 import { loadAllSlugs } from "@/lib/famous-vs-good";
+import { isSubstantial } from "@/lib/site";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.snsstopper.com";
 const CUISINES = Object.keys(CUISINE_LABELS);
@@ -97,7 +98,15 @@ export async function GET() {
   }
 
   for (const r of db.restaurants) {
-    const priority = r.trust_score >= 70 ? 0.8 : r.trust_score >= 50 ? 0.6 : 0.4;
+    // 2026-10-01: 제출은 isSubstantial 만 (8,625 → 4,508).
+    //
+    // 구글이 "발견됨 - 색인 안 됨" 9,732건을 보고하고 있었다 — 발견은 했는데
+    // 크롤을 거부한다는 뜻이고, 제출량이 배정된 크롤 예산을 넘었다는 신호다.
+    // 여기서 빠져도 noindex 가 아니다(isThin 만 noindex). 이미 색인된 페이지는
+    // 남고 내부 링크도 그대로다 — 우리가 "이걸 먼저 보라"고 말하는 목록만
+    // 절반으로 줄인다. 기준은 lib/site.ts 에 있다.
+    if (!isSubstantial(r)) continue;
+    const priority = (r.photos?.length ?? 0) > 0 ? 0.8 : 0.6;
     items.push({ url: `${SITE}/restaurant/${r.id}`, lastModified: updated, changeFrequency: "weekly", priority });
     // 2026-09-26: th/ko 상세는 사이트맵에서 뺀다.
     //
