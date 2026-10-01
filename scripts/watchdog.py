@@ -67,7 +67,10 @@ PANTIP_DONE_RE = re.compile(r"DONE: ok=(\d+) skip=(\d+) fail=(\d+) / total=(\d+)
 # (2026-08-07: massage_review_bangkok 이 이 구조로 5시간에 60회 재시작.
 #  후보 1221개 중 신규 5개뿐인 사실상 완료된 서비스였는데, 성공 0 = 정체로
 #  오판돼 매 사이클 크롬 2대를 새로 띄우고 있었다.)
-IDLE_ALIVE_RE = re.compile(r"대기 중…")
+# "대기 중…"(줄임표) 뿐 아니라 "변경 대기 중 (…)" 처럼 줄임표 없는 유휴
+# 라인도 살아있음으로 인정한다. chillanel_refresher 가 찍는 줄에는 줄임표가
+# 없어서 1,736회 가짜 kick 을 맞았다 (2026-10-01).
+IDLE_ALIVE_RE = re.compile(r"대기 중")
 
 # 그리드는 SOCKS 포트 2080 한 개를 공유 → 동시에 한 도시만 가동.
 # 앞 도시가 자연 종료되면 다음 도시의 .disabled 마커 제거하여 깨움.
@@ -223,17 +226,28 @@ class Service:
                 tail = f.read().decode("utf-8", errors="replace")
         except OSError:
             return False
-        # 뒤에서부터 매치 검색 — 파싱 안 되는 줄은 건너뛰고 계속.
         # progress 패턴뿐 아니라 "큐 고갈 대기" 라인도 살아있음으로 인정한다
-        # (IDLE_ALIVE_RE 주석 참고). 둘 중 더 최근 것이 기준이 된다.
-        for line in reversed(tail.splitlines()):
+        # (IDLE_ALIVE_RE 주석 참고).
+        #
+        # 2026-10-01: 예전엔 "뒤에서부터 첫 매치"의 시각을 썼는데, 같은 로그
+        # 파일에 인스턴스가 2개 이상 쓰면 타임스탬프가 뒤섞여서 **파일상 마지막
+        # 줄이 가장 최근이 아니다**. 실측: restaurants_db_builder 로그에
+        # 13:57 줄 뒤에 13:10 줄이 있었고, watchdog 은 13:10 을 기준으로 "48분
+        # 정체" 판정을 내려 정상 동작 중인 빌더를 2.5분마다 죽였다(kick 471회,
+        # 재시작 1,010회, 완료 0회의 자기유지 루프).
+        #
+        # 그래서 tail 안의 **모든 매치 중 최대 시각**으로 판정한다. 판정이
+        # 느슨해지는 방향이라 오탐으로 서비스를 죽일 위험은 없다.
+        latest = None
+        for line in tail.splitlines():
             if self.progress_pattern.search(line) or IDLE_ALIVE_RE.search(line):
                 ts = parse_log_timestamp(line)
-                if ts is None:
-                    continue  # 다음 매치 시도
-                return ts < (now - self.progress_stale_sec)
-        # 64KB 안에 progress 패턴 0건 (혹은 모두 파싱 불가) → stale
-        return True
+                if ts is not None and (latest is None or ts > latest):
+                    latest = ts
+        if latest is None:
+            # 64KB 안에 progress 패턴 0건 (혹은 모두 파싱 불가) → stale
+            return True
+        return latest < (now - self.progress_stale_sec)
 
     def kick(self, reason: str) -> bool:
         """진행 정체 등으로 강제 종료. PID 트리 통째로 죽이고 watchdog 다음 tick 에 부활."""
@@ -252,23 +266,15 @@ class Service:
             pass
         # launcher (parent) 도 같이 정리 — 외로워진 venv 런처 zombie 방지
         try:
-            out = subprocess.check_output(
-                ["wmic", "process", "where", f"ProcessId={pid}",
-                 "get", "ParentProcessId", "/format:list"],
-                stderr=subprocess.DEVNULL, text=True, timeout=10,
-                creationflags=_WNOW,
-            )
-            for line in out.splitlines():
-                line = line.strip()
-                if line.startswith("ParentProcessId="):
-                    parent = int(line.split("=", 1)[1])
-                    if parent > 4:  # PID 4 는 System
-                        subprocess.run(
-                            ["taskkill", "/F", "/T", "/PID", str(parent)],
-                            stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL, timeout=10,
-                            creationflags=_WNOW,
-                        )
-                    break
+            for row in _cim_processes(f"ProcessId={pid}", "ParentProcessId"):
+                parent = int(row.get("ParentProcessId") or 0)
+                if parent > 4:  # PID 4 는 System
+                    subprocess.run(
+                        ["taskkill", "/F", "/T", "/PID", str(parent)],
+                        stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL, timeout=10,
+                        creationflags=_WNOW,
+                    )
+                break
         except (subprocess.SubprocessError, OSError, ValueError):
             pass
         try:
@@ -337,7 +343,9 @@ class Service:
         이전 인스턴스가 살아있는 채로 새 인스턴스가 또 뜨는 경우 방지
         (2026-07-14: nordvpn_runner 가 이렇게 중복 실행되어 SOCKS 8포트가 두
         매니저에게 동시에 잡히면서 alive=0/8 전멸)."""
-        script = Path(self.cmd[0]).name if self.cmd else ""
+        # 안전 집합과 **같은 키**(cmd[0] 전체 경로)를 써야 한다. 한쪽만 바꾸면
+        # 집합엔 경로가 들어 있는데 조회는 basename 으로 해서 교차살상이 난다.
+        script = str(self.cmd[0]) if self.cmd else ""
         if not script or script not in _STRAY_KILL_SAFE_SCRIPTS:
             return
         self_worker_pid = self.get_pid()
@@ -430,26 +438,17 @@ class Service:
         5초까지 대기. 못 찾으면 런처 PID 반환 (단순 스크립트 케이스 — 런처가 곧 워커)."""
         deadline = time.time() + 5.0
         while time.time() < deadline:
-            try:
-                out = subprocess.check_output(
-                    ["wmic", "process", "where",
-                     f"ParentProcessId={launcher_pid} and Name='python.exe'",
-                     "get", "ProcessId", "/format:list"],
-                    stderr=subprocess.DEVNULL, text=True, timeout=5,
-                    creationflags=_WNOW,
-                )
-                for line in out.splitlines():
-                    line = line.strip()
-                    if line.startswith("ProcessId="):
-                        try:
-                            child = int(line.split("=", 1)[1])
-                            if child > 0:
-                                return child
-                        except ValueError:
-                            pass
-            except (subprocess.SubprocessError, OSError):
-                pass
-            time.sleep(0.3)
+            for row in _cim_processes(
+                f"ParentProcessId={launcher_pid} and Name='python.exe'", "ProcessId"
+            ):
+                try:
+                    child = int(row.get("ProcessId") or 0)
+                except (TypeError, ValueError):
+                    continue
+                if child > 0:
+                    return child
+            # PowerShell 기동이 wmic 보다 느리므로 폴링 간격을 0.3→0.5 로 둔다.
+            time.sleep(0.5)
         return launcher_pid
 
 
@@ -467,23 +466,17 @@ def _chrome_count() -> int:
 
 def _find_script_instances(script_name: str) -> list[tuple[int, int]]:
     """script_name 을 cmdline 에 포함한 python.exe 프로세스 (pid, ppid) 목록."""
-    try:
-        out = subprocess.check_output(
-            ["wmic", "process", "where", "name='python.exe'",
-             "get", "ProcessId,ParentProcessId,CommandLine", "/format:csv"],
-            text=True, errors="replace", timeout=30,
-        )
-    except (subprocess.SubprocessError, OSError):
-        return []
+    # cmd[0] 은 "web/scripts/x.py" 처럼 슬래시로 들어가지만, 커맨드라인이
+    # 역슬래시로 보일 수 있으므로 둘 다 받아들인다.
+    needles = {script_name, script_name.replace("/", "\\")}
     found = []
-    for line in out.splitlines():
-        if script_name not in line:
+    for row in _cim_processes("Name='python.exe'"):
+        cmd = row.get("CommandLine") or ""
+        if not any(n in cmd for n in needles):
             continue
-        parts = line.rsplit(",", 2)  # CSV: Node,CommandLine,ParentProcessId,ProcessId 꼴
         try:
-            ppid, pid = int(parts[-2]), int(parts[-1])
-            found.append((pid, ppid))
-        except (ValueError, IndexError):
+            found.append((int(row["ProcessId"]), int(row.get("ParentProcessId") or 0)))
+        except (KeyError, TypeError, ValueError):
             continue
     return found
 
@@ -563,6 +556,51 @@ def _kill_all_chrome():
         )
     except (subprocess.SubprocessError, OSError):
         pass
+
+
+def _cim_processes(where: str, props: str = "ProcessId,ParentProcessId,CommandLine") -> list[dict]:
+    """프로세스 조회 — PowerShell Get-CimInstance 기반.
+
+    2026-10-01: 원래 `wmic` 을 썼는데 **이 머신에 wmic 이 없다**(Windows 11
+    24H2 에서 제거됨). wmic 호출은 FileNotFoundError 로 조용히 실패하고
+    except 가 빈 리스트를 돌려줬다. 그 결과 stray 정리·dup-guard·
+    singleton-guard·_resolve_worker_pid 가 **전부 무력화**된 채 몇 주간 돌아서
+    좀비 인스턴스가 쌓였다(실측: nordvpn_runner 15중복, 총 89 프로세스 1.5GB).
+    조용히 실패하는 조회는 조회가 없는 것보다 나쁘다 — 가드가 있다고 착각하게
+    만든다.
+
+    실패 시 빈 리스트를 돌려주는 계약은 그대로 유지한다(호출부가 전부 그 전제로
+    쓰여 있다). 대신 실패 원인을 한 번은 로그로 남긴다."""
+    ps = (
+        f"$ErrorActionPreference='Stop';"
+        f"@(Get-CimInstance Win32_Process -Filter \"{where}\" | "
+        f"Select-Object {props}) | ConvertTo-Json -Depth 2 -Compress"
+    )
+    try:
+        out = subprocess.check_output(
+            ["powershell", "-NoProfile", "-NonInteractive", "-Command", ps],
+            stderr=subprocess.DEVNULL, text=True, timeout=30,
+            creationflags=_WNOW,
+        )
+    except (subprocess.SubprocessError, OSError) as e:
+        global _CIM_WARNED
+        if not _CIM_WARNED:
+            _CIM_WARNED = True
+            log(f"[cim] 프로세스 조회 실패 — 중복 가드가 동작하지 않는다: {e}")
+        return []
+    out = out.strip()
+    if not out:
+        return []
+    try:
+        data = json.loads(out)
+    except ValueError:
+        return []
+    if isinstance(data, dict):
+        data = [data]
+    return [d for d in data if isinstance(d, dict)]
+
+
+_CIM_WARNED = False
 
 
 def _pid_alive(pid: int) -> bool:
@@ -1895,7 +1933,11 @@ def build_services() -> list[Service]:
             env_extra={},
             log_file=LOGS / "master_db_builder.log",
             progress_pattern=PROG_MDB,
-            progress_stale_sec=600,
+            # 실측 전체 재빌드 소요: master_db 461s / restaurants 485s.
+            # 600s 는 여유가 2분뿐이라 느린 날 한 번이면 "완료 전에 죽고
+            # 다시 시작"하는 자기유지 루프로 들어간다(2026-10-01 실제 발생:
+            # kick 471 / 재시작 1,010 / 완료 0). 30분으로 올린다.
+            progress_stale_sec=1800,
             progress_grace_sec=120,
         ),
         Service(
@@ -1905,7 +1947,11 @@ def build_services() -> list[Service]:
             env_extra={},
             log_file=LOGS / "restaurants_db_builder.log",
             progress_pattern=PROG_MDB,
-            progress_stale_sec=600,
+            # 실측 전체 재빌드 소요: master_db 461s / restaurants 485s.
+            # 600s 는 여유가 2분뿐이라 느린 날 한 번이면 "완료 전에 죽고
+            # 다시 시작"하는 자기유지 루프로 들어간다(2026-10-01 실제 발생:
+            # kick 471 / 재시작 1,010 / 완료 0). 30분으로 올린다.
+            progress_stale_sec=1800,
             progress_grace_sec=120,
         ),
         Service(
@@ -2038,7 +2084,10 @@ def build_services() -> list[Service]:
             cwd=ROOT,
             env_extra={},
             log_file=LOGS / "chillanel_refresher.log",
-            progress_pattern=re.compile(r"(감시 시작|배포 완료|변경 감지|변경 없음)"),
+            # "변경 대기 중" 은 정상 유휴 라인이다 — 이게 빠져 있어서
+            # 25분마다 kick 당했고, 배포 전 10~30분 안정화 창에 도달한 적이
+            # 없었다 (kick 1,736회, 2026-10-01).
+            progress_pattern=re.compile(r"(감시 시작|배포 완료|변경 감지|변경 없음|변경 대기 중)"),
             progress_stale_sec=1500,
             progress_grace_sec=120,
         ),
@@ -2055,7 +2104,11 @@ def build_services() -> list[Service]:
             cwd=ROOT,
             env_extra={},
             log_file=LOGS / "pantip_trending.log",
-            progress_pattern=re.compile(r"\[pantip_trending\]"),
+            # 실제 진행 라인은 "[317/485] '브랜드' -> 10 hits, 7 new" 꼴이다.
+            # 원래 패턴 "[pantip_trending]" 은 이 로그에 한 번도 안 찍혀서
+            # 영구 정체 판정이었다 — kick 3,656회, 485개 브랜드 한 바퀴를
+            # 끝낸 적이 없다 (2026-10-01).
+            progress_pattern=re.compile(r"(\[\d+/\d+\].*hits|\[pantip_trending\])"),
             progress_stale_sec=172800,  # 48h — 24h 주기 안에 반드시 찍혀야 함
             progress_grace_sec=600,
         ),
@@ -2156,23 +2209,13 @@ def _already_running() -> bool:
     # 2차: tasklist에서 watchdog.py 실행 중인 python 프로세스 직접 검색
     # PID 파일 없이 동시에 뜨는 경우 대비
     try:
-        out = subprocess.check_output(
-            ["wmic", "process", "where",
-             "Name='python.exe'",
-             "get", "ProcessId,CommandLine", "/format:list"],
-            stderr=subprocess.DEVNULL, text=True, timeout=10,
-            creationflags=_WNOW,
-        )
-        for block in out.split("\n\n"):
-            if "watchdog.py" not in block:
+        for row in _cim_processes("Name='python.exe'", "ProcessId,CommandLine"):
+            if "watchdog.py" not in (row.get("CommandLine") or ""):
                 continue
-            m = re.search(r"ProcessId=(\d+)", block)
-            if not m:
-                continue
-            other_pid = int(m.group(1))
+            other_pid = int(row["ProcessId"])
             if other_pid != self_pid:
                 return True
-    except (subprocess.SubprocessError, OSError):
+    except (KeyError, TypeError, ValueError):
         pass
 
     return False
@@ -2273,10 +2316,19 @@ def main():
                 s.disabled_reason = reason
 
     global _STRAY_KILL_SAFE_SCRIPTS
+    # 2026-10-01: 기준을 basename 에서 cmd[0] **전체 경로**로 바꿨다.
+    #   · `-c` / `-m` 처럼 .py 가 아닌 항목은 제외한다 — basename 이 "-c" 라서
+    #     유일=안전으로 분류됐었고, 그러면 커맨드라인에 "-c" 가 들어간 무관한
+    #     프로세스까지 stray 로 죽인다(조회가 깨져 있어 사고가 안 났을 뿐).
+    #   · 경로로 보면 web/scripts/watch_and_build.py 와
+    #     web-restaurants/scripts/watch_and_build.py 가 각각 단독이 되어
+    #     중복 정리 대상이 된다. basename 으로는 둘이 겹쳐서 영원히 제외됐다.
+    #   · scraper.py / scraper_grid.py 류는 여전히 여러 서비스가 **같은 경로**를
+    #     공유하므로 그대로 제외된다(2026-07-17 교차살상 사고 방지).
     _script_counts: dict[str, int] = {}
     for s in services:
-        if s.cmd:
-            n = Path(s.cmd[0]).name
+        if s.cmd and str(s.cmd[0]).endswith(".py"):
+            n = str(s.cmd[0])
             _script_counts[n] = _script_counts.get(n, 0) + 1
     _STRAY_KILL_SAFE_SCRIPTS = {n for n, c in _script_counts.items() if c == 1}
     log(f"[stray-guard] 단독 스크립트 {len(_STRAY_KILL_SAFE_SCRIPTS)}개만 stray 정리 대상: "
@@ -2329,7 +2381,7 @@ def main():
             last_dup_check = now
             vpn_svc = next((s for s in services if s.name == "nordvpn_runner"), None)
             if vpn_svc is not None:
-                script = Path(vpn_svc.cmd[0]).name
+                script = str(vpn_svc.cmd[0])
                 instances = _find_script_instances(script)
                 # launcher/worker 는 부모-자식 쌍이라 최대 2개 PID가 정상 —
                 # 서로 다른 쌍(양쪽 다 launcher 이거나, 서로 다른 부모를 가진
