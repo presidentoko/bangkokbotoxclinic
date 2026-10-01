@@ -74,16 +74,26 @@ export default async function EditorialPage({
           {p.role && <p className="text-slate-700">{p.role}</p>}
           {p.location && <p className="text-slate-500 text-sm mt-0.5">{p.location}</p>}
           {p.background && <p className="mt-3 text-slate-700 leading-relaxed">{p.background}</p>}
-          {p.contact && (
-            <p className="mt-3 text-sm">
+          <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+            {p.profile && (
+              <a
+                href={p.profile}
+                target="_blank"
+                rel="noopener noreferrer me"
+                className="text-blue-700 hover:underline"
+              >
+                Public profile →
+              </a>
+            )}
+            {p.contact && (
               <a
                 href={p.contact.includes("@") ? `mailto:${p.contact}` : p.contact}
                 className="text-blue-700 hover:underline"
               >
                 Contact the publisher
               </a>
-            </p>
-          )}
+            )}
+          </p>
         </section>
       ) : (
         <section className="rounded-2xl border border-slate-200 bg-white p-5 mb-8">
@@ -170,7 +180,17 @@ export default async function EditorialPage({
               "@type": "Organization",
               name: "BangkokCheckup",
               url: SITE,
-              ...(p.name ? { founder: { "@type": "Person", name: p.name } } : {}),
+              ...(p.name
+                ? {
+                    founder: {
+                      "@type": "Person",
+                      name: p.name,
+                      ...(p.role ? { jobTitle: p.role } : {}),
+                      // sameAs is the checkable half of a byline.
+                      ...(p.profile ? { sameAs: [p.profile] } : {}),
+                    },
+                  }
+                : {}),
             },
           }),
         }}

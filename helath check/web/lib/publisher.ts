@@ -22,6 +22,14 @@
  *   NEXT_PUBLIC_PUBLISHER_BACKGROUND  one or two sentences, plain text
  *   NEXT_PUBLIC_PUBLISHER_LOCATION  e.g. "Bangkok, Thailand"
  *   NEXT_PUBLIC_PUBLISHER_CONTACT   a URL or an email
+ *   NEXT_PUBLIC_PUBLISHER_PROFILE   a public profile URL, e.g. LinkedIn
+ *
+ * PROFILE is the one that does the work. A name on a page proves nothing; a
+ * name that resolves to a public professional profile is checkable by a reader
+ * and lands in the Person's `sameAs`, which is what schema.org has that field
+ * for. It is published as given — LinkedIn serves bots a 999 and an authwall,
+ * so the link cannot be read from here and nothing about its contents is
+ * restated on the page.
  */
 
 export type Publisher = {
@@ -30,6 +38,7 @@ export type Publisher = {
   background: string | null;
   location: string | null;
   contact: string | null;
+  profile: string | null;
 };
 
 export function publisher(): Publisher {
@@ -43,6 +52,7 @@ export function publisher(): Publisher {
     background: v("NEXT_PUBLIC_PUBLISHER_BACKGROUND"),
     location: v("NEXT_PUBLIC_PUBLISHER_LOCATION"),
     contact: v("NEXT_PUBLIC_PUBLISHER_CONTACT"),
+    profile: v("NEXT_PUBLIC_PUBLISHER_PROFILE"),
   };
 }
 
