@@ -1,5 +1,6 @@
 import { loadMasterDb } from "@/lib/data";
 import { isRealEstateSlug } from "@/lib/estates";
+import { IEAT_ESTATES, IEAT_META, UNRESOLVED, mergeEstates } from "@/lib/ieatEstates";
 import { Photo } from "@/components/Photo";
 import { BreadcrumbJsonLd, CollectionPageJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { photoUrl } from "@/lib/photoUrl";
@@ -75,10 +76,35 @@ export default async function EstateIndexPage() {
     if (e.sampleTenants.length < 3) e.sampleTenants.push({ name: s.name, id: s.id });
     if (!e.photo && s.hero_image) e.photo = s.hero_image;
   }
-  const estates = Array.from(map.values())
-    .sort((a, b) => b.totalCount - a.totalCount);
+  // 목록의 기준은 IEAT 공식 포털(83곳)이다. 예전에는 "입주사가 매칭된 단지" 만
+  // 세어서 16곳이었는데, 단지 목록을 찾는 사람에게 그건 답이 아니다.
+  // map 은 아래 카드가 쓰던 사진·샘플 입주사를 위해 그대로 둔다.
+  const merged = mergeEstates(db);
+  const estates = merged.map((e) => {
+    const ours = e.slug ? map.get(e.slug) : undefined;
+    return {
+      slug: e.slug,
+      name: e.name,
+      nameTh: e.name_th,
+      province: e.province,
+      areaRai: e.area_rai,
+      operator: e.operator,
+      detailUrl: e.detail_url,
+      totalCount: e.tenants.length,
+      verifiedCount: e.verifiedTenants,
+      sampleTenants: ours?.sampleTenants ?? [],
+      photo: ours?.photo ?? null,
+    };
+  });
 
-  // 운영사별 묶음 — 단지 수와 입주사 수를 함께 센다.
+  // 공식 목록(IEAT)과 우리 데이터에서만 나온 민간 단지를 구분해 표기한다 —
+  // 전부 IEAT 목록이라고 쓰면 사실이 아니다.
+  const officialCount = IEAT_ESTATES.length;
+  const extraCount = estates.length - officialCount;
+  const withTenants = estates.filter((e) => e.totalCount > 0);
+  const totalTenants = estates.reduce((n, e) => n + e.totalCount, 0);
+
+  // 운영사별 묶음 — 공식 목록 기준이라 입주사 0곳인 단지도 들어간다.
   const operators = OPERATORS.map((op) => {
     const matched = estates.filter((e) =>
       op.keys.some((k) => e.name.toLowerCase().replace(/\s+/g, " ").includes(k)),
@@ -90,7 +116,10 @@ export default async function EstateIndexPage() {
     };
   }).filter((op) => op.estates.length > 0);
 
-  const totalTenants = estates.reduce((n, e) => n + e.totalCount, 0);
+  // 도별 — 단지를 찾는 사람은 보통 지역부터 좁힌다.
+  const byProvince = new Map<string, number>();
+  for (const e of estates) if (e.province) byProvince.set(e.province, (byProvince.get(e.province) ?? 0) + 1);
+  const provinces = [...byProvince.entries()].sort((a, b) => b[1] - a[1]);
 
   return (
     <article className="max-w-6xl mx-auto px-4 py-8 bg-white">
@@ -102,7 +131,7 @@ export default async function EstateIndexPage() {
 
       <header className="mb-8">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold uppercase tracking-wider mb-3">
-          🏘 {estates.length} estates mapped
+          🏘 {estates.length} estates · {provinces.length} provinces
         </div>
         <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-2">
           Industrial estates &amp; industrial parks in Thailand
@@ -128,22 +157,32 @@ export default async function EstateIndexPage() {
       <section className="mb-10 rounded-xl border border-emerald-200 bg-emerald-50/50 p-5">
         <h2 className="text-xs font-bold uppercase tracking-widest text-emerald-800 mb-2">In short</h2>
         <p className="leading-relaxed text-stone-700">
-          Thai Supply Hub has mapped {estates.length} industrial estates and industrial parks in
-          Thailand holding {totalTenants.toLocaleString()} B2B tenants.
-          {operators.length > 0 && (
-            <> The largest operators here are{" "}
-              {operators
-                .slice()
-                .sort((a, b) => b.tenants - a.tenants)
-                .slice(0, 3)
-                .map((o) => `${o.name} (${o.tenants} tenants)`)
-                .join(", ")}
-              .</>
-          )}{" "}
-          Factories inside IEAT-designated estates can access Board of Investment incentives —
-          corporate income tax exemption for up to 8 years, duty-free machinery imports, and land
-          ownership rights for foreign entities — but eligibility depends on your industry and
-          investment size, not the estate alone.
+          There are {estates.length} industrial estates and industrial parks listed here, across{" "}
+          {provinces.length} provinces: the {officialCount} on the official list published by the
+          Industrial Estate Authority of Thailand (IEAT)
+          {extraCount > 0 && (
+            <>, plus {extraCount} private {extraCount === 1 ? "estate" : "estates"} that list does not
+              name but where we have tenants</>
+          )}
+          .{" "}
+          {provinces.length > 2 && (
+            <>The densest provinces are{" "}
+              {provinces.slice(0, 3).map(([p, n]) => `${p} (${n})`).join(", ")}.{" "}</>
+          )}
+          We have mapped B2B tenants inside {withTenants.length} of them, {totalTenants.toLocaleString()}{" "}
+          companies in total, with DBD registration records where available. Factories inside
+          IEAT-designated estates can access Board of Investment incentives — corporate income tax
+          exemption for up to 8 years, duty-free machinery imports, and land ownership rights for
+          foreign entities — but eligibility depends on your industry and investment size, not the
+          estate alone.
+        </p>
+        <p className="text-xs text-stone-500 mt-3 leading-relaxed">
+          Estate list and areas from the{" "}
+          <a className="underline" href={IEAT_META.sourceUrl} target="_blank" rel="noopener nofollow">
+            IEAT official portal
+          </a>{" "}
+          (retrieved {IEAT_META.fetchedAt}). Tenant counts are ours and reflect what we have matched,
+          not an estate&apos;s official occupancy.
         </p>
       </section>
 
@@ -168,16 +207,28 @@ export default async function EstateIndexPage() {
                   </div>
                   <p className="text-sm text-stone-600 leading-relaxed mb-3">{op.note}</p>
                   <div className="flex flex-wrap gap-1.5">
-                    {op.estates.slice(0, 6).map((e) => (
-                      <a
-                        key={e.slug}
-                        href={`/estate/${e.slug}`}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-stone-300 text-xs bg-white hover:border-emerald-400 hover:text-emerald-700 transition"
-                      >
-                        {e.name}
-                        <span className="text-stone-400 tabular-nums">{e.totalCount}</span>
-                      </a>
-                    ))}
+                    {/* 상세 페이지는 입주사를 매칭한 단지에만 있다. slug 가 없는
+                        단지를 링크하면 /estate/null 로 나간다 — 칩으로만 보여준다. */}
+                    {op.estates.slice(0, 8).map((e) =>
+                      e.slug && e.totalCount > 0 ? (
+                        <a
+                          key={e.name}
+                          href={`/estate/${e.slug}`}
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-stone-300 text-xs bg-white hover:border-emerald-400 hover:text-emerald-700 transition"
+                        >
+                          {e.name}
+                          <span className="text-stone-400 tabular-nums">{e.totalCount}</span>
+                        </a>
+                      ) : (
+                        <span
+                          key={e.name}
+                          title="On the IEAT list; no tenants matched in our directory yet"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-stone-200 text-xs bg-stone-50 text-stone-500"
+                        >
+                          {e.name}
+                        </span>
+                      ),
+                    )}
                   </div>
                 </div>
               ))}
@@ -185,42 +236,147 @@ export default async function EstateIndexPage() {
         </section>
       )}
 
-      <h2 className="text-2xl font-bold mb-5">All {estates.length} estates by tenant count</h2>
+      {provinces.length > 0 && (
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold mb-1">By province</h2>
+          <p className="text-sm text-stone-600 mb-4 max-w-2xl">
+            Where the estates are. Chonburi and Rayong hold most of them because of the Eastern
+            Economic Corridor and Laem Chabang port.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {provinces.map(([p, n]) => (
+              <span
+                key={p}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-stone-300 text-sm bg-white"
+              >
+                {p}
+                <span className="text-stone-500 tabular-nums">{n}</span>
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <h2 className="text-2xl font-bold mb-2">All {estates.length} estates</h2>
+      <p className="text-sm text-stone-600 mb-5 max-w-2xl">
+        Estates we have mapped tenants for come first. The rest are on the official IEAT list but we
+        have not matched tenants to them yet — the estate is real, our tenant data for it is not
+        there.
+      </p>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {estates.map((e) => (
-          <a key={e.slug} href={`/estate/${e.slug}`}
-             className="group block bg-white border border-stone-200 rounded-2xl overflow-hidden hover:shadow-lg hover:border-emerald-300 hover:-translate-y-0.5 transition">
-            {e.photo && (
-              <div className="relative w-full bg-stone-100 overflow-hidden" style={{ aspectRatio: "16/9" }}>
-                <Photo src={photoUrl(e.photo)} alt={e.name}
-                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3">
-                  <div className="text-white font-bold text-lg leading-tight">{e.name}</div>
-                </div>
-              </div>
-            )}
-            <div className="p-5">
-              {!e.photo && (
-                <h2 className="font-bold text-lg text-stone-900 group-hover:text-emerald-700 leading-tight mb-1">{e.name}</h2>
+        {estates.map((e) => {
+          const meta = (
+            <div className="text-xs text-stone-500 flex flex-wrap items-center gap-x-2 gap-y-1 mb-2">
+              {e.province && <span>{e.province}</span>}
+              {e.province && e.areaRai && <span>·</span>}
+              {e.areaRai && <span className="tabular-nums">{Math.round(e.areaRai).toLocaleString()} rai</span>}
+              {e.operator && (
+                <>
+                  <span>·</span>
+                  <span>{e.operator}</span>
+                </>
               )}
-              <div className="text-xs text-stone-600 flex items-center gap-2 mb-3 flex-wrap">
-                <span className="font-bold text-stone-900">{e.totalCount} tenant{e.totalCount === 1 ? "" : "s"}</span>
-                {e.verifiedCount > 0 && (
+            </div>
+          );
+
+          // 입주사가 매칭된 단지 — 상세 페이지로 링크한다.
+          if (e.slug && e.totalCount > 0) {
+            return (
+              <a
+                key={e.slug}
+                href={`/estate/${e.slug}`}
+                className="group block bg-white border border-stone-200 rounded-2xl overflow-hidden hover:shadow-lg hover:border-emerald-300 hover:-translate-y-0.5 transition"
+              >
+                {e.photo && (
+                  <div className="relative w-full bg-stone-100 overflow-hidden" style={{ aspectRatio: "16/9" }}>
+                    <Photo
+                      src={photoUrl(e.photo)}
+                      alt={e.name}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3">
+                      <div className="text-white font-bold text-lg leading-tight">{e.name}</div>
+                    </div>
+                  </div>
+                )}
+                <div className="p-5">
+                  {!e.photo && (
+                    <h3 className="font-bold text-lg text-stone-900 group-hover:text-emerald-700 leading-tight mb-1">
+                      {e.name}
+                    </h3>
+                  )}
+                  {e.nameTh && <div className="text-sm text-stone-500 mb-1" lang="th">{e.nameTh}</div>}
+                  {meta}
+                  <div className="text-xs text-stone-600 flex items-center gap-2 mb-3 flex-wrap">
+                    <span className="font-bold text-stone-900">
+                      {e.totalCount} tenant{e.totalCount === 1 ? "" : "s"} mapped
+                    </span>
+                    {e.verifiedCount > 0 && (
+                      <>
+                        <span>·</span>
+                        <span className="text-emerald-700 font-bold">✓ {e.verifiedCount} DBD-verified</span>
+                      </>
+                    )}
+                  </div>
+                  <ul className="text-xs text-stone-600 space-y-0.5 list-disc list-inside">
+                    {e.sampleTenants.map((t) => (
+                      <li key={t.id} className="line-clamp-1">{t.name}</li>
+                    ))}
+                  </ul>
+                </div>
+              </a>
+            );
+          }
+
+          // 공식 목록에는 있지만 우리 입주사가 없는 단지. 링크할 상세 페이지가
+          // 없으므로 설명 카드로 둔다 — 빈 페이지를 72개 만드는 것보다 낫다.
+          return (
+            <div key={`${e.name}-${e.province ?? "x"}`} className="bg-stone-50 border border-stone-200 rounded-2xl p-5">
+              <h3 className="font-bold text-lg text-stone-900 leading-tight mb-1">{e.name}</h3>
+              {e.nameTh && <div className="text-sm text-stone-500 mb-1" lang="th">{e.nameTh}</div>}
+              {meta}
+              <p className="text-xs text-stone-500 leading-relaxed">
+                On the IEAT list; no tenants matched in our directory yet.
+                {e.detailUrl && (
                   <>
-                    <span>·</span>
-                    <span className="text-emerald-700 font-bold">✓ {e.verifiedCount} DBD-verified</span>
+                    {" "}
+                    <a
+                      className="underline hover:text-stone-800"
+                      href={e.detailUrl}
+                      target="_blank"
+                      rel="noopener nofollow"
+                    >
+                      IEAT page →
+                    </a>
                   </>
                 )}
-              </div>
-              <ul className="text-xs text-stone-600 space-y-0.5 list-disc list-inside">
-                {e.sampleTenants.map((t) => (
-                  <li key={t.id} className="line-clamp-1">{t.name}</li>
-                ))}
-              </ul>
+              </p>
             </div>
-          </a>
-        ))}
+          );
+        })}
       </div>
+
+      {UNRESOLVED.length > 0 && (
+        <section className="mt-12 border-t border-stone-200 pt-8">
+          <h2 className="text-2xl font-bold mb-2">Tenants placed by operator only</h2>
+          <p className="text-sm text-stone-600 mb-4 max-w-2xl">
+            For these companies our source named the operator but not which of its estates, so we
+            have not assigned them to a specific one rather than guess.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {UNRESOLVED.map((u) => (
+              <a
+                key={u.slug ?? u.name}
+                href={u.slug ? `/estate/${u.slug}` : "/estate"}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-stone-300 text-sm bg-white hover:border-emerald-400 hover:text-emerald-700 transition"
+              >
+                {u.name}
+                <span className="text-stone-500 tabular-nums">{u.tenants.length}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
 
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
