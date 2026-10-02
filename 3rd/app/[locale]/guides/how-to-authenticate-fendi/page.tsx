@@ -43,8 +43,8 @@ export default async function AuthenticateFendiTH({ params }: Props) {
     },
     {
       title: 'Stitching consistency',
-      quick: '8–10 stitches per inch, thread exactly matching leather colour — zero variation',
-      detail: 'Consistent 8–10 stitches per inch. Thread colour exactly matches or deliberately contrasts leather. Double stitching on Baguette gusset and base. Saddle-stitch on Peekaboo panels. Fakes: irregular stitch length, bleeding thread, puckering at corners.',
+      quick: 'Even stitch length, thread matching the leather colour',
+      detail: 'Consistent stitch length. Thread colour exactly matches or deliberately contrasts leather. Double stitching on Baguette gusset and base. Saddle-stitch on Peekaboo panels. Fakes: irregular stitch length, bleeding thread, puckering at corners.',
     },
     {
       title: 'Leather quality and smell',
@@ -79,8 +79,8 @@ export default async function AuthenticateFendiTH({ params }: Props) {
     },
     {
       title: 'ความสม่ำเสมอของการเย็บ',
-      quick: '8–10 เข็มต่อนิ้ว ด้ายตรงกับสีหนังพอดี — ไม่มีความผันแปร',
-      detail: 'สม่ำเสมอ 8–10 เข็มต่อนิ้ว สีด้ายตรงกันพอดีหรือตัดกันโดยตั้งใจกับหนัง การเย็บคู่บนขอบและฐาน Baguette การเย็บอาน saddle บนแผง Peekaboo ของปลอม: ความยาวเข็มไม่สม่ำเสมอ ด้ายซึมสี ย่นที่มุม',
+      quick: 'ความยาวฝีเข็มสม่ำเสมอ ด้ายตรงกับสีหนัง',
+      detail: 'ความยาวฝีเข็มสม่ำเสมอ สีด้ายตรงกันพอดีหรือตัดกันโดยตั้งใจกับหนัง การเย็บคู่บนขอบและฐาน Baguette การเย็บอาน saddle บนแผง Peekaboo ของปลอม: ความยาวเข็มไม่สม่ำเสมอ ด้ายซึมสี ย่นที่มุม',
     },
     {
       title: 'คุณภาพหนังและกลิ่น',

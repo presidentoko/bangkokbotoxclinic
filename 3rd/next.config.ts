@@ -62,8 +62,13 @@ const config: NextConfig = {
         permanent: true,
       },
       {
-        source: '/:locale(en|th)/van-cleef--arpels/:rest*',
-        destination: '/:locale/van-cleef-arpels/:rest*',
+        source: '/:locale(en|th)/van-cleef--arpels',
+        destination: '/:locale/van-cleef-arpels',
+        permanent: true,
+      },
+      {
+        source: '/:locale(en|th)/van-cleef--arpels/:rest+',
+        destination: '/:locale/van-cleef-arpels/:rest+',
         permanent: true,
       },
     ]

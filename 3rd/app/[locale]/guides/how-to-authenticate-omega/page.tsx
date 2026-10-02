@@ -52,7 +52,7 @@ export default async function AuthenticateOmegaTH({ params }: Props) {
     },
     {
       n: 6, label: 'Serial Number Match',
-      pass: 'Omega serial on caseback or lugs: matches claimed production year in Omega\'s serial database. Post-2010: 8-digit serial laser-engraved inside caseback.',
+      pass: 'Omega serial on caseback or lugs: matches claimed production year in Omega\'s serial database. ',
       fail: 'Serial that doesn\'t match production year. Duplicate serials (known to be reused in counterfeits). Stamping that is inconsistent depth or crooked.',
     },
     {
@@ -88,7 +88,7 @@ export default async function AuthenticateOmegaTH({ params }: Props) {
     },
     {
       n: 6, label: 'การจับคู่หมายเลขซีเรียล',
-      pass: 'ซีเรียล Omega บนฝาหลังหรือ lugs ตรงกับปีผลิตที่อ้างในฐานข้อมูลซีเรียลของ Omega หลังปี 2010: ซีเรียล 8 หลัก laser แกะสลักด้านในฝาหลัง',
+      pass: 'ซีเรียล Omega บนฝาหลังหรือ lugs ตรงกับปีผลิตที่อ้างในฐานข้อมูลซีเรียลของ Omega',
       fail: 'ซีเรียลที่ไม่ตรงกับปีผลิต ซีเรียลซ้ำกัน (ที่ทราบว่านำมาใช้ซ้ำในของปลอม) การปั๊มที่ไม่สม่ำเสมอหรือคด',
     },
     {

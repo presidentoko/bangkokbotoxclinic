@@ -28,7 +28,7 @@ export default async function AuthenticateBulgariTH({ params }: Props) {
     {
       n: 1, label: 'BVLGARI Engraving — V not U',
       pass: 'All authentic Bulgari uses the ancient Latin "BVLGARI" — U written as V, referencing Roman stone inscriptions.',
-      fail: '"BULGARI" with a U is always a fake. This single check eliminates most counterfeits immediately.',
+      fail: 'Bulgari products are signed BVLGARI with a V. "BULGARI" with a U on the piece itself is a strong warning sign — get it checked by a jeweller before paying.',
     },
     {
       n: 2, label: 'Hallmark & Gold Purity Stamp',

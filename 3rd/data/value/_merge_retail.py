@@ -24,6 +24,7 @@ DROP = {
     'chanel-19-bag-medium': 'Chanel 19 sizes ambiguous between sources (standard vs large)',
     'chanel-19-large-flap': 'Chanel 19 sizes ambiguous between sources (standard vs large)',
     'chanel-19-bag-small': 'Chanel 19 sizes ambiguous between sources (standard vs small)',
+    'gucci-dionysus-gg-supreme': 'price is for the Small; resale side covers every size',
     'patek-philippe-aquanaut-5167a': 'currency not shown at source; trackers disagree',
     'cartier-ronde-louis-cartier-29mm': 'priced the rose-gold version; resale side is mostly steel',
     'omega-aqua-terra-38-5mm': 'priced the current 38mm, not the 38.5mm',

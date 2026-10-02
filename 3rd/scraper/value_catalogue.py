@@ -95,6 +95,10 @@ OVERRIDES: dict[str, dict] = {
     'fendi-peekaboo-mini': {'broad': True},
     'louis-vuitton-petite-malle': {'broad': True},
     'dior-lady-dior-large': {'broad': True},
+    'louis-vuitton-keepall-45-bandouliere': {'broad': True},
+    'van-cleef-arpels-vintage-alhambra-necklace': {'broad': True},
+    'saint-laurent-loulou-small': {'broad': True},
+    'saint-laurent-loulou-medium': {'broad': True},
     'omega-speedmaster-moonwatch-professional': {'ids': [1412], 'include': r'moon ?watch|professional', 'exclude': r'reduced'},
 }
 

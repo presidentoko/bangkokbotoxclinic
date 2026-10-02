@@ -29,14 +29,14 @@ export default async function AuthBottegaTH({ params }: Props) {
     { step: 1, title: 'Intrecciato Weave Consistency', detail: 'Each strip ~5–8mm, uniform diagonal spacing, smooth flush when running finger across. Fakes: uneven gaps, fraying edges, inconsistent angles.' },
     { step: 2, title: 'Leather Quality & Feel', detail: 'Lambskin: impossibly soft. Calfskin: firm fine pebble. Authentic BV has warmth and yield on first touch. Fake leather = plasticky, stiff, uniform.' },
     { step: 3, title: 'Hardware (Minimal)', detail: 'BV uses almost no visible hardware. What exists is matte/brushed, heavy, smooth-turning. Gritty zippers or wobbling hardware = fake.' },
-    { step: 4, title: 'Interior Stitching', detail: 'Suede or calf interior, never nylon. 8–10 stitches per cm, no glue residue. Jodie knot perfectly formed.' },
+    { step: 4, title: 'Interior Stitching', detail: 'Suede or calf interior, never nylon. no glue residue. Jodie knot perfectly formed.' },
     { step: 5, title: 'Interior Stamp', detail: 'Pre-2021: "Bottega Veneta" stamped in gold inside. Post-2022 varies. Blurry or off-center = fake.' },
     { step: 6, title: 'Made in Italy', detail: 'All BV made in Italy (Vicenza). No serial numbers — BV does not use serial codes on most pieces.' },
   ] : [
     { step: 1, title: 'ความสม่ำเสมอของการถัก Intrecciato', detail: 'แต่ละแถบ ~5–8mm ช่องว่างสม่ำเสมอแนวทแยง ลื่นเมื่อนิ้วไปทาบ ของปลอม: ช่องไม่สม่ำเสมอ ขอบหลุดลุ่ย มุมไม่สม่ำเสมอ' },
     { step: 2, title: 'คุณภาพและสัมผัสหนัง', detail: 'หนังแกะ: นุ่มอย่างไม่น่าเชื่อ หนังวัว: แน่นมีเนื้อสัมผัสเม็ดละเอียด BV แท้มีความอบอุ่นและยืดหยุ่นเมื่อแตะครั้งแรก หนังปลอม = พลาสติก แข็ง สม่ำเสมอเกินไป' },
     { step: 3, title: 'Hardware (น้อยมาก)', detail: 'BV ตั้งใจใช้ hardware น้อยมาก สิ่งที่มีเป็น matte/brushed หนัก เคลื่อนได้ลื่น ซิปฝืดหรือ hardware โยกคือของปลอม' },
-    { step: 4, title: 'การเย็บภายใน', detail: 'บุด้วยซวดหรือหนังวัว ไม่ใช่ไนลอน 8–10 เข็มต่อซม. ไม่มีรอยกาว ปมที่จับ Jodie สมบูรณ์แบบ' },
+    { step: 4, title: 'การเย็บภายใน', detail: 'บุด้วยซวดหรือหนังวัว ไม่ใช่ไนลอน ไม่มีรอยกาว ปมที่จับ Jodie สมบูรณ์แบบ' },
     { step: 5, title: 'ตราประทับภายใน', detail: 'ก่อน 2021: "Bottega Veneta" ประทับทองภายใน หลัง 2022 อาจต่างออกไป พร่ามัวหรือเยื้อง = ของปลอม' },
     { step: 6, title: 'Made in Italy', detail: 'BV ทุกชิ้นผลิตในอิตาลี (Vicenza) ไม่มีเลขซีเรียล — BV ไม่ใช้ serial codes กับชิ้นส่วนใหญ่' },
   ]

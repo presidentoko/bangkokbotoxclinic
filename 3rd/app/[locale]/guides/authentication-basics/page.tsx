@@ -48,7 +48,7 @@ export default async function AuthenticationBasicsTH({ params }: Props) {
           },
           {
             num: '2', title: 'Stitching Quality',
-            detail: 'Count the stitches per cm. Luxury bags use 8–12 stitches per cm depending on the brand. All stitches must be even in size and spacing. No thread ends should be visible — ends are burned, not cut. Fake bags often have inconsistent stitch spacing, visible thread ends, and irregular tension.',
+            detail: 'Look at stitch length and spacing along whole seams. All stitches must be even in size and spacing. No thread ends should be visible — ends are burned, not cut. Fake bags often have inconsistent stitch spacing, visible thread ends, and irregular tension.',
           },
           {
             num: '3', title: 'Smell & Material Feel',
