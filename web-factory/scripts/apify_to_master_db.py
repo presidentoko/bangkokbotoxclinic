@@ -77,7 +77,21 @@ def extract_place_id(url: str) -> str:
     if not url:
         return ""
     m = _PLACE_ID_RE.search(url)
+    if m:
+        return m.group(1)
+    # place_id 를 직접 지정해 돌린 run 의 출력은 url 모양이 다를 수 있다.
+    # 2026-10-02 리뷰 배치는 startUrls 를 place_id 로 주므로 폴백을 둔다.
+    m = re.search(r"place_id[:=]([\w-]+)", url)
     return m.group(1) if m else ""
+
+
+def place_id_of(rec: dict) -> str:
+    """레코드에서 place_id 를 뽑는다. url 우선, 없으면 placeId 필드.
+
+    기존 데이터 3,903건은 전부 url 에 query_place_id 가 있고 placeId 필드는
+    578건만 있다 (액터 버전차). 둘이 있을 때 값은 일치한다 — 실측 확인.
+    """
+    return extract_place_id(rec.get("url", "")) or str(rec.get("placeId") or "").strip()
 
 
 # ── enrichment 보존 ──────────────────────────────────────────
@@ -516,7 +530,14 @@ def main():
     print()
 
     # 1. Places 로드 + dedupe (place_id 기준)
+    #
+    # place 레코드 안에 리뷰가 같이 들어오는 경우가 있다 (crawler-google-places 를
+    # maxReviews > 0 으로 돌리면 각 place 의 "reviews" 배열에 담겨 온다).
+    # 예전에는 아래 3단계가 REVIEW_FILE_PATTERNS 파일만 읽어서 그 리뷰들이
+    # 조용히 버려졌다 — 리뷰 수집을 같은 액터로 돌리면 export 파일명이 place
+    # 패턴이 되기 때문이다 (2026-10-02 4차 배치 준비 중 발견).
     places_by_id: dict[str, dict] = {}
+    embedded_reviews: dict[str, list[dict]] = defaultdict(list)
     raw_total = 0
     for path in place_files:
         with open(path, "r", encoding="utf-8") as f:
@@ -524,9 +545,12 @@ def main():
         raw_total += len(data)
         for raw in data:
             url = raw.get("url", "")
-            pid = extract_place_id(url)
+            pid = place_id_of(raw)
             if not pid:
                 continue
+            nested = raw.get("reviews") or []
+            if nested:
+                embedded_reviews[pid].extend(nested)
             if pid not in places_by_id:
                 places_by_id[pid] = {**raw, "_place_id": pid, "_url_decoded": unquote(url)}
 
@@ -555,9 +579,24 @@ def main():
             if key in seen_review_keys:
                 continue
             seen_review_keys.add(key)
-            pid = extract_place_id(url)
+            pid = place_id_of(r)
             if pid:
                 reviews_by_pid[pid].append(r)
+
+    # place 파일에 임베드돼 온 리뷰를 같은 dedupe 규칙으로 합친다. url 이 없을 수
+    # 있으므로 pid 를 키에 넣어 place 간 충돌을 막는다.
+    embedded_added = 0
+    for pid, rows in embedded_reviews.items():
+        for r in rows:
+            text = (r.get("text") or r.get("textTranslated") or "")[:120]
+            key = (pid, r.get("stars"), text, r.get("name") or "")
+            if key in seen_review_keys:
+                continue
+            seen_review_keys.add(key)
+            reviews_by_pid[pid].append(r)
+            embedded_added += 1
+    if embedded_added:
+        print(f"Embedded reviews taken from place files: {embedded_added}")
 
     total_unique_reviews = sum(len(v) for v in reviews_by_pid.values())
     print(f"Raw review records: {raw_review_total}")

@@ -22,12 +22,21 @@
      초콜릿·제과 7곳, 콜드체인 34곳. 욕실가구는 2026-10-02 에 그 업종 OEM
      공장이 직접 문의해서 확인된 공백이다 — 바이어가 찾는데 우리에게 없다.
 
-  예비 (계정 19~20, $10): 실패·중단분 재시도용. 1~3 중 결과가 가장 얇게 나온
-  쪽에 돌린다.
+  4. 리뷰 — 표적 수집 (계정 17~20, $20)
+     처음엔 리뷰를 아예 빼려고 했는데 수집량을 계산해보니 판단이 틀렸다.
+     대상 4,439곳의 리뷰를 15건 상한으로 받으면 약 23,000건으로, $100을 녹일
+     규모가 아니다. 다만 **전량은 여전히 안 한다** — 리뷰 1~4건인 2,751곳은
+     "좋아요" 두 줄을 받으려고 곳당 비용을 똑같이 내는 꼴이다.
 
-리뷰 수집은 이번에 하지 않는다. 5,473곳이 리뷰 본문이 없어 끌리지만, 3차에서
-이미 14개 계정을 썼고 리뷰 액터는 건수 기반 과금이라 $100이 빠르게 녹는다.
-빈 칸을 채우는 쪽이 지금 효율이 높다.
+     표적은 두 묶음이다:
+       (a) GSC 노출 기록이 있는데 리뷰 본문이 없는 433곳 — 이미 순위가 있는
+           페이지라 내용이 붙으면 순위·CTR 이 움직일 여지가 있다. 노출 기록도
+           없는 F 등급에 리뷰를 붙이는 건 "혹시 색인될까" 하는 기대일 뿐이다.
+       (b) 리뷰 10건 이상인 759곳 — 본문이 실제로 쌓이는 곳.
+
+     "사이트맵 대상이 4,281곳 늘어난다" 는 논리는 쓰지 않았다. GSC 에
+     "발견됐으나 색인 안 됨" 이 2,993건이다 — 구글은 이미 아는 URL 도 색인을
+     거부하고 있어서 제출을 늘려 풀리는 문제가 아니다 (2026-08-13 에 배웠다).
 
 ── 액터 ──────────────────────────────────────────────────────────────────
 전부 `compass/crawler-google-places` 하나만 쓴다. 3차처럼 파일마다 다른 액터를
@@ -55,6 +64,15 @@ ACTOR = "compass/crawler-google-places"
 # 계정당 상한. place 건수가 비용을 좌우하므로 $5 안쪽으로 보수적으로 잡는다.
 # 3차에서 365 places x 15 reviews 가 $5 안쪽이었고, 여기서는 리뷰를 거의 받지
 # 않으므로(2건) place 를 더 넉넉히 쓸 수 있다.
+ESTATE_ACCOUNTS = 7
+GAP_ACCOUNTS = 5
+REVIEW_ACCOUNTS = 4
+# 리뷰 상한. 3차와 같은 값 — 15건이면 페이지 본문·AEO 인용에 충분하고 계정당
+# 300여 곳이면 $5 안쪽이다.
+MAX_REVIEWS_PER_PLACE = 15
+# 리뷰 수집에서 제외할 하한. 이 미만은 받아도 쓸 내용이 안 나온다.
+MIN_REVIEWS_TO_SCRAPE = 10
+
 MAX_PLACES_PER_ACCOUNT = 700
 # 목록 수집이 목적이라 리뷰는 최소만 받는다 — 0 으로 두면 평점도 안 오는 경우가 있다.
 MAX_REVIEWS = 2
@@ -172,6 +190,25 @@ def build_input(start_urls: list[str]) -> dict:
     }
 
 
+def build_review_input(place_ids: list[str]) -> dict:
+    return {
+        # place_id 직접 지정 — 이름·좌표 검색과 달리 오매칭이 없다.
+        "startUrls": [
+            {"url": f"https://www.google.com/maps/place/?q=place_id:{pid}"}
+            for pid in place_ids
+        ],
+        "maxReviews": MAX_REVIEWS_PER_PLACE,
+        "reviewsSort": "newest",
+        "language": "en",
+        "scrapeResponseFromOwnerText": True,
+        # 리뷰 작성자 개인정보는 받지 않는다 — 쓰지 않는 데이터이고 비용만 는다.
+        "scrapeReviewerName": False,
+        "scrapeReviewerId": False,
+        "scrapeReviewId": False,
+        "scrapeReviewUrl": False,
+    }
+
+
 def chunk(items: list, n: int) -> list[list]:
     if n <= 0:
         return []
@@ -226,7 +263,7 @@ def main() -> None:
         for term in ESTATE_TERMS[:2]:
             estate_urls.append(search_url(f"{term} {name}", lat, lng, 13))
 
-    for i, part in enumerate(chunk(estate_urls, 8), start=1):
+    for i, part in enumerate(chunk(estate_urls, ESTATE_ACCOUNTS), start=1):
         files.append((
             f"acct_{i:02d}_estates.json",
             build_input(part),
@@ -265,7 +302,7 @@ def main() -> None:
             gap_urls.append(search_url(term, lat, lng, 11))
         gaps_logged.append(f"{city}/{cat} ({n})")
 
-    for i, part in enumerate(chunk(gap_urls, 6), start=9):
+    for i, part in enumerate(chunk(gap_urls, GAP_ACCOUNTS), start=ESTATE_ACCOUNTS + 1):
         files.append((
             f"acct_{i:02d}_gaps.json",
             build_input(part),
@@ -273,7 +310,8 @@ def main() -> None:
         ))
 
     # ── Part C: 비어 있는 제품 업종 (계정 15~18) ──────────────────────────
-    for i, (label, terms, provinces) in enumerate(PRODUCT_TARGETS, start=15):
+    product_start = ESTATE_ACCOUNTS + GAP_ACCOUNTS + 1
+    for i, (label, terms, provinces) in enumerate(PRODUCT_TARGETS, start=product_start):
         urls: list[str] = []
         for term in terms:
             for p in provinces:
@@ -286,14 +324,41 @@ def main() -> None:
             f"제품 업종 보강: {label} — 검색 {len(urls)}건",
         ))
 
-    # ── 예비 (계정 19~20) ─────────────────────────────────────────────────
-    # 내용은 Part A 의 앞부분과 같다. 1~3 중 얇게 나온 쪽을 다시 돌리거나,
-    # 중단된 계정의 남은 검색어를 여기서 이어 받는다.
-    for i, part in enumerate(chunk(estate_urls, 20)[:2], start=19):
+    # ── Part D: 리뷰 표적 수집 (계정 17~20) ───────────────────────────────
+    def has_review_text(s: dict) -> bool:
+        # scraped_review_count 로 거르면 안 된다 — 그 값이 >0 인데 본문은 하나도
+        # 없는 업체가 있다. 과거 스크랩이 카운트만 남긴 경우다.
+        return bool(
+            s.get("external_reviews") or s.get("sample_reviews_en")
+            or s.get("sample_reviews_th") or s.get("sample_reviews_ko")
+        )
+
+    gsc_ids = {
+        p.split("/supplier/", 1)[1]
+        for p in json.loads((ROOT / "data" / "gsc_demand.json").read_text(encoding="utf-8"))["pages"]
+        if p.startswith("/supplier/")
+    }
+
+    scrapeable = [
+        s for s in suppliers
+        if (s.get("total_reviews") or 0) > 0 and not has_review_text(s) and s.get("place_id")
+    ]
+    # (a) 이미 구글이 노출해주는 페이지부터. (b) 그다음 리뷰가 많은 곳.
+    proven = [s for s in scrapeable if s["id"] in gsc_ids]
+    rich = [
+        s for s in scrapeable
+        if s["id"] not in gsc_ids and (s.get("total_reviews") or 0) >= MIN_REVIEWS_TO_SCRAPE
+    ]
+    proven.sort(key=lambda s: -(s.get("total_reviews") or 0))
+    rich.sort(key=lambda s: -(s.get("total_reviews") or 0))
+    review_ids = [s["place_id"] for s in proven + rich]
+
+    review_start = ESTATE_ACCOUNTS + GAP_ACCOUNTS + len(PRODUCT_TARGETS) + 1
+    for i, part in enumerate(chunk(review_ids, REVIEW_ACCOUNTS), start=review_start):
         files.append((
-            f"acct_{i:02d}_reserve.json",
-            build_input(part),
-            f"예비 — 실패분 재시도용 (단지 검색 {len(part)}건)",
+            f"acct_{i:02d}_reviews.json",
+            build_review_input(part),
+            f"리뷰 표적 수집 — {len(part)}곳 x 최대 {MAX_REVIEWS_PER_PLACE}건",
         ))
 
     for name, payload, _ in files:
@@ -317,7 +382,8 @@ def main() -> None:
         "(파일명은 `dataset_crawler-google-places_*.json` 형태 유지 — 파서가 그 패턴으로 찾는다)",
         "6. `python scripts/rebuild_master_db.py` 후 빌드·배포",
         "",
-        f"계정당 상한은 {MAX_PLACES_PER_ACCOUNT} places, 리뷰 {MAX_REVIEWS}건으로 잡았다.",
+        f"검색형 계정은 {MAX_PLACES_PER_ACCOUNT} places / 리뷰 {MAX_REVIEWS}건 상한, "
+        f"리뷰 계정은 place 당 최대 {MAX_REVIEWS_PER_PLACE}건으로 잡았다.",
         "$5 를 넘기면 Apify 가 중간에 멈추는데, 병합은 place_id 기준 idempotent 라서",
         "중단된 데이터셋을 그대로 export 해도 안전하다.",
         "",
@@ -338,8 +404,15 @@ def main() -> None:
         "",
         "  " + ", ".join(gaps_logged[:40]) + (" …" if len(gaps_logged) > 40 else ""),
         "",
-        "- **계정 15~18 (제품)**: 욕실가구·위생도기는 8곳뿐이고 그중 실제 제조사는",
-        "  TOTO 하나다. 2026-10-02 에 욕실가구 OEM 공장이 직접 문의해서 확인된 공백이다.",
+        "- **제품 계정**: 욕실가구·위생도기는 8곳뿐이고 그중 실제 제조사는 TOTO",
+        "  하나다. 2026-10-02 에 욕실가구 OEM 공장이 직접 문의해서 확인된 공백이다.",
+        "- **리뷰 계정**: 전량이 아니라 표적이다. ① GSC 노출 기록이 있는데 본문이",
+        "  없는 곳(이미 순위가 있는 페이지) ② 리뷰 10건 이상인 곳. 리뷰 1~4건인",
+        "  2,751곳은 일부러 뺐다 — 받아도 쓸 내용이 안 나오는데 곳당 비용은 같다.",
+        "  액터는 같고 **입력 형식만 다르다** — 리뷰 계정은 검색어가 아니라 place_id",
+        "  목록이다. export 파일명은 그대로 `dataset_crawler-google-places_*` 가 되는데,",
+        "  파서가 place 레코드 안의 reviews 배열도 읽도록 고쳐 뒀다 (그 전에는 리뷰",
+        "  파일명 패턴만 읽어서 조용히 버려졌다).",
         "",
         "## 받은 뒤 확인할 것",
         "",
