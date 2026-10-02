@@ -70,6 +70,13 @@ def collect_urls(db: dict) -> list[str]:
         f"{SITE}/oem/electronics-ems",
         f"{SITE}/oem/plastic-injection-molding",
         f"{SITE}/oem/medical-devices",
+        # 제품 단위 버티컬 (2026-10-02). lib/oemVerticals.ts 와 손으로 맞춰야 하는
+        # 목록이다 — TS 를 여기서 import 할 수 없다. 버티컬을 추가하면 여기도 추가.
+        f"{SITE}/oem/frozen-seafood",
+        f"{SITE}/oem/corrugated-packaging",
+        f"{SITE}/oem/rice-milling",
+        f"{SITE}/oem/cold-storage",
+        f"{SITE}/oem/chocolate-confectionery",
     ]
     # category (en + ko)
     for c in db.get("category_counts", {}).keys():

@@ -43,6 +43,17 @@ export default async function OemVerticalPage(
   const db = await loadMasterDb();
   const filtered = sortWithSponsored(matchedSuppliers(v, db.suppliers));
   const verifiedCount = filtered.filter((r) => r.verified).length;
+
+  // 직답 문단에 쓰는 상위 지역. 목록 첫 3개가 아니라 건수 상위 3개다 — 목록은
+  // Trust Score 순이라 첫 줄에 뜨는 지역이 그 업종의 중심지라는 보장이 없다.
+  const provinceCounts = new Map<string, number>();
+  for (const r of filtered) {
+    if (r.city_label) provinceCounts.set(r.city_label, (provinceCounts.get(r.city_label) ?? 0) + 1);
+  }
+  const topProvinces = [...provinceCounts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([label]) => label);
   const relatedLabel = v.relatedCategorySlug ? CATEGORY_LABELS[v.relatedCategorySlug] : null;
 
   return (
@@ -66,6 +77,17 @@ export default async function OemVerticalPage(
       </div>
 
       <p className="text-[var(--muted)] mb-6 leading-relaxed text-balance max-w-2xl">{v.intro}</p>
+
+      {/* 답변엔진이 그대로 인용할 수 있는 한 문단. 숫자와 지역은 이 DB 에서
+          계산되므로 데이터가 갱신되면 문장도 같이 갱신된다. */}
+      {v.directAnswer && topProvinces.length > 0 && (
+        <section className="mb-8 rounded-xl border border-[var(--gold-light)] bg-[var(--gold-bg)]/40 p-5">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-[var(--gold-deep)] mb-2">
+            In short
+          </h2>
+          <p className="leading-relaxed">{v.directAnswer(filtered.length, topProvinces)}</p>
+        </section>
+      )}
 
       <div className="flex flex-wrap gap-2 text-xs mb-8">
         <span className="bg-[var(--gold-bg)] text-[var(--gold-deep)] px-2.5 py-1 rounded-full font-medium tabular-nums">
@@ -94,6 +116,31 @@ export default async function OemVerticalPage(
         <InfoCard icon="⏱️" label="Typical Lead Time" body={v.leadTime} />
         <InfoCard icon="📋" label="Common Certifications" body={v.certifications.join(" · ")} />
       </section>
+
+      {/* 수입 바이어는 공장 목록보다 이걸 먼저 본다 — 관세 계산의 출발점(HS 코드)과
+          어디서 실리는가(항구). 둘 다 없는 버티컬에서는 섹션 자체가 빠진다. */}
+      {(v.hsCodes || v.exportPorts) && (
+        <section className="mb-10 grid sm:grid-cols-2 gap-4">
+          {v.hsCodes && (
+            <div className="bg-white border border-[var(--border)] rounded-xl p-4">
+              <div className="text-xs font-bold uppercase tracking-wide text-[var(--muted)] mb-2 flex items-center gap-1.5">
+                <span aria-hidden>🧾</span>
+                <span>HS codes for import duty</span>
+              </div>
+              <ul className="text-sm space-y-1 font-mono-data">
+                {v.hsCodes.map((c) => <li key={c}>{c}</li>)}
+              </ul>
+              <p className="text-xs text-[var(--muted)] mt-2 leading-relaxed">
+                Classification is the importer&apos;s responsibility and varies by destination —
+                confirm with your customs broker before quoting a landed cost.
+              </p>
+            </div>
+          )}
+          {v.exportPorts && (
+            <InfoCard icon="🚢" label="Export routing" body={v.exportPorts} />
+          )}
+        </section>
+      )}
 
       {filtered.length === 0 ? (
         <p className="text-[var(--muted)]">No factories matched yet — check back after the next data refresh.</p>
