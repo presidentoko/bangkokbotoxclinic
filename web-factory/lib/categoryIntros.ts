@@ -35,12 +35,15 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
     bestForSlug: "auto-parts",
   },
   industrial_estate: {
-    // Search Console 2026-09: "industrial estate in thailand" 50회 66위,
-    // "thailand industrial park" 39회 76위 — 제목에 "industrial park" 표현이 없었다.
-    title: "Industrial Estates & Industrial Parks in Thailand",
-    metaTitle: "Industrial Estates & Industrial Parks in Thailand — Amata, WHA, Pinthong",
+    // 2026-10-02: 이 페이지에는 공급사가 9곳뿐이다 — 단지 자체가 아니라 단지를
+    // 개발·운영하는 회사들이다. 그런데 2026-09-16 에 "industrial estate in
+    // thailand" 를 노리고 제목을 붙여서, 단지 32곳이 실려 있는 /estate 와 같은
+    // 쿼리를 두 페이지가 나눠 먹게 됐다. 머리 키워드는 /estate 에 넘기고 여기는
+    // 9곳의 실체대로 좁힌다.
+    title: "Industrial Estate Operators & Developers",
+    metaTitle: "Industrial Estate Operators in Thailand — Developers & Leasing Offices",
     metaDescription:
-      "Every industrial estate and industrial park in Thailand we track — Amata City, WHA, Pinthong, Hemaraj, Rojana, Bang Phli — with tenant lists, locations and direct contact.",
+      "Companies that develop and operate Thai industrial estates — leasing offices and estate management. Looking for the estates themselves and their tenants? See /estate.",
     intro:
       "Thailand's industrial estates concentrate manufacturing tenants, infrastructure, and customs incentives in defined zones. The four major operators — Pinthong, Amata, WHA (post-Hemaraj merger), and Rojana — anchor most flagship estates along the Eastern Seaboard.",
     longContext:

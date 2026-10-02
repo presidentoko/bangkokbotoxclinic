@@ -9,6 +9,7 @@ import { districtCategoryCombos, districtBySlug, MIN_COMBO_SUPPLIERS } from "@/l
 import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { DbdRegistryTable } from "@/components/DbdRegistryTable";
+import { LogisticsDepth } from "@/components/LogisticsDepth";
 import { computeTrustScore } from "@/lib/trustScore";
 import { SupplierListWithFilter, type FilterableSupplier } from "@/components/SupplierListWithFilter";
 import { SupplierAlertSignup } from "@/components/SupplierAlertSignup";
@@ -16,6 +17,11 @@ import { citySlugFromDisplay } from "@/lib/cityNorm";
 import { cityCategoryPairs } from "@/lib/cityCategory";
 import { TH_CATEGORY_VALID } from "@/lib/thBuildSets";
 import type { Metadata } from "next";
+
+// 직답 문단을 붙이는 카테고리. Search Console 2026-09 기준 노출은 크고 순위는
+// 60~80위인 머리 키워드를 받는 페이지들이다 — 3pl provider thailand(166회),
+// distribution center thailand(30회), thailand factory food(54회).
+const DIRECT_ANSWER_CATEGORIES = new Set(["logistics", "warehouse", "food_mfg"]);
 
 const VALID = new Set(Object.keys(CATEGORY_LABELS));
 
@@ -188,6 +194,24 @@ export default async function CategoryPage(
         </div>
       </header>
 
+      {/* 답변엔진·스니펫이 그대로 인용할 수 있는 한 문단. Search Console 에서
+          노출 상위를 차지하면서 순위가 60위권인 카테고리에만 붙인다 — 나머지는
+          기존 header 문단으로 충분하다. */}
+      {DIRECT_ANSWER_CATEGORIES.has(cuisine) && cities.length > 0 && (
+        <section className="mb-8 rounded-xl border border-[var(--gold-light)] bg-[var(--gold-bg)]/40 p-5">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-[var(--gold-deep)] mb-2">
+            In short
+          </h2>
+          <p className="leading-relaxed">
+            Thai Supply Hub lists {filtered.length.toLocaleString()} {label.toLowerCase()} operators in
+            Thailand, concentrated in {cities.slice(0, 3).map(([c]) => c).join(", ")}
+            {verifiedCount > 0 ? `, of which ${verifiedCount.toLocaleString()} are verified against the DBD company registry` : ""}.
+            Every listing shows the operator&apos;s own phone number and website, so you can contact
+            them directly; ask us instead if you would rather we shortlist and compare quotes for you.
+          </p>
+        </section>
+      )}
+
       {(() => {
         const guideSlug = CATEGORY_TO_GUIDE[cuisine];
         const guide = guideSlug ? findGuide(guideSlug) : null;
@@ -296,6 +320,8 @@ export default async function CategoryPage(
           viewAllHref={`/c/${cuisine}`}
         />
       </section>
+
+      {cuisine === "logistics" && <LogisticsDepth db={db} suppliers={filtered} />}
 
       <DbdRegistryTable suppliers={filtered} label={label} locale="en" />
 
