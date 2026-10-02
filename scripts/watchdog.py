@@ -1385,7 +1385,10 @@ def build_services() -> list[Service]:
             name="bangkok_clinics_review",
             cmd=["scraper.py"],
             cwd=bk_clinics,
-            env_extra=bangkok_clinics_env,
+            # 2026-10-02: 재가동. 실측 "지금 건질 수" 750곳(리셋하면 1,153).
+            # 워커 2 → 1 로 내려 포트 2080 하나만 쓴다 — 2081 을 비워두면
+            # 다른 도시를 하나 더 올릴 여지가 남는다.
+            env_extra={**bangkok_clinics_env, "N_WORKERS": "1"},
             log_file=LOGS / "bangkok_clinics_review.log",
             chrome_heavy=True,
             review_done_check=True,   # 큐 비면 자연 종료 → chain promotion (Pattaya로)
@@ -1408,7 +1411,11 @@ def build_services() -> list[Service]:
             name="spa_review_bangkok",
             cmd=["scraper.py"],
             cwd=bk_clinics,
-            env_extra=spa_bangkok_env,
+            # 2026-10-02: 커버리지 메우기 1순위로 재가동 — 실측 "지금 건질 수"
+            # 1,247곳으로 다른 모든 도시·버티컬을 합친 것보다 많다.
+            # 워커 2 → 1 ("천천히"). 포트는 기본값 2083 을 그대로 쓴다
+            # (치앙마이 2082, 방콕 클리닉 2080 과 겹치지 않는다).
+            env_extra={**spa_bangkok_env, "N_WORKERS": "1"},
             log_file=LOGS / "spa_review_bangkok.log",
             chrome_heavy=True,
             review_done_check=True,
@@ -1454,7 +1461,9 @@ def build_services() -> list[Service]:
             name="spa_review_pattaya",
             cmd=["scraper.py"],
             cwd=bk_clinics,
-            env_extra=spa_pattaya_env,
+            # 2026-10-02: 커버리지 메우기로 재가동. 워커 2 → 1 ("천천히").
+            # RAM 이 상한이다 — 워커 1개가 실측 0.94GB(크롬 4~5개)다.
+            env_extra={**spa_pattaya_env, "N_WORKERS": "1"},
             log_file=LOGS / "spa_review_pattaya.log",
             chrome_heavy=True,
             review_done_check=True,
@@ -1546,7 +1555,15 @@ def build_services() -> list[Service]:
             name="spa_review_chiang_mai",
             cmd=["scraper.py"],
             cwd=bk_clinics,
-            env_extra=spa_chiang_mai_env,
+            # 2026-10-02: 커버리지 메우기로 재가동. 워커 2 → 1 ("천천히").
+            #
+            # ⚠️ 포트를 2083 → 2082 로 옮겼다. 원래 값이 spa_review_pattaya 와
+            # **똑같이 2083** 이라서, 둘을 같이 켜면 한 터널(=한 출구 IP)에 몰려
+            # 요청률이 2배가 되고 구글 앱레벨 차단을 스스로 앞당긴다. 2082 는
+            # spa_review_hua_hin 이 2026-10-02 02:00 에 완주해서 비었다.
+            # _validate_proxy_ports() 는 범위만 보고 충돌은 안 보므로 로그엔
+            # ✅ 만 찍힌다 — 배치는 사람이 지켜야 한다.
+            env_extra={**spa_chiang_mai_env, "N_WORKERS": "1", "PROXY_PORT_BASE": "2082"},
             log_file=LOGS / "spa_review_chiang_mai.log",
             chrome_heavy=True,
             review_done_check=True,

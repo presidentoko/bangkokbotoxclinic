@@ -57,6 +57,12 @@ PAUSE_THRESHOLDS = [
     ("spa_review_krabi",       1.0),
     ("spa_review_koh_samui",   1.0),
     ("spa_review_hua_hin",     1.0),
+    ("spa_review_chiang_mai",  1.0),   # 2026-10-02 추가 (파타야는 위에 이미 있음)
+    # 2026-10-02: 방콕 스파는 사다리에 없어서 "절대 자동으로 안 꺼진다"는
+    # 상태였다(메모 ram-manager-pause-ladder). 1순위로 돌릴 서비스를 관리
+    # 밖에 두면 메모리가 말라도 아무도 멈춰주지 않는다. 0.95 로 둬서
+    # 지방 도시(1.0)보다 **나중에** 양보한다 — 건질 양이 압도적이다.
+    ("spa_review_bangkok",     0.95),
 ]
 # resume 값은 이 머신이 실제로 도달하는 범위 안에 있어야 한다. 그렇지 않으면
 # pause 는 걸리는데 resume 은 영원히 안 걸려서, "일시정지"가 사실상 영구정지가
@@ -96,6 +102,8 @@ RESUME_THRESHOLDS = [
     ("spa_review_krabi",       2.0),
     ("spa_review_koh_samui",   2.0),
     ("spa_review_hua_hin",     2.0),
+    ("spa_review_chiang_mai",  2.0),
+    ("spa_review_bangkok",     1.95),   # pause 0.95 + 1워커 0.94 위
 ]
 
 # 우선 서비스가 돌고 있는 동안에는 다른 스크래퍼를 함부로 깨우지 않는다.
