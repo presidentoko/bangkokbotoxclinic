@@ -3,6 +3,7 @@ import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import { RfqForm } from "@/components/RfqForm";
 import { SupplierVerifiedCTA } from "@/components/SupplierVerifiedCTA";
+import { FreeListingForm } from "@/components/FreeListingForm";
 import type { Metadata } from "next";
 
 const CONTACT_EMAIL =
@@ -55,6 +56,37 @@ export default async function ForSuppliersPage() {
         <Stat n={db.with_website.toLocaleString()} label="With direct website" />
         <Stat n="Twice daily" label="Data refresh" />
       </section>
+
+      {/* 무료 등재가 먼저 온다. 2026-10-02 에 공급사가 "무료 등재 신청을 어디서
+          하나" 라고 메일로 물었다 — FAQ·about 은 이 페이지로 보내는데 여기엔 유료
+          상품만 있었고 free 라는 단어도 없었다. 약속한 것을 먼저 보여준다. */}
+      <section id="free-listing" className="mb-16 scroll-mt-20">
+        <div className="mb-5">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold uppercase tracking-wider mb-3">
+            Free — no charge, now or later
+          </div>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-2">
+            Not listed yet? Get listed free
+          </h2>
+          <p className="text-[var(--muted)] leading-relaxed max-w-2xl">
+            Most Thai manufacturers here were found through their public Google Business Profile, so
+            if you have one you may already be in the directory —{" "}
+            <a className="underline hover:text-[var(--fg)]" href="/">search your company name first</a>.
+            If you are not there, send the details below and we will add you. Nothing on this page is
+            required to be listed; everything below the form is optional paid placement.
+          </p>
+        </div>
+        <FreeListingForm />
+      </section>
+
+      <div className="mb-10 border-t border-[var(--border)] pt-10">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-2">Optional paid options</h2>
+        <p className="text-[var(--muted)] leading-relaxed max-w-2xl">
+          None of these affect whether you are listed, or where your listing ranks organically —
+          Trust Score ordering is computed from public data and is not for sale. See our{" "}
+          <a className="underline hover:text-[var(--fg)]" href="/terms">advertising policy</a>.
+        </p>
+      </div>
 
       <section className="space-y-8 mb-16">
         <Offering

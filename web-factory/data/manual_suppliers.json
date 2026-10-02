@@ -1,0 +1,29 @@
+{
+ "note": "공급사가 직접 신청해 사람이 확인한 뒤 올리는 레코드. rebuild_master_db.py 의 finalize() 가 매 리빌드마다 병합한다 — master_db.json 에 직접 넣으면 다음 리빌드(CSV + Apify 재생성)에서 지워진다. dead-lead 필터도 면제된다(사람이 이미 확인했으므로).",
+ "how_to_add": [
+  "1. 공급사에게 받을 것: DBD 등기상 정식 법인명 + 13자리 등기번호, 공장 주소와 도, 웹사이트, 바이어용 전화번호, 주력 제품, 인증.",
+  "2. DBD 등기번호를 실제로 조회해 확인한다. 확인 못 한 등기번호로 verified: true 를 주지 않는다 — Verified 배지의 근거가 그것뿐이다.",
+  "3. 아래 템플릿을 복사해 suppliers 배열에 넣는다. id 는 'm-' + 회사명 슬러그 (URL 에 그대로 쓰인다, 변경 금지).",
+  "4. city 는 lib/cityNorm.ts 의 canonical slug (예: samut_prakan), city_label 은 표시용 영문 (예: Samut Prakan).",
+  "5. categories 는 lib/types.ts CATEGORY_LABELS 의 키만 사용 (manufacturer, furniture 등).",
+  "6. python scripts/rebuild_master_db.py 후 빌드·배포."
+ ],
+ "template": {
+  "id": "m-example-company-limited",
+  "name": "Example Company Limited",
+  "primary_type": "Manufacturer",
+  "address": "123 Moo 4, Bang Phli, Samut Prakan, Thailand",
+  "city": "samut_prakan",
+  "city_label": "Samut Prakan",
+  "district": "Bang Phli",
+  "phone": "+66 2 000 0000",
+  "website": "https://example.com",
+  "categories": ["manufacturer"],
+  "raw_categories": ["Furniture manufacturer"],
+  "verified": false,
+  "dbd": null,
+  "source": "supplier submission, verified by hand YYYY-MM-DD",
+  "submitted_at": "YYYY-MM-DD"
+ },
+ "suppliers": []
+}

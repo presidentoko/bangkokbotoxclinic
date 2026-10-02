@@ -45,6 +45,7 @@ MASTER_DB = WEB / "data" / "master_db.json"
 APIFY_RAW = WEB / "data" / "apify_raw"
 WEBSITE_CORRECTIONS = WEB / "data" / "website_corrections.json"
 GSC_DEMAND = WEB / "data" / "gsc_demand.json"
+MANUAL_SUPPLIERS = WEB / "data" / "manual_suppliers.json"
 
 # 배포 사고 후 이 선 아래로 떨어지면 뭔가 잘못된 것이다. 2026-08-09 사고 당시
 # 3,305 까지 떨어졌는데 아무도 못 막았다. 이제 여기서 막는다.
@@ -96,6 +97,93 @@ def has_signal(s: dict) -> bool:
 
 def slugify(s: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", (s or "").lower()).strip("_")
+
+
+# 수동 등재 레코드가 사이트 전체에서 깨지지 않도록 채워 넣는 기본값.
+# Supplier 타입(lib/types.ts)이 필수로 보는 필드들이다 — 빠지면 카드·상세·정렬이
+# undefined 를 만난다.
+_MANUAL_DEFAULTS = {
+    "place_id": "",
+    "primary_type": "",
+    "address": "",
+    "district": "",
+    "phone": "",
+    "website": "",
+    "menu_url": "",
+    "lat": None,
+    "lng": None,
+    "rating": 0.0,
+    "total_reviews": 0,
+    "trust_score": 0.0,
+    "categories": [],
+    "raw_categories": [],
+    "price_level": "",
+    "price_symbol": "",
+    "scraped_review_count": 0,
+    "local_guide_count": 0,
+    "avg_author_review_count": 0,
+    "language_breakdown": {"th": 0, "en": 0, "ko": 0, "ja": 0, "other": 0},
+    "cuisine_mentions": {},
+    "mentioned_topics": [],
+    "rating_trend": {"recent": {"count": 0, "avg": None},
+                     "midterm": {"count": 0, "avg": None},
+                     "old": {"count": 0, "avg": None},
+                     "trend": "insufficient_data"},
+    "sample_reviews_th": [],
+    "sample_reviews_en": [],
+    "sample_reviews_ko": [],
+    "business_status": "Open",
+    "maps_url": "",
+    "hero_image": None,
+    "photos": [],
+    "external_reviews": [],
+    "verified": False,
+    "dbd": None,
+    "estate_name": None,
+    "estate_slug": None,
+}
+
+
+def merge_manual_suppliers(suppliers: list[dict]) -> set[str]:
+    """공급사가 직접 신청해 사람이 확인한 레코드를 병합하고, 그 id 집합을 돌려준다.
+
+    왜 리빌드 안에 있어야 하는가: master_db.json 은 CSV + Apify 로 매번 다시
+    만들어진다. 손으로 넣은 레코드를 거기 직접 넣으면 다음 리빌드에서 조용히
+    사라진다 — website_corrections.json 과 같은 이유로 파일을 따로 둔다.
+
+    2026-10-02 계기: 욕실가구 OEM 공장이 "무료 등재를 어디서 신청하나" 라고 문의했다.
+    FAQ·About 은 /for-suppliers 로 보내는데 그 페이지엔 유료 상품만 있었다.
+    """
+    if not MANUAL_SUPPLIERS.exists():
+        return set()
+    doc = json.loads(MANUAL_SUPPLIERS.read_text(encoding="utf-8"))
+    rows = doc.get("suppliers", [])
+    if not rows:
+        return set()
+
+    by_id = {s.get("id"): s for s in suppliers}
+    ids: set[str] = set()
+    added = updated = 0
+    for row in rows:
+        sid = row.get("id")
+        if not sid or not row.get("name"):
+            print(f"  [skip] id 또는 name 없음: {row}")
+            continue
+        rec = {**_MANUAL_DEFAULTS, **row}
+        rec.setdefault("city_label", rec.get("city", "").replace("_", " ").title())
+        # b2b_score 는 정렬·dead-lead 가 읽는다. 수동 레코드는 리뷰가 없어 0 이므로
+        # 목록 맨 끝으로 가지 않게 최소값을 준다 (Trust Score 표시는 0 그대로).
+        rec.setdefault("b2b_score", rec.get("trust_score") or 0.0)
+        if sid in by_id:
+            by_id[sid].update(rec)
+            updated += 1
+        else:
+            suppliers.append(rec)
+            updated += 0
+            added += 1
+        ids.add(sid)
+    print(f"\n수동 등재 병합: 신규 {added} · 갱신 {updated}")
+    return ids
 
 
 def apply_website_corrections(suppliers: list[dict]) -> None:
@@ -152,7 +240,9 @@ def finalize() -> dict:
     # dead-lead 필터보다 먼저 — website 가 유일한 신호였던 레코드는 링크가
     # 죽은 순간 dead lead 다. 순서가 뒤집히면 그런 레코드가 살아남는다.
     apply_website_corrections(before)
-    suppliers = [s for s in before if has_signal(s)]
+    # 수동 등재는 사람이 이미 확인한 레코드라 dead-lead 판정에서 면제한다.
+    manual_ids = merge_manual_suppliers(before)
+    suppliers = [s for s in before if s.get("id") in manual_ids or has_signal(s)]
     print(f"\ndead-lead 제거: {len(before):,} → {len(suppliers):,}  (-{len(before) - len(suppliers):,})")
 
     for s in suppliers:
