@@ -50,6 +50,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   const searchIndex = getSearchIndex()
 
   const navLinks = [
+    { href: `/${locale}/value`, label: locale === 'th' ? 'มูลค่าขายต่อ' : 'Resale Value' },
     { href: `/${locale}/handbags`, label: t('nav_handbags') },
     { href: `/${locale}/watches`, label: t('nav_watches') },
     { href: `/${locale}/brands`, label: locale === 'th' ? 'แบรนด์' : 'Brands' },
@@ -57,7 +58,6 @@ export default async function LocaleLayout({ children, params }: Props) {
     // different question, and the pages behind it are invisible to crawlers
     // if nothing links to them.
     { href: `/${locale}/sell`, label: locale === 'th' ? 'ขายของ' : 'Sell' },
-    { href: `/${locale}/value-guide`, label: locale === 'th' ? 'คู่มือมูลค่า' : 'Value Guide' },
     { href: `/${locale}/guides`, label: t('nav_guides') },
     { href: `/${locale}/clothing`, label: t('nav_clothing') },
     { href: `/${locale}/contact`, label: locale === 'th' ? 'ติดต่อ' : 'Contact' },

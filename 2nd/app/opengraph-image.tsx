@@ -20,7 +20,7 @@ export default function OpengraphImage() {
       >
         <div style={{ fontSize: 76, letterSpacing: 4, color: '#B8954A', display: 'flex' }}>SecondLuxuryItems</div>
         <div style={{ fontSize: 32, marginTop: 24, color: '#E8E2D9', display: 'flex' }}>
-          Pre-Owned Luxury Price Guide
+          Designer Resale Calculators
         </div>
       </div>
     ),

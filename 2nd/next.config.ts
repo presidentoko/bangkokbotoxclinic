@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import legacy from "./data/legacy_redirects.json";
 
 const nextConfig: NextConfig = {
   async headers() {
@@ -23,6 +24,16 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+    ]
+  },
+
+  // This domain used to publish the same model pages as chicpreowned.com.
+  // Each of those URLs now points at the page that answers its question —
+  // the value page there, or a tool here. Generated and destination-checked
+  // by scraper/build_redirects.py; regenerate rather than edit.
+  async redirects() {
+    return [
+      ...(legacy as { source: string; destination: string; permanent: boolean }[]),
     ]
   },
 };

@@ -28,7 +28,6 @@ export const STATIC_PAGES: StaticPage[] = [
   { path: '/under-30000', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/under-60000', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/guides/first-luxury-bag', changeFrequency: 'monthly', priority: 0.8 },
-  { path: '/value-guide', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/market-overview', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/jewelry', changeFrequency: 'weekly', priority: 0.8 },
   { path: '/belts', changeFrequency: 'weekly', priority: 0.8 },

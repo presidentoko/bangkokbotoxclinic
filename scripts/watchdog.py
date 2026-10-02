@@ -2178,6 +2178,22 @@ def build_services() -> list[Service]:
             progress_stale_sec=604800,  # 7일
             progress_grace_sec=600,  # 5개 딜러 순회에 수 분 걸림
         ),
+        Service(
+            # chicpreowned.com /value + /index 와 secondluxuryitems.com 계산기의
+            # 데이터 — Vestiaire Collective "팔린" 매물(호가 아님)을 모델·사이즈별로
+            # 집계 → 3rd/data/value/*.json + 2nd/data/value_stats.json → 커밋 →
+            # 두 사이트 배포. 월 1회, 1회 약 90분(요청 ~2,000, 1초 간격).
+            # 재시작돼도 market.json 날짜를 보고 30일이 안 됐으면 다시 안 돈다.
+            # 하루 1번 "next in Nd" 를 찍으므로 progress_stale 은 2일.
+            name="value_market",
+            cmd=["3rd/scraper/value_market.py", "--loop", "--ship"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "value_market.log",
+            progress_pattern=re.compile(r"\[value_market\]|\[\d+/\d+\]"),
+            progress_stale_sec=172800,
+            progress_grace_sec=600,
+        ),
     ]
 
 

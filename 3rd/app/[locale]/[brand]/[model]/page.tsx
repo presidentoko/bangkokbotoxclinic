@@ -23,6 +23,7 @@ import { RecentlyViewed } from '@/components/RecentlyViewed'
 import { TrackPageView } from '@/components/TrackPageView'
 import { ThaiMarketPanel } from '@/components/ThaiMarketPanel'
 import { marketPrice, getThaiEntry, getThaiAliases, getThaiMeta } from '@/lib/thai-market'
+import { getValueForItem, usd as usdFmt, pct as pctFmt } from '@/lib/value'
 
 const BASE = 'https://www.chicpreowned.com'
 const YEAR = 2026
@@ -448,6 +449,24 @@ export default async function ModelPage({ params }: Props) {
       </h1>
 
       <ShareButton title={shareTitle} text={shareText} url={pageUrl} />
+
+      {(() => {
+        // This page answers "what does it cost in Bangkok". The value page
+        // answers "what is it worth / what does it resell for" — a different
+        // query, and the one this domain now leads with.
+        const v = getValueForItem(item.slug)
+        if (!v) return null
+        return (
+          <Link href={`/${locale}/value/${v.slug}`} className="block border border-[#E8E2D9] rounded-lg p-4 my-4 bg-white hover:border-[#1A1A1A]">
+            <span className="text-xs uppercase tracking-wider text-[#6B6052]">{locale === 'th' ? 'มูลค่าขายต่อ' : 'Resale value'}</span>
+            <span className="block mt-1">
+              {locale === 'th'
+                ? `ขายได้จริงราคากลาง ${usdFmt(v.resale.median)}${v.retention != null ? ` · ${pctFmt(v.retention)} ของราคาป้าย` : ''} →`
+                : `Sells for a median ${usdFmt(v.resale.median)}${v.retention != null ? ` · ${pctFmt(v.retention)} of retail` : ''} →`}
+            </span>
+          </Link>
+        )
+      })()}
 
       {/* Price Hero */}
       {(() => {

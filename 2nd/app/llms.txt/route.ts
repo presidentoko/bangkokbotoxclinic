@@ -1,57 +1,26 @@
-import { getAllItems, getAllBrands, formatPrice, getAvgPrice } from '@/lib/data'
 import { NextResponse } from 'next/server'
+import { getCalcModels, DATA_DATE, valueUrl } from '@/lib/value'
 
 export const dynamic = 'force-static'
 
 export function GET() {
-  const items = getAllItems()
-  const brands = getAllBrands()
-  // Answer engines lead with recency when they cite a price, so state the real
-  // data date rather than a vague "weekly".
-  const dataDate = items.map(i => i.last_updated).filter(Boolean).sort().pop() ?? ''
+  const models = getCalcModels()
   const lines = [
     '# SecondLuxuryItems.com',
-    '# Pre-owned luxury goods price guide — weekly updated prices from live market data',
+    '# Free calculators and checklists for buying and selling pre-owned designer bags',
     '',
-    '## About',
-    'SecondLuxuryItems.com is a free, independent price guide for second-hand luxury goods.',
-    'We track real listings from Vestiaire Collective and eBay weekly. No affiliate bias.',
-    'Prices shown by condition: Excellent, Very Good, Good.',
-    `Coverage: ${items.length} models across ${brands.length} brands. Prices last updated ${dataDate}.`,
-    'Currency: USD. Prices are market estimates from observed listings, not offers for sale.',
+    'Every figure comes from sold listings on Vestiaire Collective (US, USD), matched to each model\'s exact size,',
+    `collected ${DATA_DATE} and refreshed monthly. Per-model data lives at chicpreowned.com/en/value.`,
     '',
-    '## Features',
-    `- Price ranges by condition grade for ${items.length} luxury models`,
-    '- Brand value retention ranking at /brands',
-    '- Deal score: Exceptional Deal (40%+ savings), Good Value (20-40%), Fair Market Price',
-    '- Market signal: supply/demand context for each model',
-    '- Sort by savings %, price low-to-high, or brand',
+    '## Tools',
+    '- https://www.secondluxuryitems.com/calculator/resale-value — what a model sells for by condition',
+    '- https://www.secondluxuryitems.com/calculator/retail-vs-resale — cost of owning new vs pre-owned',
+    '- https://www.secondluxuryitems.com/calculator/depreciation — what a bag you own is worth today',
+    '- https://www.secondluxuryitems.com/checklist/authenticity — pre-purchase checklist with a price check',
+    '- https://www.secondluxuryitems.com/sizes/chanel — sizes and dimensions with resale value by size',
     '',
-    '## Price Data',
-    ...items.map(item => {
-      const vg = item.price_ranges.very_good
-      const price = vg ? `avg ${formatPrice(getAvgPrice(vg))}` : 'see page'
-      const retail = item.retail_price_usd > 0 ? ` (retail: ${formatPrice(item.retail_price_usd)})` : ''
-      return `- Used ${item.brand} ${item.model}: Very Good condition ${price}${retail}`
-    }),
-    '',
-    '## Pages',
-    '- https://www.secondluxuryitems.com/brands — all brands ranked by resale value retention',
-    '- https://www.secondluxuryitems.com/handbags — all handbag price guides',
-    '- https://www.secondluxuryitems.com/watches — all watch price guides',
-    '- https://www.secondluxuryitems.com/shoes — shoe price guides',
-    '- https://www.secondluxuryitems.com/jewelry — jewellery price guides',
-    '- https://www.secondluxuryitems.com/value-guide — how resale value is calculated',
-    '- https://www.secondluxuryitems.com/market-overview — market-wide price movement',
-    '- https://www.secondluxuryitems.com/guides — authentication and buying guides',
-    '- https://www.secondluxuryitems.com/compare — head-to-head brand comparisons',
-    '- https://www.secondluxuryitems.com/under-500 — pieces averaging under $500',
-    '- https://www.secondluxuryitems.com/under-1000 — pieces averaging under $1,000',
-    '- https://www.secondluxuryitems.com/under-2000 — pieces averaging under $2,000',
-    ...brands.map(b => `- https://www.secondluxuryitems.com/${b.slug} — ${b.brand} prices (${b.count} models)`),
-    ...items.map(item => `- https://www.secondluxuryitems.com/${item.slug}`)
+    '## Median sold price by model (USD)',
+    ...models.map(m => `- ${m.brand} ${m.name}: ${m.resale.median} (n=${m.resale.n})${m.retention != null ? `, ${m.retention}% of US retail` : ''} — ${valueUrl(m.slug)}`),
   ]
-  return new NextResponse(lines.join('\n'), {
-    headers: { 'Content-Type': 'text/plain; charset=utf-8' }
-  })
+  return new NextResponse(lines.join('\n'), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
 }

@@ -7,8 +7,8 @@ export default function NotFound() {
       <p className="text-gray-600 mb-6">This page doesn&apos;t exist yet.</p>
       <div className="flex gap-4 justify-center">
         <Link href="/" className="bg-black text-white px-6 py-2.5 rounded text-sm font-medium">Home</Link>
-        <Link href="/handbags" className="border border-gray-300 px-6 py-2.5 rounded text-sm">Handbags</Link>
-        <Link href="/watches" className="border border-gray-300 px-6 py-2.5 rounded text-sm">Watches</Link>
+        <Link href="/calculator/resale-value" className="border border-gray-300 px-6 py-2.5 rounded text-sm">Resale calculator</Link>
+        <Link href="/checklist/authenticity" className="border border-gray-300 px-6 py-2.5 rounded text-sm">Authenticity checklist</Link>
       </div>
     </div>
   )

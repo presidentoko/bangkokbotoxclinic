@@ -2,30 +2,25 @@ import type { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
 import Link from 'next/link'
 import './globals.css'
-import { SiteSearch } from '@/components/SiteSearch'
 import { EmailCapture } from '@/components/EmailCapture'
 import { MobileMenu } from '@/components/MobileMenu'
-import { getSearchIndex } from '@/lib/data'
 
+// Tools only. The price catalogue this domain used to duplicate lives on
+// chicpreowned.com; this site is the calculators that run on its data.
 const NAV_LINKS = [
-  { href: '/handbags', label: 'Handbags' },
-  { href: '/watches', label: 'Watches' },
-  { href: '/shoes', label: 'Shoes' },
-  { href: '/jewelry', label: 'Jewelry' },
-  { href: '/belts', label: 'Belts' },
-  { href: '/scarves', label: 'Scarves' },
-  { href: '/value-guide', label: 'Value Guide' },
-  { href: '/brands', label: 'Brands' },
-  { href: '/guides', label: 'Guides' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/calculator/resale-value', label: 'Resale Value' },
+  { href: '/calculator/retail-vs-resale', label: 'New vs Used' },
+  { href: '/calculator/depreciation', label: 'Worth Now' },
+  { href: '/checklist/authenticity', label: 'Authenticity' },
+  { href: '/sizes/chanel', label: 'Sizes' },
 ]
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
 
 export const metadata: Metadata = {
-  title: 'Second Luxury Items — Pre-Owned Luxury Price Guide',
-  description: 'Find the real price of pre-owned Chanel, Louis Vuitton, Rolex and more. Compare second-hand luxury prices updated weekly.',
+  title: 'Second Luxury Items — Designer Resale Calculators & Checklists',
+  description: 'Free tools for buying and selling pre-owned designer bags: resale value calculator, new vs pre-owned cost calculator, authenticity checklist and size guides, from real sale prices.',
   metadataBase: new URL('https://www.secondluxuryitems.com'),
   manifest: '/manifest.webmanifest',
   openGraph: {
@@ -47,7 +42,6 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const searchIndex = getSearchIndex()
   return (
     <html lang="en">
       <body className={`${inter.variable} ${playfair.variable} font-sans bg-[#FAFAF9] text-[#1A1A1A]`}>
@@ -56,7 +50,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="font-serif text-xl tracking-wider text-[#1A1A1A] shrink-0" style={{ fontFamily: 'var(--font-playfair)' }}>
               Second Luxury Items
             </Link>
-            <SiteSearch items={searchIndex} />
             <nav className="hidden md:flex gap-6 text-sm text-[#6B6052] items-center tracking-wide uppercase shrink-0">
               {NAV_LINKS.map(link => (
                 <Link key={link.href} href={link.href} className="hover:text-[#1A1A1A] transition-colors">
@@ -74,11 +67,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="border-t border-[#E8E2D9] mt-16">
           <div className="max-w-5xl mx-auto px-6 py-6 text-sm text-[#6B6052]">
             <div className="flex flex-wrap gap-x-6 gap-y-2 mb-4 uppercase tracking-wide text-xs">
-              <Link href="/guides" className="hover:text-[#1A1A1A] transition-colors">Guides & Care</Link>
-              <Link href="/compare" className="hover:text-[#1A1A1A] transition-colors">Brand Comparisons</Link>
-              <Link href="/trends" className="hover:text-[#1A1A1A] transition-colors">Market Trends</Link>
+              {NAV_LINKS.map(l => (
+                <Link key={l.href} href={l.href} className="hover:text-[#1A1A1A] transition-colors">{l.label}</Link>
+              ))}
+              <Link href="/contact" className="hover:text-[#1A1A1A] transition-colors">Contact</Link>
+              <a href="https://www.chicpreowned.com/en/value" className="hover:text-[#1A1A1A] transition-colors">Resale value database ↗</a>
             </div>
-            <p>Prices are estimates based on recent market data. Always verify current listings before purchasing.</p>
+            <p>Figures are medians of real sold listings, from the <a className="underline" href="https://www.chicpreowned.com/en/value">chicpreowned.com resale value database</a>. Not an offer to buy or sell.</p>
             <p className="mt-1">© {new Date().getFullYear()} SecondLuxuryItems.com</p>
           </div>
         </footer>

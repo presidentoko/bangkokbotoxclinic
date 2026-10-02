@@ -93,7 +93,7 @@ export default async function ThaiLuxuryMarket2025({ params }: Props) {
         <Link href={`/${locale}/market-overview`} className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">
           {isEn ? 'Market Overview →' : 'ภาพรวมตลาด →'}
         </Link>
-        <Link href={`/${locale}/value-guide`} className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">
+        <Link href={`/${locale}/index/value-retention`} className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">
           {isEn ? 'Value Guide →' : 'คู่มือมูลค่า →'}
         </Link>
       </div>

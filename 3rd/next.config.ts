@@ -50,6 +50,22 @@ const config: NextConfig = {
         destination: 'https://www.chicpreowned.com/:path*',
         permanent: true,
       },
+      // An old build slugged "Van Cleef & Arpels" with the ampersand's space
+      // left in — `van-cleef--arpels`. Google still has both locales on file
+      // as 404s.
+      // The old retention table ranked models against retail prices nobody
+      // had sourced. The index that replaced it says where every number
+      // comes from.
+      {
+        source: '/:locale(en|th)/value-guide',
+        destination: '/:locale/index/value-retention',
+        permanent: true,
+      },
+      {
+        source: '/:locale(en|th)/van-cleef--arpels/:rest*',
+        destination: '/:locale/van-cleef-arpels/:rest*',
+        permanent: true,
+      },
     ]
   },
 }

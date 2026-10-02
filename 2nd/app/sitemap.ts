@@ -1,218 +1,25 @@
 import { MetadataRoute } from 'next'
-import { getAllItems, getAllBrands } from '@/lib/data'
+import { DATA_DATE } from '@/lib/value'
+import { CHECKLIST_BRANDS } from '@/lib/checklists'
+import { SIZE_BRANDS } from '@/lib/sizes'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
-/** Newest price date in the dataset. Used as `lastmod` instead of the build
- * date: stamping every URL with "now" on each deploy makes lastmod noise, and
- * crawlers learn to ignore it. This changes only when the prices actually do. */
-const TODAY = getAllItems()
-  .map(i => i.last_updated)
-  .filter(Boolean)
-  .sort()
-  .pop() ?? new Date().toISOString().split('T')[0]
-
+/**
+ * Tools only. Every catalogue URL this domain used to list now redirects to
+ * chicpreowned.com (see data/legacy_redirects.json); listing a redirect here
+ * would ask Google to crawl a page that isn't one.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const items = getAllItems()
-  const brands = getAllBrands()
-
-  const staticRoutes: MetadataRoute.Sitemap = [
-    { url: BASE, lastModified: TODAY, changeFrequency: 'weekly', priority: 1.0 },
-    { url: `${BASE}/handbags`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE}/watches`,  lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE}/shoes`,    lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${BASE}/jewelry`,  lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${BASE}/belts`,    lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${BASE}/scarves`,  lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${BASE}/small-leather-goods`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${BASE}/brands`,   lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${BASE}/under-500`,  lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE}/under-1000`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE}/under-2000`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE}/guides/first-luxury-bag`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/guides/how-to-authenticate-chanel`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/guides/how-to-authenticate-louis-vuitton`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/guides/luxury-condition-guide`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/guides/lv-speedy-size-guide`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/compare/chanel-vs-louis-vuitton`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/compare/chanel-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/compare/rolex-vs-omega`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/compare/louis-vuitton-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/compare/hermes-vs-chanel`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/compare/cartier-vs-tiffany`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/compare/rolex-vs-patek-philippe`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/guides/luxury-gift-guide-under-500`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/guides/luxury-gift-guide-under-1000`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/trends/quiet-luxury-bags-2025`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/trends/y2k-luxury-bags-2025`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/guides/how-to-care-for-luxury-bags`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/guides/how-to-authenticate-gucci`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/guides/how-to-authenticate-hermes`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/guides/how-to-authenticate-cartier`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/guides/most-iconic-bags-to-buy-used`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/guides/best-pre-owned-watches-for-beginners`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/guides/best-bags-for-travel`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/guides/best-bags-for-work`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/brands/dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/prada`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/dior-vs-chanel`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/prada-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/bottega-veneta-vs-loewe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/celine-vs-saint-laurent`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/value-guide`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE}/market-overview`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE}/brands/hermes`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/louis-vuitton`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/luxury-bags-as-investments`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/where-to-sell-luxury-bags`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/how-to-spot-fake-luxury-bags`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/lv-vs-goyard`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/hermes-vs-bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/chanel`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/brands/saint-laurent`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/cartier`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/rolex`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/brands/omega`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/patek-philippe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/cartier-vs-van-cleef`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/rolex-vs-audemars-piguet`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/saint-laurent-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/audemars-piguet`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/fendi`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/loewe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/chanel-vs-dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/hermes-vs-louis-vuitton`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/balenciaga`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/valentino`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/best-pre-owned-watches-under-5000`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/luxury-jewelry-buying-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/balenciaga-vs-valentino`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/trends/most-valuable-pre-owned-bags-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/hermes-bag-size-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/balenciaga-vs-valentino`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/chanel-bag-size-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/omega-vs-tag-heuer`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/rolex-reference-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/lv-monogram-vs-damier`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/fendi-vs-loewe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/trends/best-luxury-bags-to-gift-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/chanel-price-history`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/cartier-vs-bulgari`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/dior-vs-louis-vuitton`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/how-to-authenticate-dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/saint-laurent-vs-dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/miu-miu`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/how-to-authenticate-rolex`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/trends/luxury-bags-above-retail`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/chanel-vs-bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/pre-owned-vs-new-luxury`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/prada-vs-miu-miu`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/hermes-birkin-vs-kelly`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/ap-vs-patek-philippe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/lv-neverfull-size-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/trends/resale-value-drops-to-avoid`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/dior-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/bulgari`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/chanel-classic-vs-boy`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/brands/van-cleef`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/gucci-dionysus-vs-marmont`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/lv-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/trends/quiet-luxury-watch-brands-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/how-to-authenticate-bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/goyard`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/hermes-vs-goyard`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/omega-seamaster-buying-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/brands/givenchy`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/saint-laurent-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/patek-philippe-nautilus-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/chanel-vs-saint-laurent`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/brands/tag-heuer`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/cartier-love-bracelet-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/trends/chanel-price-increase-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/guides/how-to-buy-pre-owned-luxury-online`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/fendi-vs-dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/rolex-submariner-buying-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/trends/hermes-birkin-waitlist-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/guides/how-to-authenticate-prada`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/gucci-vs-bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/hermes-vs-dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/guides/how-to-authenticate-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/lv-vs-prada`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/chanel-mini-vs-small-flap`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/chanel-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/how-to-authenticate-saint-laurent`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/trends/luxury-resale-platforms-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/dior-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/trends/louis-vuitton-price-increase-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/prada-vs-bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/how-to-authenticate-balenciaga`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/best-luxury-bags-under-3000`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/rolex-vs-cartier`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/how-to-authenticate-van-cleef`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/trends/dior-saddle-bag-comeback-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/kelly-vs-birkin`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/tiffany-vs-van-cleef`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/loewe-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/chanel-classic-flap-vs-2-55`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/omega-vs-iwc`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/trends/hermes-birkin-price-increase-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/guides/lv-neverfull-vs-onthego`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/dior-vs-valentino`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/trends/phoebe-philo-effect-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/trends/best-luxury-bags-to-invest-2026`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/guides/how-to-authenticate-bulgari`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/fendi-vs-valentino`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/rolex-vs-tudor`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/how-to-authenticate-omega`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/trends/miu-miu-rise-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/jacquemus-vs-loewe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/how-to-authenticate-tag-heuer`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/trends/cartier-tank-vs-santos-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/trends/gen-z-luxury-trends-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/omega-seamaster-vs-constellation`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/lv-pochette-vs-felicie`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/bottega-veneta-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/chanel-19-vs-classic-flap`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/guides/how-to-authenticate-fendi`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/lv-speedy-vs-neverfull`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/saint-laurent-vs-valentino`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/lv-alma-vs-speedy`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/hermes-constance-vs-kelly`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/guides/how-to-authenticate-valentino`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/trends/rolex-daytona-investment-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/guides/how-to-authenticate-loewe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/guides/how-to-authenticate-miu-miu`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/compare/fendi-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${BASE}/trends/patek-philippe-nautilus-investment-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/compare/ap-royal-oak-vs-nautilus`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${BASE}/trends/chanel-bag-price-history-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
+  const at = DATA_DATE
+  return [
+    { url: BASE, lastModified: at, changeFrequency: 'monthly', priority: 1.0 },
+    { url: `${BASE}/calculator/resale-value`, lastModified: at, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE}/calculator/retail-vs-resale`, lastModified: at, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE}/calculator/depreciation`, lastModified: at, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE}/checklist/authenticity`, lastModified: at, changeFrequency: 'monthly', priority: 0.8 },
+    ...CHECKLIST_BRANDS.map(b => ({ url: `${BASE}/checklist/authenticity/${b}`, lastModified: at, changeFrequency: 'monthly' as const, priority: 0.8 })),
+    ...SIZE_BRANDS.map(b => ({ url: `${BASE}/sizes/${b}`, lastModified: at, changeFrequency: 'monthly' as const, priority: 0.7 })),
+    { url: `${BASE}/contact`, changeFrequency: 'yearly', priority: 0.2 },
   ]
-
-  const brandRoutes: MetadataRoute.Sitemap = brands.map(b => ({
-    url: `${BASE}/${b.slug}`,
-    lastModified: TODAY,
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }))
-
-  const modelRoutes: MetadataRoute.Sitemap = items.map(item => ({
-    url: `${BASE}/${item.slug}`,
-    lastModified: item.last_updated || TODAY,
-    changeFrequency: 'weekly' as const,
-    priority: 0.9,
-  }))
-
-  // The static list is hand-maintained and has picked up duplicates
-  // (e.g. /compare/balenciaga-vs-valentino was listed twice). A sitemap that
-  // repeats URLs is a quality signal against itself, so collapse by URL and
-  // keep the first entry for each.
-  const seen = new Set<string>()
-  return [...staticRoutes, ...brandRoutes, ...modelRoutes].filter(entry => {
-    if (seen.has(entry.url)) return false
-    seen.add(entry.url)
-    return true
-  })
 }

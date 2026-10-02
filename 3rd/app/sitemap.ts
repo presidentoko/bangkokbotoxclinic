@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next'
 import { getAllItems, getAllBrands, toBrandSlug } from '@/lib/data'
 import { STATIC_PAGES } from '@/lib/site-pages'
 import { getThaiEntry, getThaiMeta } from '@/lib/thai-market'
+import { getValueModels, getPairs, RANKING_KEYS, VALUE_GENERATED } from '@/lib/value'
 
 const BASE = 'https://www.chicpreowned.com'
 
@@ -88,6 +89,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
   for (const brand of sellBrands) {
     entries.push(...localizedEntries(`/sell/${brand}`, 'weekly', 0.7, generated))
+  }
+
+  // Resale value: the pages this domain now leads with. lastmod is the month's
+  // collection date — the only day these numbers change.
+  entries.push(...localizedEntries('/value', 'monthly', 1.0, VALUE_GENERATED))
+  for (const key of RANKING_KEYS) {
+    entries.push(...localizedEntries(`/index/${key}`, 'monthly', 1.0, VALUE_GENERATED))
+  }
+  for (const m of getValueModels()) {
+    entries.push(...localizedEntries(`/value/${m.slug}`, 'monthly', 0.9, m.generated))
+  }
+  for (const p of getPairs()) {
+    entries.push(...localizedEntries(`/value/compare/${p.slug}`, 'monthly', 0.6, VALUE_GENERATED))
   }
 
   const seen = new Set<string>()
