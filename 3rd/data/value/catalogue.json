@@ -1006,7 +1006,8 @@
   ],
   "exact_ids": [],
   "include": null,
-  "exclude": null
+  "exclude": null,
+  "broad": true
  },
  {
   "slug": "fendi-baguette-medium",
@@ -1435,7 +1436,8 @@
   ],
   "exact_ids": [],
   "include": "wallet",
-  "exclude": null
+  "exclude": null,
+  "broad": true
  },
  {
   "slug": "hermes-evelyne-tpm",
@@ -2089,7 +2091,8 @@
   ],
   "exact_ids": [],
   "include": "wallet",
-  "exclude": null
+  "exclude": null,
+  "broad": true
  },
  {
   "slug": "marc-jacobs-the-snapshot-camera-bag",
@@ -2235,7 +2238,8 @@
   ],
   "exact_ids": [],
   "include": "\\bmedium\\b(?!\\s*(?:scratch|mark|stain|sign|spot|wear|crack|scuff|dent|discolou?r|tear|hole|imperfection|flaw|defect|patina|darkening|rubbing|bit|amount|detail)s?\\b)",
-  "exclude": "\\bjumbo\\b(?!\\s*(?:scratch|mark|stain|sign|spot|wear|crack|scuff|dent|discolou?r|tear|hole|imperfection|flaw|defect|patina|darkening|rubbing|bit|amount|detail)s?\\b)|\\blarge\\b(?!\\s*(?:scratch|mark|stain|sign|spot|wear|crack|scuff|dent|discolou?r|tear|hole|imperfection|flaw|defect|patina|darkening|rubbing|bit|amount|detail)s?\\b)|\\bmaxi\\b(?!\\s*(?:scratch|mark|stain|sign|spot|wear|crack|scuff|dent|discolou?r|tear|hole|imperfection|flaw|defect|patina|darkening|rubbing|bit|amount|detail)s?\\b)|\\bmicro\\b(?!\\s*(?:scratch|mark|stain|sign|spot|wear|crack|scuff|dent|discolou?r|tear|hole|imperfection|flaw|defect|patina|darkening|rubbing|bit|amount|detail)s?\\b)|\\bmini\\b(?!\\s*(?:scratch|mark|stain|sign|spot|wear|crack|scuff|dent|discolou?r|tear|hole|imperfection|flaw|defect|patina|darkening|rubbing|bit|amount|detail)s?\\b)|\\bnano\\b(?!\\s*(?:scratch|mark|stain|sign|spot|wear|crack|scuff|dent|discolou?r|tear|hole|imperfection|flaw|defect|patina|darkening|rubbing|bit|amount|detail)s?\\b)|\\bsmall\\b(?!\\s*(?:scratch|mark|stain|sign|spot|wear|crack|scuff|dent|discolou?r|tear|hole|imperfection|flaw|defect|patina|darkening|rubbing|bit|amount|detail)s?\\b)"
+  "exclude": "\\bjumbo\\b(?!\\s*(?:scratch|mark|stain|sign|spot|wear|crack|scuff|dent|discolou?r|tear|hole|imperfection|flaw|defect|patina|darkening|rubbing|bit|amount|detail)s?\\b)|\\blarge\\b(?!\\s*(?:scratch|mark|stain|sign|spot|wear|crack|scuff|dent|discolou?r|tear|hole|imperfection|flaw|defect|patina|darkening|rubbing|bit|amount|detail)s?\\b)|\\bmaxi\\b(?!\\s*(?:scratch|mark|stain|sign|spot|wear|crack|scuff|dent|discolou?r|tear|hole|imperfection|flaw|defect|patina|darkening|rubbing|bit|amount|detail)s?\\b)|\\bmicro\\b(?!\\s*(?:scratch|mark|stain|sign|spot|wear|crack|scuff|dent|discolou?r|tear|hole|imperfection|flaw|defect|patina|darkening|rubbing|bit|amount|detail)s?\\b)|\\bmini\\b(?!\\s*(?:scratch|mark|stain|sign|spot|wear|crack|scuff|dent|discolou?r|tear|hole|imperfection|flaw|defect|patina|darkening|rubbing|bit|amount|detail)s?\\b)|\\bnano\\b(?!\\s*(?:scratch|mark|stain|sign|spot|wear|crack|scuff|dent|discolou?r|tear|hole|imperfection|flaw|defect|patina|darkening|rubbing|bit|amount|detail)s?\\b)|\\bsmall\\b(?!\\s*(?:scratch|mark|stain|sign|spot|wear|crack|scuff|dent|discolou?r|tear|hole|imperfection|flaw|defect|patina|darkening|rubbing|bit|amount|detail)s?\\b)",
+  "broad": true
  },
  {
   "slug": "prada-galleria-small",
