@@ -39,19 +39,19 @@ export async function generateMetadata(): Promise<Metadata> {
     default: "Hair Transplant Thailand — Bangkok Clinics, FUE, DHI & Verified Reviews 2026",
     template: `%s — ${SITE.name}`,
   },
-  description: `Compare ${total}+ Bangkok hair transplant clinics. FUE from ฿65,000 · DHI from ฿85,000 · SMP from ฿15,000. Ranked by Trust Score from real Google + Bookimed + Reddit reviews. Save 50–70% vs Korea or UK.`,
+  description: `Compare ${total} hair transplant clinics in Bangkok, Phuket and Chiang Mai — FUE, DHI, SMP and PRP — ranked by Trust Score from each clinic's own Google reviews.`,
   openGraph: {
     type: "website",
     url: SITE.origin,
     siteName: SITE.name,
     title: "Hair Transplant Thailand — Bangkok Clinics, FUE, DHI & Verified Reviews 2026",
-    description: `Compare ${total}+ Bangkok hair transplant clinics. FUE from ฿65,000 · DHI from ฿85,000. Ranked by Trust Score.`,
+    description: `Compare ${total} hair transplant clinics in Thailand, ranked by Trust Score from real Google reviews.`,
     // images intentionally omitted — app/opengraph-image.tsx provides the default via Next's file convention
   },
   twitter: {
     card: "summary_large_image",
     title: "Hair Transplant Thailand — Bangkok Clinics, FUE, DHI & Verified Reviews 2026",
-    description: `${total}+ clinics · FUE from ฿65,000 · Trust Score ranked from real reviews.`,
+    description: `${total} clinics · Trust Score ranked from real Google reviews.`,
   },
   alternates: {
     canonical: SITE.origin,

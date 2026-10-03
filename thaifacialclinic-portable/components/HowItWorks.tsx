@@ -2,28 +2,28 @@ import type { Lang } from "@/lib/types";
 
 const STEPS: Record<Lang, { t: string; d: string; icon: string }[]> = {
   en: [
-    { t: "We scrape, you trust", d: "230 clinics across 6 sources. Real reviews only — never clinic-paid testimonials.", icon: "shield" },
-    { t: "Trust Score 0-100", d: "Weighted by source diversity, review volume, photo authenticity. One fake review can't game it.", icon: "ring" },
-    { t: "Compare in one click", d: "Filter suspected viral clinics. See real Reddit + Naver + Pantip patient voices side-by-side.", icon: "compare" },
+    { t: "We scrape, you trust", d: "Every clinic's Google reviews, read in full. Real reviews only — never clinic-paid testimonials.", icon: "shield" },
+    { t: "Trust Score 0-100", d: "Weighted by rating, review volume and the procedures a clinic actually offers. One fake review can't game it.", icon: "ring" },
+    { t: "Compare in one click", d: "Filter suspected viral clinics. Read what patients actually wrote, side by side.", icon: "compare" },
   ],
   ko: [
-    { t: "우린 수집, 당신은 검증", d: "230 클리닉 × 6 소스. 진짜 후기만, 클리닉이 돈 준 가짜 후기 ❌", icon: "shield" },
-    { t: "신뢰 점수 0-100", d: "소스 다양성 + 리뷰 볼륨 + 사진 진위로 가중. 가짜 후기 1개로는 점수 못 올림", icon: "ring" },
-    { t: "한 클릭 비교", d: "광고/바이럴 의심 클리닉 필터링. Reddit + Naver + 판팁 환자 목소리 한눈에", icon: "compare" },
+    { t: "우린 수집, 당신은 검증", d: "모든 클리닉의 구글 후기 원문을 끝까지 읽음. 진짜 후기만, 클리닉이 돈 준 가짜 후기 ❌", icon: "shield" },
+    { t: "신뢰 점수 0-100", d: "평점 + 리뷰 수 + 실제 제공 시술로 가중. 가짜 후기 1개로는 점수 못 올림", icon: "ring" },
+    { t: "한 클릭 비교", d: "광고/바이럴 의심 클리닉 필터링. 환자가 실제로 쓴 후기를 나란히 비교", icon: "compare" },
   ],
   th: [
-    { t: "เราเก็บ คุณเชื่อ", d: "230 คลินิก × 6 แหล่งข้อมูล รีวิวจริงเท่านั้น", icon: "shield" },
-    { t: "Trust Score 0-100", d: "ถ่วงน้ำหนักจากความหลากหลายของแหล่งข้อมูล", icon: "ring" },
+    { t: "เราเก็บ คุณเชื่อ", d: "อ่านรีวิว Google ของทุกคลินิกครบทุกรีวิว รีวิวจริงเท่านั้น", icon: "shield" },
+    { t: "Trust Score 0-100", d: "ถ่วงน้ำหนักจากคะแนน จำนวนรีวิว และหัตถการที่คลินิกมีจริง", icon: "ring" },
     { t: "เปรียบเทียบในคลิกเดียว", d: "กรองคลินิกที่มีพิรุธว่าเป็นไวรัล", icon: "compare" },
   ],
   zh: [
-    { t: "我们抓取，您信任", d: "230 家诊所 × 6 个来源。真实评价，无诊所付费证言。", icon: "shield" },
-    { t: "信任分数 0-100", d: "按来源多样性加权。1 条假评论无法操纵。", icon: "ring" },
-    { t: "一键对比", d: "过滤可疑水军诊所。查看 Reddit + Naver 真实患者声音。", icon: "compare" },
+    { t: "我们抓取，您信任", d: "完整阅读每家诊所的 Google 评价。真实评价，无诊所付费证言。", icon: "shield" },
+    { t: "信任分数 0-100", d: "按评分、评价数量与诊所实际提供的项目加权。1 条假评论无法操纵。", icon: "ring" },
+    { t: "一键对比", d: "过滤可疑水军诊所。并排阅读患者的真实评价。", icon: "compare" },
   ],
   ar: [
-    { t: "نحن نجمع، أنت تثق", d: "230 عيادة × 6 مصادر. تقييمات حقيقية فقط.", icon: "shield" },
-    { t: "درجة الثقة 0-100", d: "مرجحة بتنوع المصادر. تقييم مزيف واحد لن يخدع النظام.", icon: "ring" },
+    { t: "نحن نجمع، أنت تثق", d: "نقرأ جميع مراجعات Google لكل عيادة. تقييمات حقيقية فقط.", icon: "shield" },
+    { t: "درجة الثقة 0-100", d: "مرجحة بالتقييم وعدد المراجعات والإجراءات المقدمة فعلاً. تقييم مزيف واحد لن يخدع النظام.", icon: "ring" },
     { t: "قارن بنقرة واحدة", d: "صفّ العيادات المشتبه بها.", icon: "compare" },
   ],
 };

@@ -3,11 +3,11 @@ export type Faq = { q: string; a: string };
 export const HOME_FAQS: Faq[] = [
   {
     q: "How much does a hair transplant cost in Bangkok?",
-    a: "Bangkok hair transplant prices: FUE ฿65,000–150,000 for 2,000 grafts (฿35–80 per graft); DHI ฿85,000–200,000 for 2,000 grafts. Compare: Korea ฿200,000–400,000, US/UK $8,000–25,000 for the same procedure. Bangkok saves 50–70% with equivalent quality at accredited clinics.",
+    a: "Prices vary far more than any single figure suggests, so we do not publish a price table. Very few patients state in their Google reviews what they paid, and those who do range from tens of thousands to several hundred thousand baht — not enough to give a reliable average. Ask at least three clinics for a written quote that states the graft count, the technique, and who performs the extraction (a surgeon or a technician).",
   },
   {
     q: "What is the best hair transplant clinic in Bangkok?",
-    a: "The best Bangkok hair transplant clinic depends on your case. Look for Trust Score 80+ clinics with 200+ reviews, verified by real patients on Google, Bookimed, Reddit, and Naver. Clinics in Sukhumvit and Silom with dedicated hair transplant departments and before/after photo galleries tend to serve the highest volume of international medical tourists. Use our Trust Score ranking on this page — it aggregates real patient feedback across all platforms.",
+    a: "The best Bangkok hair transplant clinic depends on your case. Look for Trust Score 80+ clinics with 200+ reviews, on Google. Clinics in Sukhumvit and Silom with dedicated hair transplant departments and before/after photo galleries tend to serve the highest volume of international medical tourists. Use our Trust Score ranking on this page — it is built from each clinic's own Google reviews.",
   },
   {
     q: "What is the difference between FUE and DHI hair transplant?",
@@ -19,7 +19,7 @@ export const HOME_FAQS: Faq[] = [
   },
   {
     q: "Is hair transplant in Bangkok safe?",
-    a: "Yes, when choosing accredited clinics. Thailand's Medical Council licenses all hair transplant surgeons. Bangkok clinics listed in our directory are verified through public Google Maps and Bookimed listings. Trust Score 75+ clinics consistently receive positive reviews from international patients. Look for clinics with before/after photos, a dedicated surgeon (not technician-led), and documented graft count.",
+    a: "Yes, when choosing accredited clinics. Thailand's Medical Council licenses all hair transplant surgeons. Bangkok clinics listed in our directory are listed from public Google Maps data. Trust Score 75+ clinics consistently receive positive reviews from international patients. Look for clinics with before/after photos, a dedicated surgeon (not technician-led), and documented graft count.",
   },
   {
     q: "What is SMP (scalp micropigmentation) and how much does it cost in Bangkok?",
@@ -27,11 +27,11 @@ export const HOME_FAQS: Faq[] = [
   },
   {
     q: "Do Bangkok hair clinics speak English and Korean?",
-    a: "Yes — international hair clinics in Bangkok commonly offer English-speaking surgeons and coordinators. Korean-speaking coordinators are available at several Sukhumvit-area clinics catering to Korean medical tourists. Our clinic pages show review excerpts from Korean, English, Arabic, and Chinese-speaking patients. Filter by language in the directory.",
+    a: "Yes — international hair clinics in Bangkok commonly offer English-speaking surgeons and coordinators. Korean-speaking coordinators are available at several Sukhumvit-area clinics catering to Korean medical tourists. Each clinic page quotes its own reviews — read them for comments about English-speaking staff before you book.",
   },
   {
     q: "How is the Trust Score calculated?",
-    a: "Trust Score (0–100) combines: clinic Google rating (45% weight), review volume on a logarithmic scale (35%), Local Guide reviewer ratio (15%), and rating consistency over time (5%). Cross-validated against Bookimed, Reddit, Naver, and Pantip data. A Trust Score of 75+ means consistently positive, high-volume, credible reviews across multiple platforms — not just a single-source average.",
+    a: "Trust Score (0–100) is computed from each clinic's Google data: rating (up to 15 points), review volume on a logarithmic scale (15), the range of hair procedures it offers (10), whether it publishes real information on its own website, and whether it is genuinely a hair clinic (20). Clinics are never scored up for paying us, and a negative review is never removed.",
   },
 ];
 
@@ -39,7 +39,7 @@ export const PROCEDURE_FAQS: Record<string, Faq[]> = {
   fue: [
     {
       q: "How much does FUE hair transplant cost in Bangkok?",
-      a: "Bangkok FUE hair transplant: ฿65,000–150,000 for 2,000 grafts (฿35–80 per graft). Large cases (3,000–4,000 grafts): ฿90,000–200,000. Compare: South Korea ฿200,000–400,000, UK/US $8,000–25,000. Savings of 50–70% are typical at quality Bangkok clinics.",
+      a: "Prices vary far more than any single figure suggests, so we do not publish a price table. Very few patients state in their Google reviews what they paid, and those who do range from tens of thousands to several hundred thousand baht — not enough to give a reliable average. Ask at least three clinics for a written quote that states the graft count, the technique, and who performs the extraction (a surgeon or a technician).",
     },
     {
       q: "Is FUE or DHI better for hair transplant in Bangkok?",
@@ -53,7 +53,7 @@ export const PROCEDURE_FAQS: Record<string, Faq[]> = {
   dhi: [
     {
       q: "How much does DHI hair transplant cost in Bangkok?",
-      a: "Bangkok DHI: ฿85,000–200,000 for 2,000 grafts. DHI costs 30–50% more than FUE due to Choi pen tooling and longer procedure time. Compare: Korea $3,000–7,000, UK $8,000–15,000 for DHI. Bangkok saves 40–60%.",
+      a: "DHI is usually quoted higher than FUE for the same graft count because the Choi pen placement takes longer. We do not publish a price because too few patients state in their reviews what they paid. Get written quotes that name the graft count and who places the grafts.",
     },
     {
       q: "What are the advantages of DHI over FUE?",
@@ -63,7 +63,7 @@ export const PROCEDURE_FAQS: Record<string, Faq[]> = {
   smp: [
     {
       q: "How much does SMP cost in Bangkok?",
-      a: "Bangkok SMP: ฿15,000–50,000 per session (2–3 sessions for full scalp coverage). Total cost for complete SMP: ฿40,000–120,000. Compare: UK/US $3,000–8,000 per session. Bangkok saves 50–70%.",
+      a: "SMP is priced per session and a full scalp usually takes 2–3 sessions, so compare the total, not the per-session figure. We do not publish a price because too few patients state in their reviews what they paid.",
     },
     {
       q: "How long does SMP last?",
@@ -73,19 +73,19 @@ export const PROCEDURE_FAQS: Record<string, Faq[]> = {
   prp: [
     {
       q: "How much does PRP hair treatment cost in Bangkok?",
-      a: "PRP (Platelet-Rich Plasma) in Bangkok: ฿5,000–15,000 per session. Typical protocol: 3–6 monthly sessions, then maintenance every 6–12 months. Package deals (3 sessions): ฿12,000–35,000. Compare: US $500–2,000 per session.",
+      a: "PRP is usually sold as a course of 3–6 monthly sessions, then maintenance every 6–12 months, so compare the price of the full course. We do not publish a price because too few patients state in their reviews what they paid.",
     },
   ],
   beard: [
     {
       q: "How much does beard transplant cost in Bangkok?",
-      a: "Bangkok beard transplant: ฿50,000–120,000 for 1,000–2,000 grafts. Compare: Turkey ฿60,000–100,000, UK/US $4,000–8,000. Same FUE/DHI technique as scalp hair, using donor hair from the back of the head.",
+      a: "A beard transplant uses the same FUE or DHI technique as the scalp, with donor hair from the back of the head, and is priced by graft count. We do not publish a price because too few patients state in their reviews what they paid.",
     },
   ],
   eyebrow: [
     {
       q: "How much does eyebrow transplant cost in Bangkok?",
-      a: "Bangkok eyebrow transplant: ฿35,000–80,000 for 200–500 grafts. One of the most technically demanding procedures — precision and angle control critical. Choose clinics with documented eyebrow transplant before/after photos.",
+      a: "An eyebrow transplant usually needs 200–500 grafts and is one of the most demanding procedures — precision and angle control decide the result. Ask to see the clinic's own eyebrow cases before you book. We do not publish a price because too few patients state in their reviews what they paid.",
     },
   ],
 };

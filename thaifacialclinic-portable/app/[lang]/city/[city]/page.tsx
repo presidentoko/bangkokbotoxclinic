@@ -42,7 +42,7 @@ export async function generateMetadata({
   // 도시 소개문은 영어 전용 — 비영어는 en 으로 canonical 수렴 (guide/c 패턴과 동일)
   const canonicalUrl = lang === "en" ? url : `${SITE.origin}/en/city/${citySlug}/`;
   const title = `Hair Transplant ${cityName} — ${count} Verified Clinics, FUE & DHI 2026`;
-  const description = `Compare ${count} verified hair transplant clinics in ${cityName}, Thailand. Trust Score ranked from real Google, Bookimed, Reddit & Naver reviews. Free consultation.`;
+  const description = `Compare ${count} hair transplant clinics in ${cityName}, Thailand, ranked by Trust Score from each clinic's own Google reviews.`;
   return {
     title,
     description,
@@ -73,15 +73,15 @@ export default async function CityPage({
   const faqs = [
     {
       q: `How many hair transplant clinics are in ${cityName}?`,
-      a: `We've verified ${sorted.length} hair transplant clinics in ${cityName} through Google, Bookimed, Reddit and Naver review analysis. Each is ranked by Trust Score, not paid placement.`,
+      a: `We list ${sorted.length} hair transplant clinics in ${cityName}, each ranked by Trust Score from its own Google reviews.`,
     },
     {
       q: `What does a hair transplant cost in ${cityName}?`,
-      a: `FUE typically starts from ฿65,000, DHI from ฿85,000, and SMP from ฿15,000 in Thailand — 50–70% less than Korea, the UK, or the US for comparable technique and surgeon experience.`,
+      a: `Prices vary widely by graft count, technique and who performs the extraction. Too few patients state in their reviews what they paid for us to publish a reliable figure — ask several ${cityName} clinics for written quotes.`,
     },
     {
       q: `Is ${cityName} good for medical tourism hair transplants?`,
-      a: `Thailand is a top-3 global destination for hair restoration tourism, combining JCI-accredited clinics, English-speaking coordinators, and recovery-friendly travel infrastructure.`,
+      a: `Many international patients travel to Thailand for hair restoration. Check each clinic's reviews for comments from foreign patients and about English-speaking staff before you book.`,
     },
   ];
 
@@ -149,7 +149,7 @@ export default async function CityPage({
                 <span className="text-gold-300">{cityName}</span>
               </h1>
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-navy-100 sm:text-lg">
-                {sorted.length} clinics in {cityName} · Sorted by Trust Score from real Google, Bookimed, Reddit &amp; Naver reviews.
+                {sorted.length} clinics in {cityName} · Sorted by Trust Score from each clinic&apos;s own Google reviews.
                 {prices.length > 0 && <> Prices from {prices[0]}.</>}
               </p>
             </div>

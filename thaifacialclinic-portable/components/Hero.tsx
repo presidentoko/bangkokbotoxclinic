@@ -5,11 +5,11 @@ import Image from "next/image";
 import LiveTicker from "./LiveTicker";
 
 const SUB: Record<Lang, string> = {
-  en: "Six independent data sources verify every hair-transplant clinic in Thailand. Real reviews. Real before-after photos. Real Trust Scores.",
-  ko: "태국 모발이식 클리닉 6개 출처 통합 검증. 진짜 후기. 진짜 비포애프터 사진. 진짜 신뢰 점수.",
-  th: "เรารวบรวมข้อมูลจาก 6 แหล่งอิสระเพื่อยืนยันคลินิกปลูกผมทุกแห่งในไทย",
-  zh: "整合 6 个独立数据源验证泰国每一家植发诊所。真实评价、真实对比照片、真实信任评分。",
-  ar: "نتحقق من كل عيادة زراعة شعر في تايلاند عبر 6 مصادر مستقلة.",
+  en: "Every clinic ranked from what its own patients wrote on Google. No clinic can pay to change its score or hide a review.",
+  ko: "모든 클리닉을 그 클리닉 환자들이 구글에 직접 남긴 후기로 평가합니다. 어떤 클리닉도 돈으로 점수를 바꾸거나 후기를 숨길 수 없습니다.",
+  th: "จัดอันดับทุกคลินิกจากรีวิว Google ที่คนไข้เขียนเอง ไม่มีคลินิกไหนจ่ายเงินเพื่อเปลี่ยนคะแนนหรือซ่อนรีวิวได้",
+  zh: "每家诊所都依据其患者在 Google 上亲自留下的评价排名。任何诊所都无法付费改分或隐藏评价。",
+  ar: "نرتّب كل عيادة بناءً على ما كتبه مرضاها بأنفسهم على Google. لا يمكن لأي عيادة الدفع لتغيير تقييمها أو إخفاء مراجعة.",
 };
 
 const CTA_PRIMARY: Record<Lang, string> = {
@@ -52,14 +52,14 @@ export default function Hero({
           <div className="flex flex-wrap items-center gap-2">
             <div className="inline-flex items-center gap-2 rounded-full border border-gold-400/30 bg-gold-400/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-gold-300">
               <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-gold-400" />
-              6 sources · {total} verified · trust {avgTrust}/100
+              {total} clinics · Google reviews · avg trust {avgTrust}/100
             </div>
             <LiveTicker />
           </div>
 
           <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] tracking-tighter-display sm:text-5xl lg:text-[3.6rem]">
-            <span className="block text-white">Thailand's verified</span>
-            <span className="block text-gold-300">hair-transplant directory</span>
+            <span className="block text-white">Hair transplant clinics in Thailand,</span>
+            <span className="block text-gold-300">ranked by real patient reviews</span>
           </h1>
           <p className="mt-3 text-sm font-bold uppercase tracking-[0.2em] text-gold-400/80">
             By Thai Facial Clinic <span className="opacity-50 mx-1">·</span> Hair · Botox · Filler · HIFU group
@@ -83,7 +83,7 @@ export default function Hero({
           <div className="mt-10 space-y-3">
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-navy-200/80">
               <span className="font-semibold uppercase tracking-wider text-[10px]">Data from</span>
-              {["Google", "Bookimed", "Reddit", "Naver", "YouTube", "Pantip"].map((s) => (
+              {["Google Maps reviews"].map((s) => (
                 <span key={s} className="font-bold text-white/90">{s}</span>
               ))}
             </div>

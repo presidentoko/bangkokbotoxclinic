@@ -34,7 +34,7 @@ export default function FeaturedClinics({ clinics, lang }: { clinics: Clinic[]; 
           <p className="mt-1 text-sm muted">{SUB[lang]}</p>
         </div>
         <Link href="#directory" className="text-sm font-bold text-navy-700 dark:text-gold-400 hover:underline">
-          View all 230 clinics →
+          View all clinics →
         </Link>
       </div>
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">

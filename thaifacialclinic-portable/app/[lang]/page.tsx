@@ -12,13 +12,11 @@ import SocialProof from "@/components/SocialProof";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
 import DirectoryClient from "@/components/DirectoryClient";
 import TestimonialMarquee from "@/components/TestimonialMarquee";
-import PressStrip from "@/components/PressStrip";
 import CuratedCollections from "@/components/CuratedCollections";
 import PhotoShowcase from "@/components/PhotoShowcase";
 import ProcedureExplainer from "@/components/ProcedureExplainer";
 import WhyUs from "@/components/WhyUs";
 import AfterSubmitFlow from "@/components/AfterSubmitFlow";
-import CostCalculator from "@/components/CostCalculator";
 import CompareBar from "@/components/CompareBar";
 import NewsletterSignup from "@/components/NewsletterSignup";
 
@@ -194,11 +192,9 @@ export default async function Page({ params }: { params: Promise<{ lang: Lang }>
         <Header lang={lang} />
         <main className="space-y-20 pt-4">
           <Hero lang={lang} total={total} avgTrust={avg_trust} photoClinics={heroPhotos} />
-          <PressStrip />
           <WhyUs lang={lang} />
           <HowItWorks lang={lang} />
           <FeaturedClinics clinics={slimClinics} lang={lang} />
-          <CostCalculator lang={lang} />
           <PhotoShowcase clinics={slimClinics} lang={lang} />
           <ProcedureExplainer lang={lang} />
           <CuratedCollections clinics={slimClinics} lang={lang} />

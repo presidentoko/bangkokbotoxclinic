@@ -23,7 +23,7 @@ export default function TermsPage() {
         <section>
           <h2 className="font-display text-xl font-bold">What this site is</h2>
           <p className="mt-2 muted">
-            {SITE.name} is an independent directory of hair-transplant clinics in Thailand. We aggregate public data (Google, Bookimed, Reddit, Naver, YouTube, Pantip) into a single Trust Score per clinic.
+            {SITE.name} is an independent directory of hair-transplant clinics in Thailand. Each clinic's Trust Score is computed from its own public Google reviews. Our guides also link patient discussions from Reddit, Pantip and Naver.
           </p>
         </section>
 

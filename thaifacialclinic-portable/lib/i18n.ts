@@ -12,11 +12,11 @@ export const SITE = {
   parentName: "Thai Facial Clinic Group",
   parentSubtext: "Also covering botox · filler · HIFU at our group sites",
   tagline: {
-    en: "Real reviews. Real photos. Real clinics. No paid viral.",
-    ko: "진짜 후기. 진짜 사진. 진짜 클리닉. 광고 거품 없음.",
-    th: "รีวิวจริง รูปจริง คลินิกจริง ไม่มีไวรัลแบบเสียเงิน",
-    zh: "真实评价。真实照片。真实诊所。无付费水军。",
-    ar: "تقييمات حقيقية. صور حقيقية. عيادات حقيقية. بدون دعاية مدفوعة.",
+    en: "Real reviews. Real clinics. No paid viral.",
+    ko: "진짜 후기. 진짜 클리닉. 광고 거품 없음.",
+    th: "รีวิวจริง คลินิกจริง ไม่มีไวรัลแบบเสียเงิน",
+    zh: "真实评价。真实诊所。无付费水军。",
+    ar: "تقييمات حقيقية. عيادات حقيقية. بدون دعاية مدفوعة.",
   },
 } as const;
 

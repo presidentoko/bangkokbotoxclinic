@@ -6,7 +6,7 @@ const COPY: Record<Lang, { eyebrow: string; title: string; sub: string; items: {
     title: "What other directories won't admit",
     sub: "Hair-transplant decisions are too important for paid-placement directories. Here's what makes us different.",
     items: [
-      { good: "We aggregate 6 independent data sources (Google, Bookimed, Reddit, Naver, YouTube, Pantip)", bad: "Most directories show only what clinics tell them" },
+      { good: "Every score is built from the clinic's own Google reviews — we quote patients, we never write for them", bad: "Most directories show only what clinics tell them" },
       { good: "We can NOT delete or hide bad reviews — even for paying partners", bad: "Other sites bury negative reviews for advertisers" },
       { good: "Suspected viral-marketing clinics get flagged (visible only via opt-in toggle)", bad: "Other sites give viral clinics the same trust as legit ones" },
       { good: "Trust Score is a transparent formula you can audit", bad: "Other 'top-rated' lists are opaque pay-to-play" },
@@ -18,7 +18,7 @@ const COPY: Record<Lang, { eyebrow: string; title: string; sub: string; items: {
     title: "다른 디렉토리가 인정 안 하는 것",
     sub: "모발이식 결정은 광고비 받는 디렉토리에 맡기기엔 너무 중요함. 이게 우리의 차이.",
     items: [
-      { good: "6개 독립 출처 통합 (Google · Bookimed · Reddit · Naver · YouTube · Pantip)", bad: "다른 디렉토리는 클리닉이 제공한 정보만 표시" },
+      { good: "모든 점수는 그 클리닉의 실제 구글 후기로 계산 — 환자 말을 인용할 뿐 대신 쓰지 않음", bad: "다른 디렉토리는 클리닉이 제공한 정보만 표시" },
       { good: "부정 리뷰 삭제/숨기기 ❌ — 결제한 파트너도 마찬가지", bad: "다른 사이트는 광고주의 부정 리뷰를 묻어버림" },
       { good: "바이럴 마케팅 의심 클리닉 자동 플래그 (옵션 토글 시 표시)", bad: "다른 사이트는 바이럴 클리닉도 같은 신뢰도 부여" },
       { good: "신뢰 점수는 투명한 공식 — 검증 가능", bad: "다른 'TOP 추천' 은 광고비 기반 블랙박스" },
@@ -30,7 +30,7 @@ const COPY: Record<Lang, { eyebrow: string; title: string; sub: string; items: {
     title: "สิ่งที่ไดเรกทอรีอื่นไม่ยอมพูด",
     sub: "การตัดสินใจปลูกผมสำคัญเกินกว่าจะฝากให้ไดเรกทอรีที่รับโฆษณา",
     items: [
-      { good: "รวมข้อมูลจาก 6 แหล่งอิสระ", bad: "ที่อื่นแสดงเฉพาะข้อมูลจากคลินิกเท่านั้น" },
+      { good: "ทุกคะแนนคำนวณจากรีวิว Google จริงของคลินิกนั้น", bad: "ที่อื่นแสดงเฉพาะข้อมูลจากคลินิกเท่านั้น" },
       { good: "ไม่ลบรีวิวลบ ไม่ว่าจะเป็นพาร์ตเนอร์", bad: "ที่อื่นซ่อนรีวิวลบให้ผู้โฆษณา" },
       { good: "ระบุคลินิกที่สงสัยว่าใช้ไวรัล", bad: "ที่อื่นให้ความน่าเชื่อถือเท่ากัน" },
       { good: "คะแนนความน่าเชื่อถือเป็นสูตรโปร่งใส", bad: "TOP-rated lists อื่นๆ เป็น pay-to-play" },
@@ -42,7 +42,7 @@ const COPY: Record<Lang, { eyebrow: string; title: string; sub: string; items: {
     title: "其他目录不会承认的事",
     sub: "植发决定不能依赖收取广告费的目录。",
     items: [
-      { good: "整合 6 个独立来源", bad: "其他只显示诊所提供的信息" },
+      { good: "每个分数都来自该诊所真实的 Google 评价", bad: "其他只显示诊所提供的信息" },
       { good: "不删除负面评论 — 即使是付费合作伙伴", bad: "其他网站为广告商埋葬差评" },
       { good: "标记疑似水军诊所", bad: "其他网站给予同样信任" },
       { good: "信任分数公式透明", bad: "其他 TOP 榜单是黑箱付费" },
@@ -54,7 +54,7 @@ const COPY: Record<Lang, { eyebrow: string; title: string; sub: string; items: {
     title: "ما لا تعترف به الأدلة الأخرى",
     sub: "قرار زراعة الشعر مهم جداً للاعتماد على أدلة مدفوعة.",
     items: [
-      { good: "نجمع من 6 مصادر مستقلة", bad: "الأدلة الأخرى تعرض فقط ما تقوله العيادات" },
+      { good: "كل درجة محسوبة من مراجعات Google الحقيقية للعيادة", bad: "الأدلة الأخرى تعرض فقط ما تقوله العيادات" },
       { good: "لا نحذف التقييمات السلبية", bad: "المواقع الأخرى تخفي التقييمات السلبية للمعلنين" },
       { good: "نضع علامة على العيادات الفيروسية المشبوهة", bad: "المواقع الأخرى تمنحها نفس الثقة" },
       { good: "درجة الثقة معادلة شفافة", bad: "قوائم 'الأعلى تقييماً' الأخرى مدفوعة" },

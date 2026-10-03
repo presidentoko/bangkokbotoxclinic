@@ -81,11 +81,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
   const thName = PROC_TH[procedure];
   const isTh = lang === "th" && !!thName;
   const title = isTh
-    ? `${thName} ในไทย — ${count} คลินิก ${PRICE_TH[procedure] ?? proc.priceHint}`
-    : `${proc.name} in Thailand — ${count} Verified Clinics, ${proc.priceHint}`;
+    ? `${thName} ในไทย — เปรียบเทียบ ${count} คลินิกจากรีวิวจริง`
+    : `${proc.name} in Thailand — ${count} Clinics Ranked by Real Reviews`;
   const description = isTh
-    ? `เปรียบเทียบคลินิก${thName} ${count} แห่งในกรุงเทพฯ และทั่วไทย ${PRICE_TH[procedure] ?? proc.priceHint} จัดอันดับด้วยคะแนนความน่าเชื่อถือจากรีวิวจริง`
-    : `Compare ${count} verified ${proc.name} clinics in Bangkok & Thailand. ${proc.priceHint}. Trust Score ranked from real Google + Bookimed + Reddit + Naver reviews. Free consultation.`;
+    ? `เปรียบเทียบคลินิก${thName} ${count} แห่งในกรุงเทพฯ และทั่วไทย จัดอันดับด้วยคะแนนความน่าเชื่อถือจากรีวิว Google จริงของแต่ละคลินิก`
+    : `Compare ${count} ${proc.name} clinics in Bangkok & Thailand, ranked by Trust Score from each clinic's own Google reviews.`;
   return {
     title,
     description,
@@ -202,7 +202,7 @@ export default async function ProcedurePage({
                 <span className="text-gold-300">in Bangkok</span>
               </h1>
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-navy-100 sm:text-lg">
-                {sorted.length} clinics · <strong className="text-gold-200">{proc.priceHint}</strong> · Sorted by Trust Score from real Google, Bookimed, Reddit, Naver &amp; Pantip reviews.
+                {sorted.length} clinics · Sorted by Trust Score from each clinic&apos;s own Google reviews.
               </p>
             </div>
           </header>

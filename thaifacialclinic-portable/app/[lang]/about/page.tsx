@@ -44,7 +44,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: La
             Independent hair-transplant directory for Thailand
           </h1>
           <p className="mt-3 text-base text-[rgb(var(--muted))] leading-relaxed">
-            We aggregate Google Maps, Bookimed, Reddit, Naver, YouTube, Pantip across 230+ Thai hair clinics. Every clinic ranked by our public Trust Score formula — never by who paid us.
+            Every clinic is ranked from its own Google reviews by a published Trust Score formula. Payment never changes a clinic's score or removes a review; partner clinics that pay us are labelled as partners.
           </p>
         </header>
 
@@ -83,7 +83,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: La
             Bangkok has hundreds of hair-transplant clinics. Korean YouTubers, Saudi influencers, and Singapore tourists all fly here for procedures that cost 1/3 of their home country. But the existing &quot;top 10&quot; lists are pay-to-play. Negative reviews vanish. Clinics buy 5-star reviews in bulk.
           </p>
           <p>
-            <strong>{SITE.name}</strong> aggregates real data from sources clinics can&apos;t edit — Google, Reddit, Naver, Pantip, YouTube, Bookimed. We compute a Trust Score from the actual review pattern. Clinics earn placement priority by passing verification, never by paying us to hide things.
+            <strong>{SITE.name}</strong> ranks clinics from data they can&apos;t edit — their own Google reviews — and links real patient discussions from Reddit, Pantip and Naver in its guides. A small number of partner clinics pay us and may be shown first, always labelled as partners; no clinic can pay to raise its Trust Score or hide a review.
           </p>
           <p className="text-sm text-[rgb(var(--muted))]">
             {SITE.parentSubtext}

@@ -132,7 +132,7 @@ export default function ForClinicsPage() {
               Thailand's most credible<br className="hidden sm:block" /> hair-transplant directory.
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-navy-100 sm:text-lg">
-              Six independent sources verify every clinic. Patients trust the data because we don't accept money to bury bad reviews. You get inbound consults from people who already chose you on merit.
+              Every clinic is ranked from its own Google reviews. Patients trust the data because we don't accept money to bury bad reviews. You get inbound consults from people who already chose you on merit.
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
               <a href="#plans" className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-navy-900 shadow-xl shadow-black/20">

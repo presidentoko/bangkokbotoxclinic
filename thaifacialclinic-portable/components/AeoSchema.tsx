@@ -32,7 +32,7 @@ function buildFaq(c: Clinic): FaqItem[] {
     q: `Is ${c.name} a legitimate clinic?`,
     a: c.is_suspected_viral
       ? `Our viral-filter flagged this listing as a suspected promoted/ad entry — verify independently before booking. Check the clinic's Thai medical facility licence number and ask to see the surgeon's registration.`
-      : `${c.name} has ${c.reviews_scraped_count} reviews analysed across Google and Bookimed, and the cross-source review pattern looks organic (no burst of short same-day reviews). Before booking, ask for the clinic's Thai medical facility licence number and the operating surgeon's registration — every licensed clinic in Thailand can provide both.`,
+      : `${c.name} has ${c.reviews_scraped_count} Google reviews analysed and was not flagged by our suspected-viral filter. Before booking, ask for the clinic's Thai medical facility licence number and the operating surgeon's registration — every licensed clinic in Thailand can provide both.`,
   });
 
   if (c.procedures.length) {
