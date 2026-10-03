@@ -1,0 +1,7 @@
+# 여기 적힌 사이트는 Vercel 빌드 게이트(vercel-ignore-build.sh)가 무조건 스킵한다.
+# 2026-10-03: chillanel22 팀 ISR Writes 414K/200K(2배 초과). Hobby 는 한도 초과 시
+# 새 write 를 조용히 거부해 사이트 전역 장애가 날 수 있고(web/app/ko/clinic 주석,
+# 2026-08-18 실측), snsstopper 는 같은 상황에서 DEPLOYMENT_DISABLED 로 정지됐다.
+# 배포 1회 = 프리렌더 전체가 ISR write 다. 결제 주기가 리셋되면 줄을 지우고 커밋.
+botox
+facial
