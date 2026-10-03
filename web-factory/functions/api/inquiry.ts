@@ -69,10 +69,12 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const sourcePath   = get("_source_path");
   const inboundRef   = get("_referrer");
 
-  if (!name || !email || !message) {
+  // 이메일 또는 전화 중 하나면 된다. 태국 SME 바이어는 업무 이메일보다 전화·LINE 을
+  // 쓰는데, 예전에는 이메일이 필수라 태국어 폼에서 그 사람들이 그냥 떠났다.
+  if (!name || (!email && !phone) || !message) {
     return json({ ok: false, error: "Missing required fields" }, 400);
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
     return json({ ok: false, error: "Invalid email address" }, 400);
   }
 
@@ -86,7 +88,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     ``,
     `👤 ${name}`,
     company  && `🏢 ${company}`,
-    `📧 ${email}`,
+    email    && `📧 ${email}`,
     phone    && `📱 ${phone}`,
     country  && `🌍 ${country}`,
     category && `📦 ${category}`,

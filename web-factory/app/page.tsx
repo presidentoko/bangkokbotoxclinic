@@ -384,7 +384,7 @@ export default async function HomePage() {
         </div>
 
         {/* FILTERED LIST */}
-        <section className="mb-12">
+        <section id="suppliers" className="mb-12 scroll-mt-32">
           <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Top suppliers by trust score</h2>
           <SupplierListWithFilter
             initialSuppliers={filterableSuppliers}

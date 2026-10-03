@@ -306,25 +306,34 @@ _REAL_ESTATE_CATEGORIES = {
 
 
 _SUPPLY_CATEGORY_MAP: dict[str, list[str]] = {
-    "manufacturer":      ["manufacturer"],
-    "auto_parts":        ["auto parts manufacturer", "automotive parts"],
+    # 2026-10-03: 영어 업종 일부와 태국어 업종 전부가 빠져 있어서, 필터는 통과했는데
+    # categories 가 빈 공급사가 3,753곳(26.5%)이었다 — ห้องเย็น 220, Electronic parts
+    # supplier 180, Freight forwarding service 177, ผู้ผลิต 164 … 이들은 공급사 페이지는
+    # 있지만 어떤 카테고리·지역 페이지에도 나오지 않는다.
+    "manufacturer":      ["manufacturer", "ผู้ผลิต", "โรงงาน"],
+    "auto_parts":        ["auto parts manufacturer", "automotive parts", "ผู้ผลิตชิ้นส่วนรถยนต์", "ชิ้นส่วนยานยนต์"],
     "factory":           ["factory", "car factory"],
-    "warehouse":         ["warehouse", "storage"],
-    "industrial_estate": ["industrial real estate", "industrial park", "industrial zone"],
-    "logistics":         ["logistics", "distribution"],
-    "food_mfg":          ["food manufacturer", "frozen food", "food product"],
-    "electronics":       ["electronics manufacturer"],
-    "chemical":          ["chemical manufacturer"],
-    "plastic":           ["plastic"],
-    "steel":             ["steel", "metal fabricator"],
-    "machining":         ["machining", "mechanical plant"],
-    "equipment":         ["equipment supplier", "industrial equipment", "factory equipment"],
-    "corporate_office":  ["corporate office", "headquarters"],
-    "packaging":         ["packaging"],
-    "rubber":            ["rubber"],
-    "textile":           ["textile"],
-    "machinery":         ["machinery"],
-    "exporter":          ["exporter"],
+    "warehouse":         ["warehouse", "storage", "cold storage", "คลังสินค้า", "โกดัง", "ห้องเย็น"],
+    "industrial_estate": ["industrial real estate", "industrial park", "industrial zone", "นิคมอุตสาหกรรม"],
+    "logistics":         ["logistics", "distribution", "freight forwarding", "shipping company",
+                          "shipping service", "transportation service", "trucking", "customs broker",
+                          "courier service", "container service", "ขนส่ง", "โลจิสติกส์", "ชิปปิ้ง"],
+    "food_mfg":          ["food manufacturer", "frozen food", "food product", "food processing",
+                          "seafood processing", "ผู้ผลิตอาหาร", "อาหารแช่แข็ง", "แปรรูปอาหาร"],
+    "electronics":       ["electronics manufacturer", "electronic parts", "electronics company",
+                          "electronic component", "อิเล็กทรอนิกส์"],
+    "chemical":          ["chemical manufacturer", "chemical plant", "chemical company", "เคมีภัณฑ์", "เคมี"],
+    "plastic":           ["plastic", "พลาสติก"],
+    "steel":             ["steel", "metal fabricator", "metal workshop", "metal processing",
+                          "metal stamping", "เหล็ก", "โลหะ"],
+    "machining":         ["machining", "mechanical plant", "machine shop", "cnc", "โรงกลึง", "แม่พิมพ์"],
+    "equipment":         ["equipment supplier", "industrial equipment", "factory equipment", "อุปกรณ์อุตสาหกรรม"],
+    "corporate_office":  ["corporate office", "headquarters", "สำนักงานของบริษัท", "สำนักงานใหญ่"],
+    "packaging":         ["packaging", "บรรจุภัณฑ์"],
+    "rubber":            ["rubber", "ยางพารา", "ผลิตภัณฑ์ยาง"],
+    "textile":           ["textile", "garment", "clothing manufacturer", "สิ่งทอ", "ทอผ้า", "ผลิตเสื้อผ้า"],
+    "machinery":         ["machinery", "เครื่องจักร"],
+    "exporter":          ["exporter", "import export company", "ส่งออก"],
 }
 
 
@@ -405,6 +414,10 @@ CONSUMER_TOKENS = (
     "computer store", "copy shop", "work clothes", "dairy store",
     "car battery", "vitamin", "health and beauty", "toiletries",
     "kitchen furniture", "antique furniture", "outdoor furniture",
+    # 2026-10-03 감사에서 남은 것 — 대마 판매점·주스 가게·스낵바·스포츠 단지.
+    # 침구점·소파점은 뺐다 — 매트리스·소파 공장(Greenlatex, Lasunya)이 같이 걸렸다.
+    "cannabis", "juice shop", "snack bar", "sports complex",
+    "ร้านขายเนื้อ", "ร้านขายของชำ",
     # ── 태국어 (2026-10-03) ──────────────────────────────────────────
     # supply 어휘에 태국어를 넣는 순간 block 어휘도 태국어가 필요하다.
     # ร้าน 은 "가게" 라서 음식·미용과 붙으면 소비자 업소를 특정한다. 단
@@ -823,8 +836,10 @@ def main():
             "district": city_district,
             "phone": (p.get("phone") or "").strip(),
             "website": (p.get("website") or "").strip(),
-            "lat": None,
-            "lng": None,
+            # Apify 는 좌표를 location.lat/lng 로 준다. 예전엔 여기서 None 으로 덮어써서
+            # 공급사 89%가 좌표 없이 저장됐다 (지도·거리 기능 불능).
+            "lat": (p.get("location") or {}).get("lat"),
+            "lng": (p.get("location") or {}).get("lng"),
             "rating": rating,
             "total_reviews": total_reviews,
             "trust_score": ts,

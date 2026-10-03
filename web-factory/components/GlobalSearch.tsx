@@ -82,7 +82,7 @@ export function GlobalSearch() {
           ensureFetched();
           setOpen(true);
         }}
-        placeholder="Search name, category, region..."
+        placeholder="e.g. plastic Chonburi · โรงงาน ชลบุรี"
         aria-label="Search suppliers by name, category, or region"
         className="w-full px-3.5 py-2 rounded-lg border border-[var(--border)] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[var(--gold-light)] focus:border-transparent"
       />
@@ -96,7 +96,7 @@ export function GlobalSearch() {
           {results.map((r) => (
             <li
               key={
-                r.kind === "supplier" ? `s-${r.id}` : r.kind === "category" ? `c-${r.key}` : `r-${r.label}`
+                r.kind === "supplier" ? `s-${r.id}` : r.kind === "category" ? `c-${r.key}` : r.kind === "combo" ? `x-${r.category}-${r.region}` : `r-${r.label}`
               }
             >
               <a
@@ -109,6 +109,15 @@ export function GlobalSearch() {
                     <span aria-hidden>{CATEGORY_ICONS[r.key] ?? "🏷"}</span>
                     <span className="font-medium">{r.label}</span>
                     <span className="text-xs text-[var(--muted)] ml-auto">Browse category →</span>
+                  </span>
+                )}
+                {r.kind === "combo" && (
+                  <span className="flex items-center gap-2 text-sm">
+                    <span aria-hidden>{CATEGORY_ICONS[r.category] ?? "🏭"}</span>
+                    <span className="font-medium">{r.label}</span>
+                    <span className="text-xs text-[var(--muted)] ml-auto tabular-nums">
+                      {r.count.toLocaleString()} suppliers →
+                    </span>
                   </span>
                 )}
                 {r.kind === "region" && (

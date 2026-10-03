@@ -58,7 +58,9 @@ export function localeHasRoute(path: string, target: "ko" | "th"): boolean {
   return false;
 }
 
-/** 같은 페이지의 다른 언어 URL. 없으면 그 언어 홈으로 폴백. */
+/** 같은 페이지의 다른 언어 URL. 없으면 가장 가까운 상위 페이지, 그것도 없으면
+ *  그 언어 홈. 예전에는 바로 홈으로 떨어져서 /city/rayong/warehouse 에서 ไทย 를
+ *  누른 태국 바이어가 맥락을 전부 잃었다 (/th/city/rayong 이 있는데도). */
 export function switchLangHref(currentPath: string, target: Lang): string {
   let p = currentPath;
   if (p.startsWith("/ko/") || p === "/ko") p = p.slice(3) || "/";
@@ -68,8 +70,10 @@ export function switchLangHref(currentPath: string, target: Lang): string {
   if (p.length > 1 && p.endsWith("/")) p = p.slice(0, -1);
 
   if (target === "en") return p;
-  if (!localeHasRoute(p, target)) return `/${target}`;
-  return `/${target}${p === "/" ? "" : p}`;
+  for (let cur = p; cur !== "/"; cur = cur.slice(0, cur.lastIndexOf("/")) || "/") {
+    if (localeHasRoute(cur, target)) return `/${target}${cur}`;
+  }
+  return `/${target}`;
 }
 
 export function detectLang(path: string): Lang {

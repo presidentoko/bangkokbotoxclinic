@@ -97,7 +97,7 @@ export const BUYERS_I18N = {
 // RFQ / LeadMagnet / PaidPdf 컴포넌트 다국어 라벨
 export const RFQ_I18N = {
   en: {
-    name: "Your name", company: "Company", email: "Business email", country: "Country",
+    name: "Your name", company: "Company", email: "Business email", country: "Country", phone: "Phone / WhatsApp", placeholderPhone: "+1 555 000 0000",
     category: "Category", volume: "Volume", brief: "Brief — what you're sourcing",
     placeholderName: "Kim Min-jun", placeholderCompany: "ACME Trading Co., Ltd.",
     placeholderEmail: "you@company.com", placeholderCountry: "South Korea",
@@ -110,7 +110,7 @@ export const RFQ_I18N = {
     privacy: "We respond within 24 business hours with up to 3 verified Thai supplier matches. No spam — we never share your contact with anyone other than the matched suppliers, and only if you confirm.",
   },
   ko: {
-    name: "이름", company: "회사", email: "업무 이메일", country: "국가",
+    name: "이름", company: "회사", email: "업무 이메일", country: "국가", phone: "전화 / WhatsApp", placeholderPhone: "+82 10-0000-0000",
     category: "카테고리", volume: "수량", brief: "어떤 제품을 소싱하시는지 간단히",
     placeholderName: "김민준", placeholderCompany: "ACME 트레이딩",
     placeholderEmail: "you@company.com", placeholderCountry: "대한민국",
@@ -123,7 +123,7 @@ export const RFQ_I18N = {
     privacy: "24시간(영업일 기준) 안에 검증된 태국 공급사 최대 3곳을 회신합니다. 스팸 없음 — 매칭된 공급사 외 누구와도 연락처 공유하지 않으며, 본인 확인 후에만 공유합니다.",
   },
   th: {
-    name: "ชื่อ", company: "บริษัท", email: "อีเมลธุรกิจ", country: "ประเทศ",
+    name: "ชื่อ", company: "บริษัท", email: "อีเมลธุรกิจ", country: "ประเทศ", phone: "โทรศัพท์ / LINE ID", placeholderPhone: "08x-xxx-xxxx หรือ LINE ID",
     category: "หมวด", volume: "ปริมาณ", brief: "Brief — คุณกำลังหาอะไร",
     placeholderName: "ชื่อของคุณ", placeholderCompany: "ACME Trading Co., Ltd.",
     placeholderEmail: "you@company.com", placeholderCountry: "ประเทศไทย",

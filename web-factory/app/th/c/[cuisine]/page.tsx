@@ -26,10 +26,10 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { cuisine } = await params;
   const intro = CATEGORY_INTROS_TH[cuisine];
-  const label = CATEGORY_LABELS[cuisine] ?? cuisine;
+  const label = CATEGORY_LABELS_TH[cuisine] ?? CATEGORY_LABELS[cuisine] ?? cuisine;
   return {
-    title: intro?.metaTitle ?? `${label} ในประเทศไทย`,
-    description: intro?.metaDescription ?? `ไดเรกทอรีผู้ผลิต ${label.toLowerCase()} ในประเทศไทย`,
+    title: intro?.metaTitle ?? `${label} ในประเทศไทย — รายชื่อพร้อมเบอร์ติดต่อ`,
+    description: intro?.metaDescription ?? `รายชื่อ${label}ในประเทศไทย จัดอันดับจากรีวิว Google และข้อมูลจดทะเบียน DBD ติดต่อโรงงานได้โดยตรง`,
     alternates: {
       canonical: `/th/c/${cuisine}`,
       languages: {
@@ -51,7 +51,7 @@ export default async function ThCategoryPage(
 
   const db = await loadMasterDb();
   const filtered = sortWithSponsored(filterByCategory(db.suppliers, cuisine));
-  const label = CATEGORY_LABELS[cuisine] ?? cuisine;
+  const label = CATEGORY_LABELS_TH[cuisine] ?? CATEGORY_LABELS[cuisine] ?? cuisine;
   const icon = CATEGORY_ICONS[cuisine] ?? "🏭";
   const intro = CATEGORY_INTROS_TH[cuisine];
 

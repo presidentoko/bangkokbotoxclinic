@@ -189,3 +189,41 @@ export const CITY_ALIASES: Record<string, string> = {
   srisaket: "si_sa_ket",
   suphanburi: "suphan_buri",
 };
+
+// ── 별칭 표에 없는 변형까지 받기 (2026-10-03) ──────────────────────────────
+// 표는 실제로 본 slug 만 담는다. 그래서 "/city/chon-buri"(하이픈), "/d/x-district"
+// (표에 없는 구), "/city/rayong/warehouse" 같은 2단계 경로가 계속 404 였다.
+// 규칙으로 후보를 만들고, 정적 자산이 실제로 있는 첫 후보로만 보낸다 —
+// 없는 페이지로 301 하면 404 를 영구 리다이렉트로 굳히는 셈이라.
+
+function uniq(xs: string[]): string[] {
+  return Array.from(new Set(xs.filter(Boolean)));
+}
+
+export function districtCandidates(slug: string): string[] {
+  const s = slug.toLowerCase().replace(/_/g, "-").replace(/,+$/, "");
+  const stripped = s
+    .replace(/-(district|amphoe|amphur)$/, "")
+    .replace(/^(amphoe|amphur|ampur|khet|a\.)-/, "");
+  return uniq([
+    DISTRICT_ALIASES[slug], DISTRICT_ALIASES[s], DISTRICT_ALIASES[stripped],
+    s, stripped,
+  ]).filter((c) => c !== slug);
+}
+
+export function cityCandidates(slug: string): string[] {
+  const s = slug.toLowerCase().replace(/-/g, "_").replace(/_province$/, "").replace(/^changwat_/, "");
+  const squashed = s.replace(/_/g, "");
+  return uniq([CITY_ALIASES[slug], CITY_ALIASES[s], CITY_ALIASES[squashed], s]).filter((c) => c !== slug);
+}
+
+type Ctx = { request: Request; env: { ASSETS: { fetch: (r: Request | string) => Promise<Response> } } };
+
+/** 후보 경로 중 정적 자산이 200 인 첫 번째. */
+export async function firstExisting(ctx: Ctx, paths: string[]): Promise<string | null> {
+  for (const p of paths) {
+    const r = await ctx.env.ASSETS.fetch(new URL(p, ctx.request.url).toString());
+    if (r.status === 200) return p;
+  }
+  return null;
+}

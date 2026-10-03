@@ -26,7 +26,7 @@ const FAQS = [
   },
   {
     q: "DBD-verified 라벨은 어떻게 만들어졌나요?",
-    a: "태국 상무부(Department of Business Development) DataWarehouse+ 시스템 — 한국의 등기부등본/공정거래위 데이터에 해당 — 을 자동 크롤링해서 회사명 매칭 신뢰도 80%+ 인 849곳에 DBD-verified 라벨을 붙였습니다. 매치 결과로 정식 법인명(บริษัท ... จำกัด), 13자리 등록번호, 등록자본금(THB), 설립일, TSIC 산업분류 코드, 사업목적 텍스트, 등록주소까지 확보. 매칭 신뢰도 90%+는 진한 'DBD Verified', 80-89%는 'Likely match' 톤다운 표시로 구분합니다. 폐업(dissolved) 처리된 법인은 디렉토리에서 자동 제외됩니다.",
+    a: "태국 상무부(Department of Business Development) DataWarehouse+ 시스템 — 한국의 등기부등본/공정거래위 데이터에 해당 — 을 자동 크롤링해서 회사명 매칭 신뢰도 80%+ 인 800여 곳에 DBD-verified 라벨을 붙였습니다. 매치 결과로 정식 법인명(บริษัท ... จำกัด), 13자리 등록번호, 등록자본금(THB), 설립일, TSIC 산업분류 코드, 사업목적 텍스트, 등록주소까지 확보. 매칭 신뢰도 90%+는 진한 'DBD Verified', 80-89%는 'Likely match' 톤다운 표시로 구분합니다. 폐업(dissolved) 처리된 법인은 디렉토리에서 자동 제외됩니다.",
   },
   {
     q: "신뢰도 점수 (b2b score) 가중치 근거는?",

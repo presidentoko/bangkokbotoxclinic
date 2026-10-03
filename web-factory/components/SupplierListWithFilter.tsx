@@ -94,6 +94,8 @@ type InnerProps = Props & {
   onFilterChange?: (next: { category?: string; city?: string; dbdOnly?: boolean }) => void;
 };
 
+const PAGE_SIZE = 20;
+
 function SupplierListWithFilterInner({
   initialSuppliers, categoryOptions, cityOptions, totalSuppliers,
   viewAllHref = "/best/highly-recommended", lockedCategory, sponsoredIds,
@@ -144,7 +146,13 @@ function SupplierListWithFilterInner({
       .filter((s) => !dbdOnly || s.dbd);
   }, [suppliers, category, city, dbdOnly]);
 
-  const top10 = filtered.slice(0, 10);
+  // 고정 10개만 보여주고 "View all" 로 같은 페이지를 다시 링크하던 게 버그였다
+  // (/c/plastic 440곳 중 10곳만 보이고 버튼은 자기 자신으로 돌아왔다). 이제 목록
+  // 안에서 이어서 펼친다. 필터가 바뀌면 다시 첫 페이지부터.
+  const [shown, setShown] = useState(PAGE_SIZE);
+  useEffect(() => { setShown(PAGE_SIZE); }, [category, city, dbdOnly]);
+  const top10 = filtered.slice(0, shown);
+  const remaining = filtered.length - top10.length;
   const noFilterActive = !category && !city && !dbdOnly;
   // While the index is still loading, only the unfiltered count is knowable
   // from the server-provided total; a filtered count would undercount.
@@ -256,6 +264,19 @@ function SupplierListWithFilterInner({
         </div>
       )}
 
+      {remaining > 0 && (
+        <div className="mt-4 text-center">
+          <button
+            type="button"
+            onClick={() => setShown((n) => n + PAGE_SIZE)}
+            className="inline-flex items-center gap-2 px-5 py-2.5 min-h-11 rounded-full bg-[var(--gold-deep)] text-white text-sm font-bold hover:opacity-90 transition"
+          >
+            Show {Math.min(PAGE_SIZE, remaining)} more · {remaining.toLocaleString()} left
+          </button>
+        </div>
+      )}
+
+      {!(categoryLocked && viewAll.href === viewAllHref) && (
       <div className="mt-4 text-center">
         <a
           href={viewAll.href}
@@ -264,6 +285,7 @@ function SupplierListWithFilterInner({
           {viewAll.label}
         </a>
       </div>
+      )}
     </div>
   );
 }

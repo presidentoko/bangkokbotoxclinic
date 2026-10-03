@@ -63,6 +63,7 @@ export function RfqForm({ locale = "en", suppliers, supplierName, supplierUrl }:
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
   const t = RFQ_I18N[locale];
+  const isTh = locale === "th";
   const bulk = suppliers && suppliers.length > 0;
   const suppliersLine = bulk ? formatSuppliersLine(suppliers!) : "";
   const subject = bulk ? `Bulk RFQ — ${suppliers!.length} suppliers` : `RFQ — Thai Supply Hub (${locale})`;
@@ -140,11 +141,13 @@ export function RfqForm({ locale = "en", suppliers, supplierName, supplierUrl }:
       </div>
 
       <div className="grid sm:grid-cols-2 gap-4">
-        <Field label={t.email} name="email" type="email" required placeholder={t.placeholderEmail} />
-        <Field label="Phone" name="phone" type="tel" placeholder="+1 555 000 0000" />
+        {/* 태국 바이어는 전화·LINE 이 기본이고 국가는 당연히 태국이다 — 태국어 폼은
+            전화를 필수로, 이메일과 국가는 선택으로 둔다 (서버는 둘 중 하나만 요구). */}
+        <Field label={t.email} name="email" type="email" required={!isTh} placeholder={t.placeholderEmail} />
+        <Field label={t.phone} name="phone" type="tel" required={isTh} placeholder={t.placeholderPhone} />
       </div>
       <div className="grid sm:grid-cols-2 gap-4">
-        <Field label={t.country} name="country" required placeholder={t.placeholderCountry} />
+        <Field label={t.country} name="country" required={!isTh} placeholder={t.placeholderCountry} defaultValue={isTh ? "ประเทศไทย" : undefined} />
       </div>
 
       <div className="grid sm:grid-cols-2 gap-4">
@@ -182,7 +185,7 @@ export function RfqForm({ locale = "en", suppliers, supplierName, supplierUrl }:
   );
 }
 
-function Field({ label, name, type = "text", required, placeholder }: { label: string; name: string; type?: string; required?: boolean; placeholder?: string }) {
+function Field({ label, name, type = "text", required, placeholder, defaultValue }: { label: string; name: string; type?: string; required?: boolean; placeholder?: string; defaultValue?: string }) {
   return (
     <div>
       <label className="block text-sm font-semibold mb-1.5">{label}{required && <span className="text-red-600">*</span>}</label>
@@ -191,6 +194,7 @@ function Field({ label, name, type = "text", required, placeholder }: { label: s
         name={name}
         required={required}
         placeholder={placeholder}
+        defaultValue={defaultValue}
         className="w-full px-3 py-2 rounded-lg border border-[var(--border)] focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-100 text-sm"
       />
     </div>
