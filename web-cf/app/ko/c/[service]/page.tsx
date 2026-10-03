@@ -6,6 +6,7 @@
 // 완전한 /ko/d, /ko/city 커버리지는 후속 작업.
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCategory } from "@/lib/data";
+import { reviewPriceHint } from "@/lib/reviewPrices";
 import { ClinicCard } from "@/components/ClinicCard";
 import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { BreadcrumbJsonLd, FaqJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
@@ -28,14 +29,6 @@ const KO_LABELS: Record<string, string> = {
   eye: "라식/라섹",
 };
 
-const KO_PRICE_HINTS: Partial<Record<string, string>> = {
-  botox: "유닛당 ฿80부터 · Allergan, Dysport, Botulax",
-  dental: "임플란트 ฿35,000부터 · 비니어 개당 ฿12,000부터",
-  filler: "1ml당 ฿8,000부터 · Juvederm, Restylane",
-  hifu: "1회 ฿8,000부터 · Ultherapy, Thermage, Ultraformer",
-  laser: "피코레이저 ฿3,000부터 · CO2레이저 ฿8,000부터",
-  hair_transplant: "FUE 2,000모 기준 ฿65,000부터",
-};
 
 const KO_FAQ: Partial<Record<string, { q: string; a: string }[]>> = {
   botox: [
@@ -128,11 +121,11 @@ export async function generateMetadata(
     .filter((c) => c.categories.includes(service))
     .reduce((s, c) => s + c.total_reviews, 0);
   const robots = count < 5 ? { index: false, follow: true } : undefined;
-  const priceHint = KO_PRICE_HINTS[service];
+  const priceHint = reviewPriceHint(db, service, "ko");
   const SITE = getSiteUrl();
   return {
-    title: `방콕 ${label} 클리닉 ${count}곳 — 검증된 리뷰 기반 순위 (2026)`,
-    description: `방콕 ${label} 클리닉 ${count}곳을 구글 리뷰 ${totalReviews.toLocaleString()}건 기반 신뢰도 점수로 순위화.${priceHint ? ` ${priceHint}.` : ""} 한국·미국 대비 최대 70% 저렴.`,
+    title: `방콕 ${label} 클리닉 ${count}곳 — 실제 후기 기반 순위 (2026)`,
+    description: `방콕 ${label} 클리닉 ${count}곳을 구글 리뷰 ${totalReviews.toLocaleString()}건 기반 신뢰도 점수로 순위화.${priceHint ? ` 환자 후기 속 가격 중앙값: ${priceHint}.` : ""}`,
     alternates: {
       canonical: `${SITE}/ko/c/${service}`,
       // 2026-08-20: th-TH 누락으로 태국어 hreflang 클러스터가 단방향이었다.
@@ -178,6 +171,7 @@ export default async function KoServicePage(
   const filtered = filterByCategory(applySiteFilter(db.clinics, cfg), service)
     .sort((a, b) => b.trust_score - a.trust_score);
   const label = KO_LABELS[service] ?? service;
+  const bodyPriceHint = reviewPriceHint(db, service, "ko");
 
   const byDistrict = new Map<string, number>();
   for (const c of filtered) {
@@ -213,7 +207,7 @@ export default async function KoServicePage(
         </h1>
         <p className="text-[var(--muted)] mb-8">
           {filtered.length}곳을 신뢰도 점수로 순위화. 구글 리뷰 텍스트와 클리닉 정보를 기반으로 분류했습니다.
-          {KO_PRICE_HINTS[service] && <> 가격대: {KO_PRICE_HINTS[service]}.</>}
+          {bodyPriceHint && <> 환자 후기 속 가격 중앙값: {bodyPriceHint}.</>}
         </p>
 
         {districts.length > 0 && (

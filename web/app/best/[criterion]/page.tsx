@@ -89,7 +89,7 @@ export default async function BestForPage(
         {cfg.intro}
       </p>
       <p className="text-xs text-[var(--muted)] mb-8 italic">
-        {filtered.length} clinics matched. Refreshed from Google Maps, HDmall, Wongnai + partner platforms — see methodology on{" "}
+        {filtered.length} clinics matched. Refreshed from Google Maps reviews, with HDmall prices where available — see methodology on{" "}
         <a href="/about" className="underline">/about</a>.
       </p>
 

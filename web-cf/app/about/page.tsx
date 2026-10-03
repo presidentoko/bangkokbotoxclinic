@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: "Where does this data come from?",
-    a: "Multi-source aggregation: Google Maps (primary listings + reviews), HDmall (package pricing + Thai consumer reviews), Wongnai (Thai local reviews), Bookimed (medical-tourism verified clinics), Pantip and Reddit threads (community sentiment), Naver blogs (Korean visitor experiences). Each clinic detail page shows which platforms contributed data. Cross-platform aggregation makes single-source fake reviews ineffective.",
+    a: "Google Maps listings and reviews for every clinic — the Trust Score is computed from them. Where they exist we add HDmall package prices and Pantip forum mentions; a clinic page shows them only when that clinic has them.",
   },
   {
-    q: "Why use multiple platforms instead of just Google?",
-    a: "A 4.9 on Google with 12 reviews is statistically weak. A 4.6 on Google + 4.7 on Wongnai + 4.5 on HDmall across 800+ reviews is much stronger evidence. Cross-platform agreement also catches review-bombing — fake review attacks usually only hit one platform.",
+    q: "Why not just use Google's star rating?",
+    a: "A 4.9 with 12 reviews is statistically weak; a 4.6 across 800 reviews is much stronger evidence. The Trust Score weighs rating against review volume and reviewer credibility, and we read the review text itself — billing complaints, upselling, redo work — which a star average hides.",
   },
   {
     q: "How is the Trust Score calculated?",

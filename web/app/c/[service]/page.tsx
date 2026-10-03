@@ -10,6 +10,7 @@ import { BookingForm } from "@/components/BookingForm";
 import { StatsBar } from "@/components/StatsBar";
 import { DistrictCompareTable } from "@/components/DistrictCompareTable";
 import { PriceBands } from "@/components/PriceBands";
+import { reviewPriceHint } from "@/lib/reviewPrices";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { GUIDES } from "@/lib/guides";
 import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
@@ -41,23 +42,16 @@ export async function generateMetadata(
     .reduce((s, c) => s + c.total_reviews, 0);
   // thin content — fewer than 5 clinics → noindex to avoid thin SEO pages
   const robots = count < 5 ? { index: false, follow: true } : undefined;
-  const PRICE_HINTS: Partial<Record<string, string>> = {
-    botox: "From ฿80/unit · Allergan, Dysport, Botulax",
-    dental: "Implants from ฿35,000 · Veneers ฿12,000/tooth",
-    filler: "From ฿8,000/syringe · Juvederm, Restylane",
-    hifu: "From ฿8,000/session · Ultherapy, Thermage, Ultraformer",
-    laser: "Pico from ฿3,000 · CO2 from ฿8,000",
-    hair_transplant: "FUE from ฿65,000 (2,000 grafts)",
-  };
-  const priceHint = PRICE_HINTS[service];
+  // 리뷰 실측 중앙값만 (lib/reviewPrices.ts). 덴탈 외에는 null.
+  const priceHint = reviewPriceHint(db, service, "en");
   // 구글 SERP 표시 한계(제목 ~60자, 설명 ~155자)를 크게 초과해 잘리던 문제
   // (실측 99~108자/225~234자) — 브랜드 접미사는 title.template 대신
   // absolute로 꺼서 제거하고, 검색어(서비스+도시)를 앞으로, 길이를 줄임
   // (2026-07-31 감사).
-  const titleSuffix = priceHint ? priceHint.split("·")[0].trim() : "Verified Reviews";
+  const titleSuffix = priceHint ?? "Ranked by Real Reviews 2026";
   return {
-    title: { absolute: `${label} Clinics in Bangkok — ${titleSuffix} 2026` },
-    description: `${count} ${label} clinics in Bangkok ranked by Trust Score.${priceHint ? ` ${priceHint}.` : ""} Compare credibility, district, and reviews.`,
+    title: { absolute: `${label} Clinics in Bangkok — ${titleSuffix}` },
+    description: `${count} ${label} clinics in Bangkok ranked by Trust Score from real Google reviews.${priceHint ? ` Median prices patients reported: ${priceHint}.` : ""} Compare by district, social security and opening hours.`,
     alternates: {
       canonical: `/c/${service}`,
       // ko/c/[service]는 이 페이지로 되돌아오는 languages를 이미 선언하는데

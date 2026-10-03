@@ -9,6 +9,7 @@
 // 구조는 /ko/c/[service] 와 동일하게 맞추고 라벨·가격·FAQ만 태국어 실번역.
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCategory } from "@/lib/data";
+import { reviewPriceHint } from "@/lib/reviewPrices";
 import { ClinicCard } from "@/components/ClinicCard";
 import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { BreadcrumbJsonLd, FaqJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
@@ -44,14 +45,6 @@ const TH_NEAR_ME: Record<string, string> = {
   eye: "คลินิกเลสิกใกล้ฉัน",
 };
 
-const TH_PRICE_HINTS: Partial<Record<string, string>> = {
-  botox: "เริ่มต้น ฿80 ต่อยูนิต · Allergan, Dysport, Botulax",
-  dental: "รากฟันเทียมเริ่มต้น ฿35,000 · วีเนียร์เริ่มต้น ฿12,000 ต่อซี่",
-  filler: "เริ่มต้น ฿8,000 ต่อ 1 ml · Juvederm, Restylane",
-  hifu: "เริ่มต้น ฿8,000 ต่อครั้ง · Ultherapy, Thermage, Ultraformer",
-  laser: "พิโคเลเซอร์เริ่มต้น ฿3,000 · CO2 เลเซอร์เริ่มต้น ฿8,000",
-  hair_transplant: "FUE 2,000 กราฟท์ เริ่มต้น ฿65,000",
-};
 
 // 가격 비교 표 — AI Overviews/답변 엔진이 가장 안정적으로 추출하는 형식인데
 // 이 사이트엔 <table>이 한 개도 없었다. 수치는 lib/faq.ts 의 영어 FAQ와 동일.
@@ -198,12 +191,12 @@ export async function generateMetadata(
   const totalReviews = matching.reduce((s, c) => s + c.total_reviews, 0);
   // thin content 방지 — /ko 와 동일 기준.
   const robots = count < 5 ? { index: false, follow: true } : undefined;
-  const priceHint = TH_PRICE_HINTS[service];
+  const priceHint = reviewPriceHint(db, service, "th");
   const SITE = getSiteUrl();
   const title = `${nearMe ?? `คลินิก${label}`} ในกรุงเทพฯ ${count} แห่ง — รีวิวจริง เช็คราคา`;
   return {
     title: { absolute: title },
-    description: `คลินิก${label}ในกรุงเทพฯ ${count} แห่ง จัดอันดับด้วยคะแนนความน่าเชื่อถือจากรีวิว Google ${totalReviews.toLocaleString()} รายการ${priceHint ? ` ${priceHint}` : ""}`,
+    description: `คลินิก${label}ในกรุงเทพฯ ${count} แห่ง จัดอันดับด้วยคะแนนความน่าเชื่อถือจากรีวิว Google ${totalReviews.toLocaleString()} รายการ${priceHint ? ` ราคากลางจากรีวิวคนไข้: ${priceHint}` : ""}`,
     alternates: {
       canonical: `${SITE}/th/c/${service}`,
       languages: {
@@ -248,6 +241,7 @@ export default async function ThServicePage(
   const filtered = filterByCategory(applySiteFilter(db.clinics, cfg), service)
     .sort((a, b) => b.trust_score - a.trust_score);
   const label = TH_LABELS[service] ?? service;
+  const bodyPriceHint = reviewPriceHint(db, service, "th");
 
   const byDistrict = new Map<string, number>();
   for (const c of filtered) {
@@ -305,7 +299,7 @@ export default async function ThServicePage(
         </h1>
         <p className="text-[var(--muted)] mb-8">
           จัดอันดับ {filtered.length} แห่งด้วยคะแนนความน่าเชื่อถือ คำนวณจากข้อความรีวิว Google และข้อมูลคลินิก
-          {TH_PRICE_HINTS[service] && <> ช่วงราคา: {TH_PRICE_HINTS[service]}</>}
+          {bodyPriceHint && <> ราคากลางจากรีวิวคนไข้: {bodyPriceHint}</>}
         </p>
 
         {priceTable && (

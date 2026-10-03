@@ -13,21 +13,21 @@ const FOCUS_NOUN: Record<Lang, Record<SiteFocus, string>> = {
 
 const BASE_ITEMS: Record<Lang, (noun: string) => { good: string; bad: string }[]> = {
   en: (noun) => [
-    { good: `We aggregate Google + HDmall + Wongnai + Pantip + Reddit reviews — every ${noun} clinic checked across multiple sources`, bad: "Most directories show only what clinics tell them" },
+    { good: `Every ${noun} clinic ranked from its own Google reviews, with HDmall package prices and Pantip threads added where they exist`, bad: "Most directories show only what clinics tell them" },
     { good: "We can NOT delete or hide bad reviews — even for paying partner clinics", bad: "Other sites bury negative reviews for advertisers" },
     { good: "Suspected viral-marketing clinics get flagged (visible via opt-in toggle)", bad: "Other sites give viral clinics the same trust as legit ones" },
     { good: "Trust Score is a transparent formula you can audit — published publicly", bad: "Other 'top-rated' lists are opaque pay-to-play" },
     { good: "Partner clinics pay for placement priority — never for review manipulation", bad: "Many sites quietly sell 'reputation management' services" },
   ],
   ko: (noun) => [
-    { good: `Google + HDmall + Wongnai + Pantip + Reddit 리뷰를 통합합니다 — 모든 ${noun} 클리닉을 여러 출처로 교차 검증`, bad: "대부분 디렉토리는 클리닉이 제공한 정보만 표시" },
+    { good: `모든 ${noun} 클리닉을 그 클리닉의 구글 후기로 평가하고, HDmall 가격과 Pantip 글은 있는 곳에 덧붙입니다`, bad: "대부분 디렉토리는 클리닉이 제공한 정보만 표시" },
     { good: "부정 리뷰를 삭제·숨기지 않습니다 — 결제한 파트너 클리닉이라도 예외 없음", bad: "다른 사이트는 광고주의 부정 리뷰를 묻어버림" },
     { good: "바이럴 마케팅 의심 클리닉은 플래그 처리(옵션 토글로 표시)", bad: "다른 사이트는 바이럴 클리닉도 동일한 신뢰도 부여" },
     { good: "신뢰도 점수는 공개 검증 가능한 투명한 공식", bad: "다른 'TOP 추천' 리스트는 불투명한 광고비 기반" },
     { good: "파트너 클리닉은 노출 우선순위에 비용 지불 — 리뷰 조작에는 절대 아님", bad: "많은 사이트가 몰래 '평판 관리' 서비스를 판매" },
   ],
   th: (noun) => [
-    { good: `เรารวบรวมรีวิวจาก Google + HDmall + Wongnai + Pantip + Reddit — ตรวจสอบคลินิก${noun}ทุกแห่งจากหลายแหล่ง`, bad: "ไดเรกทอรีส่วนใหญ่แสดงเฉพาะข้อมูลที่คลินิกให้มา" },
+    { good: `จัดอันดับคลินิก${noun}ทุกแห่งจากรีวิว Google ของคลินิกเอง พร้อมราคา HDmall และกระทู้ Pantip เมื่อมีข้อมูล`, bad: "ไดเรกทอรีส่วนใหญ่แสดงเฉพาะข้อมูลที่คลินิกให้มา" },
     { good: "เราไม่ลบหรือซ่อนรีวิวเชิงลบ — แม้แต่คลินิกพาร์ตเนอร์ที่จ่ายเงิน", bad: "เว็บอื่นซ่อนรีวิวเชิงลบให้ผู้ลงโฆษณา" },
     { good: "คลินิกที่สงสัยว่าใช้การตลาดไวรัลจะถูกตั้งค่าสถานะ (แสดงผ่านตัวเลือกเปิด-ปิด)", bad: "เว็บอื่นให้ความน่าเชื่อถือเท่ากันกับคลินิกไวรัล" },
     { good: "คะแนนความน่าเชื่อถือเป็นสูตรโปร่งใสที่ตรวจสอบได้ — เผยแพร่สู่สาธารณะ", bad: "รายการ 'TOP-rated' อื่นๆ เป็น pay-to-play ที่ไม่โปร่งใส" },

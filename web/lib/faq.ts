@@ -23,7 +23,7 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
     },
     {
       q: "How do I avoid bad botox in Bangkok?",
-      a: "Five rules: (1) Use Trust Score 70+ clinics — verified by 100+ reviews across multiple platforms. (2) Ask to see the original sealed vial before injection. (3) Insist on a licensed doctor (not nurse or technician) performing the injection. (4) Avoid deals below ฿80/unit — underpriced botox is often diluted or counterfeit. (5) Read the Google review excerpts on our clinic pages — patients mention 'genuine brand', 'real Allergan', etc. when they were satisfied.",
+      a: "Five rules: (1) Use Trust Score 70+ clinics — with 100+ Google reviews. (2) Ask to see the original sealed vial before injection. (3) Insist on a licensed doctor (not nurse or technician) performing the injection. (4) Avoid deals below ฿80/unit — underpriced botox is often diluted or counterfeit. (5) Read the Google review excerpts on our clinic pages — patients mention 'genuine brand', 'real Allergan', etc. when they were satisfied.",
     },
     {
       q: "Which Bangkok district is best for botox?",
@@ -93,7 +93,7 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
     },
     {
       q: "What is the best dental clinic in Bangkok?",
-      a: "The best Bangkok dental clinic depends on your procedure. For implants, look for clinics with Trust Score 80+ that specifically mention Straumann or Nobel Biocare implants in their reviews. For cosmetic veneers, clinics with dedicated cosmetic dentists and CAD/CAM same-day milling are preferable. Our Trust Score ranking on this page reflects real patient feedback across Google Maps and other platforms — the top-ranked clinics consistently deliver verified, high-quality care.",
+      a: "The best Bangkok dental clinic depends on your procedure. For implants, look for clinics with Trust Score 80+ that specifically mention Straumann or Nobel Biocare implants in their reviews. For cosmetic veneers, clinics with dedicated cosmetic dentists and CAD/CAM same-day milling are preferable. Our Trust Score ranking on this page is built from each clinic's own Google reviews — read the low-star reviews on a clinic's page before you book, not just the score.",
     },
     {
       q: "How much do dental implants cost in Bangkok?",
@@ -143,7 +143,7 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
     },
     {
       q: "Which Bangkok hair clinics specialize in Korean / Western patients?",
-      a: "Bookimed-verified medical tourism clinics offer Korean/English translators and pre-negotiated package pricing including hotel + transfer. Bangkok clinics in Sukhumvit, Thong Lor, and Asok district tend to handle the highest volume of international hair transplant patients.",
+      a: "Clinics that serve many medical tourists usually offer English-speaking coordinators and package pricing — check each clinic's reviews for comments from foreign patients. Bangkok clinics in Sukhumvit, Thong Lor, and Asok district tend to handle the highest volume of international hair transplant patients.",
     },
     {
       q: "Are there men-only clinics in Bangkok?",
@@ -171,7 +171,7 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
 export const HOME_FAQS: Faq[] = [
   {
     q: "Which sources do you aggregate reviews from?",
-    a: "Google Maps (primary, anchor reviews), HDmall (Thai package pricing + ratings), Wongnai (Thai consumer reviews), Bookimed (medical tourism), Pantip (Thai forums), Reddit, and Naver blogs (Korean visitors). Each clinic page shows which platforms contributed data. Cross-source aggregation makes single-platform fake reviews ineffective at lifting rank.",
+    a: "Google Maps reviews for every clinic — they are what the Trust Score is built from. Where available we add HDmall package prices and mentions from Pantip, Thailand's largest forum; a clinic page only shows those when they exist for that clinic.",
   },
   {
     q: "How is the Trust Score calculated?",
