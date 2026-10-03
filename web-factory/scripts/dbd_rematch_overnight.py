@@ -125,7 +125,26 @@ def main() -> None:
     db = json.loads((DATA / "master_db.json").read_text(encoding="utf-8"))
     suppliers = db["suppliers"]
     unverified = [s for s in suppliers if not s.get("verified")]
-    log.info(f"loaded {len(suppliers)} suppliers, {len(unverified)} unverified — starting rematch")
+
+    # 전체 unverified 는 8,000곳 넘고 polite delay 0.7초라 몇 시간이 걸린다.
+    # 표적만 돌릴 수 있게 한다.
+    #
+    #   --no-contact  전화·웹사이트가 모두 없는 곳만. 이 페이지들은 바이어가
+    #                 연락할 방법이 없어서, DBD 등기 정보가 전화번호를 대신할
+    #                 유일한 신뢰 근거다 (2026-10-03: 해당 1,664곳 중 758곳은
+    #                 이미 검증돼 있고, 나머지에서 상호에 법인 표기가 있는
+    #                 144곳이 재시도 가치가 있다).
+    #   --limit N     앞에서 N 곳만.
+    if "--no-contact" in sys.argv:
+        before = len(unverified)
+        unverified = [s for s in unverified if not s.get("phone") and not s.get("website")]
+        log.info(f"--no-contact: {before} -> {len(unverified)}")
+    if "--limit" in sys.argv:
+        n = int(sys.argv[sys.argv.index("--limit") + 1])
+        unverified = unverified[:n]
+        log.info(f"--limit: {len(unverified)}")
+
+    log.info(f"loaded {len(suppliers)} suppliers, {len(unverified)} to attempt — starting rematch")
 
     cli = DbdClient(polite_delay=0.7)
     results: list[dict] = []

@@ -35,6 +35,7 @@ import { RecentlyViewed } from "@/components/RecentlyViewed";
 import { CopySupplierInfo } from "@/components/CopySupplierInfo";
 import { EmbedBadgeCTA } from "@/components/EmbedBadgeCTA";
 import { SupplierActionBar } from "@/components/SupplierActionBar";
+import { NoContactNotice } from "@/components/NoContactNotice";
 import type { Metadata } from "next";
 
 // Static export 호환: dynamicParams=false 필수. 모든 supplier 를 prebuild —
@@ -437,6 +438,11 @@ export default async function SupplierPage(
               : " ข้อมูลรวบรวมจาก Google Business Profile สาธารณะ."}
           </p>
         )}
+
+        {/* 전화·웹사이트가 모두 없는 공급사 — 바이어가 할 수 있는 게 없는 페이지다.
+            지우거나 noindex 하는 대신 RFQ 로 연결한다 (components/NoContactNotice.tsx
+            주석 참고). 해당 1,664곳 중 758곳은 DBD 검증된 A 등급이다. */}
+        {!r.phone && !r.website && <NoContactNotice r={r} />}
 
         {/* Overall composite score — big circular scoreboard */}
         <section className="mb-8">
