@@ -221,6 +221,31 @@ SUPPLY_KEYWORDS = (
     "corporate office", "exporter", "machinery",
     "auto parts", "rubber", "textile", "steel", "metal",
     "chemical", "electronic", "plastic",
+    # ── 태국어 (2026-10-03) ──────────────────────────────────────────
+    # google-maps-extractor 액터는 업종을 태국어로 돌려준다. 영어 어휘만 있던
+    # 동안 태국어 업종 레코드 2,477건 중 85건만 통과했다 — ห้องเย็น(냉동창고)
+    # 242건에서 1건, ผู้ผลิตอาหารแช่แข็ง(냉동식품) 135건에서 1건 같은 식으로,
+    # 그 배치가 노린 업종이 그대로 버려졌다.
+    "ผู้ผลิต",          # 제조사
+    "โรงงาน",           # 공장
+    "โรงกลึง",          # 선반·기계가공
+    "โรงสี",            # 정미소·제분
+    "คลังสินค้า",       # 창고
+    "โกดัง",            # 창고(구어)
+    "ห้องเย็น",         # 냉동·냉장 창고
+    "นิคมอุตสาหกรรม",   # 산업단지
+    "อุตสาหกรรม",       # 산업·공업
+    "ขนส่ง",            # 운송
+    "โลจิสติกส์",       # 물류
+    "บรรจุภัณฑ์",       # 포장재
+    "ชิ้นส่วน",         # 부품
+    "แปรรูป",           # 가공·처리
+    "ส่งออก",           # 수출
+    "รับจ้างผลิต",      # 수탁생산(OEM)
+    "แม่พิมพ์",         # 금형
+    "เครื่องจักร",      # 기계
+    "สุขภัณฑ์",         # 위생도기
+    "เคมีภัณฑ์",        # 화학제품
 )
 
 EXCLUDE_CATEGORIES = {
@@ -380,14 +405,57 @@ CONSUMER_TOKENS = (
     "computer store", "copy shop", "work clothes", "dairy store",
     "car battery", "vitamin", "health and beauty", "toiletries",
     "kitchen furniture", "antique furniture", "outdoor furniture",
+    # ── 태국어 (2026-10-03) ──────────────────────────────────────────
+    # supply 어휘에 태국어를 넣는 순간 block 어휘도 태국어가 필요하다.
+    # ร้าน 은 "가게" 라서 음식·미용과 붙으면 소비자 업소를 특정한다. 단
+    # ร้าน 단독은 쓰지 않는다 — 영어 쪽에서 "store"/"shop" 을 일반명사라
+    # 제외한 것과 같은 이유로, B2B 공급사도 상호에 ร้าน 을 쓴다.
+    "ร้านอาหาร",        # 식당
+    "ร้านกาแฟ",         # 커피숍
+    "คาเฟ่",            # 카페
+    "ร้านเค้ก",         # 케이크 가게
+    "ร้านเบเกอรี่",     # 베이커리
+    "ร้านขนม",          # 과자점
+    "ร้านไอศกรีม",      # 아이스크림
+    "ร้านอาหารจานด่วน", # 패스트푸드
+    "โรงแรม",           # 호텔
+    "รีสอร์ท",          # 리조트
+    "เกสต์เฮาส์",       # 게스트하우스
+    "สปา",              # 스파
+    "ร้านเสริมสวย",     # 미용실
+    "ร้านตัดผม",        # 이발소
+    "ร้านนวด",          # 마사지
+    "คลินิก",           # 클리닉
+    "โรงพยาบาล",        # 병원
+    "ร้านขายยา",        # 약국
+    "โรงเรียน",         # 학교
+    "มหาวิทยาลัย",      # 대학
+    "ร้านสะดวกซื้อ",    # 편의점
+    "ซูเปอร์มาร์เก็ต",  # 슈퍼마켓
+    "ห้างสรรพสินค้า",   # 백화점
+    "ปั๊มน้ำมัน",       # 주유소
+    "ร้านวัสดุก่อสร้าง", # 건자재 소매
+    "ร้านเสื้อผ้า",     # 옷가게
+    "ร้านดอกไม้",       # 꽃집
+    "ร้านตัดเสื้อ",     # 양장점
+    "ล้างรถ",           # 세차
+    "ร้านซ่อม",         # 수리점
 )
 # 이 낱말이 같은 카테고리 문자열에 있으면 소비자 판정을 취소한다.
 # "auto parts manufacturer" 를 "auto parts store" 와 함께 떨구지 않기 위한 장치.
 B2B_TOKENS = (
-    "manufactur", "wholesal", "industrial", "factory", "plant", "supplier",
+    "manufactur", "wholesal", "industrial", "factory", "supplier",
     "distributor", "export", "import", "logistic", "freight", "warehouse",
     "oem", "machining", "fabricat", "contract", "b2b", "packaging",
+    # 태국어 B2B 신호 — 소비자 판정을 취소하는 쪽.
+    "ผู้ผลิต", "โรงงาน", "คลังสินค้า", "ห้องเย็น", "อุตสาหกรรม",
+    "บรรจุภัณฑ์", "ชิ้นส่วน", "แปรรูป", "ส่งออก", "ขายส่ง",
 )
+
+# "plant" 는 부분일치로 쓰면 "transplantation"·"plantation" 에 걸린다.
+# 실측: 'Hair transplantation clinic' 이 B2B 로 분류돼 소비자 판정을 통과했다.
+# 단어 경계를 요구한다 ("plant", "plants", "plant 2" 는 잡고 "transplant" 는 아님).
+_PLANT_RE = re.compile(r"\bplant")
 
 
 def _consumer_score(strings: list[str]) -> tuple[int, int]:
@@ -397,7 +465,7 @@ def _consumer_score(strings: list[str]) -> tuple[int, int]:
         s = (s or "").lower()
         if not s:
             continue
-        has_b2b = any(t in s for t in B2B_TOKENS)
+        has_b2b = any(t in s for t in B2B_TOKENS) or bool(_PLANT_RE.search(s))
         if has_b2b:
             b2b += 1
         elif any(t in s for t in CONSUMER_TOKENS):
@@ -412,6 +480,7 @@ def _consumer_score(strings: list[str]) -> tuple[int, int]:
 STRONG_KEEP_TOKENS = (
     "manufactur", "factory", "oem", "odm", "fabricat", "foundry", "refinery",
     "industrial estate", "industrial park", "mill",
+    "โรงงาน", "ผู้ผลิต", "นิคมอุตสาหกรรม", "โรงสี", "โรงกลึง",
 )
 
 
@@ -454,7 +523,8 @@ def looks_consumer(category_name: str, categories: list[str], title: str = "") -
 
     # 대표 카테고리 자체가 소비자 업종이면 그것으로 끝. Google 이 첫 번째로 붙인
     # 분류라 가장 신뢰도가 높다.
-    if cn and not any(t in cn for t in B2B_TOKENS) and any(t in cn for t in CONSUMER_TOKENS):
+    cn_is_b2b = any(t in cn for t in B2B_TOKENS) or bool(_PLANT_RE.search(cn))
+    if cn and not cn_is_b2b and any(t in cn for t in CONSUMER_TOKENS):
         return True
 
     consumer, b2b = _consumer_score(cats)

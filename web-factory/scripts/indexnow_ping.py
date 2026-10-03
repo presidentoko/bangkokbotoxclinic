@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 import urllib.request
 import uuid
@@ -88,6 +89,12 @@ def collect_urls(db: dict) -> list[str]:
     # city (en + ko)
     th_city_core = {"chon_buri", "rayong", "pathum_thani", "samut_sakhon", "samut_prakan", "bangkok", "phra_nakhon_si_ayutthaya", "songkhla"}
     for label in db.get("city_counts", {}).keys():
+        # master_db 의 city_counts 는 정규화 전 값이다 (사이트는 lib/data.ts 가
+        # lib/provinceNorm.ts 로 다시 집계한다). 태국어 표기나 주소 조각이 섞여
+        # 있어서 그대로 쓰면 없는 URL 을 핑한다 — 2026-10-03 에 ม.11, BANGLAMUNG,
+        # ภูเก็ต 같은 라벨이 들어왔다. 영문 도 이름만 통과시킨다.
+        if not re.fullmatch(r"[A-Za-z][A-Za-z ]+", label or ""):
+            continue
         slug = label.lower().replace(" ", "_")
         urls.append(f"{SITE}/city/{slug}")
         urls.append(f"{SITE}/ko/city/{slug}")
