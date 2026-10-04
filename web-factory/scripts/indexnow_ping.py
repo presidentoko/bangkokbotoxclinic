@@ -106,6 +106,12 @@ def collect_urls(db: dict) -> list[str]:
         "warehouses", "manufacturers", "with-website", "near-laem-chabang",
     ]:
         urls.append(f"{SITE}/best/{slug}")
+    # 태국 소상공인 รับผลิต 페이지 — 빌드된 것만 (문턱 미달 품목은 out/ 에 없다).
+    oem_th = Path(__file__).resolve().parents[1] / "out" / "th" / "oem"
+    if oem_th.is_dir():
+        urls.append(f"{SITE}/th/oem")
+        for f in sorted(oem_th.glob("*.html")):
+            urls.append(f"{SITE}/th/oem/{f.stem}")
     # guides (en + ko + th)
     urls.append(f"{SITE}/guide")
     urls.append(f"{SITE}/ko/guide")
