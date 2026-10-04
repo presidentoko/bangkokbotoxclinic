@@ -25,20 +25,40 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/admin", "/api", ...BLOCKED_PLACE_PATHS],
       },
       {
-        userAgent: "GPTBot",
+        // Answer engines, named explicitly.
+        //
+        // Functionally these inherit nothing from the "*" group — a crawler
+        // that finds its own user-agent listed obeys only that group — so the
+        // disallows are repeated here. That is also the reason to list them at
+        // all: "*" already allows everything, but naming them means a future
+        // blanket Disallow cannot quietly take the site out of AI answers, and
+        // this site's whole differentiator (a verdict with its reasons stated)
+        // is the kind of thing an answer engine cites.
+        //
+        // Claude-Web and anthropic-ai are the retired names; ClaudeBot is the
+        // current one. OAI-SearchBot indexes for ChatGPT search while GPTBot
+        // crawls for training and ChatGPT-User fetches a page a person asked
+        // about — three different jobs, three user-agents. Google-Extended is
+        // not a crawler at all: it is the opt-out switch for Gemini, read off
+        // the same robots.txt Googlebot already fetched.
+        userAgent: [
+          "GPTBot",
+          "OAI-SearchBot",
+          "ChatGPT-User",
+          "ClaudeBot",
+          "Claude-User",
+          "Claude-SearchBot",
+          "Claude-Web",
+          "anthropic-ai",
+          "PerplexityBot",
+          "Perplexity-User",
+          "Google-Extended",
+          "Applebot-Extended",
+          "meta-externalagent",
+          "MistralAI-User",
+        ],
         allow: "/",
-      },
-      {
-        userAgent: "Claude-Web",
-        allow: "/",
-      },
-      {
-        userAgent: "PerplexityBot",
-        allow: "/",
-      },
-      {
-        userAgent: "anthropic-ai",
-        allow: "/",
+        disallow: ["/admin", "/api", ...BLOCKED_PLACE_PATHS],
       },
       {
         // Googlebot obeys only its own group, so this has to repeat the rules

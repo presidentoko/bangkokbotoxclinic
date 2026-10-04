@@ -5,6 +5,7 @@ import { BEST_FOR } from "@/lib/bestFor";
 import { CUISINE_LABELS } from "@/lib/types";
 import { GUIDES } from "@/lib/guides";
 import { NICHES, loadNicheDb, qualifyingNichePlaces, nicheCityCounts, cityPageDuplicatesHub } from "@/lib/niches";
+import { isThinVenue } from "@/lib/venueContent";
 import { nicheAreaCounts } from "@/lib/areas";
 import type { NicheSlug } from "@/lib/niches";
 import { allDayPlanParams, buildDayPlan, AREA_DEFS, THEME_DEFS } from "@/lib/day-plans";
@@ -244,6 +245,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
   for (const nd of nicheDbs) {
     for (const p of nd.places) {
+      // A sitemap lists URLs asking to be indexed; a noindexed one contradicts
+      // itself there. They stay reachable through the hub, area and /all grids,
+      // which is how the crawler gets in to read the noindex at all.
+      if (isThinVenue(p)) continue;
       items.push({ url: `${SITE}/activities/${nd.slug}/${encodeURIComponent(p.slug)}`, lastModified: activitiesUpdated, changeFrequency: "weekly", priority: 0.75 });
     }
   }

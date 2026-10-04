@@ -14,6 +14,7 @@ import {
 import type { NicheSlug } from "@/lib/niches";
 import { AddToPlannerButton } from "@/components/AddToPlannerButton";
 import { trustTierLong } from "@/lib/trust";
+import { isThinVenue } from "@/lib/venueContent";
 import { ShareButton } from "@/components/ShareButton";
 import { VersusVote } from "@/components/VersusVote";
 import { BangkokTip } from "@/components/BangkokTip";
@@ -92,6 +93,10 @@ export async function generateMetadata({
     // RFC-3986-encoded <loc>/canonical/hreflang, unlike plain <a href>
     // which browsers happily percent-encode themselves.
     alternates: { canonical: `/activities/${niche}/${encodeURIComponent(slug)}` },
+    // Thin on the merits: no review text and too few reviews for any to exist.
+    // follow, so the internal links on the page still pass through. See
+    // lib/venueContent.ts for the measurement behind the split.
+    ...(isThinVenue(place) ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       title: `${place.name} — ${info.label} ${cityLabel}`,
       description: `${hasRating ? `★${place.rating!.toFixed(1)} · ${place.review_count!.toLocaleString()} reviews · ` : ""}Trust Score ${place.trust_score}${priceStr}`,
