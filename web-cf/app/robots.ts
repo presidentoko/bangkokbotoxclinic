@@ -1,5 +1,23 @@
 import type { MetadataRoute } from "next";
-import { getSiteUrl } from "@/lib/site";
+import { getSiteUrl, getSiteConfig } from "@/lib/site";
+
+// 2026-10-04: 덴탈(bangkokbestclinic.com)에서만 AI **검색·인용** 봇을 연다.
+//
+// 아래 차단(08-24)의 이유는 Vercel Hobby 한도였다. 덴탈은 2026-08-08 에 Cloudflare
+// Workers 로 옮겨서 ISR Reads·Fast Origin Transfer 한도 자체가 없다 — 차단 이유가
+// 덴탈에는 더 이상 해당하지 않는데 robots.ts 를 보톡스(web/, Vercel)와 공유해서
+// 그대로 남아 있었다. 그 결과 ChatGPT 검색·Perplexity 답변에 인용될 수 없었다.
+//
+// 여는 것: 사용자가 질문할 때 페이지를 가져와 출처로 인용하는 봇만.
+// 계속 막는 것: 모델 **학습**용 수집 봇(GPTBot, ClaudeBot, Google-Extended, CCBot …)
+// — 학습 데이터로 가져가는 건 인용·유입이 없다.
+// 보톡스·thaifacial 은 Vercel 이라 그대로 막는다.
+const AI_SEARCH_BOTS = [
+  "OAI-SearchBot", "ChatGPT-User",
+  "PerplexityBot", "Perplexity-User",
+  "Claude-SearchBot", "Claude-User",
+];
+const OPEN_AI_SEARCH = getSiteConfig().focus === "dental";
 
 const SITE = getSiteUrl();
 
@@ -62,7 +80,7 @@ export default function robots(): MetadataRoute.Robots {
           // Meta's AI training crawler is "meta-externalagent", listed above
           // and still blocked.
           "Timpibot", "YouBot", "ImagesiftBot",
-        ],
+        ].filter((ua) => !(OPEN_AI_SEARCH && AI_SEARCH_BOTS.includes(ua))),
         disallow: "/",
         allow: [],
       },

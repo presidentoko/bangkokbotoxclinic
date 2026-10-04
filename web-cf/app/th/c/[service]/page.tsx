@@ -10,6 +10,8 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCategory } from "@/lib/data";
 import { reviewPriceHint } from "@/lib/reviewPrices";
+import { DentalFacts } from "@/components/DentalFacts";
+import { dentalFacts } from "@/lib/dentalFacts";
 import { ClinicCard } from "@/components/ClinicCard";
 import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { BreadcrumbJsonLd, FaqJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
@@ -48,48 +50,9 @@ const TH_NEAR_ME: Record<string, string> = {
 
 // 가격 비교 표 — AI Overviews/답변 엔진이 가장 안정적으로 추출하는 형식인데
 // 이 사이트엔 <table>이 한 개도 없었다. 수치는 lib/faq.ts 의 영어 FAQ와 동일.
-const TH_PRICE_TABLE: Partial<Record<string, { rows: [string, string][]; note: string }>> = {
-  dental: {
-    rows: [
-      ["รากฟันเทียม Straumann / Nobel Biocare", "฿55,000–80,000 ต่อซี่"],
-      ["รากฟันเทียม Osstem / Astra", "฿35,000–55,000 ต่อซี่"],
-      ["All-on-4 ทั้งขากรรไกร", "฿250,000–500,000"],
-      ["วีเนียร์", "฿12,000–30,000 ต่อซี่"],
-      ["ครอบฟันเซรามิก / E.max", "฿10,000–20,000"],
-      ["ครอบฟันเซอร์โคเนีย", "฿8,000–18,000"],
-      ["ฟอกสีฟัน", "฿4,000–12,000"],
-      ["จัดฟันใส Invisalign (เคสเต็ม)", "฿80,000–200,000"],
-    ],
-    note: "ราคาโดยประมาณจากคลินิกในกรุงเทพฯ ราคาจริงขึ้นกับแต่ละคลินิกและความซับซ้อนของเคส",
-  },
-  botox: {
-    rows: [
-      ["โบท็อกซ์ (ต่อยูนิต)", "฿80–250"],
-      ["หน้าผาก", "10–20 ยูนิต"],
-      ["หางตา (ตีนกา) ต่อข้าง", "8–16 ยูนิต"],
-      ["ระหว่างคิ้ว", "16–24 ยูนิต"],
-      ["กราม (ลดหน้าเหลี่ยม) ต่อข้าง", "25–50 ยูนิต"],
-    ],
-    note: "คูณจำนวนยูนิตกับราคาต่อยูนิตเพื่อเทียบราคาระหว่างคลินิกได้จริง ควรถามให้ชัดว่าราคาที่แจ้งเป็นต่อยูนิตหรือต่อบริเวณ",
-  },
-  filler: {
-    rows: [
-      ["ฟิลเลอร์ Juvederm / Restylane (1 ml)", "฿8,000–25,000"],
-      ["ริมฝีปาก", "1 ml"],
-      ["ร่องแก้ม", "1–2 ml"],
-      ["เสริมจมูก", "0.5–1 ml"],
-    ],
-    note: "ควรขอดูกล่องและสติกเกอร์ล็อตของฟิลเลอร์ก่อนฉีดทุกครั้ง",
-  },
-  hifu: {
-    rows: [
-      ["HIFU ทั่วไป (ต่อครั้ง)", "฿8,000–25,000"],
-      ["Ultherapy ของแท้ (ต่อครั้ง)", "฿40,000–80,000+"],
-      ["Thermage FLX (ต่อครั้ง)", "฿35,000–70,000"],
-    ],
-    note: "ราคาต่างกันมากตามเครื่องและจำนวนช็อต ควรถามชื่อเครื่องและจำนวนช็อตก่อนตัดสินใจ",
-  },
-};
+// 2026-10-03: TH_PRICE_TABLE(임플란트 ฿55,000–80,000 등 "ราคาโดยประมาณ" 8줄 × 시술별)을
+// 지웠다. 출처가 없었고, 미백 "฿4,000–12,000" 은 우리 리뷰 실측(중앙값 ฿3,499,
+// 중간 50% ฿1,599–4,450, n=29)과도 어긋났다. 덴탈은 DentalFacts 가 실측 가격을 낸다.
 
 const TH_FAQ: Partial<Record<string, { q: string; a: string }[]>> = {
   botox: [
@@ -255,7 +218,9 @@ export default async function ThServicePage(
   const totalReviews = filtered.reduce((s, c) => s + c.total_reviews, 0);
   const withScraped = filtered.filter((c) => c.scraped_review_count > 0).length;
   const faqs = TH_FAQ[service] ?? [];
-  const priceTable = TH_PRICE_TABLE[service];
+  const facts = cfg.focus === "dental" && service === "dental"
+    ? dentalFacts(filtered, (db as unknown as { price_bands?: Record<string, Record<string, { n: number; p25: number; median: number; p75: number }>> }).price_bands?.bangkok, "th")
+    : [];
 
   const cityOrder = ["Bangkok", "Pattaya", "Phuket", "Chiang Mai", "Koh Samui", "Krabi", "Hua Hin"];
   const cityTh: Record<string, string> = {
@@ -302,31 +267,7 @@ export default async function ThServicePage(
           {bodyPriceHint && <> ราคากลางจากรีวิวคนไข้: {bodyPriceHint}</>}
         </p>
 
-        {priceTable && (
-          <section className="mb-10">
-            <h2 className="text-xl font-bold mb-3">ราคา{label}ในกรุงเทพฯ</h2>
-            {/* 넓은 표가 페이지 자체를 옆으로 밀지 않도록 자체 스크롤 컨테이너 안에 둔다 */}
-            <div className="overflow-x-auto -mx-4 px-4">
-              <table className="w-full min-w-[20rem] text-sm border-collapse">
-                <thead>
-                  <tr className="border-b border-[var(--border)]">
-                    <th className="text-left py-2 pr-4 font-semibold">รายการ</th>
-                    <th className="text-left py-2 font-semibold">ราคาโดยประมาณ</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {priceTable.rows.map(([item, price]) => (
-                    <tr key={item} className="border-b border-[var(--border)]">
-                      <td className="py-2 pr-4">{item}</td>
-                      <td className="py-2 tabular-nums whitespace-nowrap">{price}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="mt-2 text-xs text-[var(--muted)]">{priceTable.note}</p>
-          </section>
-        )}
+        <DentalFacts facts={facts} lang="th" />
 
         {districts.length > 0 && (
           <section className="mb-10">
@@ -421,7 +362,7 @@ export default async function ThServicePage(
           { name: "หน้าแรก", url: "/th" },
           { name: label, url: `/th/c/${service}` },
         ]} />
-        <FaqJsonLd faqs={faqs} />
+        <FaqJsonLd faqs={[...facts, ...faqs]} />
         <CollectionPageJsonLd
           name={`คลินิก${label}ในกรุงเทพฯ`}
           description={`จัดอันดับคลินิก${label}ในกรุงเทพฯ ${filtered.length} แห่ง ด้วยคะแนนความน่าเชื่อถือจากการวิเคราะห์รีวิว Google`}

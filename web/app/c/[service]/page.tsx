@@ -9,6 +9,8 @@ import { AffiliateInline } from "@/components/AffiliateSlot";
 import { BookingForm } from "@/components/BookingForm";
 import { StatsBar } from "@/components/StatsBar";
 import { DistrictCompareTable } from "@/components/DistrictCompareTable";
+import { DentalFacts } from "@/components/DentalFacts";
+import { dentalFacts } from "@/lib/dentalFacts";
 import { PriceBands } from "@/components/PriceBands";
 import { reviewPriceHint } from "@/lib/reviewPrices";
 import { CategoryIcon } from "@/components/CategoryIcon";
@@ -100,6 +102,9 @@ export default async function ServicePage(
   const db = await loadMasterDb();
   const filtered = filterByCategory(applySiteFilter(db.clinics, cfg), service)
     .sort((a, b) => b.trust_score - a.trust_score);
+  const facts = cfg.focus === "dental" && service === "dental"
+    ? dentalFacts(filtered, (db as unknown as { price_bands?: Record<string, Record<string, { n: number; p25: number; median: number; p75: number }>> }).price_bands?.bangkok, "en")
+    : [];
   const label = CATEGORY_LABELS[service] ?? service;
 
   // 지역별 group: 최소 3 클리닉 있는 지역만
@@ -155,6 +160,10 @@ export default async function ServicePage(
       )}
 
       <DistrictCompareTable clinics={filtered} />
+
+      {/* 2026-10-03: 숫자로 답하는 FAQ — 전부 master_db 에서 계산(lib/dentalFacts.ts).
+          AI 답변 엔진·구글 요약이 인용하는 형태다. 같은 배열을 FAQPage 스키마에도 넣는다. */}
+      <DentalFacts facts={facts} />
 
       {districts.length > 0 && (
         <section className="mb-10">
@@ -342,7 +351,7 @@ export default async function ServicePage(
         { name: "Home", url: "/" },
         { name: label, url: `/c/${service}` },
       ]} />
-      <FaqJsonLd faqs={CATEGORY_FAQS[service] ?? []} />
+      <FaqJsonLd faqs={[...facts, ...(CATEGORY_FAQS[service] ?? [])]} />
       <CollectionPageJsonLd
         name={`Top ${label} Clinics in Bangkok`}
         description={`${filtered.length} verified ${label.toLowerCase()} clinics in Bangkok ranked by Trust Score from Google review analysis.`}
