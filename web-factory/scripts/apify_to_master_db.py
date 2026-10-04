@@ -246,6 +246,19 @@ SUPPLY_KEYWORDS = (
     "เครื่องจักร",      # 기계
     "สุขภัณฑ์",         # 위생도기
     "เคมีภัณฑ์",        # 화학제품
+    # ── 태국 소상공인 OEM (2026-10-04, lib/smeOemTh.ts) ──────────────────
+    # 인쇄·스크린·로스터는 위 어휘 어디에도 안 걸려서, 이 품목을 노린 배치가
+    # 통째로 버려질 뻔했다 (Commercial printer / Label printer / Screen
+    # printing shop / Coffee roasters 전부 drop 이었다).
+    # "Coffee roastery" 는 대개 카페라 CONSUMER 쪽에 그대로 둔다 — Google 은
+    # 원두 납품 로스터를 "Coffee roasters" 로 따로 분류한다.
+    "commercial printer", "label printer", "printing company", "screen printing",
+    "sticker manufacturer", "coffee roasters",
+    "โรงพิมพ์",         # 인쇄소
+    "รับผลิต",          # (주문) 생산해 줌 — OEM 의 구어
+    "รับสกรีน",         # 스크린 인쇄 해 줌
+    "รับพิมพ์",         # 인쇄 해 줌
+    "โรงคั่ว",          # 로스터리 공장
 )
 
 EXCLUDE_CATEGORIES = {
@@ -520,6 +533,8 @@ STRONG_KEEP_NAME = (
     #  Dura' Kitchen Factory 1, Traditional Bamboo Handcraft factory)
     "garment", "supplement", "kitchen", "bamboo", "extract",
     "handcraft", "handicraft", "interfood", "food company",
+    # 태국어 상호의 "รับผลิต…"(…생산해 드림) 은 업종이 소매로 잡혀도 생산자다.
+    "รับผลิต", "รับสกรีน", "โรงพิมพ์", "โรงคั่ว",
     "โรงงาน", "โรงกลึง", "โรงสี",
 )
 

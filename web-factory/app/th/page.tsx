@@ -10,6 +10,7 @@ import { POSTS_TH } from "@/lib/posts_th";
 import { LazyHeroSearch } from "@/components/LazyHeroSearch";
 import { computeTrustScore } from "@/lib/trustScore";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
+import { liveSmeOem } from "@/lib/smeOemTh";
 import type { Metadata } from "next";
 
 // 숫자를 하드코딩하지 않는다. 예전 설명문은 "검증 849 + B2B 3,300" 이었는데
@@ -66,6 +67,7 @@ const TH_FAQS = [
 export default async function ThHomePage() {
   const db = await loadMasterDb();
   const top = sortWithSponsored(topByTrust(db.suppliers, 30));
+  const smeOem = liveSmeOem(db.suppliers);
 
   const totalReviews = db.suppliers.reduce((s, r) => s + r.total_reviews, 0);
   const withWebsite = db.suppliers.filter((r) => r.website).length;
@@ -125,6 +127,30 @@ export default async function ThHomePage() {
       </section>
 
       <div className="max-w-5xl mx-auto px-4 py-10">
+        {/* 태국 소상공인 "รับผลิต" 수요 — lib/smeOemTh.ts */}
+        {smeOem.length > 0 && (
+          <section className="mb-12">
+            <div className="flex items-baseline justify-between gap-4 flex-wrap mb-5">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-black tracking-tight">🏷️ โรงงานรับผลิตแบรนด์ของคุณ</h2>
+                <p className="text-sm text-[var(--muted)] mt-1.5 leading-relaxed">
+                  ครีม อาหารเสริม ซอส เครื่องดื่ม บรรจุภัณฑ์ สกรีนโลโก้ — ติดต่อโรงงาน OEM ได้โดยตรง
+                </p>
+              </div>
+              <a href="/th/oem" className="text-sm font-bold hover:text-emerald-700 hover:underline">ดูทั้งหมด →</a>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {smeOem.map(({ v, count }) => (
+                <a key={v.slug} href={`/th/oem/${v.slug}`}
+                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition font-medium">
+                  <span aria-hidden>{v.icon}</span> {v.name}
+                  <span className="text-[var(--muted)] tabular-nums">{count}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
         {estatesTop.length >= 4 && (
           <section className="mb-12">
             <div className="flex items-baseline justify-between gap-4 flex-wrap mb-5">

@@ -13,6 +13,7 @@ import { POSTS_KO } from "@/lib/posts_ko";
 import { POSTS_TH } from "@/lib/posts_th";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
 import { TH_CATEGORY_VALID, TH_CITY_VALID } from "@/lib/thBuildSets";
+import { liveSmeOem } from "@/lib/smeOemTh";
 import { inSitemap } from "@/lib/supplierTier";
 import { MIN_CITY_CATEGORY_SUPPLIERS_TH, cityCategoryPairs } from "@/lib/cityCategory";
 
@@ -116,6 +117,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const c of CATEGORIES) {
     items.push({ url: `${SITE}/c/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.9 });
     items.push({ url: `${SITE}/ko/c/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
+  }
+  // 태국 소상공인 รับผลิต 페이지 — /th/oem/[slug] 가 빌드하는 목록과 같은 함수.
+  items.push({ url: `${SITE}/th/oem`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 });
+  for (const { v } of liveSmeOem(db.suppliers)) {
+    items.push({ url: `${SITE}/th/oem/${v.slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 });
   }
   // 태국어 카테고리 — /th/c/[cuisine] 가 실제로 빌드하는 목록과 동일 소스.
   for (const c of TH_CATEGORY_VALID) {

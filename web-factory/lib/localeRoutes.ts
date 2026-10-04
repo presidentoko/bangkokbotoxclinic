@@ -44,6 +44,8 @@ const STATIC_ROUTES = new Set([
 /** 해당 언어판이 실제로 빌드되는 경로인지. path 는 접두사가 벗겨진 EN 경로. */
 export function localeHasRoute(path: string, target: "ko" | "th"): boolean {
   if (STATIC_ROUTES.has(path)) return true;
+  // /th/oem 은 SME 용 허브다. EN /oem/{vertical} 은 상위(/oem)로 폴백해 여기로 온다.
+  if (target === "th" && path === "/oem") return true;
   const s = SETS[target];
   const seg = path.split("/").filter(Boolean);
 
