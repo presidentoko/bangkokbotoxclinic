@@ -464,6 +464,14 @@ def _chrome_count() -> int:
         return 0
 
 
+def _paused_by_ram_manager(s: "Service") -> bool:
+    """정지 마커가 ram_manager 가 쓴 것인가(내용이 정확히 "ram_manager")."""
+    try:
+        return s.disabled_marker.read_text(encoding="utf-8", errors="replace").strip() == "ram_manager"
+    except OSError:
+        return False
+
+
 def _find_script_instances(script_name: str) -> list[tuple[int, int]]:
     """script_name 을 cmdline 에 포함한 python.exe 프로세스 (pid, ppid) 목록."""
     # cmd[0] 은 "web/scripts/x.py" 처럼 슬래시로 들어가지만, 커맨드라인이
@@ -2463,6 +2471,18 @@ def main():
             if s.disabled:
                 continue
             if s.is_paused():
+                # 2026-10-06: ram_manager 가 건 정지는 **실제로 멈춘다.**
+                # 전에는 여기서 continue 만 했다 — 정지는 "죽으면 다시 안 띄운다"는
+                # 뜻일 뿐 돌고 있는 프로세스는 그대로였다. 그래서 ram_manager 가
+                # 메모리 부족으로 8개를 전부 pause 해도 RAM 은 한 바이트도 안 풀렸고
+                # (8개 모두 .disabled 인데 로그엔 몇 분 전 성공), 사다리는 더 끌 게
+                # 없다며 손을 놓아 여유가 0.2GB 까지 떨어졌다 — OS 가 아무 프로세스나
+                # 죽이기 시작하는 구간이다. 메모 grid-playwright-zombie-budget 의
+                # "pause 가 playwright 트리를 안 죽인다"도 같은 원인이었다.
+                # 사람이 건 정지(마커 내용이 ram_manager 가 아닌 것)는 건드리지 않는다.
+                if s.is_alive() and _paused_by_ram_manager(s):
+                    s.kick("ram_manager 정지 — 메모리 회수")  # PID 트리 + 런처 종료
+                    any_action = True
                 continue
             if s.is_alive():
                 # 살아있어도 진행 정체면 강제 재시작
