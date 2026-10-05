@@ -28,6 +28,8 @@ import urllib.request
 from pathlib import Path
 
 TMPDIR = Path(tempfile.gettempdir())
+# NordVPN OpenVPN 포트 (2026-10 이후, TCP·UDP 공통). 아래 merge 주석 참고.
+NORD_OVPN_PORTS = (1231, 1232, 1233, 1234)
 
 BASE = Path(__file__).parent
 OVPN_DIR = BASE / "node-openvpn-socks"
@@ -209,7 +211,14 @@ class Runner:
             except Exception as e:
                 log(f"  fetch {p} 실패: {e}")
                 continue
-            port = 443 if p == "tcp" else 1194
+            # 2026-10-05: NordVPN 이 OpenVPN 포트를 TCP 443 / UDP 1194 에서 **1231~1234**
+            # (TCP·UDP 공통)로 옮겼다. 443 에도 무언가 TCP 는 받아줘서 연결은 되지만
+            # OpenVPN 은 응답하지 않아, 모든 터널이 핸드셰이크에서 조용히 멈췄다
+            # ("tunnel 실패" 64,066회, 스크래퍼 성공 0). 키·CA·cipher 는 그대로다.
+            # 공식 설정 파일(downloads.nordcdn.com/configs/files/ovpn_tcp/...)에서
+            # `remote <ip> 1231..1234` 로 확인했고, 1231 로 수동 기동 시 즉시 tunnel up.
+            # 서버마다 네 포트 중 하나를 고른다 — 한 포트에 몰리지 않게.
+            port = random.choice(NORD_OVPN_PORTS)
             added = 0
             for s in data:
                 if s.get("status") != "online":
