@@ -58,6 +58,7 @@ PAUSE_THRESHOLDS = [
     ("spa_review_koh_samui",   1.0),
     ("spa_review_hua_hin",     1.0),
     ("spa_review_chiang_mai",  1.0),   # 2026-10-02 추가 (파타야는 위에 이미 있음)
+    ("spa_review_phuket",      1.0),   # 2026-10-05 8터널 가동
     # 2026-10-02: 방콕 스파는 사다리에 없어서 "절대 자동으로 안 꺼진다"는
     # 상태였다(메모 ram-manager-pause-ladder). 1순위로 돌릴 서비스를 관리
     # 밖에 두면 메모리가 말라도 아무도 멈춰주지 않는다. 0.95 로 둬서
@@ -103,6 +104,7 @@ RESUME_THRESHOLDS = [
     ("spa_review_koh_samui",   2.0),
     ("spa_review_hua_hin",     2.0),
     ("spa_review_chiang_mai",  2.0),
+    ("spa_review_phuket",      2.0),
     ("spa_review_bangkok",     1.95),   # pause 0.95 + 1워커 0.94 위
 ]
 

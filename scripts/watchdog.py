@@ -1463,7 +1463,7 @@ def build_services() -> list[Service]:
             cwd=bk_clinics,
             # 2026-10-02: 커버리지 메우기로 재가동. 워커 2 → 1 ("천천히").
             # RAM 이 상한이다 — 워커 1개가 실측 0.94GB(크롬 4~5개)다.
-            env_extra={**spa_pattaya_env, "N_WORKERS": "1"},
+            env_extra={**spa_pattaya_env, "N_WORKERS": "1", "PROXY_PORT_BASE": "2087"},
             log_file=LOGS / "spa_review_pattaya.log",
             chrome_heavy=True,
             review_done_check=True,
@@ -1509,7 +1509,11 @@ def build_services() -> list[Service]:
             name="spa_review_phuket",
             cmd=["scraper.py"],
             cwd=bk_clinics,
-            env_extra=spa_phuket_env,
+            # 2026-10-05: 사용자 10일 부재 동안 8터널 전부 가동. 1워커 = 1터널 배치:
+            #   2080 방콕클리닉 · 2081 꼬사무이 · 2082 치앙마이 · 2083 방콕스파
+            #   2084 푸켓 · 2085 끄라비 · 2086 후아힌 · 2087 파타야
+            # 동시 가동 상한은 RAM 이고 ram_manager 사다리가 조절한다.
+            env_extra={**spa_phuket_env, "N_WORKERS": "1", "PROXY_PORT_BASE": "2084"},
             log_file=LOGS / "spa_review_phuket.log",
             chrome_heavy=True,
             review_done_check=True,
@@ -1615,7 +1619,7 @@ def build_services() -> list[Service]:
             # 3도시 × 2워커면 여유가 0 밑으로 간다. 1워커 × 3도시면
             # 여유 1.0~1.5GB 로, ram_manager.py 가 목표라 적어둔 범위다.
             # 그리드는 이 값을 공유하지 않는다(massage_* 는 별도 env).
-            env_extra={**spa_koh_samui_env, "N_WORKERS": "1"},
+            env_extra={**spa_koh_samui_env, "N_WORKERS": "1", "PROXY_PORT_BASE": "2081"},
             log_file=LOGS / "spa_review_koh_samui.log",
             chrome_heavy=True,
             review_done_check=True,
@@ -1667,7 +1671,7 @@ def build_services() -> list[Service]:
             # 3도시 × 2워커면 여유가 0 밑으로 간다. 1워커 × 3도시면
             # 여유 1.0~1.5GB 로, ram_manager.py 가 목표라 적어둔 범위다.
             # 그리드는 이 값을 공유하지 않는다(massage_* 는 별도 env).
-            env_extra={**spa_hua_hin_env, "N_WORKERS": "1"},
+            env_extra={**spa_hua_hin_env, "N_WORKERS": "1", "PROXY_PORT_BASE": "2086"},
             log_file=LOGS / "spa_review_hua_hin.log",
             chrome_heavy=True,
             review_done_check=True,
