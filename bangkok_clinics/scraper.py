@@ -1525,7 +1525,27 @@ def save_hours_csv(hours: list[RestaurantHours], path: Path):
     log.info(f"식당 영업시간 저장: {path} ({len(hours)}건)")
 
 
+def _keep_old_rows(path: Path, new_ids: set[str]) -> list[list[str]]:
+    """기존 파일에서 이번 수집에 없는 review_id 행을 그대로 돌려준다.
+
+    왜 (2026-10-14): 리뷰 재스캔(REVIEW_REFRESH_DAYS)이 파일을 통째로 덮어써서,
+    스로틀링으로 5건만 돌아온 재스캔이 이전에 모은 50건을 지웠다. 10일 무인 운영
+    동안 840곳이 줄었고 그중 731곳이 정확히 5건이 됐다(총 183,332 → 166,454).
+    덴탈 허브의 불만 신호도 519 → 474곳으로 같이 줄었다. 0건일 때 안 지우는
+    09-23 수정과 같은 원리 — 재스캔은 **더하기만** 한다.
+    """
+    if not path.exists():
+        return []
+    try:
+        with open(path, newline="", encoding="utf-8-sig") as f:
+            rows = list(csv.reader(f))
+    except (OSError, csv.Error, UnicodeDecodeError):
+        return []
+    return [r for r in rows[1:] if r and r[0] not in new_ids]
+
+
 def save_reviews_csv(reviews: list[ReviewItem], path: Path):
+    old = _keep_old_rows(path, {r.review_id for r in reviews})
     with open(path, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
         w.writerow([
@@ -1541,9 +1561,11 @@ def save_reviews_csv(reviews: list[ReviewItem], path: Path):
                 r.author_is_local_guide, r.author_review_count, r.author_photo_count,
                 r.relative_date, r.spent_amount, r.sort_source,
             ])
+        w.writerows(old)
 
 
 def save_metas_csv(metas: list[ReviewMeta], path: Path):
+    old = _keep_old_rows(path, {m.review_id for m in metas})
     with open(path, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
         w.writerow([
@@ -1559,6 +1581,7 @@ def save_metas_csv(metas: list[ReviewMeta], path: Path):
                 m.meal_type, m.price_per_person, m.group_size,
                 m.wait_time, m.reservation, m.service_type, m.recommended_dishes,
             ])
+        w.writerows(old)
 
 
 # ── 병렬 처리 ────────────────────────────────────────────────
