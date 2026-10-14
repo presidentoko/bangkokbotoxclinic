@@ -1263,7 +1263,10 @@ def build_services() -> list[Service]:
                 # 2026-08-20: 2082 → 2083. 2082 는 bangkok_clinics_review 의
                 # 3번째 워커와 겹쳐 있었다 — 1워커=1터널 배치로 이동
                 # (spa_bangkok_env 주석에 전체 표 있음).
-                "PROXY_PORT_BASE": "2083",
+                # 2026-10-14: 2083 → 2080. spa_review_bangkok 가 2083 을 쓰고
+                # 둘을 같이 켠다. 2080 의 원래 주인 bangkok_clinics_review 는
+                # 99% 완료로 꺼져 있다 — 다시 켤 땐 둘 중 하나를 옮길 것.
+                "PROXY_PORT_BASE": "2080",
             },
             log_file=LOGS / "dental_review_bangkok.log",
             chrome_heavy=True,
