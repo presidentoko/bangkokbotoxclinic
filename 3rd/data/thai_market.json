@@ -1,6 +1,6 @@
 {
-  "generated": "2026-10-12",
-  "listing_count": 2860,
+  "generated": "2026-10-15",
+  "listing_count": 2928,
   "sources": [
     {
       "id": "usedbrand88",
@@ -29,11 +29,11 @@
       "label": "Time Thai by TAG",
       "url": "https://www.timethaibytag.com",
       "focus": "watches",
-      "listings": 0,
-      "ok": false,
-      "complete": false,
-      "buys": false,
-      "consigns": false
+      "listings": 79,
+      "ok": true,
+      "complete": true,
+      "buys": true,
+      "consigns": true
     },
     {
       "id": "conradtime",
@@ -51,7 +51,7 @@
       "label": "Pixiu Watch",
       "url": "https://pixiuwatch.com",
       "focus": "watches",
-      "listings": 113,
+      "listings": 102,
       "ok": true,
       "complete": true,
       "buys": true,
@@ -285,7 +285,8 @@
     },
     "louis-vuitton/speedy-30": {
       "sources": [
-        "brandnamevoyage"
+        "brandnamevoyage",
+        "usedbrand88"
       ],
       "listings": [
         {
@@ -325,7 +326,7 @@
           "price": 17900,
           "url": "https://brandnamevoyage.com/product/louis-vuittonspeedy/",
           "source": "brandnamevoyage",
-          "in_stock": true,
+          "in_stock": false,
           "image": "https://brandnamevoyage.com/wp-content/uploads/2026/08/CLV2602M7P128-2-324x324.jpg"
         },
         {
@@ -338,9 +339,9 @@
         }
       ],
       "family": {
-        "n": 53,
+        "n": 54,
         "min": 14900,
-        "median": 20900,
+        "median": 21400,
         "max": 59900,
         "label": "Speedy"
       }
@@ -416,7 +417,8 @@
     "rolex/submariner": {
       "sources": [
         "conradtime",
-        "pixiuwatch"
+        "pixiuwatch",
+        "timethaibytag"
       ],
       "listings": [
         {
@@ -469,7 +471,7 @@
         }
       ],
       "variant": {
-        "n": 96,
+        "n": 99,
         "min": 229000,
         "median": 429000,
         "max": 1649000
@@ -537,7 +539,7 @@
         "max": 669000
       },
       "family": {
-        "n": 171,
+        "n": 175,
         "min": 139000,
         "median": 309000,
         "max": 999000,
@@ -608,7 +610,8 @@
     },
     "audemars-piguet/royal-oak-15500": {
       "sources": [
-        "conradtime"
+        "conradtime",
+        "timethaibytag"
       ],
       "listings": [
         {
@@ -644,26 +647,26 @@
           "image": "https://conradtime.com/wp-content/uploads/2024/10/CT2594-Ref.26470ST-300x300.jpg"
         },
         {
+          "title": "( USED ) Audemars Piguet Royal Oak Offshore Team Alinghi 26470ST",
+          "price": 760000,
+          "url": "https://www.timethaibytag.com/product/%e2%8c%9a%ef%b8%8f-used-audemars-piguet-royal-oak-offshore-team-alinghi-26470st",
+          "source": "timethaibytag",
+          "in_stock": true,
+          "image": "https://www.timethaibytag.com/wp-content/uploads/line_album_1242022-_9_220412_23-500x500.jpg"
+        },
+        {
           "title": "Royal Oak 15400ST Black Dial Stainless steel 41mm.",
           "price": 799000,
           "url": "https://conradtime.com/shop/audemars-piguet/royal-oak-15300st-black-dial-stainless-steel-2014-39mm/",
           "source": "conradtime",
           "in_stock": true,
           "image": "https://conradtime.com/wp-content/uploads/2025/10/CT2884-Ref.15300ST-300x300.jpg"
-        },
-        {
-          "title": "Royal Oak Offshore 26400IO Grey dial Titanium Grey Rubber Strap 2021 44 mm.",
-          "price": 849000,
-          "url": "https://conradtime.com/shop/audemars-piguet/royal-oak-offshore-26400io-grey-dial-titanium-grey-rubber-strap-2021-44-mm/",
-          "source": "conradtime",
-          "in_stock": true,
-          "image": "https://conradtime.com/wp-content/uploads/2025/02/CT2699-Ref.26400IO-300x300.jpg"
         }
       ],
       "family": {
-        "n": 15,
+        "n": 16,
         "min": 579000,
-        "median": 979000,
+        "median": 969000,
         "max": 2449000,
         "label": "Royal Oak"
       }
@@ -797,7 +800,8 @@
     },
     "louis-vuitton/speedy-25": {
       "sources": [
-        "brandnamevoyage"
+        "brandnamevoyage",
+        "usedbrand88"
       ],
       "listings": [
         {
@@ -837,7 +841,7 @@
           "price": 17900,
           "url": "https://brandnamevoyage.com/product/louis-vuittonspeedy/",
           "source": "brandnamevoyage",
-          "in_stock": true,
+          "in_stock": false,
           "image": "https://brandnamevoyage.com/wp-content/uploads/2026/08/CLV2602M7P128-2-324x324.jpg"
         },
         {
@@ -850,16 +854,17 @@
         }
       ],
       "family": {
-        "n": 53,
+        "n": 54,
         "min": 14900,
-        "median": 20900,
+        "median": 21400,
         "max": 59900,
         "label": "Speedy"
       }
     },
     "louis-vuitton/speedy-35": {
       "sources": [
-        "brandnamevoyage"
+        "brandnamevoyage",
+        "usedbrand88"
       ],
       "listings": [
         {
@@ -899,7 +904,7 @@
           "price": 17900,
           "url": "https://brandnamevoyage.com/product/louis-vuittonspeedy/",
           "source": "brandnamevoyage",
-          "in_stock": true,
+          "in_stock": false,
           "image": "https://brandnamevoyage.com/wp-content/uploads/2026/08/CLV2602M7P128-2-324x324.jpg"
         },
         {
@@ -912,9 +917,9 @@
         }
       ],
       "family": {
-        "n": 53,
+        "n": 54,
         "min": 14900,
-        "median": 20900,
+        "median": 21400,
         "max": 59900,
         "label": "Speedy"
       }
@@ -1541,7 +1546,8 @@
     },
     "rolex/gmt-master-ii": {
       "sources": [
-        "conradtime"
+        "conradtime",
+        "timethaibytag"
       ],
       "listings": [
         {
@@ -1594,17 +1600,26 @@
         }
       ],
       "variant": {
-        "n": 83,
+        "n": 84,
         "min": 309000,
-        "median": 579000,
+        "median": 574000,
         "max": 1299000
       }
     },
     "rolex/oyster-perpetual-36": {
       "sources": [
-        "conradtime"
+        "conradtime",
+        "timethaibytag"
       ],
       "listings": [
+        {
+          "title": "Rolex Oyster Perpetual Silver Dial Ref. 116000  🔸Size 36 mm.",
+          "price": 159000,
+          "url": "https://www.timethaibytag.com/product/rolex-oyster-perpetual-silver-dial-ref-116000-%f0%9f%94%b8size-36-mm",
+          "source": "timethaibytag",
+          "in_stock": true,
+          "image": "https://www.timethaibytag.com/wp-content/uploads/LINE_ALBUM_91026-_1_261009_1-500x500.jpg"
+        },
         {
           "title": "Oyster Perpetual 126000 Black Dial Oyster Steel 2023 36mm.",
           "price": 269000,
@@ -1647,15 +1662,15 @@
         }
       ],
       "variant": {
-        "n": 5,
-        "min": 269000,
-        "median": 459000,
+        "n": 6,
+        "min": 159000,
+        "median": 399000,
         "max": 549000
       },
       "family": {
-        "n": 37,
+        "n": 40,
         "min": 92500,
-        "median": 255000,
+        "median": 252000,
         "max": 729000,
         "label": "Oyster Perpetual"
       }
@@ -1663,7 +1678,8 @@
     "rolex/daytona": {
       "sources": [
         "conradtime",
-        "pixiuwatch"
+        "pixiuwatch",
+        "timethaibytag"
       ],
       "listings": [
         {
@@ -1716,10 +1732,10 @@
         }
       ],
       "variant": {
-        "n": 49,
+        "n": 53,
         "min": 439000,
         "median": 889000,
-        "max": 1999000
+        "max": 3045000
       }
     },
     "cartier/santos-medium": {
@@ -1925,7 +1941,7 @@
           "price": 15900,
           "url": "https://brandnamevoyage.com/product/chanelclassic-flap-card-holder1n-ablack-goldcaviarholo31box/",
           "source": "brandnamevoyage",
-          "in_stock": true,
+          "in_stock": false,
           "image": "https://brandnamevoyage.com/wp-content/uploads/2026/08/CC2601M8P9-2-324x324.jpg"
         },
         {
@@ -2031,7 +2047,8 @@
     },
     "audemars-piguet/royal-oak-15400": {
       "sources": [
-        "conradtime"
+        "conradtime",
+        "timethaibytag"
       ],
       "listings": [
         {
@@ -2067,26 +2084,26 @@
           "image": "https://conradtime.com/wp-content/uploads/2024/10/CT2594-Ref.26470ST-300x300.jpg"
         },
         {
+          "title": "( USED ) Audemars Piguet Royal Oak Offshore Team Alinghi 26470ST",
+          "price": 760000,
+          "url": "https://www.timethaibytag.com/product/%e2%8c%9a%ef%b8%8f-used-audemars-piguet-royal-oak-offshore-team-alinghi-26470st",
+          "source": "timethaibytag",
+          "in_stock": true,
+          "image": "https://www.timethaibytag.com/wp-content/uploads/line_album_1242022-_9_220412_23-500x500.jpg"
+        },
+        {
           "title": "Royal Oak 15400ST Black Dial Stainless steel 41mm.",
           "price": 799000,
           "url": "https://conradtime.com/shop/audemars-piguet/royal-oak-15300st-black-dial-stainless-steel-2014-39mm/",
           "source": "conradtime",
           "in_stock": true,
           "image": "https://conradtime.com/wp-content/uploads/2025/10/CT2884-Ref.15300ST-300x300.jpg"
-        },
-        {
-          "title": "Royal Oak Offshore 26400IO Grey dial Titanium Grey Rubber Strap 2021 44 mm.",
-          "price": 849000,
-          "url": "https://conradtime.com/shop/audemars-piguet/royal-oak-offshore-26400io-grey-dial-titanium-grey-rubber-strap-2021-44-mm/",
-          "source": "conradtime",
-          "in_stock": true,
-          "image": "https://conradtime.com/wp-content/uploads/2025/02/CT2699-Ref.26400IO-300x300.jpg"
         }
       ],
       "family": {
-        "n": 15,
+        "n": 16,
         "min": 579000,
-        "median": 979000,
+        "median": 969000,
         "max": 2449000,
         "label": "Royal Oak"
       }
@@ -2325,7 +2342,8 @@
     "rolex/datejust-36": {
       "sources": [
         "conradtime",
-        "pixiuwatch"
+        "pixiuwatch",
+        "timethaibytag"
       ],
       "listings": [
         {
@@ -2378,13 +2396,13 @@
         }
       ],
       "variant": {
-        "n": 49,
+        "n": 50,
         "min": 139000,
-        "median": 279000,
+        "median": 274000,
         "max": 619000
       },
       "family": {
-        "n": 171,
+        "n": 175,
         "min": 139000,
         "median": 309000,
         "max": 999000,
@@ -2450,7 +2468,7 @@
         "n": 9,
         "min": 79900,
         "median": 149900,
-        "max": 249900
+        "max": 219900
       },
       "by_condition": {
         "good": {
@@ -2516,9 +2534,9 @@
         "max": 2699000
       },
       "family": {
-        "n": 12,
+        "n": 11,
         "min": 499000,
-        "median": 974000,
+        "median": 1049000,
         "max": 2699000,
         "label": "Day Date President"
       }
@@ -2571,7 +2589,8 @@
     },
     "rolex/air-king-116900": {
       "sources": [
-        "conradtime"
+        "conradtime",
+        "timethaibytag"
       ],
       "listings": [
         {
@@ -2607,26 +2626,26 @@
           "image": "https://conradtime.com/wp-content/uploads/2024/09/CT2564-Ref.116900-300x300.jpg"
         },
         {
+          "title": "Rolex Oyster Perpetual Airking Black Dial 🇹🇭Y.2023 Ref. 126900 🔸Men Size 40 mm.",
+          "price": 258000,
+          "url": "https://www.timethaibytag.com/product/rolex-oyster-perpetual-airking-black-dial-%f0%9f%87%b9%f0%9f%87%ady-2023-ref-126900-%f0%9f%94%b8men-size-40-mm",
+          "source": "timethaibytag",
+          "in_stock": true,
+          "image": "https://www.timethaibytag.com/wp-content/uploads/LINE_ALBUM_7726-_4_260707_1-500x500.jpg"
+        },
+        {
           "title": "Oyster Perpetual 126900 &#8216;Air-King&#8217; Black Dial Oyster Steel 2024 40mm.",
           "price": 279000,
           "url": "https://conradtime.com/shop/rolex/oyster-perpetual-126900-air-king-black-dial-oyster-steel-2024-40mm/",
           "source": "conradtime",
           "in_stock": true,
           "image": "https://conradtime.com/wp-content/uploads/2025/10/CT2883-Ref.126900-300x300.jpg"
-        },
-        {
-          "title": "Air-King 126900 Black Dial Oyster Steel 2024 40mm.",
-          "price": 289000,
-          "url": "https://conradtime.com/shop/rolex/air-king-126900-black-dial-oyster-steel-2024-40mm/",
-          "source": "conradtime",
-          "in_stock": true,
-          "image": "https://conradtime.com/wp-content/uploads/2025/10/CT2892-Ref.126900-300x300.jpg"
         }
       ],
       "family": {
-        "n": 6,
+        "n": 7,
         "min": 159000,
-        "median": 224000,
+        "median": 239000,
         "max": 289000,
         "label": "Air King"
       }
@@ -2797,7 +2816,7 @@
           "price": 23900,
           "url": "https://brandnamevoyage.com/product/balenciagaclassic-city-bag/",
           "source": "brandnamevoyage",
-          "in_stock": true,
+          "in_stock": false,
           "image": "https://brandnamevoyage.com/wp-content/uploads/2026/08/CBA2603M8P81-2-324x324.jpg"
         },
         {
@@ -2805,7 +2824,7 @@
           "price": 24900,
           "url": "https://brandnamevoyage.com/product/balenciagacity-bag-2/",
           "source": "brandnamevoyage",
-          "in_stock": true,
+          "in_stock": false,
           "image": "https://brandnamevoyage.com/wp-content/uploads/2026/04/CBA2602M3P19-324x324.jpg"
         }
       ],
@@ -2967,7 +2986,7 @@
         "n": 9,
         "min": 79900,
         "median": 149900,
-        "max": 249900
+        "max": 219900
       },
       "by_condition": {
         "good": {
@@ -2994,6 +3013,14 @@
       ],
       "listings": [
         {
+          "title": "Used in Good Condition Chanel Coco 9.5 Caviar Holo23",
+          "price": 89900,
+          "url": "https://usedbrand88.com/product/used-in-good-condition-chanel-coco-9-5-caviar-holo23/",
+          "source": "usedbrand88",
+          "in_stock": true,
+          "image": "https://usedbrand88.com/wp-content/uploads/2026/10/Used-in-Good-Condition-Chanel-Coco-9.5-Caviar-Holo23-%E0%B8%AD%E0%B8%B8%E0%B8%9B%E0%B8%81%E0%B8%A3%E0%B8%93%E0%B9%8C-%E0%B8%81%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B8%87-%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%94-%E0%B8%96%E0%B8%B8%E0%B8%87%E0%B8%9C%E0%B9%89%E0%B8%B2-%E0%B8%9A%E0%B8%B8%E0%B9%8A%E0%B8%84-1-300x300.jpg"
+        },
+        {
           "title": "Keep Unused Chanel Coco 9.5  Iridescent Caviar Microchip Full Set",
           "price": 139900,
           "url": "https://usedbrand88.com/product/keep-unused-chanel-coco-9-5-iridescent-caviar-microchip-full-set/",
@@ -3019,8 +3046,8 @@
         }
       ],
       "variant": {
-        "n": 3,
-        "min": 139900,
+        "n": 4,
+        "min": 89900,
         "median": 139900,
         "max": 199900
       },
@@ -3034,25 +3061,26 @@
       "aliases": [
         {
           "name": "Coco 9",
-          "count": 3
+          "count": 4
         },
         {
           "name": "Coco 9.5",
-          "count": 3
+          "count": 4
         }
       ]
     }
   },
   "brands": {
     "audemars-piguet": {
-      "n": 17,
+      "n": 18,
       "p25": 725000,
-      "median": 979000,
+      "median": 969000,
       "p75": 1890000,
       "brand": "Audemars Piguet",
       "sources": [
         "conradtime",
-        "pixiuwatch"
+        "pixiuwatch",
+        "timethaibytag"
       ]
     },
     "balenciaga": {
@@ -3076,9 +3104,9 @@
       ]
     },
     "cartier": {
-      "n": 36,
+      "n": 37,
       "p25": 109000,
-      "median": 124950,
+      "median": 121900,
       "p75": 199000,
       "brand": "Cartier",
       "sources": [
@@ -3098,8 +3126,8 @@
       ]
     },
     "chanel": {
-      "n": 283,
-      "p25": 45900,
+      "n": 281,
+      "p25": 49900,
       "median": 89900,
       "p75": 129900,
       "brand": "Chanel",
@@ -3150,13 +3178,14 @@
       ]
     },
     "louis-vuitton": {
-      "n": 472,
+      "n": 474,
       "p25": 16900,
       "median": 25900,
       "p75": 38900,
       "brand": "Louis Vuitton",
       "sources": [
-        "brandnamevoyage"
+        "brandnamevoyage",
+        "usedbrand88"
       ]
     },
     "miu-miu": {
@@ -3169,15 +3198,27 @@
         "brandnamevoyage"
       ]
     },
+    "omega": {
+      "n": 11,
+      "p25": 158000,
+      "median": 209000,
+      "p75": 245000,
+      "brand": "Omega",
+      "sources": [
+        "conradtime",
+        "timethaibytag"
+      ]
+    },
     "patek-philippe": {
       "n": 47,
       "p25": 459000,
-      "median": 1099000,
+      "median": 1169000,
       "p75": 1975000,
       "brand": "Patek Philippe",
       "sources": [
         "conradtime",
-        "pixiuwatch"
+        "pixiuwatch",
+        "timethaibytag"
       ]
     },
     "prada": {
@@ -3191,14 +3232,27 @@
       ]
     },
     "rolex": {
-      "n": 516,
+      "n": 532,
       "p25": 289000,
-      "median": 409000,
+      "median": 414000,
       "p75": 599000,
       "brand": "Rolex",
       "sources": [
         "conradtime",
-        "pixiuwatch"
+        "pixiuwatch",
+        "timethaibytag"
+      ]
+    },
+    "tag-heuer": {
+      "n": 27,
+      "p25": 37800,
+      "median": 46900,
+      "p75": 59900,
+      "brand": "TAG Heuer",
+      "sources": [
+        "brandnamevoyage",
+        "pixiuwatch",
+        "timethaibytag"
       ]
     }
   },
@@ -3207,13 +3261,13 @@
       "term": "Jubilee / Oyster / Oysterflex",
       "en": "Rolex bracelets: Jubilee is the five-piece link, Oyster the flatter three-piece, Oysterflex the rubber-over-metal strap. \"Oyster Perpetual\" is a model line, not a bracelet.",
       "th": "สายนาฬิกาโรเล็กซ์ — Jubilee คือสายห้าข้อ Oyster คือสายสามข้อที่แบนกว่า ส่วน Oysterflex เป็นสายยางหุ้มโครงโลหะ ส่วนคำว่า \"Oyster Perpetual\" คือชื่อคอลเลกชัน ไม่ใช่ชื่อสาย",
-      "count": 465
+      "count": 470
     },
     {
       "term": "Classic 10\" / Boy 8\" / 19 Size 26",
       "en": "Thai dealers size Chanel flaps by width rather than by the name Chanel uses. Classic 10 is the Medium, Classic 12 the Jumbo, Boy 8 the Small. The 19 is sized in centimetres instead.",
       "th": "ร้านไทยเรียกขนาดกระเป๋าชาแนลตามความกว้างเป็นนิ้ว แทนชื่อขนาดที่ชาแนลใช้เอง Classic 10 คือไซซ์ Medium, Classic 12 คือ Jumbo, Boy 8 คือ Small ส่วนรุ่น 19 นับเป็นเซนติเมตร",
-      "count": 160
+      "count": 159
     },
     {
       "term": "WOC (Wallet on Chain)",
@@ -3225,37 +3279,37 @@
       "term": "Full Set",
       "en": "The piece with everything it was sold with — box, dust bag, authenticity card or warranty papers, and usually the receipt. A full set resells for meaningfully more than the item alone.",
       "th": "ของครบชุด — กล่อง ถุงผ้า การ์ดของแท้หรือใบรับประกัน และมักมีใบเสร็จด้วย ของครบชุดขายต่อได้ราคาสูงกว่าตัวสินค้าเปล่าอย่างมีนัยสำคัญ",
-      "count": 106
+      "count": 103
     },
     {
       "term": "Like New / Unused",
       "en": "The dealer's top condition grade: little or no visible wear. It is the shop's own judgement, not a graded standard — inspect it yourself or ask for corner and hardware photographs.",
       "th": "เกรดสภาพสูงสุดที่ร้านให้ — แทบไม่มีร่องรอยการใช้งาน แต่เป็นการประเมินของร้านเอง ไม่ใช่มาตรฐานกลาง ควรดูของจริงหรือขอรูปมุมกระเป๋าและอะไหล่",
-      "count": 61
+      "count": 60
     },
     {
       "term": "Microchip",
       "en": "Chanel replaced its serial sticker with an embedded chip from around 2021. A listing that says microchip is describing a recent bag, not an older one.",
       "th": "ชาแนลเปลี่ยนจากสติกเกอร์ซีเรียลมาเป็นชิปฝังในตัวกระเป๋าตั้งแต่ราวปี 2021 ประกาศที่ระบุ microchip จึงหมายถึงกระเป๋ารุ่นใหม่ ไม่ใช่ของเก่า",
-      "count": 53
+      "count": 52
     },
     {
       "term": "Caviar",
       "en": "Chanel's grained, pebbled calfskin. It resists scratches far better than lambskin and normally carries a higher resale price in the same model and size.",
       "th": "หนังลูกวัวลายเม็ดของชาแนล ทนรอยขีดข่วนกว่าหนังแกะมาก และมักขายต่อได้ราคาสูงกว่าในรุ่นและขนาดเดียวกัน",
-      "count": 53
+      "count": 51
     },
     {
       "term": "Holo / Hologram",
       "en": "Chanel's older serial sticker. Dealers write it with its series number — \"Holo 27\" — which is how the bag gets dated.",
       "th": "สติกเกอร์ซีเรียลแบบเก่าของชาแนล ร้านมักเขียนพร้อมเลขซีรีส์ เช่น \"Holo 27\" ซึ่งใช้ระบุปีที่ผลิตของกระเป๋าใบนั้น",
-      "count": 51
+      "count": 50
     },
     {
       "term": "No Receipt",
       "en": "Full set except the original sales slip. Common, and not a warning sign on its own — but it does cost something at resale, so it belongs in the price you negotiate.",
       "th": "ครบชุดแต่ไม่มีใบเสร็จตัวจริง พบบ่อยและไม่ใช่สัญญาณอันตรายในตัวเอง แต่มีผลต่อราคาขายต่อ จึงควรนำมาต่อรองราคา",
-      "count": 23
+      "count": 22
     },
     {
       "term": "Lambskin",
@@ -3267,13 +3321,13 @@
       "term": "GHW / SHW / RHW / PHW",
       "en": "Gold, silver, rose gold and palladium hardware. Dealers abbreviate it because it changes the price: on some models one finish is materially harder to resell than another.",
       "th": "อะไหล่สีทอง เงิน พิงค์โกลด์ และแพลเลเดียม ตามลำดับ ร้านย่อไว้เพราะมีผลต่อราคา — บางรุ่นสีอะไหล่ต่างกันขายต่อยากง่ายไม่เท่ากัน",
-      "count": 18
+      "count": 16
     },
     {
       "term": "Vintage",
       "en": "An older piece, typically pre-2000s. Condition varies enormously and so does price — vintage is a date, not a grade.",
       "th": "ของรุ่นเก่า มักหมายถึงก่อนยุค 2000 สภาพและราคาต่างกันมาก คำว่า vintage บอกยุค ไม่ได้บอกสภาพ",
-      "count": 15
+      "count": 16
     },
     {
       "term": "Clemence / Togo / Epsom",
