@@ -7,10 +7,13 @@ import { getSiteConfig } from "@/lib/site";
 export function ClinicCtaCard({
   clinicName,
   phone,
+  lang = "en",
 }: {
   clinicName: string;
   phone?: string;
+  lang?: "en" | "th";
 }) {
+  const th = lang === "th";
   const [open, setOpen] = useState(false);
   const cfg = getSiteConfig();
 
@@ -20,18 +23,20 @@ export function ClinicCtaCard({
         {/* "Dental" 하드코딩 → focus-aware. "Usually responds within 2 hours"
             등 5,360개 전 클리닉에 걸친 검증 불가능한 주장은 제거 (2026-07-17 감사). */}
         <h2 className="text-lg font-bold text-[var(--fg)] mb-1">
-          Get a Free {cfg.focus === "dental" ? "Dental" : cfg.focus === "hair" ? "Hair" : ""} Consultation
+          {th
+            ? `ปรึกษา${cfg.focus === "dental" ? "ทำฟัน" : cfg.focus === "hair" ? "ปลูกผม" : ""}ฟรี`
+            : `Get a Free ${cfg.focus === "dental" ? "Dental" : cfg.focus === "hair" ? "Hair" : ""} Consultation`}
         </h2>
         <ul className="text-sm text-[var(--muted)] mb-4 space-y-0.5">
-          <li>✓ No obligation</li>
-          <li>✓ We relay your request directly to the clinic</li>
+          <li>✓ {th ? "ไม่มีข้อผูกมัด" : "No obligation"}</li>
+          <li>✓ {th ? "เราส่งคำขอของคุณถึงคลินิกโดยตรง" : "We relay your request directly to the clinic"}</li>
         </ul>
 
         <button
           onClick={() => setOpen(true)}
           className="w-full py-3 rounded-lg bg-[var(--accent)] text-white font-semibold hover:opacity-90 transition mb-3"
         >
-          Book Consultation →
+          {th ? "จองคำปรึกษา →" : "Book Consultation →"}
         </button>
 
         {phone && (
@@ -40,7 +45,7 @@ export function ClinicCtaCard({
               href={`tel:${phone.replace(/[^+\d]/g, "")}`}
               className="flex-1 py-2 text-center rounded-lg border border-[var(--border)] text-sm hover:bg-gray-50 transition"
             >
-              📞 Call directly
+              📞 {th ? "โทรหาคลินิก" : "Call directly"}
             </a>
           </div>
         )}
@@ -61,7 +66,7 @@ export function ClinicCtaCard({
             >
               ×
             </button>
-            <BookingForm clinicName={clinicName} />
+            <BookingForm clinicName={clinicName} lang={lang} />
           </div>
         </div>
       )}

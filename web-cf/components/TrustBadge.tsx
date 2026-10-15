@@ -1,6 +1,8 @@
 // ⚠️ AUTO-GENERATED from shared/components/TrustBadge.tsx
 // DO NOT edit directly — edit shared/components/TrustBadge.tsx, then run `python scripts/sync_shared.py`.
 
+// web-cf 는 sync_shared.py 대상이 아니다(TARGETS = web, web-restaurants, web-golf) —
+// 이 사본은 직접 고친다. 2026-10-15: /th 용 lang 추가.
 // Trust Score 시각화 — 0-100 그라데이션 바 + 숫자.
 
 export function TrustBadge({ score, size = "md" }: { score: number; size?: "sm" | "md" | "lg" }) {
@@ -44,12 +46,17 @@ export function TrustBadge({ score, size = "md" }: { score: number; size?: "sm" 
   );
 }
 
-export function TrustDonut({ score, breakdown }: {
+const TIER_TH: Record<string, string> = { Excellent: "ดีเยี่ยม", Strong: "ดี", Fair: "พอใช้", Limited: "ข้อมูลน้อย" };
+
+export function TrustDonut({ score, breakdown, lang = "en" }: {
   score: number;
   breakdown?: { label: string; value: number; max: number; color: string }[];
+  lang?: "en" | "th";
 }) {
+  const th = lang === "th";
   const pct = Math.max(0, Math.min(100, score));
-  const tier = pct >= 75 ? "Excellent" : pct >= 60 ? "Strong" : pct >= 40 ? "Fair" : "Limited";
+  const tierEn = pct >= 75 ? "Excellent" : pct >= 60 ? "Strong" : pct >= 40 ? "Fair" : "Limited";
+  const tier = th ? TIER_TH[tierEn] : tierEn;
   const color = pct >= 75 ? "#16a34a" : pct >= 60 ? "#059669" : pct >= 40 ? "#ca8a04" : "#94a3b8";
   const radius = 52;
   const circumference = 2 * Math.PI * radius;
@@ -78,10 +85,10 @@ export function TrustDonut({ score, breakdown }: {
           </text>
         </svg>
         <div className="flex-1 min-w-0">
-          <div className="text-xs uppercase tracking-wide text-[var(--muted)]">Trust Score</div>
+          <div className="text-xs uppercase tracking-wide text-[var(--muted)]">{th ? "คะแนนความน่าเชื่อถือ" : "Trust Score"}</div>
           <div className="text-2xl font-bold" style={{ color }}>{tier}</div>
           <a href="/about/trust-score" className="text-[10px] text-[var(--muted)] hover:text-[var(--fg)] underline underline-offset-2">
-            How is this calculated? →
+            {th ? "คำนวณอย่างไร? →" : "How is this calculated? →"}
           </a>
           {breakdown && (
             <div className="mt-3 space-y-1.5">

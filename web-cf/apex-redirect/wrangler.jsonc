@@ -1,0 +1,9 @@
+{
+  "name": "bangkokbestclinic-apex-redirect",
+  "main": "worker.js",
+  "compatibility_date": "2026-08-01",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "bangkokbestclinic.com/*", "zone_name": "bangkokbestclinic.com" }
+  ]
+}

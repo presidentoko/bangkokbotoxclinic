@@ -5,7 +5,7 @@ import { loadMasterDb, getClinicById, getClinicByRouteKey, isLegacyClinicKey, ma
 import { loadPricing, summarisePackages, priceRangeTHB } from "@/lib/pricing";
 import { loadPhotos } from "@/lib/photos";
 import { PhotoGallery } from "@/components/PhotoGallery";
-import { CATEGORY_LABELS } from "@/lib/types";
+import { CATEGORY_LABELS, CATEGORY_LABELS_TH } from "@/lib/types";
 import { BreadcrumbJsonLd, ClinicJsonLd, FaqJsonLd, SpeakableJsonLd } from "@/components/JsonLd";
 import { buildClinicFaqs } from "@/lib/clinic-faq";
 import { BookingForm } from "@/components/BookingForm";
@@ -25,6 +25,7 @@ import { ClinicPriceBlock } from "@/components/ClinicPriceBlock";
 import { ClinicCtaCard } from "@/components/ClinicCtaCard";
 import { extractPriceEstimates } from "@/lib/priceEstimates";
 import { PublishedPriceTable } from "@/components/PublishedPriceTable";
+import { PatientReported } from "@/components/PatientReported";
 import {
   getPublishedPrices,
   getPriceSourceDomain,
@@ -185,10 +186,63 @@ export async function generateMetadata(
 const LOCALE_PREFIX = { en: "", th: "/th", ko: "/ko" } as const;
 const HOME_CRUMB = { en: "Home", th: "หน้าแรก", ko: "홈" } as const;
 
+// 2026-10-15: /th 페이지 본문 현지화. 9/15 실측으로 /th 는 본문 99% 가 영어판과 같아
+// (태국어 글자 15~18%) noindex + 영어판 canonical 이었다. 그런데 남은 검색 유입은
+// 거의 전부 태국어 "근처 치과" 검색이다. 여기 문구와 하위 컴포넌트의 lang 을 채워
+// 태국어 페이지를 실제 태국어 페이지로 만든다. (색인 재개는 app/th/clinic 쪽에서.)
+const PT = {
+  en: {
+    branches: "branches", open: "Open", googleReviews: "Google reviews", packages: "packages",
+    mentions: "mentions", trendingUp: "↗ Trending up", declining: "↘ Quality declining",
+    bdRating: "Rating", bdVolume: "Volume", bdLocal: "Local Gd", bdAuthority: "Authority",
+    samplePricing: "Sample pricing", viaHdmall: (n: number) => `via HDmall · ${n} packages total`,
+    seeHdmall: "See all packages on HDmall →",
+    hdmallNote: "Prices are package list prices from HDmall. Actual cost may vary based on consultation — confirm with the clinic before booking. Prices in THB.",
+    reviews: "Real review excerpts", reviewer: "Google reviewer", untranslated: "Thai, untranslated", inEnglish: "",
+    doctors: (n: string) => `Doctors mentioned in reviews at ${n}`, dr: "Dr.",
+    compareTag: "Side-by-side comparison", compareSub: "Trust Score · Reviews · Doctors · Languages",
+    alsoFrom: "Also from Thai Facial Clinic Group",
+    moreCatIn: (cat: string, d: string) => `More ${cat} clinics in ${d}`, moreIn: (d: string) => `More clinics in ${d}`,
+    similar: "Similar clinics", seeAll: "See all →", trust: "Trust",
+    address: "Address", phone: "Phone", website: "Website", email: "Email", social: "Social",
+    bookTag: "Book consultation", bookSub: "Free · We confirm your slot within 24h",
+    maps: "View photos & info on Google Maps", callClinic: "📞 Call clinic", visitSite: "Visit website", compare: "Compare",
+  },
+  th: {
+    branches: "สาขา", open: "เปิดอยู่", googleReviews: "รีวิว Google", packages: "แพ็กเกจ",
+    mentions: "ครั้งที่ถูกพูดถึง", trendingUp: "↗ คะแนนกำลังดีขึ้น", declining: "↘ คะแนนช่วงหลังลดลง",
+    bdRating: "คะแนน", bdVolume: "จำนวนรีวิว", bdLocal: "Local Guide", bdAuthority: "ผู้รีวิว",
+    samplePricing: "ตัวอย่างราคา", viaHdmall: (n: number) => `จาก HDmall · ทั้งหมด ${n} แพ็กเกจ`,
+    seeHdmall: "ดูแพ็กเกจทั้งหมดบน HDmall →",
+    hdmallNote: "ราคาเป็นราคาแพ็กเกจบน HDmall ราคาจริงขึ้นกับการประเมิน ควรยืนยันกับคลินิกก่อนจอง (หน่วย: บาท)",
+    reviews: "รีวิวจริงจากคนไข้", reviewer: "ผู้รีวิว Google", untranslated: "", inEnglish: "รีวิวภาษาอังกฤษ",
+    doctors: (n: string) => `หมอที่คนไข้พูดถึงในรีวิวของ ${n}`, dr: "หมอ",
+    compareTag: "เปรียบเทียบแบบเคียงข้าง", compareSub: "คะแนนความน่าเชื่อถือ · รีวิว · หมอ · ภาษา",
+    alsoFrom: "เว็บในเครือเดียวกัน",
+    moreCatIn: (cat: string, d: string) => `คลินิก${cat}อื่นใน ${d}`, moreIn: (d: string) => `คลินิกอื่นใน ${d}`,
+    similar: "คลินิกใกล้เคียง", seeAll: "ดูทั้งหมด →", trust: "คะแนน",
+    address: "ที่อยู่", phone: "โทรศัพท์", website: "เว็บไซต์", email: "อีเมล", social: "โซเชียล",
+    bookTag: "จองคำปรึกษา", bookSub: "ฟรี · ยืนยันเวลาภายใน 24 ชม.",
+    maps: "ดูรูปและข้อมูลบน Google Maps", callClinic: "📞 โทรหาคลินิก", visitSite: "เข้าเว็บไซต์คลินิก", compare: "เทียบ",
+  },
+} as const;
+
+const PRIMARY_TYPE_TH: Record<string, string> = {
+  "Dental clinic": "คลินิกทันตกรรม", Dentist: "ทันตแพทย์", Orthodontist: "คลินิกจัดฟัน",
+  "Cosmetic dentist": "ทันตกรรมเพื่อความงาม", "Dental implants provider": "คลินิกรากฟันเทียม",
+  "Pediatric dentist": "ทันตกรรมเด็ก", Dental: "ทันตกรรม", "Dental school": "โรงเรียนทันตแพทย์",
+  "Skin care clinic": "คลินิกผิวหนัง", "Medical clinic": "คลินิก", "Plastic surgery clinic": "คลินิกศัลยกรรม",
+};
+
 export default async function ClinicPage(
   { params, lang = "en" }: { params: Promise<{ id: string }>; lang?: "en" | "th" | "ko" }
 ) {
   const localePrefix = LOCALE_PREFIX[lang];
+  const L = lang === "th" ? "th" : "en";
+  const t = PT[L];
+  // /th/d·/th/c·/th/clinic 은 있고 /ko 는 클리닉만 있다 — 내부 링크는 th 만 따라간다.
+  const tp = lang === "th" ? "/th" : "";
+  const catLabels = L === "th" ? CATEGORY_LABELS_TH : CATEGORY_LABELS;
   const { id } = await params;
   const db = await loadMasterDb();
   const c = getClinicByRouteKey(db.clinics, id);
@@ -217,10 +271,10 @@ export default async function ClinicPage(
   // en 리뷰가 4개 미만이면 태그 없는 태국어 원문이 그냥 섞여 나왔음
   // (2026-07-17 감사). SampleReview 타입에 date/url 필드가 없어 상대날짜·
   // 원문링크는 추가 불가 — 데이터 없는 걸 지어내지 않음.
-  const samples = [
-    ...(c.sample_reviews_en ?? []).map((r) => ({ ...r, srcLang: "en" as const })),
-    ...(c.sample_reviews_th ?? []).map((r) => ({ ...r, srcLang: "th" as const })),
-  ].slice(0, 4);
+  // /th 는 태국어 원문을 먼저 — 영어판과 같은 영어 리뷰가 태국어 페이지를 채우고 있었다.
+  const enSamples = (c.sample_reviews_en ?? []).map((r) => ({ ...r, srcLang: "en" as const }));
+  const thSamples = (c.sample_reviews_th ?? []).map((r) => ({ ...r, srcLang: "th" as const }));
+  const samples = (L === "th" ? [...thSamples, ...enSamples] : [...enSamples, ...thSamples]).slice(0, 4);
 
   // Pricing — hdmall package 데이터(있는 경우)
   // 2026-09-02: 멀티지점 브랜드면 허브로 링크 (web/ 과 동일).
@@ -254,8 +308,8 @@ export default async function ClinicPage(
   const rankAbove = sortedTrust.filter((v) => v > c.trust_score).length;
   const percentile = sortedTrust.length > 0 ? Math.round((rankAbove / sortedTrust.length) * 100) : 100;
   const rankingLabel = c.categories.length > 0
-    ? CATEGORY_LABELS[c.categories[0]] ?? "Bangkok"
-    : "Bangkok";
+    ? catLabels[c.categories[0]] ?? (L === "th" ? "กรุงเทพฯ" : "Bangkok")
+    : (L === "th" ? "กรุงเทพฯ" : "Bangkok");
 
   // Trust Score breakdown for donut
   const ratingPart = (c.rating / 5) * 50;
@@ -264,10 +318,10 @@ export default async function ClinicPage(
   const lgPart = Math.min(10, lgRatio * 20);
   const authPart = Math.min(5, Math.log10(Math.max(1, c.avg_author_review_count)) * 2);
   const breakdown = [
-    { label: "Rating", value: ratingPart, max: 50, color: "#16a34a" },
-    { label: "Volume", value: volumePart, max: 40, color: "#2563eb" },
-    { label: "Local Gd", value: lgPart, max: 10, color: "#7c3aed" },
-    { label: "Authority", value: authPart, max: 5, color: "#0891b2" },
+    { label: t.bdRating, value: ratingPart, max: 50, color: "#16a34a" },
+    { label: t.bdVolume, value: volumePart, max: 40, color: "#2563eb" },
+    { label: t.bdLocal, value: lgPart, max: 10, color: "#7c3aed" },
+    { label: t.bdAuthority, value: authPart, max: 5, color: "#0891b2" },
   ];
 
   // Similar clinics (sidebar — loose match: district OR category)
@@ -336,7 +390,7 @@ export default async function ClinicPage(
     : null;
 
   // AEO: 자동 FAQ — Google PAA 대응 + LLM 인용
-  const faqs = buildClinicFaqs(c as Parameters<typeof buildClinicFaqs>[0]);
+  const faqs = buildClinicFaqs(c as Parameters<typeof buildClinicFaqs>[0], L);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -344,15 +398,16 @@ export default async function ClinicPage(
       <StickyClinicBar
         clinicName={c.name}
         phone={c.phone || undefined}
+        lang={L}
       />
-      <FloatingContactBar clinicId={c.id} clinicName={c.name} phone={c.phone} />
+      <FloatingContactBar clinicId={c.id} clinicName={c.name} phone={c.phone} lang={L} />
       <nav className="text-sm text-[var(--muted)] mb-4">
-        <a href="/" className="hover:text-[var(--fg)]">Home</a>
+        <a href={`${tp}/`} className="hover:text-[var(--fg)]">{HOME_CRUMB[lang]}</a>
         {c.district && (
           <>
             <span className="mx-2">›</span>
             <a
-              href={`/d/${c.district.toLowerCase().replace(/\s+/g, "-")}`}
+              href={`${tp}/d/${c.district.toLowerCase().replace(/\s+/g, "-")}`}
               className="hover:text-[var(--fg)]"
             >
               {c.district}
@@ -375,7 +430,7 @@ export default async function ClinicPage(
           <div className="min-w-0 flex-1">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-1">{c.name}</h1>
             <p className="text-[var(--muted)] flex items-center gap-2 flex-wrap">
-              <span>{c.primary_type}</span>
+              <span>{L === "th" ? PRIMARY_TYPE_TH[c.primary_type] ?? c.primary_type : c.primary_type}</span>
               {c.district && (
                 <>
                   <span>·</span>
@@ -386,13 +441,13 @@ export default async function ClinicPage(
                 <>
                   <span>·</span>
                   <a href={`/brand/${brandOf.slug}`} className="underline">
-                    {brandOf.name} · {brandOf.clinics.length} branches
+                    {brandOf.name} · {brandOf.clinics.length} {t.branches}
                   </a>
                 </>
               )}
               {c.business_status === "Open" && (
                 <span className="flex items-center gap-1 text-green-700 font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-500" /> Open
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-500" /> {t.open}
                 </span>
               )}
             </p>
@@ -402,7 +457,7 @@ export default async function ClinicPage(
               ★ {c.rating.toFixed(1)}
             </div>
             <div className="text-xs text-[var(--muted)] mt-1 tabular-nums">
-              {c.total_reviews.toLocaleString()} Google reviews
+              {c.total_reviews.toLocaleString()} {t.googleReviews}
             </div>
           </div>
         </div>
@@ -411,13 +466,13 @@ export default async function ClinicPage(
           {tier && <VerifiedPartnerBadge clinicId={c.id} />}
           <AIVerifiedBadge clinic={c} size="md" />
           {percentile <= 25 && (
-            <RelativeRanking percentile={percentile} label={rankingLabel} />
+            <RelativeRanking percentile={percentile} label={rankingLabel} lang={L} />
           )}
-          <Freshness generatedAt={db.generated_at} mode="detail" />
+          <Freshness generatedAt={db.generated_at} mode="detail" lang={L} />
           {priceRange && (
             <span className="bg-emerald-50 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">
               ฿{priceRange.min.toLocaleString()}–{priceRange.max.toLocaleString()}
-              <span className="opacity-70 text-xs ml-1">· {pricing?.packages.length} packages</span>
+              <span className="opacity-70 text-xs ml-1">· {pricing?.packages.length} {t.packages}</span>
             </span>
           )}
         </div>
@@ -427,29 +482,36 @@ export default async function ClinicPage(
             {focusCategories.map((cat) => (
               <a
                 key={cat}
-                href={`/c/${cat}`}
+                href={`${tp}/c/${cat}`}
                 className="bg-blue-50 text-blue-800 px-3 py-1 rounded-full text-sm hover:bg-blue-100 inline-flex items-center gap-1.5"
               >
                 <CategoryIcon category={cat} size={14} />
-                {CATEGORY_LABELS[cat] ?? cat}
+                {catLabels[cat] ?? cat}
                 {c.service_mentions[cat] ? (
-                  <span className="opacity-70 text-xs">· {c.service_mentions[cat]} mentions</span>
+                  <span className="opacity-70 text-xs">· {c.service_mentions[cat]} {t.mentions}</span>
                 ) : null}
               </a>
             ))}
             {trend === "improving" && (
               <span className="bg-green-50 text-green-800 px-3 py-1 rounded-full text-sm">
-                ↗ Trending up
+                {t.trendingUp}
               </span>
             )}
             {trend === "declining" && (
               <span className="bg-orange-50 text-orange-800 px-3 py-1 rounded-full text-sm">
-                ↘ Quality declining
+                {t.declining}
               </span>
             )}
           </div>
         )}
       </header>
+
+      {/* 2026-10-15: 이 사이트에만 있는 사실(사회보장·실제 낸 가격)을 첫 화면에. */}
+      <PatientReported
+        clinic={c}
+        bands={(db as unknown as { price_bands?: Record<string, Record<string, { n: number; p25: number; median: number; p75: number }>> }).price_bands}
+        lang={lang === "th" ? "th" : "en"}
+      />
 
       {/* Wiki AI summary — 양국어, AEO/LLM 인용 친화. header 직하 prominent. */}
       {wikiSummary && (
@@ -464,7 +526,7 @@ export default async function ClinicPage(
         {/* Main column */}
         <div className="lg:col-span-2 space-y-6">
           {photos && photos.photos.length > 0 && (
-            <PhotoGallery photos={photos.photos} clinicName={c.name} />
+            <PhotoGallery photos={photos.photos} clinicName={c.name} lang={L} />
           )}
 
           {/* 클리닉 공식 가격표 — HDmall 패키지·리뷰 추정치와 출처가 다르므로
@@ -482,17 +544,17 @@ export default async function ClinicPage(
               this page that a Google listing cannot also show. */}
           <LicenseCheck clinicId={c.id} lang={lang} />
 
-          <ReviewSignals clinic={c} />
+          <ReviewSignals clinic={c} lang={L} />
 
           {/* Pantip — 태국 최대 커뮤니티 토픽 인용 + 외부 backlink */}
-          <PantipMentions clinic={c} />
+          <PantipMentions clinic={c} lang={L} />
 
-          <TrustDonut score={c.trust_score} breakdown={breakdown} />
+          <TrustDonut score={c.trust_score} breakdown={breakdown} lang={L} />
 
-          <RatingChart trend={c.rating_trend} />
+          <RatingChart trend={c.rating_trend} lang={L} />
 
           {c.mentioned_topics.length > 0 && (
-            <TopicCluster topics={c.mentioned_topics.slice(0, 12)} />
+            <TopicCluster topics={c.mentioned_topics.slice(0, 12)} lang={L} />
           )}
 
           <MapEmbed lat={c.lat} lng={c.lng} name={c.name} height={320} />
@@ -500,9 +562,9 @@ export default async function ClinicPage(
           {pricing && pricingTop.length > 0 && (
             <section className="bg-white border border-[var(--border)] rounded-xl p-5">
               <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
-                <h2 className="text-lg font-bold">Sample pricing</h2>
+                <h2 className="text-lg font-bold">{t.samplePricing}</h2>
                 <span className="text-[11px] text-[var(--muted)]">
-                  via HDmall · {pricing.packages.length} packages total
+                  {t.viaHdmall(pricing.packages.length)}
                 </span>
               </div>
               <ul className="divide-y divide-[var(--border)]">
@@ -544,31 +606,30 @@ export default async function ClinicPage(
                   rel="noopener noreferrer nofollow sponsored"
                   className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-[var(--accent)] hover:underline"
                 >
-                  See all packages on HDmall →
+                  {t.seeHdmall}
                 </a>
               )}
               <p className="mt-3 text-[11px] text-[var(--muted)] leading-relaxed">
-                Prices are package list prices from HDmall. Actual cost may vary based on consultation
-                — confirm with the clinic before booking. Prices in THB.
+                {t.hdmallNote}
               </p>
             </section>
           )}
 
           {samples.length > 0 && (
             <section>
-              <h2 className="text-lg font-bold mb-3">Real review excerpts</h2>
+              <h2 className="text-lg font-bold mb-3">{t.reviews}</h2>
               <div className="space-y-3">
                 {samples.map((r, i) => (
                   <blockquote key={i} className="border-l-4 border-[var(--accent)] bg-white px-4 py-3 rounded-r">
                     <p className="text-sm leading-relaxed">{r.text}</p>
                     <footer className="mt-2 text-xs text-[var(--muted)] flex items-center gap-2">
-                      <span className="font-medium">{r.author || "Google reviewer"}</span>
+                      <span className="font-medium">{r.author || t.reviewer}</span>
                       <span>·</span>
                       <span className="text-yellow-700">★ {r.rating}</span>
-                      {r.srcLang === "th" && (
+                      {(L === "th" ? r.srcLang === "en" : r.srcLang === "th") && (
                         <>
                           <span>·</span>
-                          <span className="uppercase tracking-wide">Thai, untranslated</span>
+                          <span className="uppercase tracking-wide">{L === "th" ? t.inEnglish : t.untranslated}</span>
                         </>
                       )}
                     </footer>
@@ -593,7 +654,7 @@ export default async function ClinicPage(
             return (
               <section className="mt-10">
                 <h2 className="text-lg font-bold mb-3">
-                  Doctors mentioned in reviews at {c.name}
+                  {t.doctors(c.name)}
                 </h2>
                 <ul className="flex flex-wrap gap-2">
                   {linkable.map((d) => (
@@ -602,7 +663,7 @@ export default async function ClinicPage(
                         href={`${localePrefix}/doctor/${encodeURI(makeCompositeDoctorSlug(d, c))}`}
                         className="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
                       >
-                        <span className="font-medium">Dr. {d.name}</span>
+                        <span className="font-medium">{t.dr} {d.name}</span>
                         <span className="text-[var(--muted)]">
                           ★{d.rating_avg.toFixed(1)} · {d.mentions}
                         </span>
@@ -615,10 +676,10 @@ export default async function ClinicPage(
           })()}
 
           {/* AEO: FAQ 가시 섹션 + JSON-LD 짝꿍 (페이지 끝 JsonLd) */}
-          <FaqSection faqs={faqs} />
+          <FaqSection faqs={faqs} lang={L} />
 
           {/* SEO: 카테고리/지역 long-tail 자동 내부 백링크 */}
-          <RelatedExplore clinic={c} />
+          <RelatedExplore clinic={c} lang={L} />
 
           {/* Compare CTA — 같은 카테고리 최상위 클리닉과 비교 */}
           {comparePeer && (
@@ -626,11 +687,11 @@ export default async function ClinicPage(
               className="flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-white hover:border-[var(--accent)] transition group">
               <span className="text-2xl shrink-0">⚖️</span>
               <div className="min-w-0 flex-1">
-                <div className="text-xs text-[var(--muted)] uppercase tracking-wide mb-0.5">Side-by-side comparison</div>
+                <div className="text-xs text-[var(--muted)] uppercase tracking-wide mb-0.5">{t.compareTag}</div>
                 <div className="font-semibold text-sm group-hover:text-[var(--accent)] transition truncate">
                   {c.name} vs {comparePeer.name}
                 </div>
-                <div className="text-xs text-[var(--muted)]">Trust Score · Reviews · Doctors · Languages</div>
+                <div className="text-xs text-[var(--muted)]">{t.compareSub}</div>
               </div>
               <span className="text-[var(--muted)] group-hover:text-[var(--accent)] transition shrink-0">→</span>
             </a>
@@ -648,7 +709,7 @@ export default async function ClinicPage(
               >
                 <span className="text-2xl shrink-0">{site.emoji}</span>
                 <div className="min-w-0 flex-1">
-                  <div className="text-xs text-[var(--muted)] uppercase tracking-wide mb-0.5">Also from Thai Facial Clinic Group</div>
+                  <div className="text-xs text-[var(--muted)] uppercase tracking-wide mb-0.5">{t.alsoFrom}</div>
                   <div className="font-semibold text-sm group-hover:text-[var(--accent)] transition">{site.cta}</div>
                   <div className="text-xs text-[var(--muted)]">{site.label}</div>
                 </div>
@@ -663,17 +724,17 @@ export default async function ClinicPage(
               <div className="flex items-baseline justify-between mb-4 flex-wrap gap-2">
                 <h2 className="text-lg font-bold">
                   {primaryCat && c.district
-                    ? `More ${CATEGORY_LABELS[primaryCat] ?? primaryCat} clinics in ${c.district}`
+                    ? t.moreCatIn(catLabels[primaryCat] ?? primaryCat, c.district)
                     : c.district
-                    ? `More clinics in ${c.district}`
-                    : "Similar clinics"}
+                    ? t.moreIn(c.district)
+                    : t.similar}
                 </h2>
                 {primaryCat && c.district && (
                   <a
                     href={`/c/${primaryCat}/${c.district.toLowerCase().replace(/\s+/g, "-")}`}
                     className="text-xs text-[var(--accent)] hover:underline font-medium"
                   >
-                    See all →
+                    {t.seeAll}
                   </a>
                 )}
               </div>
@@ -681,7 +742,7 @@ export default async function ClinicPage(
                 {nearbyClinics.map((s) => (
                   <a
                     key={s.id}
-                    href={`/clinic/${s.url_slug}`}
+                    href={`${tp}/clinic/${s.url_slug}`}
                     className="group flex flex-col gap-1 p-3 rounded-lg border border-[var(--border)] hover:border-[var(--accent)] transition"
                   >
                     <div className="font-medium text-sm group-hover:text-[var(--accent)] transition line-clamp-2 leading-snug">
@@ -701,7 +762,7 @@ export default async function ClinicPage(
                               : "#ca8a04",
                         }}
                       >
-                        Trust {s.trust_score.toFixed(0)}
+                        {t.trust} {s.trust_score.toFixed(0)}
                       </span>
                     </div>
                   </a>
@@ -712,7 +773,7 @@ export default async function ClinicPage(
 
           <section className="grid sm:grid-cols-2 gap-3">
             <div className="bg-white border border-[var(--border)] rounded-lg p-4">
-              <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1">Address</div>
+              <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1">{t.address}</div>
               {/* 이전엔 탭 불가능한 맨 텍스트 — 모바일에서 길찾기 누르려는 사용자가
                   쓰는 바로 그 카드인데 작동하는 링크는 사이드바 아래쪽에 따로 있었음
                   (2026-07-31 감사). */}
@@ -730,7 +791,7 @@ export default async function ClinicPage(
               )}
             </div>
             <div className="bg-white border border-[var(--border)] rounded-lg p-4">
-              <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1">Phone</div>
+              <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1">{t.phone}</div>
               {c.phone ? (
                 <a href={`tel:${c.phone.replace(/[^+\d]/g, "")}`} className="text-sm text-[var(--accent)] hover:underline">
                   {c.phone}
@@ -740,7 +801,7 @@ export default async function ClinicPage(
               )}
               {c.website && (
                 <>
-                  <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1 mt-3">Website</div>
+                  <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1 mt-3">{t.website}</div>
                   <a
                     href={c.website}
                     target="_blank"
@@ -753,7 +814,7 @@ export default async function ClinicPage(
               )}
               {c.website_email && (
                 <>
-                  <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1 mt-3">Email</div>
+                  <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1 mt-3">{t.email}</div>
                   <a
                     href={`mailto:${c.website_email}`}
                     className="text-sm text-[var(--accent)] hover:underline truncate block"
@@ -764,7 +825,7 @@ export default async function ClinicPage(
               )}
               {c.website_instagram && (
                 <>
-                  <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1 mt-3">Social</div>
+                  <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1 mt-3">{t.social}</div>
                   <div className="flex gap-3">
                     <a
                       href={c.website_instagram}
@@ -787,10 +848,12 @@ export default async function ClinicPage(
             estimates={priceEstimates}
             hdmallMin={priceRange?.min ?? null}
             hdmallMax={priceRange?.max ?? null}
+            lang={L}
           />
           <ClinicCtaCard
             clinicName={c.name}
             phone={c.phone || undefined}
+            lang={L}
           />
           {/* Hero CTA — 가장 prominent. accent gradient + 강한 contrast */}
           <div
@@ -798,17 +861,17 @@ export default async function ClinicPage(
             style={{ background: `linear-gradient(135deg, var(--accent), var(--accent))` }}
           >
             <div className="text-[10px] uppercase tracking-widest font-bold opacity-90 mb-2">
-              Book consultation
+              {t.bookTag}
             </div>
             <p className="text-[11px] mt-2 text-center opacity-90">
-              Free · We confirm your slot within 24h
+              {t.bookSub}
             </p>
           </div>
 
           {/* Sidebar ad slot — sticky 안에서 같이 스크롤되며 노출 길게 */}
           <AdPlaceholder variant="square" label="Sponsored" hint="Sidebar ad" />
 
-          <BookingForm clinicId={c.id} clinicName={c.name} />
+          <BookingForm clinicId={c.id} clinicName={c.name} lang={L} />
 
           <div className="bg-white border border-[var(--border)] rounded-xl p-4 space-y-2">
             <a
@@ -817,14 +880,14 @@ export default async function ClinicPage(
               rel="noopener noreferrer"
               className="block w-full bg-black text-white py-2.5 px-4 rounded-lg font-bold text-center hover:bg-gray-800 text-sm"
             >
-              View photos & info on Google Maps
+              {t.maps}
             </a>
             {c.phone && (
               <a
                 href={`tel:${c.phone.replace(/[^+\d]/g, "")}`}
                 className="block w-full bg-white border border-[var(--border)] py-2.5 px-4 rounded-lg font-bold text-center hover:border-black text-sm"
               >
-                📞 Call clinic
+                {t.callClinic}
               </a>
             )}
             {c.website && (
@@ -834,7 +897,7 @@ export default async function ClinicPage(
                 rel="noopener noreferrer nofollow"
                 className="block w-full bg-white border border-[var(--border)] py-2.5 px-4 rounded-lg font-bold text-center hover:border-black text-sm"
               >
-                Visit website
+                {t.visitSite}
               </a>
             )}
           </div>
@@ -845,12 +908,12 @@ export default async function ClinicPage(
           {similar.length > 0 && (
             <div className="bg-white border border-[var(--border)] rounded-xl p-4">
               <h3 className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
-                Similar clinics
+                {t.similar}
               </h3>
               <div className="space-y-2">
                 {similar.map((s) => (
                   <div key={s.id} className="group flex items-start justify-between gap-2">
-                    <a href={`/clinic/${s.url_slug}`} className="flex-1 min-w-0">
+                    <a href={`${tp}/clinic/${s.url_slug}`} className="flex-1 min-w-0">
                       <div className="font-medium text-sm group-hover:text-[var(--accent)] truncate transition">
                         {s.name}
                       </div>
@@ -862,7 +925,7 @@ export default async function ClinicPage(
                         <span className="font-medium" style={{
                           color: s.trust_score >= 75 ? "#16a34a" : s.trust_score >= 60 ? "#059669" : "#ca8a04"
                         }}>
-                          Trust {s.trust_score.toFixed(0)}
+                          {t.trust} {s.trust_score.toFixed(0)}
                         </span>
                       </div>
                     </a>
@@ -872,7 +935,7 @@ export default async function ClinicPage(
                       className="shrink-0 text-[10px] uppercase tracking-widest text-[var(--muted)] hover:text-[var(--accent)] border border-[var(--border)] rounded px-2 py-0.5 hover:border-[var(--accent)] transition"
                       title={`Compare ${c.name} vs ${s.name}`}
                     >
-                      Compare
+                      {t.compare}
                     </a>
                   </div>
                 ))}
@@ -887,7 +950,7 @@ export default async function ClinicPage(
           "이 사이트는 이 클리닉과 무관함"으로 읽혀 신뢰를 깎았음(2026-07-17 감사) —
           FAQ/RelatedExplore 다음, 페이지 최하단으로 이동. */}
       {!tier && (
-        <ClaimBanner clinicId={c.id} clinicName={c.name} accent="var(--accent)" />
+        <ClaimBanner clinicId={c.id} clinicName={c.name} accent="var(--accent)" lang={L} />
       )}
 
       {/* /th 변형은 canonical 이 /th/clinic/{id} 인데 JSON-LD 의 url·breadcrumb 은

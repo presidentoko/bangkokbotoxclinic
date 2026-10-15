@@ -143,3 +143,33 @@ export const TOPIC_LABELS: Record<string, string> = {
   promotion: "Promotion / discount",
   premium: "Premium",
 };
+
+// /th 페이지용 (2026-10-15). 영어 라벨만 있어서 태국어 페이지의 칩·카테고리가
+// 전부 영어로 나왔다 — 9/15 에 /th 를 "영어판 복제본"으로 판정해 noindex 한 원인 중 하나.
+export const CATEGORY_LABELS_TH: Record<string, string> = {
+  botox: "โบท็อกซ์",
+  filler: "ฟิลเลอร์",
+  hifu: "ไฮฟู",
+  facial: "ทรีตเมนต์หน้า",
+  laser: "เลเซอร์",
+  dental: "ทันตกรรม",
+  hair_transplant: "ปลูกผม",
+  eye: "ตา / เลสิก",
+};
+
+export const TOPIC_LABELS_TH: Record<string, string> = {
+  genuine_brand: "ใช้ของแท้",
+  english_speaking: "พนักงานพูดอังกฤษได้",
+  clean_facility: "สถานที่สะอาด",
+  long_wait: "รอนาน",
+  expensive: "ราคาสูง",
+  affordable: "ราคาไม่แพง",
+  professional: "เป็นมืออาชีพ",
+  friendly_staff: "พนักงานเป็นกันเอง",
+  results_satisfied: "พอใจผลลัพธ์",
+  no_pain: "ไม่เจ็บ",
+  recommend: "แนะนำต่อ",
+  korean_doctor: "หมอจบจากเกาหลี",
+  promotion: "โปรโมชั่น / ส่วนลด",
+  premium: "พรีเมียม",
+};

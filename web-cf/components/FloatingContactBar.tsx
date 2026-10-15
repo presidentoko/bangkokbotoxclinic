@@ -10,11 +10,14 @@ export function FloatingContactBar({
   clinicId,
   clinicName,
   phone,
+  lang = "en",
 }: {
   clinicId?: string;
   clinicName?: string;
   phone?: string;
+  lang?: "en" | "th";
 }) {
+  const th = lang === "th";
   const [dismissed, setDismissed] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -34,7 +37,7 @@ export function FloatingContactBar({
             className="flex-1 py-3 px-3 rounded-lg font-bold text-sm text-white inline-flex items-center justify-center gap-2"
             style={{ background: "var(--accent)" }}
           >
-            Book Consultation →
+            {th ? "จองคำปรึกษา →" : "Book Consultation →"}
           </button>
           {phone && (
             <a
@@ -64,14 +67,14 @@ export function FloatingContactBar({
           className="px-5 py-3 rounded-full font-bold text-sm text-white shadow-xl inline-flex items-center gap-2 hover:scale-105 transition-transform"
           style={{ background: "var(--accent)" }}
         >
-          Book Consultation →
+          {th ? "จองคำปรึกษา →" : "Book Consultation →"}
         </button>
         {phone && (
           <a
             href={`tel:${phone.replace(/[^+\d]/g, "")}`}
             className="px-5 py-3 rounded-full font-semibold text-sm bg-white border border-[var(--border)] shadow-lg inline-flex items-center gap-2 hover:scale-105 transition-transform"
           >
-            📞 Call
+            📞 {th ? "โทร" : "Call"}
           </a>
         )}
       </div>
@@ -89,7 +92,7 @@ export function FloatingContactBar({
             >
               ×
             </button>
-            <BookingForm clinicId={clinicId} clinicName={clinicName} />
+            <BookingForm clinicId={clinicId} clinicName={clinicName} lang={lang} />
           </div>
         </div>
       )}

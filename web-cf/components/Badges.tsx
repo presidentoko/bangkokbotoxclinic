@@ -67,9 +67,10 @@ export async function VerifiedPartnerBadge({ clinicId }: { clinicId: string }) {
 export { Freshness } from "./Freshness";
 
 // Trust 상대 ranking — 카테고리/지역 내 percentile.
-export function RelativeRanking({ percentile, label }: {
+export function RelativeRanking({ percentile, label, lang = "en" }: {
   percentile: number;
   label: string;
+  lang?: "en" | "th";
 }) {
   const top = Math.max(1, Math.round((1 - percentile / 100) * 100));
   return (
@@ -78,7 +79,7 @@ export function RelativeRanking({ percentile, label }: {
       style={{ background: "#f0fdf4", color: "#166534" }}
     >
       <span aria-hidden>🏆</span>
-      Top {top}% in {label}
+      {lang === "th" ? `ติดอันดับ ${top}% แรกในหมวด${label}` : `Top ${top}% in ${label}`}
     </span>
   );
 }

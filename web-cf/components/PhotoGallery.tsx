@@ -55,10 +55,12 @@ export function PhotoGallery({
   photos,
   clinicName,
   attribution = "Google Maps",
+  lang = "en",
 }: {
   photos: ClinicPhoto[];
   clinicName: string;
   attribution?: string;
+  lang?: "en" | "th";
 }) {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
@@ -121,7 +123,7 @@ export function PhotoGallery({
           ))}
         </div>
         <p className="mt-2 text-[10px] text-[var(--muted)] text-right">
-          Photos via {attribution}
+          {lang === "th" ? `ภาพจาก ${attribution}` : `Photos via ${attribution}`}
         </p>
       </section>
 
