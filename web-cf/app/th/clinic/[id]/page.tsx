@@ -10,7 +10,6 @@ import { getClinicLicense } from "@/lib/licenses";
 import ClinicPage, { generateStaticParams as parentGSP } from "../../../clinic/[id]/page";
 import { loadMasterDb, getClinicByRouteKey } from "@/lib/data";
 import { getSiteUrl, getSiteConfig, applySiteFilter, resolveOwnerUrl, safeEncodeURIComponent } from "@/lib/site";
-import { hasKoPage } from "@/lib/ko-cap";
 
 const SITE = getSiteUrl();
 
@@ -24,10 +23,7 @@ export const generateStaticParams = parentGSP;
 export async function generateMetadata(
   { params }: { params: Promise<{ id: string }> }
 ): Promise<Metadata> {
-  // 2026-08-29: /ko/clinic/{id} 는 상위 200곳만 존재한다(KO_PRERENDER).
-  // 없는 페이지를 hreflang 으로 광고하면 구글이 가져가서 404 를 받는다.
   const { id } = await params;
-  const koExists = await hasKoPage(id);
   const db = await loadMasterDb();
   const c = getClinicByRouteKey(db.clinics, id);
   if (!c) return { title: "ไม่พบคลินิก" };
@@ -48,9 +44,28 @@ export async function generateMetadata(
   const cfg = getSiteConfig();
   const inSite = applySiteFilter([c], cfg).length > 0;
   const ownerUrl = !inSite ? resolveOwnerUrl(c.categories) : null;
-  // 2026-09-15: 영어판과 본문 99% 동일(실측, 태국어 글자 15%) — 번역 페이지가
-  // 아니라 복제본이다. 영어판으로 canonical 을 모으고 색인에서 뺀다.
-  const canonical = `${ownerUrl ?? SITE}/clinic/${c.url_slug}`;
+  // 2026-09-15 에는 "영어판과 본문 99% 동일(태국어 글자 15%) — 번역이 아니라
+  // 복제본" 이라서 영어판으로 canonical 을 모으고 색인에서 뺐다. 그 전제는
+  // /th 현지화(커밋 3280f7d) 이후 더 이상 사실이 아니다. 2026-10-15 라이브
+  // 실측, 사이트맵에서 고르게 뽑은 14쌍:
+  //
+  //   TH 페이지에만 있는 텍스트   중앙값 57%  (최소 48%, 최대 69%)
+  //   태국어 글자 비율            중앙값 55%  (최소 45%, 최대 66%)
+  //   30% 미만인 쌍               0건
+  //
+  // 제목·설명·주소·요약·판정문이 전부 태국어로 렌더된다. 중복이 아니라
+  // 번역본이므로 자기 자신을 canonical 로 삼고 색인에 들어간다.
+  //
+  // 그리고 수요가 거기 있다. 2026-10-15 내보내기에서 태국어 쿼리가 노출
+  // 37%(11,765/31,759)로 클릭 62%(219/353)를 벌었고 CTR 1.86% 대 영어 0.67%,
+  // "ใกล้ฉัน" 묶음은 1.9~3.1위다. 그 수요를 영어 페이지로 받고 있었고 태국어
+  // 페이지 1,625장은 noindex 로 0을 벌고 있었다.
+  //
+  // 소관 밖 클리닉은 그대로 상대 도메인 영어판으로 보낸다 — 그쪽에 태국어
+  // 페이지가 있다고 보장할 수 없다.
+  const canonical = ownerUrl
+    ? `${ownerUrl}/clinic/${c.url_slug}`
+    : `${SITE}/th/clinic/${c.url_slug}`;
 
   return {
     // absolute — EN 라우트(app/clinic/[id]/page.tsx)는 이미 이렇게 쓰는데 여기만
@@ -59,9 +74,21 @@ export async function generateMetadata(
     // 구글 표시 한도를 한참 넘겨 뒤가 잘렸다 (2026-08-06 감사).
     title: { absolute: title },
     description,
-    robots: { index: false, follow: true },
+    // 소관 밖일 때만 noindex. 소관 내 태국어 페이지는 색인 대상이다.
+    ...(!inSite && { robots: { index: false, follow: true } }),
     alternates: {
       canonical,
+      // /ko 는 클러스터에서 뺀다 — 같은 내보내기에서 한국어 쿼리 1건·노출 2회
+      // 뿐이고 /ko/clinic 은 noindex 다. 색인에서 빠진 페이지를 가리키는
+      // 클러스터는 신호를 버리는 것이고, 상호참조가 안 되는 클러스터는 구글이
+      // 통째로 버린다.
+      ...(inSite && {
+        languages: {
+          en: `${SITE}/clinic/${c.url_slug}`,
+          th: `${SITE}/th/clinic/${c.url_slug}`,
+          "x-default": `${SITE}/clinic/${c.url_slug}`,
+        },
+      }),
     },
     openGraph: {
       // 2026-09-02: 페이지가 openGraph 를 정의하면 루트 layout 의 siteName 이

@@ -39,9 +39,18 @@ export async function GET() {
   // prerender 하고 나머지는 404 이므로(ISR Writes 절감), 전량을 사이트맵에 올리면
   // 죽은 URL 을 제출하게 된다. 한국어는 원래도 색인 실적이 거의 없었고,
   // 이 사이트의 실제 기회는 태국어다.
-  // 2026-09-15: 비운다. /th·/ko 클리닉은 영어판 복제(본문 99% 동일)라 noindex +
-  // canonical→EN 으로 바꿨다. 색인 안 할 URL 을 제출하면 크롤 예산만 샌다.
-  const LOCALES: { code: string; prefix: string; priority: string }[] = [];
+  // 2026-09-15 에 비웠다 — 그때 /th·/ko 클리닉은 영어판 복제(본문 99% 동일)라
+  // noindex + canonical→EN 이었고, 색인 안 할 URL 을 제출하면 크롤 예산만 샌다.
+  //
+  // 2026-10-15: /th 를 되돌린다. 현지화(커밋 3280f7d) 이후 복제가 아니다 —
+  // 라이브 14쌍 실측으로 TH 전용 텍스트가 중앙값 57%, 태국어 글자 55%이고
+  // 30% 미만인 쌍은 없었다. 그래서 /th/clinic 은 자기 자신을 canonical 로
+  // 삼고 색인에 들어간다. 색인 대상이 된 URL 은 제출해야 한다. /ko 는 여전히
+  // noindex 이고 상위 200곳만 prerender 되므로 넣지 않는다 — 같은 내보내기에서
+  // 한국어 쿼리 1건·노출 2회였다.
+  const LOCALES: { code: string; prefix: string; priority: string }[] = [
+    { code: "th-TH", prefix: "/th", priority: "0.8" },
+  ];
 
   const urls: string[] = [];
   for (const loc of LOCALES) {
@@ -55,7 +64,6 @@ export async function GET() {
           `    <priority>${loc.priority}</priority>\n` +
           `    <xhtml:link rel="alternate" hreflang="en-US" href="${SITE}/clinic/${id}"/>\n` +
           `    <xhtml:link rel="alternate" hreflang="th-TH" href="${SITE}/th/clinic/${id}"/>\n` +
-          `    <xhtml:link rel="alternate" hreflang="ko-KR" href="${SITE}/ko/clinic/${id}"/>\n` +
           `    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/clinic/${id}"/>\n` +
           `  </url>`,
       );

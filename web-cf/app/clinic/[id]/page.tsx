@@ -35,7 +35,6 @@ import { applySiteFilter, getSiteConfig, getSiteUrl, resolveOwnerUrl, safeEncode
 import { groupBrands, brandKeyOf } from "@/lib/brands";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { hasKoPage } from "@/lib/ko-cap";
 import { loadDeepReviews } from "@/lib/clinicReviews";
 
 // resolveOwnerUrl 은 lib/site.ts 로 이동 — doctor/[slug] 도 동일 가드 사용.
@@ -104,7 +103,6 @@ export async function generateMetadata(
   // 2026-08-29: /ko/clinic/{id} 는 상위 200곳만 존재한다(KO_PRERENDER).
   // 없는 페이지를 hreflang 으로 광고하면 구글이 가져가서 404 를 받는다.
   const { id } = await params;
-  const koExists = await hasKoPage(id);
   const db = await loadMasterDb();
   const c = getClinicByRouteKey(db.clinics, id);
   if (!c) return { title: "Clinic not found" };
@@ -156,6 +154,30 @@ export async function generateMetadata(
     ...(!inSite && { robots: { index: false, follow: true } }),
     alternates: {
       canonical,
+      // hreflang. The three clinic routes emitted no <link rel="alternate">
+      // at all — verified on the live EN, TH and KO pages — while the hub
+      // routes (/th, /th/c, /th/d, /ko) have always had it. So the gap was the
+      // venue tree, which is the whole of the site's search traffic.
+      // lib/ko-cap.ts was written for exactly this case and had become dead
+      // code here: hasKoPage(id) was awaited and the result never read.
+      //
+      // Thai is not a nice-to-have here. In the 2026-10-15 export Thai queries
+      // took 219 of 353 clicks from 11,765 of 31,759 impressions — 62% of the
+      // clicks on 37% of the impressions, a CTR of 1.86% against English 0.67%
+      // — and the "ใกล้ฉัน" cluster ranks 1.9-3.1, the best positions on the
+      // site.
+      //
+      // Korean is deliberately left out of the cluster while /ko/clinic stays
+      // noindex: 1 Korean query and 2 impressions in the same export. A
+      // cluster that points at a page excluded from the index spends the
+      // signal on nothing, and Google drops clusters that do not reciprocate.
+      ...(inSite && {
+        languages: {
+          en: `/clinic/${c.url_slug}`,
+          th: `/th/clinic/${c.url_slug}`,
+          "x-default": `/clinic/${c.url_slug}`,
+        },
+      }),
     },
     openGraph: {
       // 2026-09-02: 페이지가 openGraph 를 정의하면 루트 layout 의 siteName 이
