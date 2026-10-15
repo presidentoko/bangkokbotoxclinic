@@ -1,6 +1,7 @@
 import { NICHES, loadNicheDb, qualifyingNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { asciiSlug } from "@/lib/placeIndexing";
+import { isThinVenue } from "@/lib/venueContent";
 
 /**
  * Maps a /{lang}/place/{slug} page to the /activities venue page for the same
@@ -32,7 +33,23 @@ import { asciiSlug } from "@/lib/placeIndexing";
  * Everything it does not cover keeps the existing noindex — there is no
  * better page to send those to.
  */
-export type ActivityTarget = { niche: string; slug: string; path: string };
+export type ActivityTarget = {
+  niche: string;
+  slug: string;
+  path: string;
+  /**
+   * The target itself is noindexed (lib/venueContent.ts), so nothing may be
+   * pointed at it.
+   *
+   * 331 of the 1,647 place slugs are in this state after the 2026-10-04
+   * noindex. A canonical naming a noindexed URL is a contradiction Google
+   * cannot resolve, so it discards the declaration and picks its own — which
+   * is what "Duplicate, Google chose different canonical than user" in Search
+   * Console means. Redirecting into one is no better: it spends the
+   * redirect's signal on a page that has asked to be left out.
+   */
+  thin: boolean;
+};
 
 let _map: Map<string, ActivityTarget> | null = null;
 
@@ -50,6 +67,7 @@ async function build(): Promise<Map<string, ActivityTarget>> {
           niche: n.slug,
           slug: p.slug,
           path: `/activities/${n.slug}/${encodeURIComponent(p.slug)}`,
+          thin: isThinVenue(p),
         });
       }
     }

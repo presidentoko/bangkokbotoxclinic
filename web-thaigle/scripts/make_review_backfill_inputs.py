@@ -67,12 +67,19 @@ def gsc_impressions(xlsx: str) -> dict[str, float]:
     return out
 
 
+# Mirrors THIN_REVIEW_FLOOR in lib/venueContent.ts. Venues under it were
+# noindexed on 2026-10-04 (775 of them) because there is no review text to
+# collect even in principle — scraping them would be paying for pages that
+# are not in the index.
+THIN_REVIEW_FLOOR = 20
+
+
 def needs_reviews(p: dict) -> bool:
     if p.get("permanently_closed"):
         return False
     # A venue with no rating was never on Google properly; reviews won't be
     # there either. Only ask for what can actually come back.
-    if not p.get("review_count"):
+    if (p.get("review_count") or 0) < THIN_REVIEW_FLOOR:
         return False
     return not p.get("reviews_sample")
 

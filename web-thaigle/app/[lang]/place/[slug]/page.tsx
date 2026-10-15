@@ -54,7 +54,10 @@ export async function generateMetadata({
   // one here would tell Google these pages are the originals after the
   // canonical has just said they are not.
   const activity = await activityForPlace(slug);
-  if (activity) {
+  // activity.thin means the twin is itself noindexed, so there is nothing to
+  // hand the signal to. The place page is the same venue and just as thin, so
+  // it takes the noindex rather than naming a canonical Google will refuse.
+  if (activity && !activity.thin) {
     return {
       title: `${t.name} — ${place.subtype} · ${place.area}`,
       description: desc,
@@ -192,7 +195,7 @@ export default async function PlacePage({
   // Unmapped venues (no /activities twin) keep their noindex — there is
   // nowhere better to send them. See lib/placeCanonical.ts.
   const activity = await activityForPlace(slug);
-  if (activity && (lang === "th" || lang === "ko")) {
+  if (activity && !activity.thin && (lang === "th" || lang === "ko")) {
     permanentRedirect(activity.path);
   }
   const t = place.i18n[lang as Lang] ?? place.i18n["en"];
