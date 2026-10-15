@@ -20,8 +20,19 @@ Rules:
 - Report permanently/temporarily closed venues rather than acting on them:
   taking a page down is a decision, not a side effect of a data merge.
 
+--force-reviews exists because the review *bodies* were collected twice under
+settings that select against substance. The 2026-08 run asked for 0 reviews;
+the 2026-10 one asked for 5 sorted `newest`, which on a 2,499-review venue
+returned 605 characters where `mostRelevant` returned 7,646 — 12.6x, measured
+on the same venue in the same hour. Recency selects for one-line ratings.
+Without the flag a re-run is a no-op, because the fill rule below only ever
+writes into an empty `reviews_sample`. With it, a venue's sample is replaced
+only when the new selection holds strictly more text, so the flag can never
+make a page thinner and a second pass over the same export changes nothing.
+
 Usage:
     python scripts/enrich_from_apify.py <export.json> [--dry-run]
+        [--force-reviews] [--max-reviews N]
 """
 from __future__ import annotations
 
@@ -45,6 +56,10 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("export")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument(
+        "--force-reviews", action="store_true",
+        help="replace an existing reviews_sample when the export holds more text")
+    ap.add_argument("--max-reviews", type=int, default=5)
     args = ap.parse_args()
 
     raw = json.loads(Path(args.export).read_text(encoding="utf-8"))
@@ -58,7 +73,8 @@ def main() -> int:
 
     closed: list[str] = []
     totals = {"photos": 0, "rating": 0, "review_count": 0, "address": 0,
-              "phone": 0, "website": 0, "hours": 0, "reviews": 0}
+              "phone": 0, "website": 0, "hours": 0, "reviews": 0,
+              "review_chars": 0}
 
     for path in sorted(NICHE_DIR.glob("*.json")):
         db = json.loads(path.read_text(encoding="utf-8"))
@@ -134,7 +150,7 @@ def main() -> int:
             # from an earlier pass, and these pages are the English tree — a
             # Thai body under an English heading reads as scraped filler, and
             # is also not what the query that found the page was written in.
-            if not p.get("reviews_sample"):
+            if not p.get("reviews_sample") or args.force_reviews:
                 reviews = []
                 # Prefer Google's English translation over the original.
                 #
@@ -161,14 +177,29 @@ def main() -> int:
                         "date": rv.get("publishedAtDate") or rv.get("publishAt") or "",
                         "text": text,
                     })
-                if reviews:
-                    p["reviews_sample"] = reviews[:5]
-                    if not p.get("top_review_text"):
-                        p["top_review_text"] = reviews[0]["text"]
+                # Longest first. Google's own order is recency or relevance
+                # depending on how the run was configured, and neither puts the
+                # review that describes the place at the top; length does. The
+                # card clamps its height in CSS, so a long review costs nothing
+                # on screen while being the only text on the page that is this
+                # venue's own.
+                reviews.sort(key=lambda x: -len(x["text"]))
+                picked = reviews[: args.max_reviews]
+                had = sum(len((x or {}).get("text") or "")
+                          for x in (p.get("reviews_sample") or []))
+                new = sum(len(x["text"]) for x in picked)
+                # Strictly more, so this is safe to re-run and a weaker export
+                # can never overwrite a richer one — the same rule
+                # deepen_thaigle_reviews.py applies to the restaurant set.
+                if picked and new > had:
+                    p["reviews_sample"] = picked
+                    if len(picked[0]["text"]) > len(p.get("top_review_text") or ""):
+                        p["top_review_text"] = picked[0]["text"]
                     badges = p.get("source_badges") or {}
-                    badges["reviews"] = len(reviews)
+                    badges["reviews"] = len(picked)
                     p["source_badges"] = badges
                     totals["reviews"] += 1
+                    totals["review_chars"] += new - had
                     changed = True
 
             if not p.get("opening_hours_json") and (r.get("openingHours") or []):

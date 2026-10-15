@@ -418,8 +418,16 @@ export default async function PlaceDetailPage({
       {place.reviews_sample && place.reviews_sample.length > 0 && (
         <section className="mb-6">
           <h2 className="font-black text-lg mb-3">What Google reviewers say about {place.name}</h2>
+          {/* Eight, not three. Review text is the only text on this page
+              that is this venue's own — 41-46% of everything inside <main>
+              was measured identical across every activity venue on
+              2026-09-16 — and the pages carrying some earned an impression
+              18.2% of the time against 1.0% for the pages carrying none.
+              The cards clamp to four lines each, so the page does not grow
+              proportionally. Matches the restaurant template, which went to
+              eight on the same reasoning. */}
           <div className="space-y-3">
-            {place.reviews_sample.slice(0, 3).map((r, i) => (
+            {place.reviews_sample.slice(0, 8).map((r, i) => (
               <div key={i} className="bg-white border border-[var(--border)] rounded-xl p-4">
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <span className="text-sm font-medium truncate">{r.reviewer}</span>

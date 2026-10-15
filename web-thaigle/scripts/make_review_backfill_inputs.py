@@ -17,10 +17,25 @@ Ratings and photos are done — 2,251 of 2,311 spa venues qualify, only 52 lack
 a rating and 4 lack a photo — so this run asks for reviews and nothing else,
 which is also the cheapest way to ask.
 
+The backfill is now done — 19 venues still have no review text, against 1,360
+before. What is left is a different shortfall, and `--deepen` is for that one:
+the text that was collected is too little to rank. Measured 2026-10-15 over
+3,898 active venues, the median page carries 661 characters of review text and
+1,464 of them carry exactly three reviews, because every run so far asked for
+`reviewsSort=newest`. On a single venue with 2,499 Google reviews, 20 reviews
+sorted `newest` returned 605 characters while the same 20 sorted
+`mostRelevant` returned 7,646 — recency selects for one-line ratings. The
+restaurant set, which had the same problem for a different reason, went from a
+median of 487 characters to 3,585 purely by selecting better from text already
+on disk, and that is the comparison this run is trying to reach.
+
 Usage:
     python scripts/make_review_backfill_inputs.py            # all niches, 500/chunk
     python scripts/make_review_backfill_inputs.py --niche spa --chunk 600
     python scripts/make_review_backfill_inputs.py --reviews 3
+    # the deepening run: venues that have text, but under 3,000 characters
+    python scripts/make_review_backfill_inputs.py --deepen 3000 \
+        --reviews 20 --sort mostRelevant
 """
 from __future__ import annotations
 
@@ -74,13 +89,23 @@ def gsc_impressions(xlsx: str) -> dict[str, float]:
 THIN_REVIEW_FLOOR = 20
 
 
-def needs_reviews(p: dict) -> bool:
+def published_chars(p: dict) -> int:
+    """Mirrors uniqueTextChars() in lib/venueContent.ts."""
+    n = sum(len((r or {}).get("text") or "") for r in (p.get("reviews_sample") or []))
+    return n if n else len(p.get("top_review_text") or "")
+
+
+def needs_reviews(p: dict, deepen: int = 0) -> bool:
     if p.get("permanently_closed"):
         return False
     # A venue with no rating was never on Google properly; reviews won't be
     # there either. Only ask for what can actually come back.
     if (p.get("review_count") or 0) < THIN_REVIEW_FLOOR:
         return False
+    if deepen:
+        # Includes the zero-text venues: they are the same request, and
+        # excluding them would mean running two jobs over one price list.
+        return published_chars(p) < deepen
     return not p.get("reviews_sample")
 
 
@@ -89,6 +114,18 @@ def main() -> int:
     ap.add_argument("--niche", action="append", help="repeatable; default all")
     ap.add_argument("--chunk", type=int, default=500, help="place IDs per input file")
     ap.add_argument("--reviews", type=int, default=5, help="reviews per venue")
+    ap.add_argument(
+        "--sort", default="newest",
+        choices=["newest", "mostRelevant", "highestRanking", "lowestRanking"],
+        help="reviewsSort. mostRelevant returned 12.6x the text of newest on "
+             "the probe venue; newest is kept as the default only because it "
+             "is what the existing inputs in this directory were built with.",
+    )
+    ap.add_argument(
+        "--deepen", type=int, default=0, metavar="CHARS",
+        help="select venues whose published review text is under CHARS, "
+             "instead of only those with none at all.",
+    )
     ap.add_argument(
         "--gsc",
         help="GSC Pages export (.xlsx). Venues whose page already earns "
@@ -108,6 +145,12 @@ def main() -> int:
     total = 0
     written: list[str] = []
     pool: list[dict] = []
+    # A venue can sit in two niche datasets — 89 of the 2,655 selected by
+    # --deepen 3000 do, mostly spa venues that are also wellness. The actor is
+    # billed per place ID, and enrich_from_apify.py walks every niche file for
+    # each ID in the export, so scraping one twice pays twice for a merge that
+    # already covers both.
+    seen_ids: set[str] = set()
 
     for niche in niches:
         src = NICHE_DIR / f"{niche}.json"
@@ -115,10 +158,15 @@ def main() -> int:
             print(f"  skip {niche}: no dataset")
             continue
         places = json.loads(src.read_text(encoding="utf-8"))["places"]
-        wanted = [
-            p for p in places
-            if needs_reviews(p) and str(p.get("id", "")).startswith("ChIJ")
-        ]
+        wanted = []
+        for p in places:
+            pid = str(p.get("id", ""))
+            if not pid.startswith("ChIJ") or pid in seen_ids:
+                continue
+            if not needs_reviews(p, args.deepen):
+                continue
+            seen_ids.add(pid)
+            wanted.append(p)
         # Proven demand first, then Trust Score as the fallback ordering. The
         # dataset's own order carries no meaning, and with a budget that covers
         # one chunk, chunk 1 is the only one that may get run.
@@ -144,7 +192,8 @@ def main() -> int:
         for i in range(0, len(ids), args.chunk):
             part = ids[i : i + args.chunk]
             n = i // args.chunk + 1
-            name = f"{niche}_reviews_{n}.json" if len(ids) > args.chunk else f"{niche}_reviews.json"
+            stem = f"{niche}_deepen" if args.deepen else f"{niche}_reviews"
+            name = f"{stem}_{n}.json" if len(ids) > args.chunk else f"{stem}.json"
             payload = {
                 "language": "en",
                 "scrapePlaceDetailPage": True,
@@ -155,7 +204,7 @@ def main() -> int:
                 # maxImages at 0 also keeps this run from touching them.
                 "maxImages": 0,
                 "maxReviews": args.reviews,
-                "reviewsSort": "newest",
+                "reviewsSort": args.sort,
                 "maxQuestions": 0,
                 "scrapeContacts": False,
                 "maximumLeadsEnrichmentRecords": 0,
@@ -179,7 +228,7 @@ def main() -> int:
             "scrapePlaceDetailPage": True,
             "maxImages": 0,
             "maxReviews": args.reviews,
-            "reviewsSort": "newest",
+            "reviewsSort": args.sort,
             "maxQuestions": 0,
             "scrapeContacts": False,
             "maximumLeadsEnrichmentRecords": 0,
@@ -197,7 +246,14 @@ def main() -> int:
         print("  " + ", ".join(f"{k} {v}" for k, v in sorted(by_niche.items(), key=lambda kv: -kv[1])))
         return 0
 
+    # $0.009/venue measured at 5 reviews and $0.016 at 20, on the
+    # compass/crawler-google-places runs of 2026-10-15. Printed because a
+    # deepening run covers venues that already have a page, so nothing about
+    # the output makes its size obvious.
+    rate = 0.016 if args.reviews > 10 else 0.009
     print(f"\n{total} venues across {len(written)} input files in {OUT_DIR}")
+    print(f"  estimated cost {total} x ${rate:.3f} = ${total * rate:.2f}"
+          f"  (maxReviews={args.reviews}, reviewsSort={args.sort})")
     for w in written:
         print(f"  {w}")
     print(
