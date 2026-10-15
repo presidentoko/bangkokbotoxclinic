@@ -107,7 +107,11 @@ export default async function RestaurantPage(
   if (!r) notFound();
 
   const tier = sponsoredTier(r.id);
-  const samples = [...r.sample_reviews_en, ...r.sample_reviews_th].slice(0, 4);
+  // 8, not 4. The stored set is now 8 deep (scripts/deepen_thaigle_reviews.py)
+  // and review text is the only text on this page that is the venue's own —
+  // median 487 characters before, 3,585 after. The cap matches what is stored,
+  // so nothing is parsed into the build that never reaches a page.
+  const samples = [...r.sample_reviews_en, ...r.sample_reviews_th].slice(0, 8);
   const cityLabel = r.city_label || city.charAt(0).toUpperCase() + city.slice(1);
   const districtLabel = r.district || cityLabel;
   const url = restaurantUrl({ city, district, slug });
