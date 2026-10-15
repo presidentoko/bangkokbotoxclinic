@@ -20,7 +20,11 @@ MAX_RESTAURANTS = None      # 무제한 (전체 수집)
 # collect_reviews_for_restaurant()는 매번 relevant+newest 전체를 다시 긁고
 # 파일을 덮어쓰므로, 재수집 자체가 곧 "최신 리뷰까지 반영"이 된다 — 별도
 # diff/증분 로직 불필요. 리뷰 파일 mtime이 "마지막 재수집" 신호.
-REVIEW_REFRESH_DAYS = int(os.environ.get("REVIEW_REFRESH_DAYS", "7"))
+# 2026-10-15: 7 → 30. 10-13 01:00 부터 구글이 비로그인 세션에 "limited view"
+# 를 준다 — 리뷰 탭이 없거나 있어도 10개(=리뷰 5건)에서 스크롤이 멈춘다.
+# 이미 리뷰 50건을 가진 곳을 7일마다 다시 열어봐야 5건밖에 못 받으니
+# 재스캔이 큐 시간을 다 먹었다(하루 처리분의 70%가 재스캔, 신규 리뷰 거의 0).
+REVIEW_REFRESH_DAYS = int(os.environ.get("REVIEW_REFRESH_DAYS", "30"))
 OUTPUT_DIR = os.environ.get("CITY_OUTPUT_DIR", "output")
 
 # ── 그리드 스캔 설정 (식당 발견 Phase) ──
