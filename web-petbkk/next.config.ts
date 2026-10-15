@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next'
+import { loadHospitals, hospitalSlug } from './lib/hospitals'
 import hospitalRedirects from './data/hospital-redirects.json'
 import excludedRedirects from './data/hospital-excluded-redirects.json'
 
@@ -89,7 +90,7 @@ const config: NextConfig = {
       ([from, to]) => ({ source: `/hospital/${from}`, destination: to, permanent: true }),
     )
 
-    return [
+    const rules = [
       // The project's own `petbkk.vercel.app` alias serves the entire site
       // straight from Vercel — `server: Vercel`, no `cf-*` headers at all —
       // so every request that reaches it skips Cloudflare completely and bills
@@ -106,7 +107,7 @@ const config: NextConfig = {
       // `vercel curl`, which does not depend on the hostname serving HTML.
       {
         source: '/:path*',
-        has: [{ type: 'host', value: '(?<vercelHost>.+\\.vercel\\.app)' }],
+        has: [{ type: 'host' as const, value: '(?<vercelHost>.+\\.vercel\\.app)' }],
         destination: 'https://www.thailandpethub.com/:path*',
         permanent: true,
       },
@@ -145,6 +146,25 @@ const config: NextConfig = {
       { source: '/hospital/meow-samosorn-vet-clinic', destination: '/hospital', permanent: true },
       { source: '/breeds/british-shorthair', destination: '/breeds', permanent: true },
     ]
+
+    // A redirect must never point away from a page this build publishes.
+    //
+    // Slugs are handed out in file order with collisions taking the next free
+    // "-2" (lib/hospitals.ts), so they move whenever the data moves. Seven of
+    // the rules above name a clinic that Google dropped — and on 2026-10-15
+    // `/hospital/animal-clinic` was in sitemap.xml *and* 308ing to the hub,
+    // because a live Bangkok clinic had since inherited that bare slug from the
+    // delisted one. The page was unreachable at its own URL while being offered
+    // to Google, which is the worst of both.
+    //
+    // Checking against the published set makes that class of collision
+    // self-healing instead of a thing someone has to notice.
+    const published = new Set(loadHospitals().map(h => `/hospital/${hospitalSlug(h)}`))
+    return rules.filter(r => {
+      if (!published.has(r.source)) return true
+      console.warn(`[redirects] skipping ${r.source} — a published clinic now owns that slug`)
+      return false
+    })
   },
 }
 
