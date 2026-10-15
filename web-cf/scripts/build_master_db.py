@@ -693,6 +693,17 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
     categories = sorted(tag_categories_from_text(all_text))
 
     # 샘플 리뷰: 언어별 평점 4-5점 우선, 길이 80-300자.
+    #
+    # 이 상한은 의도적으로 얕게 유지한다. 300자 초과 리뷰를 버리기 때문에
+    # 클리닉 페이지의 리뷰 본문 중앙값이 478자였고(디스크에는 3,705자가 있었다),
+    # 그걸 여기서 늘리면 master_db.json 이 커진다 — 2026-10-15 기준 이미
+    # 24,657,315 바이트로 Cloudflare Worker 의 **파일당 25 MiB** 한도에서
+    # 1.5MB 밖에 안 남았다. 깊이는 대신 data/clinic-reviews.json 으로 분리했다:
+    # scripts/build_clinic_reviews.py 가 같은 CSV 에서 클리닉당 가장 긴 8개를
+    # 뽑아 11.5MB 파일로 쓰고, 전량 프리렌더되는 클리닉 페이지가 빌드 타임에
+    # fs 로만 읽는다(Worker 자산에는 복사하지 않음).
+    #
+    # 즉 여기를 늘리면 안 된다 — 늘리려면 master_db 를 먼저 슬림화해야 한다.
     def pick_samples(chunks: list[tuple[str, int, str]], n: int = 3):
         good = [c for c in chunks if 80 <= len(c[0]) <= 300 and c[1] >= 4]
         good.sort(key=lambda x: -x[1])

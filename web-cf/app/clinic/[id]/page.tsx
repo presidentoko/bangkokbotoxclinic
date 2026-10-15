@@ -36,6 +36,7 @@ import { groupBrands, brandKeyOf } from "@/lib/brands";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { hasKoPage } from "@/lib/ko-cap";
+import { loadDeepReviews } from "@/lib/clinicReviews";
 
 // resolveOwnerUrl 은 lib/site.ts 로 이동 — doctor/[slug] 도 동일 가드 사용.
 
@@ -272,9 +273,18 @@ export default async function ClinicPage(
   // (2026-07-17 감사). SampleReview 타입에 date/url 필드가 없어 상대날짜·
   // 원문링크는 추가 불가 — 데이터 없는 걸 지어내지 않음.
   // /th 는 태국어 원문을 먼저 — 영어판과 같은 영어 리뷰가 태국어 페이지를 채우고 있었다.
-  const enSamples = (c.sample_reviews_en ?? []).map((r) => ({ ...r, srcLang: "en" as const }));
+  // 깊은 리뷰가 있으면 그걸 쓴다. build_master_db.py 의 pick_samples 는 리뷰를
+  // 3개만, 그중 80~300자인 것만 남기므로 300자가 넘는 리뷰는 전부 버려진다.
+  // 그 결과 클리닉 페이지의 리뷰 본문 중앙값이 478자였다 — 디스크에는 3,705자가
+  // 있었고, data/clinic-reviews.json 이 가장 긴 8개를 담는다(중앙값 1,805자).
+  // 페이지에서 고유한 건 환자가 쓴 문장뿐이다: 라이브 실측으로 <main> 4,313자
+  // 중 44%가 모든 클리닉 페이지와 토씨까지 같았다.
+  const deep = await loadDeepReviews();
+  const deepRows = deep?.[c.id];
+  const enSamples = (deepRows ?? c.sample_reviews_en ?? []).map((r) => ({ ...r, srcLang: "en" as const }));
   const thSamples = (c.sample_reviews_th ?? []).map((r) => ({ ...r, srcLang: "th" as const }));
-  const samples = (L === "th" ? [...thSamples, ...enSamples] : [...enSamples, ...thSamples]).slice(0, 4);
+  // 4 → 8. 데이터가 얕을 때 정한 상한이라 깊은 샘플을 그대로 잘라냈다.
+  const samples = (L === "th" ? [...thSamples, ...enSamples] : [...enSamples, ...thSamples]).slice(0, 8);
 
   // Pricing — hdmall package 데이터(있는 경우)
   // 2026-09-02: 멀티지점 브랜드면 허브로 링크 (web/ 과 동일).
