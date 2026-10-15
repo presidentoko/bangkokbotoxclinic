@@ -64,3 +64,55 @@ export function isThinVenue(p: NichePlace): boolean {
 export function isBackfillCandidate(p: NichePlace): boolean {
   return uniqueTextChars(p) === 0 && (p.review_count ?? 0) >= THIN_REVIEW_FLOOR;
 }
+
+/**
+ * Google's own category for a venue whose business is sexual services, and the
+ * name patterns that advertise the same thing under a neutral category.
+ *
+ * Measured 2026-10-15 across the seven activity datasets: 64 venues carry the
+ * category "Erotic massage" and 9 "Soapy massage", and a further 10 sit under
+ * "Massage spa" or "Thai massage therapist" while naming the service in the
+ * title — "Nuru Massage", "Chiang Mai Erotic Massage 色情按摩", a Phuket listing
+ * advertising prostate and yoni massage. Every one of the 10 was read by hand;
+ * none is a false positive, and no legitimate spa in the set matches.
+ *
+ * The name pass is not optional. Google's category is self-reported and a third
+ * of these venues simply do not use it.
+ */
+const ADULT_CATEGORY = /erotic|soapy|escort|brothel|strip\s*club|sex\s*shop|adult\s*entertainment/i;
+const ADULT_NAME =
+  /nuru|soapy|happy\s*ending|body\s*to\s*body|\bb2b\b|lingam|prostate|\byoni\b|\bnude\b|변마|色情|유흥/i;
+
+/**
+ * A venue thaigle should not publish at all.
+ *
+ * Not a taste call — two concrete liabilities, both measured on 2026-10-15:
+ *
+ * 1. AdSense. These pages carry publisher ID ca-pub-7308941037330924, which is
+ *    shared with seven other sites in the same account. 20 of the 74 pages
+ *    already hold review text that names sexual acts explicitly, and the
+ *    mostRelevant deepening run merged the same day raised every one of them
+ *    from 3 reviews to 8 — so the volume was about to go up, not down.
+ *    Sexually explicit content is a Google Publisher Policy violation and it is
+ *    enforced at the account level, which puts all eight sites behind it.
+ *
+ * 2. Search. thaigle presents itself as a family activity directory; 74 erotic
+ *    massage pages inside /activities/spa is the kind of mismatch that gets a
+ *    site reclassified rather than a page demoted. Twenty-odd sites in this
+ *    network took that kind of hit between 2026-07-15 and 08-30.
+ *
+ * Dropping them costs nothing measurable. Across the 2026-09-30 GSC export
+ * (three months, top 1,000 pages) the 74 pages earned 1 impression and 0
+ * clicks between them, and no adult-intent query appears in the top 1,000 at
+ * all. That is why this is a removal rather than the noindex used for thin
+ * venues: there are no accumulated rankings here to preserve, and a noindexed
+ * page still carries the publisher ID and the explicit text.
+ *
+ * Applied in qualifyingNichePlaces(), so it takes effect everywhere at once —
+ * listings, detail pages (dynamicParams is false, so an unbuilt slug 404s),
+ * sitemap, llms.txt, the search index and the /place/ canonical map. The data
+ * stays in data/by-niche/*.json; reversing this is one function.
+ */
+export function isAdultVenue(p: NichePlace): boolean {
+  return ADULT_CATEGORY.test(p.category ?? "") || ADULT_NAME.test(p.name ?? "");
+}

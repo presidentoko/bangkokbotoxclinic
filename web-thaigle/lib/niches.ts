@@ -1,5 +1,8 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+// venueContent imports NichePlace from here, but as `import type` only, so
+// this pair does not form a runtime cycle.
+import { isAdultVenue } from "@/lib/venueContent";
 
 export const NICHES = [
   { slug: "muay-thai",    label: "Muay Thai",       icon: "🥊", desc: "Muay Thai gyms & training camps in Thailand",         planType: "gym"      },
@@ -244,11 +247,16 @@ export function topNichePlaces(places: NichePlace[], n: number): NichePlace[] {
 const BACKFILLED_NICHES = new Set(["spa", "yoga-pilates"]);
 
 export function qualifyingNichePlaces(nicheSlug: string, places: NichePlace[]): NichePlace[] {
-  const top = topNichePlaces(places, Infinity);
+  // Sexual-services venues are dropped here rather than in each caller, so that
+  // the listings, the sitemap, llms.txt, the search index, the /place/ canonical
+  // map and generateStaticParams all lose them together — see isAdultVenue() in
+  // lib/venueContent.ts for what they are and why they go.
+  const eligible = places.filter((p) => !isAdultVenue(p));
+  const top = topNichePlaces(eligible, Infinity);
   if (!BACKFILLED_NICHES.has(nicheSlug)) return top;
 
   const ranked = new Set(top.map((p) => p.id));
-  const unrated = places
+  const unrated = eligible
     .filter((p) => !ranked.has(p.id) && p.trust_score > 0 && !p.permanently_closed)
     .sort((a, b) => b.trust_score - a.trust_score);
   const all = [...top, ...unrated];
