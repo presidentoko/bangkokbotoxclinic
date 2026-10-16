@@ -276,6 +276,12 @@ const config: NextConfig = {
   // master_db.json 큰 사이즈 대비 Edge 런타임 안 씀
   experimental: {
     largePageDataBytes: 4 * 1024 * 1024,
+    // 2026-10-16: 빌드가 메모리 부족으로 죽었다(이 머신 15.7GB 중 여유 1.4GB,
+    // 리뷰 스크래퍼 3개가 크롬을 물고 있는 상태). 기본값은 CPU 수만큼 워커를
+    // 띄우고 각 워커가 8.6MB master_db.json 을 들고 5,000여 페이지를 프리렌더한다.
+    // memoryBasedWorkersCount 는 워커를 4개 밑으로 안 줄이므로 직접 고정한다.
+    cpus: 2,
+    staticGenerationMaxConcurrency: 4,
   },
   images: {
     formats: ["image/avif", "image/webp"],
