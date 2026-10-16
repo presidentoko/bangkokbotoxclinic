@@ -30,12 +30,30 @@ placeIds come out of maps_url. master_db keys clinics by Google's hex CID pair
 in its `!19s` segment, and the actor is cheapest driven by placeIds.
 
 Actor: compass/google-maps-reviews-scraper, which bills per review (~$0.50 per
-1,000) rather than per venue. For this set that is $15.49 against $28.37 from
-compass/crawler-google-places at $0.016/venue, for the same 20 reviews each --
+1,000) rather than per venue. At the same 20 reviews each that is $15.49 for
+this set against $28.37 from compass/crawler-google-places at $0.016/venue --
 45% less -- because we already hold every column the place-detail actor would
 re-sell us (rating, review count, phone, address, hours, coordinates) and want
-exactly one thing it does not have. 489 of the 1,773 clinics have fewer than 20
+exactly one thing it does not have. 612 of the 1,773 clinics have fewer than 30
 reviews in total, and per-review billing only charges for what exists.
+
+maxReviews is 30, derived rather than guessed. The petbkk probe of this same
+actor (20 venues, 725 reviews, 2026-10-16) measured publishable Thai characters
+per billed review by how many reviews a venue has: 34.8 at 1-9 reviews, 50.3 at
+10-29, 63.6 at 30-99, 151.3 at 100+. Busy places write longer reviews, so
+raising the cap thickens pages that are already thick and does nothing for thin
+ones. Against a 1,500-character target this set behaves exactly like petbkk's:
+
+    cap 10  $8.53   1,038 clinics under target (58.5%)
+    cap 20  $15.49  1,038 (58.5%)
+    cap 30  $21.52    612 (34.5%)
+    cap 50  $32.09    612 (34.5%)   <- $10.57 for nothing
+
+The 612 left short are the ones holding fewer than 30 reviews in total; no cap
+reaches them, and they are the clinics to answer with district consolidation or
+noindex rather than with money. Note also that ~18% of what you pay for is
+unusable (13% rating-only, 5% not Thai), which the per-review figures above
+already absorb.
 
 Files are packed by expected review count, not venue count: sum of
 min(total_reviews, maxReviews) per file, held near 10,000 reviews = ~$5, which
@@ -113,7 +131,7 @@ def is_dental_published(c: dict) -> bool:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--reviews", type=int, default=20,
+    ap.add_argument("--reviews", type=int, default=30,
                     help="maxReviews per clinic (billing is per review returned)")
     ap.add_argument("--budget", type=int, default=10_000,
                     help="expected reviews per file; 10,000 ~= $5 at $0.50/1k")
