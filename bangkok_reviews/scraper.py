@@ -1225,40 +1225,172 @@ def save_hours_csv(hours: list[RestaurantHours], path: Path):
     log.info(f"식당 영업시간 저장: {path} ({len(hours)}건)")
 
 
+REVIEW_HEADER = [
+    "review_id", "place_id", "restaurant_name", "rating", "text",
+    "author_name", "author_id", "author_uri", "author_photo_uri",
+    "author_is_local_guide", "author_review_count", "author_photo_count",
+    "relative_date", "spent_amount", "sort_source",
+]
+
+META_HEADER = [
+    "review_id", "place_id",
+    "food_rating", "service_rating", "atmosphere_rating",
+    "meal_type", "price_per_person", "group_size",
+    "wait_time", "reservation", "service_type", "recommended_dishes",
+]
+
+_TEXT_COL = REVIEW_HEADER.index("text")
+_THAI_CHARS = re.compile(r"[฀-๿]")
+
+
+class _FileLock:
+    """Read-modify-write race 방지. O_EXCL atomic create 기반, 60s stale lock 회수.
+
+    bangkok_clinics/scraper.py 에서 가지고 와서 맞춤. 이 스크래퍼는
+    워커를 여러 개 돌리고, 정렬 패스 2개가 같은 파일에 연속으로 쓴다.
+    """
+
+    def __init__(self, path, timeout: float = 30.0):
+        self.lock_path = path.with_suffix(path.suffix + ".lock")
+        self.timeout = timeout
+        self._held = False
+
+    def __enter__(self):
+        deadline = time.time() + self.timeout
+        while time.time() < deadline:
+            try:
+                fd = os.open(str(self.lock_path), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+                os.write(fd, str(os.getpid()).encode())
+                os.close(fd)
+                self._held = True
+                return self
+            except FileExistsError:
+                try:
+                    if time.time() - self.lock_path.stat().st_mtime > 60:
+                        try:
+                            self.lock_path.unlink()
+                        except OSError:
+                            pass
+                        continue
+                except OSError:
+                    pass
+                time.sleep(0.05)
+        log.warning(f"  csv lock {self.lock_path.name} {self.timeout}s timeout — 진행")
+        return self
+
+    def __exit__(self, *args):
+        if self._held:
+            try:
+                self.lock_path.unlink()
+            except OSError:
+                pass
+
+
+def _review_row(r: ReviewItem) -> list:
+    return [
+        r.review_id, r.place_id, r.restaurant_name, r.rating, r.text,
+        r.author_name, r.author_id, r.author_uri, r.author_photo_uri,
+        r.author_is_local_guide, r.author_review_count, r.author_photo_count,
+        r.relative_date, r.spent_amount, r.sort_source,
+    ]
+
+
+def review_row_is_better(new_row: list, old_row: list) -> bool:
+    """새 row 로 기존 row 를 대체해야 하면 True.
+
+    1. 기존 본문이 비었는데 새 본문이 있다
+    2. 새 본문은 태국어인데 기존은 아니다 — hl=en 으로 긁힌 구글
+       번역본을 원문으로 바꾸는 경우. **길이 기준보다 이게 앞에 와야 한다**
+       — 영어 번역본이 태국어 원문보다 길어지는 게 보통이다(중앙 290 vs 220).
+    3. 새 본문이 20% 이상 길다 — "See more" 를 못 눌러 잘린 것 복구
+    """
+    new_t = (new_row[_TEXT_COL] or "").strip()
+    old_t = (old_row[_TEXT_COL] or "").strip()
+    if not new_t:
+        return False
+    if not old_t:
+        return True
+    new_th = bool(_THAI_CHARS.search(new_t))
+    old_th = bool(_THAI_CHARS.search(old_t))
+    if new_th != old_th:
+        return new_th
+    return len(new_t) > len(old_t) * 1.2
+
+
+def _merge_csv(path, header: list, incoming: list, is_better) -> tuple:
+    """기존 파일과 합집합으로 쓴다. (총개수, 신규, 개선) 리턴."""
+    with _FileLock(path):
+        existing = {}
+        order = []
+        if path.exists():
+            try:
+                with open(path, newline="", encoding="utf-8-sig", errors="replace") as f:
+                    rows = list(csv.reader(f))
+                if rows and rows[0] == header:
+                    for row in rows[1:]:
+                        if row and row[0]:
+                            if row[0] not in existing:
+                                order.append(row[0])
+                            existing[row[0]] = row
+                elif rows:
+                    log.warning(f"  {path.name}: 헤더 불일치 — 합치지 않고 새로 쓴다")
+            except Exception as e:
+                log.warning(f"  {path.name} 읽기 실패 — 합치지 않음: {str(e)[:80]}")
+
+        added = improved = 0
+        for row in incoming:
+            rid = row[0]
+            if not rid:
+                continue
+            if rid not in existing:
+                existing[rid] = row
+                order.append(rid)
+                added += 1
+            elif is_better(row, existing[rid]):
+                existing[rid] = row
+                improved += 1
+
+        with _atomic_csv_open(path) as f:
+            w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
+            w.writerow(header)
+            for k in order:
+                w.writerow(existing[k])
+        return len(order), added, improved
+
+
 def save_reviews_csv(reviews: list[ReviewItem], path: Path):
-    with _atomic_csv_open(path) as f:
-        w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
-        w.writerow([
-            "review_id", "place_id", "restaurant_name", "rating", "text",
-            "author_name", "author_id", "author_uri", "author_photo_uri",
-            "author_is_local_guide", "author_review_count", "author_photo_count",
-            "relative_date", "spent_amount", "sort_source",
-        ])
-        for r in reviews:
-            w.writerow([
-                r.review_id, r.place_id, r.restaurant_name, r.rating, r.text,
-                r.author_name, r.author_id, r.author_uri, r.author_photo_uri,
-                r.author_is_local_guide, r.author_review_count, r.author_photo_count,
-                r.relative_date, r.spent_amount, r.sort_source,
-            ])
+    """기존 파일과 **합집합**으로 저장한다.
+
+    2026-10-16: 이전 구현은 이번 실행에서 긁힌 리뷰만 파일에 썼다.
+    _atomic_csv_open 은 0바이트 잔해만 막았지 내용은 전량 교체여서, 74건짜리
+    파일이 5건으로 바뀔 수 있었다. 상위 함수가 같은 bangkok_clinics/scraper.py
+    에서 이 사고가 실제로 났다 — 구글이 리뷰 정렬/더보기를 로그인 게이트
+    뒤로 옮기면서 한 번에 5~10건만 긁히게 됐고, 88개 파일에서 3,043행이
+    사라진 게 확인됐다(파일 중앙값 78 → 25). 수집량을 스크래퍼가 통제할 수
+    없으면(출구 IP·게이트·UI 변종) 쓰기 자체가 단조 증가여야 한다.
+
+    여긴 위험이 하나 더 있었다: 상위가 정렬 패스 2개를 각각 저장하므로,
+    합치지 않으면 동일 실행 안에서도 뒤 패스가 앞 패스를 지운다.
+    """
+    total, added, improved = _merge_csv(
+        path, REVIEW_HEADER, [_review_row(r) for r in reviews], review_row_is_better)
+    if added or improved:
+        log.info(f"    {path.name}: 총 {total}건 (신규 {added}, 개선 {improved})")
 
 
 def save_metas_csv(metas: list[ReviewMeta], path: Path):
-    with _atomic_csv_open(path) as f:
-        w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
-        w.writerow([
-            "review_id", "place_id",
-            "food_rating", "service_rating", "atmosphere_rating",
-            "meal_type", "price_per_person", "group_size",
-            "wait_time", "reservation", "service_type", "recommended_dishes",
-        ])
-        for m in metas:
-            w.writerow([
-                m.review_id, m.place_id,
-                m.food_rating, m.service_rating, m.atmosphere_rating,
-                m.meal_type, m.price_per_person, m.group_size,
-                m.wait_time, m.reservation, m.service_type, m.recommended_dishes,
-            ])
+    """reviews 와 같은 이유로 합집합 저장. 여긴 "더 좋다" 가 단순하다 —
+    채워진 칸이 더 많은 쪽을 쓴다. 이 필드들은 영어 라벨 비교로 파싱하므로
+    태국어 로케일에선 전부 빈다 — 태국어 재수집이 en 으로 채워둔 것을
+    지우지 않는 게 중요하다."""
+    filled = lambda row: sum(1 for c in row[2:] if (c or "").strip())
+    rows = [[
+        m.review_id, m.place_id,
+        m.food_rating, m.service_rating, m.atmosphere_rating,
+        m.meal_type, m.price_per_person, m.group_size,
+        m.wait_time, m.reservation, m.service_type, m.recommended_dishes,
+    ] for m in metas]
+    _merge_csv(path, META_HEADER, rows, lambda new, old: filled(new) > filled(old))
 
 
 # ── 병렬 처리 ────────────────────────────────────────────────
