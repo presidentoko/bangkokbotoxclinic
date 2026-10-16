@@ -36,8 +36,48 @@ right actor here because reviews are the only thing missing: the rating, count,
 phone, address, hours and coordinates are already in the dataset, so paying
 compass/crawler-google-places $0.016 a venue to re-fetch a whole place detail
 page would buy one new field at roughly twice the price — $12.88 against $6.69
-for the same 805 venues at 20 reviews each. Going deeper is also cheaper than
-the per-venue actor was at 20: 30 reviews each is $9.35.
+for the same 805 venues at 20 reviews each.
+
+PROBE RESULT, 2026-10-16. 20 venues at maxReviews=50 returned 725 reviews for
+$0.36, and both questions it was bought to answer came back usable.
+
+  Language. 595 of the 634 reviews carrying text are originalLanguage "th"
+  (94%); the rest are en 33, zh-Hans 2, ru/ja/ko/fr 1 each. So Google is
+  serving the originals, not translations — the hl=en failure that cost the
+  dental site 8,550 Thai reviews does not repeat here. The translation trap is
+  real though, and now confirmed by example: every non-Thai review arrives with
+  `textTranslated` holding a Thai machine translation of itself.
+
+  The cap binds. All 11 probed venues advertising 50+ reviews returned exactly
+  50, and all 9 advertising fewer returned 100% of their count. Nothing is
+  withheld, so maxReviews is a real lever rather than a ceiling Google ignores.
+
+  Yield per billed review, measured, counting only publishable Thai text:
+  34.8 chars at clinics advertising 1-9 reviews, 50.3 at 10-29, 63.6 at 30-99,
+  151.3 at 100+. Busy clinics write longer reviews, so they are also the
+  cheapest text.
+
+  18% of the bill is unusable: 13% of reviews are a star rating with no text,
+  5% are text in another language. Priced in below.
+
+maxReviews=30, $9.35, is where that curve turns. Projected over all 805 from
+the measured per-review yields:
+
+    cap 10   $3.60   median   636 review chars per clinic   536 clinics <1,500
+    cap 20   $6.69   median 1,272                           536 clinics <1,500
+    cap 30   $9.35   median 1,908                           301 clinics <1,500
+    cap 50  $13.85   median 3,181                           301 clinics <1,500
+
+The page needs to clear 1,312 characters of boilerplate that every clinic page
+repeats, against 744-1,198 of unique text today, and the dental recovery landed
+at 1,805 median review characters. 30 is the first cap that clears all three.
+50 costs $4.50 more and rescues *nobody new* — it only piles more text onto
+clinics that already had plenty.
+
+The 301 that stay under 1,500 characters are the clinics that do not have 30
+reviews on Google to begin with (the 1-29 bands, 301 clinics exactly). No cap
+reaches them and this run is not the answer for them; they need the licence,
+hours and service signals, or they need to not be chasing indexation.
 
 Scope: the clinics the directory publishes (hospitals.json minus
 hospital-excluded.json, which holds the entries that are not veterinary
@@ -80,6 +120,19 @@ matters the most, and $5 is the free monthly credit on the Apify free plan.
                        have to keep out of git (the raw DLD and dental pulls are
                        gitignored for the same reason). `reviewId` comes back
                        either way, which is enough to merge and de-duplicate.
+
+Two things in the payload that are already paid for and should not be left on
+the floor:
+
+  `responseFromOwnerText` — the clinic's own reply, on 84 of the 725 probed
+  reviews (10,386 characters). It is unique page text, it is the clinic
+  speaking rather than the directory, and "the clinic replied" is itself worth
+  showing.
+
+  `totalScore` and `reviewsCount` — on every item. hospitals.json was last
+  updated 2026-08-18 and the review count had already moved on 12 of the 20
+  probed clinics, so the merge should refresh google_rating and
+  google_review_count while it is here.
 
 Three traps for whoever merges the result.
 
@@ -126,7 +179,8 @@ def load(name: str):
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--reviews", type=int, default=20, help="maxReviews per venue")
+    ap.add_argument("--reviews", type=int, default=30,
+                    help="maxReviews per venue; 30 is the measured knee, see docstring")
     ap.add_argument("--budget", type=float, default=5.0, help="USD per input file")
     ap.add_argument("--probe", type=int, default=20, help="venues in the 00_probe file")
     ap.add_argument("--probe-reviews", type=int, default=50,
@@ -235,13 +289,11 @@ def main() -> int:
     print(f"  up to {projected:,} reviews at maxReviews={args.reviews}"
           f"  ~${projected * COST_PER_REVIEW:.2f} total")
     print(f"  (the per-venue actor would be ${len(venues) * 0.016:.2f} for the same set)")
-    print(f"\nRun 00_probe.json first (~${probe_cost:.2f}). Two things to read off it:")
-    print("  1. `text` must be Thai with originalLanguage 'th'. If it comes back")
-    print("     translated the whole run is worthless — that is exactly how the")
-    print("     dental site lost 8,550 Thai reviews.")
-    print("  2. reviews returned vs the count Google advertises. If a venue with")
-    print("     300 reviews returns 12, raising --reviews buys nothing and the")
-    print("     estimate above is an upper bound, not a price.")
+    print(f"\n00_probe.json (~${probe_cost:.2f}) was run on 2026-10-16 and both of its")
+    print("questions came back usable — 94% of reviews are originalLanguage 'th'")
+    print("and every venue returned its full cap. The docstring has the numbers")
+    print("and why they set maxReviews=30. It is regenerated here for the record;")
+    print("re-run it only if the dataset or the actor changes.")
     return 0
 
 
