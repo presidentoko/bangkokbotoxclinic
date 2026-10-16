@@ -9,6 +9,7 @@ import { findGuide } from "@/lib/guides";
 import { findPost } from "@/lib/posts";
 import { ShareButton } from "@/components/ShareButton";
 import { SupplierAlertSignup } from "@/components/SupplierAlertSignup";
+import { EstateComparison } from "@/components/EstateComparison";
 import type { Metadata } from "next";
 
 const CRITERION_TO_POST: Record<string, string> = {
@@ -95,6 +96,12 @@ export default async function BestForPage(
       <p className="text-xs text-[var(--muted)] mb-8 italic">
         {filtered.length} suppliers matched. Refreshed continuously from public Google reviews.
       </p>
+
+      {criterion === "industrial-estates" && <EstateComparison db={db} />}
+
+      {criterion === "industrial-estates" && filtered.length > 0 && (
+        <h2 className="text-xl font-bold mb-4">Estate operators and mapped tenants</h2>
+      )}
 
       {filtered.length === 0 ? (
         <p className="text-[var(--muted)]">No suppliers matched this criterion yet — check back after the next data refresh.</p>

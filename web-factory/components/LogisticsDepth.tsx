@@ -12,6 +12,7 @@ import type { Supplier } from "@/lib/types";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { cityCategoryPairs } from "@/lib/cityCategory";
 import type { MasterDb } from "@/lib/types";
+import { ProviderTable } from "@/components/ProviderTable";
 
 // raw_categories(구글이 매긴 원문 태그) → 바이어가 쓰는 서비스 구분.
 // 한 업체가 여러 태그를 달고 있으면 여러 그룹에 든다 — 실제로 겸업이 많다.
@@ -37,6 +38,11 @@ const SERVICE_GROUPS: { label: string; blurb: string; keys: string[] }[] = [
     keys: ["courier service", "delivery service", "logistics service"],
   },
 ];
+
+function servicesOf(s: Supplier): string[] {
+  const raw = (s.raw_categories || []).map((c) => c.toLowerCase());
+  return SERVICE_GROUPS.filter((g) => raw.some((c) => g.keys.some((k) => c.includes(k)))).map((g) => g.label);
+}
 
 export function LogisticsDepth({ db, suppliers }: { db: MasterDb; suppliers: Supplier[] }) {
   const counts = SERVICE_GROUPS.map((g) => {
@@ -85,6 +91,13 @@ export function LogisticsDepth({ db, suppliers }: { db: MasterDb; suppliers: Sup
           <a className="underline" href="/oem/cold-storage">cold storage</a> for temperature-controlled cargo.
         </p>
       </section>
+
+      <ProviderTable
+        title="Most-reviewed 3PL and logistics providers"
+        note="Ranked by number of public Google reviews — a rough proxy for how much traffic an operator handles. Use it to build a shortlist, then compare quotes on your own lane."
+        rows={suppliers}
+        tagsOf={servicesOf}
+      />
 
       {provinces.length > 0 && (
         <section className="mb-10">

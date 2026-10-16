@@ -26,12 +26,14 @@ export const BEST_FOR: Criterion[] = [
   },
   {
     slug: "industrial-estates",
-    title: "Best Industrial Estates in Thailand",
-    metaTitle: "Best Industrial Estates in Thailand — Pinthong, Amata, WHA",
+    // 2026-10-16: GSC 노출 2위 페이지 ("industrial estate in thailand" 59위). 제목을
+    // 검색어 그대로, 본문은 IEAT 전체 비교표(components/EstateComparison.tsx).
+    title: "Industrial Estates in Thailand",
+    metaTitle: "Industrial Estates in Thailand — All IEAT Estates Compared by Province & Size",
     metaDescription:
-      "Top industrial estates across Thailand's Eastern Seaboard. Pinthong, Amata, WHA Logistics, Rojana — ranked by tenant count and verified status.",
+      "Every IEAT industrial estate in Thailand in one table — province, operator, area in rai and hectares, and mapped tenant companies. Chonburi, Rayong, Amata, WHA, Pinthong, Rojana.",
     intro:
-      "Major industrial estates and parks across Thailand's Eastern Seaboard manufacturing belt. Curated estate-categorized suppliers + verified estate operators.",
+      "Thailand's official industrial estates from the IEAT list, compared by province, operator and size — with the tenant companies we have mapped inside each one.",
     scoreFn: (r) => (r.b2b_score ?? r.trust_score) * 1.5,
     filterFn: (r) => r.categories.includes("industrial_estate") || !!r.estate_slug,
   },

@@ -10,6 +10,7 @@ import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { DbdRegistryTable } from "@/components/DbdRegistryTable";
 import { LogisticsDepth } from "@/components/LogisticsDepth";
+import { FoodDepth } from "@/components/FoodDepth";
 import { computeTrustScore } from "@/lib/trustScore";
 import { SupplierListWithFilter, type FilterableSupplier } from "@/components/SupplierListWithFilter";
 import { SupplierAlertSignup } from "@/components/SupplierAlertSignup";
@@ -322,6 +323,7 @@ export default async function CategoryPage(
       </section>
 
       {cuisine === "logistics" && <LogisticsDepth db={db} suppliers={filtered} />}
+      {cuisine === "food_mfg" && <FoodDepth db={db} suppliers={filtered} />}
 
       <DbdRegistryTable suppliers={filtered} label={label} locale="en" />
 
