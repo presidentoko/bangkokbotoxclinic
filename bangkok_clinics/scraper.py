@@ -340,10 +340,31 @@ def safe_sleep(sec: float = 1.5):
     time.sleep(sec)
 
 
-def add_hl_en(url: str) -> str:
+# Google Maps 는 리뷰를 UI 언어로 보여준다 — 원문이 다른 언어면 번역본을 준다.
+# hl=en 고정이었기 때문에 태국어 리뷰가 전부 구글 영어 번역본으로 저장됐다
+# (master_db language_total = {th: 4, en: 156146}).
+#
+# 대조군 실측 (place 0x311d672186f06fd3, 2026-10-15, 같은 클리닉·같은 정렬):
+#   hl=en → 본문 있는 리뷰 5건 중 태국어 0건, 평균 290자 (영어 번역본)
+#   hl=th → 본문 있는 리뷰 5건 중 태국어 5건, 평균 220자 (원문)
+#
+# 기본값은 "en" 으로 둔다 — 환경변수를 준 실행만 동작이 바뀐다.
+#
+# 로케일을 두 개로 나눈 이유: 이 스크래퍼는 리뷰만 긁는 게 아니라 같은 실행에서
+# 영업시간("Monday", "11 AM to 11 PM")·feature 섹션("Service options")·영업상태
+# ("Permanently closed")·가격대(aria-label "Moderately priced") 도 읽는다. 그 파싱은
+# 전부 영어 문자열 비교라서, 상세 페이지까지 th 로 넘기면 리뷰를 살리는 대신
+# 영업시간과 상태를 통째로 잃는다. 리뷰 탭은 collect_reviews_for_restaurant() 가
+# 어차피 자기 goto 를 따로 하므로, 거기만 REVIEW_HL 로 보내면 추가 로드 없이 분리된다.
+MAPS_HL = (os.environ.get("MAPS_HL") or "en").strip() or "en"
+REVIEW_HL = (os.environ.get("REVIEW_HL") or MAPS_HL).strip() or MAPS_HL
+
+
+def add_hl(url: str, hl: str = "") -> str:
+    hl = hl or MAPS_HL
     if "hl=" in url:
-        return re.sub(r"hl=[a-z-]+", "hl=en", url)
-    return url + ("&hl=en" if "?" in url else "?hl=en")
+        return re.sub(r"hl=[a-z-]+", f"hl={hl}", url)
+    return url + (f"&hl={hl}" if "?" in url else f"?hl={hl}")
 
 
 # 2026-08-07 조사 기록 (no_name 전수 실패): 저장된 maps_url 형식은 문제가 아니다.
@@ -650,6 +671,10 @@ _CONSENT_SELECTORS = (
     'button:has-text("Reject all")',
     'button:has-text("Accept all")',
     'button:has-text("I agree")',
+    # MAPS_HL=th 로 돌 때의 같은 버튼들. form[action*=consent] 폴백이 마지막에
+    # 받아주긴 하지만, 그건 폼 안의 첫 버튼을 누르므로 '동의'를 고를 수 없다.
+    'button:has-text("ปฏิเสธทั้งหมด")',
+    'button:has-text("ยอมรับทั้งหมด")',
     'form[action*="consent"] button',
 )
 
@@ -684,7 +709,7 @@ def dismiss_popups(page: Page):
 
 def search_restaurants(page: Page, query: str) -> list[str]:
     log.info(f"검색: {query}")
-    url = add_hl_en(f"https://www.google.com/maps/search/{quote_plus(query)}")
+    url = add_hl(f"https://www.google.com/maps/search/{quote_plus(query)}")
     try:
         page.goto(url, wait_until="domcontentloaded")
     except Exception as e:
@@ -806,7 +831,7 @@ def get_restaurant_full(
     # 회전은 비싸다 — 하루 5,500 spawn 중 3,000 이 터널 실패였다.
     log.info(f"  URL {maps_url[:200]}")  # 2026-08-31 진단: 실패한 href 를 밖에서 재현하기 위해
     for _attempt in range(EMPTY_MAP_RETRIES + 1):
-        if not goto_with_retry(page, add_hl_en(maps_url), retries=3, delay=3.0):
+        if not goto_with_retry(page, add_hl(maps_url), retries=3, delay=3.0):
             _set_skip_reason("goto_failed")
             return None, [], []
         safe_sleep(2.0)
@@ -1109,15 +1134,131 @@ def parse_review_metadata(review_id: str, place_id: str, text: str) -> ReviewMet
 
 # ── 리뷰 수집 ───────────────────────────────────────────────
 
-def _select_sort(page: Page, data_index: str):
-    sort_btn = page.locator('button[aria-label="Sort reviews"]')
-    if sort_btn.count() > 0:
-        sort_btn.first.click()
-        safe_sleep(1)
-        option = page.locator(f'div[role="menuitemradio"][data-index="{data_index}"]')
-        if option.count() > 0:
-            option.first.click()
-            safe_sleep(2)
+# 리뷰 탭·정렬 버튼 셀렉터는 두 가지 이유로 깨진다:
+#   (1) 로케일 — aria-label 이 UI 언어를 따른다 ("Sort reviews" / "จัดเรียงรีวิว")
+#   (2) 구글의 UI 변종 — 2026-10-15 실측에서 같은 장소가 두 DOM 을 줬다.
+#       변종 A: button[data-value="Sort"], aria-label="Sort reviews"
+#       변종 B: button[aria-expanded][aria-haspopup], aria-label 이 "Sort reviews"
+#               가 아니라 **현재 정렬값**("เกี่ยวข้องที่สุด" = Most relevant)
+# 그래서 언어·라벨에 기대지 않고, 눌러서 메뉴가 열리는지로 판정한다.
+_SORT_BUTTON_SELECTORS = (
+    'button[aria-label="Sort reviews"]',   # 변종 A (영어)
+    'button[data-value="Sort"]',           # 변종 A, 언어 무관
+    'button[aria-expanded][aria-haspopup]',  # 변종 B, 언어 무관
+    'button[aria-label*="จัดเรียง"]',        # 태국어 라벨 폴백
+    'button[aria-label*="เรียงลำดับ"]',
+)
+
+_REVIEW_TAB_WORDS = ("review", "รีวิว")
+
+# 2026-10-15: 정렬 버튼을 누르면 구글이 정렬 메뉴 대신
+# "Sign-in to get the best of Google Maps" 인터스티셜을 띄운다(로그인 안 된 세션).
+# 실측: 클릭이 DOM 에 추가한 39개 요소가 전부 그 다이얼로그였고, menuitemradio 는
+# 0개였다. 결과는 **기본 정렬 10건에서 수집 중단** — dental_output 리뷰 파일
+# 중앙값이 8월 78 → 10월 25 로 떨어지고 10월 405개 중 154개가 10건 이하인 원인이다.
+# 옛 _select_sort 는 `if count > 0` 한 줄이라 이걸 침묵으로 넘겼다.
+#
+# "Sign in" 버튼은 절대 누르지 않는다 — 계정이 붙으면 스크래퍼가 식별되고,
+# 리뷰 UI 도 로그인 변종으로 바뀐다.
+_DISMISS_WORDS = ("dismiss", "not now", "no thanks", "ปิด", "ไม่ใช่ตอนนี้", "ไม่เป็นไร")
+_NEVER_CLICK_WORDS = ("sign in", "sign-in", "ลงชื่อ", "เข้าสู่ระบบ")
+
+
+def dismiss_signin_dialog(page: Page) -> bool:
+    """로그인 권유 다이얼로그를 닫는다. 실제로 닫았으면 True."""
+    try:
+        dlg = page.locator('div[role="dialog"]')
+        for i in range(dlg.count()):
+            d = dlg.nth(i)
+            try:
+                if not d.is_visible(timeout=500):
+                    continue
+            except Exception:
+                continue
+            btns = d.locator("button")
+            for j in range(btns.count()):
+                b = btns.nth(j)
+                try:
+                    label = ((b.inner_text(timeout=400) or "") + " "
+                             + (b.get_attribute("aria-label") or "")).strip().lower()
+                except Exception:
+                    continue
+                if not label or any(w in label for w in _NEVER_CLICK_WORDS):
+                    continue
+                if any(w in label for w in _DISMISS_WORDS):
+                    try:
+                        b.click(timeout=2000)
+                        safe_sleep(1)
+                        return True
+                    except Exception:
+                        continue
+        # 라벨로 못 찾으면 Escape — 다이얼로그가 사라졌는지로 판정한다.
+        before = dlg.count()
+        if before:
+            page.keyboard.press("Escape")
+            safe_sleep(0.6)
+            return page.locator('div[role="dialog"]').count() < before
+    except Exception:
+        pass
+    return False
+
+
+def _reviews_tab(page: Page):
+    """리뷰 탭 locator 또는 None. hl=en 에서는 기존과 동일한 셀렉터를 먼저 쓴다."""
+    tab = page.locator('button[role="tab"]:has-text("Reviews")')
+    if tab.count() > 0:
+        return tab.first
+    tabs = page.locator('button[role="tab"]')
+    for i in range(tabs.count()):
+        t = tabs.nth(i)
+        try:
+            blob = ((t.inner_text(timeout=800) or "") + " "
+                    + (t.get_attribute("aria-label") or "")).lower()
+        except Exception:
+            continue
+        if any(w in blob for w in _REVIEW_TAB_WORDS):
+            return t
+    return None
+
+
+def _select_sort(page: Page, data_index: str) -> bool:
+    """정렬을 실제로 적용했으면 True.
+
+    예전 구현은 `if count > 0` 한 줄이라, 구글이 변종 B 를 주면 **조용히 아무
+    것도 하지 않고** 넘어갔다. 그러면 [Most relevant] 와 [Newest] 두 패스가
+    같은 기본 정렬을 긁고, 두 번째 패스의 신규 0건이 "리뷰가 그만큼뿐"으로
+    보인다 — 정렬이 수율을 지배하는 스크래퍼에서 가장 비싼 침묵이다.
+    """
+    option_sel = (f'div[role="menuitemradio"][data-index="{data_index}"], '
+                  f'div[role="menuitemcheckbox"][data-index="{data_index}"]')
+    for sel in _SORT_BUTTON_SELECTORS:
+        for attempt in (1, 2):
+            try:
+                btn = page.locator(sel)
+                if btn.count() == 0:
+                    break
+                btn.first.click(timeout=3000)
+                safe_sleep(1)
+                option = page.locator(option_sel)
+                if option.count() == 0:
+                    # 메뉴가 안 열렸다. 가장 흔한 이유는 로그인 인터스티셜이
+                    # 가로챈 것 — 닫고 같은 버튼을 한 번 더 누른다. 그래도
+                    # 안 열리면 이 셀렉터는 정렬 버튼이 아니다.
+                    if attempt == 1 and dismiss_signin_dialog(page):
+                        continue
+                    try:
+                        page.keyboard.press("Escape")
+                        safe_sleep(0.5)
+                    except Exception:
+                        pass
+                    break
+                option.first.click()
+                safe_sleep(2)
+                return True
+            except Exception:
+                break
+    log.warning(f"  정렬 버튼을 못 찾음 (data-index={data_index}) — 기본 정렬로 수집됨")
+    return False
 
 
 def _scroll_and_load(page: Page, target: int) -> int:
@@ -1140,8 +1281,10 @@ def _scroll_and_load(page: Page, target: int) -> int:
 
 
 AUTHOR_ID_RE = re.compile(r"/contrib/(\d+)")
-REVIEW_COUNT_RE = re.compile(r"(\d[\d,]*)\s*review")
-PHOTO_COUNT_RE = re.compile(r"(\d[\d,]*)\s*photo")
+# "Local Guide · 20 reviews · 9 photos" / 태국어 UI 에서는
+# "Local Guide · 22 รีวิว · 146 รูปภาพ" ("Local Guide" 는 번역되지 않는다).
+REVIEW_COUNT_RE = re.compile(r"(\d[\d,]*)\s*(?:review|รีวิว)")
+PHOTO_COUNT_RE = re.compile(r"(\d[\d,]*)\s*(?:photo|รูปภาพ)")
 
 
 def _parse_author_from_card(card) -> tuple[str, str, str, str, int, int, int]:
@@ -1284,19 +1427,20 @@ def collect_reviews_for_restaurant(
     page: Page, restaurant: Restaurant
 ) -> tuple[list[ReviewItem], list[ReviewMeta]]:
     try:
-        page.goto(add_hl_en(restaurant.maps_url), wait_until="domcontentloaded")
+        page.goto(add_hl(restaurant.maps_url, REVIEW_HL), wait_until="domcontentloaded")
     except Exception as e:
         if is_socks_dead_error(str(e)):
             raise SocksDeadError(str(e))
         raise
     safe_sleep(2.5)
 
-    review_tab = page.locator('button[role="tab"]:has-text("Reviews")')
-    if review_tab.count() == 0:
+    review_tab = _reviews_tab(page)
+    if review_tab is None:
         log.warning(f"  Reviews 탭 없음: {restaurant.name}")
         return [], []
-    review_tab.first.click()
+    review_tab.click()
     safe_sleep(2.0)
+    dismiss_signin_dialog(page)
 
     all_reviews: list[ReviewItem] = []
     all_metas: list[ReviewMeta] = []
@@ -1313,14 +1457,19 @@ def collect_reviews_for_restaurant(
         return added
 
     log.info("  [Most relevant] 수집")
-    _select_sort(page, "0")
+    sorted_relevant = _select_sort(page, "0")
     _scroll_and_load(page, target=100)
     p1_r, p1_m = _parse_cards(page, restaurant.place_id, "relevant", restaurant.name)
     n1 = add_unique(p1_r, p1_m)
     log.info(f"  [Most relevant] DOM {len(p1_r)}개 → 고유 {n1}개")
 
     log.info("  [Newest] 수집")
-    _select_sort(page, "1")
+    sorted_newest = _select_sort(page, "1")
+    if not (sorted_relevant and sorted_newest):
+        # 둘 중 하나라도 실패했으면 두 패스가 같은 목록이다. sort_source 라벨이
+        # 거짓이 되므로 숫자를 그대로 믿지 말라고 남긴다.
+        log.warning("  정렬 미적용 — 두 패스가 같은 기본 정렬일 수 있음 "
+                    f"(relevant={sorted_relevant}, newest={sorted_newest})")
     safe_sleep(2)
     _scroll_and_load(page, target=100)
     p2_r, p2_m = _parse_cards(page, restaurant.place_id, "newest", restaurant.name)
@@ -1525,63 +1674,155 @@ def save_hours_csv(hours: list[RestaurantHours], path: Path):
     log.info(f"식당 영업시간 저장: {path} ({len(hours)}건)")
 
 
-def _keep_old_rows(path: Path, new_ids: set[str]) -> list[list[str]]:
-    """기존 파일에서 이번 수집에 없는 review_id 행을 그대로 돌려준다.
+REVIEW_HEADER = [
+    "review_id", "place_id", "restaurant_name", "rating", "text",
+    "author_name", "author_id", "author_uri", "author_photo_uri",
+    "author_is_local_guide", "author_review_count", "author_photo_count",
+    "relative_date", "spent_amount", "sort_source",
+]
 
-    왜 (2026-10-14): 리뷰 재스캔(REVIEW_REFRESH_DAYS)이 파일을 통째로 덮어써서,
-    스로틀링으로 5건만 돌아온 재스캔이 이전에 모은 50건을 지웠다. 10일 무인 운영
-    동안 840곳이 줄었고 그중 731곳이 정확히 5건이 됐다(총 183,332 → 166,454).
-    덴탈 허브의 불만 신호도 519 → 474곳으로 같이 줄었다. 0건일 때 안 지우는
-    09-23 수정과 같은 원리 — 재스캔은 **더하기만** 한다.
+_TEXT_COL = REVIEW_HEADER.index("text")
+_THAI_CHARS = re.compile(r"[฀-๿]")
+
+
+def _review_row(r: ReviewItem) -> list:
+    return [
+        r.review_id, r.place_id, r.restaurant_name, r.rating, r.text,
+        r.author_name, r.author_id, r.author_uri, r.author_photo_uri,
+        r.author_is_local_guide, r.author_review_count, r.author_photo_count,
+        r.relative_date, r.spent_amount, r.sort_source,
+    ]
+
+
+def review_row_is_better(new_row: list, old_row: list) -> bool:
+    """새 row 로 기존 row 를 대체해야 하면 True.
+
+    두 가지만 더 좋다고 본다:
+      1. 기존 본문이 비었는데 새 본문이 있다
+      2. 새 본문은 태국어인데 기존은 아니다 — hl=en 으로 긁은 구글 번역본을
+         원문으로 바꾸는 경우 (원문이 번역본보다 짧은 게 보통이라, 길이
+         규칙만 쓰면 번역본이 이긴다)
+      3. 새 본문이 20% 이상 길다 — "See more" 를 못 눌러 잘린 걸 복구
+    그 외에는 기존을 유지한다. **리뷰 수가 줄어드는 방향의 쓰기는 없다.**
     """
-    if not path.exists():
-        return []
-    try:
-        with open(path, newline="", encoding="utf-8-sig") as f:
-            rows = list(csv.reader(f))
-    except (OSError, csv.Error, UnicodeDecodeError):
-        return []
-    return [r for r in rows[1:] if r and r[0] not in new_ids]
+    new_t = (new_row[_TEXT_COL] or "").strip()
+    old_t = (old_row[_TEXT_COL] or "").strip()
+    if not new_t:
+        return False
+    if not old_t:
+        return True
+    new_th = bool(_THAI_CHARS.search(new_t))
+    old_th = bool(_THAI_CHARS.search(old_t))
+    if new_th != old_th:
+        # 원문이 번역본을 이긴다. 길이 비교보다 **먼저** 와야 한다 — 영어
+        # 번역본은 태국어 원문보다 길어지는 게 보통이라(실측 중앙값 290 vs 220),
+        # 길이 규칙이 먼저 걸리면 번역본이 원문을 덮어쓴다.
+        return new_th
+    return len(new_t) > len(old_t) * 1.2
 
 
 def save_reviews_csv(reviews: list[ReviewItem], path: Path):
-    old = _keep_old_rows(path, {r.review_id for r in reviews})
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
-        w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
-        w.writerow([
-            "review_id", "place_id", "restaurant_name", "rating", "text",
-            "author_name", "author_id", "author_uri", "author_photo_uri",
-            "author_is_local_guide", "author_review_count", "author_photo_count",
-            "relative_date", "spent_amount", "sort_source",
-        ])
+    """기존 파일과 **합집합**으로 저장한다.
+
+    2026-10-15: 예전 구현은 `open(path, "w")` 로 통째로 덮어썼다. 구글이 리뷰
+    정렬/더보기를 로그인 게이트 뒤로 옮긴 뒤로 한 번에 5~10건만 긁히는데,
+    그 5건이 78건짜리 파일을 대체했다. 실측(dental_output/bangkok, 표본 40):
+    66→7, 69→6, 57→5, 54→8 … 12/40 이 80% 이상을 잃었다.
+    2026-09-23 에 "0건이면 파일을 지우지 말 것"은 고쳤지만, **적게 긁힌 경우**는
+    같은 사고의 다른 입구로 남아 있었다. 수집량은 스크래퍼가 통제할 수 없으니
+    (출구 IP·구글 게이트·UI 변종) 쓰기 자체가 단조 증가여야 한다.
+    """
+    with _FileLock(path):
+        existing: dict[str, list] = {}
+        order: list[str] = []
+        if path.exists():
+            try:
+                with open(path, newline="", encoding="utf-8-sig", errors="replace") as f:
+                    rows = list(csv.reader(f))
+                if rows and rows[0] == REVIEW_HEADER:
+                    for row in rows[1:]:
+                        if row and row[0]:
+                            if row[0] not in existing:
+                                order.append(row[0])
+                            existing[row[0]] = row
+                elif rows:
+                    # 헤더가 다르면 스키마가 바뀐 것 — 합칠 수 없으므로 건드리지
+                    # 않고 새로 쓴다(옛 동작). 조용한 유실을 막으려고 남긴다.
+                    log.warning(f"  {path.name}: 헤더 불일치 — 합치지 않고 새로 씀")
+            except Exception as e:
+                log.warning(f"  {path.name} 읽기 실패 — 합치지 않음: {str(e)[:80]}")
+
+        added = improved = 0
         for r in reviews:
-            w.writerow([
-                r.review_id, r.place_id, r.restaurant_name, r.rating, r.text,
-                r.author_name, r.author_id, r.author_uri, r.author_photo_uri,
-                r.author_is_local_guide, r.author_review_count, r.author_photo_count,
-                r.relative_date, r.spent_amount, r.sort_source,
-            ])
-        w.writerows(old)
+            row = _review_row(r)
+            rid = r.review_id
+            if not rid:
+                continue
+            if rid not in existing:
+                existing[rid] = row
+                order.append(rid)
+                added += 1
+            elif review_row_is_better(row, existing[rid]):
+                existing[rid] = row
+                improved += 1
+
+        _atomic_write_csv(path, REVIEW_HEADER, [existing[k] for k in order])
+        if added or improved:
+            log.info(f"    {path.name}: 총 {len(order)}건 (신규 {added}, 개선 {improved})")
+
+
+META_HEADER = [
+    "review_id", "place_id",
+    "food_rating", "service_rating", "atmosphere_rating",
+    "meal_type", "price_per_person", "group_size",
+    "wait_time", "reservation", "service_type", "recommended_dishes",
+]
 
 
 def save_metas_csv(metas: list[ReviewMeta], path: Path):
-    old = _keep_old_rows(path, {m.review_id for m in metas})
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
-        w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
-        w.writerow([
-            "review_id", "place_id",
-            "food_rating", "service_rating", "atmosphere_rating",
-            "meal_type", "price_per_person", "group_size",
-            "wait_time", "reservation", "service_type", "recommended_dishes",
-        ])
+    """reviews 와 같은 이유로 합집합 저장 (save_reviews_csv 주석 참조).
+
+    여기선 "더 좋다" 가 단순하다 — 채워진 칸이 더 많은 쪽을 쓴다. 이 필드들은
+    원래 식당용(food_rating·meal_type·recommended_dishes)이라 클리닉에서는
+    대개 비어 있고, 영어 라벨 비교로 파싱하므로 REVIEW_HL=th 에서는 전부 빈다.
+    그래서 th 재수집이 en 으로 채워둔 메타를 지우지 않는 게 특히 중요하다.
+    """
+    filled = lambda row: sum(1 for c in row[2:] if (c or "").strip())
+    with _FileLock(path):
+        existing: dict[str, list] = {}
+        order: list[str] = []
+        if path.exists():
+            try:
+                with open(path, newline="", encoding="utf-8-sig", errors="replace") as f:
+                    rows = list(csv.reader(f))
+                if rows and rows[0] == META_HEADER:
+                    for row in rows[1:]:
+                        if row and row[0]:
+                            if row[0] not in existing:
+                                order.append(row[0])
+                            existing[row[0]] = row
+                elif rows:
+                    log.warning(f"  {path.name}: 헤더 불일치 — 합치지 않고 새로 씀")
+            except Exception as e:
+                log.warning(f"  {path.name} 읽기 실패 — 합치지 않음: {str(e)[:80]}")
+
         for m in metas:
-            w.writerow([
+            if not m.review_id:
+                continue
+            row = [
                 m.review_id, m.place_id,
                 m.food_rating, m.service_rating, m.atmosphere_rating,
                 m.meal_type, m.price_per_person, m.group_size,
                 m.wait_time, m.reservation, m.service_type, m.recommended_dishes,
-            ])
-        w.writerows(old)
+            ]
+            old_row = existing.get(m.review_id)
+            if old_row is None:
+                existing[m.review_id] = row
+                order.append(m.review_id)
+            elif filled(row) > filled(old_row):
+                existing[m.review_id] = row
+
+        _atomic_write_csv(path, META_HEADER, [existing[k] for k in order])
 
 
 # ── 병렬 처리 ────────────────────────────────────────────────

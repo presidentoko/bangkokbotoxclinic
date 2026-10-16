@@ -396,24 +396,43 @@ def extract_mentioned_topics(text: str) -> list[dict]:
 # ── 평점 트렌드 ───────────────────────────────────────────────
 # Google Maps relative_date 패턴: "a week ago", "2 months ago", "a year ago", etc.
 def _bucket_relative_date(rel: str) -> str:
-    """recent (<3mo) / midterm (3-12mo) / old (>1yr) / unknown."""
+    """recent (<3mo) / midterm (3-12mo) / old (>=1yr) / unknown.
+
+    태국어도 읽는다. 리뷰 스크래퍼가 REVIEW_HL=th 로 돌면 이 필드가
+    "6 เดือนที่แล้ว" 처럼 들어오는데, 영어 패턴만 보던 동안은 전량
+    unknown 으로 떨어졌다 — 평점 트렌드가 조용히 비는 경로였다.
+    태국어는 단수/복수 구분이 없어 숫자가 없으면 1로 본다
+    ("เดือนที่แล้ว" = a month ago).
+    """
     if not rel:
         return "unknown"
     r = rel.lower().strip()
-    # Day / week / month / year 단위 + 숫자 또는 'a'
-    if "day" in r or "hour" in r:
-        return "recent"
-    if "week" in r:
-        return "recent"
+
+    # 월: "2 months ago" / "a month ago" / "6 เดือนที่แล้ว" / "เดือนที่แล้ว"
     m = re.search(r"(\d+|a)\s*month", r)
+    if not m and "เดือน" in r:
+        m = re.search(r"(\d+)\s*เดือน", r)
+        n = int(m.group(1)) if m else 1
+        return "recent" if n < 3 else "midterm"
     if m:
         n = 1 if m.group(1) == "a" else int(m.group(1))
         return "recent" if n < 3 else "midterm"
+
+    # 년: "a year ago" 도 old 로 본다(경계값 — 기존 동작 유지)
     m = re.search(r"(\d+|a)\s*year", r)
+    if not m and "ปี" in r:
+        return "old"
     if m:
-        n = 1 if m.group(1) == "a" else int(m.group(1))
-        return "midterm" if n < 1 else "old"  # "a year ago" 는 midterm 경계
-    if "yesterday" in r or "today" in r:
+        return "old"
+
+    # 주/일/시/분 — 전부 3개월 미만
+    if "week" in r or "สัปดาห์" in r:
+        return "recent"
+    if "day" in r or "hour" in r or "minute" in r:
+        return "recent"
+    if "วัน" in r or "ชั่วโมง" in r or "นาที" in r:
+        return "recent"
+    if "yesterday" in r or "today" in r or "เมื่อวาน" in r or "เมื่อสักครู่" in r:
         return "recent"
     return "unknown"
 

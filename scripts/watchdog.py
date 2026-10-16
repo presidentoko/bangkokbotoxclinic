@@ -1254,6 +1254,13 @@ def build_services() -> list[Service]:
                 "CITY_LNG": "100.5346890",
                 "CITY_RADIUS_M": "30000",
                 "CITY_OUTPUT_DIR": "../dental_output/bangkok",
+                # 2026-10-16: 리뷰 탭만 태국어로 받는다. hl=en 으로 긁으면 구글이
+                # 리뷰를 영어로 번역해서 내려주고 원문은 디스크에 남지 않는다
+                # (대조군: 같은 클리닉 en 5건 태국어 0 / th 8건 태국어 8).
+                # MAPS_HL 은 en 그대로 — 상세 페이지의 영업시간·feature·영업상태·
+                # 가격대 파싱이 전부 영어 라벨 비교라, 거기까지 th 로 넘기면
+                # 리뷰를 살리는 대신 영업시간을 통째로 잃는다.
+                "REVIEW_HL": "th",
                 # 2026-07-12: 2080-2087 8포트에 분산 (기존 전 dental 서비스가
                 # 2084 고정이라 워커 겹침의 주범이었음)
                 # 2026-07-18: N_WORKERS=2 는 browser launch 영구 행 유발 확인 —
