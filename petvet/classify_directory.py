@@ -17,9 +17,11 @@ which the site uses to drop them from every page, list and sitemap entry.
 Order of decisions, most confident first:
 
 1. A DLD licence match is proof. Keep.
-2. A veterinary word in the name (คลินิก, สัตวแพทย์, รักษาสัตว์, โรงพยาบาลสัตว์,
-   animal hospital, vet…) is strong evidence. Keep — unless the name also says
-   the entry is a *branch of something else* located at a vet hospital
+2. A veterinary word in the name (สัตวแพทย์, รักษาสัตว์, โรงพยาบาลสัตว์, animal
+   hospital, vet…) is strong evidence, as is the word *clinic* standing next to
+   an animal word (คลินิกหมาแมว, pet clinic). Bare คลินิก is not: it is the
+   word clinic in any field of medicine. Keep — unless the name also says the
+   entry is a *branch of something else* located at a vet hospital
    ("Café Amazon สาขารพ.สัตว์…", "Ship smile สาขารพ.สัตว์…").
 3. Otherwise, drop on an explicit category pattern (human hospital, hotel,
    grooming, pet shop, restaurant, retail, government office …).
@@ -40,12 +42,32 @@ WEB = Path(__file__).resolve().parent.parent / "web-petbkk" / "data"
 
 VET = re.compile(
     "|".join([
-        "คลินิก", "คลีนิก", "คลินิค", "สัตวแพทย", "สัตว์แพทย", "รักษาสัตว์", "รักษ์สัตว์",
+        "สัตวแพทย", "สัตว์แพทย", "รักษาสัตว์", "รักษ์สัตว์",
         "โรงพยาบาลสัตว", "รพ.?\\s*สัตว์", "รพส", "สถานพยาบาลสัตว", "ปศุสัตว์", "ทำหมัน",
         "ศูนย์โรคแมว", "ศูนย์สุขภาพสัตว", "ศูนย์พยาบาลสัตว", "ศูนย์บริการสุขภาพสัตว",
         "animal hospital", "animal clinic", "pet clinic", "pet hospital", "vet clinic",
         "veterinar", "animal care", "animal health", "pet wellness", "pet health",
         r"\bvet\b", "宠物医院",
+    ]),
+    re.I,
+)
+
+# "คลินิก" is just the word *clinic*, in any field of medicine, and on its own
+# it used to be enough to keep a record (2026-10-16). That published a Phuket
+# medical-technology lab with 3,867 reviews, a Chiang Mai orthopaedic surgery
+# and a food court on level 2 of a human medical centre's car park as
+# veterinary hospitals. It is evidence only next to an animal word — which the
+# real vet clinics carry anyway, since every one of them says whose clinic it
+# is: คลินิกรักษาสัตว์, คลินิกหมาแมว, pet clinic.
+#
+# Note this is only reached when a DLD licence match has already said no: a
+# licensed animal clinic named nothing but "คลีนิกไตรขวัญ" is still kept, on
+# the register's word rather than on its name.
+CLINIC_WORD = re.compile("คลินิก|คลีนิก|คลินิค|clinic", re.I)
+ANIMAL_WORD = re.compile(
+    "|".join([
+        "สัตว", "หมา(?!ล่า)", "แมว", "สุนัข", "เพ็ท", "เพ็ต", "นก", "กระต่าย",
+        r"\bpets?\b", r"\bdogs?\b", r"\bcats?\b", "animal", "veterinar", r"\bvet\b", "宠物",
     ]),
     re.I,
 )
@@ -57,12 +79,20 @@ DROP_PATTERNS: list[tuple[str, str]] = [
     # Human healthcare picked up by the grid scan.
     (r"โรงพยาบาลส่งเสริมสุขภาพ|สถานีอนามัย|อนามัยใน|health promoting hospital|ศูนย์บริการสาธารณสุข|"
      r"โรงพยาบาลตำรวจ|โรงพยาบาลเมืองพัทยา|โรงพยาบาลจอมเทียน|โรงพยาบาลสัตหีบ|โรงพยาบาลถลาง|"
-     r"โรงพยาบาลดีบุก|โรงพยาบาลหางดง|thai polo hospital|คณะเทคนิคการแพทย์|สถาบันวิจัยวิทยาศาสตร์สุขภาพ|"
-     r"ศูนย์ประกันสุขภาพ|การแพทย์สยาม|medhealthme|medical facility", "human healthcare"),
+     r"โรงพยาบาลดีบุก|โรงพยาบาลหางดง|thai polo hospital|สถาบันวิจัยวิทยาศาสตร์สุขภาพ|"
+     r"ศูนย์ประกันสุขภาพ|การแพทย์สยาม|medhealthme|medical facility|"
+     # Human specialities, from the records the bare-คลินิก keep used to pass:
+     # a medical-technology lab (blood work for people) and an orthopaedic
+     # surgery. เเพทย์ is a real typo in one listing — two เ for แ — so the
+     # vowel is matched loosely here.
+     r"เทคนิคการ[เแ]+พทย์|กระดูกและข้อ", "human healthcare"),
     # Lodging, food, retail, services.
     (r"โรงแรม|hotel|hostel|lodge|resort|อพาร์ทเมนท์|apartment|homestay|โฮมสเตย์", "lodging"),
     (r"คาเฟ่|cafe|café|amazon|ร้านอาหาร|shabu|หมาล่า|โอเด้ง|bakery|ครัว|restaurant|massage|นวด|"
-     r"แม็คโคร|makro|โลตัส|lotus|ปตท|ptt station|จักรยาน|กุญแจ|ประปา|ship smile|kamu", "not a pet business"),
+     r"แม็คโคร|makro|โลตัส|lotus|ปตท|ptt station|จักรยาน|กุญแจ|ประปา|ship smile|kamu|"
+     # A food court on level 2 of a human medical centre's car park, kept until
+     # 2026-10-16 because its listing name contains the word คลินิก.
+     r"ฟู้ดเวิลด์|food ?world|ศูนย์อาหาร|food court", "not a pet business"),
     (r"โรงเรียน|school|มหาวิทยาลัย(?!.*สัตว)|อุทยาน|พิพิธภัณฑ์|elephant|ช้าง(?!.*สัตวแพทย)|"
      r"foundation(?!.*vet)|nature reserve", "not a pet business"),
     # Pet businesses that are not clinics.
@@ -108,7 +138,8 @@ def classify(h: dict, licensed: bool) -> str | None:
         return MANUAL_DROPS[h["id"]]
     if licensed:
         return None
-    if VET.search(name) and not BRANCH_OF_OTHER.search(name):
+    veterinary_name = VET.search(name) or (CLINIC_WORD.search(name) and ANIMAL_WORD.search(name))
+    if veterinary_name and not BRANCH_OF_OTHER.search(name):
         return None
     for pattern, reason in DROP_PATTERNS:
         if re.search(pattern, name, re.I):
