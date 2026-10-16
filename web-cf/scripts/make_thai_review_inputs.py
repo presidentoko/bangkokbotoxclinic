@@ -29,9 +29,17 @@ placeIds come out of maps_url. master_db keys clinics by Google's hex CID pair
 (0x...:0x...) and carries no ChIJ id of its own, but every maps_url embeds one
 in its `!19s` segment, and the actor is cheapest driven by placeIds.
 
-Actor: compass/crawler-google-places. Measured 2026-10-15 at $0.016 per venue
-for 20 reviews. Files are chunked to stay near $5 each, which is how the
-thaigle runs were paid for.
+Actor: compass/google-maps-reviews-scraper, which bills per review (~$0.50 per
+1,000) rather than per venue. For this set that is $15.49 against $28.37 from
+compass/crawler-google-places at $0.016/venue, for the same 20 reviews each --
+45% less -- because we already hold every column the place-detail actor would
+re-sell us (rating, review count, phone, address, hours, coordinates) and want
+exactly one thing it does not have. 489 of the 1,773 clinics have fewer than 20
+reviews in total, and per-review billing only charges for what exists.
+
+Files are packed by expected review count, not venue count: sum of
+min(total_reviews, maxReviews) per file, held near 10,000 reviews = ~$5, which
+is also Apify's monthly free credit, so the first file can come in free.
 
 On merging the result: ask for `language: "th"` and the actor returns Thai
 reviews as written, but it will also hand back `textTranslated` for reviews it
@@ -41,8 +49,14 @@ here — a merge script for this run must prefer the original and keep the
 English text already published rather than replace it, since the English pages
 need it. Do not overwrite data/clinic-reviews.json with this.
 
+Run probe_20.json first. It is 20 clinics sampled across the whole review-count
+range (not the top 20), costs well under $1, and answers two questions that
+decide whether the rest is worth paying for: does `text` come back in Thai, and
+how many reviews does the actor actually return against the count Google
+advertises. Without the second number, maxReviews is a ceiling, not a price.
+
 Usage:
-    python web-cf/scripts/make_thai_review_inputs.py [--reviews 20] [--chunk 310]
+    python web-cf/scripts/make_thai_review_inputs.py [--reviews 20] [--budget 10000]
 """
 from __future__ import annotations
 
@@ -99,13 +113,17 @@ def is_dental_published(c: dict) -> bool:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--reviews", type=int, default=20)
-    ap.add_argument("--chunk", type=int, default=310, help="~$5 per file at $0.016")
+    ap.add_argument("--reviews", type=int, default=20,
+                    help="maxReviews per clinic (billing is per review returned)")
+    ap.add_argument("--budget", type=int, default=10_000,
+                    help="expected reviews per file; 10,000 ~= $5 at $0.50/1k")
+    ap.add_argument("--rate", type=float, default=0.50, help="USD per 1,000 reviews")
     args = ap.parse_args()
 
     db = json.loads(MASTER.read_text(encoding="utf-8"))
     picked: list[tuple[str, int]] = []
     no_id = 0
+    bad_id = 0
     for c in db["clinics"]:
         if not is_dental_published(c):
             continue
@@ -113,47 +131,94 @@ def main() -> int:
         if not m:
             no_id += 1
             continue
-        picked.append((m.group(1), c.get("total_reviews") or 0))
+        pid = m.group(1)
+        # This actor takes 27-character ChIJ/GhIJ ids only and rejects the hex
+        # CID pair master_db keys on. Anything else would fail the whole run.
+        if len(pid) != 27:
+            bad_id += 1
+            continue
+        picked.append((pid, c.get("total_reviews") or 0))
 
     # Most-reviewed first: a clinic with more reviews has more Thai ones to
     # return, so if only the first file is ever run it is the one that pays.
     picked.sort(key=lambda x: -x[1])
     seen: set[str] = set()
-    ids = [pid for pid, _ in picked if not (pid in seen or seen.add(pid))]
+    ids: list[tuple[str, int]] = []
+    for pid, n in picked:
+        if pid not in seen:
+            seen.add(pid)
+            ids.append((pid, n))
+
+    expected = lambda n: min(n, args.reviews)
+    total_expected = sum(expected(n) for _, n in ids)
 
     print(f"dental clinics this site publishes: {len(picked)}")
     print(f"  no placeId in maps_url (skipped): {no_id}")
+    if bad_id:
+        print(f"  placeId not a 27-char ChIJ id:    {bad_id}")
     print(f"  unique placeIds:                  {len(ids)}")
+    print(f"  expected reviews (max {args.reviews:>2}):        {total_expected:,}")
+    print(f"  estimated total:                  "
+          f"${total_expected / 1000 * args.rate:.2f}")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    n_files = (len(ids) + args.chunk - 1) // args.chunk
-    for i in range(0, len(ids), args.chunk):
-        part = ids[i: i + args.chunk]
-        n = i // args.chunk + 1
-        payload = {
-            # The whole point of the run.
-            "language": "th",
-            "scrapePlaceDetailPage": True,
-            "maxImages": 0,
+    for old in OUT_DIR.glob("thai_*.json"):
+        old.unlink()
+
+    def payload(part: list[str]) -> dict:
+        return {
+            "placeIds": part,
             "maxReviews": args.reviews,
             # mostRelevant returned 12.6x the text of newest on the 2026-10-15
             # probe; recency selects for one-line ratings.
             "reviewsSort": "mostRelevant",
-            "maxQuestions": 0,
-            "scrapeContacts": False,
-            "maximumLeadsEnrichmentRecords": 0,
-            "skipClosedPlaces": False,
-            "placeIds": part,
+            # "all" mixes in third-party feeds Google aggregates. Those are
+            # billed the same and cannot be quoted on the page with a source.
+            "reviewsOrigin": "google",
+            # The whole point of the run.
+            "language": "th",
+            # Reviewer names, ids and photo URLs are not wanted and would end up
+            # in git. reviewId arrives either way, which is what the merge keys on.
+            "personalData": False,
         }
-        out = OUT_DIR / f"thai_{n:02d}_of_{n_files:02d}.json"
-        out.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
-        print(f"  {out.name}: {len(part)} clinics  ~${len(part) * 0.016:.2f}")
 
-    print(f"\n{len(ids)} clinics across {n_files} files in {OUT_DIR.relative_to(ROOT)}")
-    print(f"  estimated total ${len(ids) * 0.016:.2f} (maxReviews={args.reviews})")
-    print("\nRun one file first and check that `text` comes back in Thai before")
-    print("paying for the rest — the whole run is pointless if it returns")
-    print("translations again.")
+    # A probe across the review-count range, not the top of it: the question is
+    # how the actor behaves for a 4-review clinic as well as a 4,000-review one.
+    step = max(1, len(ids) // 20)
+    probe = [pid for pid, _ in ids[::step]][:20]
+    probe_expected = sum(expected(n) for pid, n in ids[::step][:20])
+    (OUT_DIR / "probe_20.json").write_text(
+        json.dumps(payload(probe), indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"\n  probe_20.json: 20 clinics spanning the range, "
+          f"~{probe_expected:,} reviews ~${probe_expected / 1000 * args.rate:.2f}")
+
+    # Pack by expected reviews rather than venue count, so one 4,000-review
+    # clinic does not silently make a file cost four times its neighbours.
+    files: list[list[tuple[str, int]]] = []
+    cur: list[tuple[str, int]] = []
+    cur_n = 0
+    for pid, n in ids:
+        e = expected(n)
+        if cur and cur_n + e > args.budget:
+            files.append(cur)
+            cur, cur_n = [], 0
+        cur.append((pid, n))
+        cur_n += e
+    if cur:
+        files.append(cur)
+
+    for i, part in enumerate(files, 1):
+        exp = sum(expected(n) for _, n in part)
+        out = OUT_DIR / f"thai_{i:02d}_of_{len(files):02d}.json"
+        out.write_text(json.dumps(payload([pid for pid, _ in part]), indent=2,
+                                  ensure_ascii=False), encoding="utf-8")
+        print(f"  {out.name}: {len(part):>4} clinics, ~{exp:,} reviews "
+              f"~${exp / 1000 * args.rate:.2f}")
+
+    print(f"\n{len(ids)} clinics across {len(files)} files in "
+          f"{OUT_DIR.relative_to(ROOT)}")
+    print("Run probe_20.json first and check that `text` comes back in Thai --")
+    print("the whole run is pointless if it returns translations again.")
     return 0
 
 
