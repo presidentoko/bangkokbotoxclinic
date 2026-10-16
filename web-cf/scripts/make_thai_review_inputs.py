@@ -136,6 +136,9 @@ def main() -> int:
     ap.add_argument("--budget", type=int, default=10_000,
                     help="expected reviews per file; 10,000 ~= $5 at $0.50/1k")
     ap.add_argument("--rate", type=float, default=0.50, help="USD per 1,000 reviews")
+    ap.add_argument("--collected", nargs="*", default=[],
+                    help="이미 받아둔 Apify dataset json. 여기 placeId 가 있는 "
+                         "클리닉은 제외하고 pending_<n>.json 하나만 쓴다.")
     args = ap.parse_args()
 
     db = json.loads(MASTER.read_text(encoding="utf-8"))
@@ -180,6 +183,41 @@ def main() -> int:
           f"${total_expected / 1000 * args.rate:.2f}")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    # 이미 받아둔 데이터셋이 주어지면, 거기 결과가 있는 클리닉은 다시 사지 않는다.
+    #
+    # 2026-10-16 에 이 스크립트가 1,773곳 전원의 입력을 다시 만들어 놨는데, 그 1,773곳은
+    # 이미 compass/google-maps-reviews-scraper 로 사서 CSV 에 병합까지 끝난 상태였다.
+    # 그대로 돌렸으면 $21.52 를 전액 다시 쓰는 것이었다. 커버리지는 CSV 의
+    # sort_source 로 판정하면 안 된다 — 병합이 reviewId 합집합이라, 받은 리뷰가
+    # 기존 행을 교체하지 못하면 apify 표시가 남지 않는다(1,682곳이 받았는데 표시는
+    # 1,207곳뿐이었다). **받아둔 dataset 의 placeId 가 유일하게 믿을 수 있는 기준이다.**
+    if args.collected:
+        done: set[str] = set()
+        for f in args.collected:
+            try:
+                for r in json.loads(Path(f).read_text(encoding="utf-8")):
+                    if r.get("placeId"):
+                        done.add(r["placeId"])
+            except Exception as e:
+                print(f"  건너뜀 {f}: {str(e)[:60]}")
+        before = len(ids)
+        ids = [(pid, n) for pid, n in ids if pid not in done]
+        exp = sum(expected(n) for _, n in ids)
+        print(f"\n이미 수집된 {before - len(ids)}곳 제외 → 남은 {len(ids)}곳, "
+              f"예상 {exp:,}건 ${exp / 1000 * args.rate:.2f}")
+        out = OUT_DIR / f"pending_{len(ids)}.json"
+        out.write_text(json.dumps({
+            "placeIds": [pid for pid, _ in ids],
+            "maxReviews": args.reviews,
+            "reviewsSort": "mostRelevant",
+            "reviewsOrigin": "google",
+            "language": "th",
+            "personalData": False,
+        }, indent=2, ensure_ascii=False), encoding="utf-8")
+        print(f"  {out.name} 작성")
+        return 0
+
     for old in OUT_DIR.glob("thai_*.json"):
         old.unlink()
 

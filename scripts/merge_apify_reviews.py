@@ -40,6 +40,11 @@ TEXT = REVIEW_HEADER.index("text")
 THAI = re.compile(r"[฀-๿]")
 
 # 덴탈 클리닉이 있을 수 있는 출력 디렉터리 (web/scripts/build_master_db.py SOURCES)
+# 이 목록은 build_master_db.py 의 SOURCES 와 같아야 한다 — 거기 있는데 여기 없는
+# 도시는 fid 를 못 찾아서 그 도시 클리닉의 **산 리뷰가 아무 데도 안 들어가고 조용히
+# 버려진다**. 2026-10-16 에 이랬다: koh_samui·krabi·hua_hin 이 빠진 채로 Apify 런을
+# 돌려서, 후아힌·사무이 클리닉은 원본에 태국어 리뷰가 있는데도 CSV 태국어가 0자였고
+# "더 사야 하는 것"처럼 보였다. 생산 도시를 늘리면 여기도 같이 늘릴지 확인할 것.
 OUT_DIRS = [
     ROOT / "dental_output" / "bangkok",
     ROOT / "bangkok_clinics" / "output",
@@ -47,6 +52,9 @@ OUT_DIRS = [
     ROOT / "pattaya" / "clinics_output",
     ROOT / "phuket" / "clinics_output",
     ROOT / "chiang_mai" / "clinics_output",
+    ROOT / "koh_samui" / "clinics_output",
+    ROOT / "krabi" / "clinics_output",
+    ROOT / "hua_hin" / "clinics_output",
 ]
 
 
