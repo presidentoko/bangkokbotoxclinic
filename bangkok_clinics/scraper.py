@@ -220,6 +220,10 @@ def _rotate_vpn_and_wait(vpn_idx: int, timeout: float = ROTATE_TIMEOUT_SEC) -> b
     /tmp/rotate_port_<vpn_idx> 를 touch해서 runner 에 rotate 신호.
     /tmp/vpn_status.json 에서 server 가 바뀌고 alive=True 될 때까지 대기.
     """
+    if config.GMAPS_PROFILE:
+        # 로그인 모드는 프록시를 안 쓴다. 여기서 touch 하면 이 포트 번호를 실제로
+        # 쓰는 **다른 서비스**의 터널을 회전시켜 버린다.
+        return True
     status_path = _TMPDIR / "vpn_status.json"
     old_server = ""
     try:
@@ -857,7 +861,8 @@ def get_restaurant_full(
             name = page.locator("h1").first.inner_text(timeout=5000).strip()
         except Exception:
             pass
-        if "/maps/place//" in current_url and _attempt < EMPTY_MAP_RETRIES:
+        # 로그인 모드에서 clear_cookies() 는 로그아웃이다.
+        if "/maps/place//" in current_url and _attempt < EMPTY_MAP_RETRIES and not config.GMAPS_PROFILE:
             log.info(f"  빈 지도 — 쿠키 초기화 후 같은 출구에서 재시도 {_attempt + 1}/{EMPTY_MAP_RETRIES}")
             try:
                 page.context.clear_cookies()
@@ -1853,6 +1858,29 @@ class InFlight:
             return len(self._busy)
 
 
+_SIGNED_IN_UA: str | None = None  # 로그인 모드 헤드리스용 UA (HeadlessChrome → Chrome)
+
+
+class _SignedInBrowser:
+    """로그인 프로필 영속 컨텍스트를 Browser 처럼 쓰기 위한 껍데기 (close 만 필요)."""
+
+    def __init__(self, ctx):
+        self.ctx = ctx
+
+    def close(self):
+        self.ctx.close()
+
+
+class _TabContext:
+    """로그인 모드의 '컨텍스트' = 탭 하나. close() 는 그 탭만 닫는다."""
+
+    def __init__(self, page):
+        self.page = page
+
+    def close(self):
+        self.page.close()
+
+
 def worker(
     worker_id: int, task_queue: Queue, result_queue: Queue,
     proxy_port: int, inflight: InFlight,
@@ -1885,7 +1913,53 @@ def worker(
             return route.abort()
         return route.continue_()
 
+    def _launch(pw):
+        """브라우저 기동. 로그인 모드면 로그인 프로필의 영속 컨텍스트를 연다."""
+        if config.GMAPS_PROFILE:
+            global _SIGNED_IN_UA
+            kw = dict(
+                channel="chrome",  # 로그인한 그 크롬과 같은 지문 — 쿠키가 다른 UA 에서
+                                   # 쓰이면 구글 보안 검사에 걸리기 쉽다
+                headless=not is_visible,
+                slow_mo=config.SLOW_MO,
+                locale="en-US",
+                viewport={"width": 1280, "height": 800},
+                args=["--disable-blink-features=AutomationControlled"],
+            )
+            # 헤드리스 크롬은 UA 에 "HeadlessChrome" 을 단다. 로그인해 있어도 그
+            # UA 면 limited view 가 다시 걸린다(2026-10-16 실측: F7nice '4.8' 만,
+            # 리뷰수 없음 → 전량 low_reviews 스킵). 같은 버전의 일반 Chrome UA 로
+            # 바꾸면 '4.8\n(1,849)' 로 정상. 버전을 지어내지 않으려고 실제 UA 를
+            # 한 번 읽어서 고친다.
+            if not is_visible and _SIGNED_IN_UA is None:
+                probe = pw.chromium.launch_persistent_context(config.GMAPS_PROFILE, **kw)
+                try:
+                    _SIGNED_IN_UA = probe.new_page().evaluate("navigator.userAgent").replace(
+                        "HeadlessChrome", "Chrome")
+                finally:
+                    probe.close()
+            if not is_visible:
+                kw["user_agent"] = _SIGNED_IN_UA
+            return _SignedInBrowser(pw.chromium.launch_persistent_context(config.GMAPS_PROFILE, **kw))
+        return pw.chromium.launch(
+            headless=not is_visible,
+            slow_mo=config.SLOW_MO,
+            proxy={"server": proxy_url},
+            args=[
+                "--disable-blink-features=AutomationControlled",
+                "--disable-features=IsolateOrigins,site-per-process",
+            ],
+        )
+
     def _build_context(browser):
+        if isinstance(browser, _SignedInBrowser):
+            # 영속 컨텍스트는 하나뿐이고 닫으면 브라우저가 닫힌다. "컨텍스트 재생성"
+            # 은 새 탭으로 대신하고, 돌려주는 context 의 close() 는 그 탭만 닫는다.
+            # 쿠키·UA·init 스크립트는 건드리지 않는다 — 로그인 세션을 그대로 쓴다.
+            pg = browser.ctx.new_page()
+            pg.route("**/*", _block_route)
+            pg.set_default_timeout(15000)
+            return _TabContext(pg), pg
         ctx = browser.new_context(
             locale="en-US",
             user_agent=(
@@ -1934,15 +2008,7 @@ def worker(
     while not _worker_done:
         try:
             with sync_playwright() as pw:
-                browser = pw.chromium.launch(
-                    headless=not is_visible,
-                    slow_mo=config.SLOW_MO,
-                    proxy={"server": proxy_url},
-                    args=[
-                        "--disable-blink-features=AutomationControlled",
-                        "--disable-features=IsolateOrigins,site-per-process",
-                    ],
-                )
+                browser = _launch(pw)
                 context, page = _build_context(browser)
                 pending_rotate = False  # 직전 작업이 느렸으면 True → 다음 작업 전 rotate
                 task_success_count = 0  # 이 워커가 성공한 누적 작업 수 (정기 rotate 트리거)
@@ -1989,15 +2055,7 @@ def worker(
                         try: browser.close()
                         except Exception: pass
                         try:
-                            browser = pw.chromium.launch(
-                                headless=not is_visible,
-                                slow_mo=config.SLOW_MO,
-                                proxy={"server": proxy_url},
-                                args=[
-                                    "--disable-blink-features=AutomationControlled",
-                                    "--disable-features=IsolateOrigins,site-per-process",
-                                ],
-                            )
+                            browser = _launch(pw)
                             context, page = _build_context(browser)
                         except Exception as _e:
                             # 재기동 실패는 치명적이다 — 이 워커는 브라우저 없이 못 돈다.
@@ -2094,15 +2152,7 @@ def worker(
                             try: browser.close()
                             except Exception: pass
                             try:
-                                browser = pw.chromium.launch(
-                                    headless=not is_visible,
-                                    slow_mo=config.SLOW_MO,
-                                    proxy={"server": proxy_url},
-                                    args=[
-                                        "--disable-blink-features=AutomationControlled",
-                                        "--disable-features=IsolateOrigins,site-per-process",
-                                    ],
-                                )
+                                browser = _launch(pw)
                                 context, page = _build_context(browser)
                                 log.info(f"[W{worker_id}] browser 재시작 성공")
                             except Exception as e3:
@@ -2440,6 +2490,13 @@ def main():
             seen_filtered_pids.add(pid)
             refresh_added += 1
 
+    if config.GMAPS_PROFILE:
+        # 프로필 폴더는 한 프로세스만 열 수 있고, 한 계정을 여러 탭·출구로 동시에
+        # 돌리면 계정 보안 검사에 걸린다.
+        if config.N_WORKERS != 1:
+            log.info(f"로그인 모드 — 워커 {config.N_WORKERS} → 1")
+        config.N_WORKERS = 1
+        log.info(f"로그인 모드: 프로필 {config.GMAPS_PROFILE} (프록시·VPN 회전 없음)")
     target_n = config.MAX_RESTAURANTS  # None이면 무제한
     log.info(f"전체 후보: {len(unique_hrefs)} | 신규 처리 대상: {len(filtered_hrefs)} (재시도 편입 {retry_added}개[skipped 해제 {retry_unblocked}개], 리뷰 재스캔 편입 {refresh_added}개)")
     log.info(f"목표: {'무제한' if target_n is None else target_n}")

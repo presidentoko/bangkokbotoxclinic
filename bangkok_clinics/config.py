@@ -25,6 +25,14 @@ MAX_RESTAURANTS = None      # 무제한 (전체 수집)
 # 이미 리뷰 50건을 가진 곳을 7일마다 다시 열어봐야 5건밖에 못 받으니
 # 재스캔이 큐 시간을 다 먹었다(하루 처리분의 70%가 재스캔, 신규 리뷰 거의 0).
 REVIEW_REFRESH_DAYS = int(os.environ.get("REVIEW_REFRESH_DAYS", "30"))
+
+# 2026-10-16: limited view 우회 — 구글 계정에 로그인된 크롬 프로필 폴더.
+# 비로그인 세션은 어떤 브라우저·IP 로든 리뷰 10개(=5건)에서 막히고 정렬도 로그인
+# 창으로 바뀐다. 로그인 프로필로는 같은 장소에서 스크롤 12번에 260개, 정렬 메뉴 정상.
+# 설정하면: VPN 프록시 없이 집 IP 로, VPN 회전 안 함, 가짜 동의 쿠키 안 넣음.
+# 계정 보호를 위해 워커는 1개로 돌릴 것(N_WORKERS=1) — 한 계정이 여러 출구 IP 에서
+# 동시에 접속하면 구글 보안 검사에 걸린다. 프로필은 .secrets/ (gitignore).
+GMAPS_PROFILE = os.environ.get("GMAPS_PROFILE", "").strip()
 OUTPUT_DIR = os.environ.get("CITY_OUTPUT_DIR", "output")
 
 # ── 그리드 스캔 설정 (식당 발견 Phase) ──
