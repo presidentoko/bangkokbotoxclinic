@@ -18,12 +18,43 @@
   "district": "Bang Phli",
   "phone": "+66 2 000 0000",
   "website": "https://example.com",
-  "categories": ["manufacturer"],
-  "raw_categories": ["Furniture manufacturer"],
+  "categories": [
+   "manufacturer"
+  ],
+  "raw_categories": [
+   "Furniture manufacturer"
+  ],
   "verified": false,
   "dbd": null,
   "source": "supplier submission, verified by hand YYYY-MM-DD",
   "submitted_at": "YYYY-MM-DD"
  },
- "suppliers": []
+ "suppliers": [
+  {
+   "id": "ChIJPz3AuFA2HTERWJjzWFskCT0",
+   "_note": "기존 Google 레코드 보강. 이 id 가 master_db 에 있으면 아래 필드만 덮어쓴다(rebuild merge_manual_suppliers).",
+   "name": "Ming Tai Industrial (Thailand) Co., Ltd.",
+   "primary_type": "Metal stamping manufacturer",
+   "phone": "+66 84 349 5359",
+   "website": "https://www.mingtai.co.th/",
+   "categories": [
+    "manufacturer",
+    "auto_parts",
+    "steel",
+    "machining"
+   ],
+   "raw_categories": [
+    "Metal workshop",
+    "Metal stamping",
+    "Mold maker",
+    "Auto parts manufacturer"
+   ],
+   "supplier_about": "Metal stamping parts, and the stamping dies (mold & die) to make them, for automotive and electrical customers. OEM production to customer drawings (no in-house ODM).",
+   "iso_scope": "ISO 9001 · ISO 14001",
+   "iatf_certified": true,
+   "cert_source": "supplier",
+   "source": "supplier submission via /for-suppliers 2026-10-16 (contact: Koji Sugimoto); DBD reg. no. not provided — verified stays false",
+   "submitted_at": "2026-10-16"
+  }
+ ]
 }

@@ -291,7 +291,9 @@ export default async function SupplierPage(
     {
       key: "iso",
       label: "ISO 9001",
-      sub: r.iso_scope || (topicCount("iso_certified") >= 2 ? "Mentioned in buyer reviews" : ""),
+      sub: r.iso_scope
+        ? `${r.iso_scope}${r.cert_source === "supplier" ? " · supplier-declared" : ""}`
+        : (topicCount("iso_certified") >= 2 ? "Mentioned in buyer reviews" : ""),
       icon: "ⓘ",
       active: !!r.iso_scope || topicCount("iso_certified") >= 2,
       hint: "ISO 9001 quality management system certification.",
@@ -299,7 +301,7 @@ export default async function SupplierPage(
     {
       key: "iatf",
       label: "IATF 16949",
-      sub: r.iatf_certified ? "Automotive quality standard" : "",
+      sub: r.iatf_certified ? (r.cert_source === "supplier" ? "Supplier-declared" : "Automotive quality standard") : "",
       icon: "🚗",
       active: r.iatf_certified === true,
       hint: "Automotive Tier-1 standard — required by Toyota, Honda, Ford supply chains.",
@@ -623,6 +625,14 @@ export default async function SupplierPage(
                     <p className="text-sm leading-relaxed text-stone-800">{r.dbd.address}</p>
                   </div>
                 )}
+              </section>
+            )}
+
+            {r.supplier_about && (
+              <section className="bg-white border border-stone-200 rounded-2xl p-6">
+                <h2 className="text-xl font-bold mb-1 text-stone-900 font-display">What they make</h2>
+                <div className="text-xs text-stone-500 mb-3">As submitted by the company</div>
+                <p className="text-sm leading-relaxed text-stone-700">{r.supplier_about}</p>
               </section>
             )}
 

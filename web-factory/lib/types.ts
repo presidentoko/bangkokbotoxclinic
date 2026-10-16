@@ -102,6 +102,11 @@ export type Supplier = {
   iatf_certified?: boolean | null;
   haccp_certified?: boolean | null;
   boi_candidate?: boolean;
+
+  // ── 공급사가 /for-suppliers 무료 등재로 직접 제출한 내용 (data/manual_suppliers.json) ──
+  // 우리가 검증한 사실이 아니라 공급사 진술이다. 화면에서도 그렇게 표시한다.
+  supplier_about?: string | null;   // 주력 제품·공정 (공급사 문장)
+  cert_source?: "supplier" | null;  // iso_scope·iatf_certified 가 공급사 신고값이면 "supplier"
   boi_candidate_reasons?: string[];
 };
 

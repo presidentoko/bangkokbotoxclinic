@@ -169,18 +169,21 @@ def merge_manual_suppliers(suppliers: list[dict]) -> set[str]:
         if not sid or not row.get("name"):
             print(f"  [skip] id 또는 name 없음: {row}")
             continue
+        if sid in by_id:
+            # 이미 Google 데이터로 있는 공급사가 신청한 경우 — 신청서에 적힌 필드만
+            # 덮어쓴다. 예전엔 _MANUAL_DEFAULTS 까지 같이 덮어써서 평점·리뷰 수·
+            # 좌표가 0 이 됐다 (2026-10-16 Ming Tai 신청 때 발견, 실제 피해 전).
+            by_id[sid].update({k: v for k, v in row.items() if not k.startswith("_")})
+            updated += 1
+            ids.add(sid)
+            continue
         rec = {**_MANUAL_DEFAULTS, **row}
         rec.setdefault("city_label", rec.get("city", "").replace("_", " ").title())
         # b2b_score 는 정렬·dead-lead 가 읽는다. 수동 레코드는 리뷰가 없어 0 이므로
         # 목록 맨 끝으로 가지 않게 최소값을 준다 (Trust Score 표시는 0 그대로).
         rec.setdefault("b2b_score", rec.get("trust_score") or 0.0)
-        if sid in by_id:
-            by_id[sid].update(rec)
-            updated += 1
-        else:
-            suppliers.append(rec)
-            updated += 0
-            added += 1
+        suppliers.append(rec)
+        added += 1
         ids.add(sid)
     print(f"\n수동 등재 병합: 신규 {added} · 갱신 {updated}")
     return ids
