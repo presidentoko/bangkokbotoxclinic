@@ -16,6 +16,7 @@ import {
 import { STATIC_LOCALES, localeAlternates, t, toBaseLocale, concernLabel, type Locale } from "@/lib/i18n";
 import { productLd, breadcrumbLd, faqLd } from "@/lib/schema";
 import { thaiAlias } from "@/lib/thai-names";
+import { hasLiveDiscount, priceAsOfLabel } from "@/lib/priceFreshness";
 import { fdaRecord, originLabel, type FdaRecord } from "@/lib/fda";
 import { productVerdict, productFaqs, cleanName } from "@/lib/product-verdict";
 import { JsonLd } from "@/components/JsonLd";
@@ -928,7 +929,12 @@ export default async function ProductPage({
     : Math.round(p.total_score?.[concern] ?? 0);
   const summary = p.llm_summary?.[baseLoc] || fallbackSummary(p, baseLoc, totalScore);
   const ingredientScore = Math.round(p.ingredient_score?.[concern] ?? 0);
-  const hasDiscount = p.discount_pct > 0;
+  // A price can be published honestly by dating it; "-40%" cannot, because it
+  // is a claim about what the shop is doing right now. 947 of 1,003 published
+  // rows carry a June 2026 fetched_at (measured 2026-10-16), so the badge is
+  // gated on the row still being fresh. See lib/priceFreshness.ts.
+  const hasDiscount = hasLiveDiscount(p);
+  const priceDate = priceAsOfLabel(p, baseLoc);
   const description = typeof p.description === "string" ? p.description.trim() : "";
 
   // ── "Should you buy it?" — the answer to "<product> ดีไหม" ──────────────
@@ -1045,6 +1051,9 @@ export default async function ProductPage({
               {/* Price row — inline on desktop, replaces sticky bar */}
               <div className="hidden sm:flex flex-wrap items-center gap-3 pt-2">
                 {linkAlive && <AffiliateButton p={p} locale={locale} variant="inline" />}
+                {priceDate && (
+                  <span className="text-xs text-[#8a7a76]">{priceDate}</span>
+                )}
                 {hasDiscount && (
                   <>
                     <span className="text-sm text-neutral-400 line-through">
@@ -1063,10 +1072,13 @@ export default async function ProductPage({
               Used to be gated on hasDiscount, so a full-price product showed no
               price anywhere on mobile except inside the sticky CTA label — and
               nothing at all once linkAlive is false. Always show the price. */}
-          <div className="sm:hidden flex items-center gap-3 border-t border-[#efe1db] px-5 py-3">
+          <div className="sm:hidden flex flex-wrap items-center gap-3 border-t border-[#efe1db] px-5 py-3">
             <span className="text-base font-bold text-[#2b2222]">
               ฿{Math.round(p.price_thb).toLocaleString()}
             </span>
+            {priceDate && (
+              <span className="text-xs text-[#8a7a76]">{priceDate}</span>
+            )}
             {hasDiscount && (
               <>
                 <span className="text-sm text-[#8a7a76] line-through">
