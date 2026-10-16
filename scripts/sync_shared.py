@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 SHARED = ROOT / "shared"
-TARGETS = [ROOT / "web", ROOT / "web-restaurants", ROOT / "web-golf"]
+TARGETS = [ROOT / "web", ROOT / "web-restaurants", ROOT / "web-golf", ROOT / "web-thaigle"]
 
 WARNING = (
     "// ⚠️ AUTO-GENERATED from shared/{rel}\n"
@@ -40,9 +40,17 @@ WARNING = (
 # 근본 해결은 shared 쪽에 ko 를 올려 divergence 를 없애는 것이지만,
 # 그러면 web-restaurants / web-golf 의 Record<Lang, string> 들이 전부
 # ko 키를 요구받아 깨진다. 그 정리 전까지는 여기서 제외해 사고를 막는다.
+#
+# 2026-10-16: web-thaigle 을 TARGETS 에 넣으면서 같은 사고를 미리 막는다. 8개
+# 파일 중 6개는 이미 shared 와 동일(헤더만 차이)이지만 2개는 thaigle 이 앞서간다 —
+# StatsBar.tsx 는 243자 짧게 다듬었고, TrustBadge.tsx 는 AUTO-GENERATED 헤더조차
+# 없는 별도 구현이다. 비교할 때 헤더를 떼지 않으면 md5 가 전부 달라 보여서
+# "전부 divergence" 로 오판하게 된다(실제로는 6/8 이 in-sync).
 SKIP = {
     ("web", "lib/i18n.ts"),
     ("web", "components/TrustBadge.tsx"),
+    ("web-thaigle", "components/StatsBar.tsx"),
+    ("web-thaigle", "components/TrustBadge.tsx"),
 }
 
 
