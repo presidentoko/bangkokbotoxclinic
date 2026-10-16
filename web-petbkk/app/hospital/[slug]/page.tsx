@@ -5,6 +5,8 @@ import LicenseVerification from '@/components/LicenseVerification'
 import { getLicense, LICENSE_CLASS } from '@/lib/licenses'
 import { getHospitalBySlug, loadHospitals, hospitalSlug, hasPreciseCoord, districtLabel } from '@/lib/hospitals'
 import { getHospitalReviews } from '@/lib/petreviews'
+import { getGoogleReviews } from '@/lib/hospitalReviews'
+import GoogleReviews from '@/components/GoogleReviews'
 import NearbyHospitals from '@/components/NearbyHospitals'
 import HospitalShareButtons from '@/components/HospitalShareButtons'
 import PantipReviews from '@/components/PantipReviews'
@@ -363,6 +365,7 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
   const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapsQuery}`
   const mapEmbedUrl = `https://maps.google.com/maps?q=${mapsQuery}&z=${precise ? 16 : 15}&output=embed`
   const pantipReview = getHospitalReviews(h.id)
+  const googleReviews = getGoogleReviews(h.id)
   const reviewUrl = h.google_place_id
     ? `https://search.google.com/local/reviews?placeid=${h.google_place_id}`
     : null
@@ -600,7 +603,11 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
           </a>
         )}
       </div>
-      {h.phone && reviewUrl && (
+      {/* The bare "read the reviews on Google" link is redundant once the
+          reviews themselves are on the page — GoogleReviews carries the same
+          link in its source line. Kept for the clinics that have no quotable
+          Thai reviews, which is where it was the only review signal. */}
+      {h.phone && reviewUrl && !googleReviews && (
         <a
           href={reviewUrl}
           target="_blank"
@@ -613,6 +620,13 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
       )}
 
       <HospitalShareButtons />
+
+      {/* What reviewers actually wrote. This is the page's own content — up to
+          2026-10-16 a clinic page was its name, address, a star number and
+          1,312 characters of boilerplate shared with every other clinic page,
+          which is why 549 of them were sitting in Search Console under
+          "Discovered/Crawled - currently not indexed". */}
+      {googleReviews && <GoogleReviews set={googleReviews} reviewUrl={reviewUrl} />}
 
       {/* Pantip reviews */}
       {pantipReview && <PantipReviews review={pantipReview} />}
