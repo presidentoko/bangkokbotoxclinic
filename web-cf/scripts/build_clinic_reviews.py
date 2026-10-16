@@ -117,8 +117,27 @@ def published_chars(c: dict) -> int:
     return n
 
 
+_THAI = re.compile(r"[฀-๿]")
+
+
+def read_translations(path: Path) -> dict[str, str]:
+    """<fn>_reviews_en.json — review_id → 구글 영어 번역본.
+
+    2026-10-16 Apify 병합(scripts/merge_apify_reviews.py)부터 CSV 본문은 원문이다.
+    태국어 원문만 실으면 영어 페이지를 읽는 외국인은 리뷰를 못 읽으므로, 번역본이
+    있으면 "en" 으로 같이 싣는다. 번역본은 CSV 칸이 아니라 옆 파일에 있다 —
+    헤더가 바뀌면 스크래퍼가 파일을 새로 써서 기존 리뷰를 버리기 때문이다.
+    """
+    side = path.with_name(path.name.replace("_reviews.csv", "_reviews_en.json"))
+    try:
+        return json.loads(side.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
 def read_csv(path: Path) -> list[dict]:
     out: list[dict] = []
+    tr = read_translations(path)
     try:
         with path.open(encoding="utf-8-sig", newline="") as fh:
             for row in csv.DictReader(fh):
@@ -131,11 +150,15 @@ def read_csv(path: Path) -> list[dict]:
                     rating = 0
                 if rating < MIN_RATING:
                     continue
-                out.append({
+                item = {
                     "text": text,
                     "rating": rating,
                     "author": (row.get("author_name") or "").strip(),
-                })
+                }
+                en = clean_quote(tr.get(row.get("review_id") or "", ""))
+                if en and _THAI.search(text) and not _THAI.search(en):
+                    item["en"] = en
+                out.append(item)
     except (OSError, csv.Error, UnicodeDecodeError) as e:
         print(f"  unreadable, skipped: {path.name} ({e})")
     return out

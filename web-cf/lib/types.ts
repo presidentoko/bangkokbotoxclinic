@@ -16,6 +16,8 @@ export type SampleReview = {
   text: string;
   rating: number;
   author: string;
+  /** 원문이 태국어일 때 구글 영어 번역본 (data/clinic-reviews.json, 2026-10-16~). */
+  en?: string;
 };
 
 export type ExternalPlatform = "tripadvisor" | "whatclinic" | "trustpilot" | "facebook" | "bookimed";

@@ -49,7 +49,7 @@ export async function GET() {
   // noindex 이고 상위 200곳만 prerender 되므로 넣지 않는다 — 같은 내보내기에서
   // 한국어 쿼리 1건·노출 2회였다.
   const LOCALES: { code: string; prefix: string; priority: string }[] = [
-    { code: "th-TH", prefix: "/th", priority: "0.8" },
+    { code: "th", prefix: "/th", priority: "0.8" },
   ];
 
   const urls: string[] = [];
@@ -62,8 +62,10 @@ export async function GET() {
           `    <lastmod>${updated}</lastmod>\n` +
           `    <changefreq>weekly</changefreq>\n` +
           `    <priority>${loc.priority}</priority>\n` +
-          `    <xhtml:link rel="alternate" hreflang="en-US" href="${SITE}/clinic/${id}"/>\n` +
-          `    <xhtml:link rel="alternate" hreflang="th-TH" href="${SITE}/th/clinic/${id}"/>\n` +
+          // 코드는 페이지 <link rel=alternate> 와 같아야 한다(en/th). 2026-10-16 까지
+          // 여기만 en-US/th-TH 여서 같은 URL 쌍에 두 벌의 클러스터를 선언하고 있었다.
+          `    <xhtml:link rel="alternate" hreflang="en" href="${SITE}/clinic/${id}"/>\n` +
+          `    <xhtml:link rel="alternate" hreflang="th" href="${SITE}/th/clinic/${id}"/>\n` +
           `    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/clinic/${id}"/>\n` +
           `  </url>`,
       );

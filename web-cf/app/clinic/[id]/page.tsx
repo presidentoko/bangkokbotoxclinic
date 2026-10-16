@@ -222,6 +222,7 @@ const PT = {
     seeHdmall: "See all packages on HDmall →",
     hdmallNote: "Prices are package list prices from HDmall. Actual cost may vary based on consultation — confirm with the clinic before booking. Prices in THB.",
     reviews: "Real review excerpts", reviewer: "Google reviewer", untranslated: "Thai, untranslated", inEnglish: "",
+    translated: "Translated from Thai by Google", original: "Original review (Thai)",
     doctors: (n: string) => `Doctors mentioned in reviews at ${n}`, dr: "Dr.",
     compareTag: "Side-by-side comparison", compareSub: "Trust Score · Reviews · Doctors · Languages",
     alsoFrom: "Also from Thai Facial Clinic Group",
@@ -239,6 +240,7 @@ const PT = {
     seeHdmall: "ดูแพ็กเกจทั้งหมดบน HDmall →",
     hdmallNote: "ราคาเป็นราคาแพ็กเกจบน HDmall ราคาจริงขึ้นกับการประเมิน ควรยืนยันกับคลินิกก่อนจอง (หน่วย: บาท)",
     reviews: "รีวิวจริงจากคนไข้", reviewer: "ผู้รีวิว Google", untranslated: "", inEnglish: "รีวิวภาษาอังกฤษ",
+    translated: "", original: "",
     doctors: (n: string) => `หมอที่คนไข้พูดถึงในรีวิวของ ${n}`, dr: "หมอ",
     compareTag: "เปรียบเทียบแบบเคียงข้าง", compareSub: "คะแนนความน่าเชื่อถือ · รีวิว · หมอ · ภาษา",
     alsoFrom: "เว็บในเครือเดียวกัน",
@@ -303,10 +305,22 @@ export default async function ClinicPage(
   // 중 44%가 모든 클리닉 페이지와 토씨까지 같았다.
   const deep = await loadDeepReviews();
   const deepRows = deep?.[c.id];
-  const enSamples = (deepRows ?? c.sample_reviews_en ?? []).map((r) => ({ ...r, srcLang: "en" as const }));
-  const thSamples = (c.sample_reviews_th ?? []).map((r) => ({ ...r, srcLang: "th" as const }));
+  // 2026-10-16: 깊은 리뷰에 태국어 원문이 섞인다(Apify 병합). 예전엔 깊은 리뷰를
+  // 통째로 "en" 으로 찍어서, /th 페이지가 태국어 원문에 "รีวิวภาษาอังกฤษ" 라벨을
+  // 붙였다. 언어는 리뷰마다 글자로 판정한다.
+  const isThai = (s: string) => /[฀-๿]/.test(s);
+  const tagged = deepRows
+    ? deepRows.map((r) => ({ ...r, srcLang: isThai(r.text) ? ("th" as const) : ("en" as const) }))
+    : [
+        ...(c.sample_reviews_en ?? []).map((r) => ({ ...r, srcLang: "en" as const })),
+        ...(c.sample_reviews_th ?? []).map((r) => ({ ...r, srcLang: "th" as const })),
+      ];
+  // 페이지 언어와 같은 원문을 먼저. 영어 페이지에선 번역본이 있는 태국어 리뷰가
+  // 번역 없는 것보다 앞 — 외국인이 읽을 수 있는 순서.
+  const rank = (r: (typeof tagged)[number]) =>
+    r.srcLang === L ? 0 : L === "en" && r.en ? 1 : 2;
   // 4 → 8. 데이터가 얕을 때 정한 상한이라 깊은 샘플을 그대로 잘라냈다.
-  const samples = (L === "th" ? [...thSamples, ...enSamples] : [...enSamples, ...thSamples]).slice(0, 8);
+  const samples = [...tagged].sort((a, b) => rank(a) - rank(b)).slice(0, 8);
 
   // Pricing — hdmall package 데이터(있는 경우)
   // 2026-09-02: 멀티지점 브랜드면 허브로 링크 (web/ 과 동일).
@@ -653,12 +667,27 @@ export default async function ClinicPage(
               <div className="space-y-3">
                 {samples.map((r, i) => (
                   <blockquote key={i} className="border-l-4 border-[var(--accent)] bg-white px-4 py-3 rounded-r">
-                    <p className="text-sm leading-relaxed">{r.text}</p>
-                    <footer className="mt-2 text-xs text-[var(--muted)] flex items-center gap-2">
+                    {L === "en" && r.srcLang === "th" && r.en ? (
+                      <>
+                        <p className="text-sm leading-relaxed">{r.en}</p>
+                        <details className="mt-1 text-xs text-[var(--muted)]">
+                          <summary className="cursor-pointer">{t.original}</summary>
+                          <p lang="th" className="mt-1 leading-relaxed">{r.text}</p>
+                        </details>
+                      </>
+                    ) : (
+                      <p lang={r.srcLang} className="text-sm leading-relaxed">{r.text}</p>
+                    )}
+                    <footer className="mt-2 text-xs text-[var(--muted)] flex flex-wrap items-center gap-2">
                       <span className="font-medium">{r.author || t.reviewer}</span>
                       <span>·</span>
                       <span className="text-yellow-700">★ {r.rating}</span>
-                      {(L === "th" ? r.srcLang === "en" : r.srcLang === "th") && (
+                      {L === "en" && r.srcLang === "th" && r.en ? (
+                        <>
+                          <span>·</span>
+                          <span>{t.translated}</span>
+                        </>
+                      ) : (L === "th" ? r.srcLang === "en" : r.srcLang === "th") && (
                         <>
                           <span>·</span>
                           <span className="uppercase tracking-wide">{L === "th" ? t.inEnglish : t.untranslated}</span>
