@@ -20,6 +20,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import unquote
 
+# 리뷰 선택·언어 판정은 merge_review_dataset.py 와 공유한다 (review_select.py).
+# 두 벌로 두면 한쪽만 고쳐져서 다음 빌드가 조용히 되돌린다.
+from review_select import detect_lang, pick_samples
+
 ROOT = Path(__file__).resolve().parents[2]
 WEB_DATA = ROOT / "web-golf" / "data"
 
@@ -73,30 +77,7 @@ def extract_place_id(url: str) -> str:
     return m.group(1) if m else ""
 
 
-# ── 언어 감지 ─────────────────────────────────────────────────
-_THAI_RE = re.compile(r"[฀-๿]")
-_LATIN_RE = re.compile(r"[A-Za-z]")
-_KOREAN_RE = re.compile(r"[가-힣ᄀ-ᇿ]")
-_JAPANESE_RE = re.compile(r"[ぁ-ゟ゠-ヿ]")
-
-
-def detect_lang(text: str) -> str:
-    if not text:
-        return "other"
-    total = len(text)
-    ko = len(_KOREAN_RE.findall(text)) / total
-    if ko > 0.15:
-        return "ko"
-    th = len(_THAI_RE.findall(text)) / total
-    if th > 0.3:
-        return "th"
-    ja = len(_JAPANESE_RE.findall(text)) / total
-    if ja > 0.2 and ko < 0.05:
-        return "ja"
-    lt = len(_LATIN_RE.findall(text)) / total
-    if lt > 0.3 and th < 0.05 and ko < 0.05:
-        return "en"
-    return "other"
+# 언어 감지(detect_lang)와 인용문 선택(pick_samples)은 review_select.py 로 옮겼다.
 
 
 # ── 골프 코스 카테고리 ────────────────────────────────────────
@@ -342,16 +323,7 @@ def main() -> int:
         for k, v in lang_count.items():
             lang_total[k] += v
 
-        # Sample reviews (4-5점 + 80-300자)
-        def pick_samples(chunks: list[tuple[str, int, str]], n: int = 5):
-            # 상한이 300자였는데, 그게 가장 자세히 쓴 리뷰만 골라서 버리고 있었다.
-            # 이번 수집분 2,066건 기준 301자 이상 고평점 리뷰 208건(13%)이 그렇게 날아갔다 —
-            # 코스 페이지에 실릴 고유 텍스트가 곧 색인 여부를 가르는 상황에서 정반대로 가는 필터다.
-            # 길이순이 아니라 길이 하한만 두고, 같은 별점이면 긴 쪽을 먼저 쓴다.
-            good = [c for c in chunks if 80 <= len(c[0]) <= 1200 and c[1] >= 4]
-            good.sort(key=lambda x: (-x[1], -len(x[0])))
-            return [{"text": t, "rating": r, "author": a or "Google reviewer"}
-                    for t, r, a in good[:n]]
+        # 인용문 선택은 review_select.pick_samples (코스의 별점 분포대로 배분).
 
         # 평균 리뷰 텍스트 길이
         text_lengths = [len(t) for t in [r.get("text") or "" for r in revs] if t]

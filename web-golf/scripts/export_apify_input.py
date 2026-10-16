@@ -72,7 +72,9 @@ def main() -> int:
                 "maxCrawledPlacesPerSearch": 1,
                 "language": "en",
                 "maxReviews": MAX_REVIEWS,
-                "reviewsSort": "newest",
+                # newest 는 한 줄 평점만 골라온다. 2026-10-15 실측(thaigle): 같은 20건
+                # 상한에서 mostRelevant 가 12.6배의 텍스트를 돌려줬다.
+                "reviewsSort": "mostRelevant",
                 "scrapePlaceDetailPage": True,
             }, ensure_ascii=False, indent=2), encoding="utf-8"
         )
@@ -91,10 +93,14 @@ def main() -> int:
 
         # 리뷰 액터는 장소 URL 목록을 받는다. maxReviews 는 비용을 직접 좌우하므로
         # 반드시 명시한다 — 안 걸면 리뷰 3,600개짜리 코스 하나가 크레딧을 다 먹는다.
+        # ⚠️ 리뷰만 필요하면 이 입력이 아니라 make_review_inputs.py 를 쓸 것.
+        # 저쪽은 리뷰 전용 액터(compass/google-maps-reviews-scraper)를 placeIds 로
+        # 몰아서 리뷰당 과금한다 — 벤뉴당 과금보다 싸고, 장소 필드를 다시 받지 않으므로
+        # master_db 의 좌표·사진·영업시간을 덮어쓸 위험도 없다.
         reviews_input = {
             "startUrls": [place_url(c) for c in items],
             "maxReviews": MAX_REVIEWS,
-            "reviewsSort": "newest",
+            "reviewsSort": "mostRelevant",
             "language": "en",
         }
         (OUT_DIR / f"{name}__INPUT_reviews.json").write_text(

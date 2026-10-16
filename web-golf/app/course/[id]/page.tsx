@@ -108,16 +108,39 @@ export default async function CoursePage(
 
   const tier = sponsoredTier(r.id);
   const trend = r.rating_trend.trend;
-  const curatedSamples = [...r.sample_reviews_en, ...r.sample_reviews_th].slice(0, 4);
-  const samples = curatedSamples.length > 0
+  // 인용문 선택. 상한 두 개가 이미 수집해 둔 텍스트를 버리고 있었다 — slice(0, 4) 와,
+  // en 을 th 앞에 붙이는 concat 이다. 후자는 영어 인용이 4개 있는 코스에서 태국어를
+  // 통째로 굶긴다. 2026-10-16 실측(리뷰 있는 585개 코스): 245개 코스에 저장만 되고
+  // 렌더되지 않는 텍스트가 103,324자, 그중 56,647자가 137개 코스의 태국어였다.
+  // 상한 8은 덴탈에서 쓴 값이다 (project_dental_content_depth_20261015).
+  //
+  // 여기서 길이순으로 재정렬하지 않는다. 길이순 선택은 별점을 왜곡한다 — petbkk 실측으로
+  // 1성 평균 426자 vs 5성 134자다. 선택과 정렬은 pick_samples(= 코스의 별점 분포대로
+  // 배분) 한 곳에서만 하고, 렌더는 저장 순서를 그대로 쓰면서 언어만 교차한다.
+  type Quote = { text: string; rating: number; author: string; lang: "en" | "th" };
+  const interleave = (a: Quote[], b: Quote[], cap: number): Quote[] => {
+    const out: Quote[] = [];
+    for (let i = 0; out.length < cap && (i < a.length || i < b.length); i++) {
+      if (i < a.length) out.push(a[i]);
+      if (out.length < cap && i < b.length) out.push(b[i]);
+    }
+    return out;
+  };
+  const curatedSamples = interleave(
+    r.sample_reviews_en.map((rev): Quote => ({ ...rev, lang: "en" })),
+    r.sample_reviews_th.map((rev): Quote => ({ ...rev, lang: "th" })),
+    8,
+  );
+  const samples: Quote[] = curatedSamples.length > 0
     ? curatedSamples
     : (r.scraped_reviews ?? [])
         .filter((s) => s.text)
-        .slice(0, 4)
-        .map((s) => ({
+        .slice(0, 8)
+        .map((s): Quote => ({
           text: s.text || "",
           rating: s.rating ?? 0,
           author: s.reviewer || "Google reviewer",
+          lang: "en",
         }));
 
   // Trust breakdown
@@ -470,7 +493,7 @@ export default async function CoursePage(
               <h2 className="text-lg font-bold mb-3">Real review excerpts</h2>
               <div className="space-y-3">
                 {samples.map((rev, i) => (
-                  <blockquote key={i} className="border-l-4 border-[var(--accent)] bg-white px-4 py-3 rounded-r">
+                  <blockquote key={i} lang={rev.lang} className="border-l-4 border-[var(--accent)] bg-white px-4 py-3 rounded-r">
                     <p className="text-sm leading-relaxed">{rev.text}</p>
                     <footer className="mt-2 text-xs text-[var(--muted)] flex items-center gap-2">
                       <span className="font-medium">{rev.author || "Google reviewer"}</span>
@@ -487,8 +510,8 @@ export default async function CoursePage(
             <section>
               <h2 className="text-lg font-bold mb-3">한국어 리뷰</h2>
               <div className="space-y-3">
-                {r.sample_reviews_ko.slice(0, 4).map((rev, i) => (
-                  <blockquote key={i} className="border-l-4 border-rose-400 bg-rose-50/40 px-4 py-3 rounded-r">
+                {r.sample_reviews_ko.slice(0, 8).map((rev, i) => (
+                  <blockquote key={i} lang="ko" className="border-l-4 border-rose-400 bg-rose-50/40 px-4 py-3 rounded-r">
                     <p className="text-sm leading-relaxed">{rev.text}</p>
                     <footer className="mt-2 text-xs text-[var(--muted)] flex items-center gap-2">
                       <span className="font-medium">{rev.author || "Google 리뷰어"}</span>
