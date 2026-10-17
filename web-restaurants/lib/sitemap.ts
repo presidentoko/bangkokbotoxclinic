@@ -23,7 +23,7 @@ import { VERDICT_HUBS } from "@/lib/verdict";
 import { CUISINE_LABELS } from "@/lib/types";
 import { GUIDES } from "@/lib/guides";
 import { loadAllSlugs } from "@/lib/famous-vs-good";
-import { isSubstantial } from "@/lib/site";
+import { isDifferentiated } from "@/lib/site";
 
 export const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.snsstopper.com";
 const CUISINES = Object.keys(CUISINE_LABELS);
@@ -80,7 +80,7 @@ function cityKey(r: { city: string }): string {
 export function sitemapCities(db: Db): string[] {
   const seen = new Set<string>();
   for (const r of db.restaurants) {
-    if (!isSubstantial(r)) continue;
+    if (!isDifferentiated(r)) continue;
     seen.add(cityKey(r));
   }
   return Array.from(seen).sort();
@@ -169,13 +169,13 @@ export function restaurantItems(db: Db, city: string): Item[] {
   const updated = new Date(db.generated_at).toISOString();
   const items: Item[] = [];
   for (const r of db.restaurants) {
-    // 제출은 isSubstantial 만 (8,625 → 4,508). 기준과 근거는 lib/site.ts 에 있다.
+    // 제출은 isDifferentiated 만 (8,625 → 2,914). 기준과 근거는 lib/site.ts 에 있다.
     // 여기서 빠져도 noindex 가 아니다 — 페이지는 살아 있고 내부 링크도 그대로다.
     //
     // th/ko 상세는 제출하지 않는다(2026-09-26). EN 본문을 그대로 렌더하면서
     // canonical 로 EN 을 가리키고 noindex 이기 때문이다. 본문이 실제로 번역되면
     // 그때 다시 넣는다.
-    if (!isSubstantial(r)) continue;
+    if (!isDifferentiated(r)) continue;
     if (cityKey(r) !== city) continue;
     const priority = (r.photos?.length ?? 0) > 0 ? 0.8 : 0.6;
     items.push({ url: `${SITE}/restaurant/${r.id}`, lastModified: updated, changeFrequency: "weekly", priority });

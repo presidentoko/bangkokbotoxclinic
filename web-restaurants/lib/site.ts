@@ -69,7 +69,9 @@ export function getSiteConfig(): SiteConfig {
  *
  * 두 개의 서로 다른 선을 긋는다. 하나로 뭉치면 둘 다 틀린다:
  *
- * 1) isSubstantial — **사이트맵에 제출할 것** (사진 또는 리뷰>=200 → 4,508).
+ * 1) isSubstantial — 더 이상 사이트맵 기준이 아니다. 2026-10-17 에
+ *    isDifferentiated 로 교체했다(아래 주석 참고). 분량으로 가른 기준이
+ *    차별 정보로 가른 기준에 밀렸을 뿐, 틀렸던 건 아니라 남겨둔다.
  *    8,625 → 4,508 은 제출량 48% 감축이다. `or` 로 둔 이유: 사진만 요구하면
  *    리뷰 1,000개짜리 유명 식당이 잘리고, 리뷰만 요구하면 사진 있는 신규
  *    가게가 잘린다. 제출에서 빠져도 noindex 가 아니다 — 이미 색인된 페이지는
@@ -88,12 +90,49 @@ export function getSiteConfig(): SiteConfig {
  * 나쁘다: 봇이 가짜 id 를 긁어 ISR 쓰기와 Fluid CPU 를 태우던 게 애초에
  * false 로 잠근 이유다(app/restaurant/[id]/page.tsx 주석 참고).
  *
- * 쓰는 곳: app/sitemap.xml (isSubstantial), app/restaurant/[id] (isThin).
+ * 쓰는 곳: lib/sitemap.ts (isDifferentiated), app/restaurant/[id] (isThin).
  */
 export const SUBSTANTIAL_MIN_REVIEWS = 200;
 export const THIN_MAX_REVIEWS = 50;
 
 type Gradable = { total_reviews?: number | null; photos?: unknown[] | null };
+
+/**
+ * 사이트맵에 낼 것 — "구글이 이미 보여주는 것 외에 우리가 더하는 게 있는가".
+ *
+ * 2026-10-17 GSC: 제출 5,245 중 4,848(92%)이 Discovered - currently not
+ * indexed 다. 구글이 알고도 크롤을 안 한다. 수동 조치는 없고, 사이트맵은
+ * 네 묶음 다 정상 읽히고, 페이지 텍스트도 4,500~5,500자에 템플릿 비중
+ * 13~16% 로 형제 사이트들이 고친 수준(41~46%)보다 낫다. 기술 문제가 아니다.
+ *
+ * 쿼리에 답이 있다. 'steak s aroi bang kapi reviews' 4.2위 노출 25 클릭 0,
+ * 'central northville reviews' 7.6위 노출 5 클릭 0 — 상호+reviews 로 1페이지에
+ * 떠도 아무도 안 누른다. 바로 위 구글 패널이 같은 걸 보여주니까. 구글 리뷰를
+ * 다시 정리한 8,625장을 색인할 이유가 구글에게 없다.
+ *
+ * 그래서 제출 기준을 "분량"에서 "차별 정보"로 바꾼다. 둘 중 하나가 있어야 한다:
+ *   - local_rating: 태국 현지 플랫폼(Wongnai) 평점. 구글이 안 가진 데이터다. 947곳.
+ *   - 최근/과거 리뷰를 실제로 비교할 수 있는 곳(각 8건 이상). 페이지가 그
+ *     비교를 보여준다 — 구글은 평생 평균 하나만 보여준다. 판정 라벨이
+ *     holds_up 이어도 "안 변했다"는 비교 결과이므로 포함한다.
+ * 합 2,914곳 + 허브 714 + core 23 = 3,651 (5,245 에서 30% 감축).
+ *
+ * 제출에서 빠지는 게 noindex 는 아니다. 그 페이지들은 지금도 색인이 안 된
+ * 상태이고, 나중에 현지 평점이 붙으면 자동으로 다시 제출된다. 되돌리기 무료.
+ * 반대로 실존 식당 6,500장을 noindex 하는 건 되돌릴 수 없는 트래픽 포기라
+ * 하지 않는다 (isThin 1,036곳만 유지).
+ */
+export function isDifferentiated(r: Gradable & {
+  local_rating?: unknown; rating_trend?: unknown; scraped_review_count?: number | null;
+  trust_score?: number; rating?: number; name?: string; total_reviews?: number | null;
+}): boolean {
+  if (r.local_rating) return true;
+  const t = (r.rating_trend ?? {}) as {
+    recent?: { count?: number }; old?: { count?: number };
+  };
+  // 추세를 말할 수 있는 조건은 verdict.ts 의 MIN_TREND_BUCKET 과 같다.
+  return (t.recent?.count ?? 0) >= 8 && (t.old?.count ?? 0) >= 8;
+}
 
 export function isSubstantial(r: Gradable): boolean {
   if ((r.photos?.length ?? 0) > 0) return true;

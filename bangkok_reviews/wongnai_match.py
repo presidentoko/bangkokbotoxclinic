@@ -25,6 +25,9 @@ from pathlib import Path
 
 HERE = Path(__file__).parent
 
+# 같은 가게로 인정하는 최대 거리. 전화·이름이 맞아도 이 밖이면 다른 지점이다.
+MAX_METERS = 150
+
 
 def digits(s: str) -> str:
     d = re.sub(r"\D", "", s or "")
@@ -87,17 +90,31 @@ def main() -> int:
 
     matched: dict[str, dict] = {}
     how = Counter()
+    rejected = Counter()
     for v in ok:
         hit = method = None
         for p in phone_set(v.get("phone")):
-            if p in phone_idx:
-                hit, method = phone_idx[p], "phone"
-                break
+            if p not in phone_idx:
+                continue
+            cand = phone_idx[p]
+            # 전화번호만으로는 지점을 가를 수 없다. 체인이 대표번호 하나를
+            # 공유하기 때문이다. 이 검증을 안 걸었을 때 20km 떨어진 지점이
+            # 붙어, "현지인은 3.8로 본다"가 다른 동네 가게 점수였던 게 83곳
+            # 라이브에 나갔다(2026-10-17 발견). 양쪽에 좌표가 있으면
+            # MAX_METERS 안에 있어야 같은 가게로 본다.
+            if (v.get("lat") and cand.get("lat")
+                    and meters(v["lat"], v["lng"], cand["lat"], cand["lng"]) > MAX_METERS):
+                rejected["phone_far"] += 1
+                continue
+            hit, method = cand, "phone"
+            break
         if not hit and v.get("lat"):
             cands = near(v["lat"], v["lng"], 200)
             scored = sorted(((name_sim(v.get("name"), r["name"]), d, r) for d, r in cands),
                             key=lambda t: (-t[0], t[1]))
-            if scored and scored[0][0] >= 0.5:
+            # 이름이 맞아도 200m 는 같은 체인의 옆 지점일 수 있다. 표시하는
+            # 판정이므로 거리도 MAX_METERS 로 맞춘다(46곳이 150~1km 였다).
+            if scored and scored[0][0] >= 0.5 and scored[0][1] <= MAX_METERS:
                 hit, method = scored[0][2], "geo+name"
             elif cands and cands[0][0] <= 50:
                 hit, method = cands[0][1], "geo50"
@@ -122,6 +139,8 @@ def main() -> int:
     shown = sum(1 for m in matched.values() if m["match"] != "geo50")
     print(f"Wongnai {len(ok):,}곳 → 매칭 {len(matched):,}곳 ({len(matched)*100//len(ok)}%)")
     print(f"  방법별 {dict(how)}")
+    if rejected:
+        print(f"  거리 불일치로 기각 {dict(rejected)}")
     print(f"  사이트 표시 대상(phone+geo+name) {shown:,}곳 · 분석 전용(geo50) {len(matched)-shown:,}곳")
     print(f"  → {out}")
     return 0
