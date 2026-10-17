@@ -84,6 +84,41 @@ const config: NextConfig = {
         ],
       },
       {
+        // The OG images, and the reason this site blew its ISR Reads and Fast
+        // Origin Transfer in October 2026 (2.3M/1M reads, 18.2 GB/10 GB).
+        //
+        // Measured 2026-10-16: a restaurant card is 151 KB and there are
+        // 3,269 of them; golf's course cards are ~79 KB x 598. About 540 MB
+        // across the two sites for one complete fetch. They were matching the
+        // blanket rule above, so every Cloudflare POP that saw a crawler
+        // re-pulled the whole set from the origin once a day — 18.2 GB is
+        // roughly 34 POP-days of that, and 3,867 images x 30 days x ~20 POPs
+        // is the 2.3M reads almost exactly. Both meters, one cause.
+        //
+        // A year is safe here in a way it would not be for an ordinary asset:
+        // Next references these as `/<route>/opengraph-image?<content-hash>`,
+        // so changing an image changes its URL. Nothing has to be purged on
+        // deploy and nothing stale can be pinned. (The bare URL without the
+        // query is also cached for a year; only a direct scrape of that form
+        // would see an old card, and no client builds that URL.)
+        //
+        // Keep this AFTER the blanket rule — later rules win on a duplicate key.
+        source: "/:path*/opengraph-image",
+        headers: [
+          ...securityHeaders,
+          { key: "Cache-Control", value: "public, max-age=31536000, s-maxage=31536000, immutable" },
+        ],
+      },
+      {
+        // Same, for the root card at /opengraph-image, which `/:path*/` does
+        // not match.
+        source: "/opengraph-image",
+        headers: [
+          ...securityHeaders,
+          { key: "Cache-Control", value: "public, max-age=31536000, s-maxage=31536000, immutable" },
+        ],
+      },
+      {
         // Must come after the blanket rule — later rules win on a duplicate
         // key. Caching these would be a correctness bug, not just a stale
         // page: /api/resolve-link rate-limits per IP and would start sharing
