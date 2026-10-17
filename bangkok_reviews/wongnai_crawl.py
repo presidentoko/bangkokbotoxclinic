@@ -242,8 +242,12 @@ def fetch_details(slugs: dict, delay: float, out: Path) -> None:
                     "url": f"{BASE}/restaurants/{slug}",
                 }
                 ok += 1
+        # 저장은 25곳마다, 진행 줄은 5곳마다. 403 재시도(20~60초)가 섞이면
+        # 실측 2.2곳/분까지 떨어져 25곳에 11분이 걸리고, watchdog 이 그걸
+        # 정체로 오판해 정상 동작 중인 수집을 죽인다.
         if i % 25 == 0:
             out.write_text(json.dumps(done, ensure_ascii=False), encoding="utf-8")
+        if i % 5 == 0:
             print(f"  {i}/{len(todo)} · 성공 {ok}", flush=True)
         time.sleep(delay)
     out.write_text(json.dumps(done, ensure_ascii=False), encoding="utf-8")

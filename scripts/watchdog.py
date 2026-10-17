@@ -1029,6 +1029,8 @@ def build_services() -> list[Service]:
     # 죽은 앞부분으로 되돌려 완료가 영영 안 나오는 루프가 됐다 (08-31 새벽 6회/2.5h).
     PROG_REVIEW = re.compile(r"(✓ \[\d+\].*처리율|차단 쿨다운 대기|#\d+ (완료|실패|스킵))")
     PROG_GRID   = re.compile(r"\| 결과 \d+ 신규 \d+")  # grid 한 점 처리 라인
+    # wongnai_cities.py: "  175/2892 · 성공 172" / "[discover] …" / "page 12: …"
+    PROG_WONGNAI = re.compile(r"\d+/\d+ · 성공 \d+|\[discover\]|page \d+:")
     # nordvpn_runner 는 평소엔 조용함. 15분 주기 server fetch + READY 가 시그널.
     PROG_VPN    = re.compile(r"(READY|bootstrap 완료|서버 리스트 fetch)")
     # master_db builder: 5분마다 폴링/빌드 — "변경 없음 — 스킵" 또는 "재빌드 완료"
@@ -1081,6 +1083,25 @@ def build_services() -> list[Service]:
             progress_pattern=PROG_VPN,
             progress_stale_sec=1500,  # 25분 (15분 fetch 한 번 놓치는 정도 허용)
             progress_grace_sec=120,
+        ),
+        Service(
+            # 치앙마이·푸켓 Wongnai 수집. 이틀짜리라 nohup 으로 두면 죽어도
+            # 아무도 안 살린다. 끝나면 스크립트가 run/wongnai_cities.disabled 를
+            # 직접 써서 재시작을 멈춘다(내용이 "ram_manager" 가 아니므로
+            # ram_manager 의 resume 이 지우지 않는다).
+            #
+            # progress_stale_sec 가 큰 이유: Wongnai 403 재시도가 20~60초씩
+            # 물러서서 실측 처리율이 2.2곳/분까지 떨어진다. 진행 줄은 5곳마다
+            # 찍히니 느린 구간엔 한 줄에 2~3분이 걸린다. 1800초면 그 변동을
+            # 덮는다. 브라우저를 안 써서 chrome_heavy 는 아니다.
+            name="wongnai_cities",
+            cmd=["bangkok_reviews/wongnai_cities.py"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "wongnai_cities.log",
+            progress_pattern=PROG_WONGNAI,
+            progress_stale_sec=1800,
+            progress_grace_sec=600,
         ),
         Service(
             name="bangkok_review",
