@@ -1365,12 +1365,18 @@ def _parse_cards(
             rid = card.get_attribute("data-review-id") or ""
 
             # 별점
+            # 2026-10-18: 로그인 모드에서 일부 장소는 별 아이콘(span[role=img])
+            # 없이 "5/5" 텍스트로 별점을 준다. 예전처럼 count 확인 없이
+            # get_attribute 를 부르면 카드마다 기본 타임아웃(15s)을 다 기다려
+            # 리뷰 100개 화면 하나에 25분이 걸렸고 별점은 전부 0 으로 저장됐다.
             star = 0
             try:
-                aria = card.locator('span[role="img"]').first.get_attribute("aria-label") or ""
-                m = re.search(r"(\d)", aria)
-                if m:
-                    star = int(m.group(1))
+                stars = card.locator('span[role="img"][aria-label]')
+                if stars.count() > 0:
+                    aria = stars.first.get_attribute("aria-label", timeout=1000) or ""
+                    m = re.search(r"(\d)", aria)
+                    if m:
+                        star = int(m.group(1))
             except Exception:
                 pass
 
@@ -1412,6 +1418,10 @@ def _parse_cards(
                 card_text = card.inner_text(timeout=2000)
             except Exception:
                 pass
+            if not star:
+                m = re.search(r"(?<![\d.])([1-5])/5(?!\d)", card_text)
+                if m:
+                    star = int(m.group(1))
 
             reviews.append(ReviewItem(
                 review_id=rid, place_id=place_id, restaurant_name=restaurant_name,
@@ -1687,6 +1697,7 @@ REVIEW_HEADER = [
 ]
 
 _TEXT_COL = REVIEW_HEADER.index("text")
+_RATING_COL = REVIEW_HEADER.index("rating")
 _THAI_CHARS = re.compile(r"[฀-๿]")
 
 
@@ -1712,6 +1723,11 @@ def review_row_is_better(new_row: list, old_row: list) -> bool:
     """
     new_t = (new_row[_TEXT_COL] or "").strip()
     old_t = (old_row[_TEXT_COL] or "").strip()
+    # 4. 기존 별점이 0 인데 새 별점이 있다 — 2026-10-18 별점 파서 버그(별
+    #    아이콘 없는 "5/5" 표기)로 0 으로 저장된 줄을 재수집 때 복구한다.
+    if str(old_row[_RATING_COL]) in ("0", "") and str(new_row[_RATING_COL]) not in ("0", "") \
+            and (new_t or not old_t):
+        return True
     if not new_t:
         return False
     if not old_t:
