@@ -130,6 +130,7 @@ def build_rows() -> list[dict]:
                                    and like_new.get('n', 0) >= GRADE_MIN else None),
             'rankable': bool(retention is not None and not (retail or {}).get('discontinued')
                              and sold.get('n', 0) >= RANK_MIN_SOLD),
+            'attributes': m.get('attributes') or {},
             'examples': m.get('examples') or [],
             'generated': generated,
         })

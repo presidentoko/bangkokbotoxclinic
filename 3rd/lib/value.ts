@@ -36,6 +36,8 @@ export interface Month {
   median: number | null
 }
 
+export interface AttrGroup { value: string; n: number; median: number }
+
 export interface ValueModel {
   slug: string
   item_slug: string
@@ -58,7 +60,10 @@ export interface ValueModel {
   retention: number | null
   like_new_vs_retail: number | null
   rankable: boolean
-  examples: { price: number; grade: Grade | null; link: string }[]
+  /** Median sold price split by what each listing says about itself:
+   *  colour (Vestiaire's own label), hardware, box/receipt, "vintage". */
+  attributes?: Partial<Record<'colour' | 'hardware' | 'full_set' | 'vintage', AttrGroup[]>>
+  examples: { price: number; grade: Grade | null; link: string; colour?: string | null; title?: string; month?: string | null }[]
   generated: string
 }
 

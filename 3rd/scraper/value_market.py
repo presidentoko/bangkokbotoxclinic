@@ -145,6 +145,43 @@ def monthly(listings: list[dict], truncated: bool) -> list[dict]:
     return out
 
 
+# What a seller writes that a buyer pays for. Each is read off the listing's
+# own title and description; a listing that says nothing either way counts
+# toward neither side. No material split: Vestiaire titles call Louis
+# Vuitton's coated canvas "leather", so the split would mislead.
+ATTRS = {
+    'hardware': [('gold', re.compile(r'ghw|gold[- ]?tone (?:hardware|metal)|gold hardware|gold-plated hardware')),
+                 ('silver', re.compile(r'shw|silver[- ]?tone (?:hardware|metal)|silver hardware|palladium|phw'))],
+    'full_set': [('with box or receipt', re.compile(r'full set|original box|with (?:the |its )?(?:original )?(?:box|receipt)|comes with (?:the |its )?(?:box|receipt)|box and dust ?bag|receipt')),],
+    'vintage': [('vintage', re.compile(r'vintage'))],
+}
+
+
+def group_medians(rows: list[tuple[str, int]], min_n: int = 5) -> list[dict]:
+    by: dict[str, list[int]] = defaultdict(list)
+    for k, v in rows:
+        if k:
+            by[k].append(v)
+    out = [{'value': k, 'n': len(v), 'median': round(statistics.median(v))} for k, v in by.items() if len(v) >= min_n]
+    return sorted(out, key=lambda r: -r['n'])
+
+
+def attributes(sold: list[dict]) -> dict:
+    """Median sold price split by what the listing says about itself."""
+    out: dict = {
+        'colour': group_medians([(l.get('colour'), l['price']) for l in sold]),
+    }
+    for key, opts in ATTRS.items():
+        rows = []
+        for l in sold:
+            hit = next((label for label, rx in opts if rx.search(l['text'])), None)
+            if len(opts) == 1:
+                hit = hit or 'not mentioned'
+            rows.append((hit, l['price']))
+        out[key] = group_medians(rows)
+    return out
+
+
 def collect(entry: dict, family_cache: dict) -> dict:
     ids = sorted(set(entry['ids']) | set(entry.get('exact_ids', [])))
     key = tuple(ids)
@@ -175,8 +212,11 @@ def collect(entry: dict, family_cache: dict) -> dict:
         # as such; never divided out into a per-size estimate.
         'family_stock': stock,
         'family_sold_total': sum(sold_counts.values()) if sold_counts else None,
-        'examples': [{'price': l['price'], 'grade': l['grade'], 'link': l['link']}
-                     for l in sorted(s, key=lambda l: -(l['listed'] or 0))[:6]],
+        'attributes': attributes(s),
+        'examples': [{'price': l['price'], 'grade': l['grade'], 'link': l['link'],
+                      'colour': l.get('colour'), 'title': l['name'],
+                      'month': month_of(l['listed'])}
+                     for l in sorted(s, key=lambda l: -(l['listed'] or 0))[:10]],
     }
 
 

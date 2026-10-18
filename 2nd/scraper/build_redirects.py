@@ -181,6 +181,17 @@ def main() -> None:
         seen.add(r['source'])
         uniq.append(r)
     OUT.write_text(json.dumps(uniq, indent=1), encoding='utf-8')
+    # A temporary sitemap of the old URLs, so Google recrawls them and sees
+    # the 308s instead of waiting for its normal recrawl cycle (two weeks
+    # after the move it had registered 19 of 471). Remove once Search Console
+    # shows the old URLs dropped from the index.
+    import datetime as _dt
+    today = _dt.date.today().isoformat()
+    locs = ''.join(f'<url><loc>https://www.secondluxuryitems.com{r["source"]}</loc><lastmod>{today}</lastmod></url>'
+                   for r in uniq)
+    (HERE / 'public' / 'legacy-sitemap.xml').write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{locs}</urlset>', encoding='utf-8')
     print(f'{len(uniq)} redirects -> {OUT}')
 
 

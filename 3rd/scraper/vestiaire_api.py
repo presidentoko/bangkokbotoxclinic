@@ -38,7 +38,7 @@ _HEADERS = {
 LOCALE = {'country': 'US', 'currency': 'USD', 'language': 'us'}
 
 FIELDS = ['name', 'description', 'price', 'condition', 'model', 'brand',
-          'baseCategory', 'category', 'createdAt', 'sold', 'link']
+          'baseCategory', 'category', 'createdAt', 'sold', 'link', 'colors']
 
 # Vestiaire's five grades folded into the three a buyer actually compares.
 GRADE = {1: 'A', 2: 'A', 3: 'B', 4: 'C', 5: 'C'}
@@ -85,7 +85,9 @@ def listing(raw: dict) -> dict | None:
     if not price or (raw.get('price') or {}).get('currency') != 'USD':
         return None
     cond = (raw.get('condition') or {}).get('id')
+    colours = [c.get('name') for c in ((raw.get('colors') or {}).get('all') or []) if c.get('name')]
     return {
+        'colour': colours[0] if len(colours) == 1 else ('Multicolour' if colours else None),
         'id': raw.get('id'),
         'price': round(price / 100),
         'grade': GRADE.get(cond),

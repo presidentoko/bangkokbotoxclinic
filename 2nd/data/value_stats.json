@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-02",
+ "generated": "2026-10-18",
  "models": [
   {
    "slug": "balenciaga-city-bag-medium",
@@ -8,35 +8,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 88,
-    "median": 1426,
-    "p25": 1184,
-    "p75": 1880
+    "n": 82,
+    "median": 1442,
+    "p25": 1146,
+    "p75": 1810
    },
    "grades": {
     "A": {
      "median": 2573,
-     "p25": 1455,
+     "p25": 2101,
      "p75": 2923,
      "n": 5
     },
     "B": {
      "median": 1522,
-     "p25": 1329,
-     "p75": 1974,
-     "n": 59
+     "p25": 1239,
+     "p75": 1972,
+     "n": 53
     },
     "C": {
-     "median": 1148,
-     "p25": 879,
-     "p75": 1360,
+     "median": 1196,
+     "p25": 978,
+     "p75": 1426,
      "n": 24
     }
    },
    "retail_usd": 2900,
    "retail_as_of": "2026-01",
    "retail_discontinued": false,
-   "retention": 49.2
+   "retention": 49.7
   },
   {
    "slug": "balenciaga-hourglass-small",
@@ -45,23 +45,23 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 24,
-    "median": 1010,
-    "p25": 778,
-    "p75": 1286
+    "n": 22,
+    "median": 966,
+    "p25": 775,
+    "p75": 1304
    },
    "grades": {
     "A": {
-     "median": 1248,
-     "p25": 1064,
-     "p75": 1466,
-     "n": 8
+     "median": 1312,
+     "p25": 1061,
+     "p75": 1574,
+     "n": 7
     },
     "B": {
-     "median": 842,
-     "p25": 719,
-     "p75": 1030,
-     "n": 14
+     "median": 839,
+     "p25": 736,
+     "p75": 1036,
+     "n": 13
     }
    },
    "retail_usd": null,
@@ -76,12 +76,19 @@
    "category": "handbags",
    "basis": "asking",
    "resale": {
-    "n": 19,
-    "median": 7502,
-    "p25": 5800,
-    "p75": 10288
+    "n": 17,
+    "median": 7250,
+    "p25": 5433,
+    "p75": 9300
    },
-   "grades": {},
+   "grades": {
+    "B": {
+     "median": 5604,
+     "p25": 4599,
+     "p75": 7083,
+     "n": 6
+    }
+   },
    "retail_usd": 8400,
    "retail_as_of": "2026-01",
    "retail_discontinued": false,
@@ -94,17 +101,17 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 14,
-    "median": 1145,
-    "p25": 954,
-    "p75": 1623
+    "n": 13,
+    "median": 1196,
+    "p25": 986,
+    "p75": 1751
    },
    "grades": {
     "B": {
-     "median": 1053,
-     "p25": 838,
-     "p75": 1361,
-     "n": 8
+     "median": 1012,
+     "p25": 689,
+     "p75": 1422,
+     "n": 7
     }
    },
    "retail_usd": null,
@@ -119,29 +126,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 292,
+    "n": 282,
     "median": 938,
-    "p25": 684,
-    "p75": 1218
+    "p25": 680,
+    "p75": 1235
    },
    "grades": {
     "A": {
-     "median": 1065,
-     "p25": 832,
-     "p75": 1359,
-     "n": 127
+     "median": 1087,
+     "p25": 816,
+     "p75": 1376,
+     "n": 121
     },
     "B": {
      "median": 852,
-     "p25": 569,
-     "p75": 1140,
-     "n": 133
+     "p25": 624,
+     "p75": 1204,
+     "n": 132
     },
     "C": {
-     "median": 744,
-     "p25": 540,
-     "p75": 996,
-     "n": 32
+     "median": 724,
+     "p25": 542,
+     "p75": 1013,
+     "n": 29
     }
    },
    "retail_usd": null,
@@ -156,23 +163,23 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 44,
-    "median": 2584,
-    "p25": 1762,
-    "p75": 3286
+    "n": 41,
+    "median": 2598,
+    "p25": 1775,
+    "p75": 3379
    },
    "grades": {
     "A": {
      "median": 2736,
-     "p25": 2181,
-     "p75": 3586,
-     "n": 19
+     "p25": 2154,
+     "p75": 3771,
+     "n": 17
     },
     "B": {
-     "median": 2486,
-     "p25": 1762,
-     "p75": 3084,
-     "n": 20
+     "median": 2691,
+     "p25": 1962,
+     "p75": 3286,
+     "n": 19
     },
     "C": {
      "median": 2228,
@@ -184,7 +191,7 @@
    "retail_usd": 3900,
    "retail_as_of": "2026-01",
    "retail_discontinued": false,
-   "retention": 66.3
+   "retention": 66.6
   },
   {
    "slug": "bottega-veneta-mini-jodie-bag",
@@ -193,35 +200,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 243,
-    "median": 1645,
-    "p25": 1340,
-    "p75": 1972
+    "n": 231,
+    "median": 1662,
+    "p25": 1348,
+    "p75": 2012
    },
    "grades": {
     "A": {
-     "median": 1815,
-     "p25": 1510,
-     "p75": 2141,
-     "n": 96
+     "median": 1829,
+     "p25": 1531,
+     "p75": 2182,
+     "n": 93
     },
     "B": {
-     "median": 1520,
-     "p25": 1304,
-     "p75": 1876,
-     "n": 130
+     "median": 1581,
+     "p25": 1300,
+     "p75": 1906,
+     "n": 122
     },
     "C": {
-     "median": 1214,
-     "p25": 978,
-     "p75": 1436,
-     "n": 17
+     "median": 1144,
+     "p25": 968,
+     "p75": 1512,
+     "n": 16
     }
    },
    "retail_usd": 2950,
    "retail_as_of": "2026-01",
    "retail_discontinued": false,
-   "retention": 55.8
+   "retention": 56.3
   },
   {
    "slug": "bottega-veneta-mini-pouch",
@@ -230,23 +237,23 @@
    "category": "small-leather-goods",
    "basis": "sold",
    "resale": {
-    "n": 181,
-    "median": 965,
-    "p25": 786,
-    "p75": 1289
+    "n": 168,
+    "median": 986,
+    "p25": 762,
+    "p75": 1308
    },
    "grades": {
     "A": {
-     "median": 996,
-     "p25": 824,
-     "p75": 1266,
-     "n": 83
+     "median": 1008,
+     "p25": 819,
+     "p75": 1310,
+     "n": 78
     },
     "B": {
-     "median": 946,
-     "p25": 813,
-     "p75": 1296,
-     "n": 88
+     "median": 957,
+     "p25": 783,
+     "p75": 1312,
+     "n": 80
     },
     "C": {
      "median": 880,
@@ -268,34 +275,34 @@
    "basis": "sold",
    "resale": {
     "n": 228,
-    "median": 1938,
-    "p25": 1601,
-    "p75": 2790
+    "median": 1955,
+    "p25": 1621,
+    "p75": 2764
    },
    "grades": {
     "A": {
      "median": 1834,
-     "p25": 1676,
+     "p25": 1659,
      "p75": 2063,
-     "n": 84
+     "n": 90
     },
     "B": {
-     "median": 2029,
+     "median": 2126,
      "p25": 1538,
-     "p75": 2883,
-     "n": 111
+     "p75": 2918,
+     "n": 104
     },
     "C": {
-     "median": 2460,
-     "p25": 1847,
-     "p75": 3436,
-     "n": 33
+     "median": 2558,
+     "p25": 1867,
+     "p75": 3506,
+     "n": 34
     }
    },
    "retail_usd": 3200,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 60.6
+   "retention": 61.1
   },
   {
    "slug": "bulgari-serpenti-bracelet",
@@ -304,23 +311,23 @@
    "category": "jewelry",
    "basis": "sold",
    "resale": {
-    "n": 66,
-    "median": 392,
-    "p25": 311,
-    "p75": 684
+    "n": 67,
+    "median": 376,
+    "p25": 276,
+    "p75": 651
    },
    "grades": {
     "A": {
      "median": 376,
-     "p25": 281,
-     "p75": 468,
-     "n": 28
+     "p25": 277,
+     "p75": 482,
+     "n": 30
     },
     "B": {
-     "median": 446,
-     "p25": 328,
-     "p75": 8962,
-     "n": 31
+     "median": 411,
+     "p25": 288,
+     "p75": 6076,
+     "n": 30
     },
     "C": {
      "median": 321,
@@ -341,10 +348,10 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 42,
-    "median": 970,
-    "p25": 800,
-    "p75": 1260
+    "n": 40,
+    "median": 1003,
+    "p25": 784,
+    "p75": 1274
    },
    "grades": {
     "A": {
@@ -354,10 +361,10 @@
      "n": 6
     },
     "B": {
-     "median": 967,
-     "p25": 805,
-     "p75": 1147,
-     "n": 33
+     "median": 973,
+     "p25": 836,
+     "p75": 1184,
+     "n": 31
     }
    },
    "retail_usd": null,
@@ -372,14 +379,32 @@
    "category": "handbags",
    "basis": "asking",
    "resale": {
-    "n": 64,
-    "median": 1065,
-    "p25": 776,
-    "p75": 1334
+    "n": 73,
+    "median": 1067,
+    "p25": 785,
+    "p75": 1241
    },
    "grades": {},
    "retail_usd": 2150,
    "retail_as_of": "2026",
+   "retail_discontinued": false,
+   "retention": null
+  },
+  {
+   "slug": "cartier-ballon-bleu-36mm",
+   "brand": "Cartier",
+   "name": "Ballon Bleu 36mm",
+   "category": "watches",
+   "basis": "asking",
+   "resale": {
+    "n": 16,
+    "median": 5878,
+    "p25": 5703,
+    "p75": 6635
+   },
+   "grades": {},
+   "retail_usd": 7500,
+   "retail_as_of": "2026-10",
    "retail_discontinued": false,
    "retention": null
   },
@@ -390,10 +415,10 @@
    "category": "watches",
    "basis": "asking",
    "resale": {
-    "n": 18,
-    "median": 8132,
-    "p25": 6990,
-    "p75": 9164
+    "n": 46,
+    "median": 6067,
+    "p25": 5612,
+    "p75": 6918
    },
    "grades": {},
    "retail_usd": 8200,
@@ -408,35 +433,35 @@
    "category": "jewelry",
    "basis": "sold",
    "resale": {
-    "n": 110,
-    "median": 5554,
-    "p25": 5041,
-    "p75": 7875
+    "n": 100,
+    "median": 5555,
+    "p25": 5134,
+    "p75": 7734
    },
    "grades": {
     "A": {
-     "median": 7945,
-     "p25": 6829,
-     "p75": 8389,
-     "n": 16
+     "median": 7862,
+     "p25": 5788,
+     "p75": 8229,
+     "n": 20
     },
     "B": {
-     "median": 5553,
-     "p25": 4963,
-     "p75": 6788,
-     "n": 76
+     "median": 5554,
+     "p25": 5130,
+     "p75": 6654,
+     "n": 64
     },
     "C": {
-     "median": 5286,
-     "p25": 4781,
-     "p75": 5561,
-     "n": 18
+     "median": 5284,
+     "p25": 4720,
+     "p75": 5533,
+     "n": 16
     }
    },
    "retail_usd": 8700,
    "retail_as_of": "2026-10",
    "retail_discontinued": false,
-   "retention": 63.8
+   "retention": 63.9
   },
   {
    "slug": "cartier-love-bracelet",
@@ -445,23 +470,23 @@
    "category": "jewelry",
    "basis": "sold",
    "resale": {
-    "n": 134,
-    "median": 6300,
-    "p25": 2576,
-    "p75": 8186
+    "n": 126,
+    "median": 6248,
+    "p25": 2712,
+    "p75": 8118
    },
    "grades": {
     "A": {
-     "median": 8138,
-     "p25": 5865,
+     "median": 8477,
+     "p25": 5817,
      "p75": 9774,
-     "n": 18
+     "n": 17
     },
     "B": {
-     "median": 6259,
-     "p25": 2417,
-     "p75": 7945,
-     "n": 93
+     "median": 6245,
+     "p25": 2490,
+     "p75": 7736,
+     "n": 86
     },
     "C": {
      "median": 6123,
@@ -473,7 +498,7 @@
    "retail_usd": 7950,
    "retail_as_of": "2025-09",
    "retail_discontinued": false,
-   "retention": 79.2
+   "retention": 78.6
   },
   {
    "slug": "cartier-love-necklace",
@@ -482,29 +507,35 @@
    "category": "jewelry",
    "basis": "sold",
    "resale": {
-    "n": 52,
-    "median": 2925,
-    "p25": 2598,
-    "p75": 3466
+    "n": 58,
+    "median": 2950,
+    "p25": 2578,
+    "p75": 3355
    },
    "grades": {
     "A": {
-     "median": 3425,
-     "p25": 2852,
-     "p75": 4542,
-     "n": 12
+     "median": 3187,
+     "p25": 2756,
+     "p75": 3882,
+     "n": 16
     },
     "B": {
-     "median": 2854,
-     "p25": 2561,
-     "p75": 3290,
-     "n": 36
+     "median": 2871,
+     "p25": 2608,
+     "p75": 3277,
+     "n": 37
+    },
+    "C": {
+     "median": 2630,
+     "p25": 861,
+     "p75": 3145,
+     "n": 5
     }
    },
    "retail_usd": 2830,
    "retail_as_of": "2026-10",
    "retail_discontinued": false,
-   "retention": 103.4
+   "retention": 104.2
   },
   {
    "slug": "cartier-love-ring",
@@ -513,35 +544,35 @@
    "category": "jewelry",
    "basis": "sold",
    "resale": {
-    "n": 464,
-    "median": 1778,
-    "p25": 1443,
-    "p75": 2287
+    "n": 441,
+    "median": 1755,
+    "p25": 1448,
+    "p75": 2279
    },
    "grades": {
     "A": {
-     "median": 1959,
-     "p25": 1586,
-     "p75": 2316,
-     "n": 137
+     "median": 1945,
+     "p25": 1568,
+     "p75": 2293,
+     "n": 149
     },
     "B": {
      "median": 1640,
-     "p25": 1398,
-     "p75": 2092,
-     "n": 212
+     "p25": 1393,
+     "p75": 2076,
+     "n": 193
     },
     "C": {
-     "median": 1755,
-     "p25": 1304,
-     "p75": 2340,
-     "n": 115
+     "median": 1744,
+     "p25": 1356,
+     "p75": 2397,
+     "n": 99
     }
    },
    "retail_usd": 2160,
    "retail_as_of": "2026-10",
    "retail_discontinued": false,
-   "retention": 82.3
+   "retention": 81.2
   },
   {
    "slug": "cartier-panthere-de-cartier-bracelet",
@@ -551,9 +582,9 @@
    "basis": "asking",
    "resale": {
     "n": 28,
-    "median": 24164,
-    "p25": 17442,
-    "p75": 30513
+    "median": 22565,
+    "p25": 16093,
+    "p75": 29200
    },
    "grades": {},
    "retail_usd": null,
@@ -568,23 +599,23 @@
    "category": "watches",
    "basis": "sold",
    "resale": {
-    "n": 83,
-    "median": 7148,
-    "p25": 5262,
-    "p75": 8576
+    "n": 81,
+    "median": 6808,
+    "p25": 5053,
+    "p75": 8562
    },
    "grades": {
     "B": {
-     "median": 7854,
-     "p25": 5745,
-     "p75": 8999,
-     "n": 65
+     "median": 7794,
+     "p25": 5075,
+     "p75": 9000,
+     "n": 60
     },
     "C": {
-     "median": 5470,
-     "p25": 3988,
-     "p75": 6690,
-     "n": 14
+     "median": 5654,
+     "p25": 4250,
+     "p75": 6808,
+     "n": 17
     }
    },
    "retail_usd": 5300,
@@ -599,21 +630,21 @@
    "category": "watches",
    "basis": "sold",
    "resale": {
-    "n": 177,
-    "median": 3746,
-    "p25": 2951,
-    "p75": 4238
+    "n": 174,
+    "median": 3700,
+    "p25": 2886,
+    "p75": 4237
    },
    "grades": {
     "B": {
-     "median": 3945,
-     "p25": 3398,
-     "p75": 4368,
-     "n": 132
+     "median": 3942,
+     "p25": 3327,
+     "p75": 4386,
+     "n": 130
     },
     "C": {
      "median": 2678,
-     "p25": 1981,
+     "p25": 2087,
      "p75": 3214,
      "n": 41
     }
@@ -655,29 +686,29 @@
    "category": "jewelry",
    "basis": "sold",
    "resale": {
-    "n": 132,
-    "median": 1922,
-    "p25": 1529,
-    "p75": 2435
+    "n": 127,
+    "median": 1892,
+    "p25": 1494,
+    "p75": 2422
    },
    "grades": {
     "A": {
-     "median": 2468,
-     "p25": 2100,
-     "p75": 2730,
-     "n": 16
+     "median": 2556,
+     "p25": 1909,
+     "p75": 2732,
+     "n": 15
     },
     "B": {
-     "median": 1922,
-     "p25": 1593,
-     "p75": 2328,
-     "n": 92
+     "median": 1892,
+     "p25": 1522,
+     "p75": 2306,
+     "n": 91
     },
     "C": {
-     "median": 1691,
-     "p25": 1119,
-     "p75": 2149,
-     "n": 24
+     "median": 1735,
+     "p25": 1173,
+     "p75": 2058,
+     "n": 21
     }
    },
    "retail_usd": null,
@@ -692,19 +723,12 @@
    "category": "handbags",
    "basis": "asking",
    "resale": {
-    "n": 25,
-    "median": 1576,
-    "p25": 1309,
-    "p75": 1666
+    "n": 18,
+    "median": 1461,
+    "p25": 1262,
+    "p75": 1558
    },
-   "grades": {
-    "A": {
-     "median": 621,
-     "p25": 261,
-     "p75": 712,
-     "n": 5
-    }
-   },
+   "grades": {},
    "retail_usd": null,
    "retail_as_of": null,
    "retail_discontinued": false,
@@ -717,35 +741,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 36,
-    "median": 1074,
-    "p25": 817,
-    "p75": 1537
+    "n": 33,
+    "median": 1058,
+    "p25": 853,
+    "p75": 1454
    },
    "grades": {
     "A": {
-     "median": 1500,
-     "p25": 978,
-     "p75": 1927,
+     "median": 1068,
+     "p25": 932,
+     "p75": 1757,
      "n": 6
     },
     "B": {
      "median": 1282,
-     "p25": 858,
-     "p75": 1646,
-     "n": 20
+     "p25": 926,
+     "p75": 1617,
+     "n": 18
     },
     "C": {
-     "median": 828,
-     "p25": 749,
-     "p75": 926,
-     "n": 10
+     "median": 854,
+     "p25": 748,
+     "p75": 950,
+     "n": 9
     }
    },
    "retail_usd": 2850,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 37.7
+   "retention": 37.1
   },
   {
    "slug": "celine-classic-box",
@@ -754,29 +778,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 293,
-    "median": 979,
-    "p25": 680,
-    "p75": 1237
+    "n": 287,
+    "median": 961,
+    "p25": 658,
+    "p75": 1218
    },
    "grades": {
     "A": {
      "median": 1668,
      "p25": 1318,
-     "p75": 2328,
+     "p75": 2293,
      "n": 17
     },
     "B": {
-     "median": 995,
-     "p25": 703,
-     "p75": 1237,
-     "n": 225
+     "median": 994,
+     "p25": 702,
+     "p75": 1223,
+     "n": 216
     },
     "C": {
-     "median": 715,
-     "p25": 468,
-     "p75": 946,
-     "n": 51
+     "median": 710,
+     "p25": 446,
+     "p75": 935,
+     "n": 54
     }
    },
    "retail_usd": 4200,
@@ -791,10 +815,10 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 64,
-    "median": 920,
-    "p25": 728,
-    "p75": 1173
+    "n": 65,
+    "median": 940,
+    "p25": 704,
+    "p75": 1172
    },
    "grades": {
     "A": {
@@ -804,16 +828,16 @@
      "n": 7
     },
     "B": {
-     "median": 920,
-     "p25": 736,
+     "median": 940,
+     "p25": 720,
      "p75": 1120,
      "n": 47
     },
     "C": {
-     "median": 692,
-     "p25": 474,
-     "p75": 776,
-     "n": 10
+     "median": 737,
+     "p25": 484,
+     "p75": 839,
+     "n": 11
     }
    },
    "retail_usd": null,
@@ -828,23 +852,23 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 50,
-    "median": 1206,
-    "p25": 912,
-    "p75": 1499
+    "n": 44,
+    "median": 1137,
+    "p25": 886,
+    "p75": 1403
    },
    "grades": {
     "B": {
-     "median": 1294,
-     "p25": 995,
-     "p75": 1482,
-     "n": 36
+     "median": 1216,
+     "p25": 994,
+     "p75": 1402,
+     "n": 29
     },
     "C": {
-     "median": 805,
-     "p25": 649,
+     "median": 895,
+     "p25": 671,
      "p75": 973,
-     "n": 10
+     "n": 11
     }
    },
    "retail_usd": null,
@@ -859,29 +883,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 776,
-    "median": 1115,
+    "n": 778,
+    "median": 1128,
     "p25": 578,
-    "p75": 2211
+    "p75": 2251
    },
    "grades": {
     "A": {
-     "median": 2097,
-     "p25": 1036,
-     "p75": 2776,
-     "n": 192
+     "median": 2104,
+     "p25": 1045,
+     "p75": 2795,
+     "n": 198
     },
     "B": {
-     "median": 1083,
+     "median": 1092,
      "p25": 564,
-     "p75": 2096,
-     "n": 483
+     "p75": 2136,
+     "n": 475
     },
     "C": {
-     "median": 506,
-     "p25": 301,
-     "p75": 699,
-     "n": 101
+     "median": 510,
+     "p25": 336,
+     "p75": 718,
+     "n": 105
     }
    },
    "retail_usd": null,
@@ -896,23 +920,23 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 36,
-    "median": 4414,
-    "p25": 3802,
-    "p75": 5016
+    "n": 39,
+    "median": 4250,
+    "p25": 3764,
+    "p75": 5020
    },
    "grades": {
     "A": {
-     "median": 4727,
-     "p25": 3802,
-     "p75": 5223,
-     "n": 8
+     "median": 4095,
+     "p25": 3764,
+     "p75": 4727,
+     "n": 7
     },
     "B": {
      "median": 4434,
-     "p25": 4140,
-     "p75": 5016,
-     "n": 24
+     "p25": 4091,
+     "p75": 5039,
+     "n": 28
     }
    },
    "retail_usd": null,
@@ -927,17 +951,17 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 33,
-    "median": 4535,
-    "p25": 3870,
-    "p75": 4962
+    "n": 31,
+    "median": 4622,
+    "p25": 3948,
+    "p75": 5052
    },
    "grades": {
     "B": {
-     "median": 4404,
-     "p25": 3870,
-     "p75": 4832,
-     "n": 29
+     "median": 4578,
+     "p25": 3909,
+     "p75": 4990,
+     "n": 26
     }
    },
    "retail_usd": null,
@@ -952,10 +976,10 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 26,
-    "median": 5530,
-    "p25": 4562,
-    "p75": 6332
+    "n": 25,
+    "median": 5550,
+    "p25": 5045,
+    "p75": 6354
    },
    "grades": {
     "A": {
@@ -965,16 +989,16 @@
      "n": 6
     },
     "B": {
-     "median": 5247,
-     "p25": 4266,
-     "p75": 5667,
-     "n": 18
+     "median": 5413,
+     "p25": 4239,
+     "p75": 5706,
+     "n": 17
     }
    },
    "retail_usd": 6100,
    "retail_as_of": "2026-04",
    "retail_discontinued": false,
-   "retention": 90.7
+   "retention": 91.0
   },
   {
    "slug": "chanel-boy-bag-medium",
@@ -983,29 +1007,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 102,
+    "n": 100,
     "median": 3320,
-    "p25": 2650,
-    "p75": 4164
+    "p25": 2728,
+    "p75": 4122
    },
    "grades": {
     "A": {
      "median": 4532,
-     "p25": 3900,
-     "p75": 4786,
-     "n": 17
+     "p25": 3804,
+     "p75": 5193,
+     "n": 15
     },
     "B": {
-     "median": 3306,
-     "p25": 2654,
-     "p75": 4078,
-     "n": 66
+     "median": 3422,
+     "p25": 2794,
+     "p75": 4086,
+     "n": 65
     },
     "C": {
-     "median": 2714,
-     "p25": 1946,
-     "p75": 3274,
-     "n": 19
+     "median": 2623,
+     "p25": 1910,
+     "p75": 3258,
+     "n": 20
     }
    },
    "retail_usd": 7400,
@@ -1020,35 +1044,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 48,
-    "median": 3330,
-    "p25": 2596,
-    "p75": 4349
+    "n": 38,
+    "median": 3123,
+    "p25": 2590,
+    "p75": 4297
    },
    "grades": {
-    "A": {
-     "median": 5411,
-     "p25": 4075,
-     "p75": 6039,
-     "n": 6
-    },
     "B": {
-     "median": 3388,
-     "p25": 2631,
-     "p75": 4297,
-     "n": 34
+     "median": 2972,
+     "p25": 2600,
+     "p75": 4216,
+     "n": 29
     },
     "C": {
-     "median": 2491,
-     "p25": 1563,
-     "p75": 2732,
-     "n": 8
+     "median": 2586,
+     "p25": 1582,
+     "p75": 3096,
+     "n": 5
     }
    },
    "retail_usd": 6900,
    "retail_as_of": "2026-04",
    "retail_discontinued": false,
-   "retention": 48.3
+   "retention": 45.3
   },
   {
    "slug": "chanel-boy-wallet-on-chain",
@@ -1057,35 +1075,35 @@
    "category": "small-leather-goods",
    "basis": "sold",
    "resale": {
-    "n": 40,
-    "median": 2510,
-    "p25": 1579,
-    "p75": 3034
+    "n": 37,
+    "median": 2701,
+    "p25": 1634,
+    "p75": 3179
    },
    "grades": {
     "A": {
-     "median": 3847,
-     "p25": 2985,
+     "median": 2985,
+     "p25": 1685,
      "p75": 4488,
      "n": 5
     },
     "B": {
-     "median": 2726,
-     "p25": 2186,
-     "p75": 2977,
+     "median": 2756,
+     "p25": 2056,
+     "p75": 3200,
      "n": 24
     },
     "C": {
-     "median": 1272,
-     "p25": 1100,
-     "p75": 1662,
-     "n": 11
+     "median": 1348,
+     "p25": 1116,
+     "p75": 1648,
+     "n": 8
     }
    },
    "retail_usd": 3675,
    "retail_as_of": "2026-04",
    "retail_discontinued": false,
-   "retention": 68.3
+   "retention": 73.5
   },
   {
    "slug": "chanel-classic-card-holder",
@@ -1094,29 +1112,29 @@
    "category": "small-leather-goods",
    "basis": "sold",
    "resale": {
-    "n": 22,
-    "median": 640,
-    "p25": 534,
-    "p75": 828
+    "n": 16,
+    "median": 633,
+    "p25": 536,
+    "p75": 914
    },
    "grades": {
     "A": {
-     "median": 892,
-     "p25": 784,
+     "median": 784,
+     "p25": 623,
      "p75": 984,
-     "n": 5
+     "n": 9
     },
     "B": {
      "median": 600,
-     "p25": 532,
-     "p75": 747,
-     "n": 13
+     "p25": 579,
+     "p75": 643,
+     "n": 5
     }
    },
    "retail_usd": 525,
    "retail_as_of": "2025",
    "retail_discontinued": false,
-   "retention": 121.9
+   "retention": 120.6
   },
   {
    "slug": "chanel-classic-flap-jumbo",
@@ -1125,35 +1143,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 49,
-    "median": 5256,
-    "p25": 4004,
-    "p75": 7208
+    "n": 38,
+    "median": 4828,
+    "p25": 3971,
+    "p75": 7200
    },
    "grades": {
     "A": {
-     "median": 9822,
-     "p25": 9532,
-     "p75": 10210,
-     "n": 11
+     "median": 9737,
+     "p25": 9503,
+     "p75": 9963,
+     "n": 6
     },
     "B": {
-     "median": 5092,
-     "p25": 3993,
-     "p75": 5800,
-     "n": 28
+     "median": 4580,
+     "p25": 3960,
+     "p75": 5579,
+     "n": 25
     },
     "C": {
-     "median": 3867,
-     "p25": 2969,
-     "p75": 4608,
-     "n": 10
+     "median": 4061,
+     "p25": 3368,
+     "p75": 5656,
+     "n": 7
     }
    },
    "retail_usd": 12600,
    "retail_as_of": "2026-04",
    "retail_discontinued": false,
-   "retention": 41.7
+   "retention": 38.3
   },
   {
    "slug": "chanel-classic-flap-medium",
@@ -1162,35 +1180,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 71,
-    "median": 5596,
-    "p25": 3970,
-    "p75": 7384
+    "n": 65,
+    "median": 5558,
+    "p25": 3808,
+    "p75": 7498
    },
    "grades": {
     "A": {
      "median": 9398,
-     "p25": 7183,
-     "p75": 11192,
-     "n": 13
+     "p25": 8212,
+     "p75": 10420,
+     "n": 11
     },
     "B": {
-     "median": 5604,
-     "p25": 4315,
-     "p75": 7261,
-     "n": 38
+     "median": 5358,
+     "p25": 3819,
+     "p75": 7377,
+     "n": 37
     },
     "C": {
-     "median": 3873,
-     "p25": 2316,
-     "p75": 4699,
-     "n": 20
+     "median": 3810,
+     "p25": 2243,
+     "p75": 4816,
+     "n": 17
     }
    },
    "retail_usd": 11700,
    "retail_as_of": "2026-04",
    "retail_discontinued": false,
-   "retention": 47.8
+   "retention": 47.5
   },
   {
    "slug": "chanel-classic-flap-mini",
@@ -1199,29 +1217,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 35,
-    "median": 3486,
-    "p25": 2404,
-    "p75": 4388
+    "n": 29,
+    "median": 3028,
+    "p25": 2345,
+    "p75": 4112
    },
    "grades": {
+    "A": {
+     "median": 6272,
+     "p25": 5310,
+     "p75": 6463,
+     "n": 6
+    },
     "B": {
-     "median": 3921,
-     "p25": 3028,
-     "p75": 4342,
-     "n": 21
+     "median": 3078,
+     "p25": 2364,
+     "p75": 3805,
+     "n": 14
     },
     "C": {
      "median": 2387,
-     "p25": 2114,
-     "p75": 3250,
-     "n": 11
+     "p25": 1575,
+     "p75": 2849,
+     "n": 9
     }
    },
    "retail_usd": 5400,
    "retail_as_of": "2026-04",
    "retail_discontinued": false,
-   "retention": 64.6
+   "retention": 56.1
   },
   {
    "slug": "chanel-classic-flap-small",
@@ -1230,35 +1254,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 63,
-    "median": 4371,
-    "p25": 2724,
-    "p75": 6236
+    "n": 66,
+    "median": 3856,
+    "p25": 2482,
+    "p75": 5762
    },
    "grades": {
     "A": {
-     "median": 8863,
-     "p25": 6880,
-     "p75": 10820,
-     "n": 7
+     "median": 7861,
+     "p25": 6399,
+     "p75": 9702,
+     "n": 9
     },
     "B": {
-     "median": 5189,
-     "p25": 2996,
-     "p75": 6197,
-     "n": 44
+     "median": 3894,
+     "p25": 3042,
+     "p75": 5575,
+     "n": 41
     },
     "C": {
-     "median": 2382,
-     "p25": 1398,
-     "p75": 2829,
-     "n": 12
+     "median": 2418,
+     "p25": 1682,
+     "p75": 3188,
+     "n": 16
     }
    },
    "retail_usd": 11300,
    "retail_as_of": "2026-04",
    "retail_discontinued": false,
-   "retention": 38.7
+   "retention": 34.1
   },
   {
    "slug": "chanel-coco-handle-small",
@@ -1267,17 +1291,17 @@
    "category": "handbags",
    "basis": "asking",
    "resale": {
-    "n": 32,
-    "median": 6180,
-    "p25": 5610,
-    "p75": 8078
+    "n": 36,
+    "median": 6284,
+    "p25": 5832,
+    "p75": 7585
    },
    "grades": {
     "B": {
-     "median": 6016,
-     "p25": 5725,
-     "p75": 6972,
-     "n": 6
+     "median": 6232,
+     "p25": 5321,
+     "p75": 7219,
+     "n": 5
     }
    },
    "retail_usd": null,
@@ -1292,12 +1316,18 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 26,
-    "median": 2762,
-    "p25": 2324,
-    "p75": 4321
+    "n": 28,
+    "median": 3014,
+    "p25": 2405,
+    "p75": 4306
    },
    "grades": {
+    "A": {
+     "median": 4562,
+     "p25": 3653,
+     "p75": 5522,
+     "n": 6
+    },
     "B": {
      "median": 3329,
      "p25": 2670,
@@ -1305,7 +1335,7 @@
      "n": 13
     },
     "C": {
-     "median": 2373,
+     "median": 2436,
      "p25": 2140,
      "p75": 2633,
      "n": 9
@@ -1323,23 +1353,23 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 81,
-    "median": 2322,
-    "p25": 2174,
-    "p75": 2701
+    "n": 87,
+    "median": 2313,
+    "p25": 2182,
+    "p75": 2586
    },
    "grades": {
     "A": {
-     "median": 3030,
-     "p25": 2795,
-     "p75": 3135,
-     "n": 6
+     "median": 2726,
+     "p25": 2473,
+     "p75": 3080,
+     "n": 7
     },
     "B": {
-     "median": 2304,
-     "p25": 2173,
-     "p75": 2640,
-     "n": 67
+     "median": 2299,
+     "p25": 2179,
+     "p75": 2581,
+     "n": 72
     },
     "C": {
      "median": 2283,
@@ -1360,35 +1390,66 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 199,
-    "median": 2366,
-    "p25": 1675,
-    "p75": 3078
+    "n": 187,
+    "median": 2373,
+    "p25": 1668,
+    "p75": 3110
    },
    "grades": {
     "A": {
-     "median": 3673,
-     "p25": 2890,
-     "p75": 4172,
-     "n": 12
+     "median": 3920,
+     "p25": 3390,
+     "p75": 4209,
+     "n": 13
     },
     "B": {
-     "median": 2618,
-     "p25": 1992,
-     "p75": 3152,
-     "n": 139
+     "median": 2644,
+     "p25": 1997,
+     "p75": 3178,
+     "n": 128
     },
     "C": {
-     "median": 1598,
-     "p25": 1241,
-     "p75": 1990,
-     "n": 48
+     "median": 1566,
+     "p25": 1228,
+     "p75": 1957,
+     "n": 46
     }
    },
    "retail_usd": 2900,
    "retail_as_of": "2015",
    "retail_discontinued": true,
-   "retention": 81.6
+   "retention": 81.8
+  },
+  {
+   "slug": "chanel-mini-rectangular-flap",
+   "brand": "Chanel",
+   "name": "Mini Rectangular Flap",
+   "category": "handbags",
+   "basis": "sold",
+   "resale": {
+    "n": 13,
+    "median": 4573,
+    "p25": 2899,
+    "p75": 5959
+   },
+   "grades": {
+    "B": {
+     "median": 5192,
+     "p25": 2899,
+     "p75": 5798,
+     "n": 5
+    },
+    "C": {
+     "median": 2967,
+     "p25": 2088,
+     "p75": 3286,
+     "n": 5
+    }
+   },
+   "retail_usd": 5600,
+   "retail_as_of": "2026-04",
+   "retail_discontinued": false,
+   "retention": 81.7
   },
   {
    "slug": "chanel-vanity-case-small",
@@ -1397,23 +1458,23 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 16,
-    "median": 3887,
-    "p25": 2438,
-    "p75": 4235
+    "n": 13,
+    "median": 4057,
+    "p25": 2565,
+    "p75": 4261
    },
    "grades": {
     "B": {
-     "median": 3562,
-     "p25": 2362,
-     "p75": 4130,
-     "n": 14
+     "median": 3717,
+     "p25": 2520,
+     "p75": 4153,
+     "n": 11
     }
    },
    "retail_usd": 2975,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 130.7
+   "retention": 136.4
   },
   {
    "slug": "chanel-wallet-on-chain",
@@ -1422,35 +1483,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 577,
-    "median": 1767,
-    "p25": 908,
-    "p75": 2932
+    "n": 554,
+    "median": 1774,
+    "p25": 918,
+    "p75": 2933
    },
    "grades": {
     "A": {
-     "median": 3949,
-     "p25": 2766,
-     "p75": 4890,
-     "n": 57
+     "median": 4267,
+     "p25": 3174,
+     "p75": 5014,
+     "n": 56
     },
     "B": {
-     "median": 2058,
-     "p25": 1378,
-     "p75": 3018,
+     "median": 2053,
+     "p25": 1386,
+     "p75": 2968,
      "n": 344
     },
     "C": {
-     "median": 812,
-     "p25": 550,
-     "p75": 1185,
-     "n": 176
+     "median": 788,
+     "p25": 518,
+     "p75": 1119,
+     "n": 154
     }
    },
    "retail_usd": 3850,
    "retail_as_of": "2026-04",
    "retail_discontinued": false,
-   "retention": 45.9
+   "retention": 46.1
   },
   {
    "slug": "chopard-happy-sport-bracelet",
@@ -1459,19 +1520,12 @@
    "category": "jewelry",
    "basis": "asking",
    "resale": {
-    "n": 32,
-    "median": 7338,
-    "p25": 4914,
-    "p75": 12220
+    "n": 28,
+    "median": 5918,
+    "p25": 3748,
+    "p75": 11023
    },
-   "grades": {
-    "B": {
-     "median": 3585,
-     "p25": 2817,
-     "p75": 5501,
-     "n": 5
-    }
-   },
+   "grades": {},
    "retail_usd": null,
    "retail_as_of": null,
    "retail_discontinued": false,
@@ -1484,35 +1538,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 245,
-    "median": 425,
-    "p25": 330,
-    "p75": 570
+    "n": 246,
+    "median": 422,
+    "p25": 319,
+    "p75": 559
    },
    "grades": {
     "A": {
-     "median": 542,
-     "p25": 435,
-     "p75": 679,
-     "n": 121
+     "median": 532,
+     "p25": 425,
+     "p75": 676,
+     "n": 120
     },
     "B": {
-     "median": 342,
-     "p25": 291,
-     "p75": 420,
-     "n": 116
+     "median": 339,
+     "p25": 284,
+     "p75": 419,
+     "n": 115
     },
     "C": {
-     "median": 312,
-     "p25": 236,
-     "p75": 403,
-     "n": 8
+     "median": 285,
+     "p25": 233,
+     "p75": 368,
+     "n": 11
     }
    },
    "retail_usd": 475,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 89.5
+   "retention": 88.8
   },
   {
    "slug": "dior-30-montaigne",
@@ -1521,29 +1575,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 286,
-    "median": 606,
-    "p25": 406,
-    "p75": 1290
+    "n": 278,
+    "median": 586,
+    "p25": 388,
+    "p75": 1232
    },
    "grades": {
     "A": {
-     "median": 1270,
-     "p25": 1076,
-     "p75": 1644,
-     "n": 57
+     "median": 1258,
+     "p25": 1077,
+     "p75": 1625,
+     "n": 50
     },
     "B": {
-     "median": 635,
-     "p25": 372,
-     "p75": 1403,
-     "n": 142
+     "median": 600,
+     "p25": 361,
+     "p75": 1307,
+     "n": 148
     },
     "C": {
-     "median": 503,
-     "p25": 348,
-     "p75": 586,
-     "n": 87
+     "median": 507,
+     "p25": 362,
+     "p75": 584,
+     "n": 80
     }
    },
    "retail_usd": null,
@@ -1558,29 +1612,29 @@
    "category": "small-leather-goods",
    "basis": "sold",
    "resale": {
-    "n": 355,
-    "median": 551,
-    "p25": 310,
-    "p75": 1140
+    "n": 353,
+    "median": 516,
+    "p25": 306,
+    "p75": 1019
    },
    "grades": {
     "A": {
-     "median": 1162,
-     "p25": 687,
-     "p75": 1509,
-     "n": 74
+     "median": 1111,
+     "p25": 452,
+     "p75": 1450,
+     "n": 70
     },
     "B": {
-     "median": 484,
-     "p25": 284,
-     "p75": 1064,
-     "n": 188
+     "median": 410,
+     "p25": 280,
+     "p75": 960,
+     "n": 198
     },
     "C": {
-     "median": 500,
-     "p25": 310,
+     "median": 503,
+     "p25": 331,
      "p75": 582,
-     "n": 93
+     "n": 85
     }
    },
    "retail_usd": null,
@@ -1595,29 +1649,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 106,
+    "n": 100,
     "median": 2040,
-    "p25": 1647,
-    "p75": 2354
+    "p25": 1678,
+    "p75": 2329
    },
    "grades": {
     "A": {
-     "median": 2273,
-     "p25": 1993,
-     "p75": 2442,
-     "n": 26
+     "median": 2118,
+     "p25": 1801,
+     "p75": 2438,
+     "n": 28
     },
     "B": {
-     "median": 2046,
-     "p25": 1723,
-     "p75": 2357,
-     "n": 65
+     "median": 2094,
+     "p25": 1785,
+     "p75": 2382,
+     "n": 60
     },
     "C": {
-     "median": 1455,
-     "p25": 828,
-     "p75": 1820,
-     "n": 15
+     "median": 1311,
+     "p25": 518,
+     "p75": 1653,
+     "n": 12
     }
    },
    "retail_usd": 3600,
@@ -1626,41 +1680,53 @@
    "retention": 56.7
   },
   {
+   "slug": "dior-bobby-small",
+   "brand": "Dior",
+   "name": "Bobby Small",
+   "category": "handbags",
+   "basis": "asking",
+   "resale": {
+    "n": 24,
+    "median": 2472,
+    "p25": 2268,
+    "p75": 2773
+   },
+   "grades": {},
+   "retail_usd": null,
+   "retail_as_of": null,
+   "retail_discontinued": false,
+   "retention": null
+  },
+  {
    "slug": "dior-book-tote-medium",
    "brand": "Dior",
    "name": "Book Tote Medium Oblique",
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 62,
-    "median": 2018,
+    "n": 54,
+    "median": 2034,
     "p25": 1696,
-    "p75": 2681
+    "p75": 2744
    },
    "grades": {
     "A": {
-     "median": 2216,
-     "p25": 1932,
-     "p75": 2760,
-     "n": 24
+     "median": 2380,
+     "p25": 1972,
+     "p75": 2768,
+     "n": 22
     },
     "B": {
-     "median": 1940,
-     "p25": 1670,
-     "p75": 2545,
-     "n": 33
-    },
-    "C": {
-     "median": 1466,
-     "p25": 1149,
-     "p75": 1515,
-     "n": 5
+     "median": 1910,
+     "p25": 1591,
+     "p75": 2722,
+     "n": 28
     }
    },
    "retail_usd": 3350,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 60.2
+   "retention": 60.7
   },
   {
    "slug": "dior-book-tote-small",
@@ -1669,29 +1735,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 23,
-    "median": 1789,
-    "p25": 1463,
-    "p75": 2260
+    "n": 19,
+    "median": 1556,
+    "p25": 1295,
+    "p75": 2223
    },
    "grades": {
-    "A": {
-     "median": 2023,
-     "p25": 1347,
-     "p75": 2260,
-     "n": 7
-    },
     "B": {
      "median": 2051,
-     "p25": 1532,
-     "p75": 2461,
-     "n": 12
+     "p25": 1614,
+     "p75": 2662,
+     "n": 10
+    },
+    "C": {
+     "median": 1497,
+     "p25": 1294,
+     "p75": 1509,
+     "n": 5
     }
    },
    "retail_usd": 3250,
    "retail_as_of": "2026-01",
    "retail_discontinued": false,
-   "retention": 55.0
+   "retention": 47.9
   },
   {
    "slug": "dior-caro-medium-bag",
@@ -1702,15 +1768,15 @@
    "resale": {
     "n": 14,
     "median": 3498,
-    "p25": 2514,
+    "p25": 2163,
     "p75": 4074
    },
    "grades": {
     "A": {
-     "median": 3994,
-     "p25": 3388,
-     "p75": 4101,
-     "n": 9
+     "median": 4048,
+     "p25": 3552,
+     "p75": 4108,
+     "n": 8
     }
    },
    "retail_usd": 4800,
@@ -1725,28 +1791,28 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 114,
-    "median": 949,
-    "p25": 799,
-    "p75": 1229
+    "n": 105,
+    "median": 935,
+    "p25": 742,
+    "p75": 1226
    },
    "grades": {
     "A": {
-     "median": 1144,
-     "p25": 998,
-     "p75": 1388,
-     "n": 11
+     "median": 1284,
+     "p25": 974,
+     "p75": 1549,
+     "n": 10
     },
     "B": {
-     "median": 1028,
-     "p25": 880,
-     "p75": 1290,
-     "n": 78
+     "median": 1009,
+     "p25": 843,
+     "p75": 1275,
+     "n": 70
     },
     "C": {
-     "median": 706,
-     "p25": 612,
-     "p75": 872,
+     "median": 675,
+     "p25": 566,
+     "p75": 871,
      "n": 25
     }
    },
@@ -1762,23 +1828,23 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 28,
-    "median": 1469,
-    "p25": 1010,
-    "p75": 1847
+    "n": 29,
+    "median": 1660,
+    "p25": 1032,
+    "p75": 2090
    },
    "grades": {
     "B": {
-     "median": 1476,
-     "p25": 1166,
-     "p75": 1838,
-     "n": 19
+     "median": 1680,
+     "p25": 1377,
+     "p75": 2118,
+     "n": 20
     },
     "C": {
-     "median": 652,
-     "p25": 590,
-     "p75": 1396,
-     "n": 7
+     "median": 892,
+     "p25": 614,
+     "p75": 1705,
+     "n": 8
     }
    },
    "retail_usd": 7200,
@@ -1793,35 +1859,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 55,
-    "median": 2052,
-    "p25": 1663,
-    "p75": 2704
+    "n": 57,
+    "median": 2098,
+    "p25": 1482,
+    "p75": 2800
    },
    "grades": {
     "A": {
      "median": 4086,
      "p25": 2788,
-     "p75": 4533,
+     "p75": 5637,
      "n": 5
     },
     "B": {
-     "median": 2098,
-     "p25": 1693,
-     "p75": 2640,
-     "n": 37
+     "median": 2134,
+     "p25": 1700,
+     "p75": 2839,
+     "n": 38
     },
     "C": {
-     "median": 1476,
-     "p25": 1128,
-     "p75": 1884,
-     "n": 13
+     "median": 1440,
+     "p25": 1150,
+     "p75": 1849,
+     "n": 14
     }
    },
    "retail_usd": 6500,
    "retail_as_of": "2026-01",
    "retail_discontinued": false,
-   "retention": 31.6
+   "retention": 32.3
   },
   {
    "slug": "dior-saddle-bag",
@@ -1830,29 +1896,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 476,
-    "median": 2450,
-    "p25": 1844,
-    "p75": 2943
+    "n": 470,
+    "median": 2443,
+    "p25": 1846,
+    "p75": 2932
    },
    "grades": {
     "A": {
-     "median": 2742,
-     "p25": 1844,
-     "p75": 3434,
-     "n": 116
+     "median": 2587,
+     "p25": 1808,
+     "p75": 3401,
+     "n": 105
     },
     "B": {
-     "median": 2492,
-     "p25": 2017,
-     "p75": 2865,
-     "n": 311
+     "median": 2494,
+     "p25": 2081,
+     "p75": 2848,
+     "n": 318
     },
     "C": {
-     "median": 1665,
-     "p25": 1153,
-     "p75": 2255,
-     "n": 49
+     "median": 1725,
+     "p25": 1248,
+     "p75": 2413,
+     "n": 47
     }
    },
    "retail_usd": null,
@@ -1869,21 +1935,21 @@
    "resale": {
     "n": 45,
     "median": 384,
-    "p25": 304,
+    "p25": 307,
     "p75": 524
    },
    "grades": {
     "A": {
-     "median": 443,
-     "p25": 337,
-     "p75": 547,
-     "n": 17
+     "median": 447,
+     "p25": 366,
+     "p75": 770,
+     "n": 16
     },
     "B": {
-     "median": 366,
-     "p25": 312,
+     "median": 363,
+     "p25": 316,
      "p75": 504,
-     "n": 22
+     "n": 23
     },
     "C": {
      "median": 318,
@@ -1904,23 +1970,23 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 29,
-    "median": 1970,
-    "p25": 1579,
-    "p75": 2600
+    "n": 32,
+    "median": 2077,
+    "p25": 1627,
+    "p75": 2430
    },
    "grades": {
     "A": {
      "median": 2409,
-     "p25": 1700,
-     "p75": 2620,
-     "n": 7
+     "p25": 2077,
+     "p75": 2430,
+     "n": 9
     },
     "B": {
-     "median": 1755,
-     "p25": 1558,
-     "p75": 2610,
-     "n": 19
+     "median": 2016,
+     "p25": 1602,
+     "p75": 2470,
+     "n": 20
     }
    },
    "retail_usd": null,
@@ -1935,29 +2001,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 510,
-    "median": 2435,
-    "p25": 1788,
-    "p75": 2923
+    "n": 507,
+    "median": 2407,
+    "p25": 1814,
+    "p75": 2906
    },
    "grades": {
     "A": {
-     "median": 2674,
-     "p25": 1840,
-     "p75": 3405,
-     "n": 126
+     "median": 2430,
+     "p25": 1808,
+     "p75": 3315,
+     "n": 117
     },
     "B": {
-     "median": 2474,
-     "p25": 1954,
+     "median": 2464,
+     "p25": 1978,
      "p75": 2833,
-     "n": 332
+     "n": 340
     },
     "C": {
-     "median": 1725,
-     "p25": 1211,
-     "p75": 2218,
-     "n": 52
+     "median": 1730,
+     "p25": 1274,
+     "p75": 2370,
+     "n": 50
     }
    },
    "retail_usd": 2150,
@@ -1972,29 +2038,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 19,
-    "median": 2293,
-    "p25": 1659,
-    "p75": 4784
+    "n": 16,
+    "median": 2168,
+    "p25": 1490,
+    "p75": 3318
    },
    "grades": {
     "A": {
-     "median": 4525,
-     "p25": 3193,
-     "p75": 6074,
-     "n": 7
+     "median": 2917,
+     "p25": 2469,
+     "p75": 3857,
+     "n": 5
     },
     "B": {
-     "median": 2000,
-     "p25": 1374,
-     "p75": 2345,
-     "n": 11
+     "median": 1878,
+     "p25": 1258,
+     "p75": 2927,
+     "n": 10
     }
    },
    "retail_usd": 3750,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 61.1
+   "retention": 57.8
   },
   {
    "slug": "fendi-baguette-small-canvas",
@@ -2003,23 +2069,23 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 41,
+    "n": 43,
     "median": 786,
-    "p25": 533,
-    "p75": 1858
+    "p25": 526,
+    "p75": 1672
    },
    "grades": {
     "B": {
-     "median": 768,
+     "median": 788,
      "p25": 555,
-     "p75": 2229,
-     "n": 24
+     "p75": 1401,
+     "n": 28
     },
     "C": {
      "median": 673,
-     "p25": 458,
-     "p75": 1276,
-     "n": 15
+     "p25": 445,
+     "p75": 1586,
+     "n": 13
     }
    },
    "retail_usd": null,
@@ -2034,10 +2100,10 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 12,
-    "median": 1784,
-    "p25": 1420,
-    "p75": 2918
+    "n": 13,
+    "median": 1629,
+    "p25": 1376,
+    "p75": 2691
    },
    "grades": {
     "A": {
@@ -2059,7 +2125,7 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 52,
+    "n": 48,
     "median": 1917,
     "p25": 1118,
     "p75": 2584
@@ -2067,15 +2133,15 @@
    "grades": {
     "A": {
      "median": 2584,
-     "p25": 2080,
-     "p75": 2976,
-     "n": 18
+     "p25": 2001,
+     "p75": 3034,
+     "n": 16
     },
     "B": {
      "median": 1618,
-     "p25": 1109,
-     "p75": 2120,
-     "n": 30
+     "p25": 1118,
+     "p75": 2182,
+     "n": 28
     }
    },
    "retail_usd": 5300,
@@ -2090,35 +2156,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 53,
-    "median": 677,
-    "p25": 380,
+    "n": 49,
+    "median": 720,
+    "p25": 473,
     "p75": 994
    },
    "grades": {
     "A": {
      "median": 1249,
      "p25": 1044,
-     "p75": 1560,
+     "p75": 1606,
      "n": 11
     },
     "B": {
-     "median": 648,
-     "p25": 537,
+     "median": 618,
+     "p25": 545,
      "p75": 901,
-     "n": 26
+     "n": 25
     },
     "C": {
-     "median": 368,
-     "p25": 289,
-     "p75": 552,
-     "n": 16
+     "median": 366,
+     "p25": 294,
+     "p75": 559,
+     "n": 13
     }
    },
    "retail_usd": 2750,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 24.6
+   "retention": 26.2
   },
   {
    "slug": "gucci-bamboo-1947-mini",
@@ -2127,10 +2193,10 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 33,
-    "median": 687,
-    "p25": 525,
-    "p75": 1293
+    "n": 34,
+    "median": 686,
+    "p25": 542,
+    "p75": 1275
    },
    "grades": {
     "A": {
@@ -2140,10 +2206,10 @@
      "n": 10
     },
     "B": {
-     "median": 636,
-     "p25": 517,
-     "p75": 802,
-     "n": 19
+     "median": 629,
+     "p25": 521,
+     "p75": 754,
+     "n": 20
     }
    },
    "retail_usd": null,
@@ -2158,17 +2224,17 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 15,
-    "median": 725,
-    "p25": 548,
-    "p75": 1156
+    "n": 12,
+    "median": 816,
+    "p25": 543,
+    "p75": 1323
    },
    "grades": {
     "B": {
-     "median": 704,
-     "p25": 568,
-     "p75": 1170,
-     "n": 10
+     "median": 725,
+     "p25": 548,
+     "p75": 1519,
+     "n": 7
     }
    },
    "retail_usd": null,
@@ -2184,9 +2250,9 @@
    "basis": "asking",
    "resale": {
     "n": 16,
-    "median": 1812,
-    "p25": 787,
-    "p75": 2626
+    "median": 1625,
+    "p25": 720,
+    "p75": 2363
    },
    "grades": {},
    "retail_usd": null,
@@ -2201,29 +2267,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 662,
-    "median": 1000,
-    "p25": 766,
-    "p75": 1230
+    "n": 654,
+    "median": 1002,
+    "p25": 765,
+    "p75": 1228
    },
    "grades": {
     "A": {
      "median": 1136,
-     "p25": 936,
-     "p75": 1486,
-     "n": 120
+     "p25": 927,
+     "p75": 1449,
+     "n": 121
     },
     "B": {
-     "median": 1017,
-     "p25": 795,
-     "p75": 1225,
-     "n": 465
+     "median": 1016,
+     "p25": 783,
+     "p75": 1220,
+     "n": 463
     },
     "C": {
-     "median": 664,
-     "p25": 566,
-     "p75": 871,
-     "n": 77
+     "median": 657,
+     "p25": 564,
+     "p75": 902,
+     "n": 70
     }
    },
    "retail_usd": null,
@@ -2238,29 +2304,29 @@
    "category": "belts",
    "basis": "sold",
    "resale": {
-    "n": 792,
+    "n": 794,
     "median": 242,
-    "p25": 191,
-    "p75": 304
+    "p25": 190,
+    "p75": 302
    },
    "grades": {
     "A": {
-     "median": 301,
-     "p25": 245,
-     "p75": 366,
-     "n": 298
+     "median": 297,
+     "p25": 248,
+     "p75": 362,
+     "n": 316
     },
     "B": {
-     "median": 228,
-     "p25": 189,
-     "p75": 268,
-     "n": 395
+     "median": 226,
+     "p25": 188,
+     "p75": 269,
+     "n": 371
     },
     "C": {
-     "median": 167,
-     "p25": 148,
-     "p75": 195,
-     "n": 99
+     "median": 162,
+     "p25": 140,
+     "p75": 198,
+     "n": 107
     }
    },
    "retail_usd": null,
@@ -2275,29 +2341,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 780,
-    "median": 886,
-    "p25": 673,
-    "p75": 1131
+    "n": 782,
+    "median": 892,
+    "p25": 676,
+    "p75": 1162
    },
    "grades": {
     "A": {
-     "median": 1173,
-     "p25": 976,
-     "p75": 1453,
-     "n": 236
+     "median": 1150,
+     "p25": 964,
+     "p75": 1435,
+     "n": 246
     },
     "B": {
-     "median": 828,
-     "p25": 676,
-     "p75": 1022,
-     "n": 423
+     "median": 837,
+     "p25": 673,
+     "p75": 1056,
+     "n": 417
     },
     "C": {
-     "median": 576,
-     "p25": 460,
-     "p75": 695,
-     "n": 121
+     "median": 583,
+     "p25": 462,
+     "p75": 727,
+     "n": 119
     }
    },
    "retail_usd": null,
@@ -2312,29 +2378,29 @@
    "category": "small-leather-goods",
    "basis": "sold",
    "resale": {
-    "n": 779,
+    "n": 781,
     "median": 694,
-    "p25": 405,
-    "p75": 1017
+    "p25": 397,
+    "p75": 1037
    },
    "grades": {
     "A": {
-     "median": 924,
-     "p25": 387,
-     "p75": 1284,
-     "n": 272
+     "median": 946,
+     "p25": 414,
+     "p75": 1273,
+     "n": 269
     },
     "B": {
-     "median": 732,
-     "p25": 475,
-     "p75": 920,
-     "n": 374
+     "median": 718,
+     "p25": 436,
+     "p75": 924,
+     "n": 382
     },
     "C": {
-     "median": 522,
-     "p25": 288,
-     "p75": 631,
-     "n": 133
+     "median": 514,
+     "p25": 281,
+     "p75": 616,
+     "n": 130
     }
    },
    "retail_usd": null,
@@ -2349,10 +2415,10 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 19,
-    "median": 1211,
-    "p25": 905,
-    "p75": 2144
+    "n": 23,
+    "median": 1294,
+    "p25": 883,
+    "p75": 2136
    },
    "grades": {
     "A": {
@@ -2362,16 +2428,22 @@
      "n": 10
     },
     "B": {
-     "median": 1094,
-     "p25": 868,
-     "p75": 1200,
-     "n": 6
+     "median": 1310,
+     "p25": 992,
+     "p75": 1551,
+     "n": 8
+    },
+    "C": {
+     "median": 573,
+     "p25": 549,
+     "p75": 605,
+     "n": 5
     }
    },
    "retail_usd": 2850,
    "retail_as_of": "2026-01",
    "retail_discontinued": false,
-   "retention": 42.5
+   "retention": 45.4
   },
   {
    "slug": "gucci-gg-marmont-small",
@@ -2380,23 +2452,23 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 72,
-    "median": 1004,
-    "p25": 683,
-    "p75": 1212
+    "n": 67,
+    "median": 1039,
+    "p25": 718,
+    "p75": 1286
    },
    "grades": {
     "A": {
-     "median": 1275,
-     "p25": 1090,
-     "p75": 1464,
-     "n": 24
+     "median": 1306,
+     "p25": 1146,
+     "p75": 1496,
+     "n": 23
     },
     "B": {
-     "median": 852,
-     "p25": 684,
-     "p75": 1054,
-     "n": 36
+     "median": 882,
+     "p25": 780,
+     "p75": 1101,
+     "n": 32
     },
     "C": {
      "median": 596,
@@ -2408,7 +2480,7 @@
    "retail_usd": 2600,
    "retail_as_of": "2026-01",
    "retail_discontinued": false,
-   "retention": 38.6
+   "retention": 40.0
   },
   {
    "slug": "gucci-jackie-1961-small",
@@ -2417,10 +2489,10 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 18,
-    "median": 919,
-    "p25": 794,
-    "p75": 1190
+    "n": 17,
+    "median": 950,
+    "p25": 778,
+    "p75": 1196
    },
    "grades": {
     "A": {
@@ -2430,10 +2502,10 @@
      "n": 8
     },
     "B": {
-     "median": 1048,
-     "p25": 881,
-     "p75": 1273,
-     "n": 8
+     "median": 1145,
+     "p25": 904,
+     "p75": 1350,
+     "n": 7
     }
    },
    "retail_usd": null,
@@ -2448,35 +2520,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 265,
-    "median": 676,
-    "p25": 514,
-    "p75": 845
+    "n": 262,
+    "median": 670,
+    "p25": 508,
+    "p75": 842
    },
    "grades": {
     "A": {
-     "median": 1035,
-     "p25": 930,
-     "p75": 1187,
-     "n": 25
+     "median": 990,
+     "p25": 899,
+     "p75": 1233,
+     "n": 28
     },
     "B": {
-     "median": 712,
-     "p25": 606,
-     "p75": 872,
-     "n": 152
+     "median": 711,
+     "p25": 589,
+     "p75": 871,
+     "n": 145
     },
     "C": {
-     "median": 470,
-     "p25": 374,
-     "p75": 609,
-     "n": 88
+     "median": 462,
+     "p25": 370,
+     "p75": 641,
+     "n": 89
     }
    },
    "retail_usd": 1190,
    "retail_as_of": "2023",
    "retail_discontinued": true,
-   "retention": 56.8
+   "retention": 56.3
   },
   {
    "slug": "hermes-azap-silk-in-wallet",
@@ -2486,28 +2558,28 @@
    "basis": "sold",
    "resale": {
     "n": 54,
-    "median": 531,
-    "p25": 397,
+    "median": 527,
+    "p25": 364,
     "p75": 744
    },
    "grades": {
     "A": {
-     "median": 794,
-     "p25": 697,
-     "p75": 964,
-     "n": 14
+     "median": 807,
+     "p25": 723,
+     "p75": 988,
+     "n": 13
     },
     "B": {
-     "median": 529,
-     "p25": 423,
-     "p75": 658,
+     "median": 525,
+     "p25": 413,
+     "p75": 640,
      "n": 29
     },
     "C": {
-     "median": 297,
+     "median": 284,
      "p25": 210,
-     "p75": 430,
-     "n": 11
+     "p75": 398,
+     "n": 12
     }
    },
    "retail_usd": null,
@@ -2522,28 +2594,28 @@
    "category": "small-leather-goods",
    "basis": "sold",
    "resale": {
-    "n": 84,
-    "median": 789,
-    "p25": 497,
+    "n": 88,
+    "median": 767,
+    "p25": 452,
     "p75": 1224
    },
    "grades": {
     "A": {
-     "median": 1809,
-     "p25": 1460,
-     "p75": 2300,
-     "n": 13
+     "median": 1736,
+     "p25": 1483,
+     "p75": 2229,
+     "n": 10
     },
     "B": {
-     "median": 866,
-     "p25": 679,
-     "p75": 1082,
-     "n": 49
+     "median": 859,
+     "p25": 671,
+     "p75": 1190,
+     "n": 56
     },
     "C": {
      "median": 386,
-     "p25": 317,
-     "p75": 592,
+     "p25": 325,
+     "p75": 560,
      "n": 22
     }
    },
@@ -2559,20 +2631,20 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 74,
-    "median": 29202,
-    "p25": 24627,
-    "p75": 34321
+    "n": 73,
+    "median": 29254,
+    "p25": 24602,
+    "p75": 34359
    },
    "grades": {
     "A": {
-     "median": 33590,
-     "p25": 28364,
-     "p75": 36252,
-     "n": 34
+     "median": 33669,
+     "p25": 29254,
+     "p75": 36279,
+     "n": 33
     },
     "B": {
-     "median": 26556,
+     "median": 26558,
      "p25": 22098,
      "p75": 30649,
      "n": 37
@@ -2581,7 +2653,7 @@
    "retail_usd": 13500,
    "retail_as_of": "2026-03",
    "retail_discontinued": false,
-   "retention": 216.3
+   "retention": 216.7
   },
   {
    "slug": "hermes-birkin-30",
@@ -2590,35 +2662,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 117,
-    "median": 19798,
-    "p25": 15023,
-    "p75": 26022
+    "n": 109,
+    "median": 21124,
+    "p25": 15053,
+    "p75": 26665
    },
    "grades": {
     "A": {
-     "median": 28810,
-     "p25": 25500,
+     "median": 28921,
+     "p25": 25920,
      "p75": 33097,
-     "n": 24
+     "n": 28
     },
     "B": {
-     "median": 18969,
-     "p25": 14925,
-     "p75": 23768,
-     "n": 85
+     "median": 18828,
+     "p25": 14322,
+     "p75": 24070,
+     "n": 74
     },
     "C": {
-     "median": 14888,
-     "p25": 10003,
-     "p75": 15452,
-     "n": 8
+     "median": 14831,
+     "p25": 9518,
+     "p75": 18032,
+     "n": 7
     }
    },
    "retail_usd": 14900,
    "retail_as_of": "2026-01",
    "retail_discontinued": false,
-   "retention": 132.9
+   "retention": 141.8
   },
   {
    "slug": "hermes-birkin-35",
@@ -2627,35 +2699,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 179,
-    "median": 13947,
-    "p25": 11292,
-    "p75": 17316
+    "n": 163,
+    "median": 14076,
+    "p25": 11262,
+    "p75": 17315
    },
    "grades": {
     "A": {
-     "median": 23467,
+     "median": 22000,
      "p25": 18634,
      "p75": 31849,
      "n": 11
     },
     "B": {
-     "median": 14690,
-     "p25": 12024,
-     "p75": 17442,
-     "n": 126
+     "median": 14592,
+     "p25": 11570,
+     "p75": 17259,
+     "n": 115
     },
     "C": {
-     "median": 11978,
-     "p25": 10612,
-     "p75": 13839,
-     "n": 42
+     "median": 12201,
+     "p25": 10728,
+     "p75": 14019,
+     "n": 37
     }
    },
    "retail_usd": 16300,
    "retail_as_of": "2026-01",
    "retail_discontinued": false,
-   "retention": 85.6
+   "retention": 86.4
   },
   {
    "slug": "hermes-calvi-card-holder",
@@ -2664,29 +2736,29 @@
    "category": "small-leather-goods",
    "basis": "sold",
    "resale": {
-    "n": 46,
-    "median": 416,
-    "p25": 280,
-    "p75": 486
+    "n": 41,
+    "median": 413,
+    "p25": 274,
+    "p75": 460
    },
    "grades": {
     "A": {
-     "median": 445,
-     "p25": 390,
-     "p75": 506,
-     "n": 30
+     "median": 422,
+     "p25": 378,
+     "p75": 497,
+     "n": 28
     },
     "B": {
-     "median": 335,
-     "p25": 270,
-     "p75": 444,
-     "n": 12
+     "median": 305,
+     "p25": 269,
+     "p75": 436,
+     "n": 10
     }
    },
    "retail_usd": 415,
    "retail_as_of": "2025",
    "retail_discontinued": false,
-   "retention": 100.2
+   "retention": 99.5
   },
   {
    "slug": "hermes-carre-90",
@@ -2695,35 +2767,35 @@
    "category": "scarves",
    "basis": "sold",
    "resale": {
-    "n": 745,
-    "median": 342,
-    "p25": 248,
-    "p75": 487
+    "n": 752,
+    "median": 315,
+    "p25": 230,
+    "p75": 457
    },
    "grades": {
     "A": {
-     "median": 458,
-     "p25": 337,
-     "p75": 606,
-     "n": 279
+     "median": 408,
+     "p25": 302,
+     "p75": 566,
+     "n": 273
     },
     "B": {
-     "median": 316,
-     "p25": 261,
-     "p75": 424,
-     "n": 337
+     "median": 306,
+     "p25": 244,
+     "p75": 419,
+     "n": 327
     },
     "C": {
-     "median": 211,
-     "p25": 168,
-     "p75": 284,
-     "n": 129
+     "median": 208,
+     "p25": 172,
+     "p75": 286,
+     "n": 152
     }
    },
    "retail_usd": 660,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 51.8
+   "retention": 47.7
   },
   {
    "slug": "hermes-constance-18",
@@ -2732,16 +2804,16 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 32,
-    "median": 13366,
-    "p25": 10555,
-    "p75": 16392
+    "n": 30,
+    "median": 13500,
+    "p25": 11063,
+    "p75": 16466
    },
    "grades": {
     "A": {
      "median": 15806,
      "p25": 13533,
-     "p75": 17459,
+     "p75": 16971,
      "n": 18
     },
     "B": {
@@ -2763,23 +2835,23 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 19,
-    "median": 10256,
-    "p25": 8224,
-    "p75": 12724
+    "n": 16,
+    "median": 9928,
+    "p25": 8279,
+    "p75": 12773
    },
    "grades": {
     "A": {
-     "median": 14352,
-     "p25": 11467,
+     "median": 13543,
+     "p25": 11062,
      "p75": 15211,
      "n": 6
     },
     "B": {
      "median": 8334,
-     "p25": 7956,
-     "p75": 10579,
-     "n": 11
+     "p25": 8113,
+     "p75": 9473,
+     "n": 9
     }
    },
    "retail_usd": null,
@@ -2794,29 +2866,29 @@
    "category": "small-leather-goods",
    "basis": "sold",
    "resale": {
-    "n": 52,
-    "median": 578,
-    "p25": 419,
-    "p75": 702
+    "n": 47,
+    "median": 547,
+    "p25": 402,
+    "p75": 686
    },
    "grades": {
     "A": {
-     "median": 618,
-     "p25": 530,
-     "p75": 696,
-     "n": 7
+     "median": 658,
+     "p25": 498,
+     "p75": 1357,
+     "n": 6
     },
     "B": {
-     "median": 633,
-     "p25": 418,
-     "p75": 727,
-     "n": 32
+     "median": 547,
+     "p25": 365,
+     "p75": 672,
+     "n": 29
     },
     "C": {
-     "median": 536,
-     "p25": 368,
-     "p75": 606,
-     "n": 13
+     "median": 538,
+     "p25": 420,
+     "p75": 618,
+     "n": 12
     }
    },
    "retail_usd": 2025,
@@ -2831,17 +2903,17 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 14,
-    "median": 3158,
-    "p25": 2804,
-    "p75": 3647
+    "n": 15,
+    "median": 3119,
+    "p25": 2737,
+    "p75": 3544
    },
    "grades": {
     "A": {
-     "median": 3278,
-     "p25": 3090,
+     "median": 3220,
+     "p25": 2774,
      "p75": 3750,
-     "n": 8
+     "n": 9
     },
     "B": {
      "median": 2966,
@@ -2853,7 +2925,7 @@
    "retail_usd": 2525,
    "retail_as_of": "2026-01",
    "retail_discontinued": false,
-   "retention": 125.1
+   "retention": 123.5
   },
   {
    "slug": "hermes-garden-party-36",
@@ -2862,27 +2934,27 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 113,
-    "median": 2491,
-    "p25": 1658,
-    "p75": 3486
+    "n": 110,
+    "median": 2444,
+    "p25": 1653,
+    "p75": 3425
    },
    "grades": {
     "A": {
-     "median": 3733,
-     "p25": 3427,
-     "p75": 4350,
-     "n": 12
+     "median": 3652,
+     "p25": 3422,
+     "p75": 4252,
+     "n": 11
     },
     "B": {
-     "median": 2638,
-     "p25": 1754,
-     "p75": 3494,
-     "n": 79
+     "median": 2566,
+     "p25": 1725,
+     "p75": 3429,
+     "n": 77
     },
     "C": {
-     "median": 1386,
-     "p25": 1066,
+     "median": 1433,
+     "p25": 1118,
      "p75": 1894,
      "n": 22
     }
@@ -2890,7 +2962,7 @@
    "retail_usd": 5150,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 48.4
+   "retention": 47.5
   },
   {
    "slug": "hermes-h-belt-32mm",
@@ -2899,29 +2971,29 @@
    "category": "belts",
    "basis": "sold",
    "resale": {
-    "n": 52,
+    "n": 51,
     "median": 688,
-    "p25": 521,
-    "p75": 911
+    "p25": 516,
+    "p75": 952
    },
    "grades": {
     "A": {
-     "median": 941,
-     "p25": 724,
-     "p75": 1002,
-     "n": 19
+     "median": 952,
+     "p25": 763,
+     "p75": 994,
+     "n": 20
     },
     "B": {
-     "median": 598,
-     "p25": 511,
-     "p75": 743,
-     "n": 26
+     "median": 580,
+     "p25": 501,
+     "p75": 755,
+     "n": 22
     },
     "C": {
      "median": 458,
-     "p25": 342,
-     "p75": 589,
-     "n": 7
+     "p25": 388,
+     "p75": 578,
+     "n": 9
     }
    },
    "retail_usd": 920,
@@ -2936,35 +3008,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 106,
-    "median": 15663,
-    "p25": 10966,
-    "p75": 23907
+    "n": 102,
+    "median": 17051,
+    "p25": 11450,
+    "p75": 23596
    },
    "grades": {
     "A": {
      "median": 25387,
-     "p25": 23098,
-     "p75": 28826,
-     "n": 27
+     "p25": 23007,
+     "p75": 28944,
+     "n": 29
     },
     "B": {
-     "median": 15009,
-     "p25": 12297,
-     "p75": 20813,
-     "n": 52
+     "median": 15073,
+     "p25": 12208,
+     "p75": 21124,
+     "n": 48
     },
     "C": {
-     "median": 10331,
-     "p25": 7526,
-     "p75": 13504,
-     "n": 27
+     "median": 10537,
+     "p25": 7822,
+     "p75": 13622,
+     "n": 25
     }
    },
    "retail_usd": 15400,
    "retail_as_of": "2026-01",
    "retail_discontinued": false,
-   "retention": 101.7
+   "retention": 110.7
   },
   {
    "slug": "hermes-kelly-32",
@@ -2973,29 +3045,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 159,
-    "median": 9421,
-    "p25": 5994,
-    "p75": 12090
+    "n": 148,
+    "median": 9637,
+    "p25": 5914,
+    "p75": 12030
    },
    "grades": {
     "A": {
-     "median": 15638,
-     "p25": 11932,
-     "p75": 20107,
-     "n": 12
+     "median": 18972,
+     "p25": 10866,
+     "p75": 22124,
+     "n": 10
     },
     "B": {
-     "median": 11583,
-     "p25": 9522,
-     "p75": 13638,
-     "n": 71
+     "median": 11523,
+     "p25": 9676,
+     "p75": 13531,
+     "n": 68
     },
     "C": {
      "median": 6022,
-     "p25": 4092,
-     "p75": 9006,
-     "n": 76
+     "p25": 4486,
+     "p75": 8976,
+     "n": 70
     }
    },
    "retail_usd": null,
@@ -3011,52 +3083,59 @@
    "basis": "sold",
    "resale": {
     "n": 90,
-    "median": 411,
-    "p25": 322,
-    "p75": 527
+    "median": 428,
+    "p25": 320,
+    "p75": 535
    },
    "grades": {
     "A": {
-     "median": 462,
-     "p25": 378,
-     "p75": 607,
-     "n": 27
+     "median": 482,
+     "p25": 371,
+     "p75": 630,
+     "n": 26
     },
     "B": {
-     "median": 403,
-     "p25": 325,
-     "p75": 501,
+     "median": 422,
+     "p25": 333,
+     "p75": 522,
      "n": 58
     },
     "C": {
-     "median": 196,
+     "median": 202,
      "p25": 196,
-     "p75": 209,
-     "n": 5
+     "p75": 250,
+     "n": 6
     }
    },
    "retail_usd": 770,
    "retail_as_of": "2026-10",
    "retail_discontinued": false,
-   "retention": 53.4
+   "retention": 55.6
   },
   {
    "slug": "hermes-lindy-26",
    "brand": "Hermès",
    "name": "Lindy 26",
    "category": "handbags",
-   "basis": "asking",
+   "basis": "sold",
    "resale": {
-    "n": 36,
-    "median": 8953,
-    "p25": 6990,
-    "p75": 12016
+    "n": 13,
+    "median": 5390,
+    "p25": 3934,
+    "p75": 7999
    },
-   "grades": {},
+   "grades": {
+    "B": {
+     "median": 5390,
+     "p25": 4890,
+     "p75": 7510,
+     "n": 5
+    }
+   },
    "retail_usd": 11200,
    "retail_as_of": "2026-01",
    "retail_discontinued": false,
-   "retention": null
+   "retention": 48.1
   },
   {
    "slug": "hermes-mini-kelly-ii",
@@ -3068,13 +3147,13 @@
     "n": 33,
     "median": 29261,
     "p25": 26359,
-    "p75": 35156
+    "p75": 35570
    },
    "grades": {
     "A": {
-     "median": 33736,
-     "p25": 27844,
-     "p75": 36456,
+     "median": 35258,
+     "p25": 27576,
+     "p75": 38879,
      "n": 20
     },
     "B": {
@@ -3096,35 +3175,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 182,
-    "median": 4576,
-    "p25": 3412,
-    "p75": 5556
+    "n": 176,
+    "median": 4486,
+    "p25": 3429,
+    "p75": 5498
    },
    "grades": {
     "A": {
-     "median": 5531,
-     "p25": 4884,
-     "p75": 6097,
-     "n": 83
+     "median": 5485,
+     "p25": 4834,
+     "p75": 5972,
+     "n": 79
     },
     "B": {
-     "median": 3659,
-     "p25": 3032,
-     "p75": 4497,
+     "median": 3649,
+     "p25": 3053,
+     "p75": 4457,
      "n": 86
     },
     "C": {
-     "median": 3097,
-     "p25": 2443,
-     "p75": 4051,
-     "n": 13
+     "median": 3182,
+     "p25": 2220,
+     "p75": 4445,
+     "n": 11
     }
    },
    "retail_usd": 3975,
    "retail_as_of": "2026-01",
    "retail_discontinued": false,
-   "retention": 115.1
+   "retention": 112.9
   },
   {
    "slug": "hermes-twilly-silk-scarf",
@@ -3133,35 +3212,35 @@
    "category": "scarves",
    "basis": "sold",
    "resale": {
-    "n": 773,
-    "median": 246,
-    "p25": 203,
+    "n": 772,
+    "median": 245,
+    "p25": 199,
     "p75": 309
    },
    "grades": {
     "A": {
-     "median": 279,
+     "median": 281,
      "p25": 230,
-     "p75": 359,
-     "n": 482
+     "p75": 360,
+     "n": 476
     },
     "B": {
-     "median": 211,
-     "p25": 181,
-     "p75": 248,
-     "n": 243
+     "median": 210,
+     "p25": 179,
+     "p75": 244,
+     "n": 244
     },
     "C": {
-     "median": 160,
+     "median": 153,
      "p25": 125,
      "p75": 194,
-     "n": 48
+     "n": 52
     }
    },
    "retail_usd": 260,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 94.6
+   "retention": 94.2
   },
   {
    "slug": "hublot-classic-fusion-42mm",
@@ -3171,9 +3250,9 @@
    "basis": "asking",
    "resale": {
     "n": 15,
-    "median": 8683,
-    "p25": 7082,
-    "p75": 9465
+    "median": 8204,
+    "p25": 6830,
+    "p75": 9017
    },
    "grades": {},
    "retail_usd": null,
@@ -3188,29 +3267,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 449,
-    "median": 330,
-    "p25": 272,
-    "p75": 401
+    "n": 426,
+    "median": 326,
+    "p25": 270,
+    "p75": 398
    },
    "grades": {
     "A": {
-     "median": 378,
-     "p25": 310,
-     "p75": 454,
-     "n": 152
+     "median": 371,
+     "p25": 303,
+     "p75": 453,
+     "n": 149
     },
     "B": {
-     "median": 326,
-     "p25": 273,
-     "p75": 392,
-     "n": 234
+     "median": 316,
+     "p25": 272,
+     "p75": 384,
+     "n": 217
     },
     "C": {
-     "median": 269,
-     "p25": 226,
-     "p75": 308,
-     "n": 63
+     "median": 262,
+     "p25": 217,
+     "p75": 314,
+     "n": 60
     }
    },
    "retail_usd": null,
@@ -3225,29 +3304,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 309,
-    "median": 623,
-    "p25": 523,
-    "p75": 747
+    "n": 291,
+    "median": 619,
+    "p25": 522,
+    "p75": 744
    },
    "grades": {
     "A": {
-     "median": 706,
+     "median": 697,
      "p25": 612,
-     "p75": 772,
-     "n": 117
+     "p75": 768,
+     "n": 108
     },
     "B": {
      "median": 604,
-     "p25": 520,
-     "p75": 693,
-     "n": 165
+     "p25": 518,
+     "p75": 695,
+     "n": 155
     },
     "C": {
-     "median": 455,
-     "p25": 352,
-     "p75": 498,
-     "n": 27
+     "median": 456,
+     "p25": 356,
+     "p75": 494,
+     "n": 28
     }
    },
    "retail_usd": null,
@@ -3260,19 +3339,19 @@
    "brand": "Loewe",
    "name": "Gate Small Bag",
    "category": "handbags",
-   "basis": "sold",
+   "basis": "asking",
    "resale": {
-    "n": 13,
-    "median": 1220,
-    "p25": 924,
-    "p75": 1309
+    "n": 29,
+    "median": 1605,
+    "p25": 1382,
+    "p75": 1804
    },
    "grades": {
     "B": {
-     "median": 1245,
-     "p25": 848,
-     "p75": 1319,
-     "n": 11
+     "median": 1305,
+     "p25": 1023,
+     "p75": 1329,
+     "n": 9
     }
    },
    "retail_usd": null,
@@ -3287,10 +3366,10 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 21,
-    "median": 1454,
-    "p25": 1294,
-    "p75": 1616
+    "n": 19,
+    "median": 1426,
+    "p25": 1282,
+    "p75": 1597
    },
    "grades": {
     "A": {
@@ -3300,10 +3379,10 @@
      "n": 5
     },
     "B": {
-     "median": 1426,
-     "p25": 1282,
-     "p75": 1628,
-     "n": 15
+     "median": 1347,
+     "p25": 1269,
+     "p75": 1578,
+     "n": 13
     }
    },
    "retail_usd": null,
@@ -3318,17 +3397,17 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 41,
-    "median": 1975,
-    "p25": 1501,
-    "p75": 2424
+    "n": 35,
+    "median": 1992,
+    "p25": 1487,
+    "p75": 2624
    },
    "grades": {
     "B": {
-     "median": 1984,
-     "p25": 1534,
-     "p75": 2421,
-     "n": 34
+     "median": 1992,
+     "p25": 1513,
+     "p75": 2569,
+     "n": 29
     }
    },
    "retail_usd": null,
@@ -3343,29 +3422,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 103,
-    "median": 2351,
-    "p25": 1926,
-    "p75": 2796
+    "n": 96,
+    "median": 2355,
+    "p25": 1932,
+    "p75": 2900
    },
    "grades": {
     "A": {
      "median": 2550,
-     "p25": 2133,
-     "p75": 2960,
-     "n": 37
+     "p25": 2186,
+     "p75": 3015,
+     "n": 35
     },
     "B": {
-     "median": 2266,
-     "p25": 1884,
-     "p75": 2775,
-     "n": 60
+     "median": 2208,
+     "p25": 1844,
+     "p75": 2793,
+     "n": 56
     },
     "C": {
-     "median": 1784,
-     "p25": 1266,
-     "p75": 1978,
-     "n": 6
+     "median": 1986,
+     "p25": 1955,
+     "p75": 2304,
+     "n": 5
     }
    },
    "retail_usd": null,
@@ -3380,23 +3459,23 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 21,
-    "median": 144,
-    "p25": 113,
-    "p75": 176
+    "n": 18,
+    "median": 126,
+    "p25": 88,
+    "p75": 178
    },
    "grades": {
     "A": {
-     "median": 170,
-     "p25": 154,
-     "p75": 184,
-     "n": 9
+     "median": 176,
+     "p25": 165,
+     "p75": 314,
+     "n": 8
     },
     "B": {
-     "median": 122,
-     "p25": 114,
-     "p75": 144,
-     "n": 9
+     "median": 92,
+     "p25": 89,
+     "p75": 122,
+     "n": 7
     }
    },
    "retail_usd": null,
@@ -3411,35 +3490,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 290,
-    "median": 1362,
-    "p25": 1128,
-    "p75": 1749
+    "n": 292,
+    "median": 1353,
+    "p25": 1120,
+    "p75": 1738
    },
    "grades": {
     "A": {
-     "median": 1896,
-     "p25": 1692,
-     "p75": 2200,
-     "n": 34
+     "median": 1824,
+     "p25": 1605,
+     "p75": 2178,
+     "n": 40
     },
     "B": {
-     "median": 1354,
-     "p25": 1130,
-     "p75": 1689,
-     "n": 224
+     "median": 1351,
+     "p25": 1125,
+     "p75": 1688,
+     "n": 215
     },
     "C": {
-     "median": 1164,
-     "p25": 772,
-     "p75": 1330,
-     "n": 32
+     "median": 1113,
+     "p25": 740,
+     "p75": 1255,
+     "n": 37
     }
    },
    "retail_usd": 2000,
    "retail_as_of": "2026-05",
    "retail_discontinued": false,
-   "retention": 68.1
+   "retention": 67.7
   },
   {
    "slug": "louis-vuitton-alma-pm",
@@ -3448,35 +3527,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 188,
-    "median": 786,
-    "p25": 581,
-    "p75": 1084
+    "n": 183,
+    "median": 761,
+    "p25": 580,
+    "p75": 1090
    },
    "grades": {
     "A": {
-     "median": 1382,
-     "p25": 1149,
-     "p75": 2119,
-     "n": 13
+     "median": 1389,
+     "p25": 1134,
+     "p75": 2148,
+     "n": 12
     },
     "B": {
-     "median": 860,
-     "p25": 672,
-     "p75": 1098,
-     "n": 127
+     "median": 841,
+     "p25": 661,
+     "p75": 1120,
+     "n": 126
     },
     "C": {
-     "median": 518,
+     "median": 541,
      "p25": 434,
-     "p75": 690,
-     "n": 48
+     "p75": 688,
+     "n": 45
     }
    },
    "retail_usd": 2150,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 36.6
+   "retention": 35.4
   },
   {
    "slug": "louis-vuitton-bandeau-silk",
@@ -3485,29 +3564,29 @@
    "category": "scarves",
    "basis": "sold",
    "resale": {
-    "n": 221,
-    "median": 228,
-    "p25": 201,
-    "p75": 278
+    "n": 230,
+    "median": 226,
+    "p25": 200,
+    "p75": 276
    },
    "grades": {
     "A": {
-     "median": 240,
+     "median": 233,
      "p25": 216,
      "p75": 288,
-     "n": 119
+     "n": 125
     },
     "B": {
-     "median": 226,
-     "p25": 194,
-     "p75": 275,
-     "n": 92
+     "median": 223,
+     "p25": 192,
+     "p75": 270,
+     "n": 93
     },
     "C": {
      "median": 181,
-     "p25": 173,
-     "p75": 216,
-     "n": 10
+     "p25": 165,
+     "p75": 214,
+     "n": 12
     }
    },
    "retail_usd": null,
@@ -3522,35 +3601,35 @@
    "category": "small-leather-goods",
    "basis": "sold",
    "resale": {
-    "n": 83,
-    "median": 224,
-    "p25": 160,
-    "p75": 304
+    "n": 78,
+    "median": 228,
+    "p25": 156,
+    "p75": 305
    },
    "grades": {
     "A": {
      "median": 317,
-     "p25": 270,
+     "p25": 285,
      "p75": 602,
      "n": 11
     },
     "B": {
-     "median": 206,
-     "p25": 168,
-     "p75": 305,
-     "n": 57
+     "median": 199,
+     "p25": 146,
+     "p75": 306,
+     "n": 51
     },
     "C": {
-     "median": 165,
-     "p25": 112,
-     "p75": 245,
-     "n": 15
+     "median": 196,
+     "p25": 134,
+     "p75": 252,
+     "n": 16
     }
    },
    "retail_usd": 730,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 30.7
+   "retention": 31.2
   },
   {
    "slug": "louis-vuitton-capucines-bb",
@@ -3559,10 +3638,10 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 28,
-    "median": 4019,
-    "p25": 3054,
-    "p75": 5267
+    "n": 27,
+    "median": 4163,
+    "p25": 3520,
+    "p75": 5338
    },
    "grades": {
     "A": {
@@ -3572,16 +3651,16 @@
      "n": 6
     },
     "B": {
-     "median": 3957,
-     "p25": 3368,
-     "p75": 5430,
-     "n": 19
+     "median": 4122,
+     "p25": 3610,
+     "p75": 5547,
+     "n": 18
     }
    },
    "retail_usd": 6750,
    "retail_as_of": "2026-10",
    "retail_discontinued": false,
-   "retention": 59.5
+   "retention": 61.7
   },
   {
    "slug": "louis-vuitton-initiales-monogram-belt",
@@ -3590,35 +3669,35 @@
    "category": "belts",
    "basis": "sold",
    "resale": {
-    "n": 643,
-    "median": 360,
-    "p25": 281,
-    "p75": 442
+    "n": 641,
+    "median": 355,
+    "p25": 274,
+    "p75": 440
    },
    "grades": {
     "A": {
-     "median": 460,
-     "p25": 388,
-     "p75": 570,
-     "n": 118
+     "median": 446,
+     "p25": 382,
+     "p75": 537,
+     "n": 122
     },
     "B": {
-     "median": 365,
-     "p25": 307,
-     "p75": 436,
-     "n": 357
+     "median": 364,
+     "p25": 302,
+     "p75": 434,
+     "n": 343
     },
     "C": {
-     "median": 264,
-     "p25": 222,
-     "p75": 340,
-     "n": 168
+     "median": 262,
+     "p25": 219,
+     "p75": 336,
+     "n": 176
     }
    },
    "retail_usd": 745,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 48.3
+   "retention": 47.7
   },
   {
    "slug": "louis-vuitton-keepall-45-bandouliere",
@@ -3627,29 +3706,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 142,
-    "median": 872,
-    "p25": 620,
-    "p75": 1210
+    "n": 159,
+    "median": 877,
+    "p25": 648,
+    "p75": 1254
    },
    "grades": {
     "A": {
-     "median": 2534,
-     "p25": 2294,
-     "p75": 2723,
-     "n": 6
+     "median": 2543,
+     "p25": 2371,
+     "p75": 3466,
+     "n": 7
     },
     "B": {
-     "median": 953,
-     "p25": 785,
-     "p75": 1242,
-     "n": 90
+     "median": 977,
+     "p25": 772,
+     "p75": 1358,
+     "n": 97
     },
     "C": {
-     "median": 590,
-     "p25": 440,
-     "p75": 881,
-     "n": 46
+     "median": 616,
+     "p25": 442,
+     "p75": 952,
+     "n": 55
     }
    },
    "retail_usd": 2650,
@@ -3664,22 +3743,22 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 60,
-    "median": 2091,
-    "p25": 1911,
-    "p75": 2342
+    "n": 61,
+    "median": 2088,
+    "p25": 1834,
+    "p75": 2340
    },
    "grades": {
     "A": {
-     "median": 2428,
-     "p25": 2118,
-     "p75": 3082,
-     "n": 16
+     "median": 2332,
+     "p25": 2056,
+     "p75": 3080,
+     "n": 17
     },
     "B": {
-     "median": 2067,
-     "p25": 1898,
-     "p75": 2302,
+     "median": 2060,
+     "p25": 1788,
+     "p75": 2280,
      "n": 39
     },
     "C": {
@@ -3692,7 +3771,7 @@
    "retail_usd": 3150,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 66.4
+   "retention": 66.3
   },
   {
    "slug": "louis-vuitton-neverfull-gm",
@@ -3701,35 +3780,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 92,
-    "median": 1285,
-    "p25": 1014,
-    "p75": 1524
+    "n": 84,
+    "median": 1241,
+    "p25": 959,
+    "p75": 1499
    },
    "grades": {
     "A": {
-     "median": 2143,
-     "p25": 2022,
-     "p75": 2326,
-     "n": 11
+     "median": 2228,
+     "p25": 2044,
+     "p75": 3234,
+     "n": 7
     },
     "B": {
-     "median": 1356,
-     "p25": 1144,
-     "p75": 1518,
-     "n": 50
+     "median": 1348,
+     "p25": 1139,
+     "p75": 1514,
+     "n": 47
     },
     "C": {
-     "median": 980,
-     "p25": 824,
-     "p75": 1160,
-     "n": 31
+     "median": 936,
+     "p25": 771,
+     "p75": 1120,
+     "n": 30
     }
    },
    "retail_usd": 2310,
    "retail_as_of": "2026-05",
    "retail_discontinued": false,
-   "retention": 55.6
+   "retention": 53.7
   },
   {
    "slug": "louis-vuitton-neverfull-mm",
@@ -3738,35 +3817,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 228,
-    "median": 1226,
-    "p25": 912,
-    "p75": 1512
+    "n": 225,
+    "median": 1232,
+    "p25": 961,
+    "p75": 1501
    },
    "grades": {
     "A": {
-     "median": 2110,
-     "p25": 1974,
-     "p75": 2493,
-     "n": 19
+     "median": 2229,
+     "p25": 1953,
+     "p75": 2512,
+     "n": 18
     },
     "B": {
-     "median": 1278,
-     "p25": 1146,
-     "p75": 1508,
-     "n": 136
+     "median": 1318,
+     "p25": 1134,
+     "p75": 1488,
+     "n": 140
     },
     "C": {
-     "median": 826,
-     "p25": 581,
-     "p75": 1132,
-     "n": 73
+     "median": 876,
+     "p25": 620,
+     "p75": 1130,
+     "n": 67
     }
    },
    "retail_usd": 2240,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 54.7
+   "retention": 55.0
   },
   {
    "slug": "louis-vuitton-onthego-mm",
@@ -3775,29 +3854,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 36,
-    "median": 2425,
-    "p25": 2038,
+    "n": 40,
+    "median": 2320,
+    "p25": 1929,
     "p75": 2651
    },
    "grades": {
     "A": {
-     "median": 2450,
-     "p25": 2252,
-     "p75": 2748,
+     "median": 2400,
+     "p25": 2154,
+     "p75": 2740,
      "n": 15
     },
     "B": {
-     "median": 2460,
+     "median": 2318,
      "p25": 1860,
      "p75": 2652,
-     "n": 18
+     "n": 22
     }
    },
    "retail_usd": 3400,
    "retail_as_of": "2026-05",
    "retail_discontinued": false,
-   "retention": 71.3
+   "retention": 68.2
   },
   {
    "slug": "louis-vuitton-onthego-pm",
@@ -3806,23 +3885,23 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 17,
-    "median": 2779,
-    "p25": 2359,
-    "p75": 2918
+    "n": 16,
+    "median": 2694,
+    "p25": 2333,
+    "p75": 2923
    },
    "grades": {
     "A": {
      "median": 2918,
-     "p25": 2790,
+     "p25": 2358,
      "p75": 3125,
      "n": 7
     },
     "B": {
-     "median": 2530,
-     "p25": 2342,
-     "p75": 2783,
-     "n": 10
+     "median": 2393,
+     "p25": 2336,
+     "p75": 2720,
+     "n": 9
     }
    },
    "retail_usd": null,
@@ -3837,17 +3916,17 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 32,
-    "median": 1403,
-    "p25": 1112,
-    "p75": 1759
+    "n": 31,
+    "median": 1379,
+    "p25": 1073,
+    "p75": 1703
    },
    "grades": {
     "B": {
-     "median": 1601,
-     "p25": 1346,
-     "p75": 1755,
-     "n": 17
+     "median": 1565,
+     "p25": 1294,
+     "p75": 1748,
+     "n": 18
     },
     "C": {
      "median": 743,
@@ -3859,7 +3938,7 @@
    "retail_usd": 2770,
    "retail_as_of": "2026-05",
    "retail_discontinued": false,
-   "retention": 50.6
+   "retention": 49.8
   },
   {
    "slug": "louis-vuitton-petite-boite-chapeau",
@@ -3868,23 +3947,17 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 15,
-    "median": 2012,
-    "p25": 1630,
-    "p75": 2205
+    "n": 12,
+    "median": 1908,
+    "p25": 1559,
+    "p75": 2249
    },
    "grades": {
-    "A": {
-     "median": 2185,
-     "p25": 1114,
-     "p75": 2737,
-     "n": 5
-    },
     "B": {
-     "median": 1908,
-     "p25": 1686,
-     "p75": 2066,
-     "n": 8
+     "median": 1804,
+     "p25": 1552,
+     "p75": 2014,
+     "n": 7
     }
    },
    "retail_usd": null,
@@ -3899,23 +3972,23 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 48,
-    "median": 2354,
-    "p25": 1904,
-    "p75": 2770
+    "n": 45,
+    "median": 2334,
+    "p25": 1825,
+    "p75": 2765
    },
    "grades": {
     "A": {
-     "median": 2261,
-     "p25": 2008,
-     "p75": 2519,
-     "n": 6
+     "median": 2374,
+     "p25": 1962,
+     "p75": 2567,
+     "n": 5
     },
     "B": {
-     "median": 2422,
-     "p25": 2093,
-     "p75": 2839,
-     "n": 37
+     "median": 2393,
+     "p25": 2138,
+     "p75": 2811,
+     "n": 35
     },
     "C": {
      "median": 1427,
@@ -3936,35 +4009,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 545,
-    "median": 1749,
-    "p25": 1542,
-    "p75": 2061
+    "n": 564,
+    "median": 1727,
+    "p25": 1532,
+    "p75": 2030
    },
    "grades": {
     "A": {
-     "median": 2423,
-     "p25": 2196,
-     "p75": 2812,
-     "n": 38
+     "median": 2401,
+     "p25": 2106,
+     "p75": 2815,
+     "n": 41
     },
     "B": {
-     "median": 1761,
-     "p25": 1591,
-     "p75": 2014,
-     "n": 446
+     "median": 1744,
+     "p25": 1579,
+     "p75": 1997,
+     "n": 459
     },
     "C": {
-     "median": 1337,
-     "p25": 1145,
-     "p75": 1548,
-     "n": 61
+     "median": 1329,
+     "p25": 1144,
+     "p75": 1554,
+     "n": 64
     }
    },
    "retail_usd": 2840,
    "retail_as_of": "2026",
    "retail_discontinued": false,
-   "retention": 61.6
+   "retention": 60.8
   },
   {
    "slug": "louis-vuitton-sarah-wallet",
@@ -3973,35 +4046,35 @@
    "category": "small-leather-goods",
    "basis": "sold",
    "resale": {
-    "n": 417,
-    "median": 277,
-    "p25": 181,
-    "p75": 378
+    "n": 425,
+    "median": 284,
+    "p25": 184,
+    "p75": 376
    },
    "grades": {
     "A": {
-     "median": 534,
+     "median": 522,
      "p25": 434,
-     "p75": 666,
-     "n": 50
+     "p75": 635,
+     "n": 49
     },
     "B": {
-     "median": 301,
-     "p25": 224,
+     "median": 302,
+     "p25": 232,
      "p75": 376,
-     "n": 254
+     "n": 261
     },
     "C": {
      "median": 153,
-     "p25": 118,
-     "p75": 195,
-     "n": 113
+     "p25": 114,
+     "p75": 198,
+     "n": 115
     }
    },
    "retail_usd": 775,
    "retail_as_of": "2026-10",
    "retail_discontinued": false,
-   "retention": 35.7
+   "retention": 36.6
   },
   {
    "slug": "louis-vuitton-speedy-25",
@@ -4010,28 +4083,28 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 165,
-    "median": 841,
-    "p25": 618,
-    "p75": 1072
+    "n": 172,
+    "median": 803,
+    "p25": 638,
+    "p75": 1068
    },
    "grades": {
     "A": {
      "median": 1392,
-     "p25": 1196,
-     "p75": 1742,
-     "n": 5
+     "p25": 1214,
+     "p75": 1916,
+     "n": 7
     },
     "B": {
-     "median": 991,
-     "p25": 850,
-     "p75": 1239,
-     "n": 84
+     "median": 926,
+     "p25": 765,
+     "p75": 1208,
+     "n": 89
     },
     "C": {
-     "median": 615,
-     "p25": 546,
-     "p75": 763,
+     "median": 630,
+     "p25": 566,
+     "p75": 760,
      "n": 76
     }
    },
@@ -4047,29 +4120,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 353,
-    "median": 808,
+    "n": 347,
+    "median": 818,
     "p25": 623,
     "p75": 996
    },
    "grades": {
     "A": {
-     "median": 1480,
-     "p25": 1044,
-     "p75": 1890,
-     "n": 14
+     "median": 1302,
+     "p25": 1021,
+     "p75": 1612,
+     "n": 21
     },
     "B": {
-     "median": 916,
-     "p25": 784,
-     "p75": 1109,
-     "n": 204
+     "median": 894,
+     "p25": 787,
+     "p75": 1083,
+     "n": 192
     },
     "C": {
-     "median": 601,
-     "p25": 480,
-     "p75": 692,
-     "n": 135
+     "median": 598,
+     "p25": 491,
+     "p75": 702,
+     "n": 134
     }
    },
    "retail_usd": null,
@@ -4084,29 +4157,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 127,
-    "median": 732,
-    "p25": 584,
-    "p75": 966
+    "n": 121,
+    "median": 765,
+    "p25": 587,
+    "p75": 976
    },
    "grades": {
     "B": {
-     "median": 922,
-     "p25": 785,
-     "p75": 1042,
-     "n": 56
+     "median": 934,
+     "p25": 797,
+     "p75": 1075,
+     "n": 60
     },
     "C": {
-     "median": 594,
-     "p25": 486,
-     "p75": 710,
-     "n": 67
+     "median": 588,
+     "p25": 454,
+     "p75": 702,
+     "n": 58
     }
    },
    "retail_usd": 1735,
    "retail_as_of": "2025-08",
    "retail_discontinued": false,
-   "retention": 42.2
+   "retention": 44.1
   },
   {
    "slug": "louis-vuitton-twist-mm",
@@ -4115,10 +4188,10 @@
    "category": "handbags",
    "basis": "asking",
    "resale": {
-    "n": 37,
-    "median": 2909,
-    "p25": 2459,
-    "p75": 4109
+    "n": 51,
+    "median": 2523,
+    "p25": 2284,
+    "p75": 2931
    },
    "grades": {
     "B": {
@@ -4140,35 +4213,35 @@
    "category": "small-leather-goods",
    "basis": "sold",
    "resale": {
-    "n": 219,
-    "median": 378,
-    "p25": 270,
-    "p75": 489
+    "n": 222,
+    "median": 376,
+    "p25": 268,
+    "p75": 472
    },
    "grades": {
     "A": {
-     "median": 586,
-     "p25": 438,
-     "p75": 642,
-     "n": 37
+     "median": 536,
+     "p25": 426,
+     "p75": 633,
+     "n": 40
     },
     "B": {
-     "median": 366,
-     "p25": 279,
+     "median": 356,
+     "p25": 268,
      "p75": 461,
-     "n": 144
+     "n": 146
     },
     "C": {
      "median": 264,
-     "p25": 215,
-     "p75": 307,
-     "n": 38
+     "p25": 217,
+     "p75": 341,
+     "n": 36
     }
    },
    "retail_usd": 625,
    "retail_as_of": "2026-10",
    "retail_discontinued": false,
-   "retention": 60.5
+   "retention": 60.2
   },
   {
    "slug": "louis-vuitton-zippy-wallet",
@@ -4177,29 +4250,29 @@
    "category": "small-leather-goods",
    "basis": "sold",
    "resale": {
-    "n": 570,
-    "median": 308,
+    "n": 555,
+    "median": 311,
     "p25": 230,
-    "p75": 437
+    "p75": 445
    },
    "grades": {
     "A": {
      "median": 615,
-     "p25": 438,
-     "p75": 746,
+     "p25": 454,
+     "p75": 740,
      "n": 79
     },
     "B": {
-     "median": 308,
-     "p25": 250,
-     "p75": 408,
-     "n": 363
+     "median": 320,
+     "p25": 256,
+     "p75": 417,
+     "n": 344
     },
     "C": {
-     "median": 214,
-     "p25": 160,
-     "p75": 294,
-     "n": 128
+     "median": 205,
+     "p25": 148,
+     "p75": 282,
+     "n": 132
     }
    },
    "retail_usd": 940,
@@ -4214,29 +4287,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 343,
+    "n": 339,
     "median": 169,
-    "p25": 133,
-    "p75": 208
+    "p25": 134,
+    "p75": 210
    },
    "grades": {
     "A": {
-     "median": 196,
-     "p25": 159,
-     "p75": 262,
-     "n": 127
+     "median": 199,
+     "p25": 163,
+     "p75": 260,
+     "n": 132
     },
     "B": {
-     "median": 161,
-     "p25": 132,
-     "p75": 190,
-     "n": 182
+     "median": 160,
+     "p25": 128,
+     "p75": 188,
+     "n": 177
     },
     "C": {
-     "median": 110,
-     "p25": 88,
-     "p75": 141,
-     "n": 34
+     "median": 107,
+     "p25": 86,
+     "p75": 140,
+     "n": 30
     }
    },
    "retail_usd": null,
@@ -4251,29 +4324,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 174,
-    "median": 1858,
-    "p25": 1514,
-    "p75": 2224
+    "n": 170,
+    "median": 1848,
+    "p25": 1503,
+    "p75": 2208
    },
    "grades": {
     "A": {
      "median": 2104,
-     "p25": 1823,
-     "p75": 2397,
-     "n": 102
+     "p25": 1794,
+     "p75": 2383,
+     "n": 99
     },
     "B": {
-     "median": 1589,
-     "p25": 1331,
-     "p75": 1853,
+     "median": 1588,
+     "p25": 1172,
+     "p75": 1814,
      "n": 65
     },
     "C": {
-     "median": 461,
-     "p25": 210,
-     "p75": 972,
-     "n": 7
+     "median": 338,
+     "p25": 208,
+     "p75": 1064,
+     "n": 6
     }
    },
    "retail_usd": null,
@@ -4288,27 +4361,27 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 155,
-    "median": 1616,
-    "p25": 1272,
-    "p75": 1990
+    "n": 137,
+    "median": 1600,
+    "p25": 1231,
+    "p75": 1961
    },
    "grades": {
     "A": {
-     "median": 1802,
-     "p25": 1493,
-     "p75": 2130,
-     "n": 90
+     "median": 1736,
+     "p25": 1491,
+     "p75": 2170,
+     "n": 75
     },
     "B": {
-     "median": 1388,
-     "p25": 1116,
-     "p75": 1741,
-     "n": 56
+     "median": 1369,
+     "p25": 1070,
+     "p75": 1702,
+     "n": 53
     },
     "C": {
      "median": 858,
-     "p25": 463,
+     "p25": 493,
      "p75": 1350,
      "n": 9
     }
@@ -4316,7 +4389,7 @@
    "retail_usd": 2950,
    "retail_as_of": "2026-10",
    "retail_discontinued": false,
-   "retention": 54.8
+   "retention": 54.2
   },
   {
    "slug": "omega-seamaster-300m",
@@ -4325,23 +4398,23 @@
    "category": "watches",
    "basis": "sold",
    "resale": {
-    "n": 128,
-    "median": 1144,
-    "p25": 802,
-    "p75": 1970
+    "n": 129,
+    "median": 1118,
+    "p25": 736,
+    "p75": 1985
    },
    "grades": {
     "B": {
-     "median": 1204,
-     "p25": 898,
-     "p75": 2193,
-     "n": 86
+     "median": 1192,
+     "p25": 873,
+     "p75": 2228,
+     "n": 83
     },
     "C": {
-     "median": 888,
+     "median": 856,
      "p25": 538,
      "p75": 1326,
-     "n": 40
+     "n": 44
     }
    },
    "retail_usd": 6700,
@@ -4356,10 +4429,10 @@
    "category": "watches",
    "basis": "asking",
    "resale": {
-    "n": 22,
-    "median": 8845,
-    "p25": 7079,
-    "p75": 11399
+    "n": 30,
+    "median": 8648,
+    "p25": 7185,
+    "p75": 11068
    },
    "grades": {},
    "retail_usd": 7800,
@@ -4374,29 +4447,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 234,
-    "median": 1152,
-    "p25": 598,
-    "p75": 1593
+    "n": 228,
+    "median": 1150,
+    "p25": 593,
+    "p75": 1578
    },
    "grades": {
     "A": {
-     "median": 1690,
-     "p25": 1357,
-     "p75": 2031,
-     "n": 46
+     "median": 1672,
+     "p25": 1334,
+     "p75": 1961,
+     "n": 45
     },
     "B": {
      "median": 1107,
-     "p25": 612,
-     "p75": 1526,
-     "n": 151
+     "p25": 611,
+     "p75": 1525,
+     "n": 145
     },
     "C": {
-     "median": 459,
-     "p25": 376,
-     "p75": 757,
-     "n": 37
+     "median": 457,
+     "p25": 371,
+     "p75": 742,
+     "n": 38
     }
    },
    "retail_usd": null,
@@ -4411,17 +4484,17 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 24,
+    "n": 22,
     "median": 815,
-    "p25": 590,
-    "p75": 1109
+    "p25": 610,
+    "p75": 1118
    },
    "grades": {
     "B": {
      "median": 815,
-     "p25": 714,
-     "p75": 998,
-     "n": 16
+     "p25": 728,
+     "p75": 1036,
+     "n": 14
     },
     "C": {
      "median": 477,
@@ -4443,22 +4516,22 @@
    "basis": "sold",
    "resale": {
     "n": 40,
-    "median": 840,
-    "p25": 576,
-    "p75": 1044
+    "median": 780,
+    "p25": 526,
+    "p75": 1033
    },
    "grades": {
     "B": {
      "median": 866,
-     "p25": 585,
+     "p25": 545,
      "p75": 1032,
      "n": 30
     },
     "C": {
-     "median": 616,
-     "p25": 546,
-     "p75": 735,
-     "n": 7
+     "median": 546,
+     "p25": 334,
+     "p75": 733,
+     "n": 8
     }
    },
    "retail_usd": null,
@@ -4473,27 +4546,27 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 294,
+    "n": 288,
     "median": 612,
-    "p25": 464,
-    "p75": 831
+    "p25": 473,
+    "p75": 832
    },
    "grades": {
     "A": {
-     "median": 933,
-     "p25": 690,
-     "p75": 1296,
-     "n": 66
+     "median": 925,
+     "p25": 697,
+     "p75": 1280,
+     "n": 65
     },
     "B": {
-     "median": 575,
-     "p25": 464,
+     "median": 578,
+     "p25": 481,
      "p75": 741,
-     "n": 186
+     "n": 181
     },
     "C": {
-     "median": 429,
-     "p25": 346,
+     "median": 418,
+     "p25": 350,
      "p75": 570,
      "n": 42
     }
@@ -4510,35 +4583,35 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 205,
-    "median": 986,
-    "p25": 728,
-    "p75": 1259
+    "n": 214,
+    "median": 942,
+    "p25": 692,
+    "p75": 1238
    },
    "grades": {
     "A": {
-     "median": 1214,
-     "p25": 932,
-     "p75": 1488,
-     "n": 46
+     "median": 1204,
+     "p25": 924,
+     "p75": 1466,
+     "n": 44
     },
     "B": {
-     "median": 1054,
-     "p25": 751,
-     "p75": 1289,
-     "n": 114
+     "median": 956,
+     "p25": 678,
+     "p75": 1279,
+     "n": 123
     },
     "C": {
-     "median": 718,
-     "p25": 581,
-     "p75": 924,
-     "n": 45
+     "median": 694,
+     "p25": 558,
+     "p75": 931,
+     "n": 47
     }
    },
    "retail_usd": 2250,
    "retail_as_of": "2026-10",
    "retail_discontinued": false,
-   "retention": 43.8
+   "retention": 41.9
   },
   {
    "slug": "prada-re-nylon-backpack",
@@ -4547,29 +4620,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 390,
-    "median": 482,
-    "p25": 342,
-    "p75": 672
+    "n": 406,
+    "median": 471,
+    "p25": 339,
+    "p75": 658
    },
    "grades": {
     "A": {
-     "median": 722,
-     "p25": 538,
-     "p75": 1072,
-     "n": 64
+     "median": 702,
+     "p25": 532,
+     "p75": 1078,
+     "n": 60
     },
     "B": {
      "median": 510,
-     "p25": 376,
-     "p75": 662,
-     "n": 230
+     "p25": 371,
+     "p75": 668,
+     "n": 240
     },
     "C": {
-     "median": 326,
-     "p25": 214,
-     "p75": 454,
-     "n": 96
+     "median": 321,
+     "p25": 216,
+     "p75": 452,
+     "n": 106
     }
    },
    "retail_usd": null,
@@ -4584,23 +4657,23 @@
    "category": "watches",
    "basis": "sold",
    "resale": {
-    "n": 29,
-    "median": 8444,
-    "p25": 6965,
-    "p75": 12466
+    "n": 28,
+    "median": 8344,
+    "p25": 6794,
+    "p75": 12710
    },
    "grades": {
     "B": {
-     "median": 8473,
-     "p25": 7201,
+     "median": 8354,
+     "p25": 6850,
      "p75": 13200,
      "n": 22
     },
     "C": {
-     "median": 8424,
-     "p25": 6707,
-     "p75": 11390,
-     "n": 7
+     "median": 8034,
+     "p25": 6239,
+     "p75": 10883,
+     "n": 6
     }
    },
    "retail_usd": 8150,
@@ -4615,10 +4688,10 @@
    "category": "watches",
    "basis": "asking",
    "resale": {
-    "n": 69,
-    "median": 43708,
-    "p25": 36759,
-    "p75": 67516
+    "n": 70,
+    "median": 41163,
+    "p25": 33224,
+    "p75": 63435
    },
    "grades": {},
    "retail_usd": 16900,
@@ -4633,10 +4706,10 @@
    "category": "watches",
    "basis": "asking",
    "resale": {
-    "n": 31,
-    "median": 27682,
-    "p25": 19409,
-    "p75": 31664
+    "n": 32,
+    "median": 25667,
+    "p25": 18440,
+    "p75": 30961
    },
    "grades": {},
    "retail_usd": null,
@@ -4651,10 +4724,10 @@
    "category": "watches",
    "basis": "asking",
    "resale": {
-    "n": 75,
-    "median": 20252,
-    "p25": 15936,
-    "p75": 27128
+    "n": 70,
+    "median": 19803,
+    "p25": 15120,
+    "p75": 26791
    },
    "grades": {
     "B": {
@@ -4677,28 +4750,28 @@
    "basis": "sold",
    "resale": {
     "n": 63,
-    "median": 2069,
-    "p25": 1750,
-    "p75": 2406
+    "median": 2018,
+    "p25": 1704,
+    "p75": 2335
    },
    "grades": {
     "A": {
-     "median": 2362,
-     "p25": 2160,
-     "p75": 3098,
-     "n": 12
+     "median": 2278,
+     "p25": 2112,
+     "p75": 2880,
+     "n": 13
     },
     "B": {
-     "median": 2069,
-     "p25": 1820,
-     "p75": 2392,
-     "n": 39
+     "median": 2068,
+     "p25": 1832,
+     "p75": 2384,
+     "n": 36
     },
     "C": {
-     "median": 1712,
-     "p25": 1318,
-     "p75": 1791,
-     "n": 12
+     "median": 1634,
+     "p25": 1284,
+     "p75": 1759,
+     "n": 14
     }
    },
    "retail_usd": 2500,
@@ -4714,28 +4787,28 @@
    "basis": "sold",
    "resale": {
     "n": 79,
-    "median": 2054,
+    "median": 2077,
     "p25": 1732,
     "p75": 2438
    },
    "grades": {
     "A": {
      "median": 2576,
-     "p25": 2183,
+     "p25": 2284,
      "p75": 2669,
      "n": 19
     },
     "B": {
-     "median": 1990,
-     "p25": 1652,
-     "p75": 2232,
-     "n": 55
+     "median": 1972,
+     "p25": 1656,
+     "p75": 2238,
+     "n": 54
     },
     "C": {
-     "median": 1595,
-     "p25": 1529,
-     "p75": 1754,
-     "n": 5
+     "median": 1562,
+     "p25": 1429,
+     "p75": 1714,
+     "n": 6
     }
    },
    "retail_usd": 2200,
@@ -4750,17 +4823,17 @@
    "category": "handbags",
    "basis": "asking",
    "resale": {
-    "n": 22,
-    "median": 2052,
-    "p25": 1744,
-    "p75": 2187
+    "n": 43,
+    "median": 2024,
+    "p25": 1860,
+    "p75": 2231
    },
    "grades": {
     "B": {
-     "median": 1288,
-     "p25": 1171,
-     "p75": 1542,
-     "n": 6
+     "median": 1260,
+     "p25": 1141,
+     "p75": 1316,
+     "n": 5
     }
    },
    "retail_usd": null,
@@ -4775,10 +4848,10 @@
    "category": "watches",
    "basis": "asking",
    "resale": {
-    "n": 23,
-    "median": 3000,
-    "p25": 2662,
-    "p75": 3986
+    "n": 19,
+    "median": 2739,
+    "p25": 2447,
+    "p75": 3700
    },
    "grades": {},
    "retail_usd": null,
@@ -4793,17 +4866,17 @@
    "category": "jewelry",
    "basis": "sold",
    "resale": {
-    "n": 22,
-    "median": 790,
-    "p25": 184,
-    "p75": 1373
+    "n": 20,
+    "median": 692,
+    "p25": 182,
+    "p75": 1359
    },
    "grades": {
     "B": {
-     "median": 992,
-     "p25": 619,
-     "p75": 1202,
-     "n": 9
+     "median": 814,
+     "p25": 400,
+     "p75": 1106,
+     "n": 7
     },
     "C": {
      "median": 191,
@@ -4824,29 +4897,29 @@
    "category": "jewelry",
    "basis": "sold",
    "resale": {
-    "n": 320,
+    "n": 322,
     "median": 338,
-    "p25": 268,
-    "p75": 456
+    "p25": 266,
+    "p75": 454
    },
    "grades": {
     "A": {
-     "median": 406,
-     "p25": 340,
+     "median": 424,
+     "p25": 325,
      "p75": 642,
-     "n": 16
+     "n": 20
     },
     "B": {
-     "median": 346,
-     "p25": 283,
-     "p75": 460,
-     "n": 218
+     "median": 342,
+     "p25": 279,
+     "p75": 454,
+     "n": 214
     },
     "C": {
-     "median": 297,
-     "p25": 228,
-     "p75": 395,
-     "n": 86
+     "median": 304,
+     "p25": 234,
+     "p75": 418,
+     "n": 88
     }
    },
    "retail_usd": 700,
@@ -4862,28 +4935,28 @@
    "basis": "sold",
    "resale": {
     "n": 28,
-    "median": 2120,
+    "median": 2304,
     "p25": 1542,
-    "p75": 2904
+    "p75": 3258
    },
    "grades": {
     "A": {
-     "median": 1623,
-     "p25": 1522,
-     "p75": 2188,
-     "n": 6
+     "median": 1645,
+     "p25": 1495,
+     "p75": 2369,
+     "n": 5
     },
     "B": {
-     "median": 1969,
-     "p25": 1329,
-     "p75": 2668,
-     "n": 11
+     "median": 1558,
+     "p25": 1304,
+     "p75": 2781,
+     "n": 9
     },
     "C": {
-     "median": 2238,
-     "p25": 2028,
-     "p75": 3810,
-     "n": 11
+     "median": 2826,
+     "p25": 2110,
+     "p75": 4414,
+     "n": 14
     }
    },
    "retail_usd": null,
@@ -4898,35 +4971,35 @@
    "category": "jewelry",
    "basis": "sold",
    "resale": {
-    "n": 106,
-    "median": 2503,
-    "p25": 2098,
-    "p75": 3704
+    "n": 99,
+    "median": 2462,
+    "p25": 2014,
+    "p75": 3702
    },
    "grades": {
     "A": {
-     "median": 2882,
-     "p25": 2511,
-     "p75": 3987,
-     "n": 32
+     "median": 2969,
+     "p25": 2556,
+     "p75": 4008,
+     "n": 34
     },
     "B": {
-     "median": 2323,
-     "p25": 1900,
-     "p75": 3000,
-     "n": 50
+     "median": 2272,
+     "p25": 1764,
+     "p75": 2870,
+     "n": 46
     },
     "C": {
-     "median": 2248,
+     "median": 2233,
      "p25": 1826,
-     "p75": 3583,
-     "n": 24
+     "p75": 2723,
+     "n": 19
     }
    },
    "retail_usd": 3950,
    "retail_as_of": "2026-10",
    "retail_discontinued": false,
-   "retention": 63.4
+   "retention": 62.3
   },
   {
    "slug": "valentino-rockstud-crossbody",
@@ -4935,29 +5008,29 @@
    "category": "handbags",
    "basis": "sold",
    "resale": {
-    "n": 710,
+    "n": 711,
     "median": 588,
-    "p25": 436,
-    "p75": 771
+    "p25": 438,
+    "p75": 772
    },
    "grades": {
     "A": {
      "median": 767,
-     "p25": 587,
-     "p75": 1062,
+     "p25": 557,
+     "p75": 1064,
      "n": 163
     },
     "B": {
-     "median": 589,
-     "p25": 458,
-     "p75": 751,
-     "n": 425
+     "median": 596,
+     "p25": 459,
+     "p75": 752,
+     "n": 422
     },
     "C": {
-     "median": 392,
-     "p25": 288,
-     "p75": 514,
-     "n": 122
+     "median": 391,
+     "p25": 287,
+     "p75": 535,
+     "n": 126
     }
    },
    "retail_usd": 1650,
@@ -4973,9 +5046,9 @@
    "basis": "asking",
    "resale": {
     "n": 26,
-    "median": 1498,
-    "p25": 850,
-    "p75": 2002
+    "median": 1385,
+    "p25": 822,
+    "p75": 1882
    },
    "grades": {
     "B": {
@@ -4997,10 +5070,10 @@
    "category": "jewelry",
    "basis": "asking",
    "resale": {
-    "n": 51,
-    "median": 7795,
-    "p25": 7234,
-    "p75": 9486
+    "n": 49,
+    "median": 7182,
+    "p25": 6645,
+    "p75": 9414
    },
    "grades": {},
    "retail_usd": null,
@@ -5016,22 +5089,22 @@
    "basis": "sold",
    "resale": {
     "n": 13,
-    "median": 3538,
+    "median": 3669,
     "p25": 2826,
-    "p75": 3706
+    "p75": 3709
    },
    "grades": {
     "B": {
-     "median": 3538,
+     "median": 3669,
      "p25": 2826,
-     "p75": 3706,
+     "p75": 3709,
      "n": 9
     }
    },
    "retail_usd": 2610,
    "retail_as_of": "2025-04",
    "retail_discontinued": false,
-   "retention": 135.6
+   "retention": 140.6
   },
   {
    "slug": "van-cleef-arpels-vintage-alhambra-bracelet",
@@ -5040,10 +5113,10 @@
    "category": "jewelry",
    "basis": "sold",
    "resale": {
-    "n": 64,
-    "median": 6354,
-    "p25": 5459,
-    "p75": 7438
+    "n": 53,
+    "median": 6300,
+    "p25": 5501,
+    "p75": 7725
    },
    "grades": {
     "A": {
@@ -5053,16 +5126,16 @@
      "n": 7
     },
     "B": {
-     "median": 6260,
-     "p25": 5501,
-     "p75": 7386,
-     "n": 53
+     "median": 6249,
+     "p25": 5459,
+     "p75": 7620,
+     "n": 44
     }
    },
    "retail_usd": 5100,
    "retail_as_of": "2026-10",
    "retail_discontinued": false,
-   "retention": 124.6
+   "retention": 123.5
   },
   {
    "slug": "van-cleef-arpels-vintage-alhambra-earrings",
@@ -5071,23 +5144,23 @@
    "category": "jewelry",
    "basis": "sold",
    "resale": {
-    "n": 52,
-    "median": 5099,
-    "p25": 3749,
-    "p75": 6215
+    "n": 59,
+    "median": 5054,
+    "p25": 3716,
+    "p75": 6194
    },
    "grades": {
     "A": {
-     "median": 4610,
-     "p25": 4208,
-     "p75": 6000,
-     "n": 13
+     "median": 4572,
+     "p25": 4113,
+     "p75": 5961,
+     "n": 12
     },
     "B": {
-     "median": 5230,
-     "p25": 3731,
-     "p75": 6280,
-     "n": 36
+     "median": 5144,
+     "p25": 3709,
+     "p75": 6208,
+     "n": 45
     }
    },
    "retail_usd": null,
@@ -5103,28 +5176,28 @@
    "basis": "sold",
    "resale": {
     "n": 88,
-    "median": 4088,
+    "median": 4118,
     "p25": 3638,
     "p75": 4992
    },
    "grades": {
     "A": {
-     "median": 4001,
-     "p25": 3814,
-     "p75": 5682,
-     "n": 18
+     "median": 4173,
+     "p25": 3746,
+     "p75": 5918,
+     "n": 15
     },
     "B": {
-     "median": 4058,
-     "p25": 3536,
-     "p75": 4964,
-     "n": 64
+     "median": 4108,
+     "p25": 3560,
+     "p75": 4958,
+     "n": 68
     },
     "C": {
-     "median": 4236,
-     "p25": 4104,
-     "p75": 4460,
-     "n": 6
+     "median": 4124,
+     "p25": 4098,
+     "p75": 4348,
+     "n": 5
     }
    },
    "retail_usd": 9150,
@@ -5139,28 +5212,28 @@
    "category": "belts",
    "basis": "sold",
    "resale": {
-    "n": 225,
-    "median": 230,
-    "p25": 173,
-    "p75": 301
+    "n": 218,
+    "median": 228,
+    "p25": 171,
+    "p75": 296
    },
    "grades": {
     "A": {
-     "median": 271,
+     "median": 270,
      "p25": 208,
-     "p75": 327,
-     "n": 114
+     "p75": 320,
+     "n": 106
     },
     "B": {
-     "median": 220,
-     "p25": 160,
+     "median": 215,
+     "p25": 156,
      "p75": 272,
-     "n": 94
+     "n": 95
     },
     "C": {
-     "median": 157,
-     "p25": 121,
-     "p75": 224,
+     "median": 141,
+     "p25": 114,
+     "p75": 208,
      "n": 17
     }
    },

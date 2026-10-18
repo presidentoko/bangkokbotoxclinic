@@ -20,6 +20,7 @@ import { getItemBySlug } from '@/lib/data'
 import { getThaiEntry } from '@/lib/thai-market'
 import { formatPriceTHB } from '@/lib/data'
 import { MonthlyChart, GradeBars, StatTile } from '@/components/ValueCharts'
+import { PriceDrivers } from '@/components/PriceDrivers'
 
 const BASE = 'https://www.chicpreowned.com'
 const TOOLS = 'https://www.secondluxuryitems.com'
@@ -229,6 +230,8 @@ export default async function ValuePage({ params }: Props) {
           </table>
         </section>
       )}
+
+      <PriceDrivers m={m} locale={locale} />
 
       {months.length >= 2 && (
         <section className="mb-10">
