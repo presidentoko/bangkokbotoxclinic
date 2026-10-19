@@ -18,6 +18,7 @@ import {
   SameActiveElsewhere,
   BrandPantip,
 } from "@/components/BrandEvidence";
+import { BrandPricePosition } from "@/components/BrandPricePosition";
 
 const BASE = "https://bangkokfillers.com";
 // 2026-07-13 긴급 픽스 — ISR Writes 한도 초과 대응. 유효 브랜드는
@@ -179,6 +180,9 @@ export default async function BrandPage({
       <BrandActives brand={brand} products={products} locale={locale} />
       <SameActiveElsewhere brand={brand} products={products} locale={locale} />
       <BrandPantip brand={brand} products={products} locale={locale} />
+      {/* Fallback for the 64 brands with neither ingredients nor quotes:
+          price and size are the two things all of them do have. */}
+      <BrandPricePosition brand={brand} products={products} locale={locale} />
 
       {/* Full product grid */}
       <section className="space-y-4">

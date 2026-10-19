@@ -189,8 +189,18 @@ export function looksLikeOpinion(text: string, knownBrands: Iterable<string>): b
   const separators = (t.match(/[-/,|•]/g) ?? []).length;
   if (separators >= 6 && separators / t.length > 0.03) return false;
 
-  return true;
+  // Finally, does a person appear in it? Rejecting lists is not the same as
+  // confirming an opinion — a product blurb clears every test above. Thai
+  // forum posts carry the polite particles ค่ะ/ครับ and first-person pronouns
+  // almost without exception, and English ones say I/my/tried. Requiring one
+  // of these is what separates somebody's experience from copy about a
+  // product, which is the claim the heading makes.
+  return SPEAKER.test(t);
 }
+
+/** Marks of a person writing rather than copy describing a product. */
+const SPEAKER =
+  /(ค่ะ|คะ|ครับ|ค่า|เรา|ผม|ฉัน|ดิฉัน|หนู|ใช้แล้ว|รู้สึก|ชอบ|แนะนำ|ลองแล้ว)|\b(i|my|me|we|our|tried|used|bought|love|hate|recommend)\b/i;
 
 /**
  * Pantip quotes from one product's threads that name the other product's brand.

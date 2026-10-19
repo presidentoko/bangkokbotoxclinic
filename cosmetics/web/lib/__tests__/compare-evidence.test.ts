@@ -129,7 +129,7 @@ describe("crossBrandQuotes", () => {
     pantip: {
       mention_count: 1,
       thread_count: 1,
-      snippets: [{ text: "สองตัวนี้มี Thiamidol เหมือนกัน Eucerin กับ NIVEA ต่างกันนิดหน่อย", topic_id: "42" }],
+      snippets: [{ text: "สองตัวนี้มี Thiamidol เหมือนกันค่ะ เราใช้ Eucerin กับ NIVEA มาแล้วทั้งคู่ ต่างกันนิดหน่อยนะคะ", topic_id: "42" }],
     },
   } as Partial<Product>);
   const nivea = base({ brand: "NIVEA" } as Partial<Product>);
@@ -241,5 +241,20 @@ describe("looksLikeOpinion", () => {
   it("does not need a brand list to reject a hashtag or a stub", () => {
     expect(looksLikeOpinion("#promo ".repeat(12), [])).toBe(false);
     expect(looksLikeOpinion("สั้น", [])).toBe(false);
+  });
+  it("rejects product copy that is not anyone speaking", () => {
+    // Clears every list and hashtag test above, and is still a brochure.
+    const blurb = "เซรั่มเนื้อบางเบา ซึมไวไม่เหนียวเหนอะหนะ ช่วยปรับผิวให้กระจ่างใสขึ้นอย่างเป็นธรรมชาติ เหมาะสำหรับผิวทุกประเภท";
+    expect(looksLikeOpinion(blurb, brands)).toBe(false);
+  });
+
+  it("keeps an English post written in the first person", () => {
+    const en = "I tried this for about two months and my skin texture improved a lot, though it did sting a little at first.";
+    expect(looksLikeOpinion(en, brands)).toBe(true);
+  });
+
+  it("keeps a Thai post marked by its polite particle", () => {
+    const th = "ใช้มาสามเดือนแล้วค่ะ หน้าใสขึ้นจริง แต่ต้องทาต่อเนื่องนะคะ ไม่งั้นกลับมาเหมือนเดิม";
+    expect(looksLikeOpinion(th, brands)).toBe(true);
   });
 });
