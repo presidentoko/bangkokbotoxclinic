@@ -106,10 +106,25 @@ describe("unitPrice", () => {
     expect(unitPrice(base({ volume: "50 G", price_thb: 100 }))?.unit).toBe("g");
   });
 
-  it("refuses counts, because baht per sheet is not a price anyone can compare", () => {
-    expect(unitPrice(base({ volume: "30sheets", price_thb: 100 }))).toBeNull();
-    expect(unitPrice(base({ volume: "60tablets", price_thb: 100 }))).toBeNull();
+  it("reads the countable units supplements are sold in", () => {
+    // Baht per capsule is how two bottles of grape seed extract compare.
+    expect(unitPrice(base({ volume: "30capsules", price_thb: 300 }))?.perUnit).toBe(10);
+    expect(unitPrice(base({ volume: "30capsules", price_thb: 300 }))?.unit).toBe("capsule");
+    expect(unitPrice(base({ volume: "60tablets", price_thb: 120 }))?.unit).toBe("tablet");
+    expect(unitPrice(base({ volume: "5 Sheets", price_thb: 379 }))?.unit).toBe("sheet");
+  });
+
+  it("still refuses a bare piece count and an empty size", () => {
+    // "A piece of what" is not a question this data answers.
+    expect(unitPrice(base({ volume: "100pcs", price_thb: 100 }))).toBeNull();
+    expect(unitPrice(base({ volume: "1pc", price_thb: 100 }))).toBeNull();
     expect(unitPrice(base({ volume: "", price_thb: 100 }))).toBeNull();
+  });
+
+  it("never prices a capsule against a millilitre", () => {
+    const pill = base({ volume: "30capsules", price_thb: 300 });
+    const serum = base({ volume: "30ml", price_thb: 300 });
+    expect(comparableUnitPrice(pill, serum)).toBeNull();
   });
 
   it("refuses a free or missing price rather than reporting 0/ml", () => {

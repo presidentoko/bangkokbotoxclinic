@@ -99,22 +99,33 @@ export interface UnitPrice {
 }
 
 /**
- * Baht per ml or per g. 890 rows are in ml and 562 in g; the rest count
- * sheets, tablets or pieces, where a per-unit price means nothing across
- * brands, so those get null rather than a misleading number.
+ * Baht per unit of whatever the product is sold by.
+ *
+ * 890 rows are in ml and 562 in g. The rest count capsules, tablets, sachets
+ * or sheets, and those were refused at first on the grounds that a per-piece
+ * price means nothing across brands. That is true of a cotton bud and false of
+ * a supplement: baht per capsule is exactly how someone compares two bottles
+ * of grape seed extract, and this catalogue carries a whole oral section.
+ *
+ * Comparison stays unit-matched by comparableUnitPrice, so a capsule is never
+ * priced against a millilitre. Bare "pcs" is still refused — a piece of what
+ * is not a question this data can answer.
  */
 export function unitPrice(p: Pick<Product, "volume" | "price_thb">): UnitPrice | null {
   const m = String(p.volume ?? "")
     .trim()
     .toLowerCase()
-    .match(/^([\d.,]+)\s*(ml|g)\b/);
+    .match(/^([\d.,]+)\s*(ml|g|capsules?|tablets?|sachets?|sheets?)\b/);
   if (!m) return null;
   const amount = Number(m[1].replace(/,/g, ""));
   const price = Number(p.price_thb);
   if (!Number.isFinite(amount) || amount <= 0) return null;
   if (!Number.isFinite(price) || price <= 0) return null;
-  return { amount, unit: m[2], perUnit: price / amount };
+  // "30capsules" and "1 capsule" are the same unit.
+  const unit = m[2].replace(/s$/, "");
+  return { amount, unit, perUnit: price / amount };
 }
+
 
 /**
  * Per-unit prices only compare when the unit matches — baht/ml against
