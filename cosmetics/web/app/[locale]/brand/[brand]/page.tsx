@@ -13,6 +13,11 @@ import { brandThai } from "@/lib/thai-names";
 import { JsonLd } from "@/components/JsonLd";
 import { AdvertiseCta } from "@/components/AdvertiseCta";
 import { scoreColor, baht } from "@/lib/format";
+import {
+  BrandActives,
+  SameActiveElsewhere,
+  BrandPantip,
+} from "@/components/BrandEvidence";
 
 const BASE = "https://bangkokfillers.com";
 // 2026-07-13 긴급 픽스 — ISR Writes 한도 초과 대응. 유효 브랜드는
@@ -164,6 +169,16 @@ export default async function BrandPage({
           </div>
         </section>
       )}
+
+      {/* Evidence. /brand draws 577 of this site's 2,436 impressions — more
+          than /product — while 143 of 394 brands carry a single product, so
+          these URLs were earning attention and answering nothing. Each block
+          below is something the reader cannot get from the retailer: what the
+          brand formulates with, what else contains the same active and at
+          what price per unit, and what Thai buyers said. */}
+      <BrandActives brand={brand} products={products} locale={locale} />
+      <SameActiveElsewhere brand={brand} products={products} locale={locale} />
+      <BrandPantip brand={brand} products={products} locale={locale} />
 
       {/* Full product grid */}
       <section className="space-y-4">

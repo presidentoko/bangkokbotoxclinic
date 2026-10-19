@@ -8,6 +8,13 @@ import { JsonLd } from "@/components/JsonLd";
 import compareKeep from "@/data/compare-keep.json";
 import { faqLd, breadcrumbLd } from "@/lib/schema";
 import { buildComparablePairs } from "@/lib/search-index";
+import {
+  IngredientEvidence,
+  UnitPriceEvidence,
+  CrossBrandQuotes,
+  driverSentence,
+} from "@/components/CompareEvidence";
+import { hasEvidence } from "@/lib/compare-evidence";
 import type { Product } from "@/lib/types";
 
 const BASE = "https://bangkokfillers.com";
@@ -155,10 +162,18 @@ export default async function ComparePage({
     const winnerP = winner === "A" ? pA : winner === "B" ? pB : null;
     return {
       q: `Which is better for ${concern}: ${pA.brand} ${pA.name} or ${pB.brand} ${pB.name}?`,
-      a:
-        winner === "tie"
-          ? `Both products score similarly for ${concern}: ${pA.brand} scores ${Math.round(scoreA)}/100 and ${pB.brand} scores ${Math.round(scoreB)}/100.`
-          : `${winnerP!.brand} ${winnerP!.name} scores ${Math.round(winner === "A" ? scoreA : scoreB)}/100 vs ${Math.round(winner === "A" ? scoreB : scoreA)}/100 for ${concern} based on ingredient science and verified reviews.`,
+      // The answer names the ingredient when we have one. "Scores 82/100 based
+      // on ingredient science" asserts a reason the reader cannot check; the
+      // INCI name is printed on the box they are holding.
+      a: (() => {
+        const loser = winner === "A" ? pB : pA;
+        const why = winnerP ? driverSentence(winnerP, loser, concern, locale) : null;
+        if (winner === "tie") {
+          return `Both products score similarly for ${concern}: ${pA.brand} ${Math.round(scoreA)}/100, ${pB.brand} ${Math.round(scoreB)}/100.`;
+        }
+        const head = `${winnerP!.brand} ${winnerP!.name} scores ${Math.round(winner === "A" ? scoreA : scoreB)}/100 against ${Math.round(winner === "A" ? scoreB : scoreA)}/100 for ${concern}.`;
+        return why ? `${head} ${why}` : head;
+      })(),
     };
   });
 
@@ -245,6 +260,14 @@ export default async function ComparePage({
         </section>
       )}
 
+      {/* Evidence: what is in each bottle, what a unit costs, and what Thai
+          buyers said when they weighed the same two. These come before the
+          score table on purpose — the score is our arithmetic, these are
+          facts the reader can check without us. */}
+      <IngredientEvidence pA={pA} pB={pB} concern={topConcernA} locale={locale} />
+      <UnitPriceEvidence pA={pA} pB={pB} locale={locale} />
+      <CrossBrandQuotes pA={pA} pB={pB} locale={locale} />
+
       {/* Score comparison table */}
       <section className="space-y-3">
         <h2 className="font-serif-display text-2xl font-semibold text-[#2b2222]">
@@ -304,7 +327,9 @@ export default async function ComparePage({
           </div>
         </div>
         <p className="text-xs text-neutral-400">
-          {isTh ? "คะแนน /100 · ▲ ดีกว่าในหมวดนั้น" : "Scores /100 · ▲ wins that category"}
+          {isTh
+            ? "คะแนน /100 คำนวณจากสารออกฤทธิ์ด้านบนและรีวิวที่ตรวจสอบแล้ว · ▲ ดีกว่าในหมวดนั้น"
+            : "Scores /100, computed from the actives listed above and verified reviews · ▲ wins that category"}
         </p>
       </section>
 

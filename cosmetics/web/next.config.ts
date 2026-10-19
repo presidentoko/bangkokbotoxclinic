@@ -72,6 +72,15 @@ const CDN_CACHE_CRAWL = "public, s-maxage=3600, stale-while-revalidate=86400";
 
 const nextConfig: NextConfig = {
   trailingSlash: false,
+  // 2026-10-20: the build spawned 11 workers for 9,301 pages and drove this
+  // machine to 0.47 GB free, where the OS starts reaping processes. Each
+  // worker holds its own copy of an 8.6 MB master_db.json, so worker count
+  // multiplies the peak directly, and memoryBasedWorkersCount will not go
+  // below four. Capping costs build minutes and changes no output.
+  experimental: {
+    cpus: 2,
+    staticGenerationMaxConcurrency: 4,
+  },
   images: {
     // Konvy CDN sources
     remotePatterns: [

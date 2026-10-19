@@ -67,7 +67,15 @@ describe("URLs the catalogue no longer covers", () => {
   // these are gone, or they have a broader page that covers them.
   it("410s a brand the catalogue dropped", () => {
     expect(run("/en/brand/mamonde").status).toBe(410);
-    expect(run("/th/brand/citra").status).toBe(410);
+  });
+
+  // citra and banobagi were among the 833 products a half-finished Konvy run
+  // deleted on 2026-06-11 and 8157c25 put back. They were 410 while they were
+  // missing, which was right then and wrong now: a 410 tells Google the page
+  // is gone for good, so leaving it on a restored product would undo the
+  // restore. Whatever decides "gone" has to read today's catalogue.
+  it("serves a brand that came back in the catalogue restore", () => {
+    expect(run("/th/brand/citra").status).toBe(200);
   });
 
   it("serves brands that are still carried", () => {
@@ -99,7 +107,13 @@ describe("URLs the catalogue no longer covers", () => {
   });
 
   it("410s a comparison whose product has left the catalogue", () => {
-    expect(run("/th/compare/banobagi-51781-vs-citra-98676").status).toBe(410);
+    // Pick an id the catalogue genuinely does not carry, rather than one that
+    // happened to be missing on the day the test was written.
+    expect(run("/th/compare/gone-999999998-vs-alsogone-999999999").status).toBe(410);
+  });
+
+  it("serves a comparison whose products came back", () => {
+    expect(run("/th/compare/banobagi-51781-vs-citra-98676").status).toBe(200);
   });
 
   it("leaves a comparison of two live products to the route", () => {
