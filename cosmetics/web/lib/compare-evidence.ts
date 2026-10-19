@@ -175,6 +175,27 @@ export function looksLikeOpinion(text: string, knownBrands: Iterable<string>): b
   // Campaign copy: hashtags are not how buyers write to each other.
   if (/#[^\s#]{2,}/.test(t)) return false;
 
+  // A link is a promotion, or at best a pointer to one. Auditing all 3,277
+  // publishable snippets turned up blog URLs sitting inside otherwise
+  // first-person text.
+  if (/https?:\/\//i.test(t)) return false;
+
+  // Sponsored-reviewer openings. These are written in the first person and so
+  // clear the speaker test below, but "I got the chance to try" is a press
+  // sample, not somebody buying a thing and having an opinion about it.
+  if (PR_OPENING.test(t)) return false;
+
+  // One brand named over and over is a product list, which the distinct-brand
+  // count below does not see: "น้ำตบ X เซรั่ม X เจล X" repeats a single brand.
+  const words = t.toLowerCase().match(/[a-z]{4,}/g) ?? [];
+  if (words.length >= 3) {
+    const freq = new Map<string, number>();
+    for (const w of words) freq.set(w, (freq.get(w) ?? 0) + 1);
+    const top = Math.max(...freq.values());
+    if (top >= 3 && knownBrandSet(knownBrands).has([...freq].find(([, n]) => n === top)![0]))
+      return false;
+  }
+
   const lower = t.toLowerCase();
   let brandHits = 0;
   for (const b of knownBrands) {
@@ -196,6 +217,22 @@ export function looksLikeOpinion(text: string, knownBrands: Iterable<string>): b
   // of these is what separates somebody's experience from copy about a
   // product, which is the claim the heading makes.
   return SPEAKER.test(t);
+}
+
+/** Openings used by sponsored reviewers; first-person but not a buyer. */
+const PR_OPENING =
+  /(มีโอกาสได้ลอง|ได้รับมาจาก|ได้รับการสนับสนุน|มาแนะนำกันอีก|รีวิวจ้า|ตัวแทนจำหน่าย|สนใจสั่งซื้อ|ทักแชท)/;
+
+let _brandCache: { src: Iterable<string>; set: Set<string> } | null = null;
+function knownBrandSet(brands: Iterable<string>): Set<string> {
+  if (_brandCache && _brandCache.src === brands) return _brandCache.set;
+  const set = new Set<string>();
+  for (const b of brands) {
+    const bl = b.trim().toLowerCase();
+    if (bl.length >= 4) set.add(bl);
+  }
+  _brandCache = { src: brands, set };
+  return set;
 }
 
 /** Marks of a person writing rather than copy describing a product. */

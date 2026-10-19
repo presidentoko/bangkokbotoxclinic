@@ -257,4 +257,24 @@ describe("looksLikeOpinion", () => {
     const th = "ใช้มาสามเดือนแล้วค่ะ หน้าใสขึ้นจริง แต่ต้องทาต่อเนื่องนะคะ ไม่งั้นกลับมาเหมือนเดิม";
     expect(looksLikeOpinion(th, brands)).toBe(true);
   });
+  // Found by auditing all 3,277 publishable snippets, not by imagining cases.
+  it("rejects a post carrying a link", () => {
+    const withUrl = "ลองอ่านดูก่อนใช้นะคะ ระวังดื้อยาค่ะ https://www.welpano.com/blog/acne-care-guide ตามนี้เลย";
+    expect(looksLikeOpinion(withUrl, brands)).toBe(false);
+  });
+
+  it("rejects a sponsored reviewer opening even though it is first person", () => {
+    const pr = "มาแนะนำกันอีกแล้วสาวๆ เต้ยเอง มีโอกาสได้ลองผลิตภัณฑ์ใหม่อีกแล้วจ้า เป็นแป้งคุมมันตัวใหม่ค่ะ";
+    expect(looksLikeOpinion(pr, brands)).toBe(false);
+  });
+
+  it("rejects one brand repeated down a product list", () => {
+    const repeated = "น้ำตบหยุดสิว cerave เซรั่มละลายสิว cerave เจลมังกร cerave มอยส์เจอร์ไรเซอร์ ตามนี้เลยค่า";
+    expect(looksLikeOpinion(repeated, brands)).toBe(false);
+  });
+
+  it("still keeps an ordinary post that names its brand twice", () => {
+    const ok = "ใช้ cerave มาสองเดือนค่ะ ตอนแรกกลัวว่า cerave จะมันเกินไปสำหรับผิวผสม แต่กลายเป็นว่าโอเคมาก";
+    expect(looksLikeOpinion(ok, brands)).toBe(true);
+  });
 });
