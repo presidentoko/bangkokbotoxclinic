@@ -5,6 +5,7 @@ import RelatedGuides from '@/components/RelatedGuides'
 import AdSlot from '@/components/AdSlot'
 import { loadBangkokHospitals, loadHospitals, hospitalSlug } from '@/lib/hospitals'
 import { getIndexableDistricts } from '@/lib/districts'
+import { specialPetClinics } from '@/lib/hospitalSignals'
 import { CITY_META, type CityKey } from '@/lib/cityHub'
 import type { Hospital } from '@/lib/types'
 
@@ -193,6 +194,34 @@ function DistrictIndex() {
   )
 }
 
+/**
+ * The special-pet directory, surfaced from the main hub.
+ *
+ * It is the one page on this site that answers a question nothing else on the
+ * Thai web answers — which vet will see a rabbit, a parrot or a turtle — so it
+ * needs a link from the hub rather than only a sitemap entry.
+ */
+function SpecialPets() {
+  const n = specialPetClinics().length
+  if (!n) return null
+  return (
+    <section className="mb-8">
+      <a
+        href="/hospital/exotic"
+        className="block bg-orange-50 border border-orange-100 rounded-2xl p-4 hover:border-orange-300 transition-colors"
+      >
+        <h2 className="text-base font-bold text-gray-900 mb-1">
+          🐰 พากระต่าย นก หรือสัตว์เลื้อยคลานไปที่ไหนดี
+        </h2>
+        <p className="text-sm text-gray-600 leading-relaxed">
+          {n} แห่งที่เจ้าของเขียนรีวิวว่าพาสัตว์พิเศษไปรักษาจริง คัดจากรีวิวภาษาไทย 16,308 รีวิว
+          <span className="text-orange-700 font-semibold"> ดูรายชื่อ →</span>
+        </p>
+      </a>
+    </section>
+  )
+}
+
 /** Cross-links to the three city hubs added alongside Bangkok's own directory. */
 function OtherCities() {
   const all = loadHospitals()
@@ -300,6 +329,7 @@ export default function HospitalPage() {
         <span className="text-emerald-700 font-bold">→</span>
       </a>
       <AdSlot slot="1234567891" format="leaderboard" />
+      <SpecialPets />
       <OtherCities />
       <DistrictIndex />
       <Suspense fallback={null}>

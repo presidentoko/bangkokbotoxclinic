@@ -6,6 +6,8 @@ import { getLicense, LICENSE_CLASS } from '@/lib/licenses'
 import { getHospitalBySlug, loadHospitals, hospitalSlug, hasPreciseCoord, districtLabel } from '@/lib/hospitals'
 import { getHospitalReviews } from '@/lib/petreviews'
 import { getGoogleReviews } from '@/lib/hospitalReviews'
+import { getSignals } from '@/lib/hospitalSignals'
+import OwnerReports from '@/components/OwnerReports'
 import GoogleReviews from '@/components/GoogleReviews'
 import NearbyHospitals from '@/components/NearbyHospitals'
 import HospitalShareButtons from '@/components/HospitalShareButtons'
@@ -366,6 +368,7 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
   const mapEmbedUrl = `https://maps.google.com/maps?q=${mapsQuery}&z=${precise ? 16 : 15}&output=embed`
   const pantipReview = getHospitalReviews(h.id)
   const googleReviews = getGoogleReviews(h.id)
+  const ownerSignals = getSignals(h.id)
   const reviewUrl = h.google_place_id
     ? `https://search.google.com/local/reviews?placeid=${h.google_place_id}`
     : null
@@ -620,6 +623,11 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
       )}
 
       <HospitalShareButtons />
+
+      {/* Counted from this clinic's own reviews: what owners say they
+          brought and what was done. The only thing on the page that is
+          neither the Google listing nor a quote. */}
+      {ownerSignals && <OwnerReports signals={ownerSignals} />}
 
       {/* What reviewers actually wrote. This is the page's own content — up to
           2026-10-16 a clinic page was its name, address, a star number and
