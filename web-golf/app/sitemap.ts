@@ -50,6 +50,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     { url: `${SITE}/about`, lastModified: updated, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE}/contact`, lastModified: updated, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${SITE}/privacy`, lastModified: updated, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE}/for-courses`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE}/methodology`, lastModified: updated, changeFrequency: "monthly", priority: 0.75 },
     { url: `${SITE}/compare`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 },

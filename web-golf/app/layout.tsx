@@ -137,6 +137,7 @@ export default function RootLayout({
                   <li><a href="/methodology" className="hover:text-black">Methodology</a></li>
                   <li><a href="/about" className="hover:text-black">About</a></li>
                   <li><a href="/contact" className="hover:text-black">Contact</a></li>
+                  <li><a href="/privacy" className="hover:text-black">Privacy</a></li>
                   <li><a href="/for-courses" className="hover:text-black">For Golf Clubs</a></li>
                   <li><a href="/sitemap.xml" className="hover:text-black">Sitemap</a></li>
                 </ul>
