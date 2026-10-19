@@ -1,0 +1,61 @@
+{
+  "_comment": "Brands whose products are not cosmetics. A Konvy scrape fills this catalogue by retailer category, and the retailer files facial tissue, cotton pads, condoms and sanitary pads alongside skincare, so the site published a brand page for each. They are kept out of the sitemap and carry noindex; the pages still answer 200, because a 404 would throw away whatever links exist and these can come back by deleting a line here. Measured 2026-10-20: none of the 15 appears among the 147 /brand URLs in the Search Console export, so no measured traffic is at risk. Every brand below was read from its own product names, not guessed from the brand name. Deliberately NOT here: beauty supplements (Hi-Balanz, NUBOLIC, Doctorlogy, PPRIM, Black Magic Plus) and Clear anti-dandruff shampoo, which are things people buy for how they look and which the site ranks in its oral and haircare sections.",
+  "brands": [
+    {
+      "brand": "Kleenex",
+      "why": "facial tissue — Kleenex Acne Soft Box 100 sheets"
+    },
+    {
+      "brand": "Gamsai",
+      "why": "facial tissue — Jumbo Facial Tissue 4 Layers 1300 Sheets"
+    },
+    {
+      "brand": "Rii",
+      "why": "cotton pads and paper buds"
+    },
+    {
+      "brand": "Yuki Yuki",
+      "why": "cotton puffs and jumbo cotton pads"
+    },
+    {
+      "brand": "Clinix",
+      "why": "cotton pads — Multi Care Cotton Pad 6x7 cm"
+    },
+    {
+      "brand": "Evergreen",
+      "why": "cotton buds — Cotton Bud Set 100pcs x 8"
+    },
+    {
+      "brand": "Beo",
+      "why": "tumble dryer sheets — Dryer Sheet Cotton Scented"
+    },
+    {
+      "brand": "Hygiene",
+      "why": "fabric freshener — Hygiene Fabric Freshener 8g x 8"
+    },
+    {
+      "brand": "Sofy",
+      "why": "sanitary pads — Sofy Body Fit Day & Night 35cm"
+    },
+    {
+      "brand": "Onetouch",
+      "why": "condoms — Onetouch 003 Family Pack 52mm"
+    },
+    {
+      "brand": "Be Better",
+      "why": "exfoliating gloves — a tool, not a formula"
+    },
+    {
+      "brand": "Moonzoon",
+      "why": "comedone extractor — a tool, not a formula"
+    },
+    {
+      "brand": "Hourglass",
+      "why": "the only row is a pouch, not the makeup house's cosmetics; a page under this name that holds a pouch misleads anyone searching the brand"
+    },
+    {
+      "brand": "Giorgio Armani",
+      "why": "the only row is a Beauty Trousse (a case), not Armani cosmetics; same misleading-name problem as Hourglass"
+    }
+  ]
+}

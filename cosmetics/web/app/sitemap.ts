@@ -12,6 +12,7 @@ import {
 } from "@/lib/data";
 import type { Locale } from "@/lib/i18n";
 import { getNoindexLocales } from "@/lib/indexing";
+import { isOffCatalogue } from "@/lib/off-catalogue";
 
 import { currentSaleEvent } from "@/lib/sale";
 import { hasTrendingData } from "@/lib/trending";
@@ -116,9 +117,11 @@ function ingredientEntries(locale: Locale): MetadataRoute.Sitemap {
 
 // Sitemap 3: brand pages
 function brandEntries(locale: Locale): MetadataRoute.Sitemap {
-  return allBrands().map((brand) =>
-    entry(`${BASE}/${locale}/brand/${brandSlug(brand)}`, 0.7, "weekly")
-  );
+  return allBrands()
+    .filter((brand) => !isOffCatalogue(brand))
+    .map((brand) =>
+      entry(`${BASE}/${locale}/brand/${brandSlug(brand)}`, 0.7, "weekly")
+    );
 }
 
 // Total URL count (core + products + ingredients + brands, over two locales)

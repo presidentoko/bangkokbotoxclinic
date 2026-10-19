@@ -19,6 +19,7 @@ import {
   BrandPantip,
 } from "@/components/BrandEvidence";
 import { BrandPricePosition } from "@/components/BrandPricePosition";
+import { isOffCatalogue } from "@/lib/off-catalogue";
 
 const BASE = "https://bangkokfillers.com";
 // 2026-07-13 긴급 픽스 — ISR Writes 한도 초과 대응. 유효 브랜드는
@@ -54,6 +55,9 @@ export async function generateMetadata({
   return {
     title,
     description,
+    // Tissue, cotton pads, condoms — and two pages named after makeup houses
+    // that hold only a pouch. See lib/off-catalogue.ts.
+    ...(isOffCatalogue(brand) ? { robots: { index: false, follow: true } } : {}),
     alternates: {
       canonical: url,
       languages: localeAlternates((l) => `${BASE}/${l}/brand/${brandSlugParam}`),
