@@ -13,6 +13,7 @@ import {
 } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { nicheAreaCounts } from "@/lib/areas";
+import { getVsIndex } from "@/lib/vs";
 import { NicheGrid } from "@/components/NicheGrid";
 import { toGridPlace, toGridKlook } from "@/lib/gridPlace";
 import { ShareButton } from "@/components/ShareButton";
@@ -387,6 +388,9 @@ export default async function NichePage({
   // 667 in three months) and they are the shorter path to the ~850 venue pages
   // that otherwise hang off /all alone.
   const areaLinks = nicheAreaCounts(niche, db.places);
+  // Head-to-head pages exist only for niches with enough well-reviewed venues in
+  // one neighbourhood; ask the same index that builds them.
+  const vsCount = (await getVsIndex(niche as NicheSlug)).pairs.length;
   // See generateMetadata above — db.total is the raw scraped count and can
   // wildly overstate how many pages actually exist for thin-data niches.
   const rankedCount = qualifying.length;
@@ -450,6 +454,15 @@ export default async function NichePage({
           See our Top 10 {info.label} in {scope} →
         </a>
       </div>
+
+      {vsCount > 0 && (
+        <div className="mb-4 text-sm">
+          <span className="text-[var(--muted)]">Choosing between two? </span>
+          <a href={`/activities/${niche}/vs`} className="text-orange-600 font-bold hover:underline">
+            Compare {info.label} head-to-head ({vsCount} comparisons) →
+          </a>
+        </div>
+      )}
 
       {/* Browse by city — niche×city landing pages for city-qualified
           search intent ("cooking class chiang mai") the Thailand-wide

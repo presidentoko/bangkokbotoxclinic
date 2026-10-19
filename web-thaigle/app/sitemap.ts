@@ -7,6 +7,7 @@ import { GUIDES } from "@/lib/guides";
 import { NICHES, loadNicheDb, qualifyingNichePlaces, nicheCityCounts, cityPageDuplicatesHub } from "@/lib/niches";
 import { isThinVenue } from "@/lib/venueContent";
 import { nicheAreaCounts } from "@/lib/areas";
+import { allVsParams, nichesWithVs } from "@/lib/vs";
 import type { NicheSlug } from "@/lib/niches";
 import { allDayPlanParams, buildDayPlan, AREA_DEFS, THEME_DEFS } from "@/lib/day-plans";
 import type { AreaSlug, ThemeSlug } from "@/lib/day-plans";
@@ -276,6 +277,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
   for (const cu of compareUrls) {
     items.push(cu);
+  }
+
+  // Venue-vs-venue comparisons. Same source as the pages themselves (lib/vs.ts),
+  // so a URL is listed here exactly when it is built.
+  for (const n of await nichesWithVs()) {
+    items.push({ url: `${SITE}/activities/${n}/vs`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 });
+  }
+  for (const { niche, pair } of await allVsParams()) {
+    items.push({ url: `${SITE}/activities/${niche}/vs/${pair}`, lastModified: updated, changeFrequency: "monthly", priority: 0.6 });
   }
 
   for (const c of cities) {

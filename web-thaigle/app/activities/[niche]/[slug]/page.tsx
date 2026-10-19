@@ -38,6 +38,7 @@ import { ReportButton } from "@/components/ReportButton";
 import { VenueStamp } from "@/components/VenueStamp";
 import { KlookBanner } from "@/components/KlookBanner";
 import { NearbyThings } from "@/components/NearbyThings";
+import { VsLinks } from "@/components/VsLinks";
 import { VenueBadge } from "@/components/VenueBadge";
 import { upscaleGooglePhoto, isLikelyAvatarThumbnail } from "@/lib/googlePhotoSize";
 
@@ -509,6 +510,9 @@ export default async function PlaceDetailPage({
           </div>
         </section>
       )}
+
+      {/* Head-to-head pages this venue is in (renders nothing if it is in none) */}
+      <VsLinks niche={niche} venueId={place.id} venueName={place.name} />
 
       {/* Cross-niche suggestions */}
       <section className="mb-6 border border-[var(--border)] rounded-2xl p-5 bg-gradient-to-br from-gray-50 to-white">

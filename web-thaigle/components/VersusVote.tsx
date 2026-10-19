@@ -11,35 +11,29 @@ export type VersusOption = {
   highlight?: string;
 };
 
-const BASE_COUNTS: Record<string, [number, number]> = {
-  "eating-experiences": [312, 241],
-  "food-activities": [198, 287],
-  "bts-taxi": [445, 167],
-  "indoor-outdoor": [223, 334],
-  "cooking-spa": [289, 356],
-  "trust-score-local-word": [412, 289],
-  "cuisine-area": [234, 378],
-  "solo-group": [167, 445],
-  "research-explore": [323, 198],
-  "star-trust": [289, 412],
-};
-
+/**
+ * A "which would you pick?" prompt. It does NOT tally anything.
+ *
+ * It used to. A table of hard-coded base counts ("312 vs 241") seeded a vote
+ * total and a percentage bar, so every page that embedded it printed "553
+ * votes" and "56% / 44%" — numbers nobody had cast. The click only bumped a
+ * local counter and stored nothing, so the poll was never live either. A
+ * reader comparing two things to decide where to spend a day was being shown
+ * invented social proof, and an ad reviewer reading the page would see the
+ * same thing.
+ *
+ * There is no vote store behind this site, so there is nothing true to show.
+ * The widget now does the one honest thing it can: it lets the reader mark
+ * their own pick and carry on to the matching listing or share it.
+ */
 export function VersusVote({ a, b, question }: { a: VersusOption; b: VersusOption; question: string }) {
-  const base = BASE_COUNTS[`${a.id}-${b.id}`] ?? BASE_COUNTS[`${b.id}-${a.id}`] ?? [148, 203];
-  const [votes, setVotes] = useState<Record<string, number>>({ [a.id]: base[0], [b.id]: base[1] });
   const [picked, setPicked] = useState<string | null>(null);
   const [shared, setShared] = useState(false);
 
-  const totalVotes = votes[a.id] + votes[b.id];
-
   const vote = (id: string) => {
     if (picked) return;
-    setVotes((v) => ({ ...v, [id]: v[id] + 1 }));
     setPicked(id);
   };
-
-  const pctA = totalVotes > 0 ? Math.round((votes[a.id] / totalVotes) * 100) : 50;
-  const pctB = 100 - pctA;
 
   const shareResult = async () => {
     const winner = picked === a.id ? a : b;
@@ -61,7 +55,6 @@ export function VersusVote({ a, b, question }: { a: VersusOption; b: VersusOptio
       <div className="px-5 pt-5 pb-3 text-center">
         <div className="flex items-center justify-center gap-2 mb-1">
           <div className="text-xs font-bold uppercase tracking-widest text-[var(--muted)]">Bangkok Showdown</div>
-          {totalVotes > 1 && <div className="text-[10px] text-[var(--muted)] font-medium">{totalVotes.toLocaleString()} votes</div>}
         </div>
         <h3 className="text-lg font-black">{question}</h3>
       </div>
@@ -96,18 +89,8 @@ export function VersusVote({ a, b, question }: { a: VersusOption; b: VersusOptio
                 {opt.highlight}
               </div>
             )}
-            {picked && (
-              <div className="mt-3">
-                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-orange-500 rounded-full transition-all duration-700"
-                    style={{ width: `${opt.id === a.id ? pctA : pctB}%` }}
-                  />
-                </div>
-                <div className="text-sm font-black mt-1 text-orange-600">
-                  {opt.id === a.id ? pctA : pctB}%
-                </div>
-              </div>
+            {picked === opt.id && (
+              <div className="mt-3 text-sm font-black text-orange-600">Your pick ✓</div>
             )}
           </button>
         ))}
@@ -156,7 +139,7 @@ export function VersusVote({ a, b, question }: { a: VersusOption; b: VersusOptio
 
       {!picked && (
         <div className="px-5 py-3 border-t border-[var(--border)] text-center">
-          <p className="text-xs text-[var(--muted)]">Tap to vote — results reveal instantly</p>
+          <p className="text-xs text-[var(--muted)]">Tap to mark your pick — it isn&apos;t recorded, it just helps you decide</p>
         </div>
       )}
     </div>
