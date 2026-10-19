@@ -130,26 +130,27 @@ export default async function ValuePage({ params }: Props) {
   }
 
   const url = `${BASE}/${locale}/value/${slug}`
+  // Google rejects a Product with no offers, review or aggregateRating as a
+  // critical error, so models with no live listings get no Product at all.
+  // Sold prices are not current offers and must not stand in for them.
   const schema = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Product',
-      name: fullName(m),
-      brand: { '@type': 'Brand', name: m.brand },
-      url,
-      ...(m.live?.p10 && m.live?.p90 && m.live?.n
-        ? {
-            offers: {
-              '@type': 'AggregateOffer',
-              lowPrice: m.live.p10,
-              highPrice: m.live.p90,
-              priceCurrency: 'USD',
-              offerCount: m.live.n,
-              itemCondition: 'https://schema.org/UsedCondition',
-            },
-          }
-        : {}),
-    },
+    ...(m.live?.p10 && m.live?.p90 && m.live?.n
+      ? [{
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: fullName(m),
+          brand: { '@type': 'Brand', name: m.brand },
+          url,
+          offers: {
+            '@type': 'AggregateOffer',
+            lowPrice: m.live.p10,
+            highPrice: m.live.p90,
+            priceCurrency: 'USD',
+            offerCount: m.live.n,
+            itemCondition: 'https://schema.org/UsedCondition',
+          },
+        }]
+      : []),
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
