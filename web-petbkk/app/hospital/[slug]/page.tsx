@@ -7,6 +7,7 @@ import { getHospitalBySlug, loadHospitals, hospitalSlug, hasPreciseCoord, distri
 import { getHospitalReviews } from '@/lib/petreviews'
 import { getGoogleReviews } from '@/lib/hospitalReviews'
 import { getSignals } from '@/lib/hospitalSignals'
+import { isIndexableHospital } from '@/lib/indexing'
 import OwnerReports from '@/components/OwnerReports'
 import GoogleReviews from '@/components/GoogleReviews'
 import NearbyHospitals from '@/components/NearbyHospitals'
@@ -38,6 +39,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const h = getHospitalBySlug(slug)
   if (!h) return { title: 'ไม่พบข้อมูล' }
+
+  // A clinic with no licence match, no hours and no quotable review renders
+  // about 846 characters — a name, an address, a star rating and the footer.
+  // It stays live and linked so a name search still finds it, but it is not
+  // offered to Google. See isIndexableHospital for the earning veto.
+  const indexable = isIndexableHospital(h, slug)
 
   const services: string[] = []
   if (h.is_24h) services.push('เปิด 24 ชม.')
@@ -116,6 +123,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const keywords = [h.name_th, ...(hasEnName ? [h.name_en!] : []), 'โรงพยาบาลสัตว์', 'สัตวแพทย์', ...services]
 
   return {
+    ...(indexable ? {} : { robots: { index: false, follow: true } }),
     title: { absolute: title },
     description,
     keywords,

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { loadFoods, foodSlug } from '@/lib/petfood'
-import { isIndexableFood } from '@/lib/indexing'
+import { isIndexableFood, isIndexableHospital } from '@/lib/indexing'
 import { loadHospitals, hospitalSlug } from '@/lib/hospitals'
 import { getIndexableDistricts } from '@/lib/districts'
 import { CITY_META } from '@/lib/cityHub'
@@ -146,7 +146,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }))
 
-  const hospitalPages: MetadataRoute.Sitemap = hospitals.map(h => ({
+  // Same rule as the product pages above: a noindex URL in the sitemap spends
+  // crawl budget to be told to go away. 97 clinics have no licence, no hours,
+  // no quotable review and no Search Console impression in three months.
+  const hospitalPages: MetadataRoute.Sitemap = hospitals
+    .filter(h => isIndexableHospital(h, hospitalSlug(h)))
+    .map(h => ({
     url: `${BASE}/hospital/${hospitalSlug(h)}`,
     lastModified: parsedDate(h.updated_at),
     priority: 0.7,

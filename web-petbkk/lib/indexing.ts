@@ -66,3 +66,62 @@ export function isIndexableFood(food: PetFood, slug: string): boolean {
   if (getFoodGrade(food)) return true
   return food.protein_pct > 0 && food.fat_pct > 0
 }
+
+/* ------------------------------------------------------------------------ *
+ * Clinic pages
+ * ------------------------------------------------------------------------ */
+
+import type { Hospital } from './types'
+import { getLicense } from './licenses'
+import { getGoogleReviews } from './hospitalReviews'
+import hoursFile from '../data/hospital-hours.json'
+import earningFile from '../data/hospital-gsc-earning.json'
+
+/**
+ * Which clinic pages are worth asking Google to index.
+ *
+ * The 2026-10-15 coverage export had 549 clinic URLs under "Discovered" or
+ * "Crawled - currently not indexed": offered, looked at, declined. The 10-16
+ * review work answered that for most of them — median unique text went from
+ * 744-1,198 characters to 3,473 — but it could not answer it for the clinics
+ * with nothing to say. 113 published clinics still render about 846 characters:
+ * a name, an address, a star rating and the footer, with no licence match, no
+ * opening hours and no quotable review.
+ *
+ * Those are not pages Google is wrong to refuse, and continuing to offer them
+ * is what "low value content" means — the verdict AdSense returned for this
+ * site on 2026-09-16. They stay live and linked, because somebody searching
+ * the clinic by name should still find it; they are simply not submitted.
+ *
+ * This is the same gate, and the same reasoning, that cut 429 thin food pages
+ * out of the index on 2026-09-23. Daily impressions went from 11 to 30.5 after
+ * that change, so the decision has already been tested on this site.
+ *
+ * THE VETO. A page that earned a Search Console impression is never dropped,
+ * whatever its data looks like. bangkokfillers lost 80% of its impressions the
+ * day after a deploy that pruned pages judged unable to rank — pages that were
+ * the ones earning (feedback_crawl_surface_cut_killed_impressions). A page that
+ * ranks has already disproved the theory being used to remove it. 16 of the 113
+ * thin clinics are earning and are kept for exactly that reason.
+ */
+const EARNING_SLUGS: ReadonlySet<string> = new Set(
+  Object.keys((earningFile as { slugs: Record<string, unknown> }).slugs),
+)
+
+const HOURS_IDS: ReadonlySet<string> = new Set(Object.keys(hoursFile as Record<string, unknown>))
+
+/**
+ * Review text below this is not enough to carry a page on its own. The shared
+ * furniture on every clinic page measures 1,312 characters, so a page whose
+ * own contribution is a fraction of that reads as a template with a name in it.
+ */
+const MIN_REVIEW_CHARS = 500
+
+export function isIndexableHospital(h: Hospital, slug: string): boolean {
+  if (EARNING_SLUGS.has(slug)) return true
+  if (getLicense(h.id)) return true
+  if (HOURS_IDS.has(h.id)) return true
+  const reviews = getGoogleReviews(h.id)
+  if (reviews && reviews.chars >= MIN_REVIEW_CHARS) return true
+  return false
+}
