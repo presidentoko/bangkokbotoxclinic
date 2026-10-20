@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { filterHospitals, toLightHospital } from '@/lib/hospitals'
 import HospitalCard from '@/components/HospitalCard'
+import { loadHospitals, hospitalSlug, districtLabel } from '@/lib/hospitals'
+import { getSignals } from '@/lib/hospitalSignals'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
@@ -62,6 +64,16 @@ export default function HospitalEmergencyPage() {
     .sort((a, b) => (b.google_rating ?? 0) - (a.google_rating ?? 0))
     .slice(0, SHOWN)
 
+  // Clinics owners have actually written about an emergency at. 18 of these
+  // are not open around the clock, so the 24-hour list cannot surface them —
+  // a clinic that takes a bleeding dog at six in the evening is still the
+  // answer to somebody's emergency.
+  const evidence = loadHospitals()
+    .map(h => ({ h, count: getSignals(h.id)?.services?.emergency?.count ?? 0 }))
+    .filter(x => x.count > 0)
+    .sort((a, b) => b.count - a.count || (b.h.google_rating ?? 0) - (a.h.google_rating ?? 0))
+    .slice(0, 15)
+
   return (
     <main className="max-w-4xl mx-auto">
       <FaqJsonLd count={open24h.length} />
@@ -97,9 +109,61 @@ export default function HospitalEmergencyPage() {
         <a href="/emergency" className="mt-3 inline-block text-xs font-semibold text-red-700 underline">ดูคู่มือฉุกเฉินสัตว์เลี้ยงฉบับเต็ม →</a>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-        {hospitals.map(h => <HospitalCard key={h.id} hospital={toLightHospital(h)} />)}
-      </div>
+      {/* The twelve best-rated 24-hour clinics used to be rendered here as the
+          same cards, in the same order, that /hospital/24h already shows. That
+          was 82% of this page's text duplicating that one, and it is why
+          Search Console files this page under "Duplicate, Google chose
+          different canonical than user". The evidence list below answers the
+          emergency question better than a rating sort does, and the full
+          24-hour directory is one link away. */}
+
+      {/* Ranked by evidence rather than by star rating, which is what makes
+          this page something /hospital/24h is not.
+
+          Until now both pages rendered the same cards in the same order — 82%
+          of their text was identical, which is why Search Console files this
+          one under "Duplicate, Google chose different canonical than user".
+          A 4.9 average earned for grooming says nothing about three in the
+          morning.
+
+          The count is reviews in which an owner wrote about an emergency at
+          that clinic. It is evidence that the place is somewhere emergencies
+          are taken, NOT an endorsement: some of those reviews describe being
+          turned away, and for a page read at speed that is useful information
+          too, which is why the copy says to call ahead rather than drive. The
+          reviews themselves, good and bad, are on each clinic's own page. */}
+      {evidence.length > 0 && (
+        <section className="mb-10">
+          <h2 className="text-lg font-bold text-gray-900 mb-1">
+            ที่ที่มีคนเขียนถึงเคสฉุกเฉินจริง
+          </h2>
+          <p className="text-sm text-gray-500 mb-1 max-w-2xl leading-relaxed">
+            เรียงตามจำนวนรีวิวภาษาไทยที่เจ้าของเล่าถึงเหตุฉุกเฉินที่นั่น ไม่ได้เรียงตามคะแนนดาว
+            — คะแนน 4.9 ที่ได้จากการอาบน้ำตัดขนไม่ได้บอกอะไรเกี่ยวกับตีสาม
+          </p>
+          <p className="text-xs text-amber-700 mb-3 max-w-2xl leading-relaxed">
+            ตัวเลขคือ “มีคนเขียนถึงเคสฉุกเฉิน” ไม่ใช่คำรับรอง — บางรีวิวเล่าว่าถูกปฏิเสธเพราะเคสเต็ม
+            ซึ่งก็เป็นข้อมูลที่ควรรู้ <strong>โทรแจ้งอาการก่อนออกจากบ้านเสมอ</strong>
+          </p>
+          <ul className="bg-white border rounded-2xl px-4">
+            {evidence.map(({ h, count }) => (
+              <li key={h.id} className="py-3 border-b border-gray-100 last:border-0 flex items-baseline justify-between gap-3">
+                <div className="min-w-0">
+                  <a href={`/hospital/${hospitalSlug(h)}`} className="font-semibold text-gray-900 hover:text-orange-600">
+                    {h.name_th || h.name_en}
+                  </a>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    {districtLabel(h) ?? ''}
+                    {h.is_24h ? ' · เปิด 24 ชม.' : ' · ไม่ได้เปิด 24 ชม. — โทรก่อน'}
+                    {h.phone ? ` · ${h.phone}` : ''}
+                  </p>
+                </div>
+                <span className="text-xs text-gray-400 shrink-0">{count} รีวิว</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <a
         href="/hospital/24h"
