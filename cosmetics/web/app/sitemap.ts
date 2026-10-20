@@ -9,10 +9,14 @@ import {
   ingredientSlug,
   allBrands,
   brandSlug,
+  getProduct,
 } from "@/lib/data";
 import type { Locale } from "@/lib/i18n";
 import { getNoindexLocales } from "@/lib/indexing";
 import { isOffCatalogue } from "@/lib/off-catalogue";
+import { hasEvidence } from "@/lib/compare-evidence";
+import { buildComparablePairs } from "@/lib/search-index";
+import compareKeep from "@/data/compare-keep.json";
 
 import { currentSaleEvent } from "@/lib/sale";
 import { hasTrendingData } from "@/lib/trending";
@@ -124,6 +128,36 @@ function brandEntries(locale: Locale): MetadataRoute.Sitemap {
     );
 }
 
+// Sitemap 4: head-to-head comparison pages.
+//
+// These were prerendered and linked but never submitted, so Google reached
+// them only by crawling and had no reason to re-read them after the evidence
+// layer landed (INCI actives, dated unit prices, cited Pantip quotes). The
+// AdSense rejection of 2026-09-27 ("thin content") was issued against the page
+// that only restated two scores.
+//
+// Only pairs that carry that evidence are submitted: hasEvidence() is the same
+// test the page uses to decide it has something to show. This does not widen
+// the set — it is exactly the pairs generateStaticParams already prerenders
+// (top five per concern + the pairs Google had indexed), minus those with
+// nothing checkable on them. Submitting more would be the mass-produced-pages
+// signal this site is being judged on.
+function compareEntries(locale: Locale): MetadataRoute.Sitemap {
+  const slugs = new Set<string>();
+  for (const [key, slug] of Object.entries(buildComparablePairs())) {
+    const [idA, idB] = key.split("~");
+    const pA = getProduct(idA);
+    const pB = getProduct(idB);
+    if (pA && pB && hasEvidence(pA, pB)) slugs.add(slug);
+  }
+  for (const [idA, idB] of compareKeep.pairs) {
+    const pA = getProduct(idA);
+    const pB = getProduct(idB);
+    if (pA && pB && hasEvidence(pA, pB)) slugs.add(`${productSlug(pA)}-vs-${productSlug(pB)}`);
+  }
+  return [...slugs].sort().map((slug) => entry(`${BASE}/${locale}/compare/${slug}`, 0.6, "monthly"));
+}
+
 // Total URL count (core + products + ingredients + brands, over two locales)
 // is ~1,700 as of 2026-09 — well under Google's 50,000-URL-per-sitemap limit,
 // so this is served as a single sitemap at the conventional /sitemap.xml URL
@@ -152,5 +186,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...locales.flatMap(productEntries),
     ...locales.flatMap(ingredientEntries),
     ...locales.flatMap(brandEntries),
+    ...locales.flatMap(compareEntries),
   ];
 }
