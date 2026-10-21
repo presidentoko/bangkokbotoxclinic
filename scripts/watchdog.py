@@ -1454,7 +1454,11 @@ def build_services() -> list[Service]:
             # 1,247곳으로 다른 모든 도시·버티컬을 합친 것보다 많다.
             # 워커 2 → 1 ("천천히"). 포트는 기본값 2083 을 그대로 쓴다
             # (치앙마이 2082, 방콕 클리닉 2080 과 겹치지 않는다).
-            env_extra={**spa_bangkok_env, "N_WORKERS": "1"},
+            # 2026-10-21: 로그인 모드(GMAPS_PROFILE). 10-13 부터 비로그인은 리뷰
+            # 5건 상한(limited view)이라 로그인 프로필로만 수집된다. 프로필은 한
+            # 프로세스만 열 수 있으므로 이 env 를 다른 서비스에 복사하지 말 것.
+            env_extra={**spa_bangkok_env, "N_WORKERS": "1",
+                       "GMAPS_PROFILE": str((ROOT / ".secrets" / "gmaps_profile").resolve())},
             log_file=LOGS / "spa_review_bangkok.log",
             chrome_heavy=True,
             review_done_check=True,

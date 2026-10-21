@@ -214,6 +214,34 @@ def _pop_skip_reason() -> str:
     return getattr(_skip_reason_local, "value", "unknown")
 
 
+def _kill_stale_profile_chrome() -> None:
+    """로그인 프로필을 붙잡고 있는 크롬을 정리한다 (로그인 모드 전용).
+
+    프로필은 한 크롬만 열 수 있다. 워치독 kick·ram_manager pause 로 이전
+    스크래퍼가 죽으면 playwright 가 띄운 크롬이 남아(grid 좀비와 같은 현상)
+    새 launch_persistent_context 가 실패하고 서비스가 재시작 루프에 빠진다.
+    커맨드라인에 **이 프로필 경로**가 든 chrome.exe 만 죽인다 — 사용자의
+    개인 크롬은 다른 user-data-dir 이라 걸리지 않는다.
+    """
+    if os.name != "nt" or not config.GMAPS_PROFILE:
+        return
+    import subprocess
+    prof = str(Path(config.GMAPS_PROFILE).resolve()).replace("'", "''")
+    ps = (
+        "Get-CimInstance Win32_Process -Filter \"Name='chrome.exe'\" | "
+        f"Where-Object {{ $_.CommandLine -and $_.CommandLine.Contains('{prof}') }} | "
+        "ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue; $_.ProcessId }"
+    )
+    try:
+        out = subprocess.run(["powershell", "-NoProfile", "-Command", ps],
+                             capture_output=True, text=True, timeout=60).stdout.split()
+        if out:
+            log.warning(f"  로그인 프로필을 잡고 있던 크롬 {len(out)}개 정리")
+            time.sleep(2)
+    except Exception as e:
+        log.warning(f"  프로필 크롬 정리 실패: {str(e)[:80]}")
+
+
 def _rotate_vpn_and_wait(vpn_idx: int, timeout: float = ROTATE_TIMEOUT_SEC) -> bool:
     """
     vpn_idx = nordvpn_runner 에서 관리하는 포트 인덱스 (port - VPN_PORT_BASE).
@@ -1933,6 +1961,7 @@ def worker(
         """브라우저 기동. 로그인 모드면 로그인 프로필의 영속 컨텍스트를 연다."""
         if config.GMAPS_PROFILE:
             global _SIGNED_IN_UA
+            _kill_stale_profile_chrome()
             kw = dict(
                 channel="chrome",  # 로그인한 그 크롬과 같은 지문 — 쿠키가 다른 UA 에서
                                    # 쓰이면 구글 보안 검사에 걸리기 쉽다
