@@ -137,33 +137,53 @@ export const RENAMED_HOSPITALS: Record<string, string> = {
 };
 
 /** Deleted hospital -> the live path (locale-relative) that best covers it. */
+/**
+ * Where a hospital we no longer hold sends its visitors.
+ *
+ * These 28 slugs still drew 2,609 impressions in the three months to
+ * 2026-10-22 — 7.7% of everything the site was shown for — and every one of
+ * them is a hospital-name search, which is the only kind of query this
+ * property converts. They were being sent to an editorial city guide: prose
+ * about having a check-up in Krabi, when the visitor typed a hospital's name.
+ *
+ * They now go to /city/<province>, which since 2026-10 lists every hospital we
+ * hold in that province with its address, phone and opening hours, plus the
+ * province's register figures. A list of real hospitals is a closer answer to
+ * "bangkok hospital krabi" than an article, and /city/* covers all 24 routes
+ * with at least one hospital each. Slugs with no province still go to the
+ * hospital index.
+ *
+ * Still a fallback, not an equivalence — the hospital asked for is genuinely
+ * not on the site. If one is ever added, remove its line here first: middleware
+ * runs before routing and would hide the new page.
+ */
 export const MOVED_TO_GUIDE: Record<string, string> = {
-  "bangkok-hospital-ayutthaya": "/guide/ayutthaya-health-checkup",
-  "bangkok-hospital-chon-buri": "/guide/chon-buri-health-checkup",
-  "bangkok-hospital-krabi": "/guide/krabi-health-checkup",
-  "bangkok-hospital-lampang": "/guide/lampang-health-checkup",
-  "bangkok-hospital-nakhon-si-thammarat": "/guide/nakhon-si-thammarat-health-checkup",
-  "bangkok-hospital-trang": "/guide/trang-health-checkup",
+  "bangkok-hospital-ayutthaya": "/city/ayutthaya",
+  "bangkok-hospital-chon-buri": "/city/chon-buri",
+  "bangkok-hospital-krabi": "/city/krabi",
+  "bangkok-hospital-lampang": "/city/lampang",
+  "bangkok-hospital-nakhon-si-thammarat": "/city/nakhon-si-thammarat",
+  "bangkok-hospital-trang": "/city/trang",
   "bangkok-nursing-home-hospital": "/hospital",
-  "banglamung-hospital-pattaya": "/guide/pattaya-health-checkup",
-  "hatyai-ramkhamhaeng-hospital": "/guide/hat-yai-health-checkup",
+  "banglamung-hospital-pattaya": "/city/pattaya",
+  "hatyai-ramkhamhaeng-hospital": "/city/hat-yai",
   "hdm-mei-house-clinic-(\\u0e40\\u0e21\\u0e2d": "/hospital",
-  "kasemrad-surat-thani-hospital": "/guide/surat-thani-health-checkup",
-  "lampang-ruampaet-hospital": "/guide/lampang-health-checkup",
-  "nakorn-lampang-hospital": "/guide/lampang-health-checkup",
-  "nakornchaisri-hospital": "/guide/nakhon-pathom-health-checkup",
-  "nathon-hospital-ko-samui": "/guide/koh-samui-health-checkup",
-  "pagoda-hospital-samui": "/guide/koh-samui-health-checkup",
+  "kasemrad-surat-thani-hospital": "/city/surat-thani",
+  "lampang-ruampaet-hospital": "/city/lampang",
+  "nakorn-lampang-hospital": "/city/lampang",
+  "nakornchaisri-hospital": "/city/nakhon-pathom",
+  "nathon-hospital-ko-samui": "/city/ko-samui",
+  "pagoda-hospital-samui": "/city/ko-samui",
   "pakkred-infirmary-hospital": "/hospital",
-  "phyathai-rayong-hospital": "/guide/rayong-health-checkup",
+  "phyathai-rayong-hospital": "/city/rayong",
   "ramindra-medical-center": "/hospital",
-  "rutnin-hua-hin-hospital": "/guide/hua-hin-health-checkup",
-  "sri-udon-bhoom-hospital": "/guide/udon-thani-health-checkup",
-  "taksin-hospital-surat-thani": "/guide/surat-thani-health-checkup",
-  "the-rama-hospital-korat": "/guide/korat-health-checkup",
-  "trang-hospital": "/guide/trang-health-checkup",
-  "vejthani-hospital-pattaya": "/guide/pattaya-health-checkup",
-  "vibhavadi-hospital-chon-buri": "/guide/chon-buri-health-checkup",
-  "wattana-hospital-udon-thani": "/guide/udon-thani-health-checkup",
+  "rutnin-hua-hin-hospital": "/city/hua-hin",
+  "sri-udon-bhoom-hospital": "/city/udon-thani",
+  "taksin-hospital-surat-thani": "/city/surat-thani",
+  "the-rama-hospital-korat": "/city/korat",
+  "trang-hospital": "/city/trang",
+  "vejthani-hospital-pattaya": "/city/pattaya",
+  "vibhavadi-hospital-chon-buri": "/city/chon-buri",
+  "wattana-hospital-udon-thani": "/city/udon-thani",
   "wattanavej-hospital": "/hospital",
 };

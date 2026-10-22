@@ -4,6 +4,8 @@ import { type Locale, localeAlternates } from "@/lib/i18n";
 import { getPackagesByCitySlug, getHospitalsByCitySlug, DATA_GENERATED_AT } from "@/lib/db";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
 import type { PackageRow } from "@/lib/db";
+import { ProvinceFacts } from "@/app/components/ProvinceFacts";
+import { provinceStats } from "@/lib/provinceStats";
 
 // Static — see the note in app/[locale]/page.tsx.
 export const revalidate = false;
@@ -91,6 +93,9 @@ export default async function CityPage({
   // different `city` labels and its page was empty because of it.
   const rows: PackageRow[] = await getPackagesByCitySlug(city);
   const cityHospitals = await getHospitalsByCitySlug(city);
+  // The province, counted from the register and our own prices. This is the
+  // part of the page nobody else can publish.
+  const pstats = await provinceStats(city);
 
   const hospitals = new Set(rows.map((r) => r.hospital_slug)).size;
   // Hospitals in the province that publish no package still belong on the
@@ -141,6 +146,8 @@ export default async function CityPage({
           )}
         </div>
       </div>
+
+      {pstats && <ProvinceFacts stats={pstats} locale={locale} />}
 
       {rows.length === 0 && unpriced.length === 0 ? (
         <div className="text-center py-16 text-slate-400">

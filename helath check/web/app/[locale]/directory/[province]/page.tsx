@@ -12,6 +12,9 @@ import {
   type RegistryHospital,
 } from "@/lib/registry";
 import { getHospitals } from "@/lib/db";
+import { ProvinceFacts } from "@/app/components/ProvinceFacts";
+import { provinceStats } from "@/lib/provinceStats";
+import { CITY_ROUTE_SLUGS } from "@/lib/citySlug";
 
 export const revalidate = false;
 export const dynamicParams = false;
@@ -120,6 +123,7 @@ export default async function ProvinceDirectoryPage({
   if (!p) notFound();
 
   const rows = registryHospitals(province);
+  const pstats = await provinceStats(province);
   const ours = await getHospitals();
 
   // Link a register row to one of our pages when the matcher paired them.
@@ -165,6 +169,14 @@ export default async function ProvinceDirectoryPage({
           )}
         </p>
       </header>
+
+      {pstats && (
+        <ProvinceFacts
+          stats={pstats}
+          locale={locale}
+          cityHref={CITY_ROUTE_SLUGS.has(province) ? `/${locale}/city/${province}` : null}
+        />
+      )}
 
       {privateRows.length > 0 && (
         <section className="mb-8">
