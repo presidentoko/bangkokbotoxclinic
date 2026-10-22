@@ -1,11 +1,11 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { loadMasterDb, filterByDistrict } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CompactCourseList } from "@/components/CompactCourseList";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
-import { indexableDistricts, allDistricts } from "@/lib/crawlGate";
+import { indexableDistricts, retiredDistricts, allDistricts } from "@/lib/crawlGate";
 import type { Metadata } from "next";
 
 export const revalidate = 604800; // 7 days
@@ -26,14 +26,26 @@ function districtFromSlug(slug: string, all: string[]): string | null {
 // 반대로 발행됐는데 아무도 모르는 페이지가 크롤 예산만 먹는다.
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
-  return indexableDistricts(db.restaurants, allDistricts(db.district_counts))
-    .map((d) => ({ district: d.slug }));
+  const districts = allDistricts(db.district_counts);
+  return [
+    ...indexableDistricts(db.restaurants, districts).map((d) => ({ district: d.slug })),
+    // 게이트에 걸려 내려간 지역도 열거한다 — 렌더 대신 상위 도시로 308 하는 스텁으로 prerender 된다.
+    ...retiredDistricts(db.restaurants, districts, Object.keys(db.city_counts)).map((d) => ({ district: d.slug })),
+  ];
+}
+
+async function redirectIfRetired(slug: string): Promise<void> {
+  const db = await loadMasterDb();
+  const hit = retiredDistricts(db.restaurants, allDistricts(db.district_counts), Object.keys(db.city_counts))
+    .find((d) => d.slug === slug);
+  if (hit) permanentRedirect(hit.destination);
 }
 
 export async function generateMetadata(
   { params }: { params: Promise<{ district: string }> }
 ): Promise<Metadata> {
   const { district } = await params;
+  await redirectIfRetired(district);
   const db = await loadMasterDb();
   const allDistricts = Array.from(new Set(
     Object.keys(db.district_counts).map((k) => k.split("/")[1])
@@ -50,6 +62,7 @@ export default async function DistrictPage(
   { params }: { params: Promise<{ district: string }> }
 ) {
   const { district } = await params;
+  await redirectIfRetired(district);
   const db = await loadMasterDb();
   const allDistricts = Array.from(new Set(
     Object.keys(db.district_counts).map((k) => k.split("/")[1])

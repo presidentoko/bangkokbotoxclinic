@@ -1,4 +1,5 @@
 import type { Course } from "./types";
+import { courseFacts, offersForCourse } from "./providers";
 
 // 코스 페이지를 색인 대상으로 내보낼지 한 곳에서 판단한다.
 // sitemap 과 코스 페이지의 robots 메타가 반드시 같은 함수를 써야 한다 — 어긋나면
@@ -34,5 +35,36 @@ function isStub(c: Course): boolean {
  */
 export function isIndexableCourse(c: Course): boolean {
   if ((c.total_reviews ?? 0) === 0) return false;
-  return !isStub(c);
+  if (isStub(c)) return false;
+  return !isThin(c);
+}
+
+// 2026-10-22 GSC: 색인 1/741, "Crawled - currently not indexed" 487. 색인은 09-22 에
+// 배포 없이 37 → 9 로 꺾였다(네트워크 동시 강등과 같은 패턴). 사이트맵 코스 565장 중
+// 171장이 구글 리뷰 10건 미만이고 그중 164장은 발행 리뷰 텍스트가 300자 미만이었다 —
+// 업장명·주소·지도 말고는 템플릿뿐인 페이지 1/3 이 사이트 품질 평가를 끌어내린다.
+// petbkk 의 얇은 사료 429장 색인제외와 같은 처방. 가격·코스 스펙(공급자 페이지에서
+// 가져온 고유 데이터)이 있으면 리뷰가 적어도 남긴다.
+const THIN_MAX_REVIEWS = 10;
+const THIN_MIN_REVIEW_CHARS = 300;
+
+function publishedReviewChars(c: Course): number {
+  let n = 0;
+  for (const list of [c.sample_reviews_en, c.sample_reviews_th, c.sample_reviews_ko]) {
+    for (const r of list ?? []) n += r.text?.length ?? 0;
+  }
+  return n;
+}
+
+function hasProviderData(id: string): boolean {
+  if (offersForCourse(id).length > 0) return true;
+  const f = courseFacts(id);
+  return !!f && (f.holes != null || f.par != null || f.length_yd != null);
+}
+
+/** 리뷰 10건 미만 + 발행 리뷰 300자 미만 + 가격/스펙 없음 — 페이지에 고유한 말이 없다. */
+function isThin(c: Course): boolean {
+  if ((c.total_reviews ?? 0) >= THIN_MAX_REVIEWS) return false;
+  if (publishedReviewChars(c) >= THIN_MIN_REVIEW_CHARS) return false;
+  return !hasProviderData(c.id);
 }

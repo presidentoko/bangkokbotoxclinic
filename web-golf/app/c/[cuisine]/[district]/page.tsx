@@ -1,11 +1,11 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { loadMasterDb, filterByCuisine, filterByDistrict } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
-import { indexableCategoryDistricts, allDistricts } from "@/lib/crawlGate";
+import { indexableCategoryDistricts, retiredCategoryDistricts, allDistricts } from "@/lib/crawlGate";
 import type { Metadata } from "next";
 
 const VALID_CUISINES = new Set(Object.keys(CATEGORY_LABELS));
@@ -20,11 +20,20 @@ function districtFromSlug(slug: string, all: string[]): string | null {
 // 임계치를 넘는 조합만 발행한다 — sitemap 과 /c/[cuisine] 의 지역 링크도 같은 함수를 쓴다.
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
-  return indexableCategoryDistricts(
-    db.restaurants,
-    Array.from(VALID_CUISINES),
-    allDistricts(db.district_counts),
-  ).map((c) => ({ cuisine: c.category, district: c.slug }));
+  const categories = Array.from(VALID_CUISINES);
+  const districts = allDistricts(db.district_counts);
+  return [
+    ...indexableCategoryDistricts(db.restaurants, categories, districts),
+    // 게이트에 걸려 내려간 조합 — 렌더 대신 /c/[category] 로 308 하는 스텁으로 prerender 된다.
+    ...retiredCategoryDistricts(db.restaurants, categories, districts),
+  ].map((c) => ({ cuisine: c.category, district: c.slug }));
+}
+
+async function redirectIfRetired(cuisine: string, slug: string): Promise<void> {
+  const db = await loadMasterDb();
+  const hit = retiredCategoryDistricts(db.restaurants, [cuisine], allDistricts(db.district_counts))
+    .find((c) => c.slug === slug);
+  if (hit) permanentRedirect(hit.destination);
 }
 
 // 위에서 발행 대상을 전부 열거하므로 나머지는 봇/스캐너이거나 게이트에 걸린 얇은 조합이다.
@@ -35,6 +44,7 @@ export async function generateMetadata(
   { params }: { params: Promise<{ cuisine: string; district: string }> }
 ): Promise<Metadata> {
   const { cuisine, district } = await params;
+  if (VALID_CUISINES.has(cuisine)) await redirectIfRetired(cuisine, district);
   const label = CATEGORY_LABELS[cuisine] ?? cuisine;
   const db = await loadMasterDb();
   const allDistricts = Array.from(new Set(
@@ -53,6 +63,7 @@ export default async function CategoryDistrictPage(
 ) {
   const { cuisine, district } = await params;
   if (!VALID_CUISINES.has(cuisine)) notFound();
+  await redirectIfRetired(cuisine, district);
 
   const db = await loadMasterDb();
   const allDistricts = Array.from(new Set(

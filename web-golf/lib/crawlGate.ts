@@ -101,6 +101,66 @@ export function indexableCities(courses: Course[], cityLabels: string[]): string
     .sort();
 }
 
+// ── 게이트에 걸려 내려간 URL 의 행선지 ─────────────────────────────────────────
+// 2026-10-22 GSC: 404 114건, 검증 "Failed". 사이트맵 1,008장은 전부 200 이었고 남은 404 는
+// 08-18 게이트가 내린 /d/[district] · /c/[category]/[district] 였다(/d/doi-lo-district 등).
+// 구글은 그 URL 을 계속 기억하고 다시 찔러본다. 내려간 페이지가 나열하던 코스는 전부 상위
+// 페이지에 그대로 있으므로 404 대신 그 상위로 308 한다 — 링크 신호가 버려지지 않고 404 가 닫힌다.
+// 행선지는 반드시 발행 중인 페이지여야 한다(리다이렉트가 404 로 착지하면 안 된다).
+
+export type RetiredRoute = { slug: string; destination: string };
+
+/** 코스가 1개 이상이지만 게이트 미달로 내려간 /d/[district] → 그 코스들이 가장 많이 실린 도시 페이지. */
+export function retiredDistricts(
+  courses: Course[],
+  districts: string[],
+  cityLabels: string[],
+): (RetiredRoute & { district: string })[] {
+  const live = new Set(indexableDistricts(courses, districts).map((d) => d.slug));
+  const cities = indexableCities(courses, cityLabels);
+  const cityMembers = new Map(cities.map((s) => [s, new Set(filterByCityOrAlias(courses, s).map((c) => c.id))]));
+  const out: (RetiredRoute & { district: string })[] = [];
+  for (const district of districts) {
+    const slug = districtSlug(district);
+    if (isNonLatinSlug(slug) || live.has(slug)) continue;
+    const inDistrict = filterByDistrict(courses, district);
+    if (inDistrict.length === 0) continue;
+    let best: string | null = null;
+    let bestN = 0;
+    for (const [city, ids] of cityMembers) {
+      const n = inDistrict.filter((c) => ids.has(c.id)).length;
+      if (n > bestN) { best = city; bestN = n; }
+    }
+    // 실린 도시 페이지가 없으면 404 로 둔다 — 홈으로 보내면 구글은 soft 404 로 읽는다.
+    if (!best) continue;
+    out.push({ district, slug, destination: `/city/${best}` });
+  }
+  return out;
+}
+
+/** 게이트 미달로 내려간 /c/[category]/[district] → /c/[category]. */
+export function retiredCategoryDistricts(
+  courses: Course[],
+  categories: string[],
+  districts: string[],
+): (RetiredRoute & { category: string; district: string })[] {
+  const live = new Set(
+    indexableCategoryDistricts(courses, categories, districts).map((c) => `${c.category}/${c.slug}`),
+  );
+  const out: (RetiredRoute & { category: string; district: string })[] = [];
+  for (const category of categories) {
+    const inCategory = filterByCuisine(courses, category);
+    if (inCategory.length === 0) continue;
+    for (const district of districts) {
+      const slug = districtSlug(district);
+      if (isNonLatinSlug(slug) || live.has(`${category}/${slug}`)) continue;
+      if (filterByDistrict(inCategory, district).length === 0) continue;
+      out.push({ category, district, slug, destination: `/c/${category}` });
+    }
+  }
+  return out;
+}
+
 /** master_db.district_counts 의 "City/District" 키에서 지역명만 뽑아낸다. */
 export function allDistricts(districtCounts: Record<string, number>): string[] {
   return Array.from(new Set(Object.keys(districtCounts).map((k) => k.split("/")[1])));
