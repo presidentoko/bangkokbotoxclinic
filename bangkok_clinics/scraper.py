@@ -214,6 +214,28 @@ def _pop_skip_reason() -> str:
     return getattr(_skip_reason_local, "value", "unknown")
 
 
+_profile_lock_fh = None
+
+
+def _acquire_profile_lock() -> bool:
+    """로그인 프로필 독점 잠금. 프로세스가 죽으면 OS 가 잠금을 풀어서 낡은 잠금이 안 남는다."""
+    global _profile_lock_fh
+    if os.name != "nt" or not config.GMAPS_PROFILE:
+        return True
+    import msvcrt
+    lock_path = Path(config.GMAPS_PROFILE).resolve().with_name(
+        Path(config.GMAPS_PROFILE).name + ".scraper.lock")
+    fh = open(lock_path, "a+")
+    try:
+        fh.seek(0)
+        msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+    except OSError:
+        fh.close()
+        return False
+    _profile_lock_fh = fh
+    return True
+
+
 def _kill_stale_profile_chrome() -> None:
     """로그인 프로필을 붙잡고 있는 크롬을 정리한다 (로그인 모드 전용).
 
@@ -2541,6 +2563,11 @@ def main():
         if config.N_WORKERS != 1:
             log.info(f"로그인 모드 — 워커 {config.N_WORKERS} → 1")
         config.N_WORKERS = 1
+        if not _acquire_profile_lock():
+            # 다른 인스턴스가 이 프로필로 돌고 있다. 같이 돌면 _kill_stale_profile_chrome
+            # 이 서로의 크롬을 죽여 큐 전체를 실패로 태운다 (10-21 23:32 사고).
+            log.error("로그인 프로필을 다른 스크래퍼가 쓰는 중 — 이 인스턴스는 종료")
+            sys.exit(3)
         log.info(f"로그인 모드: 프로필 {config.GMAPS_PROFILE} (프록시·VPN 회전 없음)")
     target_n = config.MAX_RESTAURANTS  # None이면 무제한
     log.info(f"전체 후보: {len(unique_hrefs)} | 신규 처리 대상: {len(filtered_hrefs)} (재시도 편입 {retry_added}개[skipped 해제 {retry_unblocked}개], 리뷰 재스캔 편입 {refresh_added}개)")

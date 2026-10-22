@@ -612,7 +612,32 @@ _CIM_WARNED = False
 
 
 def _pid_alive(pid: int) -> bool:
-    """Windows tasklist 기반 PID 체크."""
+    """PID 생존 체크. OpenProcess 우선, 실패하면 tasklist.
+
+    2026-10-22: tasklist 만 쓰던 시절엔 RAM 여유 0.6~1GB 구간에서 tasklist 가
+    10초 timeout 에 걸리면 False("죽음")로 떨어졌다. 10-21 23:29 spa_review_bangkok
+    이 멀쩡히 돌던 중 "죽음 감지" → 두 번째 인스턴스가 떠서 같은 로그인 프로필
+    크롬을 서로 죽이며 1시간 동안 큐를 실패로 태우고 "자연 종료" 됐다.
+    OpenProcess 는 프로세스를 띄우지 않아 메모리 압박에 timeout 이 없다.
+    """
+    if os.name == "nt":
+        try:
+            import ctypes
+            from ctypes import wintypes
+            k32 = ctypes.WinDLL("kernel32", use_last_error=True)
+            k32.OpenProcess.restype = wintypes.HANDLE
+            h = k32.OpenProcess(0x1000, False, pid)  # PROCESS_QUERY_LIMITED_INFORMATION
+            if not h:
+                # ERROR_ACCESS_DENIED = 존재는 함. 그 외(87 = 없는 PID)는 죽음.
+                return ctypes.get_last_error() == 5
+            try:
+                code = wintypes.DWORD()
+                if k32.GetExitCodeProcess(h, ctypes.byref(code)):
+                    return code.value == 259  # STILL_ACTIVE
+            finally:
+                k32.CloseHandle(h)
+        except Exception:
+            pass
     try:
         out = subprocess.check_output(
             ["tasklist", "/FI", f"PID eq {pid}", "/NH"],
