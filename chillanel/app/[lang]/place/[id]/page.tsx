@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { displayAuthorName } from "@/lib/authorName";
+import { reviewExcerpt } from "@/lib/reviewExcerpt";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
@@ -27,34 +27,18 @@ import { relatedPlaces } from "@/lib/related";
 import type { Review } from "@/lib/types";
 import VerificationCheck from "@/components/VerificationCheck";
 
-function ReviewItem({ review, anonymousLabel, readMoreLabel }: { review: Review; anonymousLabel: string; readMoreLabel: string }) {
+// 2026-10-22: 리뷰는 짧은 인용으로만, 작성자 이름 없이 (사용자 결정 — 페이지당
+// 인용 3개). 구글 리뷰 원문을 최대 20개 통째로 싣던 것은 구글 지도와 같은 글의
+// 복제였다. 고유 콘텐츠는 위쪽 분석(분위기·서비스 테마·평점 분포·검증)이다.
+function ReviewItem({ review, anonymousLabel }: { review: Review; anonymousLabel: string }) {
   return (
     <div className="rounded-xl border border-border bg-bg-elev p-4">
       <div className="flex items-center gap-2.5 mb-1.5">
-        <div className="flex items-center justify-center w-7 h-7 rounded-full bg-accent/15 text-accent text-xs font-bold shrink-0">
-          {displayAuthorName(review.authorName, anonymousLabel).charAt(0).toUpperCase()}
-        </div>
-        <span className="font-semibold text-sm">{displayAuthorName(review.authorName, anonymousLabel)}</span>
+        <span className="font-semibold text-sm">{anonymousLabel}</span>
         {review.rating != null && <span className="text-xs text-accent font-bold">★ {review.rating}</span>}
         <span className="text-muted text-xs">{review.relativeDate}</span>
       </div>
-      {/* 2026-09-04: 긴 리뷰 접기. 700자짜리 리뷰가 통짜로 펼쳐져 "텍스트 벽"이
-          되고, 모바일에서 리뷰 하나가 화면을 다 먹는다 — 검증하러 온 방문자는
-          처음 몇 문장으로 톤을 읽고 다음 리뷰로 넘어가고 싶어한다.
-          Faq.tsx 와 같은 zero-JS <details> 패턴. */}
-      {review.text.length > 280 ? (
-        <details className="group">
-          <summary className="cursor-pointer list-none">
-            <p className="text-sm text-muted leading-relaxed group-open:hidden">
-              {review.text.slice(0, 260).trimEnd()}…{" "}
-              <span className="text-accent font-semibold">{readMoreLabel}</span>
-            </p>
-          </summary>
-          <p className="text-sm text-muted leading-relaxed">{review.text}</p>
-        </details>
-      ) : (
-        <p className="text-sm text-muted leading-relaxed">{review.text}</p>
-      )}
+      <p className="text-sm text-muted leading-relaxed">{reviewExcerpt(review.text)}</p>
     </div>
   );
 }
@@ -203,8 +187,11 @@ export default async function PlacePage({
   const pullQuote = place.reviews
     .filter((r) => r.rating != null && r.rating >= 4 && r.text.trim().length >= 60 && r.text.trim().length <= 220)
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || a.text.length - b.text.length)[0];
-  const visibleReviews = place.reviews.slice(0, 10);
-  const moreReviews = place.reviews.slice(10, 20);
+  // 인용은 합쳐서 3개: 풀쿼트 + 가장 비판적인 리뷰 + 나머지로 채움.
+  const quoteBudget = 3 - (pullQuote ? 1 : 0) - (criticalReview ? 1 : 0);
+  const visibleReviews = place.reviews
+    .filter((r) => r !== pullQuote && r !== criticalReview && r.text.trim().length > 0)
+    .slice(0, Math.max(0, quoteBudget));
 
   const faqItems = [
     place.rating != null
@@ -312,7 +299,7 @@ export default async function PlacePage({
             {pullQuote.text.trim()}
           </blockquote>
           <figcaption className="pl-6 sm:pl-8 mt-3 text-xs text-muted">
-            — {displayAuthorName(pullQuote.authorName, t.place.anonymousReviewer)} · ★{pullQuote.rating} · {pullQuote.relativeDate}
+            — {t.place.anonymousReviewer} · ★{pullQuote.rating} · {pullQuote.relativeDate}
           </figcaption>
         </figure>
       )}
@@ -447,7 +434,7 @@ export default async function PlacePage({
             <div className="px-4 pt-3 text-xs uppercase tracking-wide text-muted font-semibold">
               ⚖️ {t.place.mostCriticalTitle}
             </div>
-            <ReviewItem review={criticalReview} anonymousLabel={t.place.anonymousReviewer} readMoreLabel={t.place.readMore} />
+            <ReviewItem review={criticalReview} anonymousLabel={t.place.anonymousReviewer} />
           </div>
         ) : (
           place.reviews.length >= 5 && (
@@ -458,30 +445,9 @@ export default async function PlacePage({
         )}
         <div className="space-y-4">
           {visibleReviews.map((r) => (
-            <ReviewItem key={r.id} review={r} anonymousLabel={t.place.anonymousReviewer} readMoreLabel={t.place.readMore} />
+            <ReviewItem key={r.id} review={r} anonymousLabel={t.place.anonymousReviewer} />
           ))}
         </div>
-        {/* build-data.mjs stores up to 20 reviews per place, but this only
-            ever rendered the first 10 -- the other half sat in the data
-            unused. Same zero-JS <details> pattern as the rating
-            breakdown/service themes sections above, not a client
-            component, since this is just more static markup, not
-            interactive state. */}
-        {moreReviews.length > 0 && (
-          <details className="group mt-4">
-            <summary className="cursor-pointer list-none text-sm font-semibold text-accent hover:underline flex items-center gap-1">
-              {t.place.showMoreReviews.replace("{n}", String(moreReviews.length))}
-              <span className="text-muted transition-transform group-open:rotate-180" aria-hidden="true">
-                ▾
-              </span>
-            </summary>
-            <div className="space-y-4 mt-4">
-              {moreReviews.map((r) => (
-                <ReviewItem key={r.id} review={r} anonymousLabel={t.place.anonymousReviewer} readMoreLabel={t.place.readMore} />
-              ))}
-            </div>
-          </details>
-        )}
       </section>
 
       {related.length > 0 && (
