@@ -3,6 +3,7 @@
 // Server component — 클라이언트 JS 0.
 
 import type { Clinic } from "@/lib/types";
+import { reviewExcerpt } from "@/lib/reviewExcerpt";
 import { formatTrustScore } from "@/lib/utils";
 import { ClinicPhoto } from "./ClinicPhoto";
 
@@ -118,8 +119,8 @@ export function HiddenGem({
 
             {sample && (
               <blockquote className="border-l-4 pl-3 mb-4 italic" style={{ borderColor: accent }}>
-                <p className="text-sm leading-relaxed line-clamp-3">&ldquo;{sample.text}&rdquo;</p>
-                <footer className="text-[10px] text-[var(--muted)] mt-1">— {sample.author || t.verifiedReviewer}</footer>
+                <p className="text-sm leading-relaxed line-clamp-3">&ldquo;{reviewExcerpt(sample.text, 200)}&rdquo;</p>
+                <footer className="text-[10px] text-[var(--muted)] mt-1">— {t.verifiedReviewer}</footer>
               </blockquote>
             )}
 

@@ -1,4 +1,5 @@
 import { notFound, permanentRedirect } from "next/navigation";
+import { reviewExcerpt } from "@/lib/reviewExcerpt";
 import { LicenseCheck } from "@/components/LicenseCheck";
 import { getClinicLicense } from "@/lib/licenses";
 import { loadMasterDb, getClinicById, getClinicByRouteKey, isLegacyClinicKey, makeCompositeDoctorSlug } from "@/lib/data";
@@ -541,11 +542,11 @@ export default async function ClinicPage(
             <section>
               <h2 className="text-lg font-bold mb-3">Real review excerpts</h2>
               <div className="space-y-3">
-                {samples.map((r, i) => (
+                {samples.slice(0, 3).map((r, i) => (
                   <blockquote key={i} className="border-l-4 border-[var(--accent)] bg-white px-4 py-3 rounded-r">
-                    <p className="text-sm leading-relaxed">{r.text}</p>
+                    <p className="text-sm leading-relaxed">{reviewExcerpt(r.text)}</p>
                     <footer className="mt-2 text-xs text-[var(--muted)] flex items-center gap-2">
-                      <span className="font-medium">{r.author || "Google reviewer"}</span>
+                      <span className="font-medium">Google reviewer</span>
                       <span>·</span>
                       <span className="text-yellow-700">★ {r.rating}</span>
                       {r.srcLang === "th" && (

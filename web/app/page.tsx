@@ -1,4 +1,5 @@
 import { loadMasterDb, topByFocusRelevance } from "@/lib/data";
+import { reviewExcerpt } from "@/lib/reviewExcerpt";
 import { ClinicCard } from "@/components/ClinicCard";
 import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { CATEGORY_LABELS } from "@/lib/types";
@@ -677,7 +678,7 @@ export default async function HomePage(
                   className="group block bg-white border border-[var(--border)] rounded-2xl p-5 hover:shadow-md transition"
                 >
                   <div className="text-3xl leading-none mb-2" style={{ color: accent }}>"</div>
-                  <p className="text-sm leading-relaxed mb-4 line-clamp-4">{q.review.text}</p>
+                  <p className="text-sm leading-relaxed mb-4 line-clamp-4">{reviewExcerpt(q.review.text, 200)}</p>
                   <div className="border-t border-[var(--border)] pt-3 flex items-center justify-between gap-3">
                     <div className="min-w-0">
                       <div className="font-bold text-sm truncate group-hover:opacity-80 transition" style={{ color: "var(--fg)" }}>
