@@ -1,25 +1,29 @@
 {
- "source": "thailandpethub.com-Performance-on-Search-2026-10-15.xlsx",
- "window": "three months to 2026-10-15",
- "note": "Clinic slugs with at least one Search Console impression. Used only as a veto in lib/indexing.ts: a page listed here is never dropped from the index by the thinness gate, because it has already demonstrated it can rank. Regenerate from a fresh export before pruning again.",
+ "source": "thailandpethub.com-Performance-on-Search-2026-10-22.xlsx, thailandpethub.com-Performance-on-Search-2026-10-15.xlsx",
+ "window": "three months to each export date; per-slug maximum across exports",
+ "note": "Clinic slugs with at least one Search Console impression, including impressions recorded against a legacy place-id URL that now 308s to the slug. Used only as a veto in lib/indexing.ts: a page listed here is never dropped from the index by the thinness gate, because it has already demonstrated it can rank. Regenerate from a fresh export before pruning again.",
  "slugs": {
-  "0x30e297ed7c2f462f0x863277a626b28bc6": {
-   "clicks": 6,
-   "impressions": 863
+  "krinweth-sattawaphaet": {
+   "clicks": 7,
+   "impressions": 882
   },
-  "0x30e29b68cc91b3c50xb8dc4ddb880ac0c1": {
+  "clinic-raksa-sat-hmohnueng": {
    "clicks": 3,
    "impressions": 307
   },
-  "0x30e29dc5c47341f50x586bc630e03de49": {
+  "rong-phayaban-sat-wanghin": {
    "clicks": 1,
-   "impressions": 287
+   "impressions": 288
   },
-  "0x30e29fab75f495210xe67083cc1b08ef5e": {
+  "rong-phayaban-sat-hmadichai-maewchaidi": {
    "clicks": 0,
-   "impressions": 279
+   "impressions": 282
   },
-  "0x30e29c877e1a1c8f0x499a6f57a3cdd6ad": {
+  "pet-hom-clinic-hokarkha": {
+   "clicks": 1,
+   "impressions": 187
+  },
+  "khlinikhhmokhemraksa-sat": {
    "clicks": 4,
    "impressions": 170
   },
@@ -27,71 +31,83 @@
    "clicks": 13,
    "impressions": 153
   },
-  "0x30e29df78b49bd690xeaa183383ecc8d26": {
+  "rong-phayaban-khnrak-sat-sakha-ladphraw87": {
    "clicks": 0,
    "impressions": 151
   },
-  "0x30e29748e1b1314f0xcf64b3a5a3c7b47e": {
+  "clinic-sat-leiyngbangpho": {
+   "clicks": 2,
+   "impressions": 149
+  },
+  "rong-phayaban-sat-kaychnaphisek": {
    "clicks": 1,
    "impressions": 148
   },
-  "0x30e29b8b75d99cc30x41f8f02ebcb402dc": {
-   "clicks": 2,
-   "impressions": 147
-  },
-  "0x30e2a398688edcdd0x8323487aa15cc562": {
+  "rong-phayaban-sat-siriwech-sakha-sukhswasdi": {
    "clicks": 1,
-   "impressions": 144
+   "impressions": 145
+  },
+  "rong-phayaban-sat-thaphra": {
+   "clicks": 1,
+   "impressions": 136
+  },
+  "rong-phayaban-sat-buysiri": {
+   "clicks": 1,
+   "impressions": 136
   },
   "forest-animal-hospital": {
    "clicks": 0,
    "impressions": 135
   },
-  "0x30e299003d7e86db0x4359a3ce28646705": {
-   "clicks": 1,
-   "impressions": 133
+  "khliniknangleingraksa-sat": {
+   "clicks": 4,
+   "impressions": 132
   },
-  "0x30e29e9d728e3aa70xd96091fbfdb4421b": {
-   "clicks": 0,
-   "impressions": 128
-  },
-  "0x30e2a0b860ea83850xa2074ebb840bc792": {
-   "clicks": 1,
-   "impressions": 124
-  },
-  "0x311d5937c802c5990x4b5c8b5a32dd2944": {
+  "rong-phayaban-sat-thraphybuychay": {
    "clicks": 0,
    "impressions": 123
   },
-  "0x30e2997fad7a317f0x8abd89daedf0963a": {
+  "chray-57-raksa-sat": {
    "clicks": 0,
-   "impressions": 122
+   "impressions": 123
   },
-  "0x30e299b39045c7c50x91078f27ecc1de72": {
+  "chray-13-sattawaphaet": {
    "clicks": 2,
+   "impressions": 121
+  },
+  "rong-phayaban-sat-chanthrhun": {
+   "clicks": 2,
+   "impressions": 120
+  },
+  "rong-phayaban-sat-swnhlwng-sakha-thnnchelimphrakeiyrti": {
+   "clicks": 0,
+   "impressions": 116
+  },
+  "prachachuen-sattawaphaet": {
+   "clicks": 1,
    "impressions": 111
+  },
+  "chanthnbdinthr-sattawaphaet-clinic": {
+   "clicks": 3,
+   "impressions": 108
   },
   "pet-heal-animal-hospital": {
    "clicks": 0,
    "impressions": 108
   },
-  "0x311d60da8432f9b30x688a70a1204885ac": {
-   "clicks": 0,
-   "impressions": 105
-  },
-  "0x30e29c743e97d1ef0x954e11a159d67d3a": {
-   "clicks": 1,
-   "impressions": 103
-  },
-  "0x30e29dd7742d50af0xebf7f12f20591d1": {
-   "clicks": 2,
-   "impressions": 102
-  },
-  "0x30e298b6d87814370xeb2f52777a3a2715": {
+  "rong-phayaban-sat-soy18": {
    "clicks": 3,
-   "impressions": 100
+   "impressions": 106
   },
-  "0x30e29b40048ed7890xff903bf4d69a6f32": {
+  "rong-phayaban-sat-pheuensathr": {
+   "clicks": 0,
+   "impressions": 106
+  },
+  "rong-phayaban-sat-bangkrang": {
+   "clicks": 1,
+   "impressions": 101
+  },
+  "buyhom-sattawaphaet": {
    "clicks": 1,
    "impressions": 99
   },
@@ -99,59 +115,51 @@
    "clicks": 0,
    "impressions": 99
   },
-  "khliniknangleingraksa-sat": {
-   "clicks": 4,
-   "impressions": 97
-  },
-  "0x30e29b9437e79f490x185c4d3d2b0278b5": {
-   "clicks": 1,
-   "impressions": 97
-  },
-  "0x30e2992b8f0ad65b0xa12b83652bc7d1c3": {
+  "rong-phayaban-sat-ahmo": {
    "clicks": 0,
-   "impressions": 96
+   "impressions": 95
   },
   "pawsville-animal-hospital": {
    "clicks": 0,
    "impressions": 94
   },
-  "0x30e283bcd9bd2a6b0xac58882f4805deac": {
+  "rong-phayaban-sat-keuekul": {
    "clicks": 0,
    "impressions": 93
   },
-  "0x30e29912cdc3a93f0x263e92fdca91d8a5": {
+  "rong-phayaban-sat-unchairaks-sattawaphaet": {
    "clicks": 2,
    "impressions": 92
   },
-  "0x30e2a3ed9ca3da4f0x50c6705b2def77a4": {
-   "clicks": 0,
-   "impressions": 92
-  },
-  "0x30e29a1fceb2315d0x746e9c8fc38de906": {
+  "bansbay-raksa-sat": {
    "clicks": 1,
    "impressions": 80
   },
-  "0x311d63da2ce14af10xe3e83cd8ef3ece0d": {
+  "rong-phayaban-sat-chngcheriy": {
    "clicks": 0,
    "impressions": 77
   },
-  "0x30e2849b386599dd0x8f0523de7b5867dd": {
+  "rong-phayaban-sat-wathnawech": {
    "clicks": 0,
    "impressions": 76
   },
-  "0x30e29b8c8a546d070xf52a32a70c6ea403": {
+  "tnsn-pet-clinic": {
+   "clicks": 0,
+   "impressions": 76
+  },
+  "sattawaphaet-bangpho": {
    "clicks": 0,
    "impressions": 75
   },
-  "0x30e299816cdf94930x9b884f52a3d79d77": {
-   "clicks": 0,
-   "impressions": 71
-  },
-  "0x30e29b592cd173110x89729c10e0c110f8": {
+  "sbaysbayraksa-sat": {
    "clicks": 1,
-   "impressions": 70
+   "impressions": 72
   },
-  "0x30e297aabc8a6ccb0x4dd9a12d208a0b3d": {
+  "bangkhunnnth-3-raksa-sat": {
+   "clicks": 0,
+   "impressions": 72
+  },
+  "rong-phayaban-sat-saendi-24chawmong": {
    "clicks": 1,
    "impressions": 70
   },
@@ -159,43 +167,39 @@
    "clicks": 2,
    "impressions": 65
   },
+  "khlinikraksa-sat-bangkhru": {
+   "clicks": 1,
+   "impressions": 63
+  },
+  "rong-phayaban-sat-shmitr": {
+   "clicks": 0,
+   "impressions": 63
+  },
   "hato-animal-hospital-phatthanakan": {
    "clicks": 0,
    "impressions": 62
   },
-  "0x30e2a142f72f61c70x1403cbe7dad7bec1": {
-   "clicks": 1,
-   "impressions": 61
-  },
-  "0x30e29e9290b12e150x4f34a737c9294067": {
-   "clicks": 0,
-   "impressions": 61
-  },
-  "0x30e2911e0de6abe90x82a3387346ecfaba": {
+  "rong-phayaban-sat-samrechphathna": {
    "clicks": 1,
    "impressions": 60
   },
-  "0x30e2990011b51dd90xd7fbe9c006aff597": {
-   "clicks": 3,
+  "sunshine-pet-vet-clinic": {
+   "clicks": 0,
+   "impressions": 59
+  },
+  "rong-phayaban-sat-chomthong-24-chawmong": {
+   "clicks": 0,
    "impressions": 59
   },
   "sriwara-animal-hospital": {
    "clicks": 2,
    "impressions": 58
   },
-  "sunshine-pet-vet-clinic": {
+  "rong-phayaban-sat-phinnakheilbanghaiy-24-chm": {
    "clicks": 0,
    "impressions": 58
   },
-  "0x30e28f0afac8844b0x7d258079f548f65b": {
-   "clicks": 0,
-   "impressions": 58
-  },
-  "0x30e2a3f74d79373b0x4d4cbc3b60077b57": {
-   "clicks": 0,
-   "impressions": 58
-  },
-  "0x30e29bb7adf783a10xb55951582a205203": {
+  "bangkrwy-sattawaphaet": {
    "clicks": 0,
    "impressions": 57
   },
@@ -203,15 +207,15 @@
    "clicks": 1,
    "impressions": 56
   },
-  "0x30e29bb7adf783a10xc01826869a973f1a": {
+  "rong-phayaban-sat-bangkrwy": {
    "clicks": 0,
    "impressions": 55
   },
-  "0x30e2bdc75b71e77f0xf6656aca85bbd9f0": {
+  "rong-phayaban-sat-kalpph-ks": {
    "clicks": 0,
    "impressions": 55
   },
-  "0x30e29bd24296ea590x6bc07c697b65be26": {
+  "khlinikraksa-sat-banhmophad": {
    "clicks": 1,
    "impressions": 54
   },
@@ -219,11 +223,19 @@
    "clicks": 2,
    "impressions": 53
   },
+  "clinic-sat-wiaiphi": {
+   "clicks": 1,
+   "impressions": 52
+  },
   "24h": {
    "clicks": 0,
    "impressions": 52
   },
-  "0x30e29b8a7e9857870xe2012c1499d77fc7": {
+  "rong-phayaban-sat-phraram-4": {
+   "clicks": 3,
+   "impressions": 51
+  },
+  "clinic-pradiphathth-sattawaphaet-sakha-2": {
    "clicks": 0,
    "impressions": 51
   },
@@ -231,39 +243,39 @@
    "clicks": 0,
    "impressions": 51
   },
-  "0x30e29f22b8b7651d0xbe1389f44b0cac3b": {
-   "clicks": 3,
-   "impressions": 50
-  },
-  "0x30e29f6d1a08a5a50x847b7f42656ddba": {
+  "clinic-sattawaphaet-kthm-3-wadthatuthong": {
    "clicks": 0,
-   "impressions": 50
+   "impressions": 51
   },
-  "0x30e29c2dfe6d97cd0x3e2c44d240dc07bc": {
-   "clicks": 0,
+  "sun-phyabal-sat-unairaks": {
+   "clicks": 1,
+   "impressions": 49
+  },
+  "thiraphngsraksa-sat": {
+   "clicks": 1,
    "impressions": 49
   },
   "suksamai-animal-care": {
    "clicks": 1,
    "impressions": 48
   },
+  "rong-phayaban-sat-sirinkhrinthr": {
+   "clicks": 0,
+   "impressions": 48
+  },
+  "rong-phayaban-sat-krungthep-nnth-sakha-playbang": {
+   "clicks": 0,
+   "impressions": 48
+  },
   "uvet-animal-hospital-bangna": {
    "clicks": 0,
    "impressions": 48
   },
-  "0x311d5f5f8dd6ea270xed8b3964cd39aa0e": {
-   "clicks": 0,
-   "impressions": 48
-  },
-  "0x30e29d724b3db31b0x1af47bd05baca741": {
-   "clicks": 1,
-   "impressions": 46
-  },
-  "0x30e29969450965db0xdb4dbe1fa3c7c2ee": {
+  "khlinikh-sattawaphaet-phethhom": {
    "clicks": 0,
    "impressions": 45
   },
-  "0x30e29fb2bac199890xd6855276e6e314c2": {
+  "rong-phayaban-sat-cheriysukh-cah": {
    "clicks": 0,
    "impressions": 45
   },
@@ -271,45 +283,53 @@
    "clicks": 2,
    "impressions": 44
   },
-  "0x30e29e1066b9dffd0xaa78a7ab578c44df": {
+  "rong-phayaban-sat-lpd-meuengnnth": {
    "clicks": 0,
    "impressions": 44
   },
-  "0x30e29aa2e07044210x1fcf1d2a1e93ed91": {
+  "bangkhunsri-raksa-sat": {
    "clicks": 0,
-   "impressions": 44
+   "impressions": 43
   },
   "4-uvet-animal-hospital-chokchai-4": {
    "clicks": 0,
    "impressions": 43
   },
-  "pet-hom-clinic-hokarkha": {
-   "clicks": 1,
-   "impressions": 42
-  },
-  "0x30e299be3659216b0x43092f5e184e330e": {
-   "clicks": 0,
-   "impressions": 42
-  },
-  "0x30e2913f336901050x110505207597dd69": {
-   "clicks": 0,
+  "jingjai-pet-wellness-acupuncture-and-rehab-center": {
+   "clicks": 5,
    "impressions": 42
   },
   "bondy-pet-hospital-surgery-center": {
    "clicks": 1,
-   "impressions": 41
+   "impressions": 42
   },
-  "0x30e29a1a1d764fd90x9cbb0296ee19c2b4": {
+  "rong-phayaban-sat-swnracha": {
+   "clicks": 0,
+   "impressions": 42
+  },
+  "rong-phayaban-sat-rachph-ks": {
    "clicks": 0,
    "impressions": 41
   },
-  "0x311d634a578e215d0x248523f99c86bd44": {
+  "rong-phayaban-sat-khlongsamwa-peidbrikar-24-chawmong": {
    "clicks": 0,
    "impressions": 40
+  },
+  "saladaeng-sat-phaethy": {
+   "clicks": 0,
+   "impressions": 40
+  },
+  "rong-phayaban-sat-chakrphinth": {
+   "clicks": 1,
+   "impressions": 38
   },
   "s-o-s-animal-hospital": {
    "clicks": 0,
    "impressions": 38
+  },
+  "pet-town-animal-hospital-ratchapruek-branch": {
+   "clicks": 1,
+   "impressions": 37
   },
   "piyavet-animal-hospital": {
    "clicks": 2,
@@ -319,19 +339,27 @@
    "clicks": 1,
    "impressions": 36
   },
-  "rong-phayaban-sat-soy18": {
-   "clicks": 0,
+  "rong-phayaban-sat-siriwech-hawlamphong": {
+   "clicks": 1,
    "impressions": 36
   },
   "thonglor-pet-hospital-pinklao": {
    "clicks": 0,
    "impressions": 36
   },
-  "caf-amazon-9": {
+  "rong-phayaban-sat-leifli-pet": {
+   "clicks": 0,
+   "impressions": 36
+  },
+  "hato-pet-wellness-center-sukhumvit-39": {
    "clicks": 1,
    "impressions": 35
   },
-  "hato-pet-wellness-center-sukhumvit-39": {
+  "khlinikpheuen-sat-liang-krungthep-nnth35": {
+   "clicks": 1,
+   "impressions": 35
+  },
+  "caf-amazon-9": {
    "clicks": 1,
    "impressions": 35
   },
@@ -339,15 +367,11 @@
    "clicks": 0,
    "impressions": 35
   },
-  "0x30e2a3000332fa650x89c985c492717814": {
+  "rong-phayaban-sat-wethkhaid": {
    "clicks": 0,
    "impressions": 35
   },
-  "jingjai-pet-wellness-acupuncture-and-rehab-center": {
-   "clicks": 5,
-   "impressions": 34
-  },
-  "pet-town-animal-hospital-ratchapruek-branch": {
+  "banrangnk-raksa-sat": {
    "clicks": 1,
    "impressions": 34
   },
@@ -355,7 +379,7 @@
    "clicks": 0,
    "impressions": 34
   },
-  "0x30e29838edc76f7b0x8c2734faf9bc9459": {
+  "clinic-thnburi-sattawaphaet": {
    "clicks": 0,
    "impressions": 34
   },
@@ -375,6 +399,10 @@
    "clicks": 0,
    "impressions": 33
   },
+  "sthanphyabal-sat-ladphraw-48": {
+   "clicks": 0,
+   "impressions": 33
+  },
   "pinnacle-pet-hospital-bangna": {
    "clicks": 2,
    "impressions": 32
@@ -383,7 +411,11 @@
    "clicks": 0,
    "impressions": 32
   },
-  "0x30e29e97339ea3fd0xaa8b72f052cfb354": {
+  "rong-phayaban-sat-kaerndoweniw": {
+   "clicks": 0,
+   "impressions": 32
+  },
+  "clinic-sattawaphaet-mhachn": {
    "clicks": 0,
    "impressions": 32
   },
@@ -391,20 +423,16 @@
    "clicks": 0,
    "impressions": 32
   },
-  "0x30e29816c76e42730x7e08847037075a59": {
+  "clinic-hmoraks-sat": {
    "clicks": 0,
    "impressions": 32
   },
-  "0x30e29b0bedd0a7fd0x9f5bbed4b4cbaaf": {
+  "phibulsngkhram-sattawaphaet": {
    "clicks": 4,
    "impressions": 31
   },
-  "0x311d619889bbe6410x4113301f5b0dde64": {
-   "clicks": 0,
-   "impressions": 31
-  },
-  "0x30e2994f708a55310x7ded115b277a88b3": {
-   "clicks": 0,
+  "rong-phayaban-sat-unchai-sakha-hawhmak": {
+   "clicks": 3,
    "impressions": 31
   },
   "24-the-embrace-animal-hospital": {
@@ -412,6 +440,10 @@
    "impressions": 31
   },
   "thonglor-pet-hospital": {
+   "clicks": 0,
+   "impressions": 31
+  },
+  "rong-phayaban-sat-muchi": {
    "clicks": 0,
    "impressions": 31
   },
@@ -423,47 +455,43 @@
    "clicks": 0,
    "impressions": 30
   },
-  "0x30e2bd471eb433db0x978f70c74e0ab1e9": {
-   "clicks": 0,
-   "impressions": 30
-  },
   "dr-nuch-pet-clinic": {
    "clicks": 0,
    "impressions": 30
   },
-  "0x30e2988a29a8ddb70x5c4d01b208bb8ea6": {
+  "rong-phayaban-sat-saendi-24chawmong-sakha-phraram2": {
    "clicks": 0,
+   "impressions": 30
+  },
+  "pet-khaersenter-rong-phayaban-sat-24-chm": {
+   "clicks": 0,
+   "impressions": 30
+  },
+  "rong-phayaban-sat-kestrnwminthr": {
+   "clicks": 1,
    "impressions": 29
   },
   "bmh-animal-hospital-bang-kae": {
    "clicks": 0,
    "impressions": 29
   },
-  "0x30e2992ebe5444c30x5afe0429c9648ccb": {
+  "clinic-hmomnrak-sat": {
    "clicks": 0,
    "impressions": 29
   },
-  "0x311d61c1efbb890d0x80b4d1150ff4ebf6": {
-   "clicks": 3,
-   "impressions": 28
+  "rong-phayaban-sat-mitrsamphanth": {
+   "clicks": 0,
+   "impressions": 29
   },
-  "0x30e29cfd3d21b3cf0xc885048541cf66a2": {
+  "clinic-sat-phaethy-krungthep-mhankhr-7-bangkoknoy": {
    "clicks": 1,
    "impressions": 28
   },
-  "0x30e299f97f3957230x1d7304790a6f375d": {
+  "rong-phayaban-sat-pherphlas-sakha-phraram-5": {
    "clicks": 0,
    "impressions": 28
   },
-  "0x30e29c7fdbbdbfc90xc8490ad6bc6d93f": {
-   "clicks": 1,
-   "impressions": 27
-  },
-  "0x30e29f5de412bcaf0xd3dc4704a6c227a8": {
-   "clicks": 1,
-   "impressions": 27
-  },
-  "0x30e29997beef69790x93025729f3db88e0": {
+  "rong-phayaban-sat-sukhumwith-punnwithi": {
    "clicks": 1,
    "impressions": 27
   },
@@ -475,39 +503,31 @@
    "clicks": 0,
    "impressions": 27
   },
-  "0x30e29b5b8638c8d90x6a4ad2d92e70f948": {
+  "rong-phayaban-sat-sukhthwi": {
    "clicks": 1,
-   "impressions": 26
-  },
-  "th-animal-hospital": {
-   "clicks": 0,
    "impressions": 26
   },
   "24-allpet-small-animal-and-exotic-hospitalall": {
    "clicks": 0,
    "impressions": 26
   },
-  "0x311d5fe4adeb0a3f0x55a92c5a5829a1e9": {
+  "rong-phayaban-sat-esphi": {
    "clicks": 0,
+   "impressions": 26
+  },
+  "th-animal-hospital": {
+   "clicks": 0,
+   "impressions": 26
+  },
+  "bangsueraksa-sat": {
+   "clicks": 3,
    "impressions": 25
   },
   "petpro-animal-clinic-sukhumvit-54-branch": {
    "clicks": 0,
    "impressions": 25
   },
-  "0x30e29b904f25f76b0x146e39a33cdbf63f": {
-   "clicks": 0,
-   "impressions": 25
-  },
   "pet-sonic-phatra-animal-hospital": {
-   "clicks": 0,
-   "impressions": 25
-  },
-  "0x30e29bb4dc98fdf70xdaa121fdce01a969": {
-   "clicks": 0,
-   "impressions": 25
-  },
-  "tnsn-pet-clinic": {
    "clicks": 0,
    "impressions": 25
   },
@@ -527,28 +547,36 @@
    "clicks": 0,
    "impressions": 25
   },
-  "0x311d61ef4fd2c9f50xd15393d69847b1ae": {
+  "rong-phayaban-sat-wanhaim": {
+   "clicks": 0,
+   "impressions": 25
+  },
+  "rong-phayaban-sat-khrobkhrawsikha": {
    "clicks": 1,
    "impressions": 24
   },
-  "all-best-pet-hospital": {
-   "clicks": 0,
+  "ban-58-raksa-sat": {
+   "clicks": 1,
    "impressions": 24
   },
   "pet-paw-vet-clinic": {
    "clicks": 0,
    "impressions": 24
   },
-  "0x30e29b81c49442550xd15a97f6c8ceae0e": {
-   "clicks": 1,
-   "impressions": 23
-  },
-  "0x30e285ad535d70790xf108f38886e356a7": {
-   "clicks": 1,
-   "impressions": 23
-  },
-  "unipet-bkk-animal-hospital": {
+  "all-best-pet-hospital": {
    "clicks": 0,
+   "impressions": 24
+  },
+  "clinic-raksa-sat-pherring": {
+   "clicks": 0,
+   "impressions": 24
+  },
+  "clinic-sat-leiyng-en-thi": {
+   "clicks": 0,
+   "impressions": 24
+  },
+  "rong-phayaban-sat-banhmoaenth": {
+   "clicks": 1,
    "impressions": 23
   },
   "arak-animal-hospital-phetkasem": {
@@ -559,11 +587,15 @@
    "clicks": 0,
    "impressions": 23
   },
-  "sukhumvit-pet-hospital": {
-   "clicks": 1,
-   "impressions": 22
+  "clinic-sat-leiyng-bannamnnth": {
+   "clicks": 0,
+   "impressions": 23
   },
-  "nakarin-veterinary-hospital": {
+  "unipet-bkk-animal-hospital": {
+   "clicks": 0,
+   "impressions": 23
+  },
+  "sukhumvit-pet-hospital": {
    "clicks": 1,
    "impressions": 22
   },
@@ -571,35 +603,19 @@
    "clicks": 0,
    "impressions": 22
   },
-  "0x30e29af6991c754d0xc36b370ee736fdba": {
+  "rong-phayaban-sat-krungthep-kritha-24chawmong": {
    "clicks": 0,
    "impressions": 22
   },
-  "0x311d6787f773c2590xea773b531ddc5139": {
-   "clicks": 0,
-   "impressions": 22
-  },
-  "0x311d617a75e52ab70xd34a44e4574297a4": {
-   "clicks": 0,
-   "impressions": 22
-  },
-  "0x30e29b5aea93b3e50x5a51fbe5ceb1759e": {
-   "clicks": 0,
+  "nakarin-veterinary-hospital": {
+   "clicks": 1,
    "impressions": 22
   },
   "animal-space-pet-hospital": {
    "clicks": 2,
    "impressions": 21
   },
-  "0x30e29dc2399b927f0xe98321b1c8a376d9": {
-   "clicks": 1,
-   "impressions": 21
-  },
-  "0x30e2a3c1b5a551730x2f4cd0146295f2bc": {
-   "clicks": 1,
-   "impressions": 21
-  },
-  "0x30e2a3bc9aefda650xed1f2cc65caaa23b": {
+  "emergency": {
    "clicks": 0,
    "impressions": 21
   },
@@ -611,15 +627,11 @@
    "clicks": 1,
    "impressions": 20
   },
-  "0x30e29043e9db56f10xfce500f85eca3c03": {
-   "clicks": 0,
+  "rph-sat-malti-pet": {
+   "clicks": 1,
    "impressions": 20
   },
   "pet-town-animal-hospital-thapra-branch": {
-   "clicks": 0,
-   "impressions": 20
-  },
-  "0x311d5ff62f9b61050xdede35ba9d4b331": {
    "clicks": 0,
    "impressions": 20
   },
@@ -631,11 +643,7 @@
    "clicks": 0,
    "impressions": 20
   },
-  "0x30e29da47839f0d10x17ef99679883ef56": {
-   "clicks": 0,
-   "impressions": 20
-  },
-  "0x30e296d808166d790x273b72618c373723": {
+  "kb-pet-hospital": {
    "clicks": 0,
    "impressions": 20
   },
@@ -643,24 +651,20 @@
    "clicks": 0,
    "impressions": 20
   },
-  "0x30e29e7f6fda90450x5f1c4505efd2450": {
+  "rong-phayaban-sat-krungthep-kaychnaphisek": {
+   "clicks": 0,
+   "impressions": 20
+  },
+  "rong-phayaban-sat-nkhrwech": {
+   "clicks": 0,
+   "impressions": 20
+  },
+  "suchritraksa-sat": {
    "clicks": 2,
    "impressions": 19
   },
-  "0x30e29900692b76b30x2505a1d1131173d2": {
+  "tladphlu-sattawaphaet-clinic": {
    "clicks": 1,
-   "impressions": 19
-  },
-  "0x30e29842bcd8e1370xb8dd019735ef88a4": {
-   "clicks": 1,
-   "impressions": 19
-  },
-  "krinweth-sattawaphaet": {
-   "clicks": 1,
-   "impressions": 19
-  },
-  "0x30e2a20a70ea00c30x705f2f36eaa820ff": {
-   "clicks": 0,
    "impressions": 19
   },
   "mah-animal-hospital": {
@@ -671,15 +675,11 @@
    "clicks": 0,
    "impressions": 19
   },
-  "kb-pet-hospital": {
+  "rong-phayaban-sat-bangmd-sattawaphaet-raksa-sat-pikswyngam": {
    "clicks": 0,
    "impressions": 19
   },
-  "0x30e29d735af0d6ff0x1d87667391c9155d": {
-   "clicks": 0,
-   "impressions": 19
-  },
-  "0x30e2a2fb8a2b27910x6d31319aec8a1b8": {
+  "clinic-ban-sat-liang-raksa-sat": {
    "clicks": 0,
    "impressions": 19
   },
@@ -691,7 +691,7 @@
    "clicks": 1,
    "impressions": 18
   },
-  "0x30e2a3cd8e215a590x412a2a4bc4ee2f62": {
+  "clinic-raksa-sat-mongta": {
    "clicks": 1,
    "impressions": 18
   },
@@ -703,15 +703,11 @@
    "clicks": 0,
    "impressions": 18
   },
-  "bangsueraksa-sat": {
+  "s-p-v-pet-club": {
    "clicks": 2,
    "impressions": 17
   },
-  "0x30e29dcdf7d77dbd0xb8a575f03b81e402": {
-   "clicks": 1,
-   "impressions": 17
-  },
-  "rong-phayaban-sat-chakrphinth": {
+  "wrawuth-clinic-sattawaphaet": {
    "clicks": 1,
    "impressions": 17
   },
@@ -719,11 +715,19 @@
    "clicks": 1,
    "impressions": 17
   },
-  "0x30e29d05c470a3e10x5578cb0b7f9e147e": {
+  "pet-aethhom-raksa-sat": {
    "clicks": 0,
    "impressions": 17
   },
-  "0x30e29b097ea505df0x29a27a27fca70d04": {
+  "siyaek-pet-clinic": {
+   "clicks": 0,
+   "impressions": 17
+  },
+  "sthanphyabal-sat-pet-weild-sakha-ladphraw-15": {
+   "clicks": 0,
+   "impressions": 17
+  },
+  "mitrthaeraksa-sat": {
    "clicks": 0,
    "impressions": 17
   },
@@ -731,31 +735,35 @@
    "clicks": 0,
    "impressions": 17
   },
-  "0x30e29be502f0d46d0xf09be3390d878745": {
+  "clinic-saensukh": {
    "clicks": 0,
    "impressions": 17
   },
-  "s-p-v-pet-club": {
-   "clicks": 2,
+  "akhar-60-pi-sattawaphaet-sastr-khna-sattawaphaet-sastr-chula": {
+   "clicks": 0,
+   "impressions": 17
+  },
+  "spvveterinary-clinic": {
+   "clicks": 1,
    "impressions": 16
   },
-  "0x30e29940cacb5e3d0xf484da9284796b15": {
-   "clicks": 0,
+  "clinic-raksa-sat-sirilaksn-sattawaphaet": {
+   "clicks": 1,
+   "impressions": 16
+  },
+  "rong-phayaban-sat-rm-di-sattawaphaet": {
+   "clicks": 1,
    "impressions": 16
   },
   "kamu-kamu-9": {
    "clicks": 0,
    "impressions": 16
   },
-  "mri-animal-mri-center": {
+  "sena-pet-clinic": {
    "clicks": 0,
    "impressions": 16
   },
-  "0x30e29dc6c73067db0xbfee381278dff611": {
-   "clicks": 0,
-   "impressions": 16
-  },
-  "0x30e29de097a9d0450x7b450f63c9f0ac4a": {
+  "rong-phayaban-sat-pet-weild-samnaknganhaiy": {
    "clicks": 0,
    "impressions": 16
   },
@@ -763,15 +771,7 @@
    "clicks": 0,
    "impressions": 16
   },
-  "0x30e2a28a6e8604c90xb477282c6ea0c810": {
-   "clicks": 0,
-   "impressions": 16
-  },
   "thonglor-pet-hospital-rama-5-5": {
-   "clicks": 0,
-   "impressions": 16
-  },
-  "0x30e29ed3b742bd4b0xda150f2e84e485e3": {
    "clicks": 0,
    "impressions": 16
   },
@@ -783,11 +783,11 @@
    "clicks": 0,
    "impressions": 16
   },
-  "pawplearn-animal-hospital": {
-   "clicks": 1,
-   "impressions": 15
+  "mri-animal-mri-center": {
+   "clicks": 0,
+   "impressions": 16
   },
-  "spvveterinary-clinic": {
+  "pawplearn-animal-hospital": {
    "clicks": 1,
    "impressions": 15
   },
@@ -795,35 +795,27 @@
    "clicks": 1,
    "impressions": 15
   },
+  "ing-ing-pet-chp": {
+   "clicks": 1,
+   "impressions": 15
+  },
   "mami-pet-care-clinic": {
    "clicks": 0,
    "impressions": 15
   },
-  "siyaek-pet-clinic": {
-   "clicks": 0,
-   "impressions": 15
-  },
-  "emergency": {
-   "clicks": 0,
-   "impressions": 15
-  },
-  "0x30e29c29a444661b0x9b5e475bfbea7931": {
+  "khlinikh-sattawaphaet-chirsakdi-raksa-sat": {
    "clicks": 2,
    "impressions": 14
   },
-  "0x30e298fd2830750d0x584c9cee452ec654": {
+  "rong-phayaban-sat-pet-smail": {
    "clicks": 1,
    "impressions": 14
   },
-  "0x30e29b5abf6f779d0xf7c84ec0f457c743": {
+  "clinic-raksa-sat-banhmo-prachaniwesn1": {
    "clicks": 1,
    "impressions": 14
   },
   "24-capital-animal-hospital": {
-   "clicks": 0,
-   "impressions": 14
-  },
-  "0x30e29d99578bd7f10xbd95e7d0b0df19ed": {
    "clicks": 0,
    "impressions": 14
   },
@@ -843,19 +835,11 @@
    "clicks": 1,
    "impressions": 13
   },
-  "0x30e29dc00dfd24710x271ed620f1472c70": {
-   "clicks": 1,
-   "impressions": 13
-  },
   "stpet-care-veterinary-clinic": {
    "clicks": 0,
    "impressions": 13
   },
   "naughty-cat-pet-clinic": {
-   "clicks": 0,
-   "impressions": 13
-  },
-  "sena-pet-clinic": {
    "clicks": 0,
    "impressions": 13
   },
@@ -871,7 +855,7 @@
    "clicks": 0,
    "impressions": 13
   },
-  "rong-phayaban-sat-chanthrhun": {
+  "talingchan-animal-hospital": {
    "clicks": 0,
    "impressions": 13
   },
@@ -879,27 +863,31 @@
    "clicks": 0,
    "impressions": 13
   },
+  "soy-9-rak-sat": {
+   "clicks": 0,
+   "impressions": 13
+  },
+  "rong-phayaban-sat-satwmitr": {
+   "clicks": 0,
+   "impressions": 13
+  },
   "drive-in-animal-hospital": {
    "clicks": 2,
-   "impressions": 12
-  },
-  "0x30e29d8ccb208df10x850383911ce01576": {
-   "clicks": 1,
    "impressions": 12
   },
   "bangkok-animal-hospital": {
    "clicks": 0,
    "impressions": 12
   },
-  "st-louis-vet": {
-   "clicks": 0,
-   "impressions": 12
-  },
-  "talingchan-animal-hospital": {
+  "metta-animal-hospital": {
    "clicks": 0,
    "impressions": 12
   },
   "eva-animal-hospital-and-exotic-pets-center": {
+   "clicks": 0,
+   "impressions": 12
+  },
+  "st-louis-vet": {
    "clicks": 0,
    "impressions": 12
   },
@@ -919,7 +907,7 @@
    "clicks": 0,
    "impressions": 11
   },
-  "0x30e2a3783c9f62e30x3d11489cbd1df404": {
+  "clinic-payyraks-sattawaphaet": {
    "clicks": 0,
    "impressions": 11
   },
@@ -931,7 +919,7 @@
    "clicks": 0,
    "impressions": 11
   },
-  "0x311d6202961585f30xde718eb845a2aa1c": {
+  "rong-phayaban-sat-hmamaewyimchaeng": {
    "clicks": 0,
    "impressions": 11
   },
@@ -942,10 +930,6 @@
   "vetville-pet-hospital-ratchaphruek": {
    "clicks": 0,
    "impressions": 11
-  },
-  "taveerat-vet-clinic": {
-   "clicks": 2,
-   "impressions": 10
   },
   "phra-khanong-veterinary": {
    "clicks": 1,
@@ -959,15 +943,11 @@
    "clicks": 1,
    "impressions": 10
   },
-  "metta-animal-hospital": {
-   "clicks": 0,
+  "taveerat-vet-clinic": {
+   "clicks": 2,
    "impressions": 10
   },
   "drkanya-vet-clinic": {
-   "clicks": 0,
-   "impressions": 10
-  },
-  "0x30e29dbeddd5d0f10x9e940d0bc4149887": {
    "clicks": 0,
    "impressions": 10
   },
@@ -975,11 +955,7 @@
    "clicks": 0,
    "impressions": 10
   },
-  "clinic-hmoraks-sat": {
-   "clicks": 0,
-   "impressions": 10
-  },
-  "0x30e298fcbf49ad710xa2a46e2d536963b7": {
+  "khaifa-raksa-sat": {
    "clicks": 0,
    "impressions": 10
   },
@@ -991,35 +967,19 @@
    "clicks": 0,
    "impressions": 10
   },
-  "rong-phayaban-sat-swnracha": {
-   "clicks": 0,
-   "impressions": 10
-  },
-  "rong-phayaban-sat-buysiri": {
-   "clicks": 0,
-   "impressions": 10
-  },
-  "rong-phayaban-sat-swnhlwng-sakha-thnnchelimphrakeiyrti": {
-   "clicks": 0,
-   "impressions": 10
-  },
   "ekkamai-animal-hospital": {
    "clicks": 1,
    "impressions": 9
   },
-  "0x30e29fe5b775a1f10xcc5191d5a831202d": {
+  "sthanphyabal-sat-sukhumwith-93": {
    "clicks": 1,
    "impressions": 9
   },
-  "0x30e29b0bb1deef150xa2fb305ea3be4fa1": {
+  "banhmonath-raksa-sat": {
    "clicks": 0,
    "impressions": 9
   },
   "floof-pet-wellness-centre": {
-   "clicks": 0,
-   "impressions": 9
-  },
-  "muvet-pet-clinic": {
    "clicks": 0,
    "impressions": 9
   },
@@ -1031,23 +991,11 @@
    "clicks": 0,
    "impressions": 9
   },
-  "pinklao-veterinary-clinic": {
+  "rong-phayaban-sat-rwmmitr": {
    "clicks": 0,
    "impressions": 9
   },
-  "0x30e2a348ed1dbe4b0x51793f843fe180ca": {
-   "clicks": 0,
-   "impressions": 9
-  },
-  "rong-phayaban-sat-mitrsamphanth": {
-   "clicks": 0,
-   "impressions": 9
-  },
-  "good-buddy-pet-hospital": {
-   "clicks": 0,
-   "impressions": 9
-  },
-  "0x30e298fe1661e5230x436f6e7857056f2b": {
+  "es-e-thi-sattawaphaet": {
    "clicks": 0,
    "impressions": 9
   },
@@ -1055,19 +1003,7 @@
    "clicks": 0,
    "impressions": 9
   },
-  "0x30e29d9e8d9b2a970x35745f4b72aa542d": {
-   "clicks": 0,
-   "impressions": 9
-  },
-  "saladaeng-sat-phaethy": {
-   "clicks": 0,
-   "impressions": 9
-  },
   "bangkok-vet-health-animal-hospital": {
-   "clicks": 0,
-   "impressions": 9
-  },
-  "banrangnk-raksa-sat": {
    "clicks": 0,
    "impressions": 9
   },
@@ -1075,23 +1011,23 @@
    "clicks": 0,
    "impressions": 9
   },
-  "pet-khaersenter-rong-phayaban-sat-24-chm": {
+  "muvet-pet-clinic": {
    "clicks": 0,
    "impressions": 9
   },
-  "0x30e29d415d1bc9570x1ded4e7360516af5": {
-   "clicks": 1,
-   "impressions": 8
+  "pinklao-veterinary-clinic": {
+   "clicks": 0,
+   "impressions": 9
+  },
+  "good-buddy-pet-hospital": {
+   "clicks": 0,
+   "impressions": 9
+  },
+  "rong-phayaban-sat-bangkok-rachda": {
+   "clicks": 0,
+   "impressions": 9
   },
   "k-9-veterinary-clinic": {
-   "clicks": 0,
-   "impressions": 8
-  },
-  "khlinikpheuen-sat-liang-krungthep-nnth35": {
-   "clicks": 0,
-   "impressions": 8
-  },
-  "bangkok-non-animal-hospital": {
    "clicks": 0,
    "impressions": 8
   },
@@ -1103,23 +1039,19 @@
    "clicks": 0,
    "impressions": 8
   },
+  "bangkok-non-animal-hospital": {
+   "clicks": 0,
+   "impressions": 8
+  },
   "kasetsart-university-bangkhen-campus-animal-hospital": {
    "clicks": 0,
    "impressions": 8
   },
-  "rong-phayaban-sat-pheuensathr": {
-   "clicks": 0,
-   "impressions": 8
-  },
-  "rong-phayaban-sat-leifli-pet": {
+  "clinic-raksa-sat": {
    "clicks": 0,
    "impressions": 8
   },
   "meow-samosorn-vet-clinic": {
-   "clicks": 0,
-   "impressions": 7
-  },
-  "clinic-sattawaphaet-mhachn": {
    "clicks": 0,
    "impressions": 7
   },
@@ -1135,15 +1067,11 @@
    "clicks": 0,
    "impressions": 7
   },
-  "soy-9-rak-sat": {
+  "rong-phayaban-sat-pheuenkestr": {
    "clicks": 0,
    "impressions": 7
   },
-  "chray-13-sattawaphaet": {
-   "clicks": 0,
-   "impressions": 7
-  },
-  "0x30e28500018901170xf75d3674e4eb1e2f": {
+  "rong-phayaban-sat-kailhmo": {
    "clicks": 0,
    "impressions": 7
   },
@@ -1159,10 +1087,6 @@
    "clicks": 0,
    "impressions": 6
   },
-  "0x30e2bd2f0c7691830x633c8e70c81d7cb4": {
-   "clicks": 0,
-   "impressions": 6
-  },
   "nw-animal-hospital": {
    "clicks": 0,
    "impressions": 6
@@ -1171,15 +1095,7 @@
    "clicks": 0,
    "impressions": 6
   },
-  "rong-phayaban-sat-nkhrwech": {
-   "clicks": 0,
-   "impressions": 6
-  },
   "petcio-animal-hospital": {
-   "clicks": 0,
-   "impressions": 6
-  },
-  "0x30e29dd01e6359770xddd26567f55bcabc": {
    "clicks": 0,
    "impressions": 6
   },
@@ -1191,11 +1107,11 @@
    "clicks": 0,
    "impressions": 6
   },
-  "rong-phayaban-sat-wanhaim": {
+  "kulphngs-sattawaphaet": {
    "clicks": 0,
    "impressions": 6
   },
-  "rong-phayaban-sat-esphi": {
+  "rong-phayaban-sat-hanni": {
    "clicks": 0,
    "impressions": 6
   },
@@ -1208,10 +1124,6 @@
    "impressions": 5
   },
   "prachasongkhro-veterinary": {
-   "clicks": 0,
-   "impressions": 5
-  },
-  "0x30e2997e0676000d0xc11b208586cf7a2f": {
    "clicks": 0,
    "impressions": 5
   },
@@ -1239,23 +1151,11 @@
    "clicks": 0,
    "impressions": 5
   },
-  "clinic-thnburi-sattawaphaet": {
-   "clicks": 0,
-   "impressions": 5
-  },
-  "rong-phayaban-sat-muchi": {
-   "clicks": 0,
-   "impressions": 5
-  },
   "anan-animal-hospital": {
    "clicks": 0,
    "impressions": 5
   },
-  "0x30e29f35789c76550x35b8aa914e8b0557": {
-   "clicks": 0,
-   "impressions": 5
-  },
-  "rong-phayaban-sat-krungthep-nnth-sakha-playbang": {
+  "thichodrth-rong-phayaban-sat-khchaweth-rachda": {
    "clicks": 0,
    "impressions": 5
   },
@@ -1267,11 +1167,7 @@
    "clicks": 0,
    "impressions": 5
   },
-  "0x30e298a0fca59e470xaadae065c8df4bcf": {
-   "clicks": 0,
-   "impressions": 5
-  },
-  "prachachuen-sattawaphaet": {
+  "banhmorakhma": {
    "clicks": 0,
    "impressions": 5
   },
@@ -1283,11 +1179,11 @@
    "clicks": 0,
    "impressions": 5
   },
-  "aree-pet-hospital": {
-   "clicks": 1,
-   "impressions": 4
+  "clinic-sattawaphaet-chray52": {
+   "clicks": 0,
+   "impressions": 5
   },
-  "rong-phayaban-sat-siriwech-hawlamphong": {
+  "aree-pet-hospital": {
    "clicks": 1,
    "impressions": 4
   },
@@ -1307,15 +1203,11 @@
    "clicks": 0,
    "impressions": 4
   },
-  "bangkhunnon-vet-clinic": {
+  "sathon-animal-hospital": {
    "clicks": 0,
    "impressions": 4
   },
-  "0x30e29e70552f569d0xa2145d39563bddc4": {
-   "clicks": 0,
-   "impressions": 4
-  },
-  "0x30e2a15f1f26bd2b0x9392c51b255516e7": {
+  "rong-phayaban-sat-dea-pet-sukhumwith76": {
    "clicks": 0,
    "impressions": 4
   },
@@ -1335,7 +1227,7 @@
    "clicks": 0,
    "impressions": 4
   },
-  "0x30e299a505acd1830x7dd37377a1a5aae9": {
+  "thedthairaksa-sat": {
    "clicks": 0,
    "impressions": 4
   },
@@ -1344,10 +1236,6 @@
    "impressions": 4
   },
   "khaithong-pet-care-clinic": {
-   "clicks": 0,
-   "impressions": 4
-  },
-  "clinic-raksa-sat": {
    "clicks": 0,
    "impressions": 4
   },
@@ -1367,7 +1255,19 @@
    "clicks": 0,
    "impressions": 4
   },
-  "0x30e2996d46d697830x9685044d2cb876c5": {
+  "rong-phayaban-sat-nubis": {
+   "clicks": 0,
+   "impressions": 4
+  },
+  "clinic-leif-sat-sat": {
+   "clicks": 0,
+   "impressions": 4
+  },
+  "bangkhunnon-vet-clinic": {
+   "clicks": 0,
+   "impressions": 4
+  },
+  "khe-di-raksa-sat-khlinikh": {
    "clicks": 1,
    "impressions": 3
   },
@@ -1375,7 +1275,11 @@
    "clicks": 1,
    "impressions": 3
   },
-  "0x30e298e9293e2f030x6e17119277b63da9": {
+  "clinic-hmochaen": {
+   "clicks": 1,
+   "impressions": 3
+  },
+  "khlinik-supper-pet-raksa-sat": {
    "clicks": 0,
    "impressions": 3
   },
@@ -1395,10 +1299,6 @@
    "clicks": 0,
    "impressions": 3
   },
-  "rong-phayaban-sat-unchai-sakha-hawhmak": {
-   "clicks": 0,
-   "impressions": 3
-  },
   "happy-paws-pet-hospital": {
    "clicks": 0,
    "impressions": 3
@@ -1407,19 +1307,7 @@
    "clicks": 0,
    "impressions": 3
   },
-  "ban-58-raksa-sat": {
-   "clicks": 0,
-   "impressions": 3
-  },
-  "rong-phayaban-sat-bangkok-rachda": {
-   "clicks": 0,
-   "impressions": 3
-  },
   "me-d-animal-hospital": {
-   "clicks": 0,
-   "impressions": 3
-  },
-  "0x30e29a6151fc43dd0x39e7224a96a9120e": {
    "clicks": 0,
    "impressions": 3
   },
@@ -1427,7 +1315,7 @@
    "clicks": 0,
    "impressions": 3
   },
-  "0x30e29daf4aa334cb0x2f6d789be641844b": {
+  "rong-phayaban-sat-aphaphirmy": {
    "clicks": 0,
    "impressions": 3
   },
@@ -1439,23 +1327,11 @@
    "clicks": 0,
    "impressions": 3
   },
-  "0x311d6019de8208970x3cd9be2177982dd9": {
+  "rong-phayaban-sat-phathrphathn": {
    "clicks": 0,
    "impressions": 3
   },
-  "0x30e298b7248c90bb0xa4e11310b9361d0d": {
-   "clicks": 0,
-   "impressions": 3
-  },
-  "clinic-sat-leiyng-en-thi": {
-   "clicks": 0,
-   "impressions": 3
-  },
-  "0x30e29d0006653d030x9d1eea5c72dd413a": {
-   "clicks": 0,
-   "impressions": 3
-  },
-  "0x30e29f4157e461570x474fc2623c578c70": {
+  "phrimeiym-rph-sat": {
    "clicks": 0,
    "impressions": 3
   },
@@ -1467,7 +1343,7 @@
    "clicks": 0,
    "impressions": 3
   },
-  "0x311d6272c15e81270xa95b09c8c7d88718": {
+  "rong-phayaban-sat-phothikaewraksa-sat": {
    "clicks": 0,
    "impressions": 3
   },
@@ -1479,35 +1355,15 @@
    "clicks": 0,
    "impressions": 3
   },
-  "rong-phayaban-sat-ahmo": {
+  "schinanth-ahar-sat": {
    "clicks": 0,
    "impressions": 3
   },
-  "0x311d6200f812dad70x3e7f52e5052ba8ee": {
+  "rong-phayaban-sat-dkter-pet-1": {
    "clicks": 0,
-   "impressions": 3
-  },
-  "rong-phayaban-sat-hmadichai-maewchaidi": {
-   "clicks": 0,
-   "impressions": 3
-  },
-  "0x30e29bbb607277e50x4937530203c249a2": {
-   "clicks": 1,
    "impressions": 2
   },
-  "rachakru-animal-hospital": {
-   "clicks": 1,
-   "impressions": 2
-  },
-  "rong-phayaban-sat-rm-di-sattawaphaet": {
-   "clicks": 1,
-   "impressions": 2
-  },
-  "clinic-sat-wiaiphi": {
-   "clicks": 1,
-   "impressions": 2
-  },
-  "0x30e29ea6aaaaaaab0x7ec483ae5f05f0eb": {
+  "khlinikhraksa-sat-hmosunantha": {
    "clicks": 0,
    "impressions": 2
   },
@@ -1519,7 +1375,7 @@
    "clicks": 0,
    "impressions": 2
   },
-  "0x30e29e855bef8e5b0x988b8314efea3af": {
+  "rachakru-animal-hospital": {
    "clicks": 0,
    "impressions": 2
   },
@@ -1528,10 +1384,6 @@
    "impressions": 2
   },
   "faculty-of-veterinary-science-chulalongkorn-university": {
-   "clicks": 0,
-   "impressions": 2
-  },
-  "ratchada-pet-hospital": {
    "clicks": 0,
    "impressions": 2
   },
@@ -1547,27 +1399,15 @@
    "clicks": 0,
    "impressions": 2
   },
-  "rong-phayaban-sat-thaphra": {
-   "clicks": 0,
-   "impressions": 2
-  },
   "sainamthip-veterinary": {
    "clicks": 0,
    "impressions": 2
   },
-  "0x30e29feebfd06fd70x79da563c9d803195": {
+  "sthanphyabal-sat-bangchak": {
    "clicks": 0,
    "impressions": 2
   },
   "animal-hospital-saima": {
-   "clicks": 0,
-   "impressions": 2
-  },
-  "clinic-raksa-sat-pherring": {
-   "clicks": 0,
-   "impressions": 2
-  },
-  "0x30e29d4d23aec2390x84b3624486644eee": {
    "clicks": 0,
    "impressions": 2
   },
@@ -1595,19 +1435,7 @@
    "clicks": 0,
    "impressions": 2
   },
-  "sbaysbayraksa-sat": {
-   "clicks": 0,
-   "impressions": 2
-  },
-  "slv-pet-hospital": {
-   "clicks": 0,
-   "impressions": 2
-  },
   "apollo-animal-hospital": {
-   "clicks": 0,
-   "impressions": 2
-  },
-  "clinic-sat-leiyngbangpho": {
    "clicks": 0,
    "impressions": 2
   },
@@ -1623,11 +1451,7 @@
    "clicks": 0,
    "impressions": 2
   },
-  "0x30e299024bbbe4430x410d96473dd55d80": {
-   "clicks": 0,
-   "impressions": 2
-  },
-  "clinic-ban-sat-liang-raksa-sat": {
+  "hmoartraks-sat": {
    "clicks": 0,
    "impressions": 2
   },
@@ -1635,7 +1459,7 @@
    "clicks": 0,
    "impressions": 2
   },
-  "0x30e29d7af92936cf0x70bbeae26b81c887": {
+  "rong-phayaban-sat-nakhniwas": {
    "clicks": 0,
    "impressions": 2
   },
@@ -1647,10 +1471,6 @@
    "clicks": 0,
    "impressions": 2
   },
-  "rong-phayaban-sat-satwmitr": {
-   "clicks": 0,
-   "impressions": 2
-  },
   "surat-veterinary": {
    "clicks": 0,
    "impressions": 2
@@ -1659,23 +1479,7 @@
    "clicks": 0,
    "impressions": 2
   },
-  "rong-phayaban-sat-bangkrang": {
-   "clicks": 0,
-   "impressions": 2
-  },
-  "rong-phayaban-sat-hanni": {
-   "clicks": 0,
-   "impressions": 2
-  },
-  "rong-phayaban-sat-pherphlas-sakha-phraram-5": {
-   "clicks": 0,
-   "impressions": 2
-  },
   "arun-animal-hospital-yaowarat": {
-   "clicks": 0,
-   "impressions": 2
-  },
-  "khlinikraksa-sat-bangkhru": {
    "clicks": 0,
    "impressions": 2
   },
@@ -1683,11 +1487,7 @@
    "clicks": 0,
    "impressions": 2
   },
-  "0x30e2908e7e0ace8d0x8764d81c694a3a51": {
-   "clicks": 0,
-   "impressions": 2
-  },
-  "buyhom-sattawaphaet": {
+  "rong-phayaban-sat-rachph-ks-2": {
    "clicks": 0,
    "impressions": 2
   },
@@ -1695,31 +1495,31 @@
    "clicks": 0,
    "impressions": 2
   },
-  "sun-phyabal-sat-unairaks": {
+  "brisath-rong-phayaban-sat-phyathai-7-chamkad": {
    "clicks": 0,
    "impressions": 2
-  },
-  "0x30e29c1ce26e43a90x73272997f991e134": {
-   "clicks": 0,
-   "impressions": 2
-  },
-  "0x30e29fcd0908f0190xd2b30a0a65265eb0": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "itsaraphap-veterinary-clinic": {
-   "clicks": 0,
-   "impressions": 1
   },
   "ladphraw-pheth-homstey": {
    "clicks": 0,
-   "impressions": 1
+   "impressions": 2
+  },
+  "mhankhr-rph-sat": {
+   "clicks": 0,
+   "impressions": 2
+  },
+  "ratchada-pet-hospital": {
+   "clicks": 0,
+   "impressions": 2
+  },
+  "khlinikh-sat-phaethy-krungthep": {
+   "clicks": 0,
+   "impressions": 2
+  },
+  "slv-pet-hospital": {
+   "clicks": 0,
+   "impressions": 2
   },
   "lat-pla-khao-animal-hospital": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "0x30e29855d3d3c2790xfe80b7a4e5a52900": {
    "clicks": 0,
    "impressions": 1
   },
@@ -1751,10 +1551,6 @@
    "clicks": 0,
    "impressions": 1
   },
-  "sathon-animal-hospital": {
-   "clicks": 0,
-   "impressions": 1
-  },
   "4-5-51-1": {
    "clicks": 0,
    "impressions": 1
@@ -1764,10 +1560,6 @@
    "impressions": 1
   },
   "vet-clinic-chan-27-alley": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "0x30e29da1cbd02d250xa099b81d743ba399": {
    "clicks": 0,
    "impressions": 1
   },
@@ -1783,10 +1575,6 @@
    "clicks": 0,
    "impressions": 1
   },
-  "mhankhr-rph-sat": {
-   "clicks": 0,
-   "impressions": 1
-  },
   "nontri-pet-hospital": {
    "clicks": 0,
    "impressions": 1
@@ -1795,15 +1583,7 @@
    "clicks": 0,
    "impressions": 1
   },
-  "0x30e29d5f51479b250xf8eb80e022378cbf": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "0x30e2a3b76a89071b0xd63a447650d53887": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "clinic-hmochaen": {
+  "rong-phayaban-sat-wansairaksa-sat": {
    "clicks": 0,
    "impressions": 1
   },
@@ -1811,27 +1591,19 @@
    "clicks": 0,
    "impressions": 1
   },
-  "rong-phayaban-sat-nubis": {
-   "clicks": 0,
-   "impressions": 1
-  },
   "ruammit-veterinary": {
    "clicks": 0,
    "impressions": 1
   },
-  "0x30e2989e7014fb190xb08d2d399ad84469": {
+  "rong-phayaban-sat-diraks": {
    "clicks": 0,
    "impressions": 1
   },
-  "0x30e29c909bfd42090x6a0cc34ecd3ffed8": {
+  "rong-phayaban-sat-shaswrrs": {
    "clicks": 0,
    "impressions": 1
   },
   "animal-hospital": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "ing-ing-pet-chp": {
    "clicks": 0,
    "impressions": 1
   },
@@ -1847,7 +1619,7 @@
    "clicks": 0,
    "impressions": 1
   },
-  "rong-phayaban-sat-kailhmo": {
+  "siramada-pet-hospital": {
    "clicks": 0,
    "impressions": 1
   },
@@ -1859,19 +1631,15 @@
    "clicks": 0,
    "impressions": 1
   },
-  "0x30e29ca5773dae290x4584633bf7ca2e1b": {
+  "clinic-waenniraksa-sat": {
    "clicks": 0,
    "impressions": 1
   },
-  "0x30e29d8eaefef88f0xe182c7fd5b516b78": {
+  "ranhengdiphedchop-swnchtuchakr": {
    "clicks": 0,
    "impressions": 1
   },
   "heal-care-veterinarian-clinic": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "kulphngs-sattawaphaet": {
    "clicks": 0,
    "impressions": 1
   },
@@ -1891,35 +1659,11 @@
    "clicks": 0,
    "impressions": 1
   },
-  "rong-phayaban-sat-phraram-4": {
+  "rong-phayaban-sat-nathsuda": {
    "clicks": 0,
    "impressions": 1
   },
-  "0x30e2987abe5dc0f50x7248fa2e5ddba1e5": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "0x30e2a3d6683cd9bf0xb63fba802fba3108": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "akhar-60-pi-sattawaphaet-sastr-khna-sattawaphaet-sastr-chula": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "bangkhunsri-raksa-sat": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "chray-57-raksa-sat": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "clinic-raksa-sat-banhmo-prachaniwesn1": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "clinic-sat-leiyng-bannamnnth": {
+  "rong-phayaban-sat-e-che-aennimol": {
    "clicks": 0,
    "impressions": 1
   },
@@ -1927,27 +1671,11 @@
    "clicks": 0,
    "impressions": 1
   },
-  "rong-phayaban-sat-siriwech-sakha-sukhswasdi": {
-   "clicks": 0,
-   "impressions": 1
-  },
   "animal-care-hospital-care": {
    "clicks": 0,
    "impressions": 1
   },
-  "clinic-sat-phaethy-krungthep-mhankhr-7-bangkoknoy": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "sthanphyabal-sat-ladphraw-48": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "rong-phayaban-sat-wanghin": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "0x30e2989319aef52b0xe1151ef260794f43": {
+  "779-sattawaphaet": {
    "clicks": 0,
    "impressions": 1
   },
@@ -1959,23 +1687,7 @@
    "clicks": 0,
    "impressions": 1
   },
-  "clinic-sattawaphaet-kthm-3-wadthatuthong": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "0x30e2985a580351c10x2baeafe2ec08634c": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "rong-phayaban-sat-chomthong-24-chawmong": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "clinic-raksa-sat-sirilaksn-sattawaphaet": {
-   "clicks": 0,
-   "impressions": 1
-  },
-  "rong-phayaban-sat-kestrnwminthr": {
+  "sattawaphaet-4": {
    "clicks": 0,
    "impressions": 1
   },
@@ -1988,6 +1700,10 @@
    "impressions": 1
   },
   "huai-khwang-animal-hospital": {
+   "clicks": 0,
+   "impressions": 1
+  },
+  "itsaraphap-veterinary-clinic": {
    "clicks": 0,
    "impressions": 1
   }
