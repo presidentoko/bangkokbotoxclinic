@@ -33,6 +33,31 @@ export const config = {
   matcher: "/:locale/hospital/:slug*",
 };
 
+
+/**
+ * A 308 with a short edge TTL.
+ *
+ * The site-wide header in next.config gives every response
+ * `s-maxage=86400`, and Cloudflare stores a redirect as readily as a page. So
+ * when a destination in hospital-redirects.ts changes, the old 308 keeps being
+ * served for up to a day: on 2026-10-23 the origin had already moved
+ * /en/hospital/bangkok-hospital-krabi to /en/city/krabi while the edge was
+ * still sending visitors to the old editorial guide (cf-cache-status HIT,
+ * Age 650). There is no API token for this zone, so it could not be purged.
+ *
+ * Five minutes is plenty for a redirect — it is one small response, and the
+ * content pages these point at keep the full day. The same reasoning already
+ * applies to /:locale/compare in next.config.
+ */
+function shortLivedRedirect(url: URL): NextResponse {
+  const res = NextResponse.redirect(url, 308);
+  res.headers.set(
+    "Cache-Control",
+    "public, max-age=0, s-maxage=300, stale-while-revalidate=3600",
+  );
+  return res;
+}
+
 export function middleware(request: NextRequest) {
   // `nextUrl.pathname` is the raw, still-encoded path here.
   const path = request.nextUrl.pathname;
@@ -55,11 +80,11 @@ export function middleware(request: NextRequest) {
   // path, so this costs nothing for a slug that is still live.
   const renamed = RENAMED_HOSPITALS[raw];
   if (renamed) {
-    return NextResponse.redirect(new URL(`/${locale}/hospital/${renamed}`, request.url), 308);
+    return shortLivedRedirect(new URL(`/${locale}/hospital/${renamed}`, request.url));
   }
   const movedTo = MOVED_TO_GUIDE[raw];
   if (movedTo) {
-    return NextResponse.redirect(new URL(`/${locale}${movedTo}`, request.url), 308);
+    return shortLivedRedirect(new URL(`/${locale}${movedTo}`, request.url));
   }
 
   if (!path.includes("%")) return NextResponse.next();
@@ -80,12 +105,12 @@ export function middleware(request: NextRequest) {
   for (const c of candidates) {
     const moved = SLUG_REDIRECTS[c];
     if (moved) {
-      return NextResponse.redirect(new URL(`/${locale}/hospital/${moved}`, request.url), 308);
+      return shortLivedRedirect(new URL(`/${locale}/hospital/${moved}`, request.url));
     }
   }
 
   // A percent-encoded slug that maps to nothing cannot be served — decoding it
   // is what produces the 500. Send it to the hospital index rather than
   // leaving a 5xx in the crawl log.
-  return NextResponse.redirect(new URL(`/${locale}/hospital`, request.url), 308);
+  return shortLivedRedirect(new URL(`/${locale}/hospital`, request.url));
 }
