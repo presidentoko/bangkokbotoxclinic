@@ -8,6 +8,11 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://www.thailandpethub.com/sitemap.xml',
+    sitemap: [
+      'https://www.thailandpethub.com/sitemap.xml',
+      // The moved clinic URLs, so Google revisits them and sees the 308 — see
+      // app/sitemap-legacy.xml/route.ts for why, and for when to remove it.
+      'https://www.thailandpethub.com/sitemap-legacy.xml',
+    ],
   }
 }
