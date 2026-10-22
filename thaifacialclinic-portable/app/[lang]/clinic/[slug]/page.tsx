@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { reviewExcerpt } from "@/lib/reviewExcerpt";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -341,7 +342,7 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
                 <span className="text-xs muted">From {c.reviews_scraped_count} aggregated</span>
               </div>
               <ul className="grid gap-4 sm:grid-cols-2">
-                {c.reviews_sample.slice(0, 6).map((r, i) => (
+                {c.reviews_sample.slice(0, 3).map((r, i) => (
                   <li key={i} className="card p-5">
                     <div className="flex items-center justify-between">
                       <span className="rounded-md bg-[rgb(var(--bg))] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider">{r.source}</span>
@@ -349,9 +350,9 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
                         <span className="text-xs font-bold tabular-nums text-gold-600">{"★".repeat(Math.round(r.rating))}</span>
                       )}
                     </div>
-                    <p className="mt-3 text-sm leading-relaxed">"{r.text}"</p>
+                    <p className="mt-3 text-sm leading-relaxed">"{reviewExcerpt(r.text)}"</p>
                     <div className="mt-3 flex items-center justify-between border-t pt-3 text-[11px] muted" style={{ borderColor: "rgb(var(--border))" }}>
-                      <span className="font-semibold">{r.reviewer || "Anonymous"}</span>
+                      <span className="font-semibold">Verified reviewer</span>
                       {r.date && <span>{r.date}</span>}
                     </div>
                   </li>

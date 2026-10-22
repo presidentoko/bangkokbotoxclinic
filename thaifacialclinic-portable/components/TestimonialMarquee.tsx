@@ -39,9 +39,9 @@ export default function TestimonialMarquee({ clinics, lang }: { clinics: Clinic[
       if (!r.text || r.text.length < 60 || r.text.length > 240) continue;
       if (r.rating !== null && r.rating < 4) continue;
       samples.push({ text: r.text, source: r.source, reviewer: r.reviewer || "Anon", clinic: c.name, rating: r.rating });
-      if (samples.length > 30) break;
+      if (samples.length >= 12) break;
     }
-    if (samples.length > 30) break;
+    if (samples.length >= 12) break;
   }
   if (samples.length === 0) return null;
 
@@ -76,7 +76,7 @@ export default function TestimonialMarquee({ clinics, lang }: { clinics: Clinic[
                     "{r.text}"
                   </p>
                   <div className="mt-3 flex items-center justify-between border-t pt-3 text-[11px]" style={{ borderColor: "rgb(var(--border))" }}>
-                    <span className="font-semibold">— {r.reviewer}</span>
+                    <span className="font-semibold">— Verified reviewer</span>
                     <span className="muted truncate max-w-[60%] text-right">{r.clinic}</span>
                   </div>
                 </article>
