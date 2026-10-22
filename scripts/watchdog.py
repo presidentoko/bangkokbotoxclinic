@@ -91,6 +91,22 @@ GRID_CHAIN = [
     # .disabled 마커는 run/ 에 남아있어 그때까지 안 깨어남.
 ]
 
+# 2026-10-22: 로그인 모드(GMAPS_PROFILE) 스파 리뷰 순차 체인. 프로필은 한 번에
+# 한 프로세스만 열 수 있어서 도시를 하나씩 돈다. GRID_CHAIN 과 달리 다음 도시의
+# 마커 내용이 정확히 "review 자연 종료" 일 때만 벗긴다 — ram_manager·사람이 건
+# 정지는 존중하고, 한 세션에 도시당 한 번만 승격한다 (아래 _promoted_signed).
+SIGNED_REVIEW_CHAIN = [
+    "spa_review_bangkok",
+    "spa_review_pattaya",
+    "spa_review_phuket",
+    "spa_review_chiang_mai",
+    "spa_review_koh_samui",
+    "spa_review_hua_hin",
+    "spa_review_krabi",
+]
+_promoted_signed: set[str] = set()
+_review_done_this_session: set[str] = set()
+
 # 로그 타임스탬프 패턴 세 종류 지원:
 #  - scraper / telegram_monitor (logging 모듈): "YYYY-MM-DD HH:MM:SS,mmm [LEVEL] ..."
 #  - nordvpn_runner (직접 print): "[HH:MM:SS] ..."
@@ -916,6 +932,7 @@ def build_services() -> list[Service]:
     # "spa" 검색만으로는 카테고리가 Massage로만 잡히는 순수 마사지샵이
     # 안 걸릴 수 있어 "massage" 2차 쿼리 추가 (같은 output dir 공유,
     # SEARCH_TAG로 checkpoint만 분리 — dental 2-query 패턴과 동일).
+    gmaps_profile = str((ROOT / ".secrets" / "gmaps_profile").resolve())  # 로그인 모드 (SIGNED_REVIEW_CHAIN)
     spa_bangkok_env = {
         "SEARCH_QUERY": "spa",
         "SEARCH_TAG": "spa_bangkok",
@@ -1481,9 +1498,9 @@ def build_services() -> list[Service]:
             # (치앙마이 2082, 방콕 클리닉 2080 과 겹치지 않는다).
             # 2026-10-21: 로그인 모드(GMAPS_PROFILE). 10-13 부터 비로그인은 리뷰
             # 5건 상한(limited view)이라 로그인 프로필로만 수집된다. 프로필은 한
-            # 프로세스만 열 수 있으므로 이 env 를 다른 서비스에 복사하지 말 것.
-            env_extra={**spa_bangkok_env, "N_WORKERS": "1",
-                       "GMAPS_PROFILE": str((ROOT / ".secrets" / "gmaps_profile").resolve())},
+            # 프로세스만 열 수 있다 — 다른 도시는 SIGNED_REVIEW_CHAIN 으로 하나씩만
+            # 가동한다 (10-22). 동시에 뜨면 scraper 의 프로필 잠금이 뒤엣것을 끈다.
+            env_extra={**spa_bangkok_env, "N_WORKERS": "1", "GMAPS_PROFILE": gmaps_profile},
             log_file=LOGS / "spa_review_bangkok.log",
             chrome_heavy=True,
             review_done_check=True,
@@ -1531,7 +1548,7 @@ def build_services() -> list[Service]:
             cwd=bk_clinics,
             # 2026-10-02: 커버리지 메우기로 재가동. 워커 2 → 1 ("천천히").
             # RAM 이 상한이다 — 워커 1개가 실측 0.94GB(크롬 4~5개)다.
-            env_extra={**spa_pattaya_env, "N_WORKERS": "1", "PROXY_PORT_BASE": "2087"},
+            env_extra={**spa_pattaya_env, "N_WORKERS": "1", "GMAPS_PROFILE": gmaps_profile, "PROXY_PORT_BASE": "2087"},
             log_file=LOGS / "spa_review_pattaya.log",
             chrome_heavy=True,
             review_done_check=True,
@@ -1581,7 +1598,7 @@ def build_services() -> list[Service]:
             #   2080 방콕클리닉 · 2081 꼬사무이 · 2082 치앙마이 · 2083 방콕스파
             #   2084 푸켓 · 2085 끄라비 · 2086 후아힌 · 2087 파타야
             # 동시 가동 상한은 RAM 이고 ram_manager 사다리가 조절한다.
-            env_extra={**spa_phuket_env, "N_WORKERS": "1", "PROXY_PORT_BASE": "2084"},
+            env_extra={**spa_phuket_env, "N_WORKERS": "1", "GMAPS_PROFILE": gmaps_profile, "PROXY_PORT_BASE": "2084"},
             log_file=LOGS / "spa_review_phuket.log",
             chrome_heavy=True,
             review_done_check=True,
@@ -1635,7 +1652,7 @@ def build_services() -> list[Service]:
             # spa_review_hua_hin 이 2026-10-02 02:00 에 완주해서 비었다.
             # _validate_proxy_ports() 는 범위만 보고 충돌은 안 보므로 로그엔
             # ✅ 만 찍힌다 — 배치는 사람이 지켜야 한다.
-            env_extra={**spa_chiang_mai_env, "N_WORKERS": "1", "PROXY_PORT_BASE": "2082"},
+            env_extra={**spa_chiang_mai_env, "N_WORKERS": "1", "GMAPS_PROFILE": gmaps_profile, "PROXY_PORT_BASE": "2082"},
             log_file=LOGS / "spa_review_chiang_mai.log",
             chrome_heavy=True,
             review_done_check=True,
@@ -1687,7 +1704,7 @@ def build_services() -> list[Service]:
             # 3도시 × 2워커면 여유가 0 밑으로 간다. 1워커 × 3도시면
             # 여유 1.0~1.5GB 로, ram_manager.py 가 목표라 적어둔 범위다.
             # 그리드는 이 값을 공유하지 않는다(massage_* 는 별도 env).
-            env_extra={**spa_koh_samui_env, "N_WORKERS": "1", "PROXY_PORT_BASE": "2081"},
+            env_extra={**spa_koh_samui_env, "N_WORKERS": "1", "GMAPS_PROFILE": gmaps_profile, "PROXY_PORT_BASE": "2081"},
             log_file=LOGS / "spa_review_koh_samui.log",
             chrome_heavy=True,
             review_done_check=True,
@@ -1739,7 +1756,7 @@ def build_services() -> list[Service]:
             # 3도시 × 2워커면 여유가 0 밑으로 간다. 1워커 × 3도시면
             # 여유 1.0~1.5GB 로, ram_manager.py 가 목표라 적어둔 범위다.
             # 그리드는 이 값을 공유하지 않는다(massage_* 는 별도 env).
-            env_extra={**spa_hua_hin_env, "N_WORKERS": "1", "PROXY_PORT_BASE": "2086"},
+            env_extra={**spa_hua_hin_env, "N_WORKERS": "1", "GMAPS_PROFILE": gmaps_profile, "PROXY_PORT_BASE": "2086"},
             log_file=LOGS / "spa_review_hua_hin.log",
             chrome_heavy=True,
             review_done_check=True,
@@ -1791,7 +1808,7 @@ def build_services() -> list[Service]:
             # 3도시 × 2워커면 여유가 0 밑으로 간다. 1워커 × 3도시면
             # 여유 1.0~1.5GB 로, ram_manager.py 가 목표라 적어둔 범위다.
             # 그리드는 이 값을 공유하지 않는다(massage_* 는 별도 env).
-            env_extra={**spa_krabi_env, "N_WORKERS": "1"},
+            env_extra={**spa_krabi_env, "N_WORKERS": "1", "GMAPS_PROFILE": gmaps_profile},
             log_file=LOGS / "spa_review_krabi.log",
             chrome_heavy=True,
             review_done_check=True,
@@ -2307,6 +2324,30 @@ def _promote_next_in_chain(services: list[Service]) -> bool:
             continue
         log(f"[chain] {prev_name} 자연 종료 → {next_name} 가동 (.disabled 제거)")
         return True
+    for prev_name, next_name in zip(SIGNED_REVIEW_CHAIN, SIGNED_REVIEW_CHAIN[1:]):
+        prev = by_name.get(prev_name)
+        nxt = by_name.get(next_name)
+        if not prev or not nxt or next_name in _promoted_signed:
+            continue
+        # prev 가 **이번 세션에** 끝났어야 한다. 부팅 때 마커에서 되읽은 "자연 종료"
+        # 를 인정하면 지난 회차에 끝난 도시들이 줄줄이 연쇄 승격된다 (10-22 22:17 실측).
+        if prev_name not in _review_done_this_session:
+            continue
+        try:
+            marker = nxt.disabled_marker.read_text(encoding="utf-8", errors="replace").strip()
+        except OSError:
+            continue
+        if marker != "review 자연 종료":
+            continue
+        try:
+            nxt.disabled_marker.unlink()
+        except OSError:
+            continue
+        _promoted_signed.add(next_name)
+        nxt.disabled = False  # 부팅 때 마커에서 되읽은 플래그 — 안 지우면 영영 안 뜬다
+        nxt.disabled_reason = ""
+        log(f"[signed-chain] {prev_name} 자연 종료 → {next_name} 가동 (.disabled 제거)")
+        return True
     return False
 
 
@@ -2568,6 +2609,7 @@ def main():
                 s.disabled = True
                 s.disabled_reason = "review 자연 종료"
                 s._persist_disabled_marker()
+                _review_done_this_session.add(s.name)
                 log(f"[{s.name}] {s.disabled_reason} — 큐 비움, 더 이상 재시작 안 함")
                 any_action = True
                 continue
