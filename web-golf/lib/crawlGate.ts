@@ -110,6 +110,10 @@ export function indexableCities(courses: Course[], cityLabels: string[]): string
 
 export type RetiredRoute = { slug: string; destination: string };
 
+// "Sriracha City," 같은 원본 지역명은 쉼표가 슬러그에 남아 prerender 돼도 요청 경로와 맞지 않는다.
+// 깨끗한 슬러그만 리다이렉트 스텁으로 만든다.
+const CLEAN_SLUG = /^[a-z0-9-]+$/;
+
 /** 코스가 1개 이상이지만 게이트 미달로 내려간 /d/[district] → 그 코스들이 가장 많이 실린 도시 페이지. */
 export function retiredDistricts(
   courses: Course[],
@@ -122,7 +126,7 @@ export function retiredDistricts(
   const out: (RetiredRoute & { district: string })[] = [];
   for (const district of districts) {
     const slug = districtSlug(district);
-    if (isNonLatinSlug(slug) || live.has(slug)) continue;
+    if (!CLEAN_SLUG.test(slug) || live.has(slug)) continue;
     const inDistrict = filterByDistrict(courses, district);
     if (inDistrict.length === 0) continue;
     let best: string | null = null;
@@ -153,7 +157,7 @@ export function retiredCategoryDistricts(
     if (inCategory.length === 0) continue;
     for (const district of districts) {
       const slug = districtSlug(district);
-      if (isNonLatinSlug(slug) || live.has(`${category}/${slug}`)) continue;
+      if (!CLEAN_SLUG.test(slug) || live.has(`${category}/${slug}`)) continue;
       if (filterByDistrict(inCategory, district).length === 0) continue;
       out.push({ category, district, slug, destination: `/c/${category}` });
     }
