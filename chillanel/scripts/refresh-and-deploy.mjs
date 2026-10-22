@@ -77,7 +77,9 @@ function deploy(cities) {
   log("vercel --prod 배포 시작");
   const token = loadVercelToken();
   const args = ["deploy", "--prod", "--yes", "--scope", VERCEL_SCOPE];
-  if (token) args.push("--token", token);
+  // 2026-10-22: --token 인자로 넘기면 실패 시 e.message(명령줄 전체)에 토큰이
+  // 평문으로 찍혀 로그에 6,700회 남았다. vercel CLI 는 VERCEL_TOKEN env 를 읽는다.
+  const env = token ? { ...process.env, VERCEL_TOKEN: token } : process.env;
   // Node refuses to spawn .cmd/.bat via execFile without shell:true since the
   // CVE-2024-27980 fix — on Windows `vercel` resolves to vercel.cmd, so this
   // threw ENOENT on every single deploy attempt (silently caught by the
@@ -86,6 +88,7 @@ function deploy(cities) {
     cwd: import.meta.dirname + "/..",
     stdio: "inherit",
     shell: process.platform === "win32",
+    env,
   });
   log("배포 완료");
 }
