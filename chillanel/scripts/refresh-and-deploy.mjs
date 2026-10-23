@@ -119,6 +119,39 @@ let cities = discoverCities();
 // 6일간 배포 0회, 수집한 데이터의 절반이 미공개 상태로 남았다.
 // 파일에 남겨두면 재시작해도 "무엇까지 실제로 내보냈는지"가 보존된다.
 const WATERMARK = import.meta.dirname + "/../.last-deployed";
+// 2026-10-23: 배포 1개가 ~3.5GB(9천여 장소 × 3개 언어 프리렌더)인데 이 서비스는
+// 배포만 하고 지우지 않아서 3개만 쌓여도 Hobby Deployment Storage 10GB 를 넘었다
+// (10.49GB). 배포가 끝나면 도메인 별칭이 하나도 없는 production 배포를 지운다.
+// 서빙 중인 배포를 고르는 기준은 targets.production 이 아니라 **별칭** 이다 —
+// 메모 vercel-prod-target-points-at-building-deploy (빌드 중 배포가 이미
+// production 타깃이라 그걸 기준으로 지웠다가 4분 다운).
+// 가장 최근 1개는 별칭이 없어도 남긴다(롤백 여지).
+async function pruneOldDeployments() {
+  const token = loadVercelToken();
+  if (!token) return;
+  const { projectId, orgId } = JSON.parse(
+    fs.readFileSync(path.join(import.meta.dirname, "..", ".vercel", "project.json"), "utf-8"),
+  );
+  const api = async (url, init = {}) => {
+    const res = await fetch(`https://api.vercel.com${url}${url.includes("?") ? "&" : "?"}teamId=${orgId}`, {
+      ...init,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) throw new Error(`${init.method ?? "GET"} ${url} → ${res.status}`);
+    return res.json();
+  };
+  const { deployments } = await api(`/v6/deployments?projectId=${projectId}&limit=50&state=READY`);
+  const sorted = deployments.sort((a, b) => b.created - a.created);
+  let removed = 0;
+  for (const d of sorted.slice(2)) {
+    const { aliases } = await api(`/v2/deployments/${d.uid}/aliases`);
+    if (aliases && aliases.length > 0) continue;
+    await api(`/v13/deployments/${d.uid}`, { method: "DELETE" });
+    removed++;
+  }
+  if (removed) log(`옛 배포 ${removed}개 삭제 (별칭 없는 것만)`);
+}
+
 function readWatermark() {
   try {
     const v = Number(fs.readFileSync(WATERMARK, "utf8").trim());
@@ -173,6 +206,11 @@ while (true) {
       lastDeployedAt = now;
       // 재시작해도 "여기까지 실제로 배포했다" 가 남도록 디스크에 기록.
       writeWatermark(lastDeployedMtime);
+      try {
+        await pruneOldDeployments();
+      } catch (e) {
+        log(`옛 배포 정리 실패(다음 배포 때 재시도): ${e.message}`);
+      }
     } catch (e) {
       log(`배포 실패, 다음 주기 재시도: ${e.message}`);
     }
