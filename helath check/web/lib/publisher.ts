@@ -32,6 +32,26 @@
  * restated on the page.
  */
 
+import catalogue from "../data/checkup_db.json";
+import profiles from "../data/hospital_profiles.json";
+
+// Counted from the data files at build time. These figures used to be typed
+// into the policy text below, and by 2026-10-23 they had drifted: the page
+// said 955 of 1,001 priced packages carried their source URL when the files
+// held 857 of 1,001 — and 35 of those 1,001 were not read from anywhere at
+// all, but cloned from another branch at 95% of its price and deleted that
+// day. A policy page whose own numbers are wrong is the last place that can
+// afford it.
+type Pkg = { price: string | number | null; source_url: string | null };
+const priced = (catalogue as { packages: Pkg[] }).packages.filter(
+  (p) => p.price != null && parseFloat(String(p.price)) > 0,
+);
+const PRICED = priced.length;
+const WITH_URL = priced.filter((p) => (p.source_url ?? "").startsWith("http")).length;
+const LISTINGS = (catalogue as { hospitals: unknown[] }).hospitals.length;
+const MATCHED = Object.keys((profiles as { registry_match: Record<string, unknown> }).registry_match).length;
+const n = (x: number) => x.toLocaleString("en-US");
+
 export type Publisher = {
   name: string | null;
   role: string | null;
@@ -66,14 +86,14 @@ export function hasNamedPublisher(): boolean {
  */
 export const EDITORIAL_POLICY: { heading: string; body: string }[] = [
   {
-    heading: "Prices are machine-read from the hospital's own page, and we link to it",
+    heading: "Prices are read from the hospital's own page, and we link to it",
     body:
-      "Every price on this site was read from a published source, and 955 of the 1,001 priced packages carry the exact URL it came from. That link now sits under the price, with the date the file was built, so any figure can be checked against the hospital's own listing. Where a price could not be read, the page says the hospital publishes none rather than estimating one.",
+      `${n(WITH_URL)} of the ${n(PRICED)} priced packages on this site carry the exact URL they were read from; the rest name the hospital price feed they were read from, or say plainly that the source was not recorded. That link sits under the price, with the date the file was built, so any figure can be checked against the hospital's own listing. Where a price could not be read, the page says the hospital publishes none rather than estimating one.`,
   },
   {
     heading: "Accreditation and hospital type come from the national register, not from us",
     body:
-      "Each hospital page that matches Thailand's official register shows its Ministry of Public Health hospital code, whether it is public or private, its hospital type, and its accreditation status with the certificate date — sourced from the Healthcare Accreditation Institute (Public Organisation) and, for bed counts, Bangkok Metropolitan Administration open data. 80 of our 321 listings are matched. The rest show nothing in that block rather than an implied endorsement.",
+      `Each hospital page that matches Thailand's official register shows its Ministry of Public Health hospital code, whether it is public or private, its hospital type, and its accreditation status with the certificate date — sourced from the Healthcare Accreditation Institute (Public Organisation) and, for bed counts, Bangkok Metropolitan Administration open data. ${n(MATCHED)} of our ${n(LISTINGS)} listings are matched — by Thai name, or by sharing a map location with the register entry. The rest show nothing in that block rather than an implied endorsement.`,
   },
   {
     heading: "Nothing on this site is paid for",
@@ -88,6 +108,6 @@ export const EDITORIAL_POLICY: { heading: string; body: string }[] = [
   {
     heading: "When we get something wrong",
     body:
-      "In August 2026 a review of the city guides found 24 hospital names that do not exist; they had been published for roughly a year and were removed, and the price ranges in those guides are now labelled as not scraped. Guides carry the date they were last checked. Corrections are welcome through the contact page and are made on the page itself, not quietly.",
+      "In August 2026 a review of the city guides found 24 hospital names that do not exist; they had been published for roughly a year and were removed, and the price ranges in those guides are now labelled as not scraped. In October 2026 two hospital pages were found to be invented: 'Samitivej Nawamin' carried 35 prices copied from another Samitivej branch at 95% and that branch's address, and 'Ramkhamhaeng Hospital Chiang Mai' carried the address and phone number of Ramkhamhaeng Hospital in Bangkok. Neither name is on the national register; both pages were removed. The same review found Bangkok Hospital's headquarters page showing the licence of its Phetchaburi branch, now corrected. Guides carry the date they were last checked. Corrections are welcome through the contact page and are made on the page itself, not quietly.",
   },
 ];

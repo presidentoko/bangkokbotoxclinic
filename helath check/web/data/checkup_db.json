@@ -13452,63 +13452,6 @@
    "permanently_closed": 0
   },
   {
-   "id": 237,
-   "name": "Ramkhamhaeng Hospital Chiang Mai",
-   "name_th": null,
-   "slug": "ramkhamhaeng-hospital-chiang-mai",
-   "tier": null,
-   "area": "Chiang Mai",
-   "city": "Chiang Mai",
-   "jci": 0,
-   "checkup_url": null,
-   "lat": "13.7614458",
-   "lng": "100.6361553",
-   "address": "436 Ramkhamhaeng Rd, Hua Mak, Bang Kapi, Bangkok 10240, Thailand",
-   "phone": "+66 2 743 9999",
-   "website": "https://www.ram-hosp.co.th/",
-   "description": null,
-   "founded_year": null,
-   "bed_count": null,
-   "specialties": null,
-   "accreditations": null,
-   "email": null,
-   "rating": "4.70",
-   "review_count": 2793,
-   "category_name": "Private hospital",
-   "opening_hours": [
-    {
-     "day": "Monday",
-     "hours": "Open 24 hours"
-    },
-    {
-     "day": "Tuesday",
-     "hours": "Open 24 hours"
-    },
-    {
-     "day": "Wednesday",
-     "hours": "Open 24 hours"
-    },
-    {
-     "day": "Thursday",
-     "hours": "Open 24 hours"
-    },
-    {
-     "day": "Friday",
-     "hours": "Open 24 hours"
-    },
-    {
-     "day": "Saturday",
-     "hours": "Open 24 hours"
-    },
-    {
-     "day": "Sunday",
-     "hours": "Open 24 hours"
-    }
-   ],
-   "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Ramkhamhaeng%20Hospital&query_place_id=ChIJJa9dnO5hHTERaHCaE56v0eQ",
-   "permanently_closed": 0
-  },
-  {
    "id": 190,
    "name": "Regenelife Vital Center",
    "name_th": null,
@@ -13905,63 +13848,6 @@
     }
    ],
    "google_maps_url": "https://www.google.com/maps/place/Samitivej+Chonburi+Hospital/@13.344851,100.9761356,17z/data=!3m1!4b1!4m6!3m5!1s0x311d4a83e27c290f:0xbc01fd1910902d9d!8m2!3d13.344851!4d100.9761356!16s%2Fg%2F1td2jymf?hl=en&entry=ttu&g_ep=EgoyMDI2MDgxOS4wIKXMDSoASAFQAw%3D%3D",
-   "permanently_closed": 0
-  },
-  {
-   "id": 226,
-   "name": "Samitivej Hospital Nawamin",
-   "name_th": null,
-   "slug": "samitivej-nawamin",
-   "tier": "premium",
-   "area": null,
-   "city": "Bangkok",
-   "jci": 0,
-   "checkup_url": null,
-   "lat": "13.7140689",
-   "lng": "100.4892212",
-   "address": "337 Somdet Phra Chao Tak Sin Rd, Samre, Thon Buri, Bangkok 10600, Thailand",
-   "phone": "+66 2 438 9000",
-   "website": "https://www.samitivejthonburi.com/",
-   "description": "Samitivej Hospital Nawamin is a hospital offering a wide range of medical specialties and centers, serving patients requiring surgical, diagnostic, and preventive health services. The facility provides multiple specialized departments and health check-up programs.",
-   "founded_year": null,
-   "bed_count": null,
-   "specialties": "Surgery, Gastroenterology and Hepatology, Ophthalmology, Radiology, Orthopedics, Allergy and Immunology, Pediatrics, Obstetrics and Gynecology, Dentistry, Internal Medicine, Emergency Medicine, Otolaryngology, Dermatology, Rehabilitation Medicine, Oncolog",
-   "accreditations": null,
-   "email": null,
-   "rating": "4.60",
-   "review_count": 1539,
-   "category_name": "Private hospital",
-   "opening_hours": [
-    {
-     "day": "Monday",
-     "hours": "Open 24 hours"
-    },
-    {
-     "day": "Tuesday",
-     "hours": "Open 24 hours"
-    },
-    {
-     "day": "Wednesday",
-     "hours": "Open 24 hours"
-    },
-    {
-     "day": "Thursday",
-     "hours": "Open 24 hours"
-    },
-    {
-     "day": "Friday",
-     "hours": "Open 24 hours"
-    },
-    {
-     "day": "Saturday",
-     "hours": "Open 24 hours"
-    },
-    {
-     "day": "Sunday",
-     "hours": "Open 24 hours"
-    }
-   ],
-   "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Samitivej%20Thonburi%20Hospital&query_place_id=ChIJE6vEpfSY4jARd01cucYz3A8",
    "permanently_closed": 0
   },
   {
@@ -17555,741 +17441,6 @@
   }
  ],
  "packages": [
-  {
-   "id": 2061,
-   "hospital_id": 226,
-   "name": "Annual Health Check-up Packages For Men & Women",
-   "category": "women",
-   "price": "1900.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2062,
-   "hospital_id": 226,
-   "name": "Annual Health Check-up Packages for Women",
-   "category": "women",
-   "price": "1900.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2063,
-   "hospital_id": 226,
-   "name": "Annual Health Check-up Packages for Men",
-   "category": "men",
-   "price": "1900.00",
-   "currency": "THB",
-   "description": "Men's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2064,
-   "hospital_id": 226,
-   "name": "basic-check-up-program-for-female-basic-snh",
-   "category": "women",
-   "price": "1900.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2065,
-   "hospital_id": 226,
-   "name": "annual-check-up-program-for-male-under-30-years-of-age-snh",
-   "category": "men",
-   "price": "1900.00",
-   "currency": "THB",
-   "description": "Men's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2066,
-   "hospital_id": 226,
-   "name": "annual-check-up-program-for-female-under-30-years-of-age-snh",
-   "category": "women",
-   "price": "1900.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2067,
-   "hospital_id": 226,
-   "name": "annual-check-up-program-for-male-under-40-years-of-age-snh",
-   "category": "men",
-   "price": "1900.00",
-   "currency": "THB",
-   "description": "Men's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2068,
-   "hospital_id": 226,
-   "name": "annual-check-up-program-for-female-under-40-years-of-age-snh",
-   "category": "women",
-   "price": "1900.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2069,
-   "hospital_id": 226,
-   "name": "annual-check-up-program-for-male-under-50-years-of-age-snh",
-   "category": "men",
-   "price": "2000.00",
-   "currency": "THB",
-   "description": "Men's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2070,
-   "hospital_id": 226,
-   "name": "annual-check-up-program-for-female-over-60-years-of-age-snh",
-   "category": "women",
-   "price": "2000.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2071,
-   "hospital_id": 226,
-   "name": "annual-check-up-program-for-male-over-50-years-of-age-snh",
-   "category": "men",
-   "price": "2000.00",
-   "currency": "THB",
-   "description": "Men's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2072,
-   "hospital_id": 226,
-   "name": "annual-check-up-program-for-female-under-50-years-of-age-snh",
-   "category": "women",
-   "price": "2000.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2073,
-   "hospital_id": 226,
-   "name": "basic-check-up-program-for-male-or-female-snh",
-   "category": "women",
-   "price": "2000.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2074,
-   "hospital_id": 226,
-   "name": "Happy Aging Check-up Program for 60 Years and Over",
-   "category": "senior",
-   "price": "3600.00",
-   "currency": "THB",
-   "description": "Senior health checkup (60+). Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2075,
-   "hospital_id": 226,
-   "name": "Basic Check-up Program for Male or Female",
-   "category": "women",
-   "price": "4200.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney).",
-   "has_blood": 1,
-   "has_xray": null,
-   "has_ultrasound": null,
-   "has_ct": null,
-   "has_mri": null,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2076,
-   "hospital_id": 226,
-   "name": "Basic Check-up Program for Female with Cervical Cancer Screening",
-   "category": "cancer",
-   "price": "6100.00",
-   "currency": "THB",
-   "description": "Cancer screening package. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Cancer markers (CEA, AFP, CA125, PSA).",
-   "has_blood": 1,
-   "has_xray": null,
-   "has_ultrasound": null,
-   "has_ct": null,
-   "has_mri": null,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": 1,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2077,
-   "hospital_id": 226,
-   "name": "annual-health-check-up-packages-samitivej-srinakarin",
-   "category": "standard",
-   "price": "6600.00",
-   "currency": "THB",
-   "description": "Standard health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2078,
-   "hospital_id": 226,
-   "name": "Basic Check-up Program for Female",
-   "category": "women",
-   "price": "6600.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney).",
-   "has_blood": 1,
-   "has_xray": null,
-   "has_ultrasound": null,
-   "has_ct": null,
-   "has_mri": null,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2079,
-   "hospital_id": 226,
-   "name": "Annual Check-up Program for Male Under 30 Years of Age",
-   "category": "men",
-   "price": "6600.00",
-   "currency": "THB",
-   "description": "Men's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney).",
-   "has_blood": 1,
-   "has_xray": null,
-   "has_ultrasound": null,
-   "has_ct": null,
-   "has_mri": null,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2080,
-   "hospital_id": 226,
-   "name": "Program",
-   "category": "standard",
-   "price": "7100.00",
-   "currency": "THB",
-   "description": "Standard health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2081,
-   "hospital_id": 226,
-   "name": "Healthy Aging Check-up Program for 60 Years and Over",
-   "category": "senior",
-   "price": "9000.00",
-   "currency": "THB",
-   "description": "Senior health checkup (60+). Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2082,
-   "hospital_id": 226,
-   "name": "Basic Check-up Program for Female Plus Thin Prep",
-   "category": "women",
-   "price": "9000.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney).",
-   "has_blood": 1,
-   "has_xray": null,
-   "has_ultrasound": null,
-   "has_ct": null,
-   "has_mri": null,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2083,
-   "hospital_id": 226,
-   "name": "Annual Check-up Program for Male Under 40 Years of Age",
-   "category": "men",
-   "price": "9900.00",
-   "currency": "THB",
-   "description": "Men's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney).",
-   "has_blood": 1,
-   "has_xray": null,
-   "has_ultrasound": null,
-   "has_ct": null,
-   "has_mri": null,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2084,
-   "hospital_id": 226,
-   "name": "Basic Check-up Program for Female Plus Thin Prep-",
-   "category": "women",
-   "price": "13300.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2085,
-   "hospital_id": 226,
-   "name": "Annual Check-up Program for Female Under 40 Years of Age",
-   "category": "women",
-   "price": "13700.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney).",
-   "has_blood": 1,
-   "has_xray": null,
-   "has_ultrasound": null,
-   "has_ct": null,
-   "has_mri": null,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2086,
-   "hospital_id": 226,
-   "name": "Smart Aging Check-up Program for 60 Years and Over | Male",
-   "category": "men",
-   "price": "24200.00",
-   "currency": "THB",
-   "description": "Men's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2087,
-   "hospital_id": 226,
-   "name": "Annual Check-up Program for Male Under 50 Years of Age",
-   "category": "men",
-   "price": "24600.00",
-   "currency": "THB",
-   "description": "Men's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney).",
-   "has_blood": 1,
-   "has_xray": null,
-   "has_ultrasound": null,
-   "has_ct": null,
-   "has_mri": null,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2088,
-   "hospital_id": 226,
-   "name": "Smart Aging Check-up Program for 60 Years and Over | Female",
-   "category": "women",
-   "price": "28900.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2089,
-   "hospital_id": 226,
-   "name": "Annual Check-up Program for Female Under 50 Years of Age",
-   "category": "women",
-   "price": "30800.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney).",
-   "has_blood": 1,
-   "has_xray": null,
-   "has_ultrasound": null,
-   "has_ct": null,
-   "has_mri": null,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2090,
-   "hospital_id": 226,
-   "name": "Annual Check-up Program for Male Over 50 Years of Age",
-   "category": "men",
-   "price": "31800.00",
-   "currency": "THB",
-   "description": "Men's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney).",
-   "has_blood": 1,
-   "has_xray": null,
-   "has_ultrasound": null,
-   "has_ct": null,
-   "has_mri": null,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2091,
-   "hospital_id": 226,
-   "name": "Perfect Aging Check-up Program for 60 Years and Over | Male",
-   "category": "men",
-   "price": "33700.00",
-   "currency": "THB",
-   "description": "Men's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2092,
-   "hospital_id": 226,
-   "name": "Perfect Aging Check-up Program for 60 Years and Over | Female",
-   "category": "women",
-   "price": "37500.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney), Chest X-ray.",
-   "has_blood": 1,
-   "has_xray": 1,
-   "has_ultrasound": null,
-   "has_ct": 0,
-   "has_mri": 0,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2093,
-   "hospital_id": 226,
-   "name": "Annual Check-up Program for Female Over 50 Years of Age",
-   "category": "women",
-   "price": "37900.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney).",
-   "has_blood": 1,
-   "has_xray": null,
-   "has_ultrasound": null,
-   "has_ct": null,
-   "has_mri": null,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2094,
-   "hospital_id": 226,
-   "name": "Annual Check-up Program for Male Over 60 Years of Age",
-   "category": "men",
-   "price": "40300.00",
-   "currency": "THB",
-   "description": "Men's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney).",
-   "has_blood": 1,
-   "has_xray": null,
-   "has_ultrasound": null,
-   "has_ct": null,
-   "has_mri": null,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
-  {
-   "id": 2095,
-   "hospital_id": 226,
-   "name": "Annual Check-up Program for Female Over 60 Years of Age",
-   "category": "women",
-   "price": "46000.00",
-   "currency": "THB",
-   "description": "Women's health checkup. Includes: Blood panel (CBC, glucose, lipids, liver, kidney).",
-   "has_blood": 1,
-   "has_xray": null,
-   "has_ultrasound": null,
-   "has_ct": null,
-   "has_mri": null,
-   "has_ecg": null,
-   "has_treadmill": null,
-   "has_cancer_marker": null,
-   "has_doctor_consult": null,
-   "has_interpreter": null,
-   "results_days": null,
-   "source_url": "samitivej-estimated"
-  },
   {
    "id": 2096,
    "hospital_id": 227,
@@ -39254,24 +38405,6 @@
    "source": "gbp"
   },
   {
-   "id": 916,
-   "hospital_id": 237,
-   "author_name": null,
-   "rating": "5.00",
-   "review_text": "สะดวก รวดเร็ว และบริการดีมากครับ ที่จอดรถสะดวก คุณหมอและ จนท ดูแลดีครับ",
-   "review_date": "2026-08-06",
-   "source": "gbp"
-  },
-  {
-   "id": 917,
-   "hospital_id": 237,
-   "author_name": null,
-   "rating": "5.00",
-   "review_text": "ขอบคุณหมอดวงเดือน แพทย์เฉพาะทางโรคมะเร็ง แผนกอายุรกรรม คุณหมอดูแลเอาใจใส่คนไข้ดีมาก เจ้าหน้าที่แผนกอายุรกรรม ให้ข้อมูลคนไข้ครบถ้วนและดูแลคนไข้ดี คอยบริการคนไข้",
-   "review_date": "2026-08-06",
-   "source": "gbp"
-  },
-  {
    "id": 153,
    "hospital_id": 7,
    "author_name": null,
@@ -39745,42 +38878,6 @@
    "author_name": null,
    "rating": "5.00",
    "review_text": "คุณหมอและพี่ๆบริการดีมากๆค่ะ พูดเพราะใจเย็นน่ารักอยากได้ระดับไหนแจ้งได้เลย แนะนำเลยค่ะ",
-   "review_date": "2026-08-05",
-   "source": "gbp"
-  },
-  {
-   "id": 918,
-   "hospital_id": 237,
-   "author_name": null,
-   "rating": "5.00",
-   "review_text": "Great service with nice hospitality. All staffs can speak English and well co-operated.",
-   "review_date": "2026-08-05",
-   "source": "gbp"
-  },
-  {
-   "id": 919,
-   "hospital_id": 237,
-   "author_name": null,
-   "rating": "5.00",
-   "review_text": "โรงพยาบาลสะอาด กว้างขวาง ระบบจัดการและดูแลเป็นระบบ สามารถดูแลผู้ป่วยในการเข้ารับการรักษาได้อย่างรวดเร็ว พยาบาลทุกท่านต้อนรับและให้บริการด้วยความเต็มใจ",
-   "review_date": "2026-08-05",
-   "source": "gbp"
-  },
-  {
-   "id": 920,
-   "hospital_id": 237,
-   "author_name": null,
-   "rating": "5.00",
-   "review_text": "คุณหมอนรินทร์ ดูแลดีมากๆ คอยให้กำลังใจตลอด การรักษา 1ปี  ส่วนพี่เยาพยาบาบน่ารักมาก มาเจอกันจนจำได้",
-   "review_date": "2026-08-05",
-   "source": "gbp"
-  },
-  {
-   "id": 921,
-   "hospital_id": 226,
-   "author_name": null,
-   "rating": "1.00",
-   "review_text": "เป็นประสบการณ์ที่แย่มาก! จ้องแต่จะเก็บตังเพิ่ม บอกมีปัญหานู่นนี่นั่น คุณหมอตรวจคนไข้มาหลายคนแล้วดูไม่ออกขนาดนั้นเลยหรอคะว่าโรคหัวใจโตเป็นยังไง? ใครคิดจะมาแนะนำไปรพ.อื่นเถอะ",
    "review_date": "2026-08-05",
    "source": "gbp"
   },
@@ -40658,15 +39755,6 @@
    "source": "gbp"
   },
   {
-   "id": 922,
-   "hospital_id": 226,
-   "author_name": null,
-   "rating": "2.00",
-   "review_text": "ลงจากชั้นเเต่ละชั้นของที่จอดรถชันมาก ขับรถลงมาต้องเบาที่สุด เบาผิดปรกติ เพราะถ้าขับความเร็วลงมาความเร็วปรกติสปอยเลอร์จะโดนกระเเทกเเรงมากด้วยความชันของเเต่ละชั้น เคยโดนมาตลอด 10  ปีที่เเล้วที่มาใช้บริการจนป่านนี้ก็ไม่ได้เเก้ไข เเละไม่มีป้ายเตือน ตรงนี้ต้องเเก้ไขให้ผู้ใช้บริการ",
-   "review_date": "2026-08-03",
-   "source": "gbp"
-  },
-  {
    "id": 417,
    "hospital_id": 231,
    "author_name": null,
@@ -41167,15 +40255,6 @@
    "author_name": null,
    "rating": "5.00",
    "review_text": "Very good massage and staff is very nice",
-   "review_date": "2026-08-01",
-   "source": "gbp"
-  },
-  {
-   "id": 923,
-   "hospital_id": 226,
-   "author_name": null,
-   "rating": "1.00",
-   "review_text": "แค่มีชื่อสมิติเวชติดเลย พยาบาลไม่ได้ยิ้มแย้ม อยากช่วยเหลืออะไรขนาดนั้น ประสานงานช้าทุกอย่าง ตามทุกอย่าง แจ้งบอกใช้ประกัน 2 ตัว แต่พอถึงเวลาต้องจ่ายเพิ่ม ทั้งที่บอกแล้วว่ามี 2 ตัว ตั้งแต่ก่อนขึ้นห้องรพ แล้ว ถึงเงินจ่ายเพิ่มไม่มาก แต่มันคือสิ่งที่มันควรเสีย\nมาโยนความผิดให้เราบอกว่าเราไม่แจ้ง ก็แจ้งไปตั้งแต่ก่อนเข้าปอดมิดแล้วว่ามีประกัน 2 ฉบับ ไม่ประทับใจตั้งแต่ พยาบาล ยันการเงิน\nเมื่อสมิติเวชหลักจะเข้ามาดูจริงๆจังๆสักที ข่าวก็มีการทุจริตออกมาให้เห็นแล้ว\nห้องพยาบาลเก่า อปก ในห้องก็เก่า ที่หยดน้ำเกลือมีเสียงรบกวนทั้งคืน ทุกอย่างเก่าหมด แต่ราคาปรับขึ้นเหมือนใหม่ทุกอย่าง\nหมอดีอย่างเดียวจริงๆนะที่นี่ ที่เหลือไม่ผ่านเลย\n\nไม่กี้ไปดูรีวิวที่ลง มีแต่ห้องใหม่ๆ ทำไมเราได้ห้องเก่าจัง พยาบาลคงประเมินจากสถานการณ์แต่งตัวมั้ง ทั้งที่ประกันเราครอบคลุมค่าห้อง 2 ฉบับ มันโคฟเวอร์ ถึง 8500 เลยนะ แต่ห้องที่ได้คือ ดีลักซ์วอรด9 โคตรเก่า แย่จริงๆ ยิ่งคิดยิ่งรู้สึกเหมือนพยาบาลไม่อยากช่วยเหลือยังไงไม่รู้ เหมือนตัดสินคนจากภายนอก เสียดายไม่ได้ถ่ายรูปห้องพักมา ห้องน้ำเก่า เตียงเก่า เห้อ ไม่คิดว่าจะแบ่งแยกชนชั้นขนาดนี้",
    "review_date": "2026-08-01",
    "source": "gbp"
   },
@@ -41788,24 +40867,6 @@
    "author_name": null,
    "rating": "5.00",
    "review_text": "ไม่คิดว่าจะลดน้ำหนักได้เกือบ 10 กิโลในเวลา เดือนกว่าๆ โดยที่ไม่เพลียใดๆ เลย แต่ต้องมีความอดทนในช่วงแรกๆ แขนขาเอวเล็กลงทุกสัดส่วน เจ้าหน้าที่ให้การดูแล และให้กำลังใจดีมากค่ะ",
-   "review_date": "2026-07-29",
-   "source": "gbp"
-  },
-  {
-   "id": 924,
-   "hospital_id": 226,
-   "author_name": null,
-   "rating": "5.00",
-   "review_text": "เจ้าหน้าที่ให้บริการดีมาก รพ.สะอาด เรียบร้อย",
-   "review_date": "2026-07-29",
-   "source": "gbp"
-  },
-  {
-   "id": 925,
-   "hospital_id": 226,
-   "author_name": null,
-   "rating": "5.00",
-   "review_text": "บริการดีค่ะ มีที่จอดรถ ถ้าไม่เคยมาแล้วขับรถมาเอง จะสับสนทางเข้ามีอีกรพ.ติดกันตึกม่วง อันนั้นไม่ใช่เด้อจ้า ทางเข้าอยู่ถัดไป ในรพ.มีสตาร์บัค ร้านยาต่างหาก มีคาเฟ่เบเกอรี่ มีเต่าบิน แซ่บ บางวันมีแสดงดนตรีด้วยเบาๆตรงประตูจุดชำระเงิน",
    "review_date": "2026-07-29",
    "source": "gbp"
   },
@@ -47127,11 +46188,6 @@
    "price": "9500.00"
   },
   {
-   "package_id": 2081,
-   "snapshot_date": "2026-08-06",
-   "price": "9000.00"
-  },
-  {
    "package_id": 2142,
    "snapshot_date": "2026-08-06",
    "price": "8900.00"
@@ -47140,11 +46196,6 @@
    "package_id": 2382,
    "snapshot_date": "2026-08-06",
    "price": "3800.00"
-  },
-  {
-   "package_id": 2074,
-   "snapshot_date": "2026-08-06",
-   "price": "3600.00"
   },
   {
    "package_id": 2196,
@@ -47195,11 +46246,6 @@
    "package_id": 2334,
    "snapshot_date": "2026-08-06",
    "price": "6900.00"
-  },
-  {
-   "package_id": 2077,
-   "snapshot_date": "2026-08-06",
-   "price": "6600.00"
   },
   {
    "package_id": 2221,
@@ -47257,16 +46303,6 @@
    "price": "24900.00"
   },
   {
-   "package_id": 2087,
-   "snapshot_date": "2026-08-06",
-   "price": "24600.00"
-  },
-  {
-   "package_id": 2086,
-   "snapshot_date": "2026-08-06",
-   "price": "24200.00"
-  },
-  {
    "package_id": 2226,
    "snapshot_date": "2026-08-06",
    "price": "18900.00"
@@ -47307,11 +46343,6 @@
    "price": "10500.00"
   },
   {
-   "package_id": 2083,
-   "snapshot_date": "2026-08-06",
-   "price": "9900.00"
-  },
-  {
    "package_id": 2293,
    "snapshot_date": "2026-08-06",
    "price": "7990.00"
@@ -47347,11 +46378,6 @@
    "price": "42500.00"
   },
   {
-   "package_id": 2094,
-   "snapshot_date": "2026-08-06",
-   "price": "40300.00"
-  },
-  {
    "package_id": 2199,
    "snapshot_date": "2026-08-06",
    "price": "39500.00"
@@ -47367,19 +46393,9 @@
    "price": "34900.00"
   },
   {
-   "package_id": 2091,
-   "snapshot_date": "2026-08-06",
-   "price": "33700.00"
-  },
-  {
    "package_id": 2248,
    "snapshot_date": "2026-08-06",
    "price": "33500.00"
-  },
-  {
-   "package_id": 2090,
-   "snapshot_date": "2026-08-06",
-   "price": "31800.00"
   },
   {
    "package_id": 2232,
@@ -47412,16 +46428,6 @@
    "price": "27900.00"
   },
   {
-   "package_id": 2079,
-   "snapshot_date": "2026-08-06",
-   "price": "6600.00"
-  },
-  {
-   "package_id": 2080,
-   "snapshot_date": "2026-08-06",
-   "price": "7100.00"
-  },
-  {
    "package_id": 2198,
    "snapshot_date": "2026-08-06",
    "price": "79500.00"
@@ -47452,19 +46458,9 @@
    "price": "32500.00"
   },
   {
-   "package_id": 2089,
-   "snapshot_date": "2026-08-06",
-   "price": "30800.00"
-  },
-  {
    "package_id": 2385,
    "snapshot_date": "2026-08-06",
    "price": "30500.00"
-  },
-  {
-   "package_id": 2088,
-   "snapshot_date": "2026-08-06",
-   "price": "28900.00"
   },
   {
    "package_id": 2225,
@@ -47507,11 +46503,6 @@
    "price": "37000.00"
   },
   {
-   "package_id": 2092,
-   "snapshot_date": "2026-08-06",
-   "price": "37500.00"
-  },
-  {
    "package_id": 2197,
    "snapshot_date": "2026-08-06",
    "price": "75000.00"
@@ -47552,11 +46543,6 @@
    "price": "48500.00"
   },
   {
-   "package_id": 2095,
-   "snapshot_date": "2026-08-06",
-   "price": "46000.00"
-  },
-  {
    "package_id": 2200,
    "snapshot_date": "2026-08-06",
    "price": "44100.00"
@@ -47582,19 +46568,9 @@
    "price": "39500.00"
   },
   {
-   "package_id": 2093,
-   "snapshot_date": "2026-08-06",
-   "price": "37900.00"
-  },
-  {
    "package_id": 2371,
    "snapshot_date": "2026-08-06",
    "price": "14000.00"
-  },
-  {
-   "package_id": 2085,
-   "snapshot_date": "2026-08-06",
-   "price": "13700.00"
   },
   {
    "package_id": 2372,
@@ -47615,46 +46591,6 @@
    "package_id": 2367,
    "snapshot_date": "2026-08-06",
    "price": "2098.00"
-  },
-  {
-   "package_id": 2073,
-   "snapshot_date": "2026-08-06",
-   "price": "2000.00"
-  },
-  {
-   "package_id": 2072,
-   "snapshot_date": "2026-08-06",
-   "price": "2000.00"
-  },
-  {
-   "package_id": 2070,
-   "snapshot_date": "2026-08-06",
-   "price": "2000.00"
-  },
-  {
-   "package_id": 2068,
-   "snapshot_date": "2026-08-06",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2066,
-   "snapshot_date": "2026-08-06",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2064,
-   "snapshot_date": "2026-08-06",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2062,
-   "snapshot_date": "2026-08-06",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2061,
-   "snapshot_date": "2026-08-06",
-   "price": "1900.00"
   },
   {
    "package_id": 2359,
@@ -47682,11 +46618,6 @@
    "price": "2107.00"
   },
   {
-   "package_id": 2084,
-   "snapshot_date": "2026-08-06",
-   "price": "13300.00"
-  },
-  {
    "package_id": 2167,
    "snapshot_date": "2026-08-06",
    "price": "12500.00"
@@ -47702,11 +46633,6 @@
    "price": "9500.00"
   },
   {
-   "package_id": 2082,
-   "snapshot_date": "2026-08-06",
-   "price": "9000.00"
-  },
-  {
    "package_id": 2239,
    "snapshot_date": "2026-08-06",
    "price": "7000.00"
@@ -47715,11 +46641,6 @@
    "package_id": 2147,
    "snapshot_date": "2026-08-06",
    "price": "6900.00"
-  },
-  {
-   "package_id": 2078,
-   "snapshot_date": "2026-08-06",
-   "price": "6600.00"
   },
   {
    "package_id": 2173,
@@ -47740,11 +46661,6 @@
    "package_id": 2187,
    "snapshot_date": "2026-08-06",
    "price": "4490.00"
-  },
-  {
-   "package_id": 2075,
-   "snapshot_date": "2026-08-06",
-   "price": "4200.00"
   },
   {
    "package_id": 2368,
@@ -48057,11 +46973,6 @@
    "price": "6500.00"
   },
   {
-   "package_id": 2076,
-   "snapshot_date": "2026-08-06",
-   "price": "6100.00"
-  },
-  {
    "package_id": 2353,
    "snapshot_date": "2026-08-06",
    "price": "5500.00"
@@ -48225,31 +47136,6 @@
    "package_id": 2376,
    "snapshot_date": "2026-08-06",
    "price": "2100.00"
-  },
-  {
-   "package_id": 2071,
-   "snapshot_date": "2026-08-06",
-   "price": "2000.00"
-  },
-  {
-   "package_id": 2069,
-   "snapshot_date": "2026-08-06",
-   "price": "2000.00"
-  },
-  {
-   "package_id": 2067,
-   "snapshot_date": "2026-08-06",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2065,
-   "snapshot_date": "2026-08-06",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2063,
-   "snapshot_date": "2026-08-06",
-   "price": "1900.00"
   },
   {
    "package_id": 2291,
@@ -48492,11 +47378,6 @@
    "price": "9500.00"
   },
   {
-   "package_id": 2081,
-   "snapshot_date": "2026-08-17",
-   "price": "9000.00"
-  },
-  {
    "package_id": 2142,
    "snapshot_date": "2026-08-17",
    "price": "8900.00"
@@ -48505,11 +47386,6 @@
    "package_id": 2382,
    "snapshot_date": "2026-08-17",
    "price": "3800.00"
-  },
-  {
-   "package_id": 2074,
-   "snapshot_date": "2026-08-17",
-   "price": "3600.00"
   },
   {
    "package_id": 2196,
@@ -48567,11 +47443,6 @@
    "price": "6900.00"
   },
   {
-   "package_id": 2077,
-   "snapshot_date": "2026-08-17",
-   "price": "6600.00"
-  },
-  {
    "package_id": 2221,
    "snapshot_date": "2026-08-17",
    "price": "5500.00"
@@ -48627,16 +47498,6 @@
    "price": "24900.00"
   },
   {
-   "package_id": 2087,
-   "snapshot_date": "2026-08-17",
-   "price": "24600.00"
-  },
-  {
-   "package_id": 2086,
-   "snapshot_date": "2026-08-17",
-   "price": "24200.00"
-  },
-  {
    "package_id": 2226,
    "snapshot_date": "2026-08-17",
    "price": "18900.00"
@@ -48677,11 +47538,6 @@
    "price": "10500.00"
   },
   {
-   "package_id": 2083,
-   "snapshot_date": "2026-08-17",
-   "price": "9900.00"
-  },
-  {
    "package_id": 2293,
    "snapshot_date": "2026-08-17",
    "price": "7990.00"
@@ -48717,11 +47573,6 @@
    "price": "42500.00"
   },
   {
-   "package_id": 2094,
-   "snapshot_date": "2026-08-17",
-   "price": "40300.00"
-  },
-  {
    "package_id": 2199,
    "snapshot_date": "2026-08-17",
    "price": "39500.00"
@@ -48737,19 +47588,9 @@
    "price": "34900.00"
   },
   {
-   "package_id": 2091,
-   "snapshot_date": "2026-08-17",
-   "price": "33700.00"
-  },
-  {
    "package_id": 2248,
    "snapshot_date": "2026-08-17",
    "price": "33500.00"
-  },
-  {
-   "package_id": 2090,
-   "snapshot_date": "2026-08-17",
-   "price": "31800.00"
   },
   {
    "package_id": 2232,
@@ -48782,16 +47623,6 @@
    "price": "27900.00"
   },
   {
-   "package_id": 2079,
-   "snapshot_date": "2026-08-17",
-   "price": "6600.00"
-  },
-  {
-   "package_id": 2080,
-   "snapshot_date": "2026-08-17",
-   "price": "7100.00"
-  },
-  {
    "package_id": 2198,
    "snapshot_date": "2026-08-17",
    "price": "79500.00"
@@ -48822,19 +47653,9 @@
    "price": "32500.00"
   },
   {
-   "package_id": 2089,
-   "snapshot_date": "2026-08-17",
-   "price": "30800.00"
-  },
-  {
    "package_id": 2385,
    "snapshot_date": "2026-08-17",
    "price": "30500.00"
-  },
-  {
-   "package_id": 2088,
-   "snapshot_date": "2026-08-17",
-   "price": "28900.00"
   },
   {
    "package_id": 2225,
@@ -48877,11 +47698,6 @@
    "price": "37000.00"
   },
   {
-   "package_id": 2092,
-   "snapshot_date": "2026-08-17",
-   "price": "37500.00"
-  },
-  {
    "package_id": 2197,
    "snapshot_date": "2026-08-17",
    "price": "75000.00"
@@ -48922,11 +47738,6 @@
    "price": "48500.00"
   },
   {
-   "package_id": 2095,
-   "snapshot_date": "2026-08-17",
-   "price": "46000.00"
-  },
-  {
    "package_id": 2200,
    "snapshot_date": "2026-08-17",
    "price": "44100.00"
@@ -48952,19 +47763,9 @@
    "price": "39500.00"
   },
   {
-   "package_id": 2093,
-   "snapshot_date": "2026-08-17",
-   "price": "37900.00"
-  },
-  {
    "package_id": 2371,
    "snapshot_date": "2026-08-17",
    "price": "14000.00"
-  },
-  {
-   "package_id": 2085,
-   "snapshot_date": "2026-08-17",
-   "price": "13700.00"
   },
   {
    "package_id": 2372,
@@ -48985,46 +47786,6 @@
    "package_id": 2367,
    "snapshot_date": "2026-08-17",
    "price": "2098.00"
-  },
-  {
-   "package_id": 2073,
-   "snapshot_date": "2026-08-17",
-   "price": "2000.00"
-  },
-  {
-   "package_id": 2072,
-   "snapshot_date": "2026-08-17",
-   "price": "2000.00"
-  },
-  {
-   "package_id": 2070,
-   "snapshot_date": "2026-08-17",
-   "price": "2000.00"
-  },
-  {
-   "package_id": 2068,
-   "snapshot_date": "2026-08-17",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2066,
-   "snapshot_date": "2026-08-17",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2064,
-   "snapshot_date": "2026-08-17",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2062,
-   "snapshot_date": "2026-08-17",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2061,
-   "snapshot_date": "2026-08-17",
-   "price": "1900.00"
   },
   {
    "package_id": 2359,
@@ -49052,11 +47813,6 @@
    "price": "2107.00"
   },
   {
-   "package_id": 2084,
-   "snapshot_date": "2026-08-17",
-   "price": "13300.00"
-  },
-  {
    "package_id": 2167,
    "snapshot_date": "2026-08-17",
    "price": "12500.00"
@@ -49072,11 +47828,6 @@
    "price": "9500.00"
   },
   {
-   "package_id": 2082,
-   "snapshot_date": "2026-08-17",
-   "price": "9000.00"
-  },
-  {
    "package_id": 2239,
    "snapshot_date": "2026-08-17",
    "price": "7000.00"
@@ -49085,11 +47836,6 @@
    "package_id": 2147,
    "snapshot_date": "2026-08-17",
    "price": "6900.00"
-  },
-  {
-   "package_id": 2078,
-   "snapshot_date": "2026-08-17",
-   "price": "6600.00"
   },
   {
    "package_id": 2173,
@@ -49110,11 +47856,6 @@
    "package_id": 2187,
    "snapshot_date": "2026-08-17",
    "price": "4490.00"
-  },
-  {
-   "package_id": 2075,
-   "snapshot_date": "2026-08-17",
-   "price": "4200.00"
   },
   {
    "package_id": 2368,
@@ -49427,11 +48168,6 @@
    "price": "6500.00"
   },
   {
-   "package_id": 2076,
-   "snapshot_date": "2026-08-17",
-   "price": "6100.00"
-  },
-  {
    "package_id": 2353,
    "snapshot_date": "2026-08-17",
    "price": "5500.00"
@@ -49595,31 +48331,6 @@
    "package_id": 2376,
    "snapshot_date": "2026-08-17",
    "price": "2100.00"
-  },
-  {
-   "package_id": 2071,
-   "snapshot_date": "2026-08-17",
-   "price": "2000.00"
-  },
-  {
-   "package_id": 2069,
-   "snapshot_date": "2026-08-17",
-   "price": "2000.00"
-  },
-  {
-   "package_id": 2067,
-   "snapshot_date": "2026-08-17",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2065,
-   "snapshot_date": "2026-08-17",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2063,
-   "snapshot_date": "2026-08-17",
-   "price": "1900.00"
   },
   {
    "package_id": 2291,
@@ -51397,11 +50108,6 @@
    "price": "15900.00"
   },
   {
-   "package_id": 2083,
-   "snapshot_date": "2026-08-18",
-   "price": "9900.00"
-  },
-  {
    "package_id": 3776,
    "snapshot_date": "2026-08-18",
    "price": "9408.00"
@@ -51492,11 +50198,6 @@
    "price": "6762.00"
   },
   {
-   "package_id": 2079,
-   "snapshot_date": "2026-08-18",
-   "price": "6600.00"
-  },
-  {
    "package_id": 4037,
    "snapshot_date": "2026-08-18",
    "price": "6435.00"
@@ -51520,11 +50221,6 @@
    "package_id": 2382,
    "snapshot_date": "2026-08-18",
    "price": "3800.00"
-  },
-  {
-   "package_id": 2074,
-   "snapshot_date": "2026-08-18",
-   "price": "3600.00"
   },
   {
    "package_id": 3725,
@@ -51597,11 +50293,6 @@
    "price": "9500.00"
   },
   {
-   "package_id": 2081,
-   "snapshot_date": "2026-08-18",
-   "price": "9000.00"
-  },
-  {
    "package_id": 2142,
    "snapshot_date": "2026-08-18",
    "price": "8900.00"
@@ -51615,11 +50306,6 @@
    "package_id": 2249,
    "snapshot_date": "2026-08-18",
    "price": "42500.00"
-  },
-  {
-   "package_id": 2094,
-   "snapshot_date": "2026-08-18",
-   "price": "40300.00"
   },
   {
    "package_id": 3741,
@@ -51657,11 +50343,6 @@
    "price": "24900.00"
   },
   {
-   "package_id": 2087,
-   "snapshot_date": "2026-08-18",
-   "price": "24600.00"
-  },
-  {
    "package_id": 2205,
    "snapshot_date": "2026-08-18",
    "price": "29500.00"
@@ -51687,19 +50368,9 @@
    "price": "34900.00"
   },
   {
-   "package_id": 2091,
-   "snapshot_date": "2026-08-18",
-   "price": "33700.00"
-  },
-  {
    "package_id": 2248,
    "snapshot_date": "2026-08-18",
    "price": "33500.00"
-  },
-  {
-   "package_id": 2090,
-   "snapshot_date": "2026-08-18",
-   "price": "31800.00"
   },
   {
    "package_id": 2232,
@@ -51710,11 +50381,6 @@
    "package_id": 2263,
    "snapshot_date": "2026-08-18",
    "price": "30000.00"
-  },
-  {
-   "package_id": 2086,
-   "snapshot_date": "2026-08-18",
-   "price": "24200.00"
   },
   {
    "package_id": 3818,
@@ -51752,11 +50418,6 @@
    "price": "9408.00"
   },
   {
-   "package_id": 2082,
-   "snapshot_date": "2026-08-18",
-   "price": "9000.00"
-  },
-  {
    "package_id": 3746,
    "snapshot_date": "2026-08-18",
    "price": "8490.00"
@@ -51790,16 +50451,6 @@
    "package_id": 2371,
    "snapshot_date": "2026-08-18",
    "price": "14000.00"
-  },
-  {
-   "package_id": 2085,
-   "snapshot_date": "2026-08-18",
-   "price": "13700.00"
-  },
-  {
-   "package_id": 2084,
-   "snapshot_date": "2026-08-18",
-   "price": "13300.00"
   },
   {
    "package_id": 3992,
@@ -51857,11 +50508,6 @@
    "price": "4455.00"
   },
   {
-   "package_id": 2075,
-   "snapshot_date": "2026-08-18",
-   "price": "4200.00"
-  },
-  {
    "package_id": 4055,
    "snapshot_date": "2026-08-18",
    "price": "3919.00"
@@ -51885,11 +50531,6 @@
    "package_id": 4177,
    "snapshot_date": "2026-08-18",
    "price": "6762.00"
-  },
-  {
-   "package_id": 2078,
-   "snapshot_date": "2026-08-18",
-   "price": "6600.00"
   },
   {
    "package_id": 2173,
@@ -51962,11 +50603,6 @@
    "price": "39500.00"
   },
   {
-   "package_id": 2093,
-   "snapshot_date": "2026-08-18",
-   "price": "37900.00"
-  },
-  {
    "package_id": 3743,
    "snapshot_date": "2026-08-18",
    "price": "37739.00"
@@ -51975,11 +50611,6 @@
    "package_id": 3734,
    "snapshot_date": "2026-08-18",
    "price": "37739.00"
-  },
-  {
-   "package_id": 2095,
-   "snapshot_date": "2026-08-18",
-   "price": "46000.00"
   },
   {
    "package_id": 2244,
@@ -52025,11 +50656,6 @@
    "package_id": 2201,
    "snapshot_date": "2026-08-18",
    "price": "48600.00"
-  },
-  {
-   "package_id": 2092,
-   "snapshot_date": "2026-08-18",
-   "price": "37500.00"
   },
   {
    "package_id": 2193,
@@ -52112,19 +50738,9 @@
    "price": "32500.00"
   },
   {
-   "package_id": 2089,
-   "snapshot_date": "2026-08-18",
-   "price": "30800.00"
-  },
-  {
    "package_id": 2385,
    "snapshot_date": "2026-08-18",
    "price": "30500.00"
-  },
-  {
-   "package_id": 2088,
-   "snapshot_date": "2026-08-18",
-   "price": "28900.00"
   },
   {
    "package_id": 4083,
@@ -52140,11 +50756,6 @@
    "package_id": 2338,
    "snapshot_date": "2026-08-18",
    "price": "7690.00"
-  },
-  {
-   "package_id": 2077,
-   "snapshot_date": "2026-08-18",
-   "price": "6600.00"
   },
   {
    "package_id": 3595,
@@ -52200,11 +50811,6 @@
    "package_id": 2388,
    "snapshot_date": "2026-08-18",
    "price": "7500.00"
-  },
-  {
-   "package_id": 2080,
-   "snapshot_date": "2026-08-18",
-   "price": "7100.00"
   },
   {
    "package_id": 2381,
@@ -52377,21 +50983,6 @@
    "price": "2098.00"
   },
   {
-   "package_id": 2073,
-   "snapshot_date": "2026-08-18",
-   "price": "2000.00"
-  },
-  {
-   "package_id": 2072,
-   "snapshot_date": "2026-08-18",
-   "price": "2000.00"
-  },
-  {
-   "package_id": 2070,
-   "snapshot_date": "2026-08-18",
-   "price": "2000.00"
-  },
-  {
    "package_id": 2375,
    "snapshot_date": "2026-08-18",
    "price": "2107.00"
@@ -52442,21 +51033,6 @@
    "price": "2134.00"
   },
   {
-   "package_id": 2068,
-   "snapshot_date": "2026-08-18",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2066,
-   "snapshot_date": "2026-08-18",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2064,
-   "snapshot_date": "2026-08-18",
-   "price": "1900.00"
-  },
-  {
    "package_id": 4029,
    "snapshot_date": "2026-08-18",
    "price": "960.00"
@@ -52505,16 +51081,6 @@
    "package_id": 4059,
    "snapshot_date": "2026-08-18",
    "price": "1386.00"
-  },
-  {
-   "package_id": 2062,
-   "snapshot_date": "2026-08-18",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2061,
-   "snapshot_date": "2026-08-18",
-   "price": "1900.00"
   },
   {
    "package_id": 3687,
@@ -53252,11 +51818,6 @@
    "price": "6500.00"
   },
   {
-   "package_id": 2076,
-   "snapshot_date": "2026-08-18",
-   "price": "6100.00"
-  },
-  {
    "package_id": 4074,
    "snapshot_date": "2026-08-18",
    "price": "5940.00"
@@ -53627,24 +52188,9 @@
    "price": "2079.00"
   },
   {
-   "package_id": 2071,
-   "snapshot_date": "2026-08-18",
-   "price": "2000.00"
-  },
-  {
-   "package_id": 2069,
-   "snapshot_date": "2026-08-18",
-   "price": "2000.00"
-  },
-  {
    "package_id": 4129,
    "snapshot_date": "2026-08-18",
    "price": "1959.00"
-  },
-  {
-   "package_id": 2067,
-   "snapshot_date": "2026-08-18",
-   "price": "1900.00"
   },
   {
    "package_id": 2379,
@@ -53695,16 +52241,6 @@
    "package_id": 3794,
    "snapshot_date": "2026-08-18",
    "price": "2450.00"
-  },
-  {
-   "package_id": 2065,
-   "snapshot_date": "2026-08-18",
-   "price": "1900.00"
-  },
-  {
-   "package_id": 2063,
-   "snapshot_date": "2026-08-18",
-   "price": "1900.00"
   },
   {
    "package_id": 3696,

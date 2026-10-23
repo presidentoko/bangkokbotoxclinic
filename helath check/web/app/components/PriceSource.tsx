@@ -1,7 +1,7 @@
 /**
  * Where this price came from.
  *
- * 955 of the 1,001 priced packages carry the URL they were read from, and
+ * 857 of the 966 priced packages carry the URL they were read from (2026-10-23), and
  * until now that URL was only ever used as a "view site" button — the page
  * showed a number and asked to be believed. On a site that publishes medical
  * prices under no named author, a checkable source is the strongest honest
@@ -21,14 +21,27 @@ export function PriceSource({
   asOf?: string | null;
   className?: string;
 }) {
-  if (!url) return null;
+  const when = asOf ? formatAsOf(asOf) : null;
+  // 109 priced packages have no URL. Most were read from a hospital's own
+  // feed by a scraper that recorded its name instead of a page; 46 have no
+  // source on file at all. Until 2026-10-23 this rendered nothing for any of
+  // them, which let the editorial page imply every price was linked. Each now
+  // says what is known — including, where it is the truth, that nothing is.
+  if (!url || !url.startsWith("http")) {
+    const feed = url ? FEEDS[url] : undefined;
+    return (
+      <p className={`text-[11px] leading-snug text-slate-500 ${className}`}>
+        {feed ? `Price read from ${feed}` : "Source of this price was not recorded"}
+        {when ? ` · file built ${when}` : ""}
+      </p>
+    );
+  }
   let host: string;
   try {
     host = new URL(url).hostname.replace(/^www\./, "");
   } catch {
     return null;
   }
-  const when = asOf ? formatAsOf(asOf) : null;
   return (
     <p className={`text-[11px] leading-snug text-slate-500 ${className}`}>
       Price read from{" "}
@@ -44,6 +57,13 @@ export function PriceSource({
     </p>
   );
 }
+
+// Scraper labels that stand in for a URL, and the source each one read.
+const FEEDS: Record<string, string> = {
+  "phyathai-api": "Phyathai Hospitals' own price feed",
+  "samitivej-web": "samitivejhospitals.com",
+  "paolohospital-web": "paolohospital.com",
+};
 
 function formatAsOf(iso: string): string | null {
   const d = new Date(iso);
