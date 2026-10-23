@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { type Locale, catLabel, localeAlternates, t, fmt } from "@/lib/i18n";
-import { DATA_GENERATED_AT, getHospitals, getHospital, getAllHospitalSlugs, getHospitalReviews, getPriceHistoryBatch, type PackageRow, type ReviewRow } from "@/lib/db";
+import { DATA_GENERATED_AT, getHospitals, getHospital, getAllHospitalSlugs, getPriceHistoryBatch, type PackageRow } from "@/lib/db";
 import { SLUG_REDIRECTS } from "@/lib/slug-redirects";
 import { Sparkline } from "@/app/components/Sparkline";
 import { ShareButtons } from "@/app/components/ShareButtons";
@@ -256,15 +256,21 @@ export default async function HospitalPage({
     [...comparePool].sort((a, b) => b.package_count - a.package_count)[0] ??
     null;
 
-  // Reviews and sparklines are supplementary — let them degrade to empty
-  // instead of failing a page whose main content already loaded.
-  let reviews: ReviewRow[] = [];
+  // Sparklines are supplementary — let them degrade to empty instead of
+  // failing a page whose main content already loaded.
+  //
+  // Review quotes used to be fetched here too and printed as "Patient
+  // Reviews", with each one marked up as a schema.org Review. They were
+  // Google Maps reviews copied verbatim, under an author label of "Patient"
+  // where the reviewer had no name on file. Removed 2026-10-23: text that
+  // already sits on Google's own result page adds nothing a search engine can
+  // credit to this site, Google's review-snippet policy does not allow
+  // third-party reviews to be marked up as the page's own, and the operator's
+  // standing rule is that this site publishes what its own data says rather
+  // than what other people wrote.
   let priceHistory: Record<number, number[]> = {};
   try {
-    [reviews, priceHistory] = await Promise.all([
-      getHospitalReviews(slug, 5),
-      getPriceHistoryBatch(hospital.packages.map((p) => p.package_id)),
-    ]);
+    priceHistory = await getPriceHistoryBatch(hospital.packages.map((p) => p.package_id));
   } catch {
     // non-fatal
   }
@@ -349,10 +355,14 @@ export default async function HospitalPage({
                 </span>
               )}
               {hospital.rating && (
-                <span className="text-amber-500 font-bold">★ {parseFloat(hospital.rating).toFixed(1)}</span>
-              )}
-              {hospital.review_count != null && (
-                <span className="text-slate-400 text-sm">{hospital.review_count.toLocaleString()} reviews</span>
+                // Attributed, because it is Google's figure and not ours.
+                <span className="text-sm">
+                  <span className="text-amber-500 font-bold">★ {parseFloat(hospital.rating).toFixed(1)}</span>{" "}
+                  <span className="text-slate-500">
+                    Google rating
+                    {hospital.review_count ? ` · ${hospital.review_count.toLocaleString()} reviews` : ""}
+                  </span>
+                </span>
               )}
               <span className="text-slate-400 text-sm">{hospital.package_count} packages</span>
             </div>
@@ -463,28 +473,6 @@ export default async function HospitalPage({
               Compare hospitals that do publish prices →
             </Link>
           </p>
-        </div>
-      )}
-
-      {/* Reviews */}
-      {reviews.length > 0 && (
-        <div className="bg-white border border-slate-200 rounded-xl p-6 mb-8">
-          <h2 className="text-lg font-bold text-slate-800 mb-4">{t(loc, "hosp_reviews")}</h2>
-          <div className="space-y-4">
-            {reviews.map((r) => (
-              <div key={r.id} className="border-b border-slate-100 last:border-0 pb-4 last:pb-0">
-                <div className="flex items-center gap-2 mb-1">
-                  {r.rating && (
-                    <span className="text-amber-400 text-sm">{"★".repeat(Math.round(r.rating))}{"☆".repeat(5 - Math.round(r.rating))}</span>
-                  )}
-                  <span className="text-sm font-semibold text-slate-700">{r.author_name ?? "Patient"}</span>
-                  {r.review_date && <span className="text-xs text-slate-400">{r.review_date.slice(0, 10)}</span>}
-                  {r.source && <span className="text-xs text-slate-300">via {r.source}</span>}
-                </div>
-                <p className="text-sm text-slate-600 leading-relaxed">{r.review_text}</p>
-              </div>
-            ))}
-          </div>
         </div>
       )}
 
@@ -608,8 +596,8 @@ export default async function HospitalPage({
         One Hospital node, not two. The page used to emit a second, near-empty
         Hospital just to carry the review list, which leaves a validator (and
         an answer engine) to guess which of two same-named entities is the real
-        one. Reviews, opening hours and the priced catalogue all hang off the
-        single node now, keyed by @id so other pages can reference it.
+        one. Opening hours and the priced catalogue hang off the single node,
+        keyed by @id so other pages can reference it.
       */}
       <script
         type="application/ld+json"
@@ -627,19 +615,10 @@ export default async function HospitalPage({
             } : {}),
             ...(hospital.phone ? { telephone: hospital.phone } : {}),
             ...(hospital.lat && hospital.lng ? { geo: { "@type": "GeoCoordinates", latitude: hospital.lat, longitude: hospital.lng } } : {}),
-            // A rating with no review count is not a rating Google can show. The
-            // "?? 1" that used to sit here asserted one review for two hospitals
-            // that have a score and no count on file.
-            ...(hospital.rating && hospital.review_count ? { aggregateRating: { "@type": "AggregateRating", ratingValue: parseFloat(hospital.rating), bestRating: 5, reviewCount: hospital.review_count } } : {}),
-            ...(reviews.length ? {
-              review: reviews.map((r) => ({
-                "@type": "Review",
-                author: { "@type": "Person", name: r.author_name ?? "Patient" },
-                ...(r.review_date ? { datePublished: r.review_date.slice(0, 10) } : {}),
-                ...(r.rating ? { reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5 } } : {}),
-                ...(r.review_text ? { reviewBody: r.review_text } : {}),
-              })),
-            } : {}),
+            // No aggregateRating and no Review. The rating is Google's, and
+            // marking another site's score up as this page's own is what
+            // Google's review-snippet guidelines exclude; it is shown in the
+            // page body with its source named instead.
             ...(openingHoursSpec.length ? { openingHoursSpecification: openingHoursSpec } : {}),
             ...(hospital.jci ? { accreditedBy: { "@type": "Organization", name: "Joint Commission International (JCI)" } } : {}),
             ...(hospital.description ? { description: hospital.description } : {}),

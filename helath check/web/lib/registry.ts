@@ -58,6 +58,11 @@ export type RegistryHospital = {
   lng: number | null;
   address_th: string | null;
   district_th: string | null;
+  // Filled 2026-10-23 for 438 hospitals from one Google Places run
+  // (merge_registry_contacts.py). Absent on the rest.
+  name_google?: string | null;
+  google_place_id?: string | null;
+  opening_hours?: { day: string; hours: string }[] | null;
 };
 
 export type RegistryProvince = {

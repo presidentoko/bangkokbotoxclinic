@@ -232,7 +232,7 @@ export default async function HospitalsPage({
             "@type": "Hospital",
             name: h.name,
             url: `${BASE}/${locale}/hospital/${h.slug}`,
-            ...(h.rating && h.review_count ? { aggregateRating: { "@type": "AggregateRating", ratingValue: parseFloat(h.rating), bestRating: 5, reviewCount: h.review_count } } : {}),
+            // No aggregateRating: the score is Google's, not this site's.
           },
         })),
       }) }} />
