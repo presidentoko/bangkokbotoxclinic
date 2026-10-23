@@ -24,7 +24,7 @@ const file = data as {
 
 const COPY: Record<Lang, {
   heading: string; lede: string; licenceNo: string; registeredAs: string; type: string;
-  spa: string; massage: string; matched: string; lookup: string; asOf: string; caveat: string;
+  spa: string; massage: string; matched: string; lookup: string; asOf: string; caveat: string; seeAll: string;
 }> = {
   en: {
     heading: "Licensed by Thailand's Ministry of Public Health",
@@ -38,6 +38,7 @@ const COPY: Record<Lang, {
     lookup: "the Department of Health Service Support's open register",
     asOf: "register dated",
     caveat: "A licence can lapse or move after the register date — ask to see it on the wall.",
+    seeAll: "All licensed spas & massage shops",
   },
   th: {
     heading: "ได้รับอนุญาตจากกระทรวงสาธารณสุข",
@@ -51,6 +52,7 @@ const COPY: Record<Lang, {
     lookup: "ข้อมูลเปิดของกรมสนับสนุนบริการสุขภาพ",
     asOf: "ข้อมูล ณ",
     caveat: "ใบอนุญาตอาจหมดอายุหรือเปลี่ยนแปลงหลังวันที่ของข้อมูล — ขอดูใบอนุญาตที่ติดในร้านได้",
+    seeAll: "ดูร้านที่ได้รับอนุญาตทั้งหมด",
   },
   ko: {
     heading: "태국 보건부 허가 업소",
@@ -64,12 +66,19 @@ const COPY: Record<Lang, {
     lookup: "태국 보건서비스지원국 공개 명단",
     asOf: "명단 기준",
     caveat: "명단 날짜 이후 허가가 만료되거나 바뀌었을 수 있습니다 — 매장에 걸린 허가증을 확인하세요.",
+    seeAll: "허가 확인된 업소 전체 보기",
   },
 };
 
 export function hasSpaLicense(placeId: string): boolean {
   return placeId in file.licenses;
 }
+
+export function spaLicenseFor(placeId: string): SpaLicense | undefined {
+  return file.licenses[placeId];
+}
+
+export const SPA_LICENSE_SOURCE = { url: file.source, asOf: file.register_as_of };
 
 export default function LicenseCheck({ placeId, lang }: { placeId: string; lang: Lang }) {
   const lic = file.licenses[placeId];
@@ -94,6 +103,9 @@ export default function LicenseCheck({ placeId, lang }: { placeId: string; lang:
         </a>{" "}
         · {t.asOf} {file.register_as_of}. {t.caveat}
       </p>
+      <a href={`/${lang}/licensed`} className="mt-2 inline-block text-xs font-semibold text-accent hover:underline">
+        {t.seeAll} →
+      </a>
     </section>
   );
 }

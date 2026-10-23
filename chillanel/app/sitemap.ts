@@ -69,6 +69,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   entries.push(...entriesFor((l) => `/${l}/guide`, { changeFrequency: "monthly", priority: 0.5 }));
   entries.push(...entriesFor((l) => `/${l}/city`, { changeFrequency: "weekly", priority: 0.6 }));
   entries.push(...entriesFor((l) => `/${l}/prices`, { changeFrequency: "weekly", priority: 0.6 }));
+  entries.push(...entriesFor((l) => `/${l}/licensed`, { changeFrequency: "monthly", priority: 0.6 }));
   // Low priority but they do belong here: ad networks (and anyone auditing
   // the site) expect the privacy policy and terms to be publicly crawlable.
   entries.push(...entriesFor((l) => `/${l}/privacy`, { changeFrequency: "yearly", priority: 0.2 }));

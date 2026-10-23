@@ -35,6 +35,9 @@ export function Footer({ lang }: { lang: Lang }) {
             <Link href={`/${lang}/prices`} className="hover:text-accent transition-colors">
               {t.prices.title}
             </Link>
+            <Link href={`/${lang}/licensed`} className="hover:text-accent transition-colors">
+              {lang === "th" ? "ร้านที่ได้รับอนุญาต" : lang === "ko" ? "정부 허가 업소" : "Licensed places"}
+            </Link>
             <Link href={`/${lang}/about`} className="hover:text-accent transition-colors">
               {t.nav.about}
             </Link>
