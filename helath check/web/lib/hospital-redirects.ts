@@ -157,6 +157,13 @@ export const RENAMED_HOSPITALS: Record<string, string> = {
  * not on the site. If one is ever added, remove its line here first: middleware
  * runs before routing and would hide the new page.
  */
+// 2026-10-23: four slugs left this map because they now have a page of their
+// own. A Google Places run over the 86 hospital URLs that still draw
+// impressions found that 64 of them already resolved here to a live, complete
+// page — the gap was never as wide as the Search Console read suggested — but
+// Wattana Udon Thani, Thaksin Surat Thani, Trang Hospital and BNH had nothing
+// but a city page behind them, and a city page does not answer a search for a
+// hospital by name. They are listed unpriced: address, phone and hours.
 export const MOVED_TO_GUIDE: Record<string, string> = {
   "bangkok-hospital-ayutthaya": "/city/ayutthaya",
   "bangkok-hospital-chon-buri": "/city/chon-buri",
@@ -164,7 +171,6 @@ export const MOVED_TO_GUIDE: Record<string, string> = {
   "bangkok-hospital-lampang": "/city/lampang",
   "bangkok-hospital-nakhon-si-thammarat": "/city/nakhon-si-thammarat",
   "bangkok-hospital-trang": "/city/trang",
-  "bangkok-nursing-home-hospital": "/hospital",
   "banglamung-hospital-pattaya": "/city/pattaya",
   "hatyai-ramkhamhaeng-hospital": "/city/hat-yai",
   "hdm-mei-house-clinic-(\\u0e40\\u0e21\\u0e2d": "/hospital",
@@ -179,11 +185,8 @@ export const MOVED_TO_GUIDE: Record<string, string> = {
   "ramindra-medical-center": "/hospital",
   "rutnin-hua-hin-hospital": "/city/hua-hin",
   "sri-udon-bhoom-hospital": "/city/udon-thani",
-  "taksin-hospital-surat-thani": "/city/surat-thani",
   "the-rama-hospital-korat": "/city/korat",
-  "trang-hospital": "/city/trang",
   "vejthani-hospital-pattaya": "/city/pattaya",
   "vibhavadi-hospital-chon-buri": "/city/chon-buri",
-  "wattana-hospital-udon-thani": "/city/udon-thani",
   "wattanavej-hospital": "/hospital",
 };

@@ -38,7 +38,7 @@ export const config = {
  * A 308 with a short edge TTL.
  *
  * The site-wide header in next.config gives every response
- * `s-maxage=86400`, and Cloudflare stores a redirect as readily as a page. So
+ * `s-maxage=604800`, and Cloudflare stores a redirect as readily as a page. So
  * when a destination in hospital-redirects.ts changes, the old 308 keeps being
  * served for up to a day: on 2026-10-23 the origin had already moved
  * /en/hospital/bangkok-hospital-krabi to /en/city/krabi while the edge was
@@ -46,7 +46,7 @@ export const config = {
  * Age 650). There is no API token for this zone, so it could not be purged.
  *
  * Five minutes is plenty for a redirect — it is one small response, and the
- * content pages these point at keep the full day. The same reasoning already
+ * content pages these point at keep the full week. The same reasoning already
  * applies to /:locale/compare in next.config.
  */
 function shortLivedRedirect(url: URL): NextResponse {

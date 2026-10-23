@@ -230,9 +230,31 @@ const nextConfig: NextConfig = {
           // and Vercel would happily serve these pages for a month. Raised to
           // a day, which is still far more conservative than the origin.
           //
-          // The cost: after a deploy the edge may serve the previous build for
-          // up to a day. Purge the Cloudflare cache when you ship.
-          { key: "Cache-Control", value: "public, max-age=0, s-maxage=86400, stale-while-revalidate=604800" },
+          // 2026-10-23: a day was still not enough. The team's Hobby meters
+          // read 2.1M ISR reads against a 1M limit, 16.19 GB fast origin
+          // transfer against 10 GB and 1.1M CDN requests against 1M, and the
+          // arithmetic lands on the nose: ~3,300 sitemapped URLs across this
+          // project and the two that share the account, fetched once per
+          // Cloudflare POP per TTL window, is ~2.4M origin fetches a month at
+          // a one-day TTL. Nothing else on the account is close to that
+          // volume, and 16.19 GB / 1.1M requests is 15 KB — the size of one
+          // of these pages compressed, not an image or an API payload.
+          //
+          // A week divides all three by seven in one move, which is the only
+          // lever here that does: the requests are not wasteful in themselves,
+          // there are simply as many of them as there are URLs times POPs
+          // times days. Every route on this site declares
+          // `revalidate = false`, so a week of edge TTL claims nothing the
+          // origin does not already promise.
+          //
+          // The cost is that after a deploy a POP may serve the previous build
+          // for up to a week, and this zone has no working Cloudflare API
+          // token, so it cannot be purged from here — see the deploy note in
+          // CLAUDE.md. Redirect-producing paths are held at five minutes
+          // below and in middleware.ts for exactly that reason, so a wrong
+          // redirect is still a five-minute problem rather than a weekly one.
+          // Create a zone-scoped Cache Purge token and this can go to a month.
+          { key: "Cache-Control", value: "public, max-age=0, s-maxage=604800, stale-while-revalidate=86400" },
         ],
       },
       // Redirect-producing paths get a short edge TTL.
