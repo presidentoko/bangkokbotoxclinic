@@ -75,6 +75,20 @@ export async function generateMetadata({
         description:
           fmt(loc, "hosp_og_desc", vars) + (hospital.jci ? t(loc, "hosp_meta_jci") : ""),
         url: `${BASE}/${locale}/hospital/${slug}`,
+        // The locale card, not a card of this page.
+        //
+        // This route had its own opengraph-image.tsx until 2026-10-23, when it
+        // was deleted along with four other parameterised ones: none of the
+        // twelve declared generateStaticParams, so every card was a Satori
+        // render on request, and this route alone spans 1,591 URLs. That was
+        // the Fluid Active CPU meter.
+        //
+        // Deleting the file does not fall back to the parent segment's card —
+        // checked on the deployed site, these pages came back with no og:image
+        // at all. So the one card per locale is named here explicitly. It is
+        // prerendered and costs nothing per page; the price is that it carries
+        // the site's name rather than this hospital's.
+        images: [{ url: `${BASE}/${locale}/opengraph-image`, width: 1200, height: 630 }],
       },
     };
   } catch {
