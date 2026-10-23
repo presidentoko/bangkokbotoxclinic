@@ -74,6 +74,16 @@ function deploy(cities) {
       stdio: "inherit",
     });
   }
+  // 허가 배지(components/LicenseCheck) 매칭은 장소 목록에 따라 달라진다 — 같이 갱신.
+  // 실패해도 배포는 막지 않는다(직전 spa-licenses.json 이 그대로 쓰인다).
+  try {
+    execFileSync("python", ["scripts/match_spa_licenses.py"], {
+      cwd: import.meta.dirname + "/../..",
+      stdio: "inherit",
+    });
+  } catch (e) {
+    log(`허가 매칭 실패(직전 결과 유지): ${e.message}`);
+  }
   log("vercel --prod 배포 시작");
   const token = loadVercelToken();
   const args = ["deploy", "--prod", "--yes", "--scope", VERCEL_SCOPE];
