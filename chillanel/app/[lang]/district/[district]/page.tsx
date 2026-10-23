@@ -45,7 +45,7 @@ export async function generateMetadata({
   // the district's real city (or 404'd all district pages outright if
   // that city happened to have no districts of its own).
   const districtCity = getAllPlaces().find(({ place }) => place.district === rawDistrict)?.city;
-  const cityDisplayLabel = districtCity ? cityLabel(districtCity) : "";
+  const cityDisplayLabel = districtCity ? cityLabel(districtCity, lang) : "";
   const pageTitle = t.district.listTitle.replace("{district}", label).replace("{city}", cityDisplayLabel);
   return {
     title: `${pageTitle} — ${SITE.name}`,
@@ -76,7 +76,7 @@ export default async function DistrictPage({
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount);
   if (allMatching.length === 0) notFound();
   const cityCode = allMatching[0].city;
-  const cityDisplayLabel = cityLabel(cityCode);
+  const cityDisplayLabel = cityLabel(cityCode, lang);
   const pageTitle = t.district.listTitle.replace("{district}", label).replace("{city}", cityDisplayLabel);
   const places = allMatching.slice(0, MAX_SHOWN);
 

@@ -28,7 +28,7 @@ export async function generateMetadata({
   const { lang, city, topic } = await params;
   if (!isLang(lang) || !(RANKING_TOPICS as readonly string[]).includes(topic)) return {};
   const c = COPY[lang].topics[topic as RankingTopic];
-  const label = cityLabel(city);
+  const label = cityLabel(city, lang);
   const path = `/city/${city}/best/${topic}`;
   return {
     title: `${fill(c.title, { city: label })} — ${SITE.name}`,
@@ -50,7 +50,7 @@ export default async function RankingPage({
   const copy = COPY[lang];
   const c = copy.topics[topic];
   const loc = localeFor(lang);
-  const label = cityLabel(city);
+  const label = cityLabel(city, lang);
   const places = loadCity(city).places;
   const entries = rankPlaces(places, topic);
   if (entries.length < MIN_ENTRIES) notFound();

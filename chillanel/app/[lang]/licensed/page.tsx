@@ -106,7 +106,7 @@ export default async function LicensedPage({
         {cities.map(({ city, rows }) => (
           <section key={city}>
             <h2 className="font-display italic text-2xl mb-4">
-              {cityLabel(city)} <span className="text-base not-italic text-muted">· {rows.length}</span>
+              {cityLabel(city, lang)} <span className="text-base not-italic text-muted">· {rows.length}</span>
             </h2>
             <ul className="divide-y divide-border rounded-2xl border border-border">
               {rows.map(({ place, lic }) => (

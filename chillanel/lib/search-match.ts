@@ -23,6 +23,7 @@ export function matchesQuery(entry: Searchable, lang: Lang, needle: string): boo
   const haystacks = [
     entry.name,
     cityLabel(entry.city),
+    cityLabel(entry.city, lang), // "방콕", "กรุงเทพฯ" 로 검색해도 걸리게
     entry.district ? districtLabel(entry.district, lang) : "",
     entry.district ?? "",
     ...entry.themeLabels.map((label) => themeLabel(label, lang)),

@@ -49,7 +49,7 @@ export default async function PricesPage({
     .map(({ city, rows }) => {
       const top = rows[0];
       if (!top) return null;
-      const cityName = cityLabel(city);
+      const cityName = cityLabel(city, lang);
       const themeName = themeLabel(top.theme, lang);
       return {
         q: t.prices.faqQuestion.replace("{theme}", themeName).replace("{city}", cityName),
@@ -70,7 +70,7 @@ export default async function PricesPage({
       <div className="space-y-10">
         {cities.map(({ city, rows }) => (
           <section key={city}>
-            <h2 className="font-display italic text-2xl mb-4">{cityLabel(city)}</h2>
+            <h2 className="font-display italic text-2xl mb-4">{cityLabel(city, lang)}</h2>
             <div className="overflow-x-auto rounded-2xl border border-border">
               <table className="w-full border-collapse text-sm">
                 <thead>

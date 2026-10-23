@@ -30,7 +30,7 @@ export async function generateMetadata({
   const { lang, city } = await params;
   if (!isLang(lang)) return {};
   const t = tFor(lang);
-  const label = cityLabel(city);
+  const label = cityLabel(city, lang);
   return {
     title: `${t.city.listTitle.replace("{city}", label)} — ${SITE.name}`,
     description: t.city.intro.replace("{city}", label),
@@ -52,7 +52,7 @@ export default async function CityPage({
   const data = loadCity(city);
   if (data.places.length === 0) notFound();
   const t = tFor(lang);
-  const label = cityLabel(city);
+  const label = cityLabel(city, lang);
   const MAX_SHOWN = 90; // keeps the static HTML payload reasonable — a full
   // Bangkok render (734 places) was 1.6MB of HTML in one page, the same
   // class of bug already hit once in this repo's sibling `facial` project.

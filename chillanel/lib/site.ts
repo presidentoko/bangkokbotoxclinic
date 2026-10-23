@@ -39,7 +39,22 @@ export function ogLocale(lang: Lang): string {
 // mirror watchdog.py's city_tag convention — multi-word cities use
 // underscores ("chiang_mai", "koh_samui", "hua_hin"), not hyphens. Title-case
 // every word so e.g. "chiang_mai" reads as "Chiang Mai", not "Chiang_mai".
-export function cityLabel(city: string): string {
+// 2026-10-23: 한국어·태국어 페이지는 도시 이름도 그 언어로 — "Bangkok에서 …" 가
+// 아니라 "방콕에서 …". 한국어 검색("방콕 마사지")에 걸리려면 제목에 "방콕"이 있어야 한다.
+// lang 을 안 넘기면 영어(구조화 데이터 addressLocality 등).
+const CITY_NAMES: Record<string, Partial<Record<Lang, string>>> = {
+  bangkok: { ko: "방콕", th: "กรุงเทพฯ" },
+  pattaya: { ko: "파타야", th: "พัทยา" },
+  phuket: { ko: "푸껫", th: "ภูเก็ต" },
+  chiang_mai: { ko: "치앙마이", th: "เชียงใหม่" },
+  koh_samui: { ko: "코사무이", th: "เกาะสมุย" },
+  hua_hin: { ko: "후아힌", th: "หัวหิน" },
+  krabi: { ko: "끄라비", th: "กระบี่" },
+};
+
+export function cityLabel(city: string, lang?: Lang): string {
+  const local = lang ? CITY_NAMES[city]?.[lang] : undefined;
+  if (local) return local;
   return city
     .split(/[-_]/)
     .filter(Boolean)

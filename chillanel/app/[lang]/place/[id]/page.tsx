@@ -177,7 +177,7 @@ export default async function PlacePage({
   if (!found) notFound();
   const { city, place } = found;
   const t = tFor(lang);
-  const label = cityLabel(city);
+  const label = cityLabel(city, lang);
   const badge = categoryBadgeLabel(place.primaryType, lang);
   const priceMedianValue = priceMedian(place.priceMentions);
   const priceRangeValue = priceRange(place.priceMentions);

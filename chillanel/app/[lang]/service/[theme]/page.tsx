@@ -68,7 +68,7 @@ export async function generateMetadata({
   const t = tFor(lang);
   const label = themeLabel(rawLabel, lang);
   const dominant = dominantCity(matchingPlacesForLabel(rawLabel));
-  const cityDisplayLabel = dominant ? cityLabel(dominant) : "";
+  const cityDisplayLabel = dominant ? cityLabel(dominant, lang) : "";
   const listTitleTemplate = isMoodLabel(rawLabel) ? t.service.moodListTitle : t.service.listTitle;
   const pageTitle = listTitleTemplate.replace("{theme}", label).replace("{city}", cityDisplayLabel);
   // KO's intro template carries no hardcoded particle -- {theme} must
@@ -108,7 +108,7 @@ export default async function ServiceThemePage({
   if (allMatching.length === 0) notFound();
   const dominant = dominantCity(allMatching);
   const cityCode = dominant ?? "";
-  const cityDisplayLabel = dominant ? cityLabel(dominant) : "";
+  const cityDisplayLabel = dominant ? cityLabel(dominant, lang) : "";
   const isMood = isMoodLabel(rawLabel);
   const pageTitle = (isMood ? t.service.moodListTitle : t.service.listTitle)
     .replace("{theme}", label)

@@ -51,7 +51,7 @@ export default async function CitiesIndexPage({
             href={`/${lang}/city/${city}`}
             className="flex items-center justify-between rounded-xl border border-border bg-bg-elev p-5 hover:border-accent hover:shadow-sm transition"
           >
-            <span className="font-display italic text-xl font-semibold">{cityLabel(city)}</span>
+            <span className="font-display italic text-xl font-semibold">{cityLabel(city, lang)}</span>
             <span className="text-sm text-muted tabular-nums">
               {count.toLocaleString(localeFor(lang))} {t.city.placeCount}
             </span>

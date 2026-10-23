@@ -81,7 +81,7 @@ export default async function WatchlistPage({
 
       {cities.map(({ city, flagged, clean }) => (
         <section key={city} className="mb-14">
-          <h2 className="font-display italic text-2xl sm:text-3xl mb-1">{cityLabel(city)}</h2>
+          <h2 className="font-display italic text-2xl sm:text-3xl mb-1">{cityLabel(city, lang)}</h2>
 
           {flagged.length > 0 && (
             <>
