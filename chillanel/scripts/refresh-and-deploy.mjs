@@ -31,7 +31,11 @@ const QUIET_MS = 30 * 60 * 1000;
 // ISR write at a time. 12/day projects to ~2.6M ISR writes/mo against the
 // Hobby plan's 200K cap (see 2026-08-14 audit). 24h caps it at ~65K/mo while
 // still deploying same-day for anything that actually goes quiet.
-const MAX_INTERVAL_MS = 24 * 60 * 60 * 1000;
+// 2026-10-23: 24h → 최소 3일 간격 / 최대 4일 (사용자 결정). vamoss2 팀 ISR Writes
+// 157K/200K — place/[id] 롱테일은 온디맨드 ISR 이라 배포마다 캐시가 비워지고 봇이
+// 다시 채우며 write 가 쌓인다. 배포 간격이 곧 write 예산이다.
+const MIN_INTERVAL_MS = 3 * 24 * 60 * 60 * 1000;
+const MAX_INTERVAL_MS = 4 * 24 * 60 * 60 * 1000;
 
 // watchdog launches this with env_extra={}, so it only inherits whatever env
 // watchdog.py itself started with — no persistent `vercel login` session and
@@ -172,7 +176,11 @@ let lastSeenMtime = latestMtime(cities);
 let lastChangeAt = Date.now();
 // 0 이면(최초 실행) 현재를 기준으로 잡아 첫 기동에 불필요한 배포를 하지 않는다.
 let lastDeployedMtime = readWatermark() || lastSeenMtime;
-let lastDeployedAt = Date.now();
+// 재시작마다 Date.now() 로 두면 최소 간격이 재시작 때마다 리셋된다 — 워터마크
+// 파일의 mtime(= 마지막으로 실제 배포한 시각)에서 시작한다.
+let lastDeployedAt = (() => {
+  try { return fs.statSync(WATERMARK).mtimeMs; } catch { return 0; }
+})();
 log(
   `감시 시작 — 도시 ${cities.length}개 (${cities.join(", ") || "없음"}), ` +
   `초기 mtime=${lastSeenMtime}, 배포워터마크=${lastDeployedMtime}` +
@@ -195,7 +203,8 @@ while (true) {
   const quiet = now - lastChangeAt >= QUIET_MS;
   const overdue = pending && now - lastDeployedAt >= MAX_INTERVAL_MS;
 
-  if (pending && (quiet || overdue)) {
+  const spaced = now - lastDeployedAt >= MIN_INTERVAL_MS;
+  if (pending && spaced && (quiet || overdue)) {
     try {
       deploy(cities);
       // Only advance the watermark once deploy() actually returns — advancing

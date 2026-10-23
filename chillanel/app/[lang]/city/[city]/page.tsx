@@ -13,6 +13,8 @@ import { CityMap } from "@/components/CityMap";
 import { Faq } from "@/components/Faq";
 import { TagCloud } from "@/components/TagCloud";
 import { ItemListJsonLd } from "@/components/JsonLd";
+import { topicsWithEnoughEntries } from "@/lib/rankings";
+import { RANKING_COPY, TOPIC_EMOJI, fill } from "@/lib/ranking-copy";
 import { districtLabel, slugifyDistrict, allDistricts } from "@/lib/district-labels";
 
 export function generateStaticParams() {
@@ -67,7 +69,9 @@ export default async function CityPage({
   // shipped to every visitor. Stripped here, at the client boundary, not
   // in lib/data.ts, so server-rendered pages that do need reviews (the
   // place detail page) are unaffected.
-  const cardPlaces = places.map((p) => ({ ...p, reviews: [] }));
+  // insights 도 카드가 안 읽는다 — 같은 이유로 클라이언트 경계에서 뺀다.
+  const cardPlaces = places.map((p) => ({ ...p, reviews: [], insights: undefined }));
+  const rankingTopics = topicsWithEnoughEntries(city);
 
   return (
     <div>
@@ -108,6 +112,23 @@ export default async function CityPage({
       </div>
 
       <div className="max-w-5xl mx-auto px-4 py-12 sm:py-14">
+        {rankingTopics.length > 0 && (
+          <section className="mb-12">
+            <h2 className="text-xl font-bold mb-1">📊 {fill(RANKING_COPY[lang].more, { city: label })}</h2>
+            <ul className="flex flex-wrap gap-2 mt-3">
+              {rankingTopics.map((topic) => (
+                <li key={topic}>
+                  <Link
+                    href={`/${lang}/city/${city}/best/${topic}`}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full border border-border text-sm hover:border-accent hover:text-accent"
+                  >
+                    {TOPIC_EMOJI[topic]} {fill(RANKING_COPY[lang].topics[topic].h1, { city: label })}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         <MoodSections places={allRelevant} moodAggregate={data.moodAggregate} lang={lang} />
 
         <div className="mb-14">

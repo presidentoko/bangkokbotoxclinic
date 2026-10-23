@@ -1,3 +1,4 @@
+import { topicsWithEnoughEntries } from "@/lib/rankings";
 import type { MetadataRoute } from "next";
 import { SITE, SUPPORTED_LANGS, hreflangAlternates } from "@/lib/site";
 import { listCities, loadCity, getAllPlaces } from "@/lib/data";
@@ -88,6 +89,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
       })
     );
+  }
+  for (const city of listCities()) {
+    for (const topic of topicsWithEnoughEntries(city)) {
+      entries.push(
+        ...entriesFor((l) => `/${l}/city/${city}/best/${topic}`, {
+          lastModified: cityDates.get(city),
+          changeFrequency: "weekly",
+          priority: 0.7,
+        })
+      );
+    }
   }
   for (const guide of listGuides()) {
     entries.push(...entriesFor((l) => `/${l}/guide/${guide.slug}`, { changeFrequency: "monthly", priority: 0.4 }));
