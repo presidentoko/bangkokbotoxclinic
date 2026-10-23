@@ -142,7 +142,8 @@ export default async function DistrictPage({
         {faqAnswer && <p className="text-muted leading-relaxed mb-8 max-w-2xl">{faqAnswer}</p>}
         <div className="mb-8">
           <CityMap
-            places={allMatching.map((p) => ({ id: p.id, name: p.name, lat: p.lat, lng: p.lng, rating: p.rating }))}
+            city={cityCode}
+            district={rawDistrict}
             lang={lang}
             showLabel={t.city.showMapLabel}
             viewLabel={t.compare.viewButton}

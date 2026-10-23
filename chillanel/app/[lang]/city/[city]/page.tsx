@@ -70,7 +70,9 @@ export default async function CityPage({
   // in lib/data.ts, so server-rendered pages that do need reviews (the
   // place detail page) are unaffected.
   // insights 도 카드가 안 읽는다 — 같은 이유로 클라이언트 경계에서 뺀다.
-  const cardPlaces = places.map((p) => ({ ...p, reviews: [], insights: undefined }));
+  // mapsUrl/website/phone 도 마찬가지(2026-10-23) — 한글·태국어 이름이
+  // 퍼센트 인코딩된 mapsUrl 만 90곳에 ~90KB 였다.
+  const cardPlaces = places.map((p) => ({ ...p, reviews: [], insights: undefined, mapsUrl: "", website: "", phone: "" }));
   const rankingTopics = topicsWithEnoughEntries(city);
 
   return (
@@ -133,7 +135,7 @@ export default async function CityPage({
 
         <div className="mb-14">
           <CityMap
-            places={allRelevant.map((p) => ({ id: p.id, name: p.name, lat: p.lat, lng: p.lng, rating: p.rating }))}
+            city={city}
             lang={lang}
             showLabel={t.city.showMapLabel}
             viewLabel={t.compare.viewButton}
