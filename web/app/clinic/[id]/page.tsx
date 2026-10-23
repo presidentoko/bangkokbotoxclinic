@@ -63,7 +63,11 @@ const ReviewSignals = dynamic(
 // 데이터는 배포(재빌드) 시에만 바뀌고 배포는 어차피 전체 prerender를 무효화
 // 하므로, revalidate 기간 자체는 "핫픽스 없이 얼마나 오래 버틸까"의 의미만
 // 있음 — 7일→30일로 늘려 크롤 재방문 시 불필요한 ISR write 절감 (2026-07-17 감사).
-export const revalidate = 2592000;
+// 2026-10-23: 2592000(30일 ISR) → false(완전 정적). 데이터는 배포 때만 바뀌는데
+// ISR 로 두면 (1) 배포마다 프리렌더 전량이 ISR Write 로 잡혀 배포 1회 ~13만 건
+// (Hobby 한도 20만/30일)이고 (2) 배포 30일 뒤 일제히 stale 이 되어 방문마다
+// 재생성 write 가 터진다. 정적이면 둘 다 0 이고 CDN 에서 바로 나가 ISR Read 도 없다.
+export const revalidate = false;
 export const dynamicParams = false;
 
 export async function generateStaticParams() {

@@ -8,7 +8,9 @@ const SITE = getSiteUrl();
 // sitemap-clinics.xml 과 동일 이유(2026-07-11 감사) — route config 없으면
 // 요청마다 uncached 25MB 파싱 함수 호출. 데이터는 배포 시 재빌드로만 갱신.
 export const dynamic = "force-static";
-export const revalidate = 3600;
+// 2026-10-23: 3600 → 86400. 시간마다 갱신할 내용이 아니다(데이터는 배포 때만 바뀜),
+// 매시간 재생성은 하루 24회 ISR write 였다.
+export const revalidate = 86400;
 
 function escape(s: string): string {
   return s

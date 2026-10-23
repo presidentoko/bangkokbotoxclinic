@@ -17,7 +17,11 @@ const SITE = getSiteUrl();
 // 동일 클리닉 set 으로 pre-build (top 100 ISR 정책 share)
 // route segment config 는 직접 선언 — Turbopack 이 `export { ... } from` 재export 를
 // route config 로 인식하지 못해 빌드 실패하므로 부모와 동일 값으로 명시.
-export const revalidate = 2592000;
+// 2026-10-23: 2592000(30일 ISR) → false(완전 정적). 데이터는 배포 때만 바뀌는데
+// ISR 로 두면 (1) 배포마다 프리렌더 전량이 ISR Write 로 잡혀 배포 1회 ~13만 건
+// (Hobby 한도 20만/30일)이고 (2) 배포 30일 뒤 일제히 stale 이 되어 방문마다
+// 재생성 write 가 터진다. 정적이면 둘 다 0 이고 CDN 에서 바로 나가 ISR Read 도 없다.
+export const revalidate = false;
 export const dynamicParams = false;
 export const generateStaticParams = parentGSP;
 

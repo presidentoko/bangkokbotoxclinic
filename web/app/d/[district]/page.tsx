@@ -24,7 +24,11 @@ function districtFromSlug(slug: string, all: string[]): string | null {
 // 그게 ISR Reads(1.5M/1M)와 Fast Origin Transfer(20GB/10GB) 로 직결된다.
 // 지역 페이지의 내용은 master_db 가 바뀔 때만 달라지고, 그때는 어차피
 // 재배포가 일어나 캐시가 통째로 갈린다. 30일은 클리닉/의사 페이지와 같은 값.
-export const revalidate = 2592000;
+// 2026-10-23: 2592000(30일 ISR) → false(완전 정적). 데이터는 배포 때만 바뀌는데
+// ISR 로 두면 (1) 배포마다 프리렌더 전량이 ISR Write 로 잡혀 배포 1회 ~13만 건
+// (Hobby 한도 20만/30일)이고 (2) 배포 30일 뒤 일제히 stale 이 되어 방문마다
+// 재생성 write 가 터진다. 정적이면 둘 다 0 이고 CDN 에서 바로 나가 ISR Read 도 없다.
+export const revalidate = false;
 
 // 봇 쓰레기 param(/d/wp-login.php 등)의 온디맨드 렌더+캐시 write 차단
 // (Hobby ISR Writes 한도 누수, 2026-07-11 감사). GSP가 링크 공간 전체 커버.

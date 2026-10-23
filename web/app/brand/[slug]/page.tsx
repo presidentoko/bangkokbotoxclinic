@@ -16,7 +16,11 @@ import { BookingForm } from "@/components/BookingForm";
 //
 // 형제 허브와 같은 캐시 정책: 내용은 master_db 가 바뀔 때만 달라지고 그때는
 // 재배포로 캐시가 통째로 갈린다.
-export const revalidate = 2592000;
+// 2026-10-23: 2592000(30일 ISR) → false(완전 정적). 데이터는 배포 때만 바뀌는데
+// ISR 로 두면 (1) 배포마다 프리렌더 전량이 ISR Write 로 잡혀 배포 1회 ~13만 건
+// (Hobby 한도 20만/30일)이고 (2) 배포 30일 뒤 일제히 stale 이 되어 방문마다
+// 재생성 write 가 터진다. 정적이면 둘 다 0 이고 CDN 에서 바로 나가 ISR Read 도 없다.
+export const revalidate = false;
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
