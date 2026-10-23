@@ -249,6 +249,7 @@ export default function ReportPage() {
           <h2 className="text-xl font-bold text-gray-900 mb-2">คลินิกที่ชาวต่างชาติใช้บริการ</h2>
           <p className="text-gray-600 leading-relaxed mb-4">
             อย่างน้อยหนึ่งในสี่ของรีวิวเขียนเป็นภาษาอื่นที่ไม่ใช่ไทย — สัญญาณว่าคนที่ไม่พูดภาษาไทยไปใช้บริการและสื่อสารได้
+            {' '}(<a href="/english-speaking-vets" lang="en" className="text-blue-600 hover:underline">รายชื่อฉบับภาษาอังกฤษ</a>)
           </p>
           <ul className="bg-white border rounded-2xl divide-y">
             {expat.map(a => {

@@ -74,6 +74,7 @@ export function isIndexableFood(food: PetFood, slug: string): boolean {
 import type { Hospital } from './types'
 import { getLicense } from './licenses'
 import { getProfile } from './hospitalProfiles'
+import { getClinicPrices } from './clinicPrices'
 import hoursFile from '../data/hospital-hours.json'
 import earningFile from '../data/hospital-gsc-earning.json'
 
@@ -124,5 +125,6 @@ export function isIndexableHospital(h: Hospital, slug: string): boolean {
   if (getLicense(h.id)) return true
   if (HOURS_IDS.has(h.id)) return true
   if (getProfile(h.id)) return true
+  if (getClinicPrices(h.id)) return true
   return false
 }

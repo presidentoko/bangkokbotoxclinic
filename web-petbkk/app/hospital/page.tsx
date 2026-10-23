@@ -232,6 +232,21 @@ function SpecialPets() {
           <span className="text-orange-700 font-semibold"> อ่านรายงาน →</span>
         </p>
       </a>
+      <a
+        href="/hospital/prices"
+        className="mt-3 block bg-white border border-gray-200 rounded-2xl p-4 hover:border-orange-300 transition-colors"
+      >
+        <h2 className="text-base font-bold text-gray-900 mb-1">🏷️ ค่าทำหมัน ค่าวัคซีน: ราคาที่โรงพยาบาลสัตว์ประกาศเอง</h2>
+        <p className="text-sm text-gray-600 leading-relaxed">
+          เทียบราคาจากเว็บไซต์คลินิกโดยตรง พร้อมบอกว่าราคารวมอะไร ไม่รวมอะไร
+          <span className="text-orange-700 font-semibold"> ดูราคา →</span>
+        </p>
+      </a>
+      <p className="mt-3 text-sm text-gray-500">
+        <a href="/english-speaking-vets" lang="en" className="font-semibold text-blue-600 hover:underline">
+          English: vets foreign owners use in Bangkok, Chiang Mai, Pattaya &amp; Phuket →
+        </a>
+      </p>
     </section>
   )
 }

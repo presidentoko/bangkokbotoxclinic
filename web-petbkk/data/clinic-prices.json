@@ -1,0 +1,2247 @@
+{
+ "checked": "2026-10-23",
+ "note": "Prices published by the clinics on their own websites, read by hand and re-checked against the source page. What a price includes differs between clinics and is stated with each figure.",
+ "services": {
+  "neuter_cat_m": "ทำหมันแมวตัวผู้",
+  "neuter_cat_f": "ทำหมันแมวตัวเมีย",
+  "neuter_dog_m": "ทำหมันสุนัขตัวผู้",
+  "neuter_dog_f": "ทำหมันสุนัขตัวเมีย",
+  "neuter_rabbit_m": "ทำหมันกระต่ายตัวผู้",
+  "neuter_rabbit_f": "ทำหมันกระต่ายตัวเมีย",
+  "vaccine_cat_combo": "วัคซีนรวมแมว",
+  "vaccine_dog_combo": "วัคซีนรวมสุนัข",
+  "vaccine_rabies": "วัคซีนพิษสุนัขบ้า",
+  "vaccine_first_year": "โปรแกรมวัคซีนปีแรก",
+  "checkup": "แพ็กเกจตรวจสุขภาพ",
+  "dental": "ขูดหินปูน",
+  "other": "อื่น ๆ"
+ },
+ "sources": [
+  {
+   "domain": "talingchanpet.net",
+   "name": "โรงพยาบาลสัตว์ตลิ่งชัน",
+   "chain": false,
+   "clinics": [
+    "โรงพยาบาลสตวตลงชน-talingchan-animal-hospital"
+   ],
+   "items": [
+    {
+     "service": "neuter_cat_m",
+     "price": 3000,
+     "kind": "list",
+     "includes": "ผ่าตัด ค่าสัตวแพทย์ ดมยาสลบ",
+     "excludes": "VAT 7%, ค่าบริการโรงพยาบาล 80 บาท, ตรวจเลือดก่อนผ่าตัด 2,500–3,000 บาท",
+     "url": "https://www.talingchanpet.net/package-dog-cat/",
+     "quote": "แมวเพศผู้ 3,000 บาท",
+     "service_th": "ทำหมันแมวตัวผู้"
+    },
+    {
+     "service": "neuter_cat_f",
+     "price": 4000,
+     "kind": "list",
+     "includes": "ผ่าตัด ค่าสัตวแพทย์ ดมยาสลบ",
+     "excludes": "VAT 7%, ค่าบริการโรงพยาบาล 80 บาท, ตรวจเลือดก่อนผ่าตัด 2,500–3,000 บาท",
+     "url": "https://www.talingchanpet.net/package-dog-cat/",
+     "quote": "แมวเพศเมีย 4,000 บาท",
+     "service_th": "ทำหมันแมวตัวเมีย"
+    },
+    {
+     "service": "neuter_dog_m",
+     "price": 6500,
+     "kind": "list",
+     "note": "น้ำหนัก 1–10 กก.",
+     "includes": "ผ่าตัด ค่าสัตวแพทย์ ดมยาสลบ",
+     "excludes": "VAT 7%, ค่าบริการโรงพยาบาล 80 บาท, ตรวจเลือดก่อนผ่าตัด 3,000–3,200 บาท",
+     "url": "https://www.talingchanpet.net/",
+     "quote": "1-10 KG. 6,500 บาท 7,000 บาท",
+     "service_th": "ทำหมันสุนัขตัวผู้"
+    },
+    {
+     "service": "neuter_dog_f",
+     "price": 7000,
+     "kind": "list",
+     "note": "น้ำหนัก 1–10 กก.",
+     "includes": "ผ่าตัด ค่าสัตวแพทย์ ดมยาสลบ",
+     "excludes": "VAT 7%, ค่าบริการโรงพยาบาล 80 บาท, ตรวจเลือดก่อนผ่าตัด 3,000–3,200 บาท",
+     "url": "https://www.talingchanpet.net/",
+     "quote": "1-10 KG. 6,500 บาท 7,000 บาท",
+     "service_th": "ทำหมันสุนัขตัวเมีย"
+    },
+    {
+     "service": "neuter_rabbit_m",
+     "price": 3000,
+     "kind": "list",
+     "includes": "ผ่าตัด ค่าสัตวแพทย์ ดมยาสลบ",
+     "excludes": "ตรวจเลือดก่อนผ่าตัด 2,560 บาท, ค่าบริการโรงพยาบาล 80 บาท, เวชภัณฑ์ 250 บาท, VAT",
+     "url": "https://www.talingchanpet.net/sterilization-of-rabbits/",
+     "quote": "ทำหมันเพศผู้ 3,000 บาท",
+     "service_th": "ทำหมันกระต่ายตัวผู้"
+    },
+    {
+     "service": "neuter_rabbit_f",
+     "price": 4000,
+     "kind": "list",
+     "includes": "ผ่าตัด ค่าสัตวแพทย์ ดมยาสลบ",
+     "excludes": "ตรวจเลือดก่อนผ่าตัด 2,560 บาท, ค่าบริการโรงพยาบาล 80 บาท, เวชภัณฑ์ 250 บาท, VAT",
+     "url": "https://www.talingchanpet.net/sterilization-of-rabbits/",
+     "quote": "ทำหมันเพศเมีย 4,000 บาท",
+     "service_th": "ทำหมันกระต่ายตัวเมีย"
+    }
+   ]
+  },
+  {
+   "domain": "uvethospital.com",
+   "name": "โรงพยาบาลสัตว์ยูเว็ท",
+   "chain": true,
+   "clinics": [
+    "โรงพยาบาลสตวยเวท-บางนา-uvet-animal-hospital-bangna",
+    "โรงพยาบาลสตวยเวท-รามคำแหง-832-24-ชวโมง-uvet-animal-hospital-ramkhamhaeng",
+    "โรงพยาบาลสตวยเวท-รามอนทรา-uvet-animal-hospital-ramintra",
+    "โรงพยาบาลสตวยเวท-เกษตร-24-ชวโมง-uvet-animal-hospital-kaset",
+    "โรงพยาบาลสตวยเวท-เจรญนคร-uvet-animal-hospital-charoen-nakhon",
+    "โรงพยาบาลสตวยเวท-โชคชย-4-uvet-animal-hospital-chokchai-4"
+   ],
+   "items": [
+    {
+     "service": "neuter_cat_m",
+     "price": 4300,
+     "kind": "from",
+     "includes": "แพ็กเกจรวมค่าใช้จ่ายทั้งหมดในการทำหมัน",
+     "url": "https://www.uvethospital.com/post/cat-neutering",
+     "quote": "แมวตัวผู้ ราคาเริ่มต้น 4,300 บาท",
+     "service_th": "ทำหมันแมวตัวผู้"
+    },
+    {
+     "service": "neuter_cat_f",
+     "price": 5300,
+     "kind": "from",
+     "includes": "แพ็กเกจรวมค่าใช้จ่ายทั้งหมดในการทำหมัน",
+     "url": "https://www.uvethospital.com/post/cat-neutering",
+     "quote": "แมวตัวเมีย ราคาเริ่มต้น 5,300 บาท",
+     "service_th": "ทำหมันแมวตัวเมีย"
+    },
+    {
+     "service": "neuter_dog_m",
+     "price": 5000,
+     "kind": "from",
+     "note": "ประมาณการ ขึ้นกับเพศ ขนาด น้ำหนัก",
+     "url": "https://www.uvethospital.com/post/dog-neutering",
+     "quote": "เริ่มต้นประมาณ 5,000 บาทขึ้นไป",
+     "service_th": "ทำหมันสุนัขตัวผู้"
+    }
+   ]
+  },
+  {
+   "domain": "2h2cvet.com",
+   "name": "หมาดีใจ แมวใจดี",
+   "chain": false,
+   "clinics": [
+    "โรงพยาบาลสตว-หมาดใจ-แมวใจด"
+   ],
+   "items": [
+    {
+     "service": "neuter_cat_m",
+     "price": 2790,
+     "regular": 3990,
+     "kind": "promo",
+     "url": "https://2h2cvet.com/package/ทำหมันพร้อมขูดหินปูน-จบ/",
+     "quote": "เพศผู้ 3,990฿ 2,790฿",
+     "service_th": "ทำหมันแมวตัวผู้"
+    },
+    {
+     "service": "neuter_dog_m",
+     "price": 2790,
+     "regular": 3990,
+     "kind": "promo",
+     "note": "ไม่เกิน 5 กก.",
+     "includes": "ตรวจร่างกาย ตรวจเลือดชุดใหญ่ ดมยาสลบด้วยเครื่อง ผ่าตัด",
+     "url": "https://2h2cvet.com/package/โปรแกรมทำหมันน้องหมา-ลด/",
+     "quote": "เพศผู้ ไม่เกิน 5 กก. จาก 3,990฿",
+     "service_th": "ทำหมันสุนัขตัวผู้"
+    },
+    {
+     "service": "vaccine_first_year",
+     "price": 1990,
+     "kind": "list",
+     "note": "ลูกสุนัข ครบโปรแกรมปีแรก",
+     "url": "https://2h2cvet.com/package/โปรแกรมวัคซีนขวบปีแรก-ค/",
+     "quote": "ลูกสุนัข 1,990฿",
+     "service_th": "โปรแกรมวัคซีนปีแรก"
+    },
+    {
+     "service": "vaccine_first_year",
+     "price": 2690,
+     "kind": "list",
+     "note": "ลูกแมว รวมวัคซีนลิวคีเมียและชุดตรวจ",
+     "url": "https://2h2cvet.com/package/โปรแกรมวัคซีนขวบปีแรก-ค/",
+     "quote": "ลูกแมว 2,690฿",
+     "service_th": "โปรแกรมวัคซีนปีแรก"
+    }
+   ]
+  },
+  {
+   "domain": "petfriendshospital.com",
+   "name": "โรงพยาบาลสัตว์เพ็ทเฟรนด์ส",
+   "chain": false,
+   "clinics": [
+    "pet-friends-animal-hospital"
+   ],
+   "items": [
+    {
+     "service": "neuter_cat_m",
+     "price": 5500,
+     "kind": "list",
+     "includes": "ที่พัก 3 วัน และฝากดูแล",
+     "url": "https://www.petfriendshospital.com/allpackage/spaycatpackage",
+     "quote": "เพศผู้ราคา 5,500 บาท",
+     "service_th": "ทำหมันแมวตัวผู้"
+    },
+    {
+     "service": "neuter_cat_f",
+     "price": 7500,
+     "kind": "list",
+     "includes": "ที่พัก 3 วัน และฝากดูแล",
+     "url": "https://www.petfriendshospital.com/allpackage/spaycatpackage",
+     "quote": "เพศเมียราคา 7,500 บาท",
+     "service_th": "ทำหมันแมวตัวเมีย"
+    },
+    {
+     "service": "neuter_dog_m",
+     "price": 9000,
+     "kind": "list",
+     "note": "ไม่เกิน 20 กก.",
+     "includes": "ที่พัก 3 วัน และฝากดูแล",
+     "url": "https://www.petfriendshospital.com/allpackage/spaydogpackage",
+     "quote": "ราคา 9,000 บาท",
+     "service_th": "ทำหมันสุนัขตัวผู้"
+    },
+    {
+     "service": "neuter_dog_f",
+     "price": 11000,
+     "kind": "list",
+     "note": "ไม่เกิน 20 กก.",
+     "includes": "ที่พัก 3 วัน และฝากดูแล",
+     "url": "https://www.petfriendshospital.com/allpackage/spaydogpackage",
+     "quote": "ราคา 11,000 บาท",
+     "service_th": "ทำหมันสุนัขตัวเมีย"
+    },
+    {
+     "service": "vaccine_first_year",
+     "price": 3750,
+     "kind": "list",
+     "note": "สุนัขวัยเด็ก ไม่มีบวกเพิ่ม",
+     "url": "https://www.petfriendshospital.com/allpackage/vaccine-package",
+     "quote": "สำหรับสุนัข ราคา 3,750 บาท",
+     "service_th": "โปรแกรมวัคซีนปีแรก"
+    },
+    {
+     "service": "vaccine_first_year",
+     "price": 3450,
+     "kind": "list",
+     "note": "แมววัยเด็ก ไม่มีบวกเพิ่ม",
+     "url": "https://www.petfriendshospital.com/allpackage/vaccine-package",
+     "quote": "สำหรับแมว ราคา 3,450 บาท",
+     "service_th": "โปรแกรมวัคซีนปีแรก"
+    },
+    {
+     "service": "checkup",
+     "price": 3850,
+     "kind": "list",
+     "note": "สุนัขแรกรับ 14 รายการ",
+     "url": "https://www.petfriendshospital.com/allpackage/checkupcatdog",
+     "quote": "14 รายการ ราคา 3,850 บาท",
+     "service_th": "แพ็กเกจตรวจสุขภาพ"
+    },
+    {
+     "service": "checkup",
+     "price": 4850,
+     "kind": "list",
+     "note": "แมวแรกรับ 13 รายการ",
+     "url": "https://www.petfriendshospital.com/allpackage/checkupcatdog",
+     "quote": "13 รายการ ราคา 4,850 บาท",
+     "service_th": "แพ็กเกจตรวจสุขภาพ"
+    }
+   ]
+  },
+  {
+   "domain": "happypet-hospital.com",
+   "name": "โรงพยาบาลสัตว์แฮปปี้เพ็ท",
+   "chain": false,
+   "clinics": [
+    "happy-pet-care-แฮปปเพทแคร",
+    "happy-pet-hospital-ratchada-โรงพยาบาลสตวแฮปปเพท-รชดา",
+    "happy-pet-hospital-โรงพยาบาลสตวแฮปปเพท"
+   ],
+   "items": [
+    {
+     "service": "neuter_cat_m",
+     "price": 6000,
+     "kind": "promo",
+     "note": "โปรโมชั่น ก.พ.–ต.ค.",
+     "includes": "ตรวจเลือดก่อนผ่าตัด ยาสลบ ผ่าตัด ยาหลังผ่าตัด ชุดหรือปลอกคอกันเลีย",
+     "url": "https://happypet-hospital.com/packages-events",
+     "quote": "ตัวผู้ 6,000 บาท",
+     "service_th": "ทำหมันแมวตัวผู้"
+    },
+    {
+     "service": "neuter_cat_f",
+     "price": 7500,
+     "kind": "promo",
+     "note": "โปรโมชั่น ก.พ.–ต.ค.",
+     "includes": "ตรวจเลือดก่อนผ่าตัด ยาสลบ ผ่าตัด ยาหลังผ่าตัด ชุดหรือปลอกคอกันเลีย",
+     "url": "https://happypet-hospital.com/packages-events",
+     "quote": "ตัวเมีย 7,500 บาท",
+     "service_th": "ทำหมันแมวตัวเมีย"
+    },
+    {
+     "service": "vaccine_dog_combo",
+     "price": 299,
+     "kind": "promo",
+     "note": "ถึง 31 ต.ค. 2569",
+     "includes": "ค่าคุณหมอและพยาบาล",
+     "url": "https://happypet-hospital.com/",
+     "quote": "ราคาเพียง 299 บาท",
+     "service_th": "วัคซีนรวมสุนัข"
+    },
+    {
+     "service": "vaccine_cat_combo",
+     "price": 570,
+     "kind": "from",
+     "url": "https://happypet-hospital.com/services",
+     "quote": "฿570",
+     "service_th": "วัคซีนรวมแมว"
+    },
+    {
+     "service": "vaccine_rabies",
+     "price": 390,
+     "kind": "from",
+     "url": "https://happypet-hospital.com/services",
+     "quote": "฿390",
+     "service_th": "วัคซีนพิษสุนัขบ้า"
+    },
+    {
+     "service": "checkup",
+     "price": 1990,
+     "regular": 2860,
+     "kind": "promo",
+     "note": "แพ็กเกจ Happy New Friend",
+     "url": "https://happypet-hospital.com/packages-events",
+     "quote": "1,990 บาท (จากปกติ 2,860 บาท)",
+     "service_th": "แพ็กเกจตรวจสุขภาพ"
+    }
+   ]
+  },
+  {
+   "domain": "thonglorpet.com",
+   "name": "โรงพยาบาลสัตว์ทองหล่อ",
+   "chain": true,
+   "clinics": [
+    "paw-and-pal-พ-แอนด-พ",
+    "thonglor-chalong-phuket-pet-hospital-โรงพยาบาลสตวทองหลอ-ภเกต",
+    "thonglor-international-pet-hospital-rama9",
+    "thonglor-pet-hospital",
+    "thonglor-pet-hospital-2",
+    "thonglor-pet-hospital-asoke---prasarnmit-โรงพยาบาลสตวทองหลอ-อโศก-ประสานมตร",
+    "thonglor-pet-hospital-central-eastville-โรงพยาบาลสตวทองหลอเซนทรลอสตวลล",
+    "thonglor-pet-hospital-chiang-mai-airport",
+    "thonglor-pet-hospital-chiang-mai-โรงพยาบาลสตวทองหลอ-เชยงใหม",
+    "thonglor-pet-hospital-pinklao-โรงพยาบาลสตวทองหลอ",
+    "thonglor-pet-hospital-prachachuen-โรงพยาบาลสตวทองหลอ-ประชาชน",
+    "thonglor-pet-hospital-praditmanutham-โรงพยาบาลสตว-ทองหลอ-ประดษฐมนธรรม-เลยบทางดวน",
+    "thonglor-pet-hospital-rama-2",
+    "thonglor-pet-hospital-rama-5-โรงพยาบาลสตว-ทองหลอ-พระราม-5",
+    "thonglor-pet-hospital-rama-6-โรงพยาบาลสตว-ทองหลอ-พระราม-6",
+    "thonglor-pet-hospital-sathon-naradhiwas---โรงพยาบาลสตวทองหลอ-สาทร-นราธวาส",
+    "thonglor-pet-hospital-srinakarin-โรงพยาบาลสตวทองหลอ-ศรนครนทร"
+   ],
+   "items": [
+    {
+     "service": "vaccine_cat_combo",
+     "price": 690,
+     "kind": "list",
+     "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+     "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+     "quote": "690 บาท",
+     "service_th": "วัคซีนรวมแมว"
+    },
+    {
+     "service": "vaccine_rabies",
+     "price": 490,
+     "kind": "list",
+     "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+     "quote": "490 บาท",
+     "service_th": "วัคซีนพิษสุนัขบ้า"
+    },
+    {
+     "service": "dental",
+     "price": 2500,
+     "price_max": 4000,
+     "kind": "range",
+     "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+     "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+     "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+     "quote": "2,500–4,000 บาท",
+     "service_th": "ขูดหินปูน"
+    }
+   ]
+  },
+  {
+   "domain": "arakanimal.com",
+   "name": "โรงพยาบาลสัตว์อารักษ์",
+   "chain": true,
+   "clinics": [
+    "arak-animal-hospital-chiang-mai-โรงพยาบาลสตวอารกษ-สาขาเชยงใหม",
+    "arak-animal-hospital-langsuan-โรงพยาบาลสตวอารกษ-สาขาหลงสวน",
+    "arak-animal-hospital-phetkasem-โรงพยาบาลสตวอารกษ-สาขาเพชรเกษม",
+    "arak-animal-hospital-phuket-โรงพยาบาลสตวอารกษ-สาขาภเกต",
+    "arak-animal-hospital-pradit-manutham-โรงพยาบาลสตวอารกษ-สาขาประดษฐมนธรรม",
+    "arak-animal-hospital-thonglor-โรงพยาบาลสตวอารกษ-สาขาทองหลอ"
+   ],
+   "items": [
+    {
+     "service": "vaccine_dog_combo",
+     "price": 764,
+     "kind": "list",
+     "note": "หมา-แมว",
+     "url": "https://www.arakanimal.com/packages",
+     "quote": "764 บาท",
+     "service_th": "วัคซีนรวมสุนัข"
+    },
+    {
+     "service": "vaccine_cat_combo",
+     "price": 764,
+     "kind": "list",
+     "note": "หมา-แมว",
+     "url": "https://www.arakanimal.com/packages",
+     "quote": "764 บาท",
+     "service_th": "วัคซีนรวมแมว"
+    },
+    {
+     "service": "checkup",
+     "price": 2000,
+     "kind": "from",
+     "note": "สาขาทองหล่อ",
+     "url": "https://www.arakanimal.com/packages",
+     "quote": "2,000 บาท",
+     "service_th": "แพ็กเกจตรวจสุขภาพ"
+    }
+   ]
+  },
+  {
+   "domain": "hanaanimalhospital.com",
+   "name": "โรงพยาบาลสัตว์ฮานะ",
+   "chain": false,
+   "clinics": [
+    "โรงพยาบาลสตวฮานะ-hana-animal-hospital"
+   ],
+   "items": [
+    {
+     "service": "neuter_cat_m",
+     "price": 1300,
+     "kind": "list",
+     "excludes": "ชุดตรวจก่อนผ่าตัดแบบละเอียด +490 บาท (ชุดมาตรฐานรวมแล้ว)",
+     "url": "https://hanaanimalhospital.com/services/",
+     "quote": "แมวเพศผู้ 1,300 บาท",
+     "service_th": "ทำหมันแมวตัวผู้"
+    },
+    {
+     "service": "neuter_dog_m",
+     "price": 2700,
+     "kind": "from",
+     "url": "https://hanaanimalhospital.com/services/",
+     "quote": "สุนัขเพศผู้เริ่ม 2,700 บาท",
+     "service_th": "ทำหมันสุนัขตัวผู้"
+    }
+   ]
+  },
+  {
+   "domain": "animalspacehospital.com",
+   "name": "Animal Space",
+   "chain": false,
+   "clinics": [
+    "animal-space-pet-hospital",
+    "โรงพยาบาลสตว-แอนมอลสเปซ-พระราม9-animal-space-pet-hospital-rama-9"
+   ],
+   "items": [
+    {
+     "service": "neuter_rabbit_m",
+     "price": 3000,
+     "kind": "list",
+     "excludes": "ค่าบริการทางการแพทย์และค่าโรงพยาบาล",
+     "url": "https://animalspacehospital.com/our-services/sterilization/",
+     "quote": "3,000 บาท",
+     "service_th": "ทำหมันกระต่ายตัวผู้"
+    },
+    {
+     "service": "neuter_rabbit_f",
+     "price": 4000,
+     "kind": "list",
+     "excludes": "ค่าบริการทางการแพทย์และค่าโรงพยาบาล",
+     "url": "https://animalspacehospital.com/our-services/sterilization/",
+     "quote": "4,000 บาท",
+     "service_th": "ทำหมันกระต่ายตัวเมีย"
+    },
+    {
+     "service": "checkup",
+     "price": 999,
+     "kind": "from",
+     "note": "สัตว์ Exotic, Starter (มี 1,399 / 2,199)",
+     "includes": "VAT ค่าแพทย์ และค่าโรงพยาบาล",
+     "url": "https://animalspacehospital.com/our-services/annual-health-check/",
+     "quote": "999 บาท",
+     "service_th": "แพ็กเกจตรวจสุขภาพ"
+    },
+    {
+     "service": "other",
+     "price": 1500,
+     "kind": "from",
+     "note": "ทำหมันชูการ์ไกลเดอร์ตัวผู้",
+     "url": "https://animalspacehospital.com/our-services/sterilization/",
+     "quote": "1,500 บาท",
+     "service_th": "อื่น ๆ"
+    }
+   ]
+  },
+  {
+   "domain": "doisaketpet.com",
+   "name": "โรงพยาบาลสัตว์ดอยสะเก็ด",
+   "chain": false,
+   "clinics": [
+    "โรงพยาบาลสตวดอยสะเกด-doisaket-animal-hospital"
+   ],
+   "items": [
+    {
+     "service": "vaccine_dog_combo",
+     "price": 350,
+     "kind": "from",
+     "note": "วัคซีนหลัก สุนัขและแมว",
+     "url": "https://doisaketpet.com/prices",
+     "quote": "เริ่ม ฿350",
+     "service_th": "วัคซีนรวมสุนัข"
+    },
+    {
+     "service": "vaccine_cat_combo",
+     "price": 350,
+     "kind": "from",
+     "note": "วัคซีนหลัก สุนัขและแมว",
+     "url": "https://doisaketpet.com/prices",
+     "quote": "เริ่ม ฿350",
+     "service_th": "วัคซีนรวมแมว"
+    },
+    {
+     "service": "checkup",
+     "price": 1200,
+     "kind": "from",
+     "note": "ตรวจสุขภาพประจำปี",
+     "url": "https://doisaketpet.com/prices",
+     "quote": "เริ่ม ฿1,200",
+     "service_th": "แพ็กเกจตรวจสุขภาพ"
+    }
+   ]
+  },
+  {
+   "domain": "utmost-pet.com",
+   "name": "โรงพยาบาลสัตว์แอทโมส",
+   "chain": false,
+   "clinics": [
+    "โรงพยาบาลสตวแอทโมส-ลาดพราว71-utmost-pet-hospital"
+   ],
+   "items": [
+    {
+     "service": "checkup",
+     "price": 1599,
+     "kind": "from",
+     "url": "https://www.utmost-pet.com/package-promotion/health-check-2/",
+     "quote": "1,599 บาท",
+     "service_th": "แพ็กเกจตรวจสุขภาพ"
+    }
+   ]
+  },
+  {
+   "domain": "slv.co.th",
+   "name": "SLV Pet Hospital",
+   "chain": false,
+   "clinics": [
+    "slv-pet-hospital"
+   ],
+   "items": [
+    {
+     "service": "checkup",
+     "price": 990,
+     "kind": "from",
+     "url": "https://www.slv.co.th/slv-best-package/",
+     "quote": "990 บาท",
+     "service_th": "แพ็กเกจตรวจสุขภาพ"
+    }
+   ]
+  },
+  {
+   "domain": "phyathai7pet.com",
+   "name": "โรงพยาบาลสัตว์พญาไท 7",
+   "chain": false,
+   "clinics": [
+    "phyathai-7-animal-hospital"
+   ],
+   "items": [
+    {
+     "service": "checkup",
+     "price": 6666,
+     "kind": "list",
+     "note": "Senior Package สุนัขหรือแมวอายุ 7 ปีขึ้นไป",
+     "url": "https://www.phyathai7pet.com/cat-health-check-package",
+     "quote": "6,666 บาท",
+     "service_th": "แพ็กเกจตรวจสุขภาพ"
+    }
+   ]
+  }
+ ],
+ "clinics": {
+  "animal-space-pet-hospital": [
+   {
+    "service": "neuter_rabbit_m",
+    "price": 3000,
+    "kind": "list",
+    "excludes": "ค่าบริการทางการแพทย์และค่าโรงพยาบาล",
+    "url": "https://animalspacehospital.com/our-services/sterilization/",
+    "quote": "3,000 บาท",
+    "service_th": "ทำหมันกระต่ายตัวผู้",
+    "source": "animalspacehospital.com",
+    "chain": false
+   },
+   {
+    "service": "neuter_rabbit_f",
+    "price": 4000,
+    "kind": "list",
+    "excludes": "ค่าบริการทางการแพทย์และค่าโรงพยาบาล",
+    "url": "https://animalspacehospital.com/our-services/sterilization/",
+    "quote": "4,000 บาท",
+    "service_th": "ทำหมันกระต่ายตัวเมีย",
+    "source": "animalspacehospital.com",
+    "chain": false
+   },
+   {
+    "service": "checkup",
+    "price": 999,
+    "kind": "from",
+    "note": "สัตว์ Exotic, Starter (มี 1,399 / 2,199)",
+    "includes": "VAT ค่าแพทย์ และค่าโรงพยาบาล",
+    "url": "https://animalspacehospital.com/our-services/annual-health-check/",
+    "quote": "999 บาท",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "animalspacehospital.com",
+    "chain": false
+   },
+   {
+    "service": "other",
+    "price": 1500,
+    "kind": "from",
+    "note": "ทำหมันชูการ์ไกลเดอร์ตัวผู้",
+    "url": "https://animalspacehospital.com/our-services/sterilization/",
+    "quote": "1,500 บาท",
+    "service_th": "อื่น ๆ",
+    "source": "animalspacehospital.com",
+    "chain": false
+   }
+  ],
+  "arak-animal-hospital-chiang-mai-โรงพยาบาลสตวอารกษ-สาขาเชยงใหม": [
+   {
+    "service": "vaccine_dog_combo",
+    "price": 764,
+    "kind": "list",
+    "note": "หมา-แมว",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "764 บาท",
+    "service_th": "วัคซีนรวมสุนัข",
+    "source": "arakanimal.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_cat_combo",
+    "price": 764,
+    "kind": "list",
+    "note": "หมา-แมว",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "764 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "arakanimal.com",
+    "chain": true
+   },
+   {
+    "service": "checkup",
+    "price": 2000,
+    "kind": "from",
+    "note": "สาขาทองหล่อ",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "2,000 บาท",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "arakanimal.com",
+    "chain": true
+   }
+  ],
+  "arak-animal-hospital-langsuan-โรงพยาบาลสตวอารกษ-สาขาหลงสวน": [
+   {
+    "service": "vaccine_dog_combo",
+    "price": 764,
+    "kind": "list",
+    "note": "หมา-แมว",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "764 บาท",
+    "service_th": "วัคซีนรวมสุนัข",
+    "source": "arakanimal.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_cat_combo",
+    "price": 764,
+    "kind": "list",
+    "note": "หมา-แมว",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "764 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "arakanimal.com",
+    "chain": true
+   },
+   {
+    "service": "checkup",
+    "price": 2000,
+    "kind": "from",
+    "note": "สาขาทองหล่อ",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "2,000 บาท",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "arakanimal.com",
+    "chain": true
+   }
+  ],
+  "arak-animal-hospital-phetkasem-โรงพยาบาลสตวอารกษ-สาขาเพชรเกษม": [
+   {
+    "service": "vaccine_dog_combo",
+    "price": 764,
+    "kind": "list",
+    "note": "หมา-แมว",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "764 บาท",
+    "service_th": "วัคซีนรวมสุนัข",
+    "source": "arakanimal.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_cat_combo",
+    "price": 764,
+    "kind": "list",
+    "note": "หมา-แมว",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "764 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "arakanimal.com",
+    "chain": true
+   },
+   {
+    "service": "checkup",
+    "price": 2000,
+    "kind": "from",
+    "note": "สาขาทองหล่อ",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "2,000 บาท",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "arakanimal.com",
+    "chain": true
+   }
+  ],
+  "arak-animal-hospital-phuket-โรงพยาบาลสตวอารกษ-สาขาภเกต": [
+   {
+    "service": "vaccine_dog_combo",
+    "price": 764,
+    "kind": "list",
+    "note": "หมา-แมว",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "764 บาท",
+    "service_th": "วัคซีนรวมสุนัข",
+    "source": "arakanimal.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_cat_combo",
+    "price": 764,
+    "kind": "list",
+    "note": "หมา-แมว",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "764 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "arakanimal.com",
+    "chain": true
+   },
+   {
+    "service": "checkup",
+    "price": 2000,
+    "kind": "from",
+    "note": "สาขาทองหล่อ",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "2,000 บาท",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "arakanimal.com",
+    "chain": true
+   }
+  ],
+  "arak-animal-hospital-pradit-manutham-โรงพยาบาลสตวอารกษ-สาขาประดษฐมนธรรม": [
+   {
+    "service": "vaccine_dog_combo",
+    "price": 764,
+    "kind": "list",
+    "note": "หมา-แมว",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "764 บาท",
+    "service_th": "วัคซีนรวมสุนัข",
+    "source": "arakanimal.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_cat_combo",
+    "price": 764,
+    "kind": "list",
+    "note": "หมา-แมว",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "764 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "arakanimal.com",
+    "chain": true
+   },
+   {
+    "service": "checkup",
+    "price": 2000,
+    "kind": "from",
+    "note": "สาขาทองหล่อ",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "2,000 บาท",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "arakanimal.com",
+    "chain": true
+   }
+  ],
+  "arak-animal-hospital-thonglor-โรงพยาบาลสตวอารกษ-สาขาทองหลอ": [
+   {
+    "service": "vaccine_dog_combo",
+    "price": 764,
+    "kind": "list",
+    "note": "หมา-แมว",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "764 บาท",
+    "service_th": "วัคซีนรวมสุนัข",
+    "source": "arakanimal.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_cat_combo",
+    "price": 764,
+    "kind": "list",
+    "note": "หมา-แมว",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "764 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "arakanimal.com",
+    "chain": true
+   },
+   {
+    "service": "checkup",
+    "price": 2000,
+    "kind": "from",
+    "note": "สาขาทองหล่อ",
+    "url": "https://www.arakanimal.com/packages",
+    "quote": "2,000 บาท",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "arakanimal.com",
+    "chain": true
+   }
+  ],
+  "happy-pet-care-แฮปปเพทแคร": [
+   {
+    "service": "neuter_cat_m",
+    "price": 6000,
+    "kind": "promo",
+    "note": "โปรโมชั่น ก.พ.–ต.ค.",
+    "includes": "ตรวจเลือดก่อนผ่าตัด ยาสลบ ผ่าตัด ยาหลังผ่าตัด ชุดหรือปลอกคอกันเลีย",
+    "url": "https://happypet-hospital.com/packages-events",
+    "quote": "ตัวผู้ 6,000 บาท",
+    "service_th": "ทำหมันแมวตัวผู้",
+    "source": "happypet-hospital.com",
+    "chain": false
+   },
+   {
+    "service": "neuter_cat_f",
+    "price": 7500,
+    "kind": "promo",
+    "note": "โปรโมชั่น ก.พ.–ต.ค.",
+    "includes": "ตรวจเลือดก่อนผ่าตัด ยาสลบ ผ่าตัด ยาหลังผ่าตัด ชุดหรือปลอกคอกันเลีย",
+    "url": "https://happypet-hospital.com/packages-events",
+    "quote": "ตัวเมีย 7,500 บาท",
+    "service_th": "ทำหมันแมวตัวเมีย",
+    "source": "happypet-hospital.com",
+    "chain": false
+   },
+   {
+    "service": "vaccine_dog_combo",
+    "price": 299,
+    "kind": "promo",
+    "note": "ถึง 31 ต.ค. 2569",
+    "includes": "ค่าคุณหมอและพยาบาล",
+    "url": "https://happypet-hospital.com/",
+    "quote": "ราคาเพียง 299 บาท",
+    "service_th": "วัคซีนรวมสุนัข",
+    "source": "happypet-hospital.com",
+    "chain": false
+   },
+   {
+    "service": "vaccine_cat_combo",
+    "price": 570,
+    "kind": "from",
+    "url": "https://happypet-hospital.com/services",
+    "quote": "฿570",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "happypet-hospital.com",
+    "chain": false
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 390,
+    "kind": "from",
+    "url": "https://happypet-hospital.com/services",
+    "quote": "฿390",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "happypet-hospital.com",
+    "chain": false
+   },
+   {
+    "service": "checkup",
+    "price": 1990,
+    "regular": 2860,
+    "kind": "promo",
+    "note": "แพ็กเกจ Happy New Friend",
+    "url": "https://happypet-hospital.com/packages-events",
+    "quote": "1,990 บาท (จากปกติ 2,860 บาท)",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "happypet-hospital.com",
+    "chain": false
+   }
+  ],
+  "happy-pet-hospital-ratchada-โรงพยาบาลสตวแฮปปเพท-รชดา": [
+   {
+    "service": "neuter_cat_m",
+    "price": 6000,
+    "kind": "promo",
+    "note": "โปรโมชั่น ก.พ.–ต.ค.",
+    "includes": "ตรวจเลือดก่อนผ่าตัด ยาสลบ ผ่าตัด ยาหลังผ่าตัด ชุดหรือปลอกคอกันเลีย",
+    "url": "https://happypet-hospital.com/packages-events",
+    "quote": "ตัวผู้ 6,000 บาท",
+    "service_th": "ทำหมันแมวตัวผู้",
+    "source": "happypet-hospital.com",
+    "chain": false
+   },
+   {
+    "service": "neuter_cat_f",
+    "price": 7500,
+    "kind": "promo",
+    "note": "โปรโมชั่น ก.พ.–ต.ค.",
+    "includes": "ตรวจเลือดก่อนผ่าตัด ยาสลบ ผ่าตัด ยาหลังผ่าตัด ชุดหรือปลอกคอกันเลีย",
+    "url": "https://happypet-hospital.com/packages-events",
+    "quote": "ตัวเมีย 7,500 บาท",
+    "service_th": "ทำหมันแมวตัวเมีย",
+    "source": "happypet-hospital.com",
+    "chain": false
+   },
+   {
+    "service": "vaccine_dog_combo",
+    "price": 299,
+    "kind": "promo",
+    "note": "ถึง 31 ต.ค. 2569",
+    "includes": "ค่าคุณหมอและพยาบาล",
+    "url": "https://happypet-hospital.com/",
+    "quote": "ราคาเพียง 299 บาท",
+    "service_th": "วัคซีนรวมสุนัข",
+    "source": "happypet-hospital.com",
+    "chain": false
+   },
+   {
+    "service": "vaccine_cat_combo",
+    "price": 570,
+    "kind": "from",
+    "url": "https://happypet-hospital.com/services",
+    "quote": "฿570",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "happypet-hospital.com",
+    "chain": false
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 390,
+    "kind": "from",
+    "url": "https://happypet-hospital.com/services",
+    "quote": "฿390",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "happypet-hospital.com",
+    "chain": false
+   },
+   {
+    "service": "checkup",
+    "price": 1990,
+    "regular": 2860,
+    "kind": "promo",
+    "note": "แพ็กเกจ Happy New Friend",
+    "url": "https://happypet-hospital.com/packages-events",
+    "quote": "1,990 บาท (จากปกติ 2,860 บาท)",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "happypet-hospital.com",
+    "chain": false
+   }
+  ],
+  "happy-pet-hospital-โรงพยาบาลสตวแฮปปเพท": [
+   {
+    "service": "neuter_cat_m",
+    "price": 6000,
+    "kind": "promo",
+    "note": "โปรโมชั่น ก.พ.–ต.ค.",
+    "includes": "ตรวจเลือดก่อนผ่าตัด ยาสลบ ผ่าตัด ยาหลังผ่าตัด ชุดหรือปลอกคอกันเลีย",
+    "url": "https://happypet-hospital.com/packages-events",
+    "quote": "ตัวผู้ 6,000 บาท",
+    "service_th": "ทำหมันแมวตัวผู้",
+    "source": "happypet-hospital.com",
+    "chain": false
+   },
+   {
+    "service": "neuter_cat_f",
+    "price": 7500,
+    "kind": "promo",
+    "note": "โปรโมชั่น ก.พ.–ต.ค.",
+    "includes": "ตรวจเลือดก่อนผ่าตัด ยาสลบ ผ่าตัด ยาหลังผ่าตัด ชุดหรือปลอกคอกันเลีย",
+    "url": "https://happypet-hospital.com/packages-events",
+    "quote": "ตัวเมีย 7,500 บาท",
+    "service_th": "ทำหมันแมวตัวเมีย",
+    "source": "happypet-hospital.com",
+    "chain": false
+   },
+   {
+    "service": "vaccine_dog_combo",
+    "price": 299,
+    "kind": "promo",
+    "note": "ถึง 31 ต.ค. 2569",
+    "includes": "ค่าคุณหมอและพยาบาล",
+    "url": "https://happypet-hospital.com/",
+    "quote": "ราคาเพียง 299 บาท",
+    "service_th": "วัคซีนรวมสุนัข",
+    "source": "happypet-hospital.com",
+    "chain": false
+   },
+   {
+    "service": "vaccine_cat_combo",
+    "price": 570,
+    "kind": "from",
+    "url": "https://happypet-hospital.com/services",
+    "quote": "฿570",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "happypet-hospital.com",
+    "chain": false
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 390,
+    "kind": "from",
+    "url": "https://happypet-hospital.com/services",
+    "quote": "฿390",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "happypet-hospital.com",
+    "chain": false
+   },
+   {
+    "service": "checkup",
+    "price": 1990,
+    "regular": 2860,
+    "kind": "promo",
+    "note": "แพ็กเกจ Happy New Friend",
+    "url": "https://happypet-hospital.com/packages-events",
+    "quote": "1,990 บาท (จากปกติ 2,860 บาท)",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "happypet-hospital.com",
+    "chain": false
+   }
+  ],
+  "paw-and-pal-พ-แอนด-พ": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "pet-friends-animal-hospital": [
+   {
+    "service": "neuter_cat_m",
+    "price": 5500,
+    "kind": "list",
+    "includes": "ที่พัก 3 วัน และฝากดูแล",
+    "url": "https://www.petfriendshospital.com/allpackage/spaycatpackage",
+    "quote": "เพศผู้ราคา 5,500 บาท",
+    "service_th": "ทำหมันแมวตัวผู้",
+    "source": "petfriendshospital.com",
+    "chain": false
+   },
+   {
+    "service": "neuter_cat_f",
+    "price": 7500,
+    "kind": "list",
+    "includes": "ที่พัก 3 วัน และฝากดูแล",
+    "url": "https://www.petfriendshospital.com/allpackage/spaycatpackage",
+    "quote": "เพศเมียราคา 7,500 บาท",
+    "service_th": "ทำหมันแมวตัวเมีย",
+    "source": "petfriendshospital.com",
+    "chain": false
+   },
+   {
+    "service": "neuter_dog_m",
+    "price": 9000,
+    "kind": "list",
+    "note": "ไม่เกิน 20 กก.",
+    "includes": "ที่พัก 3 วัน และฝากดูแล",
+    "url": "https://www.petfriendshospital.com/allpackage/spaydogpackage",
+    "quote": "ราคา 9,000 บาท",
+    "service_th": "ทำหมันสุนัขตัวผู้",
+    "source": "petfriendshospital.com",
+    "chain": false
+   },
+   {
+    "service": "neuter_dog_f",
+    "price": 11000,
+    "kind": "list",
+    "note": "ไม่เกิน 20 กก.",
+    "includes": "ที่พัก 3 วัน และฝากดูแล",
+    "url": "https://www.petfriendshospital.com/allpackage/spaydogpackage",
+    "quote": "ราคา 11,000 บาท",
+    "service_th": "ทำหมันสุนัขตัวเมีย",
+    "source": "petfriendshospital.com",
+    "chain": false
+   },
+   {
+    "service": "vaccine_first_year",
+    "price": 3750,
+    "kind": "list",
+    "note": "สุนัขวัยเด็ก ไม่มีบวกเพิ่ม",
+    "url": "https://www.petfriendshospital.com/allpackage/vaccine-package",
+    "quote": "สำหรับสุนัข ราคา 3,750 บาท",
+    "service_th": "โปรแกรมวัคซีนปีแรก",
+    "source": "petfriendshospital.com",
+    "chain": false
+   },
+   {
+    "service": "vaccine_first_year",
+    "price": 3450,
+    "kind": "list",
+    "note": "แมววัยเด็ก ไม่มีบวกเพิ่ม",
+    "url": "https://www.petfriendshospital.com/allpackage/vaccine-package",
+    "quote": "สำหรับแมว ราคา 3,450 บาท",
+    "service_th": "โปรแกรมวัคซีนปีแรก",
+    "source": "petfriendshospital.com",
+    "chain": false
+   },
+   {
+    "service": "checkup",
+    "price": 3850,
+    "kind": "list",
+    "note": "สุนัขแรกรับ 14 รายการ",
+    "url": "https://www.petfriendshospital.com/allpackage/checkupcatdog",
+    "quote": "14 รายการ ราคา 3,850 บาท",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "petfriendshospital.com",
+    "chain": false
+   },
+   {
+    "service": "checkup",
+    "price": 4850,
+    "kind": "list",
+    "note": "แมวแรกรับ 13 รายการ",
+    "url": "https://www.petfriendshospital.com/allpackage/checkupcatdog",
+    "quote": "13 รายการ ราคา 4,850 บาท",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "petfriendshospital.com",
+    "chain": false
+   }
+  ],
+  "phyathai-7-animal-hospital": [
+   {
+    "service": "checkup",
+    "price": 6666,
+    "kind": "list",
+    "note": "Senior Package สุนัขหรือแมวอายุ 7 ปีขึ้นไป",
+    "url": "https://www.phyathai7pet.com/cat-health-check-package",
+    "quote": "6,666 บาท",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "phyathai7pet.com",
+    "chain": false
+   }
+  ],
+  "slv-pet-hospital": [
+   {
+    "service": "checkup",
+    "price": 990,
+    "kind": "from",
+    "url": "https://www.slv.co.th/slv-best-package/",
+    "quote": "990 บาท",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "slv.co.th",
+    "chain": false
+   }
+  ],
+  "thonglor-chalong-phuket-pet-hospital-โรงพยาบาลสตวทองหลอ-ภเกต": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "thonglor-international-pet-hospital-rama9": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "thonglor-pet-hospital": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "thonglor-pet-hospital-2": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "thonglor-pet-hospital-asoke---prasarnmit-โรงพยาบาลสตวทองหลอ-อโศก-ประสานมตร": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "thonglor-pet-hospital-central-eastville-โรงพยาบาลสตวทองหลอเซนทรลอสตวลล": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "thonglor-pet-hospital-chiang-mai-airport": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "thonglor-pet-hospital-chiang-mai-โรงพยาบาลสตวทองหลอ-เชยงใหม": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "thonglor-pet-hospital-pinklao-โรงพยาบาลสตวทองหลอ": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "thonglor-pet-hospital-prachachuen-โรงพยาบาลสตวทองหลอ-ประชาชน": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "thonglor-pet-hospital-praditmanutham-โรงพยาบาลสตว-ทองหลอ-ประดษฐมนธรรม-เลยบทางดวน": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "thonglor-pet-hospital-rama-2": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "thonglor-pet-hospital-rama-5-โรงพยาบาลสตว-ทองหลอ-พระราม-5": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "thonglor-pet-hospital-rama-6-โรงพยาบาลสตว-ทองหลอ-พระราม-6": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "thonglor-pet-hospital-sathon-naradhiwas---โรงพยาบาลสตวทองหลอ-สาทร-นราธวาส": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "thonglor-pet-hospital-srinakarin-โรงพยาบาลสตวทองหลอ-ศรนครนทร": [
+   {
+    "service": "vaccine_cat_combo",
+    "price": 690,
+    "kind": "list",
+    "note": "วัคซีนรวมแมว 3 โรค (FVRCP)",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "690 บาท",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "vaccine_rabies",
+    "price": 490,
+    "kind": "list",
+    "url": "https://www.thonglorpet.com/petdiary/cat-vaccine-schedule-price-guide",
+    "quote": "490 บาท",
+    "service_th": "วัคซีนพิษสุนัขบ้า",
+    "source": "thonglorpet.com",
+    "chain": true
+   },
+   {
+    "service": "dental",
+    "price": 2500,
+    "price_max": 4000,
+    "kind": "range",
+    "note": "แมว ขูดหินปูน + ยาสลบ ราคาโดยประมาณ",
+    "excludes": "Dental X-ray 1,000–2,000 บาท, ตรวจเลือดก่อนยาสลบ 800–1,500 บาท",
+    "url": "https://www.thonglorpet.com/petdiary/cat-dental-scaling-price-guide",
+    "quote": "2,500–4,000 บาท",
+    "service_th": "ขูดหินปูน",
+    "source": "thonglorpet.com",
+    "chain": true
+   }
+  ],
+  "โรงพยาบาลสตว-หมาดใจ-แมวใจด": [
+   {
+    "service": "neuter_cat_m",
+    "price": 2790,
+    "regular": 3990,
+    "kind": "promo",
+    "url": "https://2h2cvet.com/package/ทำหมันพร้อมขูดหินปูน-จบ/",
+    "quote": "เพศผู้ 3,990฿ 2,790฿",
+    "service_th": "ทำหมันแมวตัวผู้",
+    "source": "2h2cvet.com",
+    "chain": false
+   },
+   {
+    "service": "neuter_dog_m",
+    "price": 2790,
+    "regular": 3990,
+    "kind": "promo",
+    "note": "ไม่เกิน 5 กก.",
+    "includes": "ตรวจร่างกาย ตรวจเลือดชุดใหญ่ ดมยาสลบด้วยเครื่อง ผ่าตัด",
+    "url": "https://2h2cvet.com/package/โปรแกรมทำหมันน้องหมา-ลด/",
+    "quote": "เพศผู้ ไม่เกิน 5 กก. จาก 3,990฿",
+    "service_th": "ทำหมันสุนัขตัวผู้",
+    "source": "2h2cvet.com",
+    "chain": false
+   },
+   {
+    "service": "vaccine_first_year",
+    "price": 1990,
+    "kind": "list",
+    "note": "ลูกสุนัข ครบโปรแกรมปีแรก",
+    "url": "https://2h2cvet.com/package/โปรแกรมวัคซีนขวบปีแรก-ค/",
+    "quote": "ลูกสุนัข 1,990฿",
+    "service_th": "โปรแกรมวัคซีนปีแรก",
+    "source": "2h2cvet.com",
+    "chain": false
+   },
+   {
+    "service": "vaccine_first_year",
+    "price": 2690,
+    "kind": "list",
+    "note": "ลูกแมว รวมวัคซีนลิวคีเมียและชุดตรวจ",
+    "url": "https://2h2cvet.com/package/โปรแกรมวัคซีนขวบปีแรก-ค/",
+    "quote": "ลูกแมว 2,690฿",
+    "service_th": "โปรแกรมวัคซีนปีแรก",
+    "source": "2h2cvet.com",
+    "chain": false
+   }
+  ],
+  "โรงพยาบาลสตว-แอนมอลสเปซ-พระราม9-animal-space-pet-hospital-rama-9": [
+   {
+    "service": "neuter_rabbit_m",
+    "price": 3000,
+    "kind": "list",
+    "excludes": "ค่าบริการทางการแพทย์และค่าโรงพยาบาล",
+    "url": "https://animalspacehospital.com/our-services/sterilization/",
+    "quote": "3,000 บาท",
+    "service_th": "ทำหมันกระต่ายตัวผู้",
+    "source": "animalspacehospital.com",
+    "chain": false
+   },
+   {
+    "service": "neuter_rabbit_f",
+    "price": 4000,
+    "kind": "list",
+    "excludes": "ค่าบริการทางการแพทย์และค่าโรงพยาบาล",
+    "url": "https://animalspacehospital.com/our-services/sterilization/",
+    "quote": "4,000 บาท",
+    "service_th": "ทำหมันกระต่ายตัวเมีย",
+    "source": "animalspacehospital.com",
+    "chain": false
+   },
+   {
+    "service": "checkup",
+    "price": 999,
+    "kind": "from",
+    "note": "สัตว์ Exotic, Starter (มี 1,399 / 2,199)",
+    "includes": "VAT ค่าแพทย์ และค่าโรงพยาบาล",
+    "url": "https://animalspacehospital.com/our-services/annual-health-check/",
+    "quote": "999 บาท",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "animalspacehospital.com",
+    "chain": false
+   },
+   {
+    "service": "other",
+    "price": 1500,
+    "kind": "from",
+    "note": "ทำหมันชูการ์ไกลเดอร์ตัวผู้",
+    "url": "https://animalspacehospital.com/our-services/sterilization/",
+    "quote": "1,500 บาท",
+    "service_th": "อื่น ๆ",
+    "source": "animalspacehospital.com",
+    "chain": false
+   }
+  ],
+  "โรงพยาบาลสตวดอยสะเกด-doisaket-animal-hospital": [
+   {
+    "service": "vaccine_dog_combo",
+    "price": 350,
+    "kind": "from",
+    "note": "วัคซีนหลัก สุนัขและแมว",
+    "url": "https://doisaketpet.com/prices",
+    "quote": "เริ่ม ฿350",
+    "service_th": "วัคซีนรวมสุนัข",
+    "source": "doisaketpet.com",
+    "chain": false
+   },
+   {
+    "service": "vaccine_cat_combo",
+    "price": 350,
+    "kind": "from",
+    "note": "วัคซีนหลัก สุนัขและแมว",
+    "url": "https://doisaketpet.com/prices",
+    "quote": "เริ่ม ฿350",
+    "service_th": "วัคซีนรวมแมว",
+    "source": "doisaketpet.com",
+    "chain": false
+   },
+   {
+    "service": "checkup",
+    "price": 1200,
+    "kind": "from",
+    "note": "ตรวจสุขภาพประจำปี",
+    "url": "https://doisaketpet.com/prices",
+    "quote": "เริ่ม ฿1,200",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "doisaketpet.com",
+    "chain": false
+   }
+  ],
+  "โรงพยาบาลสตวตลงชน-talingchan-animal-hospital": [
+   {
+    "service": "neuter_cat_m",
+    "price": 3000,
+    "kind": "list",
+    "includes": "ผ่าตัด ค่าสัตวแพทย์ ดมยาสลบ",
+    "excludes": "VAT 7%, ค่าบริการโรงพยาบาล 80 บาท, ตรวจเลือดก่อนผ่าตัด 2,500–3,000 บาท",
+    "url": "https://www.talingchanpet.net/package-dog-cat/",
+    "quote": "แมวเพศผู้ 3,000 บาท",
+    "service_th": "ทำหมันแมวตัวผู้",
+    "source": "talingchanpet.net",
+    "chain": false
+   },
+   {
+    "service": "neuter_cat_f",
+    "price": 4000,
+    "kind": "list",
+    "includes": "ผ่าตัด ค่าสัตวแพทย์ ดมยาสลบ",
+    "excludes": "VAT 7%, ค่าบริการโรงพยาบาล 80 บาท, ตรวจเลือดก่อนผ่าตัด 2,500–3,000 บาท",
+    "url": "https://www.talingchanpet.net/package-dog-cat/",
+    "quote": "แมวเพศเมีย 4,000 บาท",
+    "service_th": "ทำหมันแมวตัวเมีย",
+    "source": "talingchanpet.net",
+    "chain": false
+   },
+   {
+    "service": "neuter_dog_m",
+    "price": 6500,
+    "kind": "list",
+    "note": "น้ำหนัก 1–10 กก.",
+    "includes": "ผ่าตัด ค่าสัตวแพทย์ ดมยาสลบ",
+    "excludes": "VAT 7%, ค่าบริการโรงพยาบาล 80 บาท, ตรวจเลือดก่อนผ่าตัด 3,000–3,200 บาท",
+    "url": "https://www.talingchanpet.net/",
+    "quote": "1-10 KG. 6,500 บาท 7,000 บาท",
+    "service_th": "ทำหมันสุนัขตัวผู้",
+    "source": "talingchanpet.net",
+    "chain": false
+   },
+   {
+    "service": "neuter_dog_f",
+    "price": 7000,
+    "kind": "list",
+    "note": "น้ำหนัก 1–10 กก.",
+    "includes": "ผ่าตัด ค่าสัตวแพทย์ ดมยาสลบ",
+    "excludes": "VAT 7%, ค่าบริการโรงพยาบาล 80 บาท, ตรวจเลือดก่อนผ่าตัด 3,000–3,200 บาท",
+    "url": "https://www.talingchanpet.net/",
+    "quote": "1-10 KG. 6,500 บาท 7,000 บาท",
+    "service_th": "ทำหมันสุนัขตัวเมีย",
+    "source": "talingchanpet.net",
+    "chain": false
+   },
+   {
+    "service": "neuter_rabbit_m",
+    "price": 3000,
+    "kind": "list",
+    "includes": "ผ่าตัด ค่าสัตวแพทย์ ดมยาสลบ",
+    "excludes": "ตรวจเลือดก่อนผ่าตัด 2,560 บาท, ค่าบริการโรงพยาบาล 80 บาท, เวชภัณฑ์ 250 บาท, VAT",
+    "url": "https://www.talingchanpet.net/sterilization-of-rabbits/",
+    "quote": "ทำหมันเพศผู้ 3,000 บาท",
+    "service_th": "ทำหมันกระต่ายตัวผู้",
+    "source": "talingchanpet.net",
+    "chain": false
+   },
+   {
+    "service": "neuter_rabbit_f",
+    "price": 4000,
+    "kind": "list",
+    "includes": "ผ่าตัด ค่าสัตวแพทย์ ดมยาสลบ",
+    "excludes": "ตรวจเลือดก่อนผ่าตัด 2,560 บาท, ค่าบริการโรงพยาบาล 80 บาท, เวชภัณฑ์ 250 บาท, VAT",
+    "url": "https://www.talingchanpet.net/sterilization-of-rabbits/",
+    "quote": "ทำหมันเพศเมีย 4,000 บาท",
+    "service_th": "ทำหมันกระต่ายตัวเมีย",
+    "source": "talingchanpet.net",
+    "chain": false
+   }
+  ],
+  "โรงพยาบาลสตวยเวท-บางนา-uvet-animal-hospital-bangna": [
+   {
+    "service": "neuter_cat_m",
+    "price": 4300,
+    "kind": "from",
+    "includes": "แพ็กเกจรวมค่าใช้จ่ายทั้งหมดในการทำหมัน",
+    "url": "https://www.uvethospital.com/post/cat-neutering",
+    "quote": "แมวตัวผู้ ราคาเริ่มต้น 4,300 บาท",
+    "service_th": "ทำหมันแมวตัวผู้",
+    "source": "uvethospital.com",
+    "chain": true
+   },
+   {
+    "service": "neuter_cat_f",
+    "price": 5300,
+    "kind": "from",
+    "includes": "แพ็กเกจรวมค่าใช้จ่ายทั้งหมดในการทำหมัน",
+    "url": "https://www.uvethospital.com/post/cat-neutering",
+    "quote": "แมวตัวเมีย ราคาเริ่มต้น 5,300 บาท",
+    "service_th": "ทำหมันแมวตัวเมีย",
+    "source": "uvethospital.com",
+    "chain": true
+   },
+   {
+    "service": "neuter_dog_m",
+    "price": 5000,
+    "kind": "from",
+    "note": "ประมาณการ ขึ้นกับเพศ ขนาด น้ำหนัก",
+    "url": "https://www.uvethospital.com/post/dog-neutering",
+    "quote": "เริ่มต้นประมาณ 5,000 บาทขึ้นไป",
+    "service_th": "ทำหมันสุนัขตัวผู้",
+    "source": "uvethospital.com",
+    "chain": true
+   }
+  ],
+  "โรงพยาบาลสตวยเวท-รามคำแหง-832-24-ชวโมง-uvet-animal-hospital-ramkhamhaeng": [
+   {
+    "service": "neuter_cat_m",
+    "price": 4300,
+    "kind": "from",
+    "includes": "แพ็กเกจรวมค่าใช้จ่ายทั้งหมดในการทำหมัน",
+    "url": "https://www.uvethospital.com/post/cat-neutering",
+    "quote": "แมวตัวผู้ ราคาเริ่มต้น 4,300 บาท",
+    "service_th": "ทำหมันแมวตัวผู้",
+    "source": "uvethospital.com",
+    "chain": true
+   },
+   {
+    "service": "neuter_cat_f",
+    "price": 5300,
+    "kind": "from",
+    "includes": "แพ็กเกจรวมค่าใช้จ่ายทั้งหมดในการทำหมัน",
+    "url": "https://www.uvethospital.com/post/cat-neutering",
+    "quote": "แมวตัวเมีย ราคาเริ่มต้น 5,300 บาท",
+    "service_th": "ทำหมันแมวตัวเมีย",
+    "source": "uvethospital.com",
+    "chain": true
+   },
+   {
+    "service": "neuter_dog_m",
+    "price": 5000,
+    "kind": "from",
+    "note": "ประมาณการ ขึ้นกับเพศ ขนาด น้ำหนัก",
+    "url": "https://www.uvethospital.com/post/dog-neutering",
+    "quote": "เริ่มต้นประมาณ 5,000 บาทขึ้นไป",
+    "service_th": "ทำหมันสุนัขตัวผู้",
+    "source": "uvethospital.com",
+    "chain": true
+   }
+  ],
+  "โรงพยาบาลสตวยเวท-รามอนทรา-uvet-animal-hospital-ramintra": [
+   {
+    "service": "neuter_cat_m",
+    "price": 4300,
+    "kind": "from",
+    "includes": "แพ็กเกจรวมค่าใช้จ่ายทั้งหมดในการทำหมัน",
+    "url": "https://www.uvethospital.com/post/cat-neutering",
+    "quote": "แมวตัวผู้ ราคาเริ่มต้น 4,300 บาท",
+    "service_th": "ทำหมันแมวตัวผู้",
+    "source": "uvethospital.com",
+    "chain": true
+   },
+   {
+    "service": "neuter_cat_f",
+    "price": 5300,
+    "kind": "from",
+    "includes": "แพ็กเกจรวมค่าใช้จ่ายทั้งหมดในการทำหมัน",
+    "url": "https://www.uvethospital.com/post/cat-neutering",
+    "quote": "แมวตัวเมีย ราคาเริ่มต้น 5,300 บาท",
+    "service_th": "ทำหมันแมวตัวเมีย",
+    "source": "uvethospital.com",
+    "chain": true
+   },
+   {
+    "service": "neuter_dog_m",
+    "price": 5000,
+    "kind": "from",
+    "note": "ประมาณการ ขึ้นกับเพศ ขนาด น้ำหนัก",
+    "url": "https://www.uvethospital.com/post/dog-neutering",
+    "quote": "เริ่มต้นประมาณ 5,000 บาทขึ้นไป",
+    "service_th": "ทำหมันสุนัขตัวผู้",
+    "source": "uvethospital.com",
+    "chain": true
+   }
+  ],
+  "โรงพยาบาลสตวยเวท-เกษตร-24-ชวโมง-uvet-animal-hospital-kaset": [
+   {
+    "service": "neuter_cat_m",
+    "price": 4300,
+    "kind": "from",
+    "includes": "แพ็กเกจรวมค่าใช้จ่ายทั้งหมดในการทำหมัน",
+    "url": "https://www.uvethospital.com/post/cat-neutering",
+    "quote": "แมวตัวผู้ ราคาเริ่มต้น 4,300 บาท",
+    "service_th": "ทำหมันแมวตัวผู้",
+    "source": "uvethospital.com",
+    "chain": true
+   },
+   {
+    "service": "neuter_cat_f",
+    "price": 5300,
+    "kind": "from",
+    "includes": "แพ็กเกจรวมค่าใช้จ่ายทั้งหมดในการทำหมัน",
+    "url": "https://www.uvethospital.com/post/cat-neutering",
+    "quote": "แมวตัวเมีย ราคาเริ่มต้น 5,300 บาท",
+    "service_th": "ทำหมันแมวตัวเมีย",
+    "source": "uvethospital.com",
+    "chain": true
+   },
+   {
+    "service": "neuter_dog_m",
+    "price": 5000,
+    "kind": "from",
+    "note": "ประมาณการ ขึ้นกับเพศ ขนาด น้ำหนัก",
+    "url": "https://www.uvethospital.com/post/dog-neutering",
+    "quote": "เริ่มต้นประมาณ 5,000 บาทขึ้นไป",
+    "service_th": "ทำหมันสุนัขตัวผู้",
+    "source": "uvethospital.com",
+    "chain": true
+   }
+  ],
+  "โรงพยาบาลสตวยเวท-เจรญนคร-uvet-animal-hospital-charoen-nakhon": [
+   {
+    "service": "neuter_cat_m",
+    "price": 4300,
+    "kind": "from",
+    "includes": "แพ็กเกจรวมค่าใช้จ่ายทั้งหมดในการทำหมัน",
+    "url": "https://www.uvethospital.com/post/cat-neutering",
+    "quote": "แมวตัวผู้ ราคาเริ่มต้น 4,300 บาท",
+    "service_th": "ทำหมันแมวตัวผู้",
+    "source": "uvethospital.com",
+    "chain": true
+   },
+   {
+    "service": "neuter_cat_f",
+    "price": 5300,
+    "kind": "from",
+    "includes": "แพ็กเกจรวมค่าใช้จ่ายทั้งหมดในการทำหมัน",
+    "url": "https://www.uvethospital.com/post/cat-neutering",
+    "quote": "แมวตัวเมีย ราคาเริ่มต้น 5,300 บาท",
+    "service_th": "ทำหมันแมวตัวเมีย",
+    "source": "uvethospital.com",
+    "chain": true
+   },
+   {
+    "service": "neuter_dog_m",
+    "price": 5000,
+    "kind": "from",
+    "note": "ประมาณการ ขึ้นกับเพศ ขนาด น้ำหนัก",
+    "url": "https://www.uvethospital.com/post/dog-neutering",
+    "quote": "เริ่มต้นประมาณ 5,000 บาทขึ้นไป",
+    "service_th": "ทำหมันสุนัขตัวผู้",
+    "source": "uvethospital.com",
+    "chain": true
+   }
+  ],
+  "โรงพยาบาลสตวยเวท-โชคชย-4-uvet-animal-hospital-chokchai-4": [
+   {
+    "service": "neuter_cat_m",
+    "price": 4300,
+    "kind": "from",
+    "includes": "แพ็กเกจรวมค่าใช้จ่ายทั้งหมดในการทำหมัน",
+    "url": "https://www.uvethospital.com/post/cat-neutering",
+    "quote": "แมวตัวผู้ ราคาเริ่มต้น 4,300 บาท",
+    "service_th": "ทำหมันแมวตัวผู้",
+    "source": "uvethospital.com",
+    "chain": true
+   },
+   {
+    "service": "neuter_cat_f",
+    "price": 5300,
+    "kind": "from",
+    "includes": "แพ็กเกจรวมค่าใช้จ่ายทั้งหมดในการทำหมัน",
+    "url": "https://www.uvethospital.com/post/cat-neutering",
+    "quote": "แมวตัวเมีย ราคาเริ่มต้น 5,300 บาท",
+    "service_th": "ทำหมันแมวตัวเมีย",
+    "source": "uvethospital.com",
+    "chain": true
+   },
+   {
+    "service": "neuter_dog_m",
+    "price": 5000,
+    "kind": "from",
+    "note": "ประมาณการ ขึ้นกับเพศ ขนาด น้ำหนัก",
+    "url": "https://www.uvethospital.com/post/dog-neutering",
+    "quote": "เริ่มต้นประมาณ 5,000 บาทขึ้นไป",
+    "service_th": "ทำหมันสุนัขตัวผู้",
+    "source": "uvethospital.com",
+    "chain": true
+   }
+  ],
+  "โรงพยาบาลสตวฮานะ-hana-animal-hospital": [
+   {
+    "service": "neuter_cat_m",
+    "price": 1300,
+    "kind": "list",
+    "excludes": "ชุดตรวจก่อนผ่าตัดแบบละเอียด +490 บาท (ชุดมาตรฐานรวมแล้ว)",
+    "url": "https://hanaanimalhospital.com/services/",
+    "quote": "แมวเพศผู้ 1,300 บาท",
+    "service_th": "ทำหมันแมวตัวผู้",
+    "source": "hanaanimalhospital.com",
+    "chain": false
+   },
+   {
+    "service": "neuter_dog_m",
+    "price": 2700,
+    "kind": "from",
+    "url": "https://hanaanimalhospital.com/services/",
+    "quote": "สุนัขเพศผู้เริ่ม 2,700 บาท",
+    "service_th": "ทำหมันสุนัขตัวผู้",
+    "source": "hanaanimalhospital.com",
+    "chain": false
+   }
+  ],
+  "โรงพยาบาลสตวแอทโมส-ลาดพราว71-utmost-pet-hospital": [
+   {
+    "service": "checkup",
+    "price": 1599,
+    "kind": "from",
+    "url": "https://www.utmost-pet.com/package-promotion/health-check-2/",
+    "quote": "1,599 บาท",
+    "service_th": "แพ็กเกจตรวจสุขภาพ",
+    "source": "utmost-pet.com",
+    "chain": false
+   }
+  ]
+ }
+}

@@ -41,6 +41,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/hospital/emergency`,       priority: 0.9,  changeFrequency: 'weekly'  },
     { url: `${BASE}/hospital/exotic`,          priority: 0.9,  changeFrequency: 'weekly'  },
     { url: `${BASE}/hospital/report`,          priority: 0.9,  changeFrequency: 'monthly' },
+    { url: `${BASE}/hospital/prices`,          priority: 0.9,  changeFrequency: 'weekly'  },
+    { url: `${BASE}/english-speaking-vets`,    priority: 0.8,  changeFrequency: 'monthly' },
     { url: `${BASE}/hospital/license`,         priority: 0.9,  changeFrequency: 'monthly' },
     { url: `${BASE}/vet-license`,              priority: 0.9,  changeFrequency: 'monthly' },
     { url: `${BASE}/mri`,                      priority: 0.8,  changeFrequency: 'monthly' },

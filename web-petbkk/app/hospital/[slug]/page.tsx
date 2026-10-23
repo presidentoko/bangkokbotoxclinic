@@ -12,6 +12,8 @@ import OwnerReports from '@/components/OwnerReports'
 import GoogleReviews from '@/components/GoogleReviews'
 import ClinicProfile from '@/components/ClinicProfile'
 import { getProfile } from '@/lib/hospitalProfiles'
+import { getClinicPrices } from '@/lib/clinicPrices'
+import ClinicPrices from '@/components/ClinicPrices'
 import NearbyHospitals from '@/components/NearbyHospitals'
 import HospitalShareButtons from '@/components/HospitalShareButtons'
 import PantipReviews from '@/components/PantipReviews'
@@ -380,6 +382,7 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
   const googleReviews = getGoogleReviews(h.id)
   const ownerSignals = getSignals(h.id)
   const profile = getProfile(h.id)
+  const prices = getClinicPrices(h.id)
   const reviewUrl = h.google_place_id
     ? `https://search.google.com/local/reviews?placeid=${h.google_place_id}`
     : null
@@ -650,6 +653,10 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
           copied text existed only until you compared it with Maps. Clinics
           with fewer than ten reviews read have no profile and keep three
           short excerpts. */}
+      {/* The clinic's own published prices, with what each includes. 42
+          clinics publish any; most Thai clinics publish none. */}
+      {prices && <ClinicPrices items={prices} />}
+
       {profile
         ? <ClinicProfile p={profile} reviewUrl={reviewUrl} />
         : googleReviews && <GoogleReviews set={googleReviews} reviewUrl={reviewUrl} />}
@@ -667,6 +674,8 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
         <a href="/emergency" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">🚨 คู่มือฉุกเฉิน</a>
         <a href="/neutering" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">✂️ ทำหมัน</a>
         <a href="/cost" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">💰 ค่ารักษา</a>
+        <a href="/hospital/prices" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">🏷️ เทียบราคาทำหมัน/วัคซีน</a>
+        <a href="/hospital/report" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">📊 รีวิว 19,022 รีวิวบอกอะไร</a>
         <a href="/vaccine" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">💉 ตารางวัคซีน</a>
         <a href="/insurance" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">🛡️ ประกันสัตว์เลี้ยง</a>
       </div>
