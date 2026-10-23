@@ -1,5 +1,6 @@
 import { notFound, permanentRedirect } from "next/navigation";
 import { reviewExcerpt } from "@/lib/reviewExcerpt";
+import { ClinicInsights } from "@/components/ClinicInsights";
 import { LicenseCheck } from "@/components/LicenseCheck";
 import { getClinicLicense } from "@/lib/licenses";
 import { loadMasterDb, getClinicById, getClinicByRouteKey, isLegacyClinicKey, makeCompositeDoctorSlug } from "@/lib/data";
@@ -474,6 +475,8 @@ export default async function ClinicPage(
           <ReviewSignals clinic={c} />
 
           <PantipMentions clinic={c} />
+
+          <ClinicInsights clinicId={c.id} lang={lang} />
 
           <TrustDonut score={c.trust_score} breakdown={breakdown} />
 

@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { reviewExcerpt } from "@/lib/reviewExcerpt";
 import { loadMasterDb, getAllDoctors, getDoctorByCompositeSlug, makeCompositeDoctorSlug } from "@/lib/data";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
@@ -263,9 +264,9 @@ export default async function DoctorPage(
             <section className="bg-white border border-[var(--border)] rounded-xl p-5">
               <h2 className="text-lg font-bold mb-3">What patients say about Dr. {d.name}</h2>
               <div className="space-y-3">
-                {d.samples.map((s, i) => (
+                {d.samples.slice(0, 3).map((s, i) => (
                   <blockquote key={i} className="border-l-4 border-[var(--accent)] bg-gray-50 px-4 py-3 rounded-r">
-                    <p className="text-sm leading-relaxed">{s.text}</p>
+                    <p className="text-sm leading-relaxed">{reviewExcerpt(s.text)}</p>
                     <footer className="mt-2 text-xs text-[var(--muted)] flex items-center gap-2">
                       <span className="text-yellow-700">★ {s.rating}</span>
                       <span>·</span>

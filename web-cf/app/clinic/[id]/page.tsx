@@ -4,6 +4,9 @@ import { getClinicLicense } from "@/lib/licenses";
 import { loadMasterDb, getClinicById, getClinicByRouteKey, isLegacyClinicKey, makeCompositeDoctorSlug } from "@/lib/data";
 import { loadPricing, summarisePackages, priceRangeTHB } from "@/lib/pricing";
 import { loadPhotos } from "@/lib/photos";
+import { reviewExcerpt } from "@/lib/reviewExcerpt";
+import { ClinicInsights } from "@/components/ClinicInsights";
+import { getClinicInsights } from "@/lib/clinicInsights";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { CATEGORY_LABELS, CATEGORY_LABELS_TH } from "@/lib/types";
 import { BreadcrumbJsonLd, ClinicJsonLd, FaqJsonLd, SpeakableJsonLd } from "@/components/JsonLd";
@@ -139,7 +142,21 @@ export async function generateMetadata(
   // listing, sitting next to it in the SERP, cannot.
   const _lic = getClinicLicense(c.id);
   const _licBit = _lic ? ` MOPH licence ${_lic.license_no}.` : "";
-  const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} from ${c.total_reviews} Google reviews.${_hoursBit}${_licBit} ${cats || "Aesthetic clinic"}.`.replace(/\s+/g, " ").trim();
+  // 2026-10-23: 우리 리뷰 집계에서 가장 많이 언급된 칭찬 항목 1~2개 (언급 8건+, 긍정 80%+).
+  // 별점·리뷰 수는 옆 지도팩에도 있지만 이 숫자는 여기에만 있다.
+  const _ins = getClinicInsights(c.id);
+  const _ASPECT_EN: Record<string, string> = { painless: "little or no pain", explanation: "clear explanations", staff: "friendly staff", cleanliness: "cleanliness", value: "fair pricing", english: "English communication" };
+  const _praised = _ins
+    ? Object.entries(_ins.aspects)
+        .map(([k, v]) => ({ k, n: v.pos + v.neg, pct: v.pos + v.neg ? Math.round((100 * v.pos) / (v.pos + v.neg)) : 0 }))
+        .filter((x) => x.n >= 8 && x.pct >= 80)
+        .sort((x, y) => y.n - x.n)
+        .slice(0, 2)
+    : [];
+  const _insBit = _praised.length
+    ? ` Reviewers praise ${_praised.map((x) => `${_ASPECT_EN[x.k]} (${x.pct}% of ${x.n} mentions)`).join(" and ")}.`
+    : "";
+  const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} from ${c.total_reviews} Google reviews.${_insBit}${_hoursBit}${_licBit} ${cats || "Aesthetic clinic"}.`.replace(/\s+/g, " ").trim();
 
   // 이 사이트 소관이 아닌 클리닉이면 (예: 덴탈 사이트에 뜬 보톡스 전용 클리닉)
   // 절대 URL로 진짜 소유 도메인을 캐노니컬로 지정 + noindex — 두 도메인 동시 색인 방지.
@@ -319,8 +336,12 @@ export default async function ClinicPage(
   // 번역 없는 것보다 앞 — 외국인이 읽을 수 있는 순서.
   const rank = (r: (typeof tagged)[number]) =>
     r.srcLang === L ? 0 : L === "en" && r.en ? 1 : 2;
-  // 4 → 8. 데이터가 얕을 때 정한 상한이라 깊은 샘플을 그대로 잘라냈다.
-  const samples = [...tagged].sort((a, b) => rank(a) - rank(b)).slice(0, 8);
+  // 2026-10-22: 8개 전문 → 3개 발췌, 작성자 이름 제거 (사용자 결정).
+  // 8개 전문은 페이지당 구글 리뷰 원문 ~14,000자 — 구글 지도에 그대로 있는
+  // 글이라 고유 콘텐츠가 아니라 복제 콘텐츠다(8/18 스팸 업데이트 피격 사이트).
+  // 고유한 건 위의 분석 블록(ReviewSignals·TrustDonut·RatingChart·TopicCluster·
+  // LicenseCheck)이고, 리뷰는 그 분석을 뒷받침하는 짧은 인용으로만 쓴다.
+  const samples = [...tagged].sort((a, b) => rank(a) - rank(b)).slice(0, 3);
 
   // Pricing — hdmall package 데이터(있는 경우)
   // 2026-09-02: 멀티지점 브랜드면 허브로 링크 (web/ 과 동일).
@@ -590,6 +611,8 @@ export default async function ClinicPage(
               this page that a Google listing cannot also show. */}
           <LicenseCheck clinicId={c.id} lang={lang} />
 
+          <ClinicInsights clinicId={c.id} lang={L} />
+
           <ReviewSignals clinic={c} lang={L} />
 
           {/* Pantip — 태국 최대 커뮤니티 토픽 인용 + 외부 backlink */}
@@ -669,17 +692,17 @@ export default async function ClinicPage(
                   <blockquote key={i} className="border-l-4 border-[var(--accent)] bg-white px-4 py-3 rounded-r">
                     {L === "en" && r.srcLang === "th" && r.en ? (
                       <>
-                        <p className="text-sm leading-relaxed">{r.en}</p>
+                        <p className="text-sm leading-relaxed">{reviewExcerpt(r.en)}</p>
                         <details className="mt-1 text-xs text-[var(--muted)]">
                           <summary className="cursor-pointer">{t.original}</summary>
-                          <p lang="th" className="mt-1 leading-relaxed">{r.text}</p>
+                          <p lang="th" className="mt-1 leading-relaxed">{reviewExcerpt(r.text)}</p>
                         </details>
                       </>
                     ) : (
-                      <p lang={r.srcLang} className="text-sm leading-relaxed">{r.text}</p>
+                      <p lang={r.srcLang} className="text-sm leading-relaxed">{reviewExcerpt(r.text)}</p>
                     )}
                     <footer className="mt-2 text-xs text-[var(--muted)] flex flex-wrap items-center gap-2">
-                      <span className="font-medium">{r.author || t.reviewer}</span>
+                      <span className="font-medium">{t.reviewer}</span>
                       <span>·</span>
                       <span className="text-yellow-700">★ {r.rating}</span>
                       {L === "en" && r.srcLang === "th" && r.en ? (

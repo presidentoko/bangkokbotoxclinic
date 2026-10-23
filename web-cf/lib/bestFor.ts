@@ -2,6 +2,7 @@
 // 각 criterion 은 점수 함수 + label + 설명.
 
 import type { Clinic } from "./types";
+import { aspectScore, type ClinicAspect } from "./clinicInsights";
 
 export type Criterion = {
   slug: string;
@@ -18,6 +19,16 @@ const topicHits = (c: Clinic, topic: string) => {
   return t ? t.count : 0;
 };
 
+// 2026-10-23: 칭찬 언급 "수"만 세던 정렬을 칭찬 vs 불만 "비율"(Wilson 하한)로.
+// 언급이 많지만 불만도 많은 곳이 위로 오던 문제를 막는다. 리뷰 집계가 충분한
+// (언급 5건+, 하한 0.5+) 클리닉이 먼저, 나머지는 예전 방식으로 그 아래.
+const byAspect = (aspect: ClinicAspect, topic: string, weight: number) => (c: Clinic) => {
+  const w = aspectScore(c.id, aspect);
+  return w >= 0.5 ? 1000 + w * 100 + c.trust_score / 100 : topicHits(c, topic) * weight + c.trust_score;
+};
+const hasAspect = (aspect: ClinicAspect, topic: string) => (c: Clinic) =>
+  topicHits(c, topic) >= 1 || aspectScore(c.id, aspect) >= 0.5;
+
 export const BEST_FOR: Criterion[] = [
   {
     slug: "english-speaking",
@@ -26,9 +37,9 @@ export const BEST_FOR: Criterion[] = [
     metaDescription:
       "Bangkok clinics ranked by reviewer mentions of English-speaking staff. Verified from real Google review analysis — ideal for tourists and expats.",
     intro:
-      "Bangkok clinics where the most reviewers explicitly mention English-speaking staff. Sorted by mention count weighted by Trust Score. All listings verified from public Google reviews.",
-    scoreFn: (c) => topicHits(c, "english_speaking") * 10 + c.trust_score,
-    filterFn: (c) => topicHits(c, "english_speaking") >= 1,
+      "Bangkok clinics ranked by how reviewers rate communication in English — the share of mentions that are positive (good English) versus negative (no English), adjusted so a handful of mentions cannot outrank hundreds. Counted by us across every review we collected.",
+    scoreFn: byAspect("english", "english_speaking", 10),
+    filterFn: hasAspect("english", "english_speaking"),
   },
   {
     slug: "genuine-brand",
@@ -48,9 +59,9 @@ export const BEST_FOR: Criterion[] = [
     metaDescription:
       "Bangkok clinics most often described as affordable, reasonably priced, or good value in real Google reviews.",
     intro:
-      "Bangkok clinics where reviewers most often use words like affordable, cheap, reasonable price, or good value. Note: low price ≠ low quality — Trust Score is also factored in.",
-    scoreFn: (c) => topicHits(c, "affordable") * 8 + c.trust_score,
-    filterFn: (c) => topicHits(c, "affordable") >= 1,
+      "Bangkok clinics ranked by the share of reviews that call the price fair or good value versus overpriced, across every review we collected (English and Thai). Low price ≠ low quality — check each clinic's full review analysis.",
+    scoreFn: byAspect("value", "affordable", 8),
+    filterFn: hasAspect("value", "affordable"),
   },
   {
     slug: "premium",
@@ -70,9 +81,9 @@ export const BEST_FOR: Criterion[] = [
     metaDescription:
       "Bangkok clinics where reviewers most often describe treatments as painless or comfortable.",
     intro:
-      "Bangkok aesthetic clinics where reviewers most often mention treatments being painless or comfortable. Strong protocol for numbing cream and gentle technique.",
-    scoreFn: (c) => topicHits(c, "no_pain") * 10 + c.trust_score,
-    filterFn: (c) => topicHits(c, "no_pain") >= 1,
+      "Bangkok clinics ranked by the share of reviews describing little or no pain versus painful or heavy-handed treatment, across every review we collected (English and Thai).",
+    scoreFn: byAspect("painless", "no_pain", 10),
+    filterFn: hasAspect("painless", "no_pain"),
   },
   {
     slug: "professional",

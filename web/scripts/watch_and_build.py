@@ -114,7 +114,33 @@ def run_build() -> bool:
 
     # 빌드 성공 → crisis alert chain. 파트너 신규 부정 리뷰 detect → LINE/email push.
     run_crisis_alert()
+    run_clinic_insights()
     return True
+
+
+# 2026-10-23: 클리닉 리뷰 집계(scripts/build_clinic_insights.py → clinic-insights.json).
+# 리뷰 CSV 전부를 읽어 ~4분 걸리므로 하루 한 번만.
+INSIGHTS_SCRIPT = ROOT / "scripts" / "build_clinic_insights.py"
+INSIGHTS_EVERY = 24 * 3600
+_last_insights = 0.0
+
+
+def run_clinic_insights() -> None:
+    global _last_insights
+    if time.time() - _last_insights < INSIGHTS_EVERY or not INSIGHTS_SCRIPT.exists():
+        return
+    try:
+        result = subprocess.run(
+            [str(VENV_PY), str(INSIGHTS_SCRIPT)],
+            capture_output=True, text=True, timeout=900, encoding="utf-8",
+        )
+        log.info(f"  insights: {(result.stdout or '').strip()[-200:]}")
+        if result.returncode != 0:
+            log.warning(f"build_clinic_insights exit {result.returncode}: {(result.stderr or '')[-500:]}")
+        else:
+            _last_insights = time.time()
+    except Exception as e:
+        log.error(f"build_clinic_insights spawn 실패: {e}")
 
 
 def run_crisis_alert() -> None:

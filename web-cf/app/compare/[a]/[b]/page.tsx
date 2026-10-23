@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { reviewExcerpt } from "@/lib/reviewExcerpt";
 import { loadMasterDb, getClinicById } from "@/lib/data";
 import { CATEGORY_LABELS, TOPIC_LABELS, type Clinic } from "@/lib/types";
 import { CategoryIcon } from "@/components/CategoryIcon";
@@ -430,8 +431,8 @@ function SampleReview({ clinic }: { clinic: Clinic }) {
     <div>
       <h4 className="text-sm font-semibold mb-2 truncate">{clinic.name}</h4>
       <blockquote className="bg-amber-50 border-l-4 border-amber-300 rounded-r-lg p-3 text-sm italic text-gray-700 leading-relaxed">
-        &ldquo;{positive.text.slice(0, 200)}{positive.text.length > 200 ? "..." : ""}&rdquo;
-        <footer className="not-italic text-xs text-[var(--muted)] mt-2">— {positive.author || "Anonymous"}, {"★".repeat(positive.rating)}</footer>
+        &ldquo;{reviewExcerpt(positive.text, 200)}&rdquo;
+        <footer className="not-italic text-xs text-[var(--muted)] mt-2">— Google reviewer, {"★".repeat(positive.rating)}</footer>
       </blockquote>
     </div>
   );
