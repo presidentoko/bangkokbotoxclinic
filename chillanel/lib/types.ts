@@ -36,6 +36,21 @@ export type Place = {
   ratingDistribution: RatingDistribution;
   priceMentions: number[];
   district: string | null;
+  /** Mined from every scraped review (scripts/extract-insights.mjs). Optional: absent in older data files. */
+  insights?: PlaceInsights;
+};
+
+export type AspectKey = "cleanliness" | "value" | "staff" | "skill" | "pressure" | "english";
+
+export type PlaceInsights = {
+  analysed: number;
+  withText: number;
+  aspects: Record<AspectKey, { pos: number; neg: number }>;
+  tipPressure: number;
+  trend: { recentAvg: number; recentN: number; beforeAvg: number; beforeN: number } | null;
+  reviewers: { localGuidePct: number; medianAuthorReviews: number | null } | null;
+  languages: Partial<Record<"ko" | "ja" | "zh" | "th" | "ru", number>>;
+  spent: number[];
 };
 
 export type CityData = {

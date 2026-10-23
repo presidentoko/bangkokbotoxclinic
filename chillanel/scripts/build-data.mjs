@@ -10,6 +10,7 @@ import { extractThemeCounts, sumThemeCounts, SERVICE_THEMES, MOOD_KEYWORDS } fro
 import { extractPriceMentions } from "./extract-price.mjs";
 import { nearestDistrict } from "./extract-district.mjs";
 import { parseCoordsFromMapsUrl } from "./extract-coords.mjs";
+import { placeInsights } from "./extract-insights.mjs";
 
 function argValue(flag, fallback) {
   const i = process.argv.indexOf(flag);
@@ -42,7 +43,15 @@ function reviewsForPlace(placeId) {
     text: r.text || "",
     authorName: (r.author_name || "").slice(0, 60),
     relativeDate: (r.relative_date || "").slice(0, 30),
+    // insights 전용 필드 — 아래 shownReview() 가 페이지용 리뷰에서 걷어낸다.
+    isLocalGuide: r.author_is_local_guide === "" || r.author_is_local_guide == null ? null : r.author_is_local_guide === "1" || r.author_is_local_guide === "True",
+    authorReviewCount: num(r.author_review_count, null),
+    spent: r.spent_amount || "",
   }));
+}
+
+function shownReview({ id, rating, text, authorName, relativeDate }) {
+  return { id, rating, text, authorName, relativeDate };
 }
 
 function ratingDistribution(reviews) {
@@ -93,7 +102,8 @@ function buildPlaces() {
         reviewCount: num(r.total_reviews, 0) || 0,
         primaryType: r.primary_type || "",
         mapsUrl: r.maps_url || "",
-        reviews: reviews.slice(0, 20),
+        reviews: reviews.slice(0, 20).map(shownReview),
+        insights: placeInsights(reviews),
         therapistMentions,
         serviceThemes: extractThemeCounts(reviews, SERVICE_THEMES),
         moodKeywords: extractThemeCounts(reviews, MOOD_KEYWORDS),

@@ -27,6 +27,7 @@ import { relatedPlaces } from "@/lib/related";
 import type { Review } from "@/lib/types";
 import VerificationCheck from "@/components/VerificationCheck";
 import LicenseCheck from "@/components/LicenseCheck";
+import InsightsCard from "@/components/InsightsCard";
 
 // 2026-10-22: 리뷰는 짧은 인용으로만, 작성자 이름 없이 (사용자 결정 — 페이지당
 // 인용 3개). 구글 리뷰 원문을 최대 20개 통째로 싣던 것은 구글 지도와 같은 글의
@@ -281,6 +282,7 @@ export default async function PlacePage({
           지역 내 순위 + 지역 시세 비교 — 전부 빌드타임 계산. */}
       <LicenseCheck placeId={place.id} lang={lang} />
       <VerificationCheck place={place} cityPlaces={cityData.places} lang={lang} />
+      <InsightsCard place={place} lang={lang} />
 
       <PlaceActions placeId={place.id} t={t.place} />
 
