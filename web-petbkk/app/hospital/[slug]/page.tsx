@@ -10,6 +10,8 @@ import { getSignals } from '@/lib/hospitalSignals'
 import { isIndexableHospital } from '@/lib/indexing'
 import OwnerReports from '@/components/OwnerReports'
 import GoogleReviews from '@/components/GoogleReviews'
+import ClinicProfile from '@/components/ClinicProfile'
+import { getProfile } from '@/lib/hospitalProfiles'
 import NearbyHospitals from '@/components/NearbyHospitals'
 import HospitalShareButtons from '@/components/HospitalShareButtons'
 import PantipReviews from '@/components/PantipReviews'
@@ -377,6 +379,7 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
   const pantipReview = getHospitalReviews(h.id)
   const googleReviews = getGoogleReviews(h.id)
   const ownerSignals = getSignals(h.id)
+  const profile = getProfile(h.id)
   const reviewUrl = h.google_place_id
     ? `https://search.google.com/local/reviews?placeid=${h.google_place_id}`
     : null
@@ -642,7 +645,14 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
           1,312 characters of boilerplate shared with every other clinic page,
           which is why 549 of them were sitting in Search Console under
           "Discovered/Crawled - currently not indexed". */}
-      {googleReviews && <GoogleReviews set={googleReviews} reviewUrl={reviewUrl} />}
+      {/* Since 2026-10-23: what the reviews add up to, measured by this site,
+          in place of up to twelve reviews copied whole from Google Maps. The
+          copied text existed only until you compared it with Maps. Clinics
+          with fewer than ten reviews read have no profile and keep three
+          short excerpts. */}
+      {profile
+        ? <ClinicProfile p={profile} reviewUrl={reviewUrl} />
+        : googleReviews && <GoogleReviews set={googleReviews} reviewUrl={reviewUrl} />}
 
       {/* Pantip reviews */}
       {pantipReview && <PantipReviews review={pantipReview} />}

@@ -218,6 +218,20 @@ function SpecialPets() {
           <span className="text-orange-700 font-semibold"> ดูรายชื่อ →</span>
         </p>
       </a>
+      {/* The research page: the one thing on this site that is analysis rather
+          than a listing, linked from the hub so it is not an orphan. */}
+      <a
+        href="/hospital/report"
+        className="mt-3 block bg-white border border-gray-200 rounded-2xl p-4 hover:border-orange-300 transition-colors"
+      >
+        <h2 className="text-base font-bold text-gray-900 mb-1">
+          📊 รีวิว 19,022 รีวิวบอกอะไรเกี่ยวกับโรงพยาบาลสัตว์ไทย
+        </h2>
+        <p className="text-sm text-gray-600 leading-relaxed">
+          คลินิกตอบรีวิวแย่แค่ 19% · คลินิกคะแนนสูงสุดถูกชมว่าสะอาดมากกว่าเกือบ 2 เท่า ไม่ใช่ว่าเก่งกว่า
+          <span className="text-orange-700 font-semibold"> อ่านรายงาน →</span>
+        </p>
+      </a>
     </section>
   )
 }

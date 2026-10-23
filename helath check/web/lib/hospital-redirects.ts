@@ -30,6 +30,21 @@
 
 /** Old slug -> current slug of the same hospital. */
 export const RENAMED_HOSPITALS: Record<string, string> = {
+  // 2026-10-23. The first two were in MOVED_TO_GUIDE, pointed at a city page,
+  // which is why a Places run over the dead hospital URLs looked like it had
+  // found two hospitals we did not hold. We hold both: Thaksin Hospital in
+  // Surat Thani and BNH, at the same coordinates under a different spelling.
+  // A redirect to the hospital's own page is the answer to a name search; a
+  // second page for the same hospital is not.
+  //
+  // The last two are the hospital's full name against a short slug. Nothing
+  // links to a 404 on purpose — these are the names people and other sites
+  // write out, and 139 more of them 404 the same way, almost all behind the
+  // `hdm-` prefixed slugs. These two are the ones worth a line each.
+  "taksin-hospital-surat-thani": "thaksin-hospital",
+  "bangkok-nursing-home-hospital": "bnh",
+  "bumrungrad-international-hospital": "bumrungrad",
+  "bnh-hospital": "bnh",
   "absolute-health-clinic": "hdm-absolute-health-clinic",
   "adam-wellness-clinic": "hdm-adam-wellness-clinic",
   "addlife-total-check-up-center": "hdm-addlife-total-check-up-center",

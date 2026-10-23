@@ -35,6 +35,19 @@ function Stars({ stars }: { stars: number | null }) {
   )
 }
 
+// The fallback for clinics with fewer than ten reviews read, which have no
+// profile. Same rule as everywhere else on the site since 2026-10-23: short
+// excerpts as evidence, never whole reviews — Google already holds the full
+// text, and republishing it is not content of ours.
+const SHOWN = 3
+const MAX_CHARS = 180
+function shorten(t: string): string {
+  const s = t.replace(/\s+/g, ' ').trim()
+  if (s.length <= MAX_CHARS) return s
+  const cut = s.lastIndexOf(' ', MAX_CHARS)
+  return (cut > 60 ? s.slice(0, cut) : s.slice(0, MAX_CHARS)).replace(/[ ,.]+$/, '') + ' …'
+}
+
 export default function GoogleReviews({
   set,
   reviewUrl,
@@ -49,8 +62,8 @@ export default function GoogleReviews({
         <h2 className="text-base font-bold text-gray-900">รีวิวจากผู้ใช้ Google</h2>
         <span className="text-xs text-gray-400 shrink-0">
           {total
-            ? `คัดมา ${set.quoted} จาก ${total.toLocaleString('th-TH')} รีวิว`
-            : `${set.quoted} รีวิว`}
+            ? `ตัวอย่าง ${Math.min(SHOWN, set.reviews.length)} จาก ${total.toLocaleString('th-TH')} รีวิว`
+            : `ตัวอย่าง ${Math.min(SHOWN, set.reviews.length)} รีวิว`}
         </span>
       </div>
       <p className="text-xs text-gray-400 mb-4">
@@ -58,7 +71,7 @@ export default function GoogleReviews({
       </p>
 
       <ul className="space-y-4 divide-y divide-gray-100">
-        {set.reviews.map((r, i) => {
+        {set.reviews.slice(0, SHOWN).map((r, i) => {
           const when = thaiMonth(r.when)
           return (
             <li key={r.id} className={i > 0 ? 'pt-4' : ''}>
@@ -67,7 +80,7 @@ export default function GoogleReviews({
                 {when && <span className="text-xs text-gray-400">{when}</span>}
               </div>
               <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
-                {r.text}
+                {shorten(r.text)}
               </p>
               {r.owner_reply && (
                 <div className="mt-2 pl-3 border-l-2 border-orange-100">
@@ -75,7 +88,7 @@ export default function GoogleReviews({
                     คำตอบจากคลินิก
                   </p>
                   <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
-                    {r.owner_reply}
+                    {shorten(r.owner_reply)}
                   </p>
                 </div>
               )}

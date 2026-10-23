@@ -1,0 +1,418 @@
+{
+ "built": "2026-10-23",
+ "sample": {
+  "reviews": 19022,
+  "clinics": 795,
+  "profiled": 667,
+  "high": 16887,
+  "low": 2135,
+  "negative": 1768,
+  "with_text": 17091,
+  "thai": 16308
+ },
+ "languages": [
+  {
+   "code": "th",
+   "reviews": 16308
+  },
+  {
+   "code": "en",
+   "reviews": 671
+  },
+  {
+   "code": "ru",
+   "reviews": 41
+  },
+  {
+   "code": "ja",
+   "reviews": 13
+  },
+  {
+   "code": "de",
+   "reviews": 13
+  },
+  {
+   "code": "zh-Hans",
+   "reviews": 11
+  },
+  {
+   "code": "ko",
+   "reviews": 10
+  },
+  {
+   "code": "zh-Hant",
+   "reviews": 7
+  }
+ ],
+ "praise": [
+  {
+   "key": "clean",
+   "th": "สะอาด",
+   "reviews": 2817,
+   "pct": 16.7
+  },
+  {
+   "key": "attentive",
+   "th": "ใส่ใจ ดูแลดี",
+   "reviews": 2789,
+   "pct": 16.5
+  },
+  {
+   "key": "fairprice",
+   "th": "ราคาสมเหตุสมผล",
+   "reviews": 2000,
+   "pct": 11.8
+  },
+  {
+   "key": "explains",
+   "th": "อธิบายละเอียด",
+   "reviews": 1540,
+   "pct": 9.1
+  },
+  {
+   "key": "skilled",
+   "th": "หมอเก่ง",
+   "reviews": 1172,
+   "pct": 6.9
+  },
+  {
+   "key": "recovered",
+   "th": "อาการดีขึ้น/หาย",
+   "reviews": 373,
+   "pct": 2.2
+  }
+ ],
+ "complaints": [
+  {
+   "key": "pricey",
+   "th": "ราคาสูง",
+   "reviews": 312,
+   "pct": 14.6
+  },
+  {
+   "key": "manner",
+   "th": "การพูดจา/บริการ",
+   "reviews": 147,
+   "pct": 6.9
+  },
+  {
+   "key": "outcome",
+   "th": "ไม่หาย/รักษาผิด",
+   "reviews": 108,
+   "pct": 5.1
+  },
+  {
+   "key": "wait",
+   "th": "รอนาน",
+   "reviews": 53,
+   "pct": 2.5
+  }
+ ],
+ "replies": {
+  "negative": 1768,
+  "negative_replied": 330,
+  "clinics": 667,
+  "never": 363,
+  "mostly": 105
+ },
+ "separation": [
+  {
+   "th": "ใส่ใจ ดูแลดี",
+   "key": "attentive",
+   "top": 18.5,
+   "mid": 16.4,
+   "low": 13.1
+  },
+  {
+   "th": "อธิบายละเอียด",
+   "key": "explains",
+   "top": 10.6,
+   "mid": 8.6,
+   "low": 7.2
+  },
+  {
+   "th": "หมอเก่ง",
+   "key": "skilled",
+   "top": 6.4,
+   "mid": 7.8,
+   "low": 6.3
+  },
+  {
+   "th": "สะอาด",
+   "key": "clean",
+   "top": 22.3,
+   "mid": 13.7,
+   "low": 10.7
+  },
+  {
+   "th": "ราคาสมเหตุสมผล",
+   "key": "fairprice",
+   "top": 12.2,
+   "mid": 12.2,
+   "low": 10.0
+  },
+  {
+   "th": "อาการดีขึ้น/หาย",
+   "key": "recovered",
+   "top": 1.9,
+   "mid": 2.7,
+   "low": 1.8
+  }
+ ],
+ "bands": {
+  "top": 262,
+  "mid": 294,
+  "low": 111
+ },
+ "trend": {
+  "clinics": 76,
+  "up": 31,
+  "down": 45
+ },
+ "cities": {
+  "bangkok": {
+   "clinics": 380,
+   "median_rating": 4.6,
+   "reply_rate": 18.0,
+   "negative_replied": 17.2,
+   "foreign_share": 2.6
+  },
+  "chiangmai": {
+   "clinics": 138,
+   "median_rating": 4.7,
+   "reply_rate": 20.1,
+   "negative_replied": 25.7,
+   "foreign_share": 7.5
+  },
+  "pattaya": {
+   "clinics": 113,
+   "median_rating": 4.7,
+   "reply_rate": 19.3,
+   "negative_replied": 17.5,
+   "foreign_share": 4.9
+  },
+  "phuket": {
+   "clinics": 36,
+   "median_rating": 4.7,
+   "reply_rate": 19.4,
+   "negative_replied": 27.5,
+   "foreign_share": 12.2
+  }
+ },
+ "answerers": [
+  {
+   "id": "โรงพยาบาลสตวสำเรจพฒนา",
+   "replied": 7,
+   "of": 7
+  },
+  {
+   "id": "watsai-animal-hospital",
+   "replied": 6,
+   "of": 6
+  },
+  {
+   "id": "happy-paws-pet-hospital-โรงพยาบาลสตวแฮปปพอวว",
+   "replied": 5,
+   "of": 5
+  },
+  {
+   "id": "bangkok-vet-health-animal-hospital",
+   "replied": 4,
+   "of": 4
+  },
+  {
+   "id": "drrain-pet-care-clinic",
+   "replied": 4,
+   "of": 4
+  },
+  {
+   "id": "north-pattaya-animal-hospital",
+   "replied": 4,
+   "of": 4
+  },
+  {
+   "id": "thonglor-international-pet-hospital-rama9",
+   "replied": 4,
+   "of": 4
+  },
+  {
+   "id": "na-jomtien-animal-hospital",
+   "replied": 3,
+   "of": 3
+  },
+  {
+   "id": "setthakit-animal-hospital",
+   "replied": 3,
+   "of": 3
+  },
+  {
+   "id": "thonglor-pet-hospital-central-eastville-โรงพยาบาลสตวทองหลอเซนทรลอสตวลล",
+   "replied": 3,
+   "of": 3
+  },
+  {
+   "id": "vetville-pet-hospital-rama3-โรงพยาบาลสตวเวทวลล-พระราม-3",
+   "replied": 3,
+   "of": 3
+  },
+  {
+   "id": "โรงพยาบาลสตวลำพนไตรรตนเอออาทร",
+   "replied": 3,
+   "of": 3
+  },
+  {
+   "id": "โรงพยาบาลสตวแคปปตอล-เปด-24-ชวโมง-capital-animal-hospital",
+   "replied": 3,
+   "of": 3
+  },
+  {
+   "id": "ไขฟา-รกษาสตว",
+   "replied": 3,
+   "of": 3
+  },
+  {
+   "id": "khaithong-pet-care-clinic",
+   "replied": 10,
+   "of": 11
+  }
+ ],
+ "expat": [
+  {
+   "id": "โรงพยาบาลสตวตนรก",
+   "non_thai": 4,
+   "of": 4,
+   "langs": [
+    "en"
+   ]
+  },
+  {
+   "id": "pu-veterinary-clinic",
+   "non_thai": 14,
+   "of": 15,
+   "langs": [
+    "en",
+    "ru"
+   ]
+  },
+  {
+   "id": "dogtown-pet-clinic",
+   "non_thai": 8,
+   "of": 9,
+   "langs": [
+    "en",
+    "ru"
+   ]
+  },
+  {
+   "id": "sukhumvit-49-veterinary-hospital",
+   "non_thai": 16,
+   "of": 20,
+   "langs": [
+    "en",
+    "ja"
+   ]
+  },
+  {
+   "id": "ohayo-pet-hospital",
+   "non_thai": 14,
+   "of": 18,
+   "langs": [
+    "en",
+    "ko"
+   ]
+  },
+  {
+   "id": "โรงพยาบาลสตวบญสมพนธ-boonsamphan-animal-hospital",
+   "non_thai": 14,
+   "of": 18,
+   "langs": [
+    "en",
+    "de",
+    "it"
+   ]
+  },
+  {
+   "id": "paw-house---sukhumvit",
+   "non_thai": 23,
+   "of": 30,
+   "langs": [
+    "en"
+   ]
+  },
+  {
+   "id": "vetmed-animal-hospital-phuket-โรงพยาบาลสตวเวทเมดภเกต",
+   "non_thai": 22,
+   "of": 30,
+   "langs": [
+    "en",
+    "ru",
+    "ko"
+   ]
+  },
+  {
+   "id": "animal-clinic-โชคชยรกษาสตว",
+   "non_thai": 8,
+   "of": 11,
+   "langs": [
+    "en",
+    "ko",
+    "zh"
+   ]
+  },
+  {
+   "id": "pet-and-vet-animal-hospital-phrom-phong",
+   "non_thai": 16,
+   "of": 22,
+   "langs": [
+    "en",
+    "de"
+   ]
+  },
+  {
+   "id": "blez-animal-clinic---donki-mall-thonglor-ブレズアニマルクリニック",
+   "non_thai": 13,
+   "of": 20,
+   "langs": [
+    "en",
+    "ja"
+   ]
+  },
+  {
+   "id": "chiang-mai-chotana-animal-hospital",
+   "non_thai": 16,
+   "of": 25,
+   "langs": [
+    "en",
+    "zh-Hans",
+    "ko"
+   ]
+  },
+  {
+   "id": "animal-army-hospital-โรงพยาบาลสตว-แอนมล-อารม",
+   "non_thai": 18,
+   "of": 30,
+   "langs": [
+    "en",
+    "ru",
+    "hu"
+   ]
+  },
+  {
+   "id": "อนรกสตวแพทย",
+   "non_thai": 4,
+   "of": 7,
+   "langs": [
+    "en"
+   ]
+  },
+  {
+   "id": "ตงใจรกษาสตว-tungjai-pet-clinic",
+   "non_thai": 5,
+   "of": 9,
+   "langs": [
+    "en",
+    "zh-Hans"
+   ]
+  }
+ ]
+}

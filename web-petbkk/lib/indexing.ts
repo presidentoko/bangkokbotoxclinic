@@ -73,7 +73,7 @@ export function isIndexableFood(food: PetFood, slug: string): boolean {
 
 import type { Hospital } from './types'
 import { getLicense } from './licenses'
-import { getGoogleReviews } from './hospitalReviews'
+import { getProfile } from './hospitalProfiles'
 import hoursFile from '../data/hospital-hours.json'
 import earningFile from '../data/hospital-gsc-earning.json'
 
@@ -111,17 +111,18 @@ const EARNING_SLUGS: ReadonlySet<string> = new Set(
 const HOURS_IDS: ReadonlySet<string> = new Set(Object.keys(hoursFile as Record<string, unknown>))
 
 /**
- * Review text below this is not enough to carry a page on its own. The shared
- * furniture on every clinic page measures 1,312 characters, so a page whose
- * own contribution is a fraction of that reads as a template with a name in it.
+ * 2026-10-23: the content test is now "does this site have its own analysis of
+ * the clinic", not "how much review text could be quoted". Quoted review text
+ * was never the site's own — Google holds every word of it on Maps — and clinic
+ * pages no longer republish it. A clinic with at least ten reviews read has a
+ * profile (petvet/clinic_profile.py); one with a licence match or published
+ * hours has facts Maps does not show. One with none of those has nothing here
+ * that is not a copy of its Google listing.
  */
-const MIN_REVIEW_CHARS = 500
-
 export function isIndexableHospital(h: Hospital, slug: string): boolean {
   if (EARNING_SLUGS.has(slug)) return true
   if (getLicense(h.id)) return true
   if (HOURS_IDS.has(h.id)) return true
-  const reviews = getGoogleReviews(h.id)
-  if (reviews && reviews.chars >= MIN_REVIEW_CHARS) return true
+  if (getProfile(h.id)) return true
   return false
 }

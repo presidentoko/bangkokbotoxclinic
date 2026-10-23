@@ -266,6 +266,34 @@ ALIASES = {
 }
 
 
+def duplicate_of(place: dict, rows: list[dict]) -> dict | None:
+    """Is this place already in the catalogue under some other slug?
+
+    Checking the slug is not enough. The redirect maps sent
+    bangkok-nursing-home-hospital and taksin-hospital-surat-thani to a city
+    page, so both looked like gaps — but the catalogue already holds BNH
+    Hospital as `bnh` and Thaksin Hospital as `thaksin-hospital`, and creating
+    a page for each would have published two URLs for one hospital on a site
+    whose Search Console problem is duplicate low-value pages.
+
+    The name settles it, and the coordinates settle the cases where the name
+    is spelled differently.
+    """
+    title = collapse(place.get("title") or "")
+    loc = place.get("location") or {}
+    for row in rows:
+        name = collapse(row.get("name") or "")
+        if title and name and (title == name or title in name or name in title):
+            return row
+        try:
+            if (abs(float(row["lat"]) - float(loc["lat"])) < 0.001
+                    and abs(float(row["lng"]) - float(loc["lng"])) < 0.001):
+                return row
+        except (TypeError, ValueError, KeyError):
+            continue
+    return None
+
+
 def as_hospital(hid: int, slug: str, place: dict) -> dict:
     """A catalogue row for a hospital we hold no page for.
 
@@ -299,8 +327,9 @@ def as_hospital(hid: int, slug: str, place: dict) -> dict:
         "rating": f"{place['totalScore']:.2f}" if place.get("totalScore") else None,
         "review_count": place.get("reviewsCount") or 0,
         "category_name": place.get("categoryName"),
-        "opening_hours": json.dumps(place.get("openingHours"), ensure_ascii=False)
-        if place.get("openingHours") else None,
+        # A list, not a JSON string: db.ts types this as OpeningHours and the
+        # page maps over it. Encoding it cost one failed build.
+        "opening_hours": place.get("openingHours") or None,
         "google_maps_url": place.get("url"),
         "permanently_closed": 0,
     }
@@ -323,8 +352,7 @@ def fill_gaps(row: dict, place: dict) -> list[str]:
         "rating": f"{place['totalScore']:.2f}" if place.get("totalScore") else None,
         "category_name": place.get("categoryName"),
         "google_maps_url": place.get("url"),
-        "opening_hours": json.dumps(place.get("openingHours"), ensure_ascii=False)
-        if place.get("openingHours") else None,
+        "opening_hours": place.get("openingHours") or None,
     }
     filled = []
     for key, value in candidates.items():
@@ -402,7 +430,8 @@ def main(dataset: str, apply: bool) -> int:
         if not slug.isascii() or "%" in slug:
             nothing.append((slug, imp, "slug is not ASCII"))
             continue
-        target = by_slug.get(renamed.get(slug, ""))
+        target = (by_slug.get(renamed.get(slug, ""))
+                  or duplicate_of(place, db["hospitals"]))
         if target:
             filled = fill_gaps(target, place)
             row = (slug, imp,
