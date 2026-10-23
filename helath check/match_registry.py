@@ -167,6 +167,51 @@ def norm_th(s: str) -> str:
     return re.sub(r"\s+", "", s)
 
 
+# Matches confirmed by location, added 2026-10-23 once a Google Places run
+# gave the register coordinates for 438 more hospitals.
+#
+# Two kinds. A register row and a catalogue row 15 m apart or less are the
+# same Google pin — both coordinates came out of the same place record — and
+# that is as close to certain as identity gets here, provided our row is a
+# hospital at all (a clinic inside a hospital building sits on the same pin).
+# The second kind is listed by hand: within 150 m, with the register's Thai
+# name read against ours. Bangkok Hospital's HQ is the reason the list
+# exists — the name tier had paired it with Bangkok Hospital Phetchaburi, 101
+# km away, so the HQ page was showing another hospital's code and
+# certificate. Not listed, on purpose: Samitivej Nawamin, whose coordinates
+# sit 35 m from Samitivej Thonburi; Ramkhamhaeng Hospital Chiang Mai, whose
+# coordinates are in Bangkok — both catalogue errors, not matches.
+PIN_METRES = 15
+COORD_CONFIRMED = {
+    "bangkok-hospital": "11630",                 # กรุงเทพ, 41 m
+    "khelangnakorn-ram-hospital": "12003",       # เขลางค์นครราม, 27 m
+    "ladprao-general-hospital": "11729",         # ลาดพร้าว, 39 m
+    "phyathai-2": "11609",                       # พญาไท 2, 74 m
+    "synphaet-ramintra-hospital": "15260",       # สินแพทย์, 103 m (not the children's unit at 84 m)
+    "trang-hospital": "10683",                   # ตรัง, 136 m
+}
+HOSPITAL_WORD = re.compile(r"hospital|medical cent(er|re)|โรงพยาบาล", re.I)
+
+
+def coord_row(r: dict, score: int) -> dict:
+    return {
+        "hcode": r["hcode"],
+        "name_th": r["name_th"],
+        "province_slug": r["province_slug"],
+        "province_en": r["province_en"],
+        "sector": r["sector"],
+        "type_en": r["type_en"],
+        "type_th": r["type_th"],
+        "ha_level": r["ha_level"],
+        "ha_level_en": r["ha_level_en"],
+        "ha_accredited_on": r["ha_accredited_on"],
+        "ha_expires_on": r["ha_expires_on"],
+        "ha_current": r["ha_current"],
+        "beds": r["beds"],
+        "match_score": score,
+    }
+
+
 def haversine(a_lat, a_lng, b_lat, b_lng) -> float:
     a_lat, a_lng, b_lat, b_lng = (float(a_lat), float(a_lng), float(b_lat), float(b_lng))
     p = math.pi / 180
@@ -446,6 +491,43 @@ def main() -> int:
             "via": "thai name" if score >= 6 else "brand + place",
         })
 
+    # Location tier. First drop any name match the coordinates contradict —
+    # a register row more than 2 km from ours is another hospital whatever
+    # the name says. Then add the pins and the hand-confirmed list above.
+    by_hcode = {r["hcode"]: r for r in rows}
+    by_slug = {h["slug"]: h for h in hospitals}
+    for slug, m in list(matched.items()):
+        h, r = by_slug.get(slug), by_hcode.get(m["hcode"])
+        if h and r and h.get("lat") and r.get("lat"):
+            if haversine(h["lat"], h["lng"], r["lat"], r["lng"]) > 2:
+                report["ambiguous"].append(
+                    {"slug": slug, "why": "name match contradicted by location (>2 km)", "row": r["name_th"]}
+                )
+                del matched[slug]
+    taken = {m["hcode"] for m in matched.values()}
+    located = [r for r in rows if r.get("lat") and r.get("lng")]
+    for h in hospitals:
+        if h["slug"] in matched or not (h.get("lat") and h.get("lng")):
+            continue
+        want = COORD_CONFIRMED.get(h["slug"])
+        if want:
+            r = by_hcode.get(want)
+            if r and r.get("lat") and haversine(h["lat"], h["lng"], r["lat"], r["lng"]) <= 0.15 and want not in taken:
+                matched[h["slug"]] = coord_row(r, 7)
+                taken.add(want)
+                report["matched"].append({"slug": h["slug"], "name": h["name"], "name_th": r["name_th"], "score": 7, "via": "location + hand check"})
+            continue
+        if not HOSPITAL_WORD.search(f"{h.get('name') or ''} {h.get('category_name') or ''}"):
+            continue
+        pins = [r for r in located
+                if r["hcode"] not in taken
+                and haversine(h["lat"], h["lng"], r["lat"], r["lng"]) * 1000 <= PIN_METRES]
+        if len(pins) == 1:
+            r = pins[0]
+            matched[h["slug"]] = coord_row(r, 7)
+            taken.add(r["hcode"])
+            report["matched"].append({"slug": h["slug"], "name": h["name"], "name_th": r["name_th"], "score": 7, "via": "same Google pin"})
+
     # Nearby hospitals, from coordinates already on file. Salons and spas are
     # excluded — a salon is not somewhere to send a patient.
     def medical(h: dict) -> bool:
@@ -483,10 +565,13 @@ def main() -> int:
     OUT.write_text(json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
     REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=1), encoding="utf-8")
 
-    via_th = sum(1 for m in report["matched"] if m["via"] == "thai name")
+    live = [m for m in report["matched"] if m["slug"] in matched]
+    via = {k: sum(1 for m in live if m["via"] == k) for k in
+           ("thai name", "brand + place", "same Google pin", "location + hand check")}
     print(
         f"[match] {len(matched)}/{len(hospitals)} matched "
-        f"({via_th} by Thai name, {len(matched) - via_th} by brand + place) · "
+        f"({via['thai name']} by Thai name, {via['brand + place']} by brand + place, "
+        f"{via['same Google pin']} by Google pin, {via['location + hand check']} by location + hand check) · "
         f"{len(report['ambiguous'])} ambiguous · {len(names_th)} Thai names · "
         f"{len(nearby)} nearby lists · {len(payload['non_medical'])} non-medical"
     )

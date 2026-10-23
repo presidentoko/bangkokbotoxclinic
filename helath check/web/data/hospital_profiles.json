@@ -1,22 +1,6 @@
 {
  "generated_at": "2026-09-03",
  "registry_match": {
-  "bangkok-hospital": {
-   "hcode": "14961",
-   "name_th": "กรุงเทพเพชรบุรี",
-   "province_slug": "phetchaburi",
-   "province_en": "Phetchaburi",
-   "sector": "private",
-   "type_en": "Private hospital",
-   "type_th": "สมาคมโรงพยาบาลเอกชน",
-   "ha_level": "renewing",
-   "ha_level_en": "Renewal in progress",
-   "ha_accredited_on": "2023-06-21",
-   "ha_expires_on": "2026-06-20",
-   "ha_current": false,
-   "beds": null,
-   "match_score": 3
-  },
   "bangkok-hospital-chanthaburi": {
    "hcode": "11875",
    "name_th": "โรงพยาบาลกรุงเทพจันทบุรี",
@@ -31,7 +15,7 @@
    "ha_expires_on": "2027-02-17",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "bangkok-hospital-chiang-mai": {
    "hcode": "40540",
@@ -47,7 +31,7 @@
    "ha_expires_on": null,
    "ha_current": null,
    "beds": null,
-   "match_score": 6
+   "match_score": 8
   },
   "bangkok-hospital-chiang-rai": {
    "hcode": "41574",
@@ -63,7 +47,7 @@
    "ha_expires_on": "2028-12-22",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "bangkok-hospital-hat-yai": {
    "hcode": "12223",
@@ -79,7 +63,7 @@
    "ha_expires_on": "2028-07-21",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "bangkok-hospital-hua-hin": {
    "hcode": "24780",
@@ -95,7 +79,7 @@
    "ha_expires_on": null,
    "ha_current": null,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "bangkok-hospital-khonkaen": {
    "hcode": "31156",
@@ -111,7 +95,7 @@
    "ha_expires_on": "2029-02-10",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "bangkok-hospital-pattaya": {
    "hcode": "11850",
@@ -127,7 +111,7 @@
    "ha_expires_on": "2026-08-21",
    "ha_current": false,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "bangkok-hospital-phitsanulok": {
    "hcode": "12067",
@@ -143,7 +127,7 @@
    "ha_expires_on": "2027-02-19",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "bangkok-hospital-phuket": {
    "hcode": "12184",
@@ -159,7 +143,7 @@
    "ha_expires_on": "2028-10-28",
    "ha_current": true,
    "beds": null,
-   "match_score": 6
+   "match_score": 8
   },
   "bangkok-hospital-ratchasima": {
    "hcode": "23928",
@@ -175,7 +159,7 @@
    "ha_expires_on": "2026-06-11",
    "ha_current": false,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "bangkok-hospital-rayong": {
    "hcode": "15219",
@@ -191,7 +175,7 @@
    "ha_expires_on": "2029-03-23",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "bangkok-hospital-samui": {
    "hcode": "21615",
@@ -207,7 +191,7 @@
    "ha_expires_on": "2028-02-24",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "bangkok-hospital-trat": {
    "hcode": "11876",
@@ -223,7 +207,7 @@
    "ha_expires_on": "2024-09-23",
    "ha_current": false,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "bangkok-hospital-udon": {
    "hcode": "11953",
@@ -239,7 +223,7 @@
    "ha_expires_on": "2028-09-22",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "bangmod-hospital": {
    "hcode": "11708",
@@ -335,7 +319,7 @@
    "ha_expires_on": "2028-09-23",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "bumrungrad": {
    "hcode": "11699",
@@ -399,7 +383,7 @@
    "ha_expires_on": "2029-10-09",
    "ha_current": true,
    "beds": null,
-   "match_score": 6
+   "match_score": 8
   },
   "chiangmai-ram-hospital": {
    "hcode": "14636",
@@ -415,7 +399,7 @@
    "ha_expires_on": "2021-08-13",
    "ha_current": false,
    "beds": null,
-   "match_score": 6
+   "match_score": 8
   },
   "chonburi-hospital": {
    "hcode": "10662",
@@ -495,7 +479,7 @@
    "ha_expires_on": "2029-05-22",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "king-taksin-memorial-hospital": {
    "hcode": "11539",
@@ -543,7 +527,7 @@
    "ha_expires_on": "2026-09-18",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "lampang-hospital": {
    "hcode": "10672",
@@ -559,7 +543,7 @@
    "ha_expires_on": "2026-05-11",
    "ha_current": false,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "lanna-hospital": {
    "hcode": "11982",
@@ -591,7 +575,7 @@
    "ha_expires_on": "2027-05-20",
    "ha_current": true,
    "beds": null,
-   "match_score": 6
+   "match_score": 8
   },
   "medpark": {
    "hcode": "41901",
@@ -623,7 +607,7 @@
    "ha_expires_on": "2028-08-04",
    "ha_current": true,
    "beds": null,
-   "match_score": 6
+   "match_score": 8
   },
   "nakharin-hospital": {
    "hcode": "12167",
@@ -655,7 +639,7 @@
    "ha_expires_on": "2030-02-09",
    "ha_current": true,
    "beds": null,
-   "match_score": 6
+   "match_score": 8
   },
   "nakornthon-hospital": {
    "hcode": "11648",
@@ -719,7 +703,7 @@
    "ha_expires_on": "2028-11-24",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "paolo-chokchai4": {
    "hcode": "11721",
@@ -767,7 +751,7 @@
    "ha_expires_on": "2028-04-21",
    "ha_current": true,
    "beds": null,
-   "match_score": 6
+   "match_score": 8
   },
   "phuket-international-hospital": {
    "hcode": "12180",
@@ -783,7 +767,7 @@
    "ha_expires_on": "2007-10-31",
    "ha_current": false,
    "beds": null,
-   "match_score": 6
+   "match_score": 8
   },
   "phyathai-1": {
    "hcode": "11715",
@@ -831,7 +815,7 @@
    "ha_expires_on": "2026-11-13",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "piyavate-hospital": {
    "hcode": "11632",
@@ -895,7 +879,7 @@
    "ha_expires_on": "2027-02-19",
    "ha_current": true,
    "beds": null,
-   "match_score": 6
+   "match_score": 8
   },
   "rajavithi-hospital": {
    "hcode": "11472",
@@ -911,7 +895,7 @@
    "ha_expires_on": "2029-01-30",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "rajthanee-hospital": {
    "hcode": "11806",
@@ -927,7 +911,7 @@
    "ha_expires_on": "2026-06-26",
    "ha_current": false,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "rajthanee-rojana-hospital": {
    "hcode": "24681",
@@ -943,7 +927,7 @@
    "ha_expires_on": "2027-10-07",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "ramathibodi-hospital": {
    "hcode": "13781",
@@ -959,7 +943,7 @@
    "ha_expires_on": "2030-02-19",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "ruamphat-phitsanulok-hospital": {
    "hcode": "12065",
@@ -975,7 +959,7 @@
    "ha_expires_on": "2028-04-24",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "samitivej-chonburi-hospital": {
    "hcode": "40768",
@@ -1039,7 +1023,7 @@
    "ha_expires_on": "2027-02-03",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "samitivej-thonburi-hospital": {
    "hcode": "11616",
@@ -1103,7 +1087,23 @@
    "ha_expires_on": "2027-08-25",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
+  },
+  "sri-rayong-hospital": {
+   "hcode": "40757",
+   "name_th": "ศรีระยอง",
+   "province_slug": "rayong",
+   "province_en": "Rayong",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "เอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2023-10-16",
+   "ha_expires_on": "2026-10-15",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 5
   },
   "srinagarind-hospital": {
    "hcode": "13777",
@@ -1119,7 +1119,7 @@
    "ha_expires_on": "2029-12-18",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "suratthani-hospital": {
    "hcode": "10681",
@@ -1151,7 +1151,7 @@
    "ha_expires_on": "2027-12-23",
    "ha_current": true,
    "beds": null,
-   "match_score": 3
+   "match_score": 5
   },
   "thalang-hospital": {
    "hcode": "11356",
@@ -1199,7 +1199,7 @@
    "ha_expires_on": "2027-02-12",
    "ha_current": true,
    "beds": null,
-   "match_score": 6
+   "match_score": 8
   },
   "vejthani": {
    "hcode": "11564",
@@ -1279,7 +1279,391 @@
    "ha_expires_on": "2019-01-11",
    "ha_current": false,
    "beds": 400,
-   "match_score": 3
+   "match_score": 5
+  },
+  "aek-udon-international-hospital": {
+   "hcode": "11952",
+   "name_th": "เอกอุดร",
+   "province_slug": "udon-thani",
+   "province_en": "Udon Thani",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "none",
+   "ha_level_en": "On the register, not yet accredited",
+   "ha_accredited_on": null,
+   "ha_expires_on": null,
+   "ha_current": null,
+   "beds": null,
+   "match_score": 7
+  },
+  "bangkok-christian-nakhon-pathom-hospital": {
+   "hcode": "12126",
+   "name_th": "กรุงเทพคริสเตียนนครปฐม",
+   "province_slug": "nakhon-pathom",
+   "province_en": "Nakhon Pathom",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "step2",
+   "ha_level_en": "Step 2 (developing)",
+   "ha_accredited_on": "2024-09-25",
+   "ha_expires_on": "2026-09-24",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 7
+  },
+  "bangkok-hospital": {
+   "hcode": "11630",
+   "name_th": "กรุงเทพ",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "advanced",
+   "ha_level_en": "Advanced HA",
+   "ha_accredited_on": "2025-12-19",
+   "ha_expires_on": "2029-12-18",
+   "ha_current": true,
+   "beds": 263,
+   "match_score": 7
+  },
+  "bangkok-hospital-surat-thani": {
+   "hcode": "41339",
+   "name_th": "กรุงเทพสุราษฎร์",
+   "province_slug": "surat-thani",
+   "province_en": "Surat Thani",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "เอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2025-11-25",
+   "ha_expires_on": "2028-11-24",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 7
+  },
+  "bangkok-sanam-chan-hospital": {
+   "hcode": "12128",
+   "name_th": "กรุงเทพสนามจันทร์",
+   "province_slug": "nakhon-pathom",
+   "province_en": "Nakhon Pathom",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2023-10-25",
+   "ha_expires_on": "2026-10-24",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 7
+  },
+  "chiang-rai-ram-hospital": {
+   "hcode": "41326",
+   "name_th": "เชียงราย ราม",
+   "province_slug": "chiang-rai",
+   "province_en": "Chiang Rai",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "เอกชน",
+   "ha_level": "none",
+   "ha_level_en": "On the register, not yet accredited",
+   "ha_accredited_on": "2024-08-23",
+   "ha_expires_on": "2025-08-22",
+   "ha_current": false,
+   "beds": null,
+   "match_score": 7
+  },
+  "khelangnakorn-ram-hospital": {
+   "hcode": "12003",
+   "name_th": "เขลางค์นครราม",
+   "province_slug": "lampang",
+   "province_en": "Lampang",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "none",
+   "ha_level_en": "On the register, not yet accredited",
+   "ha_accredited_on": null,
+   "ha_expires_on": null,
+   "ha_current": null,
+   "beds": null,
+   "match_score": 7
+  },
+  "khon-kaen-ram-hospital": {
+   "hcode": "11936",
+   "name_th": "ขอนแก่นราม",
+   "province_slug": "khon-kaen",
+   "province_en": "Khon Kaen",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "none",
+   "ha_level_en": "On the register, not yet accredited",
+   "ha_accredited_on": null,
+   "ha_expires_on": null,
+   "ha_current": null,
+   "beds": null,
+   "match_score": 7
+  },
+  "ladprao-general-hospital": {
+   "hcode": "11729",
+   "name_th": "ลาดพร้าว",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2026-01-27",
+   "ha_expires_on": "2029-01-26",
+   "ha_current": true,
+   "beds": 180,
+   "match_score": 7
+  },
+  "mae-fah-luang-university-medical-center-hospital": {
+   "hcode": "41509",
+   "name_th": "ศูนย์การแพทย์มหาวิทยาลัยแม่ฟ้าหลวง",
+   "province_slug": "chiang-rai",
+   "province_en": "Chiang Rai",
+   "sector": "public",
+   "type_en": "University teaching hospital",
+   "type_th": "โรงเรียนแพทย์",
+   "ha_level": "renewing",
+   "ha_level_en": "Renewal in progress",
+   "ha_accredited_on": "2023-06-14",
+   "ha_expires_on": "2026-06-13",
+   "ha_current": false,
+   "beds": null,
+   "match_score": 7
+  },
+  "maharaj-nakhon-si-thammarat-hospital": {
+   "hcode": "10680",
+   "name_th": "มหาราชนครศรีธรรมราช",
+   "province_slug": "nakhon-si-thammarat",
+   "province_en": "Nakhon Si Thammarat",
+   "sector": "public",
+   "type_en": "Regional hospital",
+   "type_th": "รพศ.",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2025-08-19",
+   "ha_expires_on": "2028-08-18",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 7
+  },
+  "maharat-nakhon-ratchasima-hospital": {
+   "hcode": "10666",
+   "name_th": "มหาราชนครราชสีมา",
+   "province_slug": "nakhon-ratchasima",
+   "province_en": "Nakhon Ratchasima",
+   "sector": "public",
+   "type_en": "Regional hospital",
+   "type_th": "รพศ.",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2024-09-24",
+   "ha_expires_on": "2027-09-23",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 7
+  },
+  "pattaya-international-hospital": {
+   "hcode": "11852",
+   "name_th": "พัทยาอินเตอร์เนชั่นแนลฮอสพิทอล",
+   "province_slug": "chon-buri",
+   "province_en": "Chon Buri",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "none",
+   "ha_level_en": "On the register, not yet accredited",
+   "ha_accredited_on": null,
+   "ha_expires_on": null,
+   "ha_current": null,
+   "beds": null,
+   "match_score": 7
+  },
+  "phra-nakhon-si-ayutthaya-hospital": {
+   "hcode": "10660",
+   "name_th": "พระนครศรีอยุธยา",
+   "province_slug": "phra-nakhon-si-ayutthaya",
+   "province_en": "Phra Nakhon Si Ayutthaya",
+   "sector": "public",
+   "type_en": "Regional hospital",
+   "type_th": "รพศ.",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2024-09-10",
+   "ha_expires_on": "2027-09-09",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 7
+  },
+  "phyathai-2": {
+   "hcode": "11609",
+   "name_th": "พญาไท 2",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "advanced",
+   "ha_level_en": "Advanced HA",
+   "ha_accredited_on": "2026-01-23",
+   "ha_expires_on": "2030-01-22",
+   "ha_current": true,
+   "beds": 260,
+   "match_score": 7
+  },
+  "phyathai-3": {
+   "hcode": "14574",
+   "name_th": "พญาไท 3",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "advanced",
+   "ha_level_en": "Advanced HA",
+   "ha_accredited_on": "2024-10-18",
+   "ha_expires_on": "2028-10-17",
+   "ha_current": true,
+   "beds": 230,
+   "match_score": 7
+  },
+  "samui-international-hospital": {
+   "hcode": "14682",
+   "name_th": "สมุยอินเตอร์เนชั่นแนล",
+   "province_slug": "surat-thani",
+   "province_en": "Surat Thani",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "เอกชน",
+   "ha_level": "none",
+   "ha_level_en": "On the register, not yet accredited",
+   "ha_accredited_on": null,
+   "ha_expires_on": null,
+   "ha_current": null,
+   "beds": null,
+   "match_score": 7
+  },
+  "samut-prakan-hospital": {
+   "hcode": "10685",
+   "name_th": "สมุทรปราการ",
+   "province_slug": "samut-prakan",
+   "province_en": "Samut Prakan",
+   "sector": "public",
+   "type_en": "Regional hospital",
+   "type_th": "รพศ.",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2024-04-10",
+   "ha_expires_on": "2027-04-09",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 7
+  },
+  "san-paulo-hospital": {
+   "hcode": "14617",
+   "name_th": "ซานเปาโลหัวหิน",
+   "province_slug": "prachuap-khiri-khan",
+   "province_en": "Prachuap Khiri Khan",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2025-08-26",
+   "ha_expires_on": "2028-08-25",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 7
+  },
+  "synphaet-ramintra-hospital": {
+   "hcode": "15260",
+   "name_th": "สินแพทย์",
+   "province_slug": "bangkok",
+   "province_en": "Bangkok",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "none",
+   "ha_level_en": "On the register, not yet accredited",
+   "ha_accredited_on": "2015-10-27",
+   "ha_expires_on": "2018-10-26",
+   "ha_current": false,
+   "beds": 287,
+   "match_score": 7
+  },
+  "walailak-university-hospital": {
+   "hcode": "40970",
+   "name_th": "ศูนย์การแพทย์มหาวิทยาลัยวลัยลักษณ์",
+   "province_slug": "nakhon-si-thammarat",
+   "province_en": "Nakhon Si Thammarat",
+   "sector": "public",
+   "type_en": "University teaching hospital",
+   "type_th": "โรงเรียนแพทย์",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2025-07-22",
+   "ha_expires_on": "2028-07-21",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 7
+  },
+  "wattanapat-hospital-trang": {
+   "hcode": "12226",
+   "name_th": "วัฒนแพทย์ตรัง",
+   "province_slug": "trang",
+   "province_en": "Trang",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2024-08-27",
+   "ha_expires_on": "2027-08-26",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 7
+  },
+  "wattana-hospital-udon-thani": {
+   "hcode": "11939",
+   "name_th": "นอร์ทอีสเทอร์น วัฒนา",
+   "province_slug": "udon-thani",
+   "province_en": "Udon Thani",
+   "sector": "private",
+   "type_en": "Private hospital",
+   "type_th": "สมาคมโรงพยาบาลเอกชน",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2024-02-13",
+   "ha_expires_on": "2027-02-12",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 7
+  },
+  "trang-hospital": {
+   "hcode": "10683",
+   "name_th": "ตรัง",
+   "province_slug": "trang",
+   "province_en": "Trang",
+   "sector": "public",
+   "type_en": "Regional hospital",
+   "type_th": "รพศ.",
+   "ha_level": "standard",
+   "ha_level_en": "Accredited (HA standard)",
+   "ha_accredited_on": "2023-09-12",
+   "ha_expires_on": "2026-09-11",
+   "ha_current": true,
+   "beds": null,
+   "match_score": 7
   }
  },
  "names_th": {
@@ -1523,6 +1907,13 @@
     "km": 1.0,
     "rating": "4.20",
     "city": "Udon Thani"
+   },
+   {
+    "slug": "wattana-hospital-udon-thani",
+    "name": "North Eastern Wattana Hospital",
+    "km": 3.3,
+    "rating": "4.50",
+    "city": "Mueang Udon Thani District"
    }
   ],
   "hdm-amc-arix-medical-center": [
@@ -2110,6 +2501,13 @@
     "km": 1.0,
     "rating": "4.30",
     "city": "Udon Thani"
+   },
+   {
+    "slug": "wattana-hospital-udon-thani",
+    "name": "North Eastern Wattana Hospital",
+    "km": 2.7,
+    "rating": "4.50",
+    "city": "Mueang Udon Thani District"
    }
   ],
   "hdm-bangkok-medical-lab": [
@@ -3464,7 +3862,7 @@
     "slug": "hdm-mic-lab",
     "name": "MIC Lab",
     "km": 1.9,
-    "rating": null,
+    "rating": "5.00",
     "city": "Bangkok"
    },
    {
@@ -5927,7 +6325,7 @@
     "slug": "hdm-mic-lab",
     "name": "MIC Lab",
     "km": 2.0,
-    "rating": null,
+    "rating": "5.00",
     "city": "Bangkok"
    },
    {
@@ -6313,7 +6711,7 @@
     "slug": "hdm-mic-lab",
     "name": "MIC Lab",
     "km": 1.8,
-    "rating": null,
+    "rating": "5.00",
     "city": "Bangkok"
    }
   ],
@@ -6460,17 +6858,17 @@
     "city": "Bangkok"
    },
    {
+    "slug": "yanhee-hospital",
+    "name": "Yanhee International Hospital",
+    "km": 3.0,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
     "slug": "hdm-phenomed-clinic",
     "name": "Phenomed Clinic",
     "km": 3.1,
     "rating": "4.90",
-    "city": "Bangkok"
-   },
-   {
-    "slug": "siriraj-hospital",
-    "name": "Siriraj Hospital",
-    "km": 3.8,
-    "rating": "4.00",
     "city": "Bangkok"
    }
   ],
@@ -6550,6 +6948,13 @@
   ],
   "hdm-phenomed-clinic": [
    {
+    "slug": "yanhee-hospital",
+    "name": "Yanhee International Hospital",
+    "km": 1.3,
+    "rating": "4.70",
+    "city": "Bangkok"
+   },
+   {
     "slug": "hdm-prime-laboratory-bangkok",
     "name": "Prime Laboratory Bangkok",
     "km": 1.7,
@@ -6575,13 +6980,6 @@
     "name": "Medtopia Clinic",
     "km": 3.1,
     "rating": "4.80",
-    "city": "Bangkok"
-   },
-   {
-    "slug": "hdm-prime-fertility-center",
-    "name": "Prime Fertility Clinic",
-    "km": 3.4,
-    "rating": "5.00",
     "city": "Bangkok"
    }
   ],
@@ -7047,10 +7445,10 @@
     "city": "Bangkok"
    },
    {
-    "slug": "hdm-the-pavilion-health-clinic",
-    "name": "The Pavilion Health Clinic",
-    "km": 2.9,
-    "rating": "4.80",
+    "slug": "yanhee-hospital",
+    "name": "Yanhee International Hospital",
+    "km": 2.8,
+    "rating": "4.70",
     "city": "Bangkok"
    }
   ],
@@ -7964,7 +8362,7 @@
     "slug": "hdm-mic-lab",
     "name": "MIC Lab",
     "km": 2.1,
-    "rating": null,
+    "rating": "5.00",
     "city": "Bangkok"
    },
    {
@@ -8839,6 +9237,15 @@
     "city": "Bangkok"
    }
   ],
+  "wattanapat-hospital-trang": [
+   {
+    "slug": "trang-hospital",
+    "name": "Trang Hospital",
+    "km": 1.0,
+    "rating": "3.50",
+    "city": "Mueang Trang District"
+   }
+  ],
   "wellbase-saha-clinic": [
    {
     "slug": "hdm-soyeon-clinic",
@@ -8950,6 +9357,43 @@
     "city": "Bangkok"
    }
   ],
+  "yanhee-hospital": [
+   {
+    "slug": "hdm-phenomed-clinic",
+    "name": "Phenomed Clinic",
+    "km": 1.3,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-prime-laboratory-bangkok",
+    "name": "Prime Laboratory Bangkok",
+    "km": 2.8,
+    "rating": "4.90",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-pct-laboratory-services",
+    "name": "PCT Laboratory Services",
+    "km": 3.0,
+    "rating": "5.00",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-medtopia-clinic",
+    "name": "Medtopia Clinic",
+    "km": 3.5,
+    "rating": "4.80",
+    "city": "Bangkok"
+   },
+   {
+    "slug": "hdm-mental-well-clinic",
+    "name": "Mental Well Clinic",
+    "km": 3.8,
+    "rating": "4.70",
+    "city": "Bangkok"
+   }
+  ],
   "hdm-zhen-fu-clinic": [
    {
     "slug": "paolo-chokchai4",
@@ -8969,7 +9413,7 @@
     "slug": "hdm-mic-lab",
     "name": "MIC Lab",
     "km": 1.4,
-    "rating": null,
+    "rating": "5.00",
     "city": "Bangkok"
    },
    {
@@ -9022,6 +9466,31 @@
     "km": 1.6,
     "rating": "5.00",
     "city": "Bangkok"
+   }
+  ],
+  "wattana-hospital-udon-thani": [
+   {
+    "slug": "bangkok-hospital-udon",
+    "name": "Bangkok Hospital Udon",
+    "km": 2.7,
+    "rating": "4.20",
+    "city": "Udon Thani"
+   },
+   {
+    "slug": "aek-udon-international-hospital",
+    "name": "Aek Udon International Hospital",
+    "km": 3.3,
+    "rating": "4.30",
+    "city": "Udon Thani"
+   }
+  ],
+  "trang-hospital": [
+   {
+    "slug": "wattanapat-hospital-trang",
+    "name": "Wattanapat Hospital Trang",
+    "km": 1.0,
+    "rating": "4.30",
+    "city": "Trang"
    }
   ]
  },
@@ -9346,7 +9815,9 @@
   "hdm-zhen-fu-clinic": "bangkok",
   "tutt-medical-clinic": "bangkok",
   "boonyindee-medical-clinic": "ratchaburi",
-  "pruksa-clinic": "bangkok"
+  "pruksa-clinic": "bangkok",
+  "wattana-hospital-udon-thani": "udon-thani",
+  "trang-hospital": "trang"
  },
  "non_medical": [
   "chada-clinic",
