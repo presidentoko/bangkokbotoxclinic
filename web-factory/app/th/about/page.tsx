@@ -1,6 +1,7 @@
 import { loadMasterDb } from "@/lib/data";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
+import { FounderCard } from "@/components/FounderCard";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -57,6 +58,8 @@ export default async function ThAboutPage() {
       <p className="text-base text-[var(--muted)] mb-8 leading-relaxed">
         ไดเรกทอรีอิสระสำหรับผู้ผลิต นิคมอุตสาหกรรม คลังสินค้า และโลจิสติกส์ในประเทศไทย จุดมุ่งหมาย: ใช้การวิเคราะห์ที่สอดคล้องกันบนข้อมูล Google สาธารณะ เพื่อให้ผู้ซื้อ B2B เปรียบเทียบซัพพลายเออร์ด้วยสัญญาณที่เป็นกลาง — ไม่ใช่จากเอเจนซี่ที่ขายแรงที่สุด
       </p>
+
+      <FounderCard lang="th" brand={cfg.brand} />
 
       <div className="bg-white border border-[var(--border)] rounded-xl p-6 mb-10">
         <h2 className="text-lg font-bold mb-3">สถิติ</h2>

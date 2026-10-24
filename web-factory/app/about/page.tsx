@@ -1,5 +1,5 @@
 import { loadMasterDb } from "@/lib/data";
-import { BreadcrumbJsonLd, FaqJsonLd, FounderJsonLd, OFFICE } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd, FounderJsonLd, OFFICE, FOUNDER_LINKEDIN } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
@@ -87,6 +87,9 @@ export default async function AboutPage() {
             <p className="text-sm leading-relaxed">
               <strong>Why I built this:</strong> Sourcing agents on Instagram and LinkedIn post the same five photoshopped factory photos and call themselves "verified suppliers." Most of them are middlemen who never set foot in the plant. So I cross-checked Google Maps Business Profiles against Thailand's official DBD company registry — capital, founding date, TSIC industry code, all matched against the government registrar. <strong>{(db.verified_count ?? 0).toLocaleString()} DBD-verified manufacturers + {(db.total_suppliers - (db.verified_count ?? 0)).toLocaleString()} more B2B suppliers</strong> in one searchable directory. Talk to the factory directly. Skip the influencer-sourcing-agent layer.
             </p>
+            <a href={FOUNDER_LINKEDIN} rel="me noopener" target="_blank" className="inline-block mt-3 text-sm font-bold text-[var(--gold-deep)] hover:underline">
+              LinkedIn →
+            </a>
           </div>
         </div>
       </section>

@@ -33,6 +33,8 @@ const POSTAL_ADDRESS = {
   addressCountry: "TH",
 };
 
+export const FOUNDER_LINKEDIN = "https://www.linkedin.com/in/yunmin-shin-846484b3";
+
 const FOUNDER = {
   "@type": "Person",
   "@id": `${SITE}/about#founder`,
@@ -40,6 +42,7 @@ const FOUNDER = {
   jobTitle: "Founder",
   image: `${SITE}/founder.jpg`,
   url: `${SITE}/about`,
+  sameAs: [FOUNDER_LINKEDIN],
 };
 
 export function FounderJsonLd() {

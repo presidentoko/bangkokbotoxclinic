@@ -1,6 +1,7 @@
 import { loadMasterDb } from "@/lib/data";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
+import { FounderCard } from "@/components/FounderCard";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -66,6 +67,8 @@ export default async function KoAboutPage() {
       <p className="text-base text-[var(--muted)] mb-8 leading-relaxed">
         한국 SME가 태국에서 OEM·공장·산단을 직접 발굴할 때 — 소싱 에이전트 견적이 갑자기 비싸 보이기 시작했을 때 — 펴 보는 디렉토리. 공개 Google 데이터에 일관된 분석을 적용해서 buyer가 객관적 시그널로 공급사를 비교할 수 있게 합니다.
       </p>
+
+      <FounderCard lang="ko" brand={cfg.brand} />
 
       <div className="bg-white border border-[var(--border)] rounded-xl p-6 mb-10">
         <h2 className="text-lg font-bold mb-3">현황</h2>
