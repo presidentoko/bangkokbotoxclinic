@@ -16,6 +16,42 @@ function tag(data: object) {
   );
 }
 
+// 운영 주소 — About 페이지와 Organization 스키마가 같은 값을 쓴다 (2026-10-24 사용자 제공).
+export const OFFICE = {
+  street: "47 Soi Tiwanon 3",
+  locality: "Talat Kwan",
+  district: "Mueang Nonthaburi",
+  region: "Nonthaburi",
+  postalCode: "11000",
+};
+
+const POSTAL_ADDRESS = {
+  "@type": "PostalAddress",
+  streetAddress: `${OFFICE.street}, ${OFFICE.locality}, ${OFFICE.district}`,
+  addressLocality: OFFICE.district,
+  addressRegion: OFFICE.region,
+  postalCode: OFFICE.postalCode,
+  addressCountry: "TH",
+};
+
+const FOUNDER = {
+  "@type": "Person",
+  "@id": `${SITE}/about#founder`,
+  name: "Younmin Shin",
+  jobTitle: "Founder",
+  image: `${SITE}/founder.jpg`,
+  url: `${SITE}/about`,
+};
+
+export function FounderJsonLd() {
+  return tag({
+    "@context": "https://schema.org",
+    ...FOUNDER,
+    worksFor: { "@id": `${SITE}#organization` },
+    address: POSTAL_ADDRESS,
+  });
+}
+
 // ── 사이트 전역 ──────────────────────────────────────────────
 export function OrgJsonLd() {
   return tag({
@@ -33,6 +69,8 @@ export function OrgJsonLd() {
     description:
       "Independent directory of Thai manufacturers, industrial estates, warehouses, and logistics operators. Trust Scores from real Google review analysis. Direct contact, no sourcing-agent middleman.",
     foundingDate: "2024",
+    address: POSTAL_ADDRESS,
+    founder: { "@id": FOUNDER["@id"], "@type": "Person", name: FOUNDER.name },
     contactPoint: {
       "@type": "ContactPoint",
       email: "inquiry@thaisupplyhub.com",
