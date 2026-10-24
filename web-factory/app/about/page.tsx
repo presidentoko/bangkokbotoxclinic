@@ -74,15 +74,15 @@ export default async function AboutPage() {
         <div className="flex flex-col sm:flex-row gap-6 items-start">
           <img
             src="/founder.jpg"
-            alt="Younmin Shin, founder of Thai Supply Hub"
+            alt="Yunmin Shin, founder of Thai Supply Hub"
             className="w-32 h-32 rounded-full object-cover border border-[var(--border)] shrink-0"
             loading="lazy"
           />
           <div>
             <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1">Founder</div>
-            <h2 className="text-xl font-bold mb-2">Younmin Shin (신윤민)</h2>
+            <h2 className="text-xl font-bold mb-2">Yunmin Shin (신윤민)</h2>
             <p className="text-sm text-[var(--muted)] leading-relaxed mb-3">
-              Data architect, 12+ years. Korean founder based in Nonthaburi (Greater Bangkok), building products for the Thai market.
+              Data architect, 12+ years. Korean founder based in Bangkok, building products for the Thai market.
             </p>
             <p className="text-sm leading-relaxed">
               <strong>Why I built this:</strong> Sourcing agents on Instagram and LinkedIn post the same five photoshopped factory photos and call themselves "verified suppliers." Most of them are middlemen who never set foot in the plant. So I cross-checked Google Maps Business Profiles against Thailand's official DBD company registry — capital, founding date, TSIC industry code, all matched against the government registrar. <strong>{(db.verified_count ?? 0).toLocaleString()} DBD-verified manufacturers + {(db.total_suppliers - (db.verified_count ?? 0)).toLocaleString()} more B2B suppliers</strong> in one searchable directory. Talk to the factory directly. Skip the influencer-sourcing-agent layer.
@@ -95,7 +95,7 @@ export default async function AboutPage() {
         <h2 className="text-lg font-bold mb-3">Contact &amp; address</h2>
         <address className="not-italic text-sm leading-relaxed">
           {cfg.brand}<br />
-          {OFFICE.street}, {OFFICE.locality}<br />
+          {OFFICE.street}<br />
           {OFFICE.district}, {OFFICE.region} {OFFICE.postalCode}, Thailand<br />
           <a href="mailto:inquiry@thaisupplyhub.com" className="underline">inquiry@thaisupplyhub.com</a>
         </address>

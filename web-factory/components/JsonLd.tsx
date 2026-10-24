@@ -18,16 +18,15 @@ function tag(data: object) {
 
 // 운영 주소 — About 페이지와 Organization 스키마가 같은 값을 쓴다 (2026-10-24 사용자 제공).
 export const OFFICE = {
-  street: "47 Soi Tiwanon 3",
-  locality: "Talat Kwan",
-  district: "Mueang Nonthaburi",
-  region: "Nonthaburi",
-  postalCode: "11000",
+  street: "4th Floor, 272 Than Thip 3",
+  district: "Wang Thonglang",
+  region: "Bangkok",
+  postalCode: "10310",
 };
 
 const POSTAL_ADDRESS = {
   "@type": "PostalAddress",
-  streetAddress: `${OFFICE.street}, ${OFFICE.locality}, ${OFFICE.district}`,
+  streetAddress: OFFICE.street,
   addressLocality: OFFICE.district,
   addressRegion: OFFICE.region,
   postalCode: OFFICE.postalCode,
@@ -37,7 +36,7 @@ const POSTAL_ADDRESS = {
 const FOUNDER = {
   "@type": "Person",
   "@id": `${SITE}/about#founder`,
-  name: "Younmin Shin",
+  name: "Yunmin Shin",
   jobTitle: "Founder",
   image: `${SITE}/founder.jpg`,
   url: `${SITE}/about`,
