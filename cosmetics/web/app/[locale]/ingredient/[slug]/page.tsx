@@ -16,6 +16,7 @@ import { ingredientNarrative } from "@/lib/ingredient-narrative";
 import { thaiNameWithVariant } from "@/lib/ingredient-name";
 import { JsonLd } from "@/components/JsonLd";
 import { FaqSection } from "@/components/FaqSection";
+import { ComboProse, SameConcernActives } from "@/components/IngredientLinks";
 import Link from "next/link";
 
 const BASE = "https://bangkokfillers.com";
@@ -253,13 +254,13 @@ export default async function IngredientPage({
             {comboGood && (
               <p className="flex items-start gap-2 text-sm text-neutral-700 leading-relaxed">
                 <span className="text-green-600 mt-0.5">✓</span>
-                <span>{comboGood}</span>
+                <ComboProse text={comboGood} locale={locale} selfSlug={slug} />
               </p>
             )}
             {comboAvoid && (
               <p className="flex items-start gap-2 text-sm text-neutral-700 leading-relaxed">
                 <span className="text-amber-500 mt-0.5">⚠</span>
-                <span>{comboAvoid}</span>
+                <ComboProse text={comboAvoid} locale={locale} selfSlug={slug} />
               </p>
             )}
           </div>
@@ -330,6 +331,9 @@ export default async function IngredientPage({
           )}
         </section>
       )}
+
+      {/* ── Other actives for the same concern ── */}
+      <SameConcernActives inci={ing.inci} locale={locale} />
 
       {/* ── Sources ── */}
       {ing.sources?.length > 0 && (
