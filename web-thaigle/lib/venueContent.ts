@@ -116,3 +116,40 @@ const ADULT_NAME =
 export function isAdultVenue(p: NichePlace): boolean {
   return ADULT_CATEGORY.test(p.category ?? "") || ADULT_NAME.test(p.name ?? "");
 }
+
+// ── Off-niche venues (spa) ──────────────────────────────────────────────────
+//
+// The spa niche was scraped by search term, and Google Maps answers "spa" /
+// "massage" with whatever sits near the words: on 2026-10-25, 243 of the 2,164
+// published spa venues were not spas by their own Google category — 15
+// shopping malls, PTT petrol stations, Toyota and Mercedes dealers, car washes,
+// a bus stop, a dog park, an ice-cream shop, a temple, and a night club, a
+// cabaret and a bar. A directory that lists a petrol station as a Bangkok spa
+// is exactly what "low-value content" means, and the bars/clubs carry the same
+// account-level AdSense risk as the adult venues above.
+//
+// Removal, not noindex, for the reason given for isAdultVenue: across the
+// three months to 2026-10-25 the 243 pages earned 2 impressions and 0 clicks.
+//
+// Three tiers, by Google category:
+//   - spa categories (massage, spa, wellness, sauna, onsen, …) stay;
+//   - service categories where a spa can live inside (hotel, salon, clinic)
+//     stay only when the venue's own name says spa or massage;
+//   - everything else goes, whatever its name says — "Spa HomePro Rama 2" is a
+//     HomePro store.
+// A blank category is treated like a service category: kept on its name.
+
+const SPA_CATEGORY = /massage|\bspa\b|wellness|aromatherap|reflexolog|onsen|sauna|public bath|thai medicine|acupunct/i;
+/** Sauna in the category, but not the kind this directory lists. */
+const NOT_A_SPA_SAUNA = /gay sauna/i;
+const SERVICE_CATEGORY =
+  /hotel|resort|inn\b|villa|serviced accommodation|holiday home|salon|hairdresser|barber|beautician|beauty|esthetic|skin care|dermatolog|laser|clinic|medical|physical therap|physiotherap|physiatrist|osteopath|chiropract|rehabilitation|health|training cent|school|education/i;
+const SPA_NAME = /\bspa\b|massage|reflexolog|onsen|นวด|สปา/i;
+
+export function isOffNicheVenue(nicheSlug: string, p: NichePlace): boolean {
+  if (nicheSlug !== "spa") return false;
+  const cat = (p.category ?? "").trim();
+  if (cat && SPA_CATEGORY.test(cat) && !NOT_A_SPA_SAUNA.test(cat)) return false;
+  if (!cat || SERVICE_CATEGORY.test(cat)) return !SPA_NAME.test(p.name ?? "");
+  return true;
+}
