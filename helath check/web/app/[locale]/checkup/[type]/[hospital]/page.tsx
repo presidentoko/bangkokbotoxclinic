@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
+import { RENAMED_HOSPITALS } from "@/lib/hospital-redirects";
 import { type Locale, catLabel, CATEGORIES, localeAlternates } from "@/lib/i18n";
 import {
   getPackage,
@@ -122,6 +123,18 @@ export default async function PackageDetailPage({
   // where neither half exists is genuinely not found.
   if (!pkg) {
     const slugs = await getAllHospitalSlugs().catch(() => [] as string[]);
+    // Follow a renamed hospital before giving up on it. The 2026-08 rebuild
+    // renamed 104 slugs, and this route only knew the current ones, so
+    // /ar/checkup/executive/chulalongkorn-hospital — the second-best-earning
+    // URL in the 2026-10-25 export, 5 clicks from 221 impressions — answered
+    // with the generic executive listing instead of King Chulalongkorn
+    // Memorial's own executive package.
+    const renamed = RENAMED_HOSPITALS[hospital];
+    if (renamed && renamed !== hospital) {
+      const moved = await getPackage(type, renamed).catch(() => null);
+      if (moved) permanentRedirect(`/${locale}/checkup/${type}/${renamed}`);
+      if (slugs.includes(renamed)) permanentRedirect(`/${locale}/hospital/${renamed}`);
+    }
     if (slugs.includes(hospital)) permanentRedirect(`/${locale}/hospital/${hospital}`);
     if ((CATEGORIES as readonly string[]).includes(type)) {
       permanentRedirect(`/${locale}/checkup/${type}`);
