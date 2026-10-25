@@ -10,6 +10,7 @@ import { listCities, loadCity } from "@/lib/data";
 import { districtLabel } from "@/lib/district-labels";
 import { RANKING_TOPICS, rankPlaces, analysedReviewCount, topicsWithEnoughEntries, MIN_ENTRIES, type RankingTopic } from "@/lib/rankings";
 import { RANKING_COPY as COPY, TOPIC_EMOJI, fill } from "@/lib/ranking-copy";
+import { reviewExcerpt } from "@/lib/reviewExcerpt";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Faq } from "@/components/Faq";
 import { ItemListJsonLd } from "@/components/JsonLd";
@@ -32,7 +33,15 @@ export async function generateMetadata({
   const path = `/city/${city}/best/${topic}`;
   return {
     title: `${fill(c.title, { city: label })} — ${SITE.name}`,
-    description: c.intro,
+    // 2026-10-25: 도시·상위 업체 이름을 넣는다 — intro 만이면 같은 주제의
+    // 7개 도시 페이지 설명이 전부 똑같았다.
+    description: reviewExcerpt(
+      `${fill(c.h1, { city: label })}: ${rankPlaces(loadCity(city).places, topic as RankingTopic)
+        .slice(0, 3)
+        .map((e) => e.place.name)
+        .join(", ")}. ${c.intro}`,
+      155,
+    ),
     alternates: { canonical: `/${lang}${path}`, languages: hreflangAlternates((l) => `/${l}${path}`) },
     openGraph: { url: `${SITE.origin}/${lang}${path}`, siteName: SITE.name, locale: ogLocale(lang), type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };

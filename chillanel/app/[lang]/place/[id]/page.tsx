@@ -28,6 +28,7 @@ import type { Review } from "@/lib/types";
 import VerificationCheck from "@/components/VerificationCheck";
 import LicenseCheck from "@/components/LicenseCheck";
 import InsightsCard from "@/components/InsightsCard";
+import { PlaceExplore } from "@/components/PlaceExplore";
 import { insightSentence, insightFaq } from "@/lib/insights-text";
 
 // 2026-10-22: 리뷰는 짧은 인용으로만, 작성자 이름 없이 (사용자 결정 — 페이지당
@@ -152,11 +153,14 @@ export async function generateMetadata({
     title: found.place.rating != null
       ? `${found.place.name} — Reviews ★${found.place.rating.toFixed(1)} (${(found.place.reviewCount ?? 0).toLocaleString()})`
       : `${found.place.name} — ${SITE.name}`,
-    description:
+    // 2026-10-25: 155자 안으로 — 실측 225자라 검색 결과에서 잘려 끝이 "…" 였다.
+    description: reviewExcerpt(
       summary ??
-      (found.place.rating != null
-        ? `${found.place.name}: ★${found.place.rating.toFixed(1)} (${found.place.reviewCount} reviews). ${found.place.address}`
-        : found.place.address),
+        (found.place.rating != null
+          ? `${found.place.name}: ★${found.place.rating.toFixed(1)} (${found.place.reviewCount} reviews). ${found.place.address}`
+          : found.place.address),
+      155,
+    ),
     alternates: {
       canonical: `/en/place/${id}`,
       ...(indexable ? { languages: hreflangAlternates((l) => `/${l}/place/${id}`) } : {}),
@@ -245,6 +249,9 @@ export default async function PlacePage({
             items={[
               { name: t.nav.home, href: `/${lang}` },
               { name: label, href: `/${lang}/city/${city}` },
+              ...(place.district
+                ? [{ name: districtLabel(place.district, lang), href: `/${lang}/district/${slugifyDistrict(place.district)}` }]
+                : []),
               { name: place.name, href: `/${lang}/place/${place.id}` },
             ]}
           />
@@ -469,6 +476,14 @@ export default async function PlacePage({
           </div>
         </section>
       )}
+
+      <PlaceExplore
+        place={place}
+        cityPlaces={cityData.places}
+        exclude={related.map((r) => r.id)}
+        minReviews={PRERENDER_MIN_REVIEWS}
+        lang={lang}
+      />
 
       <Faq title={t.place.faqTitle} items={faqItems} />
 

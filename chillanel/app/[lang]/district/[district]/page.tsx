@@ -13,6 +13,8 @@ import { Faq } from "@/components/Faq";
 import { ItemListJsonLd } from "@/components/JsonLd";
 import { LoadMorePlaces } from "@/components/LoadMorePlaces";
 import { CityMap } from "@/components/CityMap";
+import { topicsWithEnoughEntries } from "@/lib/rankings";
+import { RANKING_COPY, TOPIC_EMOJI, fill } from "@/lib/ranking-copy";
 
 const MAX_SHOWN = 90; // same payload-size discipline as the city page
 
@@ -79,6 +81,12 @@ export default async function DistrictPage({
   const cityDisplayLabel = cityLabel(cityCode, lang);
   const pageTitle = t.district.listTitle.replace("{district}", label).replace("{city}", cityDisplayLabel);
   const places = allMatching.slice(0, MAX_SHOWN);
+  const siblingDistricts = allDistricts(
+    getAllPlaces()
+      .map(({ place }) => place)
+      .filter((p) => p.city === cityCode && isRelevantCategory(p.primaryType)),
+  ).filter((d) => d !== rawDistrict);
+  const rankingTopics = topicsWithEnoughEntries(cityCode);
 
   const avgRating = averageRating(allMatching);
   const topPick = allMatching[0];
@@ -167,6 +175,41 @@ export default async function DistrictPage({
           totalCount={allMatching.length}
           lang={lang}
         />
+        {/* 2026-10-25: 같은 도시의 다른 구역·순위로 — 구역 페이지는 도시로
+            돌아가는 링크 하나뿐인 막다른 길이었다. */}
+        {siblingDistricts.length > 0 && (
+          <section className="mt-12">
+            <h2 className="font-display italic text-2xl mb-4">{t.city.browseByAreaTitle}</h2>
+            <div className="flex flex-wrap gap-2">
+              {siblingDistricts.map((d) => (
+                <Link
+                  key={d}
+                  href={`/${lang}/district/${slugifyDistrict(d)}`}
+                  className="rounded-full border border-border bg-bg-elev px-4 py-2 text-sm font-medium hover:border-accent hover:text-accent transition"
+                >
+                  {districtLabel(d, lang)}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+        {rankingTopics.length > 0 && (
+          <section className="mt-10">
+            <h2 className="font-display italic text-2xl mb-4">📊 {fill(RANKING_COPY[lang].more, { city: cityDisplayLabel })}</h2>
+            <ul className="flex flex-wrap gap-2">
+              {rankingTopics.map((topic) => (
+                <li key={topic}>
+                  <Link
+                    href={`/${lang}/city/${cityCode}/best/${topic}`}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full border border-border text-sm hover:border-accent hover:text-accent"
+                  >
+                    {TOPIC_EMOJI[topic]} {fill(RANKING_COPY[lang].topics[topic].h1, { city: cityDisplayLabel })}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         <Faq title={t.district.faqTitle} items={faqItems} />
       </div>
     </div>

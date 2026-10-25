@@ -84,6 +84,30 @@ export function analysedReviewCount(places: Place[]): number {
   return places.reduce((s, p) => s + (p.insights?.analysed ?? 0), 0);
 }
 
+/**
+ * 가게 id → 이 가게가 오른 순위들 (topic, 몇 위). 가게 페이지가 "청결 2위" 같은
+ * 링크를 거는 데 쓴다. 가게 페이지 수천 개가 같은 도시를 다시 줄 세우지 않게
+ * 도시별로 한 번만 계산해 둔다.
+ */
+const placeRanksCache = new Map<string, Map<string, { topic: RankingTopic; rank: number }[]>>();
+export function placeRanks(city: string): Map<string, { topic: RankingTopic; rank: number }[]> {
+  const hit = placeRanksCache.get(city);
+  if (hit) return hit;
+  const places = loadCity(city).places;
+  const out = new Map<string, { topic: RankingTopic; rank: number }[]>();
+  for (const topic of RANKING_TOPICS) {
+    const entries = rankPlaces(places, topic);
+    if (entries.length < MIN_ENTRIES) continue;
+    entries.forEach((e, i) => {
+      const list = out.get(e.place.id) ?? [];
+      list.push({ topic, rank: i + 1 });
+      out.set(e.place.id, list);
+    });
+  }
+  placeRanksCache.set(city, out);
+  return out;
+}
+
 /** 이 도시에서 페이지를 낼 만큼 항목이 있는 순위들. 페이지·링크·사이트맵이 같이 쓴다. */
 export function topicsWithEnoughEntries(city: string): RankingTopic[] {
   const places = loadCity(city).places;

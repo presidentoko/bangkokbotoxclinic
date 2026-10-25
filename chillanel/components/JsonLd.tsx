@@ -145,15 +145,9 @@ export function LocalBusinessJsonLd({
     ...(place.phone ? { telephone: place.phone } : {}),
     ...(place.website ? { sameAs: [place.website] } : {}),
     ...(median != null ? { priceRange: `~${median}฿` } : {}),
-    ...(place.rating != null && place.reviewCount > 0
-      ? {
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: place.rating,
-            reviewCount: place.reviewCount,
-          },
-        }
-      : {}),
+    // 2026-10-25: aggregateRating 제거. 구글 지도 별점·리뷰수를 그대로 옮긴
+    // 값이라 구글 리뷰 스니펫 정책상 "제3자 리뷰"로 부적격이고, 수동 조치
+    // 위험만 있다(별 리치결과는 어차피 안 나온다). 평점은 화면에 그대로 보인다.
     ...(place.lat != null && place.lng != null
       ? { geo: { "@type": "GeoCoordinates", latitude: place.lat, longitude: place.lng } }
       : {}),
@@ -161,9 +155,7 @@ export function LocalBusinessJsonLd({
     // scraped from Google, not authored on chillanel -- emitting them as
     // schema.org Review objects under this business's own LocalBusiness
     // markup asserts to Google's structured-data crawler that they're
-    // chillanel's own first-party reviews, which they aren't. aggregateRating
-    // above (a single rolled-up number) is a much smaller version of the same
-    // claim and is kept for the star-rating rich snippet; the individual
+    // chillanel's own first-party reviews, which they aren't. The individual
     // review text/author is still shown to human readers on the page itself
     // (place/[id]/page.tsx), just not asserted as structured data.
   };
