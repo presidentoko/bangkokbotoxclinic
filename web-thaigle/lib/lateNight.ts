@@ -22,19 +22,6 @@ type Place = {
 
 type KnownHours = Extract<HoursSummary, { known: true }>;
 
-/**
- * Phone-only outcall services: no premises, so "open until" is not a question
- * that applies, and they are what most "24-hour massage" listings turn out to
- * be (5 of the first 6 in Bangkok on 2026-10-25). Matched on the name, which
- * is where these listings say it. "Home Massage" alone is a common shop name
- * and is deliberately not matched.
- */
-const OUTCALL = /outcall|out-call|out call|on-demand|delivery|mobile massage|นวดนอกสถานที่|นวดที่บ้าน|นวดถึงบ้าน|출장|上门|在家|自宅/i;
-
-export function isOutcall(p: { name: string }): boolean {
-  return OUTCALL.test(p.name ?? "");
-}
-
 /** Thresholds, in one place. Minutes after midnight; 1440 = midnight. */
 export const LATE = {
   midnight: 1440,
@@ -66,8 +53,6 @@ export type LateVenue<P extends Place = Place> = {
 export type LateReport<P extends Place = Place> = {
   /** Venues in the city at all (after the niche's own publishing gate). */
   total: number;
-  /** Outcall-only services left out of everything below. */
-  outcall: number;
   /** Venues with a full readable week. */
   known: number;
   open24: LateVenue<P>[];
@@ -90,8 +75,9 @@ function median(xs: number[]): number {
 
 /** `places` must already be the niche's published set (qualifyingNichePlaces). */
 export function lateReport<P extends Place>(places: P[], city: string): LateReport<P> {
-  const all = places.filter((p) => p.city === city);
-  const inCity = all.filter((p) => !isOutcall(p));
+  // Outcall-only services never reach here: qualifyingNichePlaces drops them
+  // (isOutcallVenue), and "open until" means nothing for a phone number.
+  const inCity = places.filter((p) => p.city === city);
   const prior = median(inCity.map((p) => p.rating ?? NaN).filter((r) => Number.isFinite(r) && r > 0));
   const known: LateVenue<P>[] = [];
   for (const p of inCity) {
@@ -107,8 +93,7 @@ export function lateReport<P extends Place>(places: P[], city: string): LateRepo
   const buckets = BUCKETS.map(() => 0);
   for (const v of rest) buckets[BUCKETS.findIndex((b) => v.hours.earliestClose <= b.upTo)]++;
   return {
-    total: all.length,
-    outcall: all.length - inCity.length,
+    total: inCity.length,
     known: known.length,
     open24,
     midnight,

@@ -56,8 +56,8 @@ function faqs(r: LateReport<NichePlace>, city: string, topArea: { label: string;
     {
       q: `Is there a 24-hour massage in ${city}?`,
       a: r.open24.length
-        ? `${r.open24.length} venues with their own premises list "open 24 hours" every day. ${r.outcall} outcall-only services, which come to your hotel and have no shop, are left out of this page.`
-        : `None of the venues with their own premises list 24-hour opening. ${r.outcall} outcall-only services, which have no shop, are left out of this page.`,
+        ? `${r.open24.length} venues with their own premises list "open 24 hours" every day. Outcall-only services, which come to your hotel and have no shop, are not listed on Thaigle.`
+        : `None of the venues with their own premises list 24-hour opening. Outcall-only services, which have no shop, are not listed on Thaigle.`,
     },
     {
       q: "How is \"open late\" decided?",
@@ -145,8 +145,8 @@ export default async function OpenLatePage({ params }: { params: Promise<{ niche
           {topArea && <>{topArea.label} has the most late venues ({topArea.n}).</>}
         </p>
         <p className="text-xs text-[var(--muted)] mt-3">
-          {(r.total - r.outcall - r.known).toLocaleString()} venues do not list a readable full week and are left out;{" "}
-          {r.outcall} outcall-only services (no shop, they come to you) are left out as well.
+          {(r.total - r.known).toLocaleString()} venues do not list a readable full week and are left out rather than
+          guessed at. Outcall-only services (no shop, they come to you) are not listed on Thaigle.
         </p>
       </section>
 

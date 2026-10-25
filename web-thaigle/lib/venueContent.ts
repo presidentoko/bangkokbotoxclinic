@@ -146,6 +146,29 @@ const SERVICE_CATEGORY =
   /hotel|resort|inn\b|villa|serviced accommodation|holiday home|salon|hairdresser|barber|beautician|beauty|esthetic|skin care|dermatolog|laser|clinic|medical|physical therap|physiotherap|physiatrist|osteopath|chiropract|rehabilitation|health|training cent|school|education/i;
 const SPA_NAME = /\bspa\b|massage|reflexolog|onsen|นวด|สปา/i;
 
+// ── Outcall-only massage services ───────────────────────────────────────────
+//
+// Phone-and-come-to-you services with no premises: "Outcall Massage", "Delivery
+// only!", 출장마사지, 上门按摩, นวดนอกสถานที่. On 2026-10-25, 43 were published as
+// spa venues — and they were most of what read as "open 24 hours". In Thailand
+// the category overlaps heavily with sexual services (one listing was "Russian
+// girl outcall massage"), the same account-level AdSense risk as isAdultVenue,
+// and a directory of places to visit has nothing to say about a phone number.
+// Across three months the 43 pages drew 5 impressions and 0 clicks.
+//
+// Matched on the name, which is where these listings say it. "Home Massage"
+// alone is a common shop name and is not matched. Two real shops that only
+// mention a home service alongside the shop are kept by slug.
+const OUTCALL_NAME = /outcall|out-call|out call|on-demand|delivery|mobile massage|นวดนอกสถานที่|นวดที่บ้าน|출장|上门|在家|自宅/i;
+const OUTCALL_NAMED_SHOPS = new Set([
+  "spa-salanuad-bangkok-massage-spa-nail-bar-spa", // 987 reviews; "home service too"
+  "spa-thai-massage-shop-ratchaprarop-outcall-qbvs-i", // "Thai Massage shop Ratchaprarop"
+]);
+
+export function isOutcallVenue(p: NichePlace): boolean {
+  return OUTCALL_NAME.test(p.name ?? "") && !OUTCALL_NAMED_SHOPS.has(p.slug);
+}
+
 export function isOffNicheVenue(nicheSlug: string, p: NichePlace): boolean {
   if (nicheSlug !== "spa") return false;
   const cat = (p.category ?? "").trim();

@@ -2,7 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 // venueContent imports NichePlace from here, but as `import type` only, so
 // this pair does not form a runtime cycle.
-import { isAdultVenue, isOffNicheVenue } from "@/lib/venueContent";
+import { isAdultVenue, isOffNicheVenue, isOutcallVenue } from "@/lib/venueContent";
 
 export const NICHES = [
   { slug: "muay-thai",    label: "Muay Thai",       icon: "🥊", desc: "Muay Thai gyms & training camps in Thailand",         planType: "gym"      },
@@ -252,8 +252,9 @@ export function qualifyingNichePlaces(nicheSlug: string, places: NichePlace[]): 
   // map and generateStaticParams all lose them together — see isAdultVenue() in
   // lib/venueContent.ts for what they are and why they go. Venues that are not
   // the niche at all (petrol stations listed as spas) go the same way — see
-  // isOffNicheVenue().
-  const eligible = places.filter((p) => !isAdultVenue(p) && !isOffNicheVenue(nicheSlug, p));
+  // isOffNicheVenue(), and outcall-only services with no premises with them —
+  // isOutcallVenue().
+  const eligible = places.filter((p) => !isAdultVenue(p) && !isOffNicheVenue(nicheSlug, p) && !isOutcallVenue(p));
   const top = topNichePlaces(eligible, Infinity);
   if (!BACKFILLED_NICHES.has(nicheSlug)) return top;
 
