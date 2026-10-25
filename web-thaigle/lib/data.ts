@@ -3,6 +3,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import type { MasterDb, Restaurant } from "./types";
+import { reliableTrend } from "./ratingChange";
 
 const DATA_PATH = path.join(process.cwd(), "data", "master_db.json");
 
@@ -18,6 +19,9 @@ export async function loadMasterDb(): Promise<MasterDb> {
     // Math.round of the same number ("87") a few hundred pixels away on the
     // same page. One value, one rounding.
     r.trust_score = Math.round(Math.max(0, Math.min(100, r.trust_score)));
+    // The build labels a trend on any sample size; one rule, applied once,
+    // so no badge can disagree with the rating-changes page (lib/ratingChange.ts).
+    if (r.rating_trend) r.rating_trend.trend = reliableTrend(r.rating_trend);
   }
   _cache = db;
   return _cache;

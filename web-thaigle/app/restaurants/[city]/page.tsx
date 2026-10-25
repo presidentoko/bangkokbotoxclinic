@@ -15,6 +15,7 @@ import { SeasonalTip } from "@/components/SeasonalTip";
 import { BangkokTransportGuide } from "@/components/BangkokTransportGuide";
 import { BangkokParksGardens } from "@/components/BangkokParksGardens";
 import type { Metadata } from "next";
+import { hasRatingChangePage } from "@/lib/ratingChange";
 
 export const dynamicParams = false;
 
@@ -88,6 +89,7 @@ export default async function CityHub(
   const districts = [...new Set(restaurants.map((r) => r.district).filter(Boolean))].sort();
   const cityHoods = NEIGHBORHOODS.filter((n) => n.city === city);
   const unlistedCount = restaurants.filter((r) => !r.district).length;
+  const hasRatingChanges = hasRatingChangePage(db.restaurants, city);
   const top = [...restaurants].sort((a, b) => b.trust_score - a.trust_score).slice(0, 20);
   const cuisineCounts: Record<string, number> = {};
   for (const r of restaurants) {
@@ -169,6 +171,12 @@ export default async function CityHub(
                  className="border rounded-full px-3 py-1.5 text-sm hover:bg-orange-50 hover:border-orange-400 transition">
                 📸 Instagram-famous vs actually good
               </a>
+              {hasRatingChanges && (
+                <a href={`/restaurants/${city}/rating-changes`}
+                   className="border rounded-full px-3 py-1.5 text-sm hover:bg-orange-50 hover:border-orange-400 transition">
+                  📉 Ratings that moved
+                </a>
+              )}
               {unlistedCount > 0 && (
                 <a href={`/restaurants/${city}/other`}
                    className="border rounded-full px-3 py-1.5 text-sm hover:bg-orange-50 hover:border-orange-400 transition">

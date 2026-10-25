@@ -8,6 +8,7 @@ import { NICHES, loadNicheDb, qualifyingNichePlaces, nicheCityCounts, cityPageDu
 import { isThinVenue } from "@/lib/venueContent";
 import { nicheAreaCounts } from "@/lib/areas";
 import { allVsParams, nichesWithVs } from "@/lib/vs";
+import { hasRatingChangePage } from "@/lib/ratingChange";
 import type { NicheSlug } from "@/lib/niches";
 import { allDayPlanParams, buildDayPlan, AREA_DEFS, THEME_DEFS } from "@/lib/day-plans";
 import type { AreaSlug, ThemeSlug } from "@/lib/day-plans";
@@ -293,6 +294,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     items.push({ url: `${SITE}/restaurants/${c}/hidden-gems`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
     items.push({ url: `${SITE}/restaurants/${c}/tourist-traps`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
     items.push({ url: `${SITE}/restaurants/${c}/instagram-famous-vs-actually-good`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
+    if (hasRatingChangePage(db.restaurants, c)) {
+      items.push({ url: `${SITE}/restaurants/${c}/rating-changes`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 });
+    }
   }
 
   for (const c of CUISINES) {
