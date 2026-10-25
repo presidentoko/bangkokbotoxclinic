@@ -15,6 +15,7 @@ import { getProfile } from '@/lib/hospitalProfiles'
 import { getClinicPrices } from '@/lib/clinicPrices'
 import ClinicPrices from '@/components/ClinicPrices'
 import NearbyHospitals from '@/components/NearbyHospitals'
+import SameAreaClinics from '@/components/SameAreaClinics'
 import HospitalShareButtons from '@/components/HospitalShareButtons'
 import PantipReviews from '@/components/PantipReviews'
 import type { Metadata } from 'next'
@@ -663,6 +664,9 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
 
       {/* Pantip reviews */}
       {pantipReview && <PantipReviews review={pantipReview} />}
+
+      {/* Same เขต/อำเภอ, from the address, plus the link up to the area hub. */}
+      <SameAreaClinics hospital={h} />
 
       {/* Nearby hospitals */}
       <NearbyHospitals hospital={h} />
