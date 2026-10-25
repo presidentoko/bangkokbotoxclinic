@@ -9,6 +9,7 @@ import { isThinVenue } from "@/lib/venueContent";
 import { nicheAreaCounts } from "@/lib/areas";
 import { allVsParams, nichesWithVs } from "@/lib/vs";
 import { hasRatingChangePage } from "@/lib/ratingChange";
+import { allLateParams } from "@/lib/lateNightIndex";
 import type { NicheSlug } from "@/lib/niches";
 import { allDayPlanParams, buildDayPlan, AREA_DEFS, THEME_DEFS } from "@/lib/day-plans";
 import type { AreaSlug, ThemeSlug } from "@/lib/day-plans";
@@ -287,6 +288,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
   for (const { niche, pair } of await allVsParams()) {
     items.push({ url: `${SITE}/activities/${niche}/vs/${pair}`, lastModified: updated, changeFrequency: "monthly", priority: 0.6 });
+  }
+  for (const { niche, city } of await allLateParams()) {
+    items.push({ url: `${SITE}/activities/${niche}/open-late/${city}`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 });
   }
 
   for (const c of cities) {

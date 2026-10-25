@@ -14,6 +14,7 @@ import {
 import type { NicheSlug } from "@/lib/niches";
 import { nicheAreaCounts } from "@/lib/areas";
 import { getVsIndex } from "@/lib/vs";
+import { allLateParams } from "@/lib/lateNightIndex";
 import { NicheGrid } from "@/components/NicheGrid";
 import { toGridPlace, toGridKlook } from "@/lib/gridPlace";
 import { ShareButton } from "@/components/ShareButton";
@@ -391,6 +392,7 @@ export default async function NichePage({
   // Head-to-head pages exist only for niches with enough well-reviewed venues in
   // one neighbourhood; ask the same index that builds them.
   const vsCount = (await getVsIndex(niche as NicheSlug)).pairs.length;
+  const lateCities = (await allLateParams()).filter((l) => l.niche === niche);
   // See generateMetadata above — db.total is the raw scraped count and can
   // wildly overstate how many pages actually exist for thin-data niches.
   const rankedCount = qualifying.length;
@@ -461,6 +463,20 @@ export default async function NichePage({
           <a href={`/activities/${niche}/vs`} className="text-orange-600 font-bold hover:underline">
             Compare {info.label} head-to-head ({vsCount} comparisons) →
           </a>
+        </div>
+      )}
+
+      {lateCities.length > 0 && (
+        <div className="mb-4 text-sm">
+          <span className="text-[var(--muted)]">Still open after midnight: </span>
+          {lateCities.map((l, i) => (
+            <span key={l.city}>
+              {i > 0 && " · "}
+              <a href={`/activities/${niche}/open-late/${l.city}`} className="text-orange-600 font-bold hover:underline">
+                {l.cityName}
+              </a>
+            </span>
+          ))}
         </div>
       )}
 

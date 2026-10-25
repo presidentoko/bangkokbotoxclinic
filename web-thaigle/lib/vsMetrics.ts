@@ -103,6 +103,12 @@ export type HoursSummary =
       avgHoursPerOpenDay: number;
       /** Latest closing time on any day, minutes after midnight; > 1440 is the next morning. */
       latestClose: number;
+      /**
+       * Earliest closing time across the days it opens — the hour it is open
+       * until every night it trades. "Open late" claims use this, not
+       * latestClose, so a place that stays up only on Saturdays doesn't count.
+       */
+      earliestClose: number;
       earliestOpen: number;
       opensSunday: boolean;
       open24: boolean;
@@ -134,6 +140,7 @@ export function summarizeHours(json: string | null | undefined): HoursSummary {
     daysOpen: open.length,
     avgHoursPerOpenDay: open.reduce((t, d) => t + d.minutes, 0) / open.length / 60,
     latestClose: Math.max(...open.map((d) => d.close)),
+    earliestClose: Math.min(...open.map((d) => d.close)),
     earliestOpen: Math.min(...open.map((d) => d.first)),
     opensSunday: days[6].open,
     open24: open.every((d) => d.is24h),
