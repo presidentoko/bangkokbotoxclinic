@@ -19,43 +19,14 @@ import { DistrictCompareTable } from "@/components/DistrictCompareTable";
 import { PriceBands } from "@/components/PriceBands";
 import { BreadcrumbJsonLd, CollectionPageJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { BookingForm } from "@/components/BookingForm";
-import { applySiteFilter, getSiteConfig, getSiteUrl } from "@/lib/site";
+import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
+import { TH_LABELS, thDistrict, thCity } from "@/lib/th-labels";
+import { CategoryIcon } from "@/components/CategoryIcon";
 import type { Metadata } from "next";
 
-// 손으로 검증된 태국어 구명만 둔다(build_master_db.py 의 별칭 테이블 출처).
-// 나머지 지역은 영어 표기를 태국어 문장 안에 그대로 넣는다 — 구글맵·주소
-// 표기가 영문인 구가 많아 태국인에게도 자연스럽고, 무엇보다 **틀린 태국어명을
-// 붙이는 것보다 낫다**. 수집 주소에서 เขต 뒤 단어를 뽑아 자동 생성해봤으나
-// Khlong Toei→พระโขนง, Phaya Thai→เมือง 처럼 오류가 많아 폐기했다(2026-08-23 실측).
-const TH_DISTRICT: Record<string, string> = {
-  "Bang Phlat": "บางพลัด",
-  "Don Mueang": "ดอนเมือง",
-  Dusit: "ดุสิต",
-  "Huai Khwang": "ห้วยขวาง",
-  "Lak Si": "หลักสี่",
-  "Nong Chok": "หนองจอก",
-  "Nong Khaem": "หนองแขม",
-  "Pathum Wan": "ปทุมวัน",
-  "Phaya Thai": "พญาไท",
-  "Phra Khanong": "พระโขนง",
-  Ratchathewi: "ราชเทวี",
-  Watthana: "วัฒนา",
-  "Yan Nawa": "ยานนาวา",
-};
-
-const TH_CITY: Record<string, string> = {
-  Bangkok: "กรุงเทพฯ",
-  Pattaya: "พัทยา",
-  "Chiang Mai": "เชียงใหม่",
-  Nonthaburi: "นนทบุรี",
-  "Samut Prakan": "สมุทรปราการ",
-  "Pathum Thani": "ปทุมธานี",
-  "Hua Hin": "หัวหิน",
-  "Koh Samui": "เกาะสมุย",
-};
-
-const thName = (d: string) => TH_DISTRICT[d] ?? d;
-const thCity = (c: string) => TH_CITY[c] ?? c;
+// 태국어 구명·도시명 테이블은 2026-10-25 에 lib/th-labels.ts 로 옮겼다
+// (/th/c/[service]/[district] 와 공용). 원칙(검증된 이름만, 나머지는 영어 표기)은 그대로.
+const thName = thDistrict;
 
 function districtFromSlug(slug: string, all: string[]): string | null {
   const target = slug.toLowerCase();
@@ -132,6 +103,18 @@ export default async function ThaiDistrictPage(
   const dn = thName(districtName);
   const cn = thCity(cityLabel);
   const totalReviews = filtered.reduce((s, c) => s + c.total_reviews, 0);
+
+  // 2026-10-25: 영어판 /d/[district] 의 "Filter by service" 칩과 같은 기준
+  // (focus 안 카테고리, 2곳 이상)으로 태국어 조합 페이지 /th/c/{cat}/{district} 를 잇는다.
+  const focusValidCats = FOCUS_VALID[cfg.focus];
+  const categoryMap = new Map<string, number>();
+  for (const c of filtered) {
+    for (const cat of c.categories) {
+      if (focusValidCats && !focusValidCats.has(cat)) continue;
+      categoryMap.set(cat, (categoryMap.get(cat) ?? 0) + 1);
+    }
+  }
+  const topCats = [...categoryMap.entries()].filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1]);
 
   // 2026-08-23: 지역 페이지에 FAQ 를 붙인다.
   //
@@ -210,6 +193,25 @@ export default async function ThaiDistrictPage(
       <p className="text-[var(--muted)] mb-6">
         {filtered.length} แห่งใน{dn} {cn} · จากรีวิว Google {totalReviews.toLocaleString()} รายการ
       </p>
+
+      {topCats.length > 0 && (
+        <section className="mb-6">
+          <div className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)] mb-2">เลือกตามบริการ</div>
+          <div className="flex flex-wrap gap-2">
+            {topCats.map(([cat, n]) => (
+              <a
+                key={cat}
+                href={`/th/c/${cat}/${district}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+              >
+                <CategoryIcon category={cat} size={13} />
+                {TH_LABELS[cat] ?? cat}
+                <span className="text-[var(--muted)] tabular-nums text-xs">{n}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="mb-6 text-sm">
         <a href={`/d/${district}`} className="underline hover:no-underline text-[var(--muted)]">

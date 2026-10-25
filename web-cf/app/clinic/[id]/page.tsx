@@ -816,8 +816,9 @@ export default async function ClinicPage(
                     : t.similar}
                 </h2>
                 {primaryCat && c.district && (
+                  // 2026-10-25: tp — /th 에서는 태국어 조합 페이지(/th/c/{cat}/{district})로.
                   <a
-                    href={`/c/${primaryCat}/${c.district.toLowerCase().replace(/\s+/g, "-")}`}
+                    href={`${tp}/c/${primaryCat}/${c.district.toLowerCase().replace(/\s+/g, "-")}`}
                     className="text-xs text-[var(--accent)] hover:underline font-medium"
                   >
                     {t.seeAll}

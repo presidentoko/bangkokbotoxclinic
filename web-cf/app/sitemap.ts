@@ -138,6 +138,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ).length;
         if (comboCount < 3) continue;
         items.push({ url: `${SITE}/c/${s}/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
+        // 2026-10-25: 태국어 조합 페이지 — 영어판과 같은 3곳 게이트, 같은 단일시술 제외
+        // (단일시술 사이트에선 /th/c/{s}/{d} 도 /th/d/{d} 로 canonical 이 모인다).
+        items.push({ url: `${SITE}/th/c/${s}/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
       }
     }
   }

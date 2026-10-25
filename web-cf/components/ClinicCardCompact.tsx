@@ -79,7 +79,8 @@ export async function ClinicCardCompact({ clinic, rank, lang = "en" }: { clinic:
 
   return (
     <a
-      href={`/clinic/${clinic.url_slug}`}
+      // 2026-10-25: lang 을 받으면서 링크는 늘 영어판이었다 — ClinicCard 와 같은 규칙으로.
+      href={`${lang === "en" ? "" : `/${lang}`}/clinic/${clinic.url_slug}`}
       className={`group flex items-center gap-3 px-4 py-3 bg-white border border-[var(--border)] rounded-lg hover:shadow-sm hover:border-gray-300 transition ${tierBorder}`}
     >
       {/* Rank */}

@@ -19,34 +19,12 @@ import { BookingForm } from "@/components/BookingForm";
 import { StatsBar } from "@/components/StatsBar";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
+import { TH_LABELS, TH_NEAR_ME, thDistrict } from "@/lib/th-labels";
 import type { Metadata } from "next";
 
 const VALID = new Set(["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"]);
 
-const TH_LABELS: Record<string, string> = {
-  botox: "โบท็อกซ์",
-  filler: "ฟิลเลอร์",
-  hifu: "HIFU",
-  facial: "ดูแลผิวหน้า",
-  laser: "เลเซอร์",
-  dental: "ทันตกรรม",
-  hair_transplant: "ปลูกผม",
-  eye: "เลสิก",
-};
-
-// GSC 에서 실제로 클릭을 만들고 있는 "…ใกล้ฉัน"(내 근처) 표현. 제목에 그대로
-// 쓰기 위해 별도 테이블로 둔다 — 의역하면 매칭이 약해진다.
-const TH_NEAR_ME: Record<string, string> = {
-  botox: "คลินิกโบท็อกซ์ใกล้ฉัน",
-  filler: "คลินิกฟิลเลอร์ใกล้ฉัน",
-  hifu: "คลินิก HIFU ใกล้ฉัน",
-  facial: "คลินิกผิวหน้าใกล้ฉัน",
-  laser: "คลินิกเลเซอร์ใกล้ฉัน",
-  dental: "คลินิกทำฟันใกล้ฉัน",
-  hair_transplant: "คลินิกปลูกผมใกล้ฉัน",
-  eye: "คลินิกเลสิกใกล้ฉัน",
-};
-
+// TH_LABELS·TH_NEAR_ME 는 2026-10-25 에 lib/th-labels.ts 로 옮겼다(/th/c/[service]/[district] 와 공용).
 
 // 가격 비교 표 — AI Overviews/답변 엔진이 가장 안정적으로 추출하는 형식인데
 // 이 사이트엔 <table>이 한 개도 없었다. 수치는 lib/faq.ts 의 영어 FAQ와 동일.
@@ -276,12 +254,13 @@ export default async function ThServicePage(
             </h2>
             <div className="flex flex-wrap gap-2">
               {districts.map(([d, n]) => (
+                // 2026-10-25: 영어 조합 페이지로 튕기던 링크 — 태국어판 /th/c/{service}/{district} 신설.
                 <a
                   key={d}
-                  href={`/c/${service}/${d.toLowerCase().replace(/\s+/g, "-")}`}
+                  href={`/th/c/${service}/${d.toLowerCase().replace(/\s+/g, "-")}`}
                   className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
                 >
-                  {d} <span className="text-[var(--muted)]">{n}</span>
+                  {thDistrict(d)} <span className="text-[var(--muted)]">{n}</span>
                 </a>
               ))}
             </div>

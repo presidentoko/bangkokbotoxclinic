@@ -62,6 +62,8 @@ const LOCALIZED_ROUTE_PATTERNS: { pattern: RegExp; langs: Lang[] }[] = [
   { pattern: /^\/c\/[^/]+\/?$/, langs: ["th", "ko"] },
   // 2026-08-23: /th/d/[district] 신설. ko 판은 없으므로 th 만.
   { pattern: /^\/d\/[^/]+\/?$/, langs: ["th"] },
+  // 2026-10-25: /th/c/[service]/[district] 신설. ko 판은 없으므로 th 만.
+  { pattern: /^\/c\/[^/]+\/[^/]+\/?$/, langs: ["th"] },
 ];
 
 /** 같은 페이지의 다른 언어 버전 URL. 실제로 존재하는 로케일 변형만 경로를

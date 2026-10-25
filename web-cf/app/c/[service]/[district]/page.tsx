@@ -64,6 +64,13 @@ export async function generateMetadata(
         (FOCUS_VALID[cfg.focus]?.size ?? 0) === 1
           ? `/d/${district}`
           : `/c/${service}/${district}`,
+      // 2026-10-25: /th/c/[service]/[district] 신설과 함께 hreflang 상호 선언.
+      // 한쪽만 선언하면 클러스터가 성립하지 않는다(/c·/d 에서 겪은 그대로).
+      languages: {
+        en: `/c/${service}/${district}`,
+        th: `/th/c/${service}/${district}`,
+        "x-default": `/c/${service}/${district}`,
+      },
     },
     ...(robots && { robots }),
   };
