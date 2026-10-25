@@ -374,11 +374,6 @@ export default async function DoctorPage(
             url: `${SITE}/clinic/${c.url_slug}`,
           },
           medicalSpecialty: c.categories.map((cat) => CATEGORY_LABELS[cat] ?? cat),
-          aggregateRating: d.mentions >= 3 ? {
-            "@type": "AggregateRating",
-            ratingValue: d.rating_avg,
-            reviewCount: d.mentions,
-          } : undefined,
           knowsLanguage: Object.entries(d.language_count)
             .filter(([k, v]) => v > 0 && k !== "other")
             .map(([k]) => ({ th: "Thai", en: "English", ko: "Korean", ja: "Japanese" }[k as "th" | "en" | "ko" | "ja"] || k)),

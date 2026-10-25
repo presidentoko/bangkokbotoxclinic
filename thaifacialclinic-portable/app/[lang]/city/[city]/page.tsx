@@ -107,12 +107,6 @@ export default async function CityPage({
         "@type": "MedicalBusiness",
         name: c.name,
         url: `${SITE.origin}/${lang}/clinic/${c.slug}/`,
-        aggregateRating: c.rating && c.review_count ? {
-          "@type": "AggregateRating",
-          ratingValue: c.rating,
-          reviewCount: c.review_count,
-          bestRating: 5,
-        } : undefined,
       },
     })),
   } : null;

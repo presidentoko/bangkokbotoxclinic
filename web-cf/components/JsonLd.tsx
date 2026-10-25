@@ -147,17 +147,7 @@ export function ClinicJsonLd({ c, photos, priceRange, localePrefix = "" }: {
       addressCountry: "TH",
     },
   };
-  // 리뷰 0건인데 aggregateRating을 발행하면 GSC에서 "필수 필드 누락" 에러 →
-  // 사이트 전체 리치결과 자격 상실 위험 (2026-07-10 감사). 실데이터 있을 때만.
-  if (c.rating && c.total_reviews) {
-    data.aggregateRating = {
-      "@type": "AggregateRating",
-      ratingValue: c.rating,
-      reviewCount: c.total_reviews,
-      bestRating: 5,
-      worstRating: 1,
-    };
-  }
+  // 2026-10-25: aggregateRating 제거 — 구글 지도 별점을 옮긴 값이라 리뷰 스니펫 정책상 제3자 리뷰로 부적격, 수동 조치 위험만 있다. 화면 평점은 그대로.
   if (c.lat && c.lng) {
     data.geo = { "@type": "GeoCoordinates", latitude: c.lat, longitude: c.lng };
   }
@@ -315,15 +305,6 @@ export function CollectionPageJsonLd({ name, description, url, items }: {
           "@id": `${SITE}/clinic/${c.url_slug}`,
           name: c.name,
           url: `${SITE}/clinic/${c.url_slug}`,
-          // 리뷰 0건이면 aggregateRating 생략 — ClinicJsonLd와 동일 가드
-          ...(c.rating && c.total_reviews && {
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: c.rating,
-              reviewCount: c.total_reviews,
-              bestRating: 5,
-            },
-          }),
           address: {
             "@type": "PostalAddress",
             addressLocality: c.district || c.city_label || "Bangkok",

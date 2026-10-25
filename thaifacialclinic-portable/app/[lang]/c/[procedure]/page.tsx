@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PROC_MAP } from "@/lib/procedures";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { loadClinics } from "@/lib/data";
@@ -12,17 +13,6 @@ import { PROCEDURE_FAQS } from "@/lib/faq";
 export const dynamic = "force-static";
 export const dynamicParams = false;
 
-const PROC_MAP: Record<string, { name: string; match: RegExp; priceHint: string }> = {
-  "fue": { name: "FUE Hair Transplant", match: /FUE/i, priceHint: "from ฿65,000 (2,000 grafts)" },
-  "dhi": { name: "DHI Hair Transplant", match: /DHI/i, priceHint: "from ฿85,000 (2,000 grafts)" },
-  "fut": { name: "FUT Hair Transplant", match: /FUT/i, priceHint: "from ฿55,000 (2,000 grafts)" },
-  "prp": { name: "PRP Hair Treatment", match: /PRP/i, priceHint: "฿5,000–15,000 per session" },
-  "smp": { name: "SMP / Scalp Micropigmentation", match: /SMP|Scalp Micropigmentation/i, priceHint: "฿15,000–50,000 per session" },
-  "stem-cell": { name: "Stem Cell Therapy", match: /Stem Cell/i, priceHint: "from ฿40,000 per session" },
-  "eyebrow": { name: "Eyebrow Transplant", match: /Eyebrow/i, priceHint: "฿35,000–80,000" },
-  "beard": { name: "Beard Transplant", match: /Beard/i, priceHint: "฿50,000–120,000" },
-  "scalp-care": { name: "Scalp Care / Scaling", match: /Scalp|head spa/i, priceHint: "฿3,000–12,000 per session" },
-};
 
 // 2026-09-30: 태국어 제목.
 //
@@ -171,12 +161,6 @@ export default async function ProcedurePage({
         "@type": "MedicalBusiness",
         name: c.name,
         url: `${SITE.origin}/${lang}/clinic/${c.slug}/`,
-        aggregateRating: c.rating && c.review_count ? {
-          "@type": "AggregateRating",
-          ratingValue: c.rating,
-          reviewCount: c.review_count,
-          bestRating: 5,
-        } : undefined,
       },
     })),
   } : null;

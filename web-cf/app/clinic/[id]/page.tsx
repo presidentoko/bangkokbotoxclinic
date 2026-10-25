@@ -156,7 +156,9 @@ export async function generateMetadata(
   const _insBit = _praised.length
     ? ` Reviewers praise ${_praised.map((x) => `${_ASPECT_EN[x.k]} (${x.pct}% of ${x.n} mentions)`).join(" and ")}.`
     : "";
-  const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} from ${c.total_reviews} Google reviews.${_insBit}${_hoursBit}${_licBit} ${cats || "Aesthetic clinic"}.`.replace(/\s+/g, " ").trim();
+  const fullDescription = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} from ${c.total_reviews} Google reviews.${_insBit}${_hoursBit}${_licBit} ${cats || "Aesthetic clinic"}.`.replace(/\s+/g, " ").trim();
+  // 2026-10-25: 155자 안으로 — 실측 210자라 검색 결과에서 잘렸다.
+  const description = reviewExcerpt(fullDescription, 155);
 
   // 이 사이트 소관이 아닌 클리닉이면 (예: 덴탈 사이트에 뜬 보톡스 전용 클리닉)
   // 절대 URL로 진짜 소유 도메인을 캐노니컬로 지정 + noindex — 두 도메인 동시 색인 방지.

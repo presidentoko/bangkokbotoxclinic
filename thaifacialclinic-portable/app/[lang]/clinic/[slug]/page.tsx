@@ -42,6 +42,7 @@ import CollapsibleSection from "@/components/CollapsibleSection";
 import WikiSummaryCard from "@/components/WikiSummaryCard";
 import { loadWikiSummary } from "@/lib/wiki";
 import { guidesForProcedures } from "@/lib/guides";
+import { procedureSlug } from "@/lib/procedures";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
@@ -321,12 +322,19 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
               <div className="eyebrow">Treatments</div>
               <h2 className="mt-1 font-display text-2xl font-bold tracking-tighter-display">Procedures offered</h2>
               <ul className="mt-4 flex flex-wrap gap-2">
-                {c.procedures.map((p) => (
-                  <li key={p} className="rounded-xl border bg-[rgb(var(--bg-elev))] px-4 py-2.5 text-sm font-bold transition hover:border-navy-700 hover:bg-navy-700 hover:text-white dark:hover:bg-gold-400 dark:hover:text-navy-950"
-                    style={{ borderColor: "rgb(var(--border))" }}>
-                    {p}
-                  </li>
-                ))}
+                {c.procedures.map((p) => {
+                  const slug = procedureSlug(p);
+                  const cls = "block rounded-xl border bg-[rgb(var(--bg-elev))] px-4 py-2.5 text-sm font-bold transition hover:border-navy-700 hover:bg-navy-700 hover:text-white dark:hover:bg-gold-400 dark:hover:text-navy-950";
+                  return (
+                    <li key={p}>
+                      {slug ? (
+                        <Link href={`/${lang}/c/${slug}/`} className={cls} style={{ borderColor: "rgb(var(--border))" }}>{p}</Link>
+                      ) : (
+                        <span className={cls} style={{ borderColor: "rgb(var(--border))" }}>{p}</span>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           )}
@@ -544,7 +552,7 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
                   </Link>
                 ))}
               </div>
-              <Link href={`/${lang}/`} className="mt-4 inline-flex text-sm font-semibold" style={{ color: "rgb(var(--accent))" }}>
+              <Link href={`/${lang}/city/${c.city.toLowerCase().replace(/\s+/g, "-")}/`} className="mt-4 inline-flex text-sm font-semibold" style={{ color: "rgb(var(--accent))" }}>
                 See all {c.city} clinics →
               </Link>
             </section>

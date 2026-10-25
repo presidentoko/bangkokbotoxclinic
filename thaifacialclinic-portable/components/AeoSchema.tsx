@@ -85,15 +85,7 @@ export default function AeoSchema({ c, lang }: { c: Clinic; lang: Lang }) {
     address: fmtAddress(c),
     telephone: c.phone || undefined,
     sameAs: [c.website, c.website_facebook, c.website_instagram, c.bookimed_url].filter(Boolean),
-    aggregateRating:
-      c.rating && c.review_count
-        ? {
-            "@type": "AggregateRating",
-            ratingValue: c.rating,
-            reviewCount: c.review_count,
-            bestRating: 5,
-          }
-        : undefined,
+    // 2026-10-25: aggregateRating 제거 — 구글 별점을 옮긴 값이라 제3자 리뷰로 부적격, 수동 조치 위험.
     // NOTE: 이전엔 Google/Reddit/Naver 등 제3자 리뷰를 schema.org Review로 마크업했으나
     // Google 리치결과 정책상 자사 사이트에서 직접 수집한 리뷰만 허용돼서 제거함.
     priceRange: c.bookimed_price_from || undefined,
