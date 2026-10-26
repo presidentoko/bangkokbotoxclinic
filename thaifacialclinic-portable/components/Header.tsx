@@ -26,6 +26,8 @@ export default function Header({ lang }: { lang: Lang }) {
 
         <nav className="hidden items-center gap-5 text-sm font-medium md:flex">
           <Link href={`/${lang}/city/bangkok/`} className="muted hover:text-[rgb(var(--fg))] transition">Bangkok</Link>
+          {/* 2026-10-26: 푸켓이 모발이식 클리닉 43곳으로 2위인데 헤더에 없었다 (파타야는 2곳이라 제외) */}
+          <Link href={`/${lang}/city/phuket/`} className="muted hover:text-[rgb(var(--fg))] transition">Phuket</Link>
           <Link href={`/${lang}/city/chiang-mai/`} className="muted hover:text-[rgb(var(--fg))] transition">Chiang Mai</Link>
           <Link href={`/${lang}/c/fue/`} className="muted hover:text-[rgb(var(--fg))] transition">FUE</Link>
           <Link href={`/${lang}/c/dhi/`} className="muted hover:text-[rgb(var(--fg))] transition">DHI</Link>
@@ -69,6 +71,7 @@ export default function Header({ lang }: { lang: Lang }) {
           <nav className="mx-auto max-w-6xl flex flex-col gap-1 py-3 text-sm font-medium">
             {[
               { href: `/${lang}/city/bangkok/`, label: "Bangkok" },
+              { href: `/${lang}/city/phuket/`, label: "Phuket" },
               { href: `/${lang}/city/chiang-mai/`, label: "Chiang Mai" },
               { href: `/${lang}/c/fue/`, label: "FUE" },
               { href: `/${lang}/c/dhi/`, label: "DHI" },
