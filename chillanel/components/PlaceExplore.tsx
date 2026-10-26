@@ -6,7 +6,7 @@ import Link from "next/link";
 import type { Place } from "@/lib/types";
 import type { Lang } from "@/lib/site";
 import { cityLabel } from "@/lib/site";
-import { isRelevantCategory } from "@/lib/categories";
+import { isIndexablePlace } from "@/lib/indexing";
 import { placeRanks, topicsWithEnoughEntries } from "@/lib/rankings";
 import { RANKING_COPY, TOPIC_EMOJI, fill } from "@/lib/ranking-copy";
 import { districtLabel } from "@/lib/district-labels";
@@ -24,15 +24,12 @@ export function PlaceExplore({
   place,
   cityPlaces,
   exclude,
-  minReviews,
   lang,
 }: {
   place: Place;
   cityPlaces: Place[];
   /** ids already linked on the page (e.g. "similar places") */
   exclude: string[];
-  /** only link places whose pages are indexable, so the links pass value */
-  minReviews: number;
   lang: Lang;
 }) {
   const c = COPY[lang];
@@ -49,9 +46,7 @@ export function PlaceExplore({
           (p) =>
             p.district === place.district &&
             !skip.has(p.id) &&
-            isRelevantCategory(p.primaryType) &&
-            (p.reviewCount ?? 0) >= minReviews &&
-            (p.reviews?.length ?? 0) > 0,
+            isIndexablePlace(p),
         )
         .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount)
         .slice(0, SAME_DISTRICT_MAX)

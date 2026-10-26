@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { reviewExcerpt } from "@/lib/reviewExcerpt";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { isIndexablePlace, INDEX_MIN_REVIEWS } from "@/lib/indexing";
 import { tFor } from "@/lib/i18n";
 import { isLang, SITE, hreflangAlternates, cityLabel, localeFor, ogLocale } from "@/lib/site";
 import { getAllPlaces, loadCity, findPlaceByIdFast } from "@/lib/data";
@@ -70,7 +71,7 @@ function ReviewItem({ review, anonymousLabel }: { review: Review; anonymousLabel
 // 넣으면 이 사이트의 내부 링크 77%(파타야 기준)가 또 깨진다.
 // ISR 쓰기 부담도 낮다 — 이 페이지엔 revalidate 가 없어서 한 번 생성되면 다음
 // 배포까지 캐시되므로, 페이지당 쓰기가 1회다 (Hobby ISR Writes 한도에 안전).
-const PRERENDER_MIN_REVIEWS = 50;
+const PRERENDER_MIN_REVIEWS = INDEX_MIN_REVIEWS;
 
 export function generateStaticParams() {
   return getAllPlaces()
@@ -140,14 +141,10 @@ export async function generateMetadata({
   // 사이트맵을 17,115 → 5,658 로 줄여서 빠져나온 전력이 있다. 같은 실수를
   // 반복하지 않는다 — 링크는 살리고 색인만 뺀다.
   //
-  // 50 은 사이트맵(app/sitemap.ts SITEMAP_MIN_REVIEWS)·프리렌더
-  // (PRERENDER_MIN_REVIEWS)와 **같은 선**이다. 셋이 갈리면 "사이트맵엔 있는데
-  // 404", "색인 요청해놓고 프리렌더 안 함" 같은 모순이 생긴다.
-  const THIN_MIN_REVIEWS = PRERENDER_MIN_REVIEWS;
-  // 2026-10-26: 리뷰가 한 건도 안 보이는 페이지(175곳)도 뺀다 — 구글 지도 정보를
-  // 옮긴 것뿐이라 "대량 생산된 얇은 페이지" 판정의 표본이 된다. 노출 11·클릭 0.
-  // app/sitemap.ts 와 같은 조건이어야 한다.
-  const thin = (found.place.reviewCount ?? 0) < THIN_MIN_REVIEWS || (found.place.reviews?.length ?? 0) === 0;
+  // 2026-10-26: 판정은 lib/indexing.ts 하나로 모았다 — 리뷰 수 50(프리렌더와 같은
+  // 선), 화면에 리뷰 1건 이상, 마사지·스파 주제 업종. 사이트맵·내부 링크도 같은
+  // 함수를 쓴다. 셋이 갈리면 "사이트맵엔 있는데 noindex" 모순이 생긴다.
+  const thin = !isIndexablePlace(found.place);
   const indexable = lang === "en" && !thin;
   return {
     // 2026-09-02: 평점·리뷰수를 title 에. 넷 중 이 사이트만 브랜드명만 달고
@@ -484,7 +481,6 @@ export default async function PlacePage({
         place={place}
         cityPlaces={cityData.places}
         exclude={related.map((r) => r.id)}
-        minReviews={PRERENDER_MIN_REVIEWS}
         lang={lang}
       />
 

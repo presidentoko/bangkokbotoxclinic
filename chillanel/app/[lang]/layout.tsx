@@ -41,7 +41,7 @@ export function generateStaticParams() {
 // 봇 비용은 감수한다. ISR 폭주(읽기 1.5M)의 원인은 잘못된 lang 프로브가 아니라
 // AI·SEO 상업 크롤러였고 그건 app/robots.ts 에서 이미 막았다. 얇은 장소가 색인에
 // 다시 불어나는 것은 dynamicParams 가 아니라 noindex 로 막는다
-// (place/[id] 의 THIN_MIN_REVIEWS 참조) — 사람에겐 200, 구글에겐 noindex.
+// (lib/indexing.ts 참조) — 사람에겐 200, 구글에겐 noindex.
 
 // This is the real root layout for every content page (everything except
 // the bare "/" redirect -- see app/(root)/layout.tsx). Owning <html> here

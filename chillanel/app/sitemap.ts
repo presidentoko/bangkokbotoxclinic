@@ -1,5 +1,6 @@
 import { topicsWithEnoughEntries } from "@/lib/rankings";
 import type { MetadataRoute } from "next";
+import { isIndexablePlace } from "@/lib/indexing";
 import { SITE, SUPPORTED_LANGS, hreflangAlternates } from "@/lib/site";
 import { listCities, loadCity, getAllPlaces } from "@/lib/data";
 import { allThemeAndMoodLabels, isMoodLabel } from "@/lib/theme-stats";
@@ -55,10 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 생성되므로 사용자 링크는 안 끊긴다 — 구글에 없는 URL 을 권하지 않을 뿐이다.
   // ⚠️ place/[id]/page.tsx 의 PRERENDER_MIN_REVIEWS 와 같은 값을 써야 한다.
   //    한쪽만 바꾸면 이 404 가 그대로 되살아난다.
-  const SITEMAP_MIN_REVIEWS = 50;
-  const submittablePlaces = relevantPlaces.filter(
-    ({ place }) => (place.reviewCount ?? 0) >= SITEMAP_MIN_REVIEWS && (place.reviews?.length ?? 0) > 0,
-  );
+  const submittablePlaces = relevantPlaces.filter(({ place }) => isIndexablePlace(place));
 
   // Google mostly ignores changeFrequency/priority but does use lastModified
   // for crawl scheduling — CityData.generatedAt (set at build-data.mjs time)
