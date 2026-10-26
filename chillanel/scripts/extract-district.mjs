@@ -45,7 +45,19 @@ const DISTRICTS_BY_CITY = {
 // Places farther than this from every centroid aren't confidently in any
 // named district (e.g. outer suburbs) — left unassigned rather than forced
 // into whichever centroid happens to be nearest.
-const MAX_DIST_SQ = 0.04; // ~0.2 degrees, generous outer bound for greater Bangkok/Pattaya/Phuket
+//
+// 2026-10-26: 0.04 deg² (반경 ~22km) 에서 3km 로. 22km 면 방콕 외곽 전체가 시내
+// 8개 동네로 억지로 들어갔다 — "Thonglor & Ekkamai" 1,206곳(실제 ~160),
+// "Chatuchak" 1,184곳(실제 ~100). 쑤언루앙 업체가 통로로 표시되고 "통로 653곳
+// 중 상위 48%" 같은 틀린 비교문이 나갔다. 관광지역 크기에 맞춰 3km 밖은 비운다.
+const MAX_KM = 3;
+
+// 위도 1도 ≈ 110.57km, 경도 1도 ≈ 111.32km × cos(위도). 도시 규모에선 이 근사로 충분.
+function distKm(lat1, lng1, lat2, lng2) {
+  const x = (lng2 - lng1) * 111.32 * Math.cos((lat1 * Math.PI) / 180);
+  const y = (lat2 - lat1) * 110.57;
+  return Math.hypot(x, y);
+}
 
 /**
  * @param {number | null} lat
@@ -58,13 +70,13 @@ export function nearestDistrict(lat, lng, city) {
   const districts = DISTRICTS_BY_CITY[city];
   if (!districts) return null;
   let best = null;
-  let bestDistSq = Infinity;
+  let bestKm = Infinity;
   for (const d of districts) {
-    const distSq = (d.lat - lat) ** 2 + (d.lng - lng) ** 2;
-    if (distSq < bestDistSq) {
-      bestDistSq = distSq;
+    const km = distKm(lat, lng, d.lat, d.lng);
+    if (km < bestKm) {
+      bestKm = km;
       best = d.name;
     }
   }
-  return bestDistSq <= MAX_DIST_SQ ? best : null;
+  return bestKm <= MAX_KM ? best : null;
 }

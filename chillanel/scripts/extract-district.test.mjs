@@ -37,3 +37,12 @@ test("a Pattaya coordinate against the Bangkok table (city mismatch) never falls
 test("returns null for an unknown city with no district table", () => {
   assert.equal(nearestDistrict(13.7248, 100.5296, "chiang_mai"), null);
 });
+
+test("does not force an outer-Bangkok place into a central district (Suan Luang ≠ Thonglor)", () => {
+  // 2026-10-26: Rama IX Soi 43, Suan Luang — 반경 22km 시절엔 "Thonglor & Ekkamai".
+  assert.equal(nearestDistrict(13.7290, 100.6370, "bangkok"), null);
+});
+
+test("still assigns a place a short walk from a centroid", () => {
+  assert.equal(nearestDistrict(13.7330, 100.5800, "bangkok"), "Thonglor & Ekkamai");
+});
