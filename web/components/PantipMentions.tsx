@@ -24,39 +24,40 @@ type Pantip = {
   top_mentions: PantipMention[];
 };
 
-export function PantipMentions({ clinic }: { clinic: Clinic & { pantip?: Pantip } }) {
+export function PantipMentions({ clinic, lang = "en" }: { clinic: Clinic & { pantip?: Pantip }; lang?: "en" | "th" }) {
+  const th = lang === "th";
   const p = clinic.pantip;
   if (!p || !p.mention_count || !p.top_mentions?.length) return null;
 
   return (
     <section
       className="bg-white border border-[var(--border)] rounded-xl p-5"
-      aria-label="Pantip community discussions"
+      aria-label={th ? "กระทู้พันทิป" : "Pantip community discussions"}
     >
       <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
         <h2 className="text-lg font-bold flex items-center gap-2">
           <span aria-hidden>💬</span>
-          Discussed in Pantip
+          {th ? "ถูกพูดถึงในพันทิป" : "Discussed in Pantip"}
           <span className="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded-full tabular-nums">
             {p.mention_count}
           </span>
         </h2>
         <span className="text-[10px] text-[var(--muted)] uppercase tracking-wider">
-          Thailand&apos;s largest forum · independent
+          {th ? "เว็บบอร์ดใหญ่ที่สุดของไทย · อิสระ" : "Thailand’s largest forum · independent"}
         </span>
       </div>
 
       <div className="text-xs text-[var(--muted)] mb-3 flex flex-wrap gap-x-3 gap-y-1">
         <span>
-          <strong className="text-[var(--fg)] tabular-nums">{p.mention_count}</strong> threads mention this clinic
+          <strong className="text-[var(--fg)] tabular-nums">{p.mention_count}</strong> {th ? "กระทู้พูดถึงคลินิกนี้" : "threads mention this clinic"}
         </span>
         {p.branch_specific_count > 0 && (
           <span>
-            <strong className="text-[var(--fg)] tabular-nums">{p.branch_specific_count}</strong> reference this specific branch
+            <strong className="text-[var(--fg)] tabular-nums">{p.branch_specific_count}</strong> {th ? "กระทู้พูดถึงสาขานี้โดยตรง" : "reference this specific branch"}
           </span>
         )}
         <span>
-          out of <strong className="text-[var(--fg)] tabular-nums">{p.candidates_total}</strong> search candidates
+          {th ? "จากกระทู้ที่ค้นเจอ " : "out of "}<strong className="text-[var(--fg)] tabular-nums">{p.candidates_total}</strong>{th ? " กระทู้" : " search candidates"}
         </span>
       </div>
 

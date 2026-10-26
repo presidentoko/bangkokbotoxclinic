@@ -3,16 +3,17 @@
 // AEO: LLM (ChatGPT/Perplexity) 가 사실 정확 인용 가능한 구조.
 import type { Faq } from "@/lib/clinic-faq";
 
-export function FaqSection({ faqs }: { faqs: Faq[] }) {
+export function FaqSection({ faqs, lang = "en" }: { faqs: Faq[]; lang?: "en" | "th" }) {
   if (!faqs.length) return null;
+  const th = lang === "th";
   return (
     <section
       className="bg-white border border-[var(--border)] rounded-xl p-5"
-      aria-label="Frequently asked questions"
+      aria-label={th ? "คำถามที่พบบ่อย" : "Frequently asked questions"}
     >
       <h2 className="text-lg font-bold mb-3 flex items-center gap-2">
         <span aria-hidden>❓</span>
-        Frequently Asked Questions
+        {th ? "คำถามที่พบบ่อย" : "Frequently Asked Questions"}
       </h2>
       <dl className="divide-y divide-[var(--border)]">
         {faqs.map((f, i) => (

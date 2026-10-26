@@ -6,10 +6,13 @@ import { BookingForm } from "./BookingForm";
 export function StickyClinicBar({
   clinicName,
   phone,
+  lang = "en",
 }: {
   clinicName: string;
   phone?: string;
+  lang?: "en" | "th";
 }) {
+  const th = lang === "th";
   const [open, setOpen] = useState(false);
 
   return (
@@ -26,7 +29,7 @@ export function StickyClinicBar({
                 href={`tel:${phone.replace(/[^+\d]/g, "")}`}
                 className="flex items-center gap-1.5 px-3 py-2.5 rounded-lg border border-[var(--border)] text-sm hover:bg-gray-50 transition"
               >
-                📞 <span className="hidden sm:inline">Call</span>
+                📞 <span className="hidden sm:inline">{th ? "โทร" : "Call"}</span>
               </a>
             )}
             <button
@@ -34,8 +37,8 @@ export function StickyClinicBar({
               className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-[var(--accent)] text-white text-sm font-medium hover:opacity-90 transition whitespace-nowrap"
             >
               {/* 360px에서 전체 문구 쓰면 이름+전화 버튼과 함께 두 줄로 밀림 (2026-07-28 감사) */}
-              <span className="sm:hidden">Book →</span>
-              <span className="hidden sm:inline">Book Free Consultation →</span>
+              <span className="sm:hidden">{th ? "จอง →" : "Book →"}</span>
+              <span className="hidden sm:inline">{th ? "จองปรึกษาฟรี →" : "Book Free Consultation →"}</span>
             </button>
           </div>
         </div>
@@ -54,7 +57,7 @@ export function StickyClinicBar({
             >
               ×
             </button>
-            <BookingForm clinicName={clinicName} />
+            <BookingForm clinicName={clinicName} lang={lang} />
           </div>
         </div>
       )}

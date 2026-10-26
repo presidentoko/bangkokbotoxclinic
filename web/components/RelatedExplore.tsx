@@ -2,7 +2,7 @@
 // SEO: 페이지 간 link equity 흐름 + Google의 사이트 구조 이해 향상.
 // AEO: LLM이 사이트 전체 topical authority 파악 용이.
 import type { Clinic } from "@/lib/types";
-import { CATEGORY_LABELS } from "@/lib/types";
+import { CATEGORY_LABELS, CATEGORY_LABELS_TH } from "@/lib/types";
 import { findGuide } from "@/lib/guides";
 import { getSiteConfig, FOCUS_VALID } from "@/lib/site";
 
@@ -22,7 +22,11 @@ export function RelatedExplore({ clinic, lang = "en" }: {
   lang?: "en" | "th";
 }) {
   const isTH = lang === "th";
+  // 2026-10-26: /th 클리닉 페이지가 이제 lang="th" 로 이걸 부른다. 이 앱(web/)의 /th 트리는
+  // /th/c/[service] 와 /th/clinic 뿐이라 /th/c/x/{district}·/th/d·/th/city 로 prefix 를 붙이면
+  // 전부 404 다(web-cf 와 다름). /th 는 서비스 허브에만 붙이고 나머지는 영어 경로로 보낸다.
   const prefix = isTH ? "/th" : "";
+  const catLabels = isTH ? CATEGORY_LABELS_TH : CATEGORY_LABELS;
 
   const districtSlug = clinic.district
     ? clinic.district.toLowerCase().replace(/\s+/g, "-")
@@ -43,14 +47,14 @@ export function RelatedExplore({ clinic, lang = "en" }: {
     const links = [{
       href: `${prefix}/c/${cat}`,
       label: isTH
-        ? `${CATEGORY_LABELS[cat] ?? cat} ในกรุงเทพ`
+        ? `${catLabels[cat] ?? cat} ในกรุงเทพฯ`
         : `${CATEGORY_LABELS[cat] ?? cat} clinics in Bangkok`,
     }];
     if (districtSlug) {
       links.push({
-        href: `${prefix}/c/${cat}/${districtSlug}`,
+        href: `/c/${cat}/${districtSlug}`,
         label: isTH
-          ? `${CATEGORY_LABELS[cat] ?? cat} ใน ${clinic.district}`
+          ? `${catLabels[cat] ?? cat} ใน ${clinic.district}`
           : `${CATEGORY_LABELS[cat] ?? cat} in ${clinic.district}`,
       });
     }
@@ -59,14 +63,14 @@ export function RelatedExplore({ clinic, lang = "en" }: {
 
   // 지역 페이지
   const districtLink = districtSlug ? {
-    href: `${prefix}/d/${districtSlug}`,
+    href: `/d/${districtSlug}`,
     label: isTH ? `คลินิกทั้งหมดใน ${clinic.district}` : `All clinics in ${clinic.district}`,
   } : null;
 
   // 도시 페이지
   const cityLabel = clinic.city_label || "Bangkok";
   const cityLink = {
-    href: `${prefix}/city/${citySlug}`,
+    href: `/city/${citySlug}`,
     label: isTH ? `คลินิกใน ${cityLabel}` : `Clinics in ${cityLabel}`,
   };
 

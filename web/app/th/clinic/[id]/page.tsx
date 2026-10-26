@@ -52,9 +52,26 @@ export async function generateMetadata(
   const cfg = getSiteConfig();
   const inSite = applySiteFilter([c], cfg).length > 0;
   const ownerUrl = !inSite ? resolveOwnerUrl(c.categories) : null;
-  // 2026-09-15: 영어판과 본문 99% 동일(실측, 태국어 글자 15%) — 번역 페이지가
-  // 아니라 복제본이다. 영어판으로 canonical 을 모으고 색인에서 뺀다.
-  const canonical = `${ownerUrl ?? SITE}/clinic/${c.url_slug}`;
+  // 2026-09-15 에는 "영어판과 본문 99% 동일(태국어 글자 15%) — 번역이 아니라
+  // 복제본" 이라서 영어판으로 canonical 을 모으고 색인에서 뺐다.
+  //
+  // 2026-10-26: 덴탈(web-cf 3280f7d → d4a2352)과 같은 현지화를 이 앱에 이식한 뒤
+  // 다시 쟀다. 로컬 dev(NEXT_PUBLIC_SITE_FOCUS=botox), sitemap-clinics 에서 고르게
+  // 뽑은 9쌍, <main> 텍스트 기준:
+  //
+  //   태국어 글자 비율      EN 중앙값 7.8%  →  TH 중앙값 60.3% (최소 54.9%)
+  //   TH 페이지에만 있는 텍스트              중앙값 63.6% (최소 55.2%)
+  //   30% 미만인 쌍                          0건
+  //
+  // 덴탈이 색인을 연 기준(TH 전용 중앙값 ≥~50%, 태국어 ≥~45%, 30% 미만 0)을 넘는다.
+  // 남은 영어는 대부분 리뷰 원문이다 — 보톡스 소관 1,918곳 중 태국어 샘플 리뷰가 있는
+  // 곳은 145곳뿐이라 영어 리뷰를 그대로 보여 준다(번역해서 지어내지 않는다).
+  // 그래서 소관 내 /th 는 자기 자신을 canonical 로 삼고 색인에 들어간다.
+  // 소관 밖 클리닉은 그대로 상대 도메인 영어판으로 보낸다 — 그쪽에 태국어 페이지가
+  // 있다고 보장할 수 없다.
+  const canonical = ownerUrl
+    ? `${ownerUrl}/clinic/${c.url_slug}`
+    : `${SITE}/th/clinic/${c.url_slug}`;
 
   return {
     // absolute — EN 라우트(app/clinic/[id]/page.tsx)는 이미 이렇게 쓰는데 여기만
@@ -63,9 +80,19 @@ export async function generateMetadata(
     // 구글 표시 한도를 한참 넘겨 뒤가 잘렸다 (2026-08-06 감사).
     title: { absolute: title },
     description,
-    robots: { index: false, follow: true },
+    // 소관 밖일 때만 noindex. 소관 내 태국어 페이지는 색인 대상이다.
+    ...(!inSite && { robots: { index: false, follow: true } }),
     alternates: {
       canonical,
+      // /ko 는 클러스터에서 뺀다 — /ko/clinic 은 noindex 이고 상위 200곳만 있다.
+      // 색인에서 빠진 페이지를 가리키는 클러스터는 상호참조가 안 돼 버려진다(덴탈과 동일).
+      ...(inSite && {
+        languages: {
+          en: `${SITE}/clinic/${c.url_slug}`,
+          th: `${SITE}/th/clinic/${c.url_slug}`,
+          "x-default": `${SITE}/clinic/${c.url_slug}`,
+        },
+      }),
     },
     openGraph: {
       // 2026-09-02: 페이지가 openGraph 를 정의하면 루트 layout 의 siteName 이

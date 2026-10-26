@@ -5,11 +5,14 @@ export function ClaimBanner({
   clinicId,
   clinicName,
   accent = "#2563eb",
+  lang = "en",
 }: {
   clinicId: string;
   clinicName: string;
   accent?: string;
+  lang?: "en" | "th";
 }) {
+  const th = lang === "th";
   return (
     <aside
       className="mb-5 rounded-xl border-2 p-4 md:p-5 relative overflow-hidden"
@@ -22,15 +25,22 @@ export function ClaimBanner({
           </div>
           <div className="min-w-0 flex-1">
             <div className="text-[10px] uppercase tracking-widest font-black mb-1" style={{ color: accent }}>
-              Unclaimed listing
+              {th ? "ยังไม่มีเจ้าของยืนยัน" : "Unclaimed listing"}
             </div>
             <h2 className="font-black text-base md:text-lg leading-snug">
-              Is <span className="underline decoration-2 underline-offset-2" style={{ textDecorationColor: accent }}>{clinicName}</span> yours?
+              {th ? "คุณเป็นเจ้าของ " : "Is "}<span className="underline decoration-2 underline-offset-2" style={{ textDecorationColor: accent }}>{clinicName}</span>{th ? " ใช่ไหม?" : " yours?"}
             </h2>
-            <p className="text-sm text-[var(--muted)] mt-1 leading-relaxed">
-              Get a <strong className="text-[var(--fg)]">free reputation dashboard</strong> — live Trust Score, AI reply drafts for new reviews,
-              and qualified lead routing to your LINE. <strong className="text-[var(--fg)]">No credit card.</strong> 30-day pilot.
-            </p>
+            {th ? (
+              <p className="text-sm text-[var(--muted)] mt-1 leading-relaxed">
+                รับ<strong className="text-[var(--fg)]">แดชบอร์ดชื่อเสียงฟรี</strong> — คะแนนความน่าเชื่อถือแบบเรียลไทม์ ร่างคำตอบรีวิวใหม่ด้วย AI
+                และส่งลูกค้าที่สนใจเข้า LINE ของคุณ <strong className="text-[var(--fg)]">ไม่ต้องใช้บัตรเครดิต</strong> ทดลอง 30 วัน
+              </p>
+            ) : (
+              <p className="text-sm text-[var(--muted)] mt-1 leading-relaxed">
+                Get a <strong className="text-[var(--fg)]">free reputation dashboard</strong> — live Trust Score, AI reply drafts for new reviews,
+                and qualified lead routing to your LINE. <strong className="text-[var(--fg)]">No credit card.</strong> 30-day pilot.
+              </p>
+            )}
           </div>
         </div>
         <a
@@ -40,7 +50,7 @@ export function ClaimBanner({
           className="shrink-0 inline-flex items-center justify-center gap-2 px-5 py-3 md:py-2.5 rounded-full text-white text-sm font-bold shadow-sm hover:shadow-md md:hover:-translate-y-0.5 transition-all whitespace-nowrap w-full md:w-auto"
           style={{ background: accent }}
         >
-          Claim this listing <span aria-hidden>→</span>
+          {th ? "ยืนยันความเป็นเจ้าของ" : "Claim this listing"} <span aria-hidden>→</span>
         </a>
       </div>
     </aside>
