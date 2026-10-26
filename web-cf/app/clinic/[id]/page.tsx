@@ -39,6 +39,7 @@ import { groupBrands, brandKeyOf } from "@/lib/brands";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { loadDeepReviews } from "@/lib/clinicReviews";
+import { loadClinicThai } from "@/lib/clinicThai";
 
 // resolveOwnerUrl 은 lib/site.ts 로 이동 — doctor/[slug] 도 동일 가드 사용.
 
@@ -324,6 +325,13 @@ export default async function ClinicPage(
   // 중 44%가 모든 클리닉 페이지와 토씨까지 같았다.
   const deep = await loadDeepReviews();
   const deepRows = deep?.[c.id];
+  // 태국어 원문 (scripts/build_clinic_thai.py). /th 에서만 쓴다.
+  //
+  // 영어 페이지에는 적용하지 않는다. 이 토픽 개수는 태국어 코퍼스에서 나온 값이고
+  // 영어 페이지의 개수는 master_db 의 전체 코퍼스에서 나온 값이라, 영어 쪽을
+  // 여기로 갈아끼우면 영어 코퍼스를 같이 고치지 않은 채 숫자만 바뀐다. 로케일별
+  // 출처가 분명한 덮어쓰기로 두는 게 정확하다.
+  const thai = L === "th" ? (await loadClinicThai())?.[c.id] : undefined;
   // 2026-10-16: 깊은 리뷰에 태국어 원문이 섞인다(Apify 병합). 예전엔 깊은 리뷰를
   // 통째로 "en" 으로 찍어서, /th 페이지가 태국어 원문에 "รีวิวภาษาอังกฤษ" 라벨을
   // 붙였다. 언어는 리뷰마다 글자로 판정한다.
@@ -343,7 +351,25 @@ export default async function ClinicPage(
   // 글이라 고유 콘텐츠가 아니라 복제 콘텐츠다(8/18 스팸 업데이트 피격 사이트).
   // 고유한 건 위의 분석 블록(ReviewSignals·TrustDonut·RatingChart·TopicCluster·
   // LicenseCheck)이고, 리뷰는 그 분석을 뒷받침하는 짧은 인용으로만 쓴다.
-  const samples = [...tagged].sort((a, b) => rank(a) - rank(b)).slice(0, 3);
+  // /th 에 태국어 원문이 있으면 그것을 인용한다. 그게 없을 때 이 페이지는 영어
+  // 페이지와 같은 영어 리뷰를 싣고 있었다 — 태국어 쿼리가 1.9~3.1위에서 클릭
+  // 62%를 버는 페이지인데, 인용문만 읽는 사람에게는 번역도 안 된 남의 말이었다.
+  // 개수는 3개 그대로다(2026-10-22 결정) — 많이 싣는 건 구글 지도에 그대로 있는
+  // 글의 복제이고, 이 사이트가 8/18 에 강등된 이유가 그것이다.
+  //
+  // en 은 undefined 다 — 수집할 때 textTranslated 를 일부러 안 받았다. 영어 목적일
+  // 때의 규칙을 태국어 페이지에 적용하면 원문 대신 번역본을 싣게 된다. /th 를 읽는
+  // 사람에게 영어 번역을 붙일 이유도 없다.
+  const samples: { text: string; rating: number; author: string; en?: string; srcLang: "th" | "en" }[] =
+    thai?.quotes?.length
+      ? thai.quotes.map((q) => ({
+          text: q.text,
+          rating: q.rating,
+          author: "",
+          en: undefined,
+          srcLang: "th" as const,
+        }))
+      : [...tagged].sort((a, b) => rank(a) - rank(b)).slice(0, 3);
 
   // Pricing — hdmall package 데이터(있는 경우)
   // 2026-09-02: 멀티지점 브랜드면 허브로 링크 (web/ 과 동일).
@@ -624,8 +650,13 @@ export default async function ClinicPage(
 
           <RatingChart trend={c.rating_trend} lang={L} />
 
-          {c.mentioned_topics.length > 0 && (
-            <TopicCluster topics={c.mentioned_topics.slice(0, 12)} lang={L} />
+          {/* /th 에서는 태국어 원문에서 나온 토픽으로 교체한다 — 더하면 안 된다.
+              영어 코퍼스는 같은 리뷰의 구글 번역본이라 같은 문장을 두 번 센다. */}
+          {(thai?.topics?.length ? thai.topics : c.mentioned_topics).length > 0 && (
+            <TopicCluster
+              topics={(thai?.topics?.length ? thai.topics : c.mentioned_topics).slice(0, 12)}
+              lang={L}
+            />
           )}
 
           <MapEmbed lat={c.lat} lng={c.lng} name={c.name} height={320} />

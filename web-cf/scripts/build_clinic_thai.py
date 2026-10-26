@@ -120,7 +120,7 @@ def main() -> int:
     print(f"태국어 CSV {len(files)}개")
 
     out: dict[str, dict] = {}
-    unmapped = no_quotes = not_in_db = 0
+    unmapped = no_quotes = not_in_db = skewed = 0
     quote_chars: list[int] = []
     topic_replaced = 0
     expensive_before = expensive_after = 0
@@ -144,7 +144,29 @@ def main() -> int:
         # 토픽 — 가드된 추출기로. 영어 코퍼스 토픽과 더하지 않고 교체한다.
         topics = _bmd.extract_mentioned_topics(all_text) if all_text else []
 
-        quotes = _sel.pick(rows, args.max_quotes, dist, clinic.get("rating") or None)
+        rating = clinic.get("rating") or None
+        quotes = _sel.pick(rows, args.max_quotes, dist, rating)
+
+        # 고를 것이 없었던 경우에만 인용을 버린다.
+        #
+        # 후보가 자리 수 이하면 pick() 은 분포 배분도 앵커도 하지 않고 있는 것을
+        # 그대로 돌려준다. 태국어 리뷰 5건 중 60자를 넘는 게 3건이고 둘이 1성이면,
+        # 구글 평점 3.5 인 클리닉이 인용 평균 2.33 으로 보인다 — 실측된 사례다.
+        # _anchor 는 최소 3개를 남기므로 이 경우 바꿀 수가 없다.
+        #
+        # 반대로 **선택이 실제로 일어난 경우에는 허용치를 걸지 않는다.** 처음에는
+        # 모든 클리닉에 걸었는데 그게 ★4 게이트와 같은 짓이 됐다: 평점 4.8 에
+        # 자리가 3개면 1성 하나만 들어가도 평균이 3.67 이라 무조건 탈락해서, 인용이
+        # 100% 5성이 되고 코퍼스의 1성 5% 가 전멸했다. 치우침을 고치려다 반대로
+        # 치우친 것이다 — 이 레포에 양쪽 다 기록돼 있다.
+        if quotes and rating and len(rows) <= args.max_quotes:
+            mean = sum(q["rating"] for q in quotes) / len(quotes)
+            if abs(mean - rating) > _sel.TOLERANCE:
+                # 토픽은 싣는다 — 전체 코퍼스 집계라 표본 치우침에 흔들리지 않는다.
+                # 리뷰를 고르는 것만 포기하고 지어내지는 않는다.
+                skewed += 1
+                quotes = []
+
         if not quotes and not topics:
             no_quotes += 1
             continue
@@ -168,6 +190,7 @@ def main() -> int:
     print(f"  매핑에 없는 CSV        {unmapped}")
     print(f"  master_db 에 없는 곳   {not_in_db}")
     print(f"  인용·토픽 둘 다 없음   {no_quotes}")
+    print(f"  인용 치우쳐서 버림     {skewed}  (토픽은 유지)")
     print(f"  수록                   {len(out)}")
     if quote_chars:
         print(f"  인용 글자수 중앙값     {int(statistics.median(quote_chars))} "
