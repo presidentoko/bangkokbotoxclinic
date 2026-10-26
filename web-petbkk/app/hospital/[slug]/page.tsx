@@ -14,6 +14,8 @@ import ClinicProfile from '@/components/ClinicProfile'
 import { getProfile } from '@/lib/hospitalProfiles'
 import { getClinicPrices } from '@/lib/clinicPrices'
 import ClinicPrices from '@/components/ClinicPrices'
+import { getClinicProvided } from '@/lib/clinicProvided'
+import ClinicProvided from '@/components/ClinicProvided'
 import NearbyHospitals from '@/components/NearbyHospitals'
 import SameAreaClinics from '@/components/SameAreaClinics'
 import HospitalShareButtons from '@/components/HospitalShareButtons'
@@ -384,6 +386,7 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
   const ownerSignals = getSignals(h.id)
   const profile = getProfile(h.id)
   const prices = getClinicPrices(h.id)
+  const provided = getClinicProvided(h.id)
   const reviewUrl = h.google_place_id
     ? `https://search.google.com/local/reviews?placeid=${h.google_place_id}`
     : null
@@ -446,6 +449,11 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
             {/* The "ผ่าตัดได้" and "ฉุกเฉิน" badges are gone: `has_surgery` is
                 hardcoded true and `has_emergency` is false on all 503 records,
                 so one rendered on every page and the other on none. */}
+            {provided && (
+              <span className="px-2.5 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
+                ✓ โรงพยาบาลยืนยันข้อมูล
+              </span>
+            )}
             {h.google_review_count != null && h.google_review_count >= 500 && (
               <span className="px-2.5 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-medium">
                 รีวิวเยอะ {h.google_review_count.toLocaleString()}+
@@ -463,6 +471,9 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
       {/* The licence check sits directly under the rating: it is the one thing
           on this page a Google Maps listing does not already say. */}
       <LicenseVerification hospitalId={h.id} displayName={h.name_th} />
+
+      {/* What the clinic told us about itself, labelled as such (lib/clinicProvided.ts). */}
+      {provided && <ClinicProvided info={provided} />}
 
       {/* Info card */}
       <div className="bg-white rounded-xl border p-4 mb-4 space-y-3 text-sm">

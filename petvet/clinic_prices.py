@@ -242,8 +242,17 @@ SOURCES = [
     {
         "domain": "phyathai7pet.com", "name": "โรงพยาบาลสัตว์พญาไท 7",
         "items": [
-            E(service="checkup", price=6666, kind="list", note="Senior Package สุนัขหรือแมวอายุ 7 ปีขึ้นไป",
-              url="https://www.phyathai7pet.com/cat-health-check-package", quote="6,666 บาท"),
+            # Same three prices for dogs and cats; the contents differ slightly
+            # (FeLV/FIV for cats, parvo/distemper for dogs). Both branches.
+            E(service="checkup", price=2222, kind="list", note="Junior Package ลูกแมว/ลูกสุนัขอายุน้อยกว่า 1 ปี",
+              includes="ตรวจร่างกาย CBC ตรวจอุจจาระ คัดกรองไวรัส (แมว FeLV/FIV, สุนัข พาร์โว/ไข้หัด) ภาษีและค่าบริการ",
+              url="https://www.phyathai7pet.com/health-package/cat-health-check-package", quote="2,222 บาท"),
+            E(service="checkup", price=3777, kind="list", note="Adult Package อายุ 1–6 ปี",
+              includes="ตรวจร่างกาย ตรวจเลือด ตรวจอุจจาระ X-ray ทรวงอกและช่องท้อง ภาษีและค่าบริการ",
+              url="https://www.phyathai7pet.com/health-package/cat-health-check-package", quote="3,777 บาท"),
+            E(service="checkup", price=6666, kind="list", note="Senior Package อายุ 7 ปีขึ้นไป",
+              includes="ทุกรายการของ Adult + SDMA (ไต) T4 คอเลสเตอรอล ตรวจหัวใจโดยทีมโรคหัวใจ ภาษีและค่าบริการ",
+              url="https://www.phyathai7pet.com/health-package/cat-health-check-package", quote="6,666 บาท"),
         ],
     },
 ]
