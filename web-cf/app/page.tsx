@@ -541,7 +541,8 @@ export default async function HomePage(
           <section className="mb-10 bg-emerald-50 rounded-xl p-5">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
               <div>
-                <p className="text-3xl font-bold text-emerald-700">1,608+</p>
+                {/* 2026-10-26: 고정값 1,608+ 였다 — 이 사이트가 실제로 싣는 수로. */}
+                <p className="text-3xl font-bold text-emerald-700">{focused.length.toLocaleString()}</p>
                 <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "태국 치과 클리닉" : lang === "th" ? "คลินิกทันตกรรมในไทย" : "dental clinics in Thailand"}</p>
               </div>
               <div>

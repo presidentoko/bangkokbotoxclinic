@@ -72,7 +72,9 @@ export function RelativeRanking({ percentile, label, lang = "en" }: {
   label: string;
   lang?: "en" | "th";
 }) {
-  const top = Math.max(1, Math.round((1 - percentile / 100) * 100));
+  // percentile = 자기보다 점수 높은 클리닉 비율(%) — 작을수록 상위다.
+  // 2026-10-26: 예전엔 100 에서 뺐다. 그래서 상위 6% 가 "Top 94%" 로 찍혔다.
+  const top = Math.max(1, Math.round(percentile));
   return (
     <span
       className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"

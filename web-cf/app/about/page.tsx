@@ -2,7 +2,7 @@
 
 import { loadMasterDb } from "@/lib/data";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
-import { getSiteConfig } from "@/lib/site";
+import { applySiteFilter, getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -35,7 +35,7 @@ const FAQS = [
   },
   {
     q: "How fresh is the data?",
-    a: "Continuously. Our scrapers run 24/7, the master dataset rebuilds every 5 minutes, and the website redeploys when data changes. Any new public review of a listed clinic typically appears here within 30 minutes.",
+    a: "We re-collect public Google reviews in batches and rebuild the site when a batch is finished, so new reviews appear here days to weeks after they are posted — not in real time. The date of the current dataset is shown in the 'At a glance' box above.",
   },
   {
     q: "What are 'mentioned topics'?",
@@ -46,14 +46,20 @@ const FAQS = [
     a: "Each Google review has a relative timestamp. We bucket reviews into recent (less than 3 months), midterm (3-12 months), and historical (1+ year). Comparing the average rating in each bucket gives a quality trajectory: improving, stable, or declining.",
   },
   {
-    q: "Why aren't prices shown?",
-    a: "Google Maps does not expose service-by-service prices. Most Bangkok clinics publish per-service prices on their LINE channel or via direct enquiry. We display Google's price-level indicator (Inexpensive / Moderate / Expensive) where available and offer a one-click consultation request to get a current quote.",
+    q: "Where do the prices come from?",
+    a: "From prices patients state in their Google reviews. We group them by procedure and city and show the typical range (middle half of what people reported) only where enough reviews mention a price. It is a guide, not a quote — ask the clinic for a current price before booking.",
   },
 ];
 
 export default async function AboutPage() {
   const cfg = getSiteConfig();
   const db = await loadMasterDb();
+  // 2026-10-26: 예전엔 db.total_clinics(전 도메인 합산 5,736)·"30 min" 고정값을
+  // 보여줬다. 이 사이트가 실제로 싣는 클리닉과 데이터 빌드 날짜로 계산한다.
+  const scoped = applySiteFilter(db.clinics, cfg);
+  const analysed = scoped.filter((c) => c.scraped_review_count > 0).length;
+  const districts = new Set(scoped.map((c) => c.district).filter(Boolean)).size;
+  const updated = new Date(db.generated_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
@@ -74,20 +80,20 @@ export default async function AboutPage() {
         <h2 className="text-lg font-bold mb-3">At a glance</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
           <div>
-            <div className="text-2xl font-bold tabular-nums">{db.total_clinics.toLocaleString()}</div>
+            <div className="text-2xl font-bold tabular-nums">{scoped.length.toLocaleString()}</div>
             <div className="text-xs text-[var(--muted)] uppercase tracking-wide">Clinics</div>
           </div>
           <div>
-            <div className="text-2xl font-bold tabular-nums">{db.with_reviews_scraped.toLocaleString()}</div>
+            <div className="text-2xl font-bold tabular-nums">{analysed.toLocaleString()}</div>
             <div className="text-xs text-[var(--muted)] uppercase tracking-wide">Full review analysis</div>
           </div>
           <div>
-            <div className="text-2xl font-bold tabular-nums">{Object.keys(db.district_counts).length}</div>
+            <div className="text-2xl font-bold tabular-nums">{districts}</div>
             <div className="text-xs text-[var(--muted)] uppercase tracking-wide">Districts covered</div>
           </div>
           <div>
-            <div className="text-2xl font-bold tabular-nums">30 min</div>
-            <div className="text-xs text-[var(--muted)] uppercase tracking-wide">Refresh cycle</div>
+            <div className="text-2xl font-bold tabular-nums">{updated}</div>
+            <div className="text-xs text-[var(--muted)] uppercase tracking-wide">Data updated</div>
           </div>
         </div>
       </div>

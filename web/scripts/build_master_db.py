@@ -134,9 +134,9 @@ _DISTRICT_KEYS: list[tuple[str, list[str]]] = [
     ("Pathum Wan", ["pathum wan", "pathumwan", "siam", "ปทุมวัน"]),
     ("Watthana", ["watthana", "wattana", "วัฒนา", "วัตนา", "thong lor", "thonglor", "ekkamai",
                   "asok", "asoke", "phrom phong", "promphong", "nana"]),
-    ("Khlong Toei", ["khlong toei", "klongtoey", "klong toey"]),
+    ("Khlong Toei", ["khlong toei", "klongtoey", "klong toey", "klong toei"]),
     ("Bang Rak", ["bang rak", "bangrak", "silom", "sala daeng"]),
-    ("Sathon", ["sathon", "sathorn"]),
+    ("Sathon", ["sathon", "sathorn", "สาทร"]),
     ("Phaya Thai", ["phaya thai", "phayathai", "ari", "saphan khwai", "พญาไท"]),
     ("Ratchathewi", ["ratchathewi", "victory monument", "ราชเทวี"]),
     ("Huai Khwang", ["huai khwang", "huaykhwang", "ratchada", "ห้วยขวาง"]),
@@ -348,14 +348,46 @@ def _district_by_structure(
     if city_idx <= 0:
         return ""
     for j in range(city_idx - 1, -1, -1):
-        seg = parts[j].lower()
-        for canonical, aliases in keys:
-            for alias in aliases:
-                if alias in _LANDMARK_ALIASES:
-                    continue          # 도로·랜드마크는 구 세그먼트의 근거가 못 된다
-                if _alias_hit(alias, seg):
-                    return canonical
+        hit = _longest_alias_hit(parts[j].lower(), keys)
+        if hit:
+            return hit
     return ""
+
+
+def _longest_alias_hit(text: str, keys: list[tuple[str, list[str]]], landmarks: bool = False) -> str:
+    """방콕은 주소 뒤쪽에서 끝나는 별칭, 같으면 더 긴 별칭이 이긴다. 목록 순서로
+    첫 매치를 집으면 "Thawi Watthana" 가 'watthana' 에 먼저 걸려 Watthana 로
+    갔다(2026-10-26, 덴탈 /d/watthana 에 25km 떨어진 클리닉 14곳). 태국 주소는
+    "동, 구" 순이라 뒤쪽이 구다 ("Yannawa Sathon" → Sathon).
+    다른 도시는 목록 순서(동네 이름 우선)를 그대로 둔다 — Jomtien 이 Bang Lamung
+    으로 뭉개지면 안 된다."""
+    best, best_key = "", (-1, -1)
+    for canonical, aliases in keys:
+        for alias in aliases:
+            if (alias in _LANDMARK_ALIASES) != landmarks:
+                continue          # 도로·랜드마크는 구 이름과 따로 판정한다
+            if not _alias_hit(alias, text):
+                continue
+            if keys is not _DISTRICT_KEYS:
+                return canonical
+            key = (text.rfind(alias) + len(alias), len(alias))
+            if key > best_key:
+                best, best_key = canonical, key
+    return best
+
+
+# 2026-10-26: 방콕 밖 주소는 방콕 구 별칭을 보지 않는다. 구 이름이 도로·동 이름에
+# 들어 있어서 "Chaeng Watthana Rd, Pak Kret, Nonthaburi" 가 Watthana 로,
+# "Bang Rak Phatthana, Bang Bua Thong, Nonthaburi" 가 Bang Rak 로 갔다
+# (덴탈 /d/watthana 34곳, /d/bang-rak 19곳). 이런 주소는 "… District" 접미사로 간다.
+_NOT_BANGKOK_PROVINCES = ("nonthaburi", "pathum thani", "samut prakan", "samut sakhon",
+                          "nakhon pathom", "นนทบุรี", "ปทุมธานี", "สมุทรปราการ",
+                          "สมุทรสาคร", "นครปฐม")
+
+
+def _outside_bangkok(addr_lower: str) -> bool:
+    return any(p in addr_lower for p in _NOT_BANGKOK_PROVINCES) and not (
+        "bangkok" in addr_lower or "กรุงเทพ" in addr_lower)
 
 
 def extract_district(address: str, city_label: str = "Bangkok") -> str:
@@ -384,18 +416,21 @@ def extract_district(address: str, city_label: str = "Bangkok") -> str:
     #   "2539 Lat Phrao Rd, Wang Thonglang, Bangkok 10310" → 도로명이 이겼다. 15건.
     # 구조 판정 정확도는 실측 2,457곳에서 100%, 단순 별칭 매칭은 88% 였다.
     hit = _district_by_structure(address, city_label, keys)
+    # 구글 주소가 아속(Terminal 21, 우편번호 10110)을 "Thawi Watthana" 로 적는
+    # 경우가 있다. 진짜 Thawi Watthana 는 10170 — 우편번호를 믿는다.
+    if hit == "Thawi Watthana" and "10110" in a:
+        return "Watthana"
     if hit:
         return hit
-    # 1차: 구 이름 별칭만. 주소가 구를 명시하면 그게 정답이다.
-    for canonical, aliases in keys:
-        for alias in aliases:
-            if alias not in _LANDMARK_ALIASES and _alias_hit(alias, a):
-                return canonical
-    # 2차: 도로·랜드마크 별칭 (구 이름이 주소에 없을 때만 쓰는 추정치).
-    for canonical, aliases in keys:
-        for alias in aliases:
-            if alias in _LANDMARK_ALIASES and _alias_hit(alias, a):
-                return canonical
+    if not (city_label == "Bangkok" and _outside_bangkok(a)):
+        # 1차: 구 이름 별칭만. 주소가 구를 명시하면 그게 정답이다.
+        hit = _longest_alias_hit(a, keys)
+        if hit:
+            return hit
+        # 2차: 도로·랜드마크 별칭 (구 이름이 주소에 없을 때만 쓰는 추정치).
+        hit = _longest_alias_hit(a, keys, landmarks=True)
+        if hit:
+            return hit
     m = _DISTRICT_SUFFIX_RE.search(address)
     if m:
         return m.group(1).strip()

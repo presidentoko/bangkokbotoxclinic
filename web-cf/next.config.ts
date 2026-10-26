@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import type { NextConfig } from "next";
-import { loadMasterDb } from "./lib/data";
+import { clinicSlug, loadMasterDb } from "./lib/data";
 import {
   applySiteFilter,
   configForFocus,
@@ -256,6 +256,39 @@ async function staleDoctorSlugRedirects() {
   return out;
 }
 
+// 2026-10-26: 클리닉 슬러그는 "이름-구" 라서 구 판정이 바뀌면 URL 이 바뀐다.
+// "Chaeng Watthana Rd, Pak Kret" 를 Watthana 로 읽던 오판정을 고치면서 119곳의
+// 구가 바뀌었다(scripts/apply_district_fix.py). 옛 슬러그는 색인돼 있을 수 있으니
+// data/district_moves.json 의 옛 구로 옛 슬러그를 재구성해 새 슬러그로 301 한다.
+async function districtMoveRedirects() {
+  const movesPath = path.join(process.cwd(), "data", "district_moves.json");
+  if (!fs.existsSync(movesPath)) return [];
+  let moves: Record<string, string[]>;
+  try {
+    moves = JSON.parse(fs.readFileSync(movesPath, "utf-8"));
+  } catch {
+    return [];
+  }
+  const db = await loadMasterDb();
+  const scoped = applySiteFilter(db.clinics, getSiteConfig());
+  const live = new Set(db.clinics.map((c) => c.url_slug));
+  const out: { source: string; destination: string; permanent: boolean }[] = [];
+  for (const c of scoped) {
+    for (const oldDistrict of moves[c.id] ?? []) {
+      const oldSlug = clinicSlug({ ...c, district: oldDistrict });
+      if (!c.url_slug || oldSlug === c.url_slug || live.has(oldSlug)) continue;
+      for (const prefix of ["", "/th", "/ko"]) {
+        out.push({
+          source: `${prefix}/clinic/${encodeURI(oldSlug)}`,
+          destination: `${prefix}/clinic/${encodeURI(c.url_slug)}`,
+          permanent: true,
+        });
+      }
+    }
+  }
+  return out;
+}
+
 const config: NextConfig = {
   // 2026-08-21: /api/* 는 어떤 계층에서도 캐시되면 안 된다. 실측 결과 admin
   // 라우트(401)와 lead/partner-signup(405) 응답에 Cache-Control 이 아예 없어서,
@@ -298,10 +331,11 @@ const config: NextConfig = {
   compress: true,
   poweredByHeader: false,
   async redirects() {
-    const [serviceRedirects, clinicRedirects, staleDoctorRedirects] = await Promise.all([
+    const [serviceRedirects, clinicRedirects, staleDoctorRedirects, districtRedirects] = await Promise.all([
       offFocusServiceRedirects(),
       offScopeClinicRedirects(),
       staleDoctorSlugRedirects(),
+      districtMoveRedirects(),
     ]);
     return [
       ...wpRedirects,
@@ -322,6 +356,7 @@ const config: NextConfig = {
       // which is a superset of what this generated (it only covered doctors with
       // 10+ mentions) and keeps ~1,600 rules out of the routing table.
       ...staleDoctorRedirects,
+      ...districtRedirects,
     ];
   },
 };

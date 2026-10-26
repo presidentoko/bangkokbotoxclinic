@@ -110,7 +110,12 @@ export async function generateMetadata(
   const db = await loadMasterDb();
   const c = getClinicByRouteKey(db.clinics, id);
   if (!c) return { title: "Clinic not found" };
-  const cats = c.categories.map((x) => CATEGORY_LABELS[x] ?? x).join(", ");
+  // 2026-10-26: 사이트 업종 밖 카테고리는 설명에 넣지 않는다 — 덴탈 사이트 치과
+  // 페이지 설명이 "Botox, Dental, Facial" 로 끝나고 있었다.
+  const metaValidCats = FOCUS_VALID[getSiteConfig().focus];
+  const cats = c.categories
+    .filter((x) => !metaValidCats || metaValidCats.has(x))
+    .map((x) => CATEGORY_LABELS[x] ?? x).join(", ");
   // "Reviews & Trust Score"는 1,846개 클리닉 페이지 전부에 동일하게 붙던
   // 문구고 "Trust Score"는 아무도 검색하지 않는 용어 — 대신 실제 검색 신호
   // (평점·리뷰수)로 대체 + 브랜드 접미사는 absolute로 꺼서 60자 내로 유지
@@ -245,7 +250,7 @@ const PT = {
     translated: "Translated from Thai by Google", original: "Original review (Thai)",
     doctors: (n: string) => `Doctors mentioned in reviews at ${n}`, dr: "Dr.",
     compareTag: "Side-by-side comparison", compareSub: "Trust Score · Reviews · Doctors · Languages",
-    alsoFrom: "Also from Thai Facial Clinic Group",
+    alsoFrom: "Also from our sister sites",
     moreCatIn: (cat: string, d: string) => `More ${cat} clinics in ${d}`, moreIn: (d: string) => `More clinics in ${d}`,
     similar: "Similar clinics", seeAll: "See all →", trust: "Trust",
     address: "Address", phone: "Phone", website: "Website", email: "Email", social: "Social",
@@ -392,9 +397,13 @@ export default async function ClinicPage(
   const photos = await loadPhotos(c.id);
 
   // 동일 카테고리 내 trust score percentile (낮을수록 상위)
-  const sameCategory = c.categories.length > 0
-    ? db.clinics.filter((x) => x.categories.some((cat) => c.categories.includes(cat)))
-    : db.clinics;
+  // 2026-10-26: 이 사이트 업종의 대표 카테고리 하나로, 이 사이트 클리닉끼리만 비교한다.
+  // 예전엔 c.categories[0] 라벨에 전 도메인 클리닉을 섞어서, 덴탈 사이트 치과에
+  // "Top 94% in Botox" 가 붙었다(보톡스를 겸하는 치과는 categories[0] 이 botox).
+  const rankCat = focusCategories[0] ?? c.categories[0];
+  const sameCategory = rankCat
+    ? scopedClinics.filter((x) => x.categories.includes(rankCat))
+    : scopedClinics;
   const sortedTrust = sameCategory
     .map((x) => x.trust_score)
     .sort((a, b) => b - a);
@@ -402,8 +411,8 @@ export default async function ClinicPage(
   // 자신보다 엄격히 높은 개수 기준으로 계산해야 동점 그룹이 같은(정확한) percentile을 받음.
   const rankAbove = sortedTrust.filter((v) => v > c.trust_score).length;
   const percentile = sortedTrust.length > 0 ? Math.round((rankAbove / sortedTrust.length) * 100) : 100;
-  const rankingLabel = c.categories.length > 0
-    ? catLabels[c.categories[0]] ?? (L === "th" ? "กรุงเทพฯ" : "Bangkok")
+  const rankingLabel = rankCat
+    ? catLabels[rankCat] ?? (L === "th" ? "กรุงเทพฯ" : "Bangkok")
     : (L === "th" ? "กรุงเทพฯ" : "Bangkok");
 
   // Trust Score breakdown for donut
@@ -467,12 +476,14 @@ export default async function ClinicPage(
     hair: ["hair_transplant"],
   };
   const myCats = FOCUS_CATS[siteFocus] ?? [];
-  const crossCat = c.categories.find((cat) => !myCats.includes(cat) && CROSS_SITE_MAP[cat]);
+  // 2026-10-26: 덴탈 사이트 치과 페이지에서 모발이식 사이트로 보내지 않는다.
+  const noCross = siteFocus === "dental" ? ["hair_transplant"] : [];
+  const crossCat = c.categories.find((cat) => !myCats.includes(cat) && !noCross.includes(cat) && CROSS_SITE_MAP[cat]);
   const crossSite = crossCat ? CROSS_SITE_MAP[crossCat] : null;
   // 현재 포커스가 없는 추천: botox 사이트 → 덴탈/헤어 둘 다 있으면 하나씩
   const suggestOtherSites = siteFocus !== "all" && !crossSite
     ? (["dental", "hair_transplant"] as const)
-        .filter((cat) => !myCats.includes(cat))
+        .filter((cat) => !myCats.includes(cat) && !noCross.includes(cat))
         .map((cat) => CROSS_SITE_MAP[cat])
         .filter(Boolean)
         .slice(0, 1)
@@ -485,7 +496,12 @@ export default async function ClinicPage(
     : null;
 
   // AEO: 자동 FAQ — Google PAA 대응 + LLM 인용
-  const faqs = buildClinicFaqs(c as Parameters<typeof buildClinicFaqs>[0], L, thai?.topics);
+  // FAQ 도 사이트 업종 카테고리만 — 덴탈 사이트 치과에 "What Botox or filler brands…" 가 나왔다.
+  const faqs = buildClinicFaqs(
+    { ...c, categories: focusCategories.length > 0 ? focusCategories : c.categories } as Parameters<typeof buildClinicFaqs>[0],
+    L,
+    thai?.topics,
+  );
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">

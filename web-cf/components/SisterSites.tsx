@@ -16,7 +16,12 @@ const SISTERS: Record<SiteFocus, { url: string; emoji: string; label: string; su
 export default function SisterSites({ focus }: { focus: SiteFocus }) {
   const sisters = (Object.keys(SISTERS) as SiteFocus[]).filter((k) => k !== focus && k !== "all").map((k) => SISTERS[k]);
   // Top picks: in this 3-site reality, show botox + dental + hair (not the placeholder ones)
-  const live = sisters.filter((s) => ["bangkokbotoxclinic", "bangkokbestclinic", "thaifacialclinic"].some((d) => s.url.includes(d)));
+  // 2026-10-26: 덴탈 사이트에서는 모발이식 사이트를 빼고, 그룹명도 "Thai Facial
+  // Clinic Group" 대신 중립 표현으로 — 치과 페이지에 "Facial"·모발이식 링크가
+  // 붙어 주제가 흐려진다는 지적.
+  const live = sisters
+    .filter((s) => ["bangkokbotoxclinic", "bangkokbestclinic", "thaifacialclinic"].some((d) => s.url.includes(d)))
+    .filter((s) => !(focus === "dental" && s === SISTERS.hair));
 
   if (live.length === 0) return null;
 
@@ -24,7 +29,7 @@ export default function SisterSites({ focus }: { focus: SiteFocus }) {
     <section className="border-t mt-12" style={{ borderColor: "var(--border)" }}>
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="text-[10px] font-black uppercase tracking-widest text-[var(--muted)] text-center mb-3">
-          Our sister sites · Thai Facial Clinic Group
+          Our sister sites
         </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {live.map((s) => (
