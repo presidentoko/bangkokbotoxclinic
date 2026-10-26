@@ -144,7 +144,10 @@ export async function generateMetadata({
   // (PRERENDER_MIN_REVIEWS)와 **같은 선**이다. 셋이 갈리면 "사이트맵엔 있는데
   // 404", "색인 요청해놓고 프리렌더 안 함" 같은 모순이 생긴다.
   const THIN_MIN_REVIEWS = PRERENDER_MIN_REVIEWS;
-  const thin = (found.place.reviewCount ?? 0) < THIN_MIN_REVIEWS;
+  // 2026-10-26: 리뷰가 한 건도 안 보이는 페이지(175곳)도 뺀다 — 구글 지도 정보를
+  // 옮긴 것뿐이라 "대량 생산된 얇은 페이지" 판정의 표본이 된다. 노출 11·클릭 0.
+  // app/sitemap.ts 와 같은 조건이어야 한다.
+  const thin = (found.place.reviewCount ?? 0) < THIN_MIN_REVIEWS || (found.place.reviews?.length ?? 0) === 0;
   const indexable = lang === "en" && !thin;
   return {
     // 2026-09-02: 평점·리뷰수를 title 에. 넷 중 이 사이트만 브랜드명만 달고

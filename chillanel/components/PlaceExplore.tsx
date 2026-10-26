@@ -50,7 +50,8 @@ export function PlaceExplore({
             p.district === place.district &&
             !skip.has(p.id) &&
             isRelevantCategory(p.primaryType) &&
-            (p.reviewCount ?? 0) >= minReviews,
+            (p.reviewCount ?? 0) >= minReviews &&
+            (p.reviews?.length ?? 0) > 0,
         )
         .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount)
         .slice(0, SAME_DISTRICT_MAX)

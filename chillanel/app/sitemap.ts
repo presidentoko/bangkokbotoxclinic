@@ -57,7 +57,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   //    한쪽만 바꾸면 이 404 가 그대로 되살아난다.
   const SITEMAP_MIN_REVIEWS = 50;
   const submittablePlaces = relevantPlaces.filter(
-    ({ place }) => (place.reviewCount ?? 0) >= SITEMAP_MIN_REVIEWS,
+    ({ place }) => (place.reviewCount ?? 0) >= SITEMAP_MIN_REVIEWS && (place.reviews?.length ?? 0) > 0,
   );
 
   // Google mostly ignores changeFrequency/priority but does use lastModified
