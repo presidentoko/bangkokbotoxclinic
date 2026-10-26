@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
 const KO_FAQS = [
   {
     q: "DBD 검증 (DBD-verified) 이 뭔가요?",
-    a: "태국 상무부(Department of Business Development, DBD)는 모든 법인의 정식 등기를 관리하는 한국의 등기소+공정위 같은 기관입니다. DBD-verified 라벨이 붙은 공급사는 DataWarehouse+ 시스템에서 회사명 매칭 신뢰도 80%+로 검증된 곳으로, 정식 법인명(บริษัท ... จำกัด), 13자리 등록번호, 등록자본금, 설립일, TSIC 산업분류 코드, 사업목적 텍스트까지 표시됩니다. 알리바바 등 글로벌 마켓플레이스와의 가장 큰 차이는 — 알리바바는 '뱃지를 믿어라' 모델이지만 여기는 등기소 데이터 자체를 보여줍니다. 매칭 신뢰도 90%+는 'DBD Verified' 진한 라벨, 80-89%는 'DBD-listed · Likely match' 톤다운 라벨로 구분합니다.",
+    a: "태국 상무부(Department of Business Development, DBD)는 모든 법인의 정식 등기를 관리하는 한국의 등기소+공정위 같은 기관입니다. DBD-verified 라벨이 붙은 공급사는 DataWarehouse+ 등기의 정식 법인명이 구글 지도 회사명과 일치하는 곳으로, 정식 법인명(บริษัท ... จำกัด), 13자리 등록번호, 등록자본금, 설립일, TSIC 산업분류 코드, 사업목적 텍스트까지 표시됩니다. 알리바바 등 글로벌 마켓플레이스와의 가장 큰 차이는 — 알리바바는 '뱃지를 믿어라' 모델이지만 여기는 등기소 데이터 자체를 보여줍니다.",
   },
   {
     q: "신뢰도 점수(b2b score)는 어떻게 계산되나요?",

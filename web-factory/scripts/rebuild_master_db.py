@@ -229,6 +229,80 @@ def apply_website_corrections(suppliers: list[dict]) -> None:
           f"수리 {n_rep:,} · 제거 {n_del:,} · 죽은 도메인 이메일 제거 {n_mail:,}")
 
 
+# ── DBD 매칭 재검증 ─────────────────────────────────────────────────────
+# 2026-10-26 외부 지적으로 확인: "verified" 847곳 중 506곳이 *다른 회사* 의 DBD
+# 등기에 붙어 있었다. 퍼지 매칭 80점이 "엔지니어링", "로지스틱스" 같은 흔한 단어만
+# 겹쳐도 넘어갔다 — Kerry Logistics(เคอรี่ โลจิสติกส์) → HD Logistics, 2백만 바트,
+# 2024년 설립. 그 틀린 자본금·설립일·등록번호를 "DBD Verified" 로 보여주고 있었다.
+# 법인 접두/접미사를 지운 이름이 같을 때만 인정한다. 퍼지 점수는 보지 않는다.
+_LEGAL = re.compile(
+    r"บริษัท|บจก\.?|บจ\.|บ\.|ห้างหุ้นส่วนจำกัด|ห้างหุ้นส่วนสามัญ|ห้างหุ้นส่วน|หจก\.?|หจ\.|จำกัด|"
+    r"\(มหาชน\)|มหาชน|ประเทศไทย|ไทยแลนด์|^ร้าน|โรงงาน|"
+    r"public|company|limited|co\.?|ltd\.?|corporation|corp\.?|\(?thailand\)?|"
+    r"[\s\.\,\(\)\-&'\"]",
+    re.I,
+)
+# 이름이 한쪽에 포함될 때, 남는 부분이 이것뿐이면 같은 회사로 본다
+# (예: "วีที แหนมเนือง" ↔ "วีที แหนมเนือง 2023 จำกัด").
+_OK_LEFTOVER = re.compile(r"^(\d+|ไทย|thai|ส์|s|กรุ๊ป|group)$", re.I)
+
+
+def _norm_company(x: str) -> str:
+    return _LEGAL.sub("", (x or "").lower())
+
+
+def dbd_name_ok(name: str, legal: str) -> bool:
+    a, b = _norm_company(name), _norm_company(legal)
+    if not a or not b:
+        return False
+    if a == b:
+        return True
+    short, long_ = sorted((a, b), key=len)
+    if len(short) < 4 or short not in long_:
+        return False
+    return bool(_OK_LEFTOVER.match(long_.replace(short, "", 1)))
+
+
+def reject_bad_dbd_matches(suppliers: list[dict]) -> set[str]:
+    """이름이 맞지 않는 DBD 매칭을 떼어낸다. 뗀 supplier id 를 돌려준다 —
+    이번 정정으로 페이지까지 사라지지 않게 dead-lead 판정에서 면제하는 데 쓴다."""
+    dropped: set[str] = set()
+    for s in suppliers:
+        d = s.get("dbd")
+        if d and not dbd_name_ok(s.get("name", ""), d.get("legal_name", "")):
+            s["dbd"] = None
+            s["verified"] = False
+            dropped.add(s["id"])
+    print(f"\nDBD 이름 불일치로 검증 해제: {len(dropped):,}")
+    return dropped
+
+
+# ── food_mfg 에서 소매·서비스 제외 ──────────────────────────────────────
+# 같은 지적: 식품 제조사에 케이크 가게·카페·주방용품점·냉장고 수리가 있었다.
+# 공장 이름(โรงงาน/factory)이 들어가면 유형이 "ร้าน…" 이어도 남긴다.
+_FOOD_NOT_MFG_TYPE = re.compile(
+    r"^ร้าน|store|shop|restaurant|ซ่อม|tannery|cosmetic|kitchen supply", re.I
+)
+_FOOD_NOT_MFG_NAME = re.compile(r"cafe|café|คาเฟ่|^ร้าน|shop\b|store\b|เพ็ทช๊อป", re.I)
+_FACTORY_NAME = re.compile(r"โรงงาน|factory|co\.,?\s*ltd|จำกัด", re.I)
+
+
+def untag_food_retail(suppliers: list[dict]) -> int:
+    n = 0
+    for s in suppliers:
+        cats = s.get("categories") or []
+        if "food_mfg" not in cats:
+            continue
+        name, ptype = s.get("name", ""), s.get("primary_type", "")
+        if _FACTORY_NAME.search(name):
+            continue
+        if _FOOD_NOT_MFG_TYPE.search(ptype) or _FOOD_NOT_MFG_NAME.search(name):
+            s["categories"] = [c for c in cats if c != "food_mfg"]
+            n += 1
+    print(f"food_mfg 에서 소매·서비스 제외: {n:,}")
+    return n
+
+
 def finalize() -> dict:
     """dead-lead 필터 + 전 통계 재계산.
 
@@ -245,7 +319,10 @@ def finalize() -> dict:
     apply_website_corrections(before)
     # 수동 등재는 사람이 이미 확인한 레코드라 dead-lead 판정에서 면제한다.
     manual_ids = merge_manual_suppliers(before)
-    suppliers = [s for s in before if s.get("id") in manual_ids or has_signal(s)]
+    # 검증 해제는 데이터 정정이지 페이지 삭제 사유가 아니다 — 면제 목록에 넣는다.
+    keep_ids = manual_ids | reject_bad_dbd_matches(before)
+    untag_food_retail(before)
+    suppliers = [s for s in before if s.get("id") in keep_ids or has_signal(s)]
     print(f"\ndead-lead 제거: {len(before):,} → {len(suppliers):,}  (-{len(before) - len(suppliers):,})")
 
     for s in suppliers:
