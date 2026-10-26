@@ -71,14 +71,22 @@ _sel = _load(WEB_CF / "scripts" / "build_clinic_reviews.py", "clinic_reviews_sel
 _bmd = _load(ROOT / "web" / "scripts" / "build_master_db.py", "bmd_canonical")
 
 
-def read_thai(path: Path) -> tuple[list[dict], dict[int, int]]:
-    """(인용 후보, 전체 별점 분포).
+def read_thai(path: Path) -> tuple[list[dict], dict[int, int], str]:
+    """(인용 후보, 전체 별점 분포, 토픽 집계용 전체 태국어 본문).
 
     분포는 본문 길이와 무관하게 전체 행에서 센다 — 후보에서 재면 불만 리뷰가
     길어서 1성이 과대표집된다 (build_clinic_reviews.star_counts 와 같은 이유).
+
+    **토픽도 길이로 거르지 않는다.** MIN_QUOTE_CHARS 는 "인용문으로 쓸 만한가"
+    기준이지 "집계에 넣을 만한가" 기준이 아니다. 처음엔 인용 후보에서만 토픽을
+    뽑았는데, 그러면 "ดีมาก สะอาด"(아주 좋다, 깨끗하다) 같은 짧은 리뷰가 전부
+    빠진다 — 실측으로 토픽 언급 총합의 21%(24,929 → 30,257)였고, 44곳은 토픽이
+    아예 0개로 떨어져서 영어 코퍼스 토픽이 그대로 남았다(= 뜻이 뒤집힌 배지도
+    그대로 남는다). 별점이 없는 행도 넣는다 — 토픽은 별점을 쓰지 않는다.
     """
     rows: list[dict] = []
     dist: dict[int, int] = {}
+    topic_text: list[str] = []
     with path.open(encoding="utf-8-sig", newline="") as fh:
         for r in csv.DictReader(fh):
             try:
@@ -90,12 +98,13 @@ def read_thai(path: Path) -> tuple[list[dict], dict[int, int]]:
             text = _sel.clean_quote((r.get("text") or "").strip())
             # 태국어 글자가 없는 행은 영어 리뷰다. /th 페이지에 실을 이유가 없고,
             # 영어 페이지는 이미 자기 소스를 갖고 있다.
-            if len(text) < MIN_QUOTE_CHARS or not THAI_RE.search(text):
+            if not text or not THAI_RE.search(text):
                 continue
-            if rating < 1:
+            topic_text.append(text)
+            if len(text) < MIN_QUOTE_CHARS or rating < 1:
                 continue
             rows.append({"text": text, "rating": rating, "author": ""})
-    return rows, dist
+    return rows, dist, " ".join(topic_text)
 
 
 def main() -> int:
@@ -138,11 +147,11 @@ def main() -> int:
             not_in_db += 1
             continue
 
-        rows, dist = read_thai(f)
-        all_text = " ".join(r["text"] for r in rows)
+        rows, dist, topic_text = read_thai(f)
 
         # 토픽 — 가드된 추출기로. 영어 코퍼스 토픽과 더하지 않고 교체한다.
-        topics = _bmd.extract_mentioned_topics(all_text) if all_text else []
+        # 인용 후보가 아니라 태국어 리뷰 전문에서 센다(read_thai 주석 참조).
+        topics = _bmd.extract_mentioned_topics(topic_text) if topic_text else []
 
         rating = clinic.get("rating") or None
         quotes = _sel.pick(rows, args.max_quotes, dist, rating)
