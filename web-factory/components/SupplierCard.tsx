@@ -180,7 +180,10 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
       <div className="px-5 pb-3 flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-1.5 flex-wrap">
           <TrustBadge score={trust.overall} size="md" />
-          <TrustScoreInfo subs={trust.subs} />
+          <TrustScoreInfo subs={trust.subs} basis={trust.basis} />
+          {trust.basis === "google" && (
+            <span className="text-[10px] text-[var(--muted)] whitespace-nowrap" title="No registry data — score uses Google reviews only">Google reviews</span>
+          )}
           <FavoriteButton id={r.id} name={r.name} cityLabel={r.city_label || ""} variant="icon" />
           {r.language_breakdown?.ko && r.language_breakdown.ko > 0 && (
             <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200" title="Has Korean reviews">KO</span>

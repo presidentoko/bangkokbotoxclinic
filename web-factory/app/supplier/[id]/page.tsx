@@ -209,7 +209,7 @@ export default async function SupplierPage(
   const gauges = [
     {
       label: "Capital",
-      sub: r.dbd?.capital_thb ? "Registered THB" : "Not disclosed",
+      sub: r.dbd?.capital_thb ? "Registered THB" : "No registry data",
       score: capScore,
       display: formatCap(r.dbd?.capital_thb),
       animateValue: r.dbd?.capital_thb || undefined,
@@ -218,7 +218,7 @@ export default async function SupplierPage(
     },
     {
       label: "Years",
-      sub: foundedYear ? `since ${foundedYear}` : "—",
+      sub: foundedYear ? `since ${foundedYear}` : years ? "" : "No registry data",
       score: longevityScore,
       display: years ? `${years}y` : "—",
       animateValue: years || undefined,
@@ -236,9 +236,9 @@ export default async function SupplierPage(
     },
     {
       label: "Verifications",
-      sub: `${verifyCount} active`,
+      sub: verifyCount ? `${verifyCount} active` : "None on record",
       score: verifyScore,
-      display: `${verifyCount}/4`,
+      display: verifyCount ? `${verifyCount}/4` : "—",
       color: "red" as const,
     },
     {
@@ -452,14 +452,23 @@ export default async function SupplierPage(
           <OverallScore
             overall={trust.overall}
             caption="TRUST INDEX"
+            // 데이터가 없는 신호는 점수에 들어가지 않는다 — 0 으로 그리면 "검증 0점" 으로 읽힌다.
             subs={[
-              { label: "Capital",       score: capScore,      color: "#b45309" },
-              { label: "Longevity",     score: longevityScore,color: "#0f766e" },
-              { label: "Reviews",       score: reviewScore,   color: "#b91c1c" },
-              { label: "Verifications", score: verifyScore,   color: "#7c3aed" },
-              { label: "Photos",        score: photoScore,    color: "#475569" },
-            ]}
+              { key: "capital",       label: "Capital",       score: capScore,      color: "#b45309" },
+              { key: "longevity",     label: "Longevity",     score: longevityScore,color: "#0f766e" },
+              { key: "reviews",       label: "Reviews",       score: reviewScore,   color: "#b91c1c" },
+              { key: "verifications", label: "Verifications", score: verifyScore,   color: "#7c3aed" },
+              { key: "photos",        label: "Photos",        score: photoScore,    color: "#475569" },
+            ].filter((x) => trust.subs.find((t) => t.key === x.key)?.applicable)}
           />
+          {trust.basis === "google" && (
+            <p className="mt-3 text-sm text-[var(--muted)] leading-relaxed">
+              <strong>Based on Google reviews only.</strong> We have no registry data for this company yet — no
+              registered capital, founding date or DBD company match — so those signals are not counted.
+              Ask the supplier for its 13-digit DBD registration number before you order.{" "}
+              <a href="/trust-score" className="underline">How the score works</a>
+            </p>
+          )}
         </section>
 
         {/* 5 trust gauges */}

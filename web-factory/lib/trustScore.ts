@@ -8,7 +8,10 @@ import type { Supplier } from "./types";
 // averages ONLY applicable signals, so suppliers aren't penalized for missing
 // enrichment data (capital/photos/etc.) they were never scraped with.
 export type TrustSub = { key: string; label: string; score: number; weight: string; applicable: boolean };
-export type TrustResult = { overall: number; subs: TrustSub[]; tier: string; color: string };
+// basis "google" = 등기·업력·인증 신호가 하나도 없어서 점수가 Google 리뷰(+사진)만으로
+// 나온 경우. 2026-10-26 외부 지적 — 대부분이 이 경우인데 화면이 그걸 말하지 않았다.
+export type TrustBasis = "google" | "registry";
+export type TrustResult = { overall: number; subs: TrustSub[]; tier: string; color: string; basis: TrustBasis };
 
 const clamp = (n: number) => Math.max(0, Math.min(100, n));
 
@@ -58,5 +61,6 @@ export function computeTrustScore(
     ? Math.round(present.reduce((a, b) => a + b.score, 0) / present.length)
     : 0;
   const { tier, color } = trustTier(overall);
-  return { overall, subs, tier, color };
+  const registry = subs.some((x) => x.applicable && (x.key === "capital" || x.key === "longevity" || x.key === "verifications"));
+  return { overall, subs, tier, color, basis: registry ? "registry" : "google" };
 }

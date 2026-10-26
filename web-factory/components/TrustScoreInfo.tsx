@@ -1,8 +1,8 @@
-import type { TrustSub } from "@/lib/trustScore";
+import type { TrustSub, TrustBasis } from "@/lib/trustScore";
 
 // Accessible, JS-free Trust Score explainer. Renders an ⓘ that expands a small
 // panel with the 5 sub-scores and a link to the methodology page.
-export function TrustScoreInfo({ subs }: { subs: TrustSub[] }) {
+export function TrustScoreInfo({ subs, basis }: { subs: TrustSub[]; basis?: TrustBasis }) {
   return (
     <details className="relative inline-block group/ts">
       <summary
@@ -25,6 +25,11 @@ export function TrustScoreInfo({ subs }: { subs: TrustSub[] }) {
             </li>
           ))}
         </ul>
+        {basis === "google" && (
+          <p className="mt-2 text-[var(--muted)] leading-snug">
+            Based on Google reviews only — no registry data (capital, founding date, DBD match) for this company yet.
+          </p>
+        )}
         <a href="/trust-score" className="block mt-2 text-emerald-700 font-semibold hover:underline">
           How is this calculated? →
         </a>

@@ -25,7 +25,7 @@ const FAQS = [
   },
   {
     q: "How is the Trust Score calculated?",
-    a: "Trust Score (0-100) combines: Google rating (50% weight, scaled from 5★ → 50 points) and review volume on a logarithmic scale (50% weight, capped at 50 points). It rewards both quality (rating) and longevity / scale (review count). It's a directional signal — pair it with direct due diligence (factory visits, audits, references).",
+    a: "Trust Score (0-100) averages up to five signals: registered capital and years in business (from Thailand's DBD registry), Google review strength (volume × rating), verifications (DBD match, Halal, TSIC code, industrial estate) and site photos. Only signals we actually have data for are averaged. Most listings have no matched registry record, so their score is based on Google reviews only — the card and detail page say so (\"Google reviews\"). Treat it as a directional signal and confirm the company's 13-digit DBD number yourself.",
   },
   {
     q: "Why filter out so many B2C-looking listings?",
