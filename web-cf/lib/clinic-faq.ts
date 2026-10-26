@@ -51,7 +51,23 @@ function topicWords(topics: { topic: string }[] | undefined, lang: FaqLang): str
 }
 
 /** 클리닉별 FAQ 자동 생성. 데이터에 따라 4-8개 Q&A. */
-export function buildClinicFaqs(clinic: ClinicWithPantip, lang: FaqLang = "en"): Faq[] {
+/**
+ * @param topicsOverride 이 로케일에서 "환자들이 가장 자주 언급하는 것" 에 쓸 토픽.
+ *   /th 는 태국어 리뷰 원문에서 뽑은 토픽을 넘긴다(data/clinic-thai.json).
+ *   넘기지 않으면 master_db 의 전체 코퍼스 토픽을 쓴다.
+ *
+ *   2026-10-26: TopicCluster 만 태국어 토픽으로 갈아끼웠더니 **이 문장이 남아서**
+ *   한 문장 안에 "ราคาสูง, ราคาไม่แพง"(비싸다, 안 비싸다)를 나란히 찍고 있었다.
+ *   같은 가드를 두 번째 입구에 안 걸면 그 입구로 그대로 들어온다.
+ *
+ *   Q "한국어 가능?" 은 일부러 안 바꾼다 — 그건 한국어·영어 리뷰에서 나오는
+ *   신호이고 태국어 코퍼스에는 애초에 없다. 거기까지 덮으면 있는 사실을 지운다.
+ */
+export function buildClinicFaqs(
+  clinic: ClinicWithPantip,
+  lang: FaqLang = "en",
+  topicsOverride?: { topic: string; count: number }[],
+): Faq[] {
   const th = lang === "th";
   const faqs: Faq[] = [];
   const name = clinic.name;
@@ -75,7 +91,9 @@ export function buildClinicFaqs(clinic: ClinicWithPantip, lang: FaqLang = "en"):
 
   // Q2: 시술 카테고리
   if (clinic.categories.length > 0) {
-    const topics = topicWords(clinic.mentioned_topics, lang) || categoryWords(clinic.categories, lang);
+    const topics =
+      topicWords(topicsOverride?.length ? topicsOverride : clinic.mentioned_topics, lang) ||
+      categoryWords(clinic.categories, lang);
     faqs.push(th
       ? {
           q: `${name} ให้บริการอะไรบ้าง?`,

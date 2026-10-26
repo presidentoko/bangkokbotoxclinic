@@ -485,7 +485,7 @@ export default async function ClinicPage(
     : null;
 
   // AEO: 자동 FAQ — Google PAA 대응 + LLM 인용
-  const faqs = buildClinicFaqs(c as Parameters<typeof buildClinicFaqs>[0], L);
+  const faqs = buildClinicFaqs(c as Parameters<typeof buildClinicFaqs>[0], L, thai?.topics);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
