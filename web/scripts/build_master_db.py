@@ -550,6 +550,71 @@ _TOPIC_PATTERNS: dict[str, list[str]] = {
 }
 
 
+# 태국어는 띄어쓰기가 없어서 부분일치가 단어일치가 아니다. 위 표를 태국어 원문에
+# 그대로 돌리면 뜻이 반대인 집계가 나온다 — 2026-10-26, 수집한 태국어 리뷰
+# 1,881건(치과 87곳) 실측:
+#
+#   แพง (expensive)        66건 중 59건이 ไม่แพง "안 비싸다"        89% 오분류
+#   แท้ (genuine_brand)    16건 전부 ฟันแท้ "영구치" / แท้จริง      100% 오분류
+#   ต้องรอ (long_wait)     13건 중 7건이 ไม่ต้องรอ "기다릴 필요 없다" 54%
+#   รอนาน (long_wait)      17건 중 7건이 ไม่รอนาน                   41%
+#   พอใจ (satisfied)       14건 중 4건이 ไม่พอใจ "불만족"            29%
+#
+# 게다가 ไม่แพง 는 affordable 패턴에도 있으므로, 싸다고 쓴 리뷰 하나가 affordable
+# 과 expensive 를 **동시에** 올린다. 같은 클리닉이 "싸다"와 "비싸다" 배지를 같이 단다.
+#
+# 가드는 "ไม่ 가 N글자 안에 있으면 부정"이 아니라 **실제 복합어 목록**이다. 거리
+# 규칙은 오탐을 만든다: ไม่เจ็บแนะนำ("안 아팠고 추천")에서 แนะนำ 는 부정이 아닌데
+# ไม่ 가 3글자 앞에 있다. 실측에서 แนะนำ 790건 중 7건이 그렇게 잘못 잡혔다.
+#
+# โปร(promotion)는 일부러 안 막았다. โปรดเตรียม("준비해 주세요")가 섞이지만 38건
+# 중 1~2건이고, โปรด 를 막으면 โปรดี·โปรด้วย("프로모션 좋다/도") 같은 진짜
+# 프로모션 언급을 잃는다. 과잉차단이 더 비싸다.
+_TOPIC_BLOCKERS: dict[str, tuple[str, ...]] = {
+    "แพง": ("ไม่แพง",),
+    "แท้": ("ฟันแท้", "แท้จริง", "ของแท้"),
+    "ต้องรอ": ("ไม่ต้องรอ",),
+    "รอนาน": ("ไม่ต้องรอนาน", "ไม่รอนาน"),
+    "พอใจ": ("ไม่พอใจ",),
+    "มืออาชีพ": ("ไม่เป็นมืออาชีพ", "ไม่มีมืออาชีพ"),
+    "สะอาด": ("ไม่สะอาด",),
+    "แนะนำ": ("ไม่แนะนำ",),
+}
+
+
+def count_topic_pattern(text: str, pat: str) -> int:
+    """pat 의 출현 횟수 — 단, 블로커 복합어 안에 들어있는 것은 세지 않는다.
+
+    블로커 구간을 먼저 전부 표시하고, 그 구간과 겹치지 않는 출현만 센다. 블로커를
+    먼저 지우는 방식(replace)으로 하면 지운 자리가 붙어 새 일치를 만들 수 있다.
+    """
+    blockers = _TOPIC_BLOCKERS.get(pat)
+    if not blockers:
+        return text.count(pat)
+
+    blocked = bytearray(len(text))
+    for b in blockers:
+        start = 0
+        while True:
+            at = text.find(b, start)
+            if at < 0:
+                break
+            for i in range(at, at + len(b)):
+                blocked[i] = 1
+            start = at + 1  # 겹치는 블로커도 전부 표시
+
+    n = 0
+    start = 0
+    while True:
+        at = text.find(pat, start)
+        if at < 0:
+            break
+        if not any(blocked[at:at + len(pat)]):
+            n += 1
+        start = at + 1
+    return n
+
+
 def extract_mentioned_topics(text: str) -> list[dict]:
     """리뷰 텍스트에서 토픽 매칭. 각 토픽당 매칭 횟수 리턴."""
     text_l = text.lower()
@@ -557,7 +622,7 @@ def extract_mentioned_topics(text: str) -> list[dict]:
     for topic, patterns in _TOPIC_PATTERNS.items():
         n = 0
         for pat in patterns:
-            n += text_l.count(pat)
+            n += count_topic_pattern(text_l, pat)
         if n > 0:
             found.append({"topic": topic, "count": n})
     found.sort(key=lambda x: -x["count"])
