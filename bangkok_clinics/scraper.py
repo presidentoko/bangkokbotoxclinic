@@ -2567,6 +2567,10 @@ def main():
             # 다른 인스턴스가 이 프로필로 돌고 있다. 같이 돌면 _kill_stale_profile_chrome
             # 이 서로의 크롬을 죽여 큐 전체를 실패로 태운다 (10-21 23:32 사고).
             log.error("로그인 프로필을 다른 스크래퍼가 쓰는 중 — 이 인스턴스는 종료")
+            # 2026-10-26: 바로 죽으면 워치독이 10초 간격으로 5번 재시작하고 "60초 내
+            # 5회" 에 걸려 메모리 플래그로 영구 off 된다 (치앙마이 스파 12시간 정지).
+            # 잠금은 이전 인스턴스가 정리되면 곧 풀리니 기다렸다 나간다.
+            time.sleep(90)
             sys.exit(3)
         log.info(f"로그인 모드: 프로필 {config.GMAPS_PROFILE} (프록시·VPN 회전 없음)")
     target_n = config.MAX_RESTAURANTS  # None이면 무제한
