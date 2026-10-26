@@ -27,6 +27,21 @@ function isHairClinicLike(c: Clinic): boolean {
   return true;
 }
 
+// 2026-10-26: 태국 모발이식 가이드인데 145곳 중 52곳이 인도·터키·독일·파키스탄 등
+// 해외 클리닉이었다(구글 검색이 "DHI"·"hair transplant" 로 전 세계 지점을 끌어옴).
+// 지도 좌표(!3d lat !4d lng)가 145곳 모두 있고 주소 판정과 100% 일치 — 좌표 우선,
+// 없으면 +66 전화번호로 판정. 데이터 재빌드가 덮어써도 유지되게 로드 시점에 거른다.
+const TH_BBOX = { latMin: 5.5, latMax: 20.6, lngMin: 97.3, lngMax: 105.7 };
+function isInThailand(c: Clinic): boolean {
+  const m = /!3d(-?[\d.]+)!4d(-?[\d.]+)/.exec(c.google_maps_url ?? "");
+  if (m) {
+    const lat = Number(m[1]);
+    const lng = Number(m[2]);
+    return lat > TH_BBOX.latMin && lat < TH_BBOX.latMax && lng > TH_BBOX.lngMin && lng < TH_BBOX.lngMax;
+  }
+  return (c.phone ?? "").replace(/\s/g, "").startsWith("+66");
+}
+
 let cache: ClinicsBundle | null = null;
 
 export function loadClinics(): ClinicsBundle {
@@ -38,7 +53,7 @@ export function loadClinics(): ClinicsBundle {
   }
   const raw = fs.readFileSync(p, "utf-8");
   const raw_bundle = JSON.parse(raw) as ClinicsBundle;
-  const filtered = raw_bundle.clinics.filter(isHairClinicLike);
+  const filtered = raw_bundle.clinics.filter((c) => isHairClinicLike(c) && isInThailand(c));
   cache = {
     ...raw_bundle,
     clinics: filtered,
