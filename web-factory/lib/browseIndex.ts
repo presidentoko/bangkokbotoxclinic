@@ -15,6 +15,7 @@ export type BrowseEntry = {
   trust_score: number;
   categories: string[];
   dbd: boolean;
+  google_only?: boolean;
 };
 
 // city_label is expected to already be normalized (lib/data.ts's loadMasterDb()
@@ -23,14 +24,16 @@ export type BrowseEntry = {
 // || s.city_label`, which undid normalizeProvince's intentional "" for known
 // garbage values (e.g. raw "City") by falling back to the un-normalized original.
 export function toBrowseEntry(s: Supplier): BrowseEntry {
+  const trust = computeTrustScore(s);
   return {
     id: s.id,
     name: s.name,
     city_label: s.city_label || "",
     district: s.district ?? null,
     rating: s.rating || 0,
-    trust_score: computeTrustScore(s).overall,
+    trust_score: trust.overall,
     categories: s.categories || [],
     dbd: !!s.dbd,
+    ...(trust.basis === "google" ? { google_only: true } : {}),
   };
 }

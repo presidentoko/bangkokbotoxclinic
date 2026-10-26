@@ -129,6 +129,7 @@ export default async function CategoryPage(
     categories: s.categories,
     dbd: !!s.dbd,
     trust_score: computeTrustScore(s).overall,
+    ...(computeTrustScore(s).basis === "google" ? { google_only: true } : {}),
   }));
   const cityOptions = Array.from(
     new Set(filtered.map((s) => s.city_label).filter((c) => c && validCities.has(c))),

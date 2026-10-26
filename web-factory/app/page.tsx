@@ -100,6 +100,7 @@ export default async function HomePage() {
       categories: s.categories,
       dbd: !!s.dbd,
       trust_score: computeTrustScore(s).overall,
+      ...(computeTrustScore(s).basis === "google" ? { google_only: true } : {}),
     }))
     .sort((a, b) => b.trust_score - a.trust_score)
     .slice(0, 100);

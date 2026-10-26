@@ -14,6 +14,8 @@ export type FilterableSupplier = {
   categories: string[];
   dbd: boolean;
   trust_score: number;
+  // true = 점수가 Google 리뷰만으로 계산됨 (lib/trustScore.ts basis). 용량 때문에 true 일 때만 싣는다.
+  google_only?: boolean;
 };
 
 type Props = {
@@ -250,7 +252,7 @@ function SupplierListWithFilterInner({
             </div>
             <div className="shrink-0 text-right">
               <div className="text-lg font-black tabular-nums text-[var(--gold-deep)]">{s.trust_score}</div>
-              <div className="text-[10px] text-[var(--muted)] uppercase tracking-wide">Trust</div>
+              <div className="text-[10px] text-[var(--muted)] uppercase tracking-wide" title={s.google_only ? "Based on Google reviews only" : undefined}>{s.google_only ? "Trust · Google" : "Trust"}</div>
             </div>
           </a>
         ))}
