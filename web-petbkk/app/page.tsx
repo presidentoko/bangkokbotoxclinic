@@ -1,4 +1,5 @@
 import HomeSearchBars from '@/components/HomeSearchBars'
+import HomePartnerBanner from '@/components/HomePartnerBanner'
 import PetProfileSetup from '@/components/PetProfileSetup'
 import PersonalizedFoodRecs from '@/components/PersonalizedFoodRecs'
 import PopularFoods from '@/components/PopularFoods'
@@ -127,6 +128,9 @@ export default function HomePage() {
           ))}
         </div>
       </div>
+
+      {/* ── PARTNER STRIP ───────────────────────────────────────────── */}
+      <HomePartnerBanner />
 
       {/* ── PET PROFILE ─────────────────────────────────────────────── */}
       <div className="max-w-2xl mx-auto px-4">

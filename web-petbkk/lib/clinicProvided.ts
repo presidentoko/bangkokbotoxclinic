@@ -29,10 +29,18 @@ export interface ClinicProvided {
   specialists?: { name: string; field: string }[]
   branches?: ClinicBranch[]
   call_center?: string
+  /** A partner slot on the home page, labelled as such. */
+  home_banner?: { name: string; line: string }
 }
 
 const file = raw as { clinics: Record<string, ClinicProvided> }
 
 export function getClinicProvided(hospitalId: string): ClinicProvided | null {
   return file.clinics[hospitalId] ?? null
+}
+
+export function homeBanners(): Array<{ id: string; name: string; line: string }> {
+  return Object.entries(file.clinics)
+    .filter(([, c]) => c.home_banner)
+    .map(([id, c]) => ({ id, ...c.home_banner! }))
 }
