@@ -35,7 +35,7 @@ export function priceRange(prices: number[]): { min: number; max: number } | nul
 // Returns null when a place has none of these data points so callers can
 // omit the section entirely, same pattern as RatingBars/TagCloud's
 // null-return convention.
-export function placeSummary(place: Place, lang: Lang): string | null {
+export function placeSummary(place: Place, lang: Lang, opts: { statsOnly?: boolean } = {}): string | null {
   const t = tFor(lang);
   const clauses: string[] = [];
 
@@ -44,6 +44,10 @@ export function placeSummary(place: Place, lang: Lang): string | null {
       t.place.summaryStatsClause.replace("{rating}", place.rating.toFixed(1)).replace("{reviewCount}", String(place.reviewCount))
     );
   }
+
+  // 2026-10-28: statsOnly — 별점·리뷰 수만. 테마·분위기 문장은 구글이 리뷰칸에 넣는 AI 요약
+  // ("친절하고 조용하다")과 같은 종류라 차별점이 없다.
+  if (opts.statsOnly) return clauses.length ? clauses.join(" ") : null;
 
   const topTheme = place.serviceThemes[0];
   if (topTheme) {

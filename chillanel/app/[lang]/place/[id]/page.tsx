@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { reviewExcerpt } from "@/lib/reviewExcerpt";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { isIndexablePlace, INDEX_MIN_REVIEWS } from "@/lib/indexing";
+import { isIndexablePlace, INDEX_MIN_REVIEWS, INDEX_MIN_ANALYSED } from "@/lib/indexing";
 import { tFor } from "@/lib/i18n";
 import { isLang, SITE, hreflangAlternates, cityLabel, localeFor, ogLocale } from "@/lib/site";
 import { getAllPlaces, loadCity, findPlaceByIdFast } from "@/lib/data";
@@ -23,7 +23,7 @@ import { ShareButton } from "@/components/ShareButton";
 import { ArrowRightIcon } from "@/components/Icon";
 import { themeLabel, themeEmoji } from "@/lib/theme-labels";
 import { districtLabel, slugifyDistrict } from "@/lib/district-labels";
-import { placeSummary, priceMedian, priceRange } from "@/lib/summary";
+import { priceMedian, priceRange } from "@/lib/summary";
 import { relatedPlaces } from "@/lib/related";
 import type { Review } from "@/lib/types";
 import VerificationCheck from "@/components/VerificationCheck";
@@ -31,7 +31,7 @@ import LicenseCheck from "@/components/LicenseCheck";
 import InsightsCard from "@/components/InsightsCard";
 import LocalReadingCard from "@/components/LocalReadingCard";
 import { PlaceExplore } from "@/components/PlaceExplore";
-import { insightSentence, insightFaq } from "@/lib/insights-text";
+import { insightFaq, pageSummary } from "@/lib/insights-text";
 
 // 2026-10-22: 리뷰는 짧은 인용으로만, 작성자 이름 없이 (사용자 결정 — 페이지당
 // 인용 3개). 구글 리뷰 원문을 최대 20개 통째로 싣던 것은 구글 지도와 같은 글의
@@ -114,7 +114,7 @@ export async function generateMetadata({
   if (!found) return {};
   // 2026-10-23: 우리 리뷰 집계 문장을 앞에 — 검색 스니펫이 별점·주소 대신
   // 이 사이트에만 있는 숫자를 보여주게 한다.
-  const summary = [insightSentence(found.place, lang), placeSummary(found.place, lang)].filter(Boolean).join(" ") || null;
+  const summary = pageSummary(found.place, lang);
   // 2026-08-23: 장소 상세는 en 한 벌만 색인시킨다.
   //
   // GSC 실측: 클릭 0 / 노출 17 (3개월) 인데 "크롤 후 미색인" 17,681 이 사이트맵
@@ -186,7 +186,7 @@ export default async function PlacePage({
   const badge = categoryBadgeLabel(place.primaryType, lang);
   const priceMedianValue = priceMedian(place.priceMentions);
   const priceRangeValue = priceRange(place.priceMentions);
-  const summary = [insightSentence(place, lang), placeSummary(place, lang)].filter(Boolean).join(" ") || null;
+  const summary = pageSummary(place, lang);
   const reviewFaq = insightFaq(place, lang);
   const cityData = loadCity(city);
   const related = relatedPlaces(place, cityData.places);
@@ -302,7 +302,9 @@ export default async function PlacePage({
 
       {summary && <p className="text-muted leading-relaxed mb-6 max-w-2xl">{summary}</p>}
 
-      {place.moodKeywords.length > 0 && (
+      {/* 2026-10-28: 분위기 키워드("친절한 직원, 조용함")는 구글 AI 리뷰 요약과 같은 종류라
+          분석 리뷰가 충분한 곳에서는 숫자 카드(InsightsCard)가 대신한다. */}
+      {place.moodKeywords.length > 0 && (place.insights?.analysed ?? 0) < INDEX_MIN_ANALYSED && (
         <>
           <h2 className="text-xs uppercase tracking-wide text-muted font-semibold mb-2">{t.place.prosTitle}</h2>
           <ProsList items={place.moodKeywords} lang={lang} />

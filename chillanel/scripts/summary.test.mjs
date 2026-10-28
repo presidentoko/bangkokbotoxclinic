@@ -66,3 +66,21 @@ test("placeSummary: uses only the top (index 0) theme and mood, ignoring the res
   });
   assert.equal(placeSummary(p, "en"), "Reviewers most often mention Foot massage here.");
 });
+
+test("placeSummary statsOnly: keeps the rating clause, drops theme and mood sentences", () => {
+  const p = place({
+    rating: 4.7,
+    reviewCount: 120,
+    serviceThemes: [{ label: "Thai massage", count: 5 }],
+    moodKeywords: [{ label: "Quiet & relaxing", count: 9 }],
+  });
+  const full = placeSummary(p, "en");
+  const stats = placeSummary(p, "en", { statsOnly: true });
+  assert.match(stats, /4\.7/);
+  assert.ok(stats.length < full.length);
+  assert.doesNotMatch(stats, /relaxing/i);
+});
+
+test("placeSummary statsOnly: null when there is no rating", () => {
+  assert.equal(placeSummary(place({ serviceThemes: [{ label: "Thai massage", count: 5 }] }), "en", { statsOnly: true }), null);
+});

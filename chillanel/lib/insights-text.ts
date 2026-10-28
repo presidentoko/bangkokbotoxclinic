@@ -2,6 +2,8 @@
 // 구글 검색 결과 스니펫에 별점·주소 대신 우리 집계가 나가게 하는 게 목적이다.
 import type { Lang } from "./site";
 import type { AspectKey, Place } from "./types";
+import { placeSummary } from "./summary";
+import { INDEX_MIN_ANALYSED } from "./indexing";
 
 const ASPECT_NAMES: Record<Lang, Record<AspectKey, string>> = {
   en: { cleanliness: "cleanliness", value: "value for money", staff: "friendly staff", skill: "skilled therapists", pressure: "well-judged pressure", english: "English communication" },
@@ -60,4 +62,14 @@ export function insightFaq(place: Place, lang: Lang): { q: string; a: string } |
   if (lang === "ko") return { q: `${place.name} 리뷰 평가는 어떤가요?`, a: `리뷰 ${ins.analysed}건을 chillanel이 집계한 결과: ${list}.${tipLine}` };
   if (lang === "th") return { q: `รีวิวของ ${place.name} พูดถึงอะไรบ้าง?`, a: `chillanel นับจากรีวิว ${ins.analysed} รายการ: ${list}${tipLine}` };
   return { q: `What do reviewers say about ${place.name}?`, a: `Across ${ins.analysed} reviews counted by chillanel: ${list}.${tipLine}` };
+}
+
+/**
+ * 장소 페이지·메타 설명에 쓰는 요약. 분석 리뷰가 충분한 곳은 우리 집계 문장 + 별점·리뷰 수만 쓴다.
+ * 구글이 리뷰칸에 넣는 AI 요약은 "친절하고 조용하다" 같은 분위기 요약이라, 같은 종류의
+ * 테마·분위기 문장을 빼고 숫자로 승부한다. 분석이 부족한 곳만 예전 문단을 그대로 쓴다.
+ */
+export function pageSummary(place: Place, lang: Lang): string | null {
+  const rich = (place.insights?.analysed ?? 0) >= INDEX_MIN_ANALYSED;
+  return [insightSentence(place, lang), placeSummary(place, lang, { statsOnly: rich })].filter(Boolean).join(" ") || null;
 }
