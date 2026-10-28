@@ -13,6 +13,7 @@ import { Faq } from "@/components/Faq";
 import { ItemListJsonLd } from "@/components/JsonLd";
 import { LoadMorePlaces } from "@/components/LoadMorePlaces";
 import { CityMap } from "@/components/CityMap";
+import AreaProfileCard from "@/components/AreaProfileCard";
 import { topicsWithEnoughEntries } from "@/lib/rankings";
 import { RANKING_COPY, TOPIC_EMOJI, fill } from "@/lib/ranking-copy";
 
@@ -148,6 +149,13 @@ export default async function DistrictPage({
             answer without a click. The FAQPage schema + collapsed detail
             stays for the structured-data half of that. */}
         {faqAnswer && <p className="text-muted leading-relaxed mb-8 max-w-2xl">{faqAnswer}</p>}
+        <AreaProfileCard
+          area={allMatching}
+          baseline={getAllPlaces().map(({ place }) => place).filter((p) => p.city === cityCode && isRelevantCategory(p.primaryType))}
+          areaName={label}
+          baseName={cityDisplayLabel}
+          lang={lang}
+        />
         <div className="mb-8">
           <CityMap
             city={cityCode}

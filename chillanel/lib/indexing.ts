@@ -15,6 +15,12 @@ import { isRelevantCategory } from "./categories";
 
 export const INDEX_MIN_REVIEWS = 50;
 
+// 2026-10-28: 구글 리뷰 수만 많고 우리가 읽은 리뷰가 거의 없는 곳(예: 코사무이
+// 262곳 중 147곳이 수집 리뷰 5건 이하)은 페이지에 올릴 우리만의 집계가 없다.
+// 별점·주소·구글 리뷰 몇 줄뿐이라 구글 지도를 옮겨 적은 얇은 페이지가 된다.
+// 리뷰 분석(insights.analysed)이 20건 이상일 때만 색인 요청을 한다.
+export const INDEX_MIN_ANALYSED = 20;
+
 const NOT_INDEXED_TYPES = new Set([
   // 업종 없음 — 호텔·리조트·아파트가 대부분
   "",
@@ -36,6 +42,7 @@ export function isIndexablePlace(p: Place): boolean {
     isRelevantCategory(p.primaryType) &&
     !NOT_INDEXED_TYPES.has(p.primaryType ?? "") &&
     (p.reviewCount ?? 0) >= INDEX_MIN_REVIEWS &&
-    (p.reviews?.length ?? 0) > 0
+    (p.reviews?.length ?? 0) > 0 &&
+    (p.insights?.analysed ?? 0) >= INDEX_MIN_ANALYSED
   );
 }

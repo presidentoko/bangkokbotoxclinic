@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
 import { isLang, SITE, hreflangAlternates, cityLabel, ogLocale } from "@/lib/site";
-import { listCities, loadCity } from "@/lib/data";
+import { getAllPlaces, listCities, loadCity } from "@/lib/data";
 import Link from "next/link";
 import { isRelevantCategory } from "@/lib/categories";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -11,11 +11,15 @@ import { LoadMorePlaces } from "@/components/LoadMorePlaces";
 import { MoodSections } from "@/components/MoodSections";
 import { CityMap } from "@/components/CityMap";
 import { Faq } from "@/components/Faq";
+import AreaProfileCard from "@/components/AreaProfileCard";
 import { TagCloud } from "@/components/TagCloud";
 import { ItemListJsonLd } from "@/components/JsonLd";
 import { topicsWithEnoughEntries } from "@/lib/rankings";
 import { RANKING_COPY, TOPIC_EMOJI, fill } from "@/lib/ranking-copy";
 import { districtLabel, slugifyDistrict, allDistricts } from "@/lib/district-labels";
+
+// 도시 페이지의 비교 집단 이름 — 7개 도시 전체.
+const ALL_CITIES = { en: "all cities", th: "ทุกเมือง", ko: "전체 도시" } as const;
 
 export function generateStaticParams() {
   return listCities().map((city) => ({ city }));
@@ -114,6 +118,13 @@ export default async function CityPage({
       </div>
 
       <div className="max-w-5xl mx-auto px-4 py-12 sm:py-14">
+        <AreaProfileCard
+          area={allRelevant}
+          baseline={getAllPlaces().map(({ place }) => place).filter((p) => isRelevantCategory(p.primaryType))}
+          areaName={label}
+          baseName={ALL_CITIES[lang]}
+          lang={lang}
+        />
         {rankingTopics.length > 0 && (
           <section className="mb-12">
             <h2 className="text-xl font-bold mb-1">📊 {fill(RANKING_COPY[lang].more, { city: label })}</h2>

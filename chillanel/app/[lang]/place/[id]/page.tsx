@@ -29,6 +29,7 @@ import type { Review } from "@/lib/types";
 import VerificationCheck from "@/components/VerificationCheck";
 import LicenseCheck from "@/components/LicenseCheck";
 import InsightsCard from "@/components/InsightsCard";
+import LocalReadingCard from "@/components/LocalReadingCard";
 import { PlaceExplore } from "@/components/PlaceExplore";
 import { insightSentence, insightFaq } from "@/lib/insights-text";
 
@@ -295,6 +296,7 @@ export default async function PlacePage({
       <LicenseCheck placeId={place.id} lang={lang} />
       <VerificationCheck place={place} cityPlaces={cityData.places} lang={lang} />
       <InsightsCard place={place} lang={lang} />
+      <LocalReadingCard place={place} cityPlaces={cityData.places} lang={lang} />
 
       <PlaceActions placeId={place.id} t={t.place} />
 
