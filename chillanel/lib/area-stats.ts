@@ -6,6 +6,7 @@
 // 항목 하나를 문장으로 뽑는다. 새 수집 없음 — 빌드타임에 이미 있는 데이터로 계산한다.
 import type { Lang } from "./site.ts";
 import type { AspectKey, Place } from "./types.ts";
+import { NOT_INDEXED_TYPES } from "./index-types.ts";
 
 const MIN_REVIEWS = 30;       // 비교에 넣는 장소의 최소 구글 리뷰 수
 const MIN_ANALYSED = 20;      // 항목 집계에 넣는 최소 분석 리뷰 수
@@ -31,7 +32,8 @@ function placeMedianPrice(p: Place): number | null {
 }
 
 function summarise(places: Place[]): Summary & { n: number } {
-  const pool = places.filter((p) => p.rating != null && (p.reviewCount ?? 0) >= MIN_REVIEWS);
+  // 네일·의료·성인 등 주제 밖 업종은 비교 집단에서 뺀다 (색인 제외 업종과 같은 목록).
+  const pool = places.filter((p) => p.rating != null && (p.reviewCount ?? 0) >= MIN_REVIEWS && !NOT_INDEXED_TYPES.has(p.primaryType ?? ""));
   const out: Summary & { n: number } = { n: pool.length };
   const rating = median(pool.map((p) => p.rating as number));
   if (rating != null) out.rating = rating;

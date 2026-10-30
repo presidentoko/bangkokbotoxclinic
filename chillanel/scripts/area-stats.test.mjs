@@ -5,6 +5,7 @@ import { areaProfile, formatAreaMetric } from "../lib/area-stats.ts";
 function place(id, over = {}) {
   return {
     id,
+    primaryType: "Massage spa",
     rating: 4.6,
     reviewCount: 100,
     priceMentions: [500],

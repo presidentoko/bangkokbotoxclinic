@@ -12,6 +12,7 @@
 // 셋이 갈리면 "사이트맵엔 있는데 noindex" 모순이 생긴다.
 import type { Place } from "./types";
 import { isRelevantCategory } from "./categories";
+import { NOT_INDEXED_TYPES } from "./index-types.ts";
 
 export const INDEX_MIN_REVIEWS = 50;
 
@@ -21,21 +22,7 @@ export const INDEX_MIN_REVIEWS = 50;
 // 리뷰 분석(insights.analysed)이 20건 이상일 때만 색인 요청을 한다.
 export const INDEX_MIN_ANALYSED = 20;
 
-const NOT_INDEXED_TYPES = new Set([
-  // 업종 없음 — 호텔·리조트·아파트가 대부분
-  "",
-  // 미용 (마사지·스파 아님)
-  "Nail salon", "Hair salon", "Hairdresser", "Barber shop",
-  "Hair removal service", "Laser hair removal service", "Waxing hair removal service",
-  "Weight loss service", "Yoga studio", "Pilates studio",
-  // 의료·재활 — YMYL 이라 디렉토리 페이지로 내보내기 가장 위험한 범주
-  "Physical therapist", "Physical therapy clinic", "Chiropractor", "Osteopath",
-  "Rehabilitation center", "Acupuncture clinic", "Acupuncturist",
-  "Chinese medicine clinic", "Oriental medicine clinic", "Ayurvedic clinic",
-  "Alternative medicine practitioner",
-  // 성인 — 사이트 전체가 세이프서치 성인 판정을 받으면 일반 검색에서 사라진다
-  "Erotic massage", "Erotic Massage", "Erotic Massage Parlour", "Soapy massage", "Gay sauna",
-]);
+
 
 export function isIndexablePlace(p: Place): boolean {
   return (

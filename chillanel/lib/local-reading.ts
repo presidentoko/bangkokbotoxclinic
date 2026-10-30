@@ -11,6 +11,7 @@ import type { Lang } from "./site.ts";
 import type { Place } from "./types.ts";
 import { isRelevantCategory } from "./categories.ts";
 import { distanceKm } from "./geo.ts";
+import { NOT_INDEXED_TYPES } from "./index-types.ts";
 
 const NEARBY_KM = 1;
 const MIN_PEER_REVIEWS = 30;
@@ -51,7 +52,7 @@ function cityStats(cityPlaces: Place[]): CityStats {
   const hit = statsCache.get(cityPlaces);
   if (hit) return hit;
   const peers = cityPlaces.filter(
-    (p) => p.lat != null && p.lng != null && p.rating != null && (p.reviewCount ?? 0) >= MIN_PEER_REVIEWS && isRelevantCategory(p.primaryType),
+    (p) => p.lat != null && p.lng != null && p.rating != null && (p.reviewCount ?? 0) >= MIN_PEER_REVIEWS && isRelevantCategory(p.primaryType) && !NOT_INDEXED_TYPES.has(p.primaryType ?? ""),
   );
   const ratings = peers.map((p) => p.rating as number).sort((a, b) => a - b);
   const counts = peers.map((p) => p.reviewCount).sort((a, b) => a - b);
