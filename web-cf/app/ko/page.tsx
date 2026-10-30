@@ -4,6 +4,11 @@
 import { getSiteConfig, type SiteFocus } from "@/lib/site";
 import type { Metadata } from "next";
 import HomePage from "../page";
+import { dentalPriceFacts, spanText, baht } from "@/lib/dentalPriceGuide";
+// 가격 숫자는 가격 가이드 데이터에서 (2026-10-30, 출처 없는 하드코딩 교체).
+const PF = dentalPriceFacts();
+const S = (s: Parameters<typeof spanText>[0]) => spanText(s) ?? "—";
+
 
 // focus 무관하게 "방콕 보톡스 클리닉" 고정이라 덴탈 등 다른 사이트의 /ko 홈이
 // 전부 보톡스로 색인되고 있었음 (2026-07-10 감사 — 실제 구글 색인 타이틀 확인).
@@ -54,7 +59,7 @@ const KO_PRICE_FAQ: Partial<Record<SiteFocus, { q: string; a: string }>> = {
   },
   dental: {
     q: "방콕 치과 가격은 얼마인가요?",
-    a: "임플란트: ฿35,000부터. 비니어: 개당 ฿12,000부터. 미백: ฿4,000부터. 미국·한국 대비 최대 70% 저렴. 클리닉별 정확한 가격은 LINE 또는 전화 문의.",
+    a: `클리닉이 공개한 가격 기준: 임플란트(크라운 포함) ${S(PF.implantWithCrown)}, 세라믹 비니어 개당 ${S(PF.veneerCeramic)}, 클리닉 미백 1회 ${S(PF.whiteningInClinic)}. 출처와 날짜는 /prices 가격 가이드에 있습니다. 클리닉별 정확한 가격은 LINE 또는 전화로 문의하세요.`,
   },
 };
 const KO_FAQ_FALLBACK = {

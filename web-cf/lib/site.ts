@@ -116,11 +116,14 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     brand: "Bangkok Best Clinic",
     domain: "www.bangkokbestclinic.com",
     // 구글 SERP 표시 한계 초과로 잘리던 것 트림 (실측 73자/225자, 2026-07-31 감사).
-    title: "Best Dental Clinics in Bangkok — Implants from ฿35,000",
+    // 2026-10-30: 근거 없던 가격("Implants from ฿35,000 · Veneers ฿12,000", "Save up to 70% vs
+    // Western prices")을 뺐다. 가격은 /prices 가이드가 출처·날짜와 함께 말한다. "dentist bangkok"
+    // (경쟁 Low, 1K–10K) 을 제목 앞에 둔다.
+    title: "Best Dentists & Dental Clinics in Bangkok — Prices Compared",
     description:
-      "200+ Bangkok dental clinics ranked by Trust Score. Implants from ฿35,000 · Veneers ฿12,000/tooth · Whitening ฿4,000. Save up to 60% vs US prices.",
+      "1,800+ Bangkok dental clinics ranked by Trust Score from real patient reviews. Compare listed prices for implants, veneers, whitening and Invisalign.",
     hero: "Bangkok Dental Clinics — Verified by Reviews",
-    heroSub: "200+ dental clinics in Bangkok & Pattaya ranked by Trust Score. Implants · Veneers · Invisalign · All-on-4. Save up to 70% vs Western prices.",
+    heroSub: "1,800+ dental clinics in Bangkok, Pattaya and beyond, ranked by Trust Score from real reviews. Compare listed prices for implants, veneers and Invisalign.",
     themeAccent: "#10b981",
     mentionThreshold: 2,
     // 치앙마이/코사무이/후아힌 추가 (2026-07-10) — botox와 동일 이유

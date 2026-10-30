@@ -1,3 +1,11 @@
+import { dentalPriceFacts, spanText, baht } from "@/lib/dentalPriceGuide";
+import { getBenchmark } from "@/lib/publishedPrices";
+// 가격 숫자는 가격 가이드 데이터에서 (2026-10-30, 출처 없는 하드코딩 교체).
+const PF = dentalPriceFacts();
+const S = (s: Parameters<typeof spanText>[0]) => spanText(s) ?? "—";
+const CROWN = getBenchmark("crown");
+const CROWN_MID = CROWN ? `${baht(CROWN.p25)}–${baht(CROWN.p75)}` : "—";
+
 // 카테고리별 FAQ — AEO + Google FAQPage 리치결과 + 페이지 콘텐츠 unique 강화.
 // 향후 LLM 으로 더 풍부하게 생성 가능. 현재는 hand-written 베이스.
 
@@ -89,7 +97,7 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
   dental: [
     {
       q: "Why is Bangkok popular for dental work?",
-      a: "Bangkok has English-speaking dental clinics with international standards at 50–70% lower cost than Western countries. Implants ฿35,000–80,000 per tooth (vs $3,000–6,000 in US). Teeth whitening ฿4,000–12,000. Veneers ฿12,000–30,000/tooth vs $1,500–3,000 in the US. Many Bangkok clinics hold international accreditation (JCI or TEMOS) and use the same implant brands (Straumann, Nobel Biocare) as Western clinics.",
+      a: `Bangkok has many English-speaking dental clinics, and many publish their prices. In the listings we compared, a single implant with a crown runs ${S(PF.implantWithCrown)} depending on the brand, a ceramic veneer ${S(PF.veneerCeramic)} per tooth, and an in-clinic whitening session ${S(PF.whiteningInClinic)}. Our price guides at /prices give the source and date for each figure. Ask each clinic which implant brand it uses and check the dentist's licence.`,
     },
     {
       q: "What is the best dental clinic in Bangkok?",
@@ -97,7 +105,7 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
     },
     {
       q: "How much do dental implants cost in Bangkok?",
-      a: "Bangkok dental implant costs (full restoration, implant + abutment + crown): Straumann/Nobel Biocare (Switzerland/Sweden) ฿55,000–80,000 per tooth; Osstem/Astra (Korea/Sweden) ฿35,000–55,000 per tooth; generic unbranded ฿20,000–30,000 (not recommended). All-on-4 full arch: ฿250,000–500,000. Compare: US $3,000–6,000 per implant (฿105,000–210,000). Bangkok saves 50–70%.",
+      a: `Listed prices for one implant with a crown: Korean brands (Osstem, Dentium, Neo Biotech) ${S(PF.implantKoreanBrands)}, Straumann ${S(PF.implantStraumann)}. Bone grafts and extractions cost extra. Every listing, with its source, is on /prices/dental-implant-cost-bangkok.`,
     },
     {
       q: "How long does dental implant treatment take in Bangkok?",
@@ -105,15 +113,15 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
     },
     {
       q: "Can I get Invisalign in Bangkok?",
-      a: "Yes — Bangkok is a popular destination for Invisalign treatment. Official Invisalign providers charge ฿80,000–200,000 for full treatment (vs $4,000–8,000 in US). Many patients start treatment in Bangkok, continue with a local dentist at home using the Invisalign app, and return for periodic check-ups. Clinics with Invisalign Diamond or Platinum status indicate high case volume and experience.",
+      a: `Yes. Bangkok clinics list full Invisalign courses for both arches at ${S(PF.invisalign)}, depending on the tier (Express up to Comprehensive). Each tier's range is on /prices/invisalign-cost-bangkok.`,
     },
     {
       q: "How much do dental crowns cost in Bangkok?",
-      a: "Bangkok dental crown prices: porcelain-fused-to-metal (PFM) ฿6,000–12,000; full ceramic/E.max ฿10,000–20,000; zirconia ฿8,000–18,000. Compare: US $1,000–2,000 per crown. Same-day CEREC/CAD-CAM crowns (milled in-clinic) available at premium clinics for ฿12,000–22,000.",
+      a: `Across ${CROWN?.clinics ?? 0} clinics' published price lists, a crown typically costs ${CROWN ? baht(CROWN.median) : "—"}, with the middle half between ${CROWN_MID}. The material (metal-ceramic, full ceramic or zirconia) changes the price, so ask which one you are quoted.`,
     },
     {
       q: "Which implant brands do Bangkok dentists use?",
-      a: "Premium clinics use Straumann (Switzerland) and Nobel Biocare (Sweden) — most established, ฿55,000–80,000 per tooth fully restored. Mid-tier Osstem (Korea) and Astra (Sweden) ฿35,000–55,000. Avoid generic / unbranded implants priced under ฿30,000 — long-term failure rates are 2–3× higher.",
+      a: `In the listings we compared, the brands named are Osstem, Dentium and Neo Biotech (Korea), plus Neodent, SIC and Straumann. With a crown, Korean-brand implants are listed at ${S(PF.implantKoreanBrands)} and Straumann at ${S(PF.implantStraumann)}. Ask which brand is in your quote and keep the implant card.`,
     },
     {
       q: "Is Bangkok dental tourism safe for major procedures?",
@@ -195,6 +203,6 @@ export const HOME_FAQS: Faq[] = [
   },
   {
     q: "How much money can I save on dental or aesthetic work in Bangkok?",
-    a: "Typical savings vs US/UK/Australia: dental implants 50–70% (฿35,000–80,000 vs $3,000–6,000 in US); veneers 60–75% (฿12,000–30,000 per tooth vs $1,500–3,000); botox 60–80% (from ฿80/unit vs $10–20/unit); hair transplant FUE 50–70% (฿65,000–150,000 for 2,000 grafts vs $8,000–25,000). Most procedures at internationally-accredited Bangkok clinics use the same equipment and brands as Western clinics.",
+    a: `We have no like-for-like comparison with US, UK or Australian prices, so we do not quote a saving. What we publish are Bangkok listed prices with their sources at /prices: one implant with a crown ${S(PF.implantWithCrown)}, a ceramic veneer ${S(PF.veneerCeramic)} per tooth. Compare against a quote at home for the same brand and procedure.`,
   },
 ];

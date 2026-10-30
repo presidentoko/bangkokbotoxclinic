@@ -15,6 +15,11 @@ import { StatsBar } from "@/components/StatsBar";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
 import type { Metadata } from "next";
+import { dentalPriceFacts, spanText, baht } from "@/lib/dentalPriceGuide";
+// 가격 숫자는 가격 가이드 데이터에서 (2026-10-30, 출처 없는 하드코딩 교체).
+const PF = dentalPriceFacts();
+const S = (s: Parameters<typeof spanText>[0]) => spanText(s) ?? "—";
+
 
 const VALID = new Set(["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"]);
 
@@ -47,8 +52,8 @@ const KO_FAQ: Partial<Record<string, { q: string; a: string }[]>> = {
       a: "리뷰에 임플란트·보철 시술 전후 사진이 많은 클리닉이 신뢰할 만합니다. 태국 치과의사협회(Thai Dental Council) 등록번호를 문의하세요.",
     },
     {
-      q: "방콕 치과 가격은 한국보다 얼마나 저렴한가요?",
-      a: "임플란트 ฿35,000(약 140만원)부터, 비니어 개당 ฿12,000(약 48만원)부터 — 한국·미국 대비 최대 70% 저렴합니다.",
+      q: "방콕 치과 가격은 얼마인가요?",
+      a: `클리닉이 공개한 가격 기준으로 임플란트(크라운 포함)는 ${S(PF.implantWithCrown)}, 세라믹 비니어는 개당 ${S(PF.veneerCeramic)}입니다. 한국 가격과 직접 비교한 자료는 없으니, 같은 브랜드·같은 시술로 견적을 비교해 보세요. 출처는 /prices 가격 가이드에 있습니다.`,
     },
   ],
   filler: [

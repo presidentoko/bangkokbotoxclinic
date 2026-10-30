@@ -5,6 +5,11 @@ import { loadMasterDb } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { getSiteConfig, applySiteFilter, getSiteUrl } from "@/lib/site";
 import { CATEGORY_FAQS } from "@/lib/faq";
+import { dentalPriceFacts, spanText, baht } from "@/lib/dentalPriceGuide";
+// 가격 숫자는 가격 가이드 데이터에서 (2026-10-30, 출처 없는 하드코딩 교체).
+const PF = dentalPriceFacts();
+const S = (s: Parameters<typeof spanText>[0]) => spanText(s) ?? "—";
+
 
 const SITE = getSiteUrl();
 
@@ -91,17 +96,16 @@ export async function GET() {
     for (const p of dentalProcedures) {
       lines.push(`- [${p.label}](${SITE}/guide/${p.slug})`);
     }
-    lines.push("", "## Dental price benchmarks (2026)", "");
+    lines.push("", "## Dental listed prices, Greater Bangkok (lowest–highest listing)", "");
     lines.push(
-      "- Single dental implant (Straumann/Nobel): ฿55,000–80,000",
-      "- Single dental implant (Osstem/Astra): ฿35,000–55,000",
-      "- All-on-4 full arch: ฿250,000–500,000",
-      "- Porcelain veneers: ฿12,000–30,000 per tooth",
-      "- E.max CAD/CAM veneers: ฿15,000–35,000 per tooth",
-      "- Composite veneers: ฿4,000–8,000 per tooth",
-      "- Zoom / LED whitening (in-clinic): ฿4,000–12,000",
-      "- Custom take-home whitening trays: ฿2,000–4,500",
-      "- All prices in Thai Baht. Exchange rate ~35 THB/USD as of mid-2026.",
+      `- Single implant with crown, Korean brands (Osstem/Dentium/Neo Biotech): ${S(PF.implantKoreanBrands)}`,
+      `- Single implant with crown, Straumann: ${S(PF.implantStraumann)}`,
+      `- Ceramic / porcelain veneer, per tooth: ${S(PF.veneerCeramic)}`,
+      `- Composite veneer, per tooth: ${S(PF.veneerComposite)}`,
+      `- In-clinic whitening, single session: ${S(PF.whiteningInClinic)}`,
+      `- At-home whitening kit: ${S(PF.whiteningHomeKit)}`,
+      `- Invisalign, full course both arches (all tiers): ${S(PF.invisalign)}`,
+      `- Sources and collection dates: ${SITE}/prices (HDmall packages and clinics' own price tables). Prices in Thai baht; list prices, not quotes.`,
     );
   }
 

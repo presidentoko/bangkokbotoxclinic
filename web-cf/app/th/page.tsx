@@ -13,6 +13,14 @@
 import { getSiteConfig, type SiteFocus } from "@/lib/site";
 import type { Metadata } from "next";
 import HomePage from "../page";
+import { dentalPriceFacts, spanText, baht } from "@/lib/dentalPriceGuide";
+import { getBenchmark } from "@/lib/publishedPrices";
+// 가격 숫자는 가격 가이드 데이터에서 (2026-10-30, 출처 없는 하드코딩 교체).
+const PF = dentalPriceFacts();
+const S = (s: Parameters<typeof spanText>[0]) => spanText(s) ?? "—";
+const CROWN = getBenchmark("crown");
+const CROWN_MID = CROWN ? `${baht(CROWN.p25)}–${baht(CROWN.p75)}` : "—";
+
 
 const TH_SERVICE: Partial<Record<SiteFocus, string>> = {
   botox: "โบท็อกซ์", filler: "ฟิลเลอร์", hifu: "HIFU", facial: "ดูแลผิวหน้า",
@@ -87,11 +95,11 @@ const TH_CONTENT_FAQS: Partial<Record<SiteFocus, { q: string; a: string }[]>> = 
   dental: [
     {
       q: "ทำฟันในกรุงเทพราคาเท่าไหร่?",
-      a: "ราคาโดยประมาณในกรุงเทพฯ: ฟอกสีฟัน ฿4,000–12,000 · ครอบฟันเซรามิก/E.max ฿10,000–20,000 · ครอบฟันเซอร์โคเนีย ฿8,000–18,000 · วีเนียร์ ฿12,000–30,000 ต่อซี่ · รากฟันเทียม ฿35,000–80,000 ต่อซี่ ถูกกว่าสหรัฐฯ และยุโรป 50–70% ราคาจริงขึ้นกับแต่ละคลินิก แนะนำสอบถามทาง LINE หรือโทรก่อน",
+      a: `ราคาที่คลินิกในกรุงเทพฯ ประกาศไว้: ฟอกสีฟันที่คลินิก ${S(PF.whiteningInClinic)} · ครอบฟัน (ช่วงกลาง) ${CROWN_MID} · วีเนียร์เซรามิก ${S(PF.veneerCeramic)} ต่อซี่ · รากฟันเทียมพร้อมครอบฟัน ${S(PF.implantWithCrown)} ต่อซี่ ดูแหล่งที่มาที่ /prices ราคาจริงขึ้นกับแต่ละคลินิก แนะนำสอบถามทาง LINE หรือโทรก่อน`,
     },
     {
       q: "รากฟันเทียมในกรุงเทพราคาเท่าไหร่?",
-      a: "ราคารวม (รากเทียม + เดือย + ครอบฟัน): Straumann / Nobel Biocare (สวิตเซอร์แลนด์·สวีเดน) ฿55,000–80,000 ต่อซี่ · Osstem / Astra (เกาหลี·สวีเดน) ฿35,000–55,000 ต่อซี่ · แบบไม่มีแบรนด์ ฿20,000–30,000 (ไม่แนะนำ) · All-on-4 ทั้งขากรรไกร ฿250,000–500,000 เทียบสหรัฐฯ ประมาณ ฿105,000–210,000 ต่อซี่",
+      a: `ราคาที่คลินิกประกาศไว้ (รากเทียมพร้อมครอบฟัน 1 ซี่): Straumann (สวิตเซอร์แลนด์) ${S(PF.implantStraumann)} · แบรนด์เกาหลี Osstem / Dentium / Neo Biotech ${S(PF.implantKoreanBrands)} ดูรายการทั้งหมดที่ /prices/dental-implant-cost-bangkok`,
     },
     {
       q: "รากฟันเทียมใช้เวลานานแค่ไหน?",

@@ -1,3 +1,8 @@
+import { dentalPriceFacts, spanText } from "@/lib/dentalPriceGuide";
+
+// 가격 숫자는 가격 가이드 데이터에서 (2026-10-30, 출처 없는 하드코딩 교체).
+const PF = dentalPriceFacts();
+const S = (s: Parameters<typeof spanText>[0]) => spanText(s) ?? "—";
 // Bangkok aesthetic clinic guide articles — long-form AEO/SEO content.
 
 export type Faq = { q: string; a: string };
@@ -321,19 +326,19 @@ export const GUIDES: Guide[] = [
     title: "Dental Implants in Bangkok — Cost, Brands & What to Expect (2026)",
     metaTitle: "Dental Implants Bangkok Cost 2026 — Brands, Clinics & Timeline",
     metaDescription:
-      "Dental implant costs in Bangkok 2026: Straumann ฿55,000–80,000, Osstem ฿35,000–55,000. How to pick a clinic, which brands to insist on, and the full treatment timeline for medical tourists.",
-    updated: "2026-06-03",
+      `Dental implant costs in Bangkok: listed prices for one implant with a crown run ${S(PF.implantWithCrown)} by brand. How to pick a clinic, which brands to ask about, and the treatment timeline.`,
+    updated: "2026-10-30",
     intro:
-      "Bangkok is one of the world's most popular destinations for dental implants — 50–70% cheaper than the US or UK, with clinics that hold international accreditations and use the same Swiss or Korean implant brands as Western practices. This guide covers what you'll pay, which brands matter, and how to plan your trip.",
+      "Bangkok is a popular destination for dental implants, with many clinics that publish their prices and name the implant brand they use. This guide covers what clinics list, which brands you will see, and how to plan your trip. Prices come from our implant price guide, which links every listing to its source.",
     sections: [
       {
-        heading: "What dental implants cost in Bangkok (2026)",
+        heading: "What dental implants cost in Bangkok",
         body:
-          "A single-tooth implant fully restored (titanium post + abutment + crown) ranges from ฿35,000 to ฿80,000 depending on the implant brand. " +
-          "Premium tier — Straumann (Switzerland) and Nobel Biocare (Sweden): ฿55,000–80,000. Most established, 10-year clinical data, preferred for anterior (visible) teeth. " +
-          "Mid tier — Osstem (Korea) and Astra Tech (Sweden): ฿35,000–55,000. Strong evidence base, widely used in Asia. Excellent value for posterior molars. " +
-          "Budget tier — generic/unbranded: under ฿30,000. Avoid. Long-term failure rates 2–3× higher with unknown implant systems. " +
-          "All-on-4 (full arch implant bridge): ฿250,000–500,000 per arch. Compare: US $20,000–35,000 per arch.",
+          `Listed prices for one implant with a crown (post, abutment and crown) run ${S(PF.implantWithCrown)}, depending mostly on the brand. ` +
+          `Korean brands (Osstem, Dentium, Neo Biotech): ${S(PF.implantKoreanBrands)}. ` +
+          `Straumann (Switzerland): ${S(PF.implantStraumann)}. ` +
+          "Some packages cover the implant only, with the crown billed separately, so compare like with like. Bone grafts and extractions are extra. " +
+          "We have no published price data for All-on-4 full-arch work, so we do not quote one. The full list, brand by brand and with sources, is in our dental implant price guide (/prices/dental-implant-cost-bangkok).",
       },
       {
         heading: "Treatment timeline for medical tourists",
@@ -341,7 +346,7 @@ export const GUIDES: Guide[] = [
           "Trip 1 (3–5 days): consultation, CBCT scan, extraction if needed, implant placement. You return home for osseointegration. " +
           "Osseointegration period: 3–6 months (bone bonds to titanium — you are home, no clinic visits needed). " +
           "Trip 2 (2–3 days): abutment placement, crown fitting, bite adjustment. Most patients complete this in a single follow-up visit. " +
-          "Immediate-load option: some Bangkok clinics offer same-week crown loading (฿15,000–25,000 surcharge) for patients with strong bone density — avoids a second trip. Ask your clinic to review your CBCT scan before deciding. " +
+          "Immediate-load option: some Bangkok clinics offer same-week crown loading for patients with suitable bone density, which can avoid a second trip. Ask your clinic for the price and to review your CBCT scan before deciding. " +
           "All-on-4 can often be completed in a single 5–7 day trip with provisional teeth on day 1.",
       },
       {
@@ -353,23 +358,15 @@ export const GUIDES: Guide[] = [
           "Trust Score 75+ on this site indicates strong reviewer credibility across Google Maps and medical tourism platforms. " +
           "English-speaking staff: most clinics in Sukhumvit, Silom, and Asok are accustomed to international patients. Video consultation available at top clinics before you fly.",
       },
-      {
-        heading: "Bangkok vs Korea vs Turkey for implants",
-        body:
-          "Bangkok: ฿35,000–80,000 per tooth. Strong English-language support, familiar Western-style clinics, tourism infrastructure. No language barrier at top clinics. " +
-          "Korea (Seoul): ฿60,000–120,000 per tooth. Excellent technology, stronger for Korean-speaking patients, more complex logistics for English-only visitors. " +
-          "Turkey (Istanbul): ฿25,000–55,000 per tooth. Price competitive but more variance in quality; English-support patchy outside main tourist clinics. " +
-          "Bangkok advantage: proximity for SEA and Australian patients, no visa hassle for most nationalities, strong tourism infrastructure, and 1,600+ dental clinics to choose from with real English reviews on Google Maps.",
-      },
     ],
     faqs: [
       {
         q: "How much does a dental implant cost in Bangkok?",
-        a: "Single-tooth implant (post + abutment + crown): ฿35,000–80,000 depending on brand. Straumann/Nobel Biocare (premium Swiss/Swedish): ฿55,000–80,000. Osstem/Astra (mid-range Korean/Swedish): ฿35,000–55,000. All-on-4 full arch: ฿250,000–500,000 per arch.",
+        a: `Listed prices for one implant with a crown: ${S(PF.implantWithCrown)} depending on brand. Korean brands (Osstem, Dentium, Neo Biotech) ${S(PF.implantKoreanBrands)}; Straumann ${S(PF.implantStraumann)}. Sources: /prices/dental-implant-cost-bangkok.`,
       },
       {
         q: "How many trips do I need for dental implants in Bangkok?",
-        a: "Typically two trips: Trip 1 (implant placement, 3–5 days) + 3–6 months healing at home + Trip 2 (crown fitting, 2–3 days). Some clinics offer same-week immediate-load implants for an extra ฿15,000–25,000, skipping the second trip if your bone density qualifies.",
+        a: "Typically two trips: Trip 1 (implant placement, 3–5 days) + 3–6 months healing at home + Trip 2 (crown fitting, 2–3 days). Some clinics offer same-week immediate-load implants, skipping the second trip if your bone density qualifies; ask for the price.",
       },
       {
         q: "Which implant brand should I insist on?",
@@ -388,18 +385,17 @@ export const GUIDES: Guide[] = [
     title: "Veneers in Bangkok — Price, E.max vs Composite & Best Clinics (2026)",
     metaTitle: "Veneers Bangkok Price 2026 — Porcelain, E.max, Composite Guide",
     metaDescription:
-      "Bangkok veneer prices 2026: porcelain ฿12,000–30,000 per tooth, composite ฿4,000–8,000. E.max CAD/CAM same-day option. How to choose material and clinic for a smile makeover.",
-    updated: "2026-06-03",
+      `Bangkok veneer prices from clinics' own price lists: ceramic or porcelain ${S(PF.veneerCeramic)} per tooth, composite ${S(PF.veneerComposite)}. How to choose the material and the clinic.`,
+    updated: "2026-10-30",
     intro:
-      "A full smile makeover with 8 upper veneers costs ฿100,000–240,000 in Bangkok — versus $15,000–25,000 in the US or UK for comparable porcelain work. Bangkok's leading cosmetic dentists train internationally and use the same E.max or Lava materials as Western practices. Here's what to know before you book.",
+      `Clinics in Bangkok publish veneer prices per tooth: ${S(PF.veneerCeramic)} for ceramic or porcelain and ${S(PF.veneerComposite)} for composite, from the price lists we compared. Some offer a lower per-tooth rate when you do several teeth. Here's what to know before you book.`,
     sections: [
       {
         heading: "Veneer types and Bangkok pricing",
         body:
-          "Porcelain veneers (lab-fabricated): ฿12,000–30,000 per tooth. Most natural-looking; requires 2 visits minimum (preparation + bonding). Lifespan 10–20 years. " +
-          "E.max veneers (CAD/CAM ceramic): ฿15,000–35,000 per tooth. Milled in-clinic from a single ceramic block; stronger and more stain-resistant than traditional porcelain. Many Bangkok clinics offer same-day single-visit E.max using in-house CEREC or similar mills. " +
-          "Composite resin veneers: ฿4,000–8,000 per tooth. Applied chairside, no lab wait. More affordable but less durable (5–7 years) and more susceptible to staining. Best for younger patients or temporary smile improvement. " +
-          "Lumineers (no-prep veneers): ฿18,000–35,000 per tooth. Ultra-thin (0.2mm); minimal tooth reduction. Not suitable for all cases — your dentist will advise after digital smile design.",
+          `Ceramic or porcelain veneers (including E.max and Empress): ${S(PF.veneerCeramic)} per tooth in clinics' published price lists. Made in a lab or milled in-clinic; usually two visits (preparation and bonding). ` +
+          `Composite resin veneers: ${S(PF.veneerComposite)} per tooth. Applied chairside, no lab wait; cheaper but less durable and more prone to staining. ` +
+          "Several clinics list a lower per-tooth rate for 6–8 or more teeth. Every listing, with its source, is in our veneers price guide (/prices/veneers-cost-bangkok).",
       },
       {
         heading: "Digital smile design and what to expect",
@@ -420,7 +416,7 @@ export const GUIDES: Guide[] = [
     faqs: [
       {
         q: "How much do veneers cost in Bangkok?",
-        a: "Porcelain veneers: ฿12,000–30,000 per tooth. E.max (CAD/CAM ceramic): ฿15,000–35,000 per tooth. Composite resin: ฿4,000–8,000 per tooth. A full 8-upper-tooth smile makeover in porcelain typically costs ฿100,000–240,000.",
+        a: `From clinics' own price lists: ceramic or porcelain ${S(PF.veneerCeramic)} per tooth, composite ${S(PF.veneerComposite)} per tooth. Some clinics give a lower per-tooth rate for 6–8 or more teeth. Sources: /prices/veneers-cost-bangkok.`,
       },
       {
         q: "Can I get veneers done in one trip to Bangkok?",
@@ -432,7 +428,7 @@ export const GUIDES: Guide[] = [
       },
       {
         q: "Is a consultation free?",
-        a: "Most Bangkok cosmetic dentistry clinics offer a free initial consultation, including digital X-rays and a basic smile assessment. Digital Smile Design (DSD) preview may be included or charged separately (฿1,000–3,000). Confirm before booking.",
+        a: "Many Bangkok clinics offer a free or low-cost first consultation, but what it includes (X-rays, a Digital Smile Design preview) varies. Confirm the price before booking.",
       },
     ],
     related: ["dental-implants-bangkok-cost", "teeth-whitening-bangkok"],

@@ -32,6 +32,8 @@ import {
   DownloadableGuide, MemberPerksStrip, ScrollReveal,
 } from "@/components/LazyWidgets";
 import type { Metadata } from "next";
+import { GUIDES, guideData } from "@/lib/dentalPriceGuide";
+const PRICE_LISTINGS = GUIDES.reduce((n, g) => n + guideData(g).proc.n_packages, 0);
 
 export const revalidate = 86400; // ISR 24h — sponsored 변경은 admin API revalidatePath()로 즉시 반영. Hobby ISR Writes 한도 절약.
 
@@ -545,10 +547,11 @@ export default async function HomePage(
                 <p className="text-3xl font-bold text-emerald-700">{focused.length.toLocaleString()}</p>
                 <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "태국 치과 클리닉" : lang === "th" ? "คลินิกทันตกรรมในไทย" : "dental clinics in Thailand"}</p>
               </div>
-              <div>
-                <p className="text-3xl font-bold text-emerald-700">50–70%</p>
-                <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "미국·영국 대비 저렴" : lang === "th" ? "ถูกกว่าสหรัฐฯ และอังกฤษ" : "cheaper than US & UK"}</p>
-              </div>
+              {/* 2026-10-30: 근거 없던 "50–70% 저렴" 대신 실제로 비교한 가격 수 — /prices 로 연결. */}
+              <a href="/prices" className="block hover:opacity-80">
+                <p className="text-3xl font-bold text-emerald-700">{PRICE_LISTINGS.toLocaleString()}</p>
+                <p className="text-sm text-[var(--muted)] mt-1 underline">{lang === "ko" ? "비교한 공개 가격" : lang === "th" ? "ราคาที่ประกาศซึ่งเราเปรียบเทียบ" : "published prices compared"}</p>
+              </a>
               <div>
                 <p className="text-3xl font-bold text-emerald-700">{lang === "ko" ? "영어가능" : lang === "th" ? "อังกฤษได้" : "English"}</p>
                 <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "주요 클리닉 영어 가능 직원" : lang === "th" ? "พนักงานพูดภาษาอังกฤษที่คลินิกชั้นนำ" : "speaking staff at top clinics"}</p>

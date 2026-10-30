@@ -21,6 +21,11 @@ import { CategoryIcon } from "@/components/CategoryIcon";
 import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
 import { TH_LABELS, TH_NEAR_ME, thDistrict } from "@/lib/th-labels";
 import type { Metadata } from "next";
+import { dentalPriceFacts, spanText, baht } from "@/lib/dentalPriceGuide";
+// 가격 숫자는 가격 가이드 데이터에서 (2026-10-30, 출처 없는 하드코딩 교체).
+const PF = dentalPriceFacts();
+const S = (s: Parameters<typeof spanText>[0]) => spanText(s) ?? "—";
+
 
 const VALID = new Set(["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"]);
 
@@ -54,7 +59,7 @@ const TH_FAQ: Partial<Record<string, { q: string; a: string }[]>> = {
     },
     {
       q: "รากฟันเทียมในกรุงเทพราคาเท่าไหร่?",
-      a: "Straumann / Nobel Biocare ฿55,000–80,000 ต่อซี่ · Osstem / Astra ฿35,000–55,000 ต่อซี่ · All-on-4 ทั้งขากรรไกร ฿250,000–500,000 ราคารวมรากเทียม เดือย และครอบฟัน",
+      a: `ราคาที่คลินิกประกาศไว้ (รากเทียมพร้อมครอบฟัน 1 ซี่): แบรนด์เกาหลี Osstem / Dentium / Neo Biotech ${S(PF.implantKoreanBrands)} · Straumann ${S(PF.implantStraumann)} ดูแหล่งที่มาและรายการทั้งหมดที่ /prices/dental-implant-cost-bangkok ราคาจริงขึ้นกับการตรวจและความซับซ้อนของเคส`,
     },
     {
       q: "รากฟันเทียมใช้เวลานานแค่ไหน?",

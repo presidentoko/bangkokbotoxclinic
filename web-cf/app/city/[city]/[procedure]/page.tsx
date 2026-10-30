@@ -5,6 +5,11 @@ import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
 import { findGuide, guidesForFocus } from "@/lib/guides";
 import type { Metadata } from "next";
+import { dentalPriceFacts, spanText } from "@/lib/dentalPriceGuide";
+
+// 가격 숫자는 가격 가이드 데이터에서 (2026-10-30, 출처 없는 하드코딩 교체).
+const PF = dentalPriceFacts();
+const S = (s: Parameters<typeof spanText>[0]) => spanText(s) ?? "—";
 
 // citySlug 은 master_db.json 의 clinic.city_slug 실제 값과 정확히 일치해야
 // 함(하이픈, 언더스코어 아님) — 안 맞으면 filter 가 0건 매치라 빈 페이지가
@@ -38,7 +43,7 @@ const PROCEDURES: Record<string, { label: string; category: string; desc: string
     category: "dental",
     desc: "single implants, all-on-4, all-on-6, and mini implants",
     faqs: [
-      { q: "How much do dental implants cost in Thailand?", a: "Dental implant costs in Thailand range from ฿30,000–฿80,000 per tooth depending on the clinic, brand, and complexity. All-on-4 ranges from ฿200,000–฿500,000 per arch. This is typically 50–70% cheaper than the US or UK." },
+      { q: "How much do dental implants cost in Thailand?", a: `Listed prices at Greater Bangkok clinics for one implant with a crown run ${S(PF.implantWithCrown)}, depending on the brand. Bone grafts are extra. Sources: /prices/dental-implant-cost-bangkok.` },
       { q: "Are dental implants in Thailand safe?", a: "Thailand has internationally accredited dental clinics. Look for clinics with JCI or ISO certification and doctors trained in the US, Europe, or Japan. Trust Score on this site factors in review credibility and patient volume." },
     ],
   },
@@ -47,7 +52,7 @@ const PROCEDURES: Record<string, { label: string; category: string; desc: string
     category: "dental",
     desc: "porcelain veneers, e.max veneers, and composite bonding",
     faqs: [
-      { q: "How much do veneers cost in Thailand?", a: "Porcelain veneers in Thailand cost ฿8,000–฿20,000 per tooth. E.max veneers are ฿12,000–฿25,000. Composite veneers (non-invasive) are ฿3,000–฿8,000 per tooth. Full smile makeovers (8–10 veneers) are ฿80,000–฿200,000." },
+      { q: "How much do veneers cost in Thailand?", a: `Clinics' own price lists in Greater Bangkok put a ceramic or porcelain veneer at ${S(PF.veneerCeramic)} per tooth and a composite veneer at ${S(PF.veneerComposite)}. Sources: /prices/veneers-cost-bangkok.` },
       { q: "What is the difference between porcelain and composite veneers?", a: "Porcelain veneers are permanent, require enamel removal, and last 15–20 years. Composite veneers are reversible, require minimal prep, and last 5–7 years. Most clinics offer both; discuss your case with the dentist first." },
     ],
   },
@@ -56,7 +61,7 @@ const PROCEDURES: Record<string, { label: string; category: string; desc: string
     category: "dental",
     desc: "in-office whitening, Zoom whitening, and laser whitening",
     faqs: [
-      { q: "How much does teeth whitening cost in Thailand?", a: "In-office whitening (Zoom or laser) costs ฿3,000–฿10,000 in Thailand. Take-home kits from a dentist are ฿1,500–฿4,000. Results last 1–3 years with proper care." },
+      { q: "How much does teeth whitening cost in Thailand?", a: `Listed prices at Greater Bangkok clinics: an in-clinic session ${S(PF.whiteningInClinic)}, an at-home kit ${S(PF.whiteningHomeKit)}. Sources: /prices/teeth-whitening-cost-bangkok.` },
     ],
   },
   "orthodontics": {
@@ -64,7 +69,7 @@ const PROCEDURES: Record<string, { label: string; category: string; desc: string
     category: "dental",
     desc: "metal braces, ceramic braces, Invisalign, and clear aligners",
     faqs: [
-      { q: "How much does Invisalign cost in Thailand?", a: "Invisalign in Thailand costs ฿80,000–฿180,000 for full treatment, compared to $5,000–$8,000 in the US. Ceramic braces are ฿50,000–฿90,000. Metal braces are ฿25,000–฿50,000." },
+      { q: "How much does Invisalign cost in Thailand?", a: `Greater Bangkok clinics list full Invisalign courses at ${S(PF.invisalign)}, depending on the tier. Sources: /prices/invisalign-cost-bangkok.` },
     ],
   },
   "botox": {

@@ -11,6 +11,14 @@ import { CATEGORY_LABELS } from "@/lib/types";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { applySiteFilter, getSiteConfig, FOCUS_VALID } from "@/lib/site";
 import type { Metadata } from "next";
+import { dentalPriceFacts, spanText, baht } from "@/lib/dentalPriceGuide";
+import { getBenchmark } from "@/lib/publishedPrices";
+// 가격 숫자는 가격 가이드 데이터에서 (2026-10-30, 출처 없는 하드코딩 교체).
+const PF = dentalPriceFacts();
+const S = (s: Parameters<typeof spanText>[0]) => spanText(s) ?? "—";
+const CROWN = getBenchmark("crown");
+const CROWN_MID = CROWN ? `${baht(CROWN.p25)}–${baht(CROWN.p75)}` : "—";
+
 
 function districtFromSlug(slug: string, all: string[]): string | null {
   const target = slug.toLowerCase();
@@ -139,7 +147,7 @@ export default async function DistrictPage(
       : []),
     {
       q: `What do treatments cost in ${districtName}?`,
-      a: `Typical Bangkok-wide ranges, not specific to ${districtName}: implants ฿35,000–80,000 per tooth, veneers ฿12,000–30,000 per tooth, crowns ฿8,000–20,000, whitening ฿4,000–12,000. Ask the clinic directly — the final price depends on the case.`,
+      a: `Bangkok-wide listed prices, not specific to ${districtName}: an implant with a crown ${S(PF.implantWithCrown)} per tooth, a ceramic veneer ${S(PF.veneerCeramic)} per tooth, a crown typically ${CROWN_MID}, and an in-clinic whitening session ${S(PF.whiteningInClinic)}. Sources and dates are on our price guides (/prices). Ask the clinic directly — the final price depends on the case.`,
     },
     {
       q: `How is this ranking decided?`,

@@ -268,3 +268,31 @@ export function ladderSentence(cfg: GuideConfig, proc: GuideProcedure): string |
   const label = (x: GuideGroup) => (x.sub && cfg.procedure !== "invisalign" ? `${x.group} (${x.sub})` : x.group);
   return `Among groups with at least three listings, ${label(hi)} has the highest typical price (${baht(hi.median!)}), about ${times.toFixed(1)} times the lowest, ${label(lo)} (${baht(lo.median!)}).`;
 }
+
+/**
+ * 다른 페이지(FAQ·llms.txt·태국어/한국어 홈)가 가격을 말할 때 쓰는 숫자 (2026-10-30).
+ * 예전엔 페이지마다 "임플란트 ฿35,000–80,000, 비니어 ฿12,000–30,000, 미국 대비 50–70% 저렴" 같은
+ * 출처 없는 숫자가 하드코딩돼 있었다. 이제 전부 가격 가이드 데이터에서 계산한다 — 출처가 한 곳이다.
+ */
+export type Span = { lo: number; hi: number };
+function span(items: GuideItem[]): Span | null {
+  if (items.length === 0) return null;
+  const ps = items.map((i) => i.price);
+  return { lo: Math.min(...ps), hi: Math.max(...ps) };
+}
+export function dentalPriceFacts() {
+  const P = guide.procedures;
+  const imp = P.implants.items.filter((i) => i.sub === "with crown");
+  const KOREAN = new Set(["Osstem", "Dentium", "Neo Biotech"]);
+  return {
+    implantWithCrown: span(imp),
+    implantKoreanBrands: span(imp.filter((i) => KOREAN.has(i.group))),
+    implantStraumann: span(imp.filter((i) => i.group === "Straumann")),
+    veneerCeramic: span(P.veneers.items.filter((i) => i.group === "Ceramic / porcelain" && i.sub === "per tooth")),
+    veneerComposite: span(P.veneers.items.filter((i) => i.group === "Composite")),
+    whiteningInClinic: span(P.whitening.items.filter((i) => i.group !== "At-home kit" && i.sub === "single session")),
+    whiteningHomeKit: span(P.whitening.items.filter((i) => i.group === "At-home kit")),
+    invisalign: span(P.invisalign.items),
+  };
+}
+export const spanText = (s: Span | null) => (s ? `${baht(s.lo)}–${baht(s.hi)}` : null);
