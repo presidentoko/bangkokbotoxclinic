@@ -23,7 +23,7 @@ export const HOME_FAQS: Faq[] = [
   },
   {
     q: "What is SMP (scalp micropigmentation) and how much does it cost in Bangkok?",
-    a: "SMP is a non-surgical procedure using specialized pigments tattooed to the scalp to simulate hair follicle dots — creating the illusion of a shaved head or adding density to thinning areas. Bangkok SMP costs ฿15,000–50,000 per session (2–3 sessions for full coverage). Results last 3–5 years with touchups. A fraction of Korean or Western prices ($3,000–8,000 per treatment abroad).",
+    a: "SMP is a non-surgical procedure using specialized pigments tattooed to the scalp to simulate hair follicle dots — creating the illusion of a shaved head or adding density to thinning areas. Full coverage usually takes 2–3 sessions; ask each clinic for its per-session price. Results last 3–5 years with touchups. A fraction of Korean or Western prices ($3,000–8,000 per treatment abroad).",
   },
   {
     q: "Do Bangkok hair clinics speak English and Korean?",
@@ -43,7 +43,7 @@ export const PROCEDURE_FAQS: Record<string, Faq[]> = {
     },
     {
       q: "Is FUE or DHI better for hair transplant in Bangkok?",
-      a: "FUE is more affordable and suitable for most cases. DHI (Choi pen) offers denser placement and faster healing, costs 30–50% more. For hairline work, many surgeons prefer DHI; for crown and mid-scalp, FUE gives equivalent results at lower cost. Ask your Bangkok surgeon which technique matches your graft count and desired density.",
+      a: "FUE is more affordable and suitable for most cases. DHI (Choi pen) offers denser placement and costs more where clinics publish both prices. For hairline work, many surgeons prefer DHI; for crown and mid-scalp, FUE gives equivalent results at lower cost. Ask your Bangkok surgeon which technique matches your graft count and desired density.",
     },
     {
       q: "How many FUE grafts do I need?",
@@ -57,7 +57,7 @@ export const PROCEDURE_FAQS: Record<string, Faq[]> = {
     },
     {
       q: "What are the advantages of DHI over FUE?",
-      a: "DHI uses a Choi implanter pen — grafts go directly from extraction to implantation without sitting outside the scalp, improving survival rates. Hairline direction is more precise. Healing is typically 10–20% faster. Density in a single session can be higher. Downside: more expensive, takes longer per session.",
+      a: "DHI uses a Choi implanter pen — grafts go directly from extraction to implantation without sitting outside the scalp, improving survival rates. Hairline direction is more precise. Density in a single session can be higher. Downside: more expensive, takes longer per session.",
     },
   ],
   smp: [

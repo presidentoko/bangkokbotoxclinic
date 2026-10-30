@@ -1,6 +1,35 @@
 // Guide topic definitions — each topic filters the sidecar CSVs (reddit/pantip/naver)
 // into a curated reading list for SEO long-tail coverage.
 
+import { hairPrices, perGraftRange, estimateFor, baht } from "@/lib/hairPrices";
+
+// 2026-10-30: 가격 숫자는 클리닉이 공개한 가격(lib/hairPrices.ts)에서. 예전 "FUE ฿40,000–130,000,
+// DHI 30–50% 더 비쌈, 영국·터키 대비" 같은 문구는 출처가 없어 뺐다.
+type Span = { lo: number; hi: number } | null;
+const R = (r: Span) => (r ? (r.lo === r.hi ? baht(r.lo) : `${baht(r.lo)}–${baht(r.hi)}`) : "—");
+const FUE = perGraftRange("FUE");
+const NS = perGraftRange("Non-shaven FUE");
+const LH = perGraftRange("Long Hair FUE");
+const FUT = perGraftRange("FUT");
+const E2K = estimateFor(2000, "FUE");
+const UNL_MIN = hairPrices.filter((p) => p.kind === "unlimited" && p.min != null).map((p) => p.min!);
+const UNL = UNL_MIN.length ? baht(Math.min(...UNL_MIN)) : "—";
+// 한 클리닉이 FUE·DHI 를 둘 다 공개한 경우만 비교 문장을 만든다 (현재 BEQ).
+const both = (() => {
+  const byClinic = new Map<string, { fue?: (typeof hairPrices)[number]; dhi?: (typeof hairPrices)[number] }>();
+  for (const p of hairPrices) {
+    if (p.kind !== "range") continue;
+    const e = byClinic.get(p.clinic) ?? {};
+    if (p.technique === "FUE") e.fue = p;
+    if (p.technique === "DHI") e.dhi = p;
+    byClinic.set(p.clinic, e);
+  }
+  for (const [clinic, e] of byClinic) if (e.fue && e.dhi) return { clinic, fue: e.fue, dhi: e.dhi };
+  return null;
+})();
+const BEQ_DHI = both ? `${both.clinic} lists DHI at about ${baht(both.dhi.min!)}–${baht(both.dhi.max!)} against ${baht(both.fue.min!)}–${baht(both.fue.max!)} for FUE, for roughly 1,000–3,000 grafts` : "few clinics publish a DHI price";
+const BEQ_BOTH = both ? `At ${both.clinic}, the one clinic in our data that publishes both, DHI is listed at about ${baht(both.dhi.min!)}–${baht(both.dhi.max!)} and FUE at about ${baht(both.fue.min!)}–${baht(both.fue.max!)} for roughly 1,000–3,000 grafts.` : "";
+
 export type GuideTopic = {
   slug: string;
   title: string;
@@ -18,7 +47,7 @@ export const GUIDES: GuideTopic[] = [
   {
     slug: "fue-reviews",
     metaTitle: "FUE Hair Transplant Reviews Thailand 2026 — Real Patient Stories",
-    metaDescription: "Real patient reviews of FUE hair transplants in Bangkok. Reddit + Pantip + Naver accounts from ฿65,000 budget clinics to ฿150,000+ premium options.",
+    metaDescription: `Real patient reviews of FUE hair transplants in Bangkok from Reddit, Pantip and Naver, plus the prices clinics publish (FUE ${R(FUE)} per graft).`,
     title: "FUE Hair Transplant Reviews in Thailand 2026",
     intro: "Real patient experiences with Follicular Unit Extraction (FUE) in Thai clinics. From budget Bangkok options to premium tourist-focused providers. Reddit + Pantip + Naver blog accounts, ranked by community engagement.",
     reddit: { query: /FUE|fue/, title: /FUE|fue/ },
@@ -38,7 +67,7 @@ export const GUIDES: GuideTopic[] = [
   {
     slug: "smp-scalp-tattoo",
     metaTitle: "SMP Bangkok 2026 — Scalp Micropigmentation Reviews & Cost",
-    metaDescription: "SMP in Bangkok from ฿15,000/session. Real patient reviews, before/after, best clinics for scalp micropigmentation in Thailand.",
+    metaDescription: "SMP in Bangkok: real patient reviews, before/after accounts and the clinics offering scalp micropigmentation in Thailand.",
     title: "SMP (Scalp Micropigmentation) in Bangkok — Reviews & Cost 2026",
     intro: "Scalp tattooing — non-surgical alternative for shaved-head look or scar camouflage. Reviews from people who chose Bangkok for this procedure.",
     reddit: { query: /SMP|micropigmentation|scalp tattoo/i, title: /SMP|scalp/i },
@@ -75,7 +104,7 @@ export const GUIDES: GuideTopic[] = [
   {
     slug: "hair-loss-women",
     metaTitle: "Female Hair Loss Treatment Bangkok 2026 — PRP, FUE & Scalp Care",
-    metaDescription: "Female hair loss treatment in Bangkok. PRP from ฿5,000, FUE from ฿65,000. Real patient reviews and clinics experienced with women's hair loss.",
+    metaDescription: "Female hair loss treatment in Bangkok: real patient reviews and clinics experienced with women's hair loss, from PRP to non-shaven FUE.",
     title: "Female Hair Loss Treatment in Bangkok 2026",
     intro: "Less common but growing — female-pattern hair loss treatment options. PRP, FUE, scalp treatment. Patient perspectives.",
     reddit: { title: /female|woman|women/i },
@@ -92,7 +121,7 @@ export const GUIDES: GuideTopic[] = [
   {
     slug: "thailand-vs-korea",
     metaTitle: "Thailand vs Korea Hair Transplant — Price & Quality Compared 2026",
-    metaDescription: "Korea vs Thailand for hair transplants: Korea is premium, Thailand saves 50–70%. When does price matter? Real Naver + Reddit community comparisons.",
+    metaDescription: "Korea vs Thailand for hair transplants: what patients on Naver and Reddit say about cost, quality and travel. Thai clinic prices are on our cost page.",
     title: "Thailand vs Korea Hair Transplant — Price & Quality 2026",
     intro: "Korea = premium, Thailand = cost-savings. When does the price difference actually buy you better results? Reddit + Naver community wisdom.",
     reddit: { title: /korea/i },
@@ -101,7 +130,7 @@ export const GUIDES: GuideTopic[] = [
   {
     slug: "head-spa-scalp-treatment",
     metaTitle: "Head Spa & Scalp Treatment Bangkok — Best Clinics 2026",
-    metaDescription: "Pre/post-transplant scalp care in Bangkok. Head spa, PRP, scaling from ฿3,000. Where Bangkok locals and medical tourists go for scalp health.",
+    metaDescription: "Pre- and post-transplant scalp care in Bangkok: head spa, PRP and scaling. Where Bangkok locals and medical tourists go for scalp health.",
     title: "Head Spa & Scalp Treatment in Bangkok 2026",
     intro: "Pre/post-transplant scalp care — head spa, PRP, scaling. Where Bangkok locals and visitors go.",
     reddit: { query: /head spa|scalp/i },
@@ -110,17 +139,17 @@ export const GUIDES: GuideTopic[] = [
   {
     slug: "hair-transplant-cost-bangkok",
     metaTitle: "Hair Transplant Cost Bangkok 2026 — Full Price Guide",
-    metaDescription: "FUE costs ฿40,000–130,000. DHI costs ฿60,000–180,000. Full breakdown of what drives Bangkok hair transplant prices, what's included, and how to compare quotes.",
+    metaDescription: `Prices Thai clinics publish: FUE ${R(FUE)} per graft (roughly ${R(E2K)} for 2,000 grafts), unlimited-graft packages from ${UNL}. What drives the price and how to compare quotes.`,
     title: "Hair Transplant Cost in Bangkok 2026 — Full Price Guide",
-    intro: "Bangkok is one of the most cost-effective destinations for hair transplants globally — but prices vary 3–4× between clinics offering seemingly identical procedures. This guide breaks down what you'll actually pay, what drives the price difference, and what \"full package\" really means.",
+    intro: "Hair transplant prices in Bangkok vary widely between clinics that advertise similar procedures. This guide uses the prices clinics publish on their own websites, explains what drives the difference, and what a \"full package\" really includes.",
     sections: [
       {
         heading: "What does a Bangkok hair transplant cost?",
-        body: "FUE (Follicular Unit Extraction): ฿40,000–130,000 depending on graft count and clinic tier. Budget tier (฿40k–65k): volume-focused clinics, often in Pratunam or On Nut, Korean tour-group clients common. Mid tier (฿65k–100k): English-speaking coordinators, FDA-certified surgeons, Sukhumvit area. Premium tier (฿100k+): hospital-affiliated or internationally-accredited, full-day surgeon involvement. DHI (Direct Hair Implantation): typically 30–50% more than FUE equivalent at the same clinic, due to Choi pen consumable cost and longer procedure time.",
+        body: `Clinics that publish a per-graft price charge ${R(FUE)} per graft for standard FUE (Follicular Unit Extraction); at 2,000 grafts that is roughly ${R(E2K)}, before any minimum charge. Some sell unlimited-graft packages from ${UNL}, others price by graft bands. Non-shaven FUE costs more: ${R(NS)} per graft. Every clinic's published price, with its source page, is on our hair transplant cost page (/en/hair-transplant-cost/).`,
       },
       {
         heading: "FUE vs DHI vs FUT — price breakdown",
-        body: "FUE: most common, best value. 2,000 grafts runs ฿50,000–95,000. 4,000 grafts ฿80,000–150,000. DHI: higher cost, suited for density work and non-shave procedures. 2,000 grafts ฿70,000–130,000. FUT (strip): least common now, lowest graft cost but leaves a linear scar. SMP (Scalp Micropigmentation): ฿15,000–50,000 for full head — non-surgical, permanent ink alternative. Many Bangkok clinics offer combination packages (e.g. FUE + PRP post-op) that reduce total cost.",
+        body: `FUE is the most common technique; published prices run ${R(FUE)} per graft. Non-shaven FUE: ${R(NS)} per graft. Long Hair FUE costs more again (${R(LH)} per graft where published). DHI: ${BEQ_DHI}. FUT (strip) leaves a linear scar; the one clinic that publishes it charges ${R(FUT)} per graft, the same as its FUE. SMP (scalp micropigmentation) is a non-surgical tattoo alternative, priced separately.`,
       },
       {
         heading: "What drives the price difference between clinics?",
@@ -128,11 +157,11 @@ export const GUIDES: GuideTopic[] = [
       },
       {
         heading: "What's included — and what's not",
-        body: "Usually included: consultation, procedure itself, post-op kit (shampoo, spray, antibiotics), one follow-up visit. Often NOT included: airport transfer (฿300–800), accommodation near clinic (฿1,500–4,000/night), PRP treatment (฿8,000–15,000 extra), follow-up visits after 30 days, SMP touch-up if needed, finasteride/minoxidil ongoing prescription. Budget clinics often quote a low headline price and add-on the above.",
+        body: "Usually included: consultation, the procedure itself, a post-op kit (shampoo, spray, antibiotics) and one follow-up visit. Often not included: airport transfer, accommodation near the clinic, PRP treatment, follow-up visits after 30 days, SMP touch-ups and ongoing finasteride or minoxidil. Some clinics quote a low headline price and add these on, so ask for a written list of what the price covers.",
       },
       {
         heading: "Hidden costs: accommodation, flights, follow-up",
-        body: "Most patients fly home within 5–7 days. Minimum budget: flights + 6 nights accommodation + procedure. From Europe: flights ฿25,000–45,000 return. Accommodation near major clinics: ฿1,500–3,500/night mid-range. Total trip for a 3,000-graft FUE: ฿120,000–200,000 all-in. Compare: UK equivalent ฿300,000–500,000+. Turkey: ฿80,000–120,000 all-in (but lower average surgeon experience, per Reddit). Important: factor in a 12-month follow-up — most reputable Bangkok clinics offer virtual consultations free; some charge ฿2,000–5,000 for in-person after 12 months.",
+        body: "Most patients fly home within 5–7 days, so budget for flights and about a week of accommodation on top of the procedure. We do not compare Bangkok with the UK or Turkey because we have no comparable price data for those countries. Ask whether the 12-month follow-up is included and whether it can be done online.",
       },
       {
         heading: "How to compare quotes fairly",
@@ -140,10 +169,10 @@ export const GUIDES: GuideTopic[] = [
       },
     ],
     faqs: [
-      { q: "What is the average cost of a hair transplant in Bangkok?", a: "A 2,000-graft FUE procedure at a mid-tier Bangkok clinic costs approximately ฿65,000–95,000 (USD 1,800–2,600). DHI at the same count runs ฿90,000–130,000. Premium hospital-grade clinics can reach ฿150,000+ for the same graft count. Budget clinics start around ฿40,000 but often exclude PRP and follow-up." },
-      { q: "Is FUE or DHI cheaper in Bangkok?", a: "FUE is consistently cheaper — typically 30–50% less than DHI at the same clinic for the same graft count. DHI costs more due to Choi pen consumables and longer implantation time. For most patients, FUE from a skilled surgeon produces equivalent density results." },
-      { q: "Why do prices vary so much between Bangkok clinics?", a: "The key drivers are: (1) surgeon vs technician involvement, (2) clinic location (Sukhumvit premium vs Pratunam budget), (3) equipment quality (punch diameter, motorised vs manual), (4) what is bundled vs add-on (PRP, follow-up visits, post-op medication). Clinics with identical advertised procedures can differ by 3× in actual quality of execution." },
-      { q: "Does the quote include follow-up appointments?", a: "Usually one 7-day post-op check is included. The 1-month and 12-month follow-ups are included at premium clinics, add-on (฿2,000–5,000) or virtual-only at budget clinics. Always confirm in writing before booking." },
+      { q: "What is the average cost of a hair transplant in Bangkok?", a: `Clinics that publish per-graft prices charge ${R(FUE)} per graft for FUE, so 2,000 grafts works out at roughly ${R(E2K)}. Unlimited-graft packages start at ${UNL}. Our cost page lists every clinic's published price with its source.` },
+      { q: "Is FUE or DHI cheaper in Bangkok?", a: `FUE is usually cheaper. ${BEQ_BOTH} DHI uses Choi pens and takes longer to implant. For many patients, FUE from a skilled surgeon gives similar results.` },
+      { q: "Why do prices vary so much between Bangkok clinics?", a: "The main drivers are: (1) whether the surgeon or technicians do the extraction and implantation, (2) location and running costs, (3) equipment quality (punch diameter, motorised vs manual), and (4) what is bundled vs add-on (PRP, follow-up visits, post-op medication)." },
+      { q: "Does the quote include follow-up appointments?", a: "Usually one 7-day post-op check is included. The 1-month and 12-month follow-ups are included at some clinics and charged or online-only at others. Always confirm in writing before booking." },
     ],
     reddit: { query: /cost|price|cheap|expensive|budget/i, title: /cost|price|Bangkok/i },
     pantip: { title: /ราคา.*ปลูกผม|ปลูกผม.*ราคา/i },
@@ -166,7 +195,7 @@ export const GUIDES: GuideTopic[] = [
       },
       {
         heading: "Key differences at a glance",
-        body: "Channel creation: FUE = pre-made (sapphire or steel blade), DHI = Choi pen (no separate channel step). Shaving requirement: FUE usually requires full shave, DHI can do unshaved for smaller sessions. Graft count per day: FUE handles 2,000–5,000, DHI typically 1,500–2,500. Density achievable: DHI slightly higher density possible in target areas. Recovery: similar — 7–14 days before social presentability. Scarring: both leave tiny dot scars in donor area. Cost differential: DHI is 30–50% more expensive at equivalent Bangkok clinics.",
+        body: "Channel creation: FUE = pre-made (sapphire or steel blade), DHI = Choi pen (no separate channel step). Shaving requirement: FUE usually requires full shave, DHI can do unshaved for smaller sessions. Graft count per day: FUE handles more grafts per session than DHI. Recovery: similar — about 7–14 days before you look presentable. Scarring: both leave tiny dot scars in the donor area. Cost: DHI costs more where a clinic publishes both; see our hair transplant cost page.",
       },
       {
         heading: "Which technique gives better density?",
@@ -174,12 +203,12 @@ export const GUIDES: GuideTopic[] = [
       },
       {
         heading: "Which is right for you?",
-        body: "Choose FUE if: you need 3,000+ grafts in a single session, cost is a significant factor, full shave is acceptable. Choose DHI if: you want minimal shaving (women, men with longer hair), targeting crown density, willing to pay 30–50% premium. Consider combined: some Bangkok clinics do FUE extraction + DHI implantation (best-of-both, but adds time and cost). Ask your surgeon specifically: how many DHI procedures have you personally performed (not the clinic total)? Under 200 personal cases = limited experience.",
+        body: "Choose FUE if: you need a large number of grafts in one session, cost is a significant factor, and a full shave is acceptable. Choose DHI if: you want minimal shaving (women, men with longer hair), are targeting crown density, and are willing to pay more. Some Bangkok clinics combine FUE extraction with DHI implantation, which adds time and cost. Ask your surgeon how many DHI procedures they have personally performed (not the clinic total).",
       },
     ],
     faqs: [
       { q: "Is DHI better than FUE for hair transplant?", a: "Not universally. DHI offers advantages for no-shave procedures and precise density work. FUE is better for large sessions (3,000+ grafts) and is more widely available from experienced Bangkok surgeons. For most male-pattern baldness cases, FUE from a high-trust clinic produces equivalent 12-month results." },
-      { q: "Does DHI cost more than FUE in Bangkok?", a: "Yes — typically 30–50% more at the same clinic for the same graft count. A 2,000-graft FUE at ฿80,000 would be approximately ฿110,000–120,000 as DHI. The premium is due to Choi pen consumable cost and longer implantation time." },
+      { q: "Does DHI cost more than FUE in Bangkok?", a: `Usually, yes. ${BEQ_BOTH} The premium comes from Choi pen consumables and longer implantation time.` },
       { q: "Which technique has a shorter recovery time?", a: "Recovery is very similar for both — most patients are back to normal activity within 7–10 days. The transplanted area looks presentable (scabs fallen off) at 10–14 days. Full density results appear at 10–12 months for both FUE and DHI." },
       { q: "Can I get both FUE and DHI at the same clinic in Bangkok?", a: "Yes — many premium Bangkok clinics offer combination procedures: FUE for extraction (efficient) + DHI Choi pen for implantation (precision). This hybrid approach adds time and cost but is offered at most higher-tier clinics in the Sukhumvit area." },
     ],
