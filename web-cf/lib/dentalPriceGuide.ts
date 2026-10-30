@@ -30,9 +30,15 @@ export type GuideItem = {
   city: string;
   name: string;
   url: string;
+  /** "HDmall" 또는 클리닉 도메인 */
+  source: string;
 };
 
 export type GuideProcedure = {
+  /** "HDmall" | "clinic websites" */
+  source: string;
+  captured_from: string;
+  captured_to: string;
   n_packages: number;
   n_clinics: number;
   groups: GuideGroup[];
@@ -47,11 +53,15 @@ type Guide = {
 
 const guide = raw as unknown as Guide;
 
-export type GuideSlug = "dental-implant-cost-bangkok" | "teeth-whitening-cost-bangkok" | "invisalign-cost-bangkok";
+export type GuideSlug =
+  | "dental-implant-cost-bangkok"
+  | "teeth-whitening-cost-bangkok"
+  | "invisalign-cost-bangkok"
+  | "veneers-cost-bangkok";
 
 export type GuideConfig = {
   slug: GuideSlug;
-  procedure: "implants" | "whitening" | "invisalign";
+  procedure: "implants" | "whitening" | "invisalign" | "veneers";
   /** 페이지 H1 앞부분. 숫자는 데이터에서 붙인다. */
   title: string;
   short: string;
@@ -185,6 +195,46 @@ export const GUIDES: GuideConfig[] = [
         a: "From package prices clinics published on HDmall between May and July 2026. They are list prices, not quotes.",
       },
     ],
+  },  {
+    slug: "veneers-cost-bangkok",
+    procedure: "veneers",
+    title: "Veneers Cost in Bangkok",
+    short: "Veneers",
+    headlineGroup: (g) => g.group === "Ceramic / porcelain" && g.sub === "per tooth",
+    unit: "per tooth",
+    scope: "veneers, from the price lists clinics publish on their own websites",
+    caveat:
+      "Prices are per tooth. 'Multi-tooth rate' rows are discounted prices that apply only when you do several teeth (usually 6–8 or more), so they are kept apart. Where a clinic lists a range, the lower end is used and the range is shown in the listing.",
+    faqs: (p, h) => [
+      {
+        q: "How much do veneers cost in Bangkok?",
+        a: h
+          ? `Across ${p.n_packages} veneer prices published by ${p.n_clinics} Greater Bangkok clinics on their own websites, a ceramic or porcelain veneer is listed at ${range(h)} per tooth, ${typical(h)}.`
+          : `${p.n_packages} veneer prices from ${p.n_clinics} Greater Bangkok clinics were compared.`,
+      },
+      {
+        q: "Are composite veneers cheaper than porcelain?",
+        a: (() => {
+          const comp = med(p, "Composite", "per tooth");
+          const cer = med(p, "Ceramic / porcelain", "per tooth");
+          if (comp == null || cer == null) return "There are too few listings to compare the two materials.";
+          return `Yes. The typical composite veneer listing is ${baht(comp)} per tooth, against ${baht(cer)} for ceramic or porcelain. Composite is applied directly in the chair; ceramic veneers are made in a lab and usually last longer. Ask your dentist which suits your teeth.`;
+        })(),
+      },
+      {
+        q: "Is it cheaper to do several teeth at once?",
+        a: (() => {
+          const bulk = med(p, "Ceramic / porcelain", "multi-tooth rate");
+          const one = med(p, "Ceramic / porcelain", "per tooth");
+          if (bulk == null || one == null) return "Some clinics list a lower per-tooth price when you do 6–8 or more teeth; check each clinic's price list.";
+          return `Some clinics list a lower per-tooth rate for 6–8 or more teeth: typically ${baht(bulk)} per tooth, against ${baht(one)} for a single ceramic veneer.`;
+        })(),
+      },
+      {
+        q: "Where do these prices come from?",
+        a: "From price tables that clinics publish on their own websites, collected in August 2026. Each listing links to the page it came from. They are list prices, not quotes.",
+      },
+    ],
   },
 ];
 
@@ -201,6 +251,11 @@ export function guideData(cfg: GuideConfig): { proc: GuideProcedure; headline: G
 }
 
 export const guideDates = { newest: guide.generated_at, oldest: guide.oldest_scrape };
+
+/** 시술마다 출처와 수집 시점이 다르다(HDmall 5~7월, 클리닉 홈페이지 8월). */
+export function sourceLabel(proc: GuideProcedure): string {
+  return proc.source === "HDmall" ? "HDmall" : "clinics' own websites";
+}
 
 /** 가격 사다리 문장 — 표에서 바로 계산되므로 데이터가 바뀌면 문장도 바뀐다. */
 export function ladderSentence(cfg: GuideConfig, proc: GuideProcedure): string | null {

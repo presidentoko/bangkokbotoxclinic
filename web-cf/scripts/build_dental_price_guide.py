@@ -130,6 +130,7 @@ for f in glob.glob(str(HERE / "data" / "pricing" / "*.json")):
             "district": c.get("district") or "", "city": c.get("city_label") or "",
             "name": (p.get("name") or "").strip(),
             "url": f"https://hdmall.co.th/{p['url_slug']}" if p.get("url_slug") else d.get("hdmall_url", ""),
+            "source": "HDmall",
         })
 
 # 같은 클리닉이 같은 이름·가격을 두 번 올린 중복(요일 한정판 등)은 한 건으로 센다.
@@ -140,14 +141,46 @@ for r in rows:
         seen.add(key)
         uniq.append(r)
 
+# ---------- 베니어: 클리닉 공식 홈페이지 가격표 (clinic_published_prices.json) ----------
+# HDmall 에는 베니어 패키지가 사실상 없다(2건, 그것도 어린이 불소 도포). 클리닉이 자기 사이트에
+# 올린 가격표에는 46곳이 있다 — clinic-enrichment 의 표 직접 매칭분만 들어 있는 파일이다.
+# 2,000바트 미만은 표 파싱 오류(USD·단위 칸이 금액으로 읽힌 것)라 뺀다.
+PUB = json.loads((HERE / "data" / "clinic_published_prices.json").read_text(encoding="utf-8"))
+by_id = {c["id"]: c for c in db}
+VEN_CERAMIC = re.compile(r"ceramic|porcelain|เซรามิ|พอร์ซเลน|e-?max|empress|laminate", re.I)
+VEN_COMPOSITE = re.compile(r"composite|resin|คอมโพสิต|เรซิน|bonding", re.I)
+VEN_BULK = re.compile(r"\d+\s*ซี่ขึ้นไป|มากกว่า\s*\d+\s*ซี่|\d+\+?\s*teeth", re.I)
+for cid, v in PUB["clinics"].items():
+    c = by_id.get(cid)
+    if not c:
+        continue
+    for it in v.get("items", []):
+        if it.get("procedure") != "veneer" or (it.get("min") or 0) < 2000:
+            continue
+        raw = f"{it.get('rawName', '')} {it.get('unit', '')}"
+        material = "Ceramic / porcelain" if VEN_CERAMIC.search(raw) else "Composite" if VEN_COMPOSITE.search(raw) else "Material not stated"
+        uniq.append({
+            "procedure": "veneers", "group": material, "sub": "multi-tooth rate" if VEN_BULK.search(raw) else "per tooth",
+            "price": round(it["min"]), "listed": round(it["max"]) if it.get("max") and it["max"] > it["min"] else None,
+            "clinic_id": cid, "clinic": c.get("display_name") or c["name"],
+            "district": c.get("district") or "", "city": c.get("city_label") or "",
+            "name": (it.get("rawName") or "").strip(), "url": it.get("sourceUrl") or "", "source": v.get("domain") or "clinic website",
+        })
+
+SOURCES = {
+    "implants": ("HDmall", min(scraped) if scraped else "", max(scraped) if scraped else ""),
+    "whitening": ("HDmall", min(scraped) if scraped else "", max(scraped) if scraped else ""),
+    "invisalign": ("HDmall", min(scraped) if scraped else "", max(scraped) if scraped else ""),
+    "veneers": ("clinic websites", PUB.get("generatedAt", "")[:10], PUB.get("generatedAt", "")[:10]),
+}
 out = {"generated_at": max(scraped) if scraped else "", "oldest_scrape": min(scraped) if scraped else "",
        "source": "HDmall", "procedures": {}}
-for proc in ("implants", "whitening", "invisalign"):
+for proc in ("implants", "whitening", "invisalign", "veneers"):
     items = [r for r in uniq if r["procedure"] == proc and r["city"] == "Bangkok"]
     groups = {}
     for r in items:
         # 임플란트는 (브랜드, 크라운 여부) 로, 나머지는 group 하나로 묶는다.
-        key = (r["group"], r["sub"]) if proc in ("implants", "whitening") else (r["group"], "")
+        key = (r["group"], r["sub"]) if proc in ("implants", "whitening", "veneers") else (r["group"], "")
         groups.setdefault(key, []).append(r)
     summary = []
     for (g, sub), rs in groups.items():
@@ -162,6 +195,7 @@ for proc in ("implants", "whitening", "invisalign"):
         })
     summary.sort(key=lambda s: (s["median"] if s["median"] is not None else s["min"]))
     out["procedures"][proc] = {
+        "source": SOURCES[proc][0], "captured_from": SOURCES[proc][1], "captured_to": SOURCES[proc][2],
         "n_packages": len(items),
         "n_clinics": len({r["clinic_id"] for r in items}),
         "groups": summary,
