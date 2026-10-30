@@ -13,12 +13,14 @@ export type CategoryIntro = {
 
 export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
   manufacturer: {
-    title: "Thai Manufacturers",
-    metaTitle: "Top Thai Manufacturers — Verified Trust Scores from Real Reviews",
+    // "thailand manufacturers" / "suppliers in thailand" 100–1K, 입찰가 ฿62–111 (키워드 플래너 2026-10-30).
+    // "Verified" 는 뺐다 — DBD 와 이름이 일치하는 곳은 일부뿐이다 (2026-10-26 정정).
+    title: "Thailand Manufacturers & Suppliers",
+    metaTitle: "Thailand Manufacturers & Suppliers — Factory Directory by Sector and Province",
     metaDescription:
-      "Verified Thai manufacturers across all sectors — automotive, electronics, food, plastics, chemicals, packaging. Trust Score from real Google reviews. Direct contact, no agency markup.",
+      "Thai manufacturers and suppliers across all sectors — automotive, electronics, food, plastics, chemicals, packaging. Ranked by Google reviews and DBD registry data where matched. Direct contact, no agency markup.",
     intro:
-      "Thailand's manufacturing base is the largest in ASEAN by output. The directory below ranks verified Thai manufacturers by Trust Score derived from real Google reviews — surfacing established operations with public proof, not agency-promoted listings.",
+      "Thailand's manufacturing base is the largest in ASEAN by output. The directory below ranks Thai manufacturers by Trust Score — built from public Google reviews, plus DBD registry data where the company name matches — surfacing established operations with public proof, not agency-promoted listings.",
     longContext:
       "Manufacturer listings here come from public Google Business Profiles filtered against a B2C category blocklist (retail stores, restaurants, factory outlet malls are excluded). Each listing shows direct contact (phone + website where available) so buyers can skip sourcing-agent markups when contracts allow.",
     bestForSlug: "manufacturers",
@@ -65,7 +67,8 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
   logistics: {
     // "3pl provider thailand" 158회 60위 — 사이트 전체에서 노출 1위 쿼리.
     title: "3PL & Logistics Providers in Thailand",
-    metaTitle: "3PL Providers in Thailand — Logistics, Freight & Warehousing Companies",
+    // "logistics company thailand" 100–1K (키워드 플래너 2026-10-30) — 3PL 은 앞에 그대로 둔다(노출 1위 쿼리).
+    metaTitle: "3PL Providers & Logistics Companies in Thailand — Freight, Warehousing, Customs",
     metaDescription:
       "3PL providers and logistics companies in Thailand — contract warehousing, freight forwarding, customs and distribution. DHL, Yusen, Linfox, Kerry and local operators with direct contact.",
     intro:

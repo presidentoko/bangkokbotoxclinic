@@ -104,8 +104,9 @@ export const OEM_VERTICALS: OemVertical[] = [
   {
     slug: "garment-apparel",
     icon: "👕",
-    title: "Garment & Apparel OEM Manufacturing",
-    metaTitle: "Garment OEM Manufacturer Thailand — Apparel & Sportswear Factories",
+    // 2026-10-30 키워드 플래너: "garment factory thailand" 100–1K, 입찰가 ฿67. 제목을 검색어 그대로.
+    title: "Garment Factories in Thailand",
+    metaTitle: "Garment Factories in Thailand — Apparel, Sportswear & OEM Manufacturers",
     metaDescription:
       "Thai garment and apparel OEM factories — cut-and-sew, sportswear, uniforms, and private-label clothing manufacturers. DBD registration and direct factory contact, no agent markup.",
     intro:
@@ -124,8 +125,9 @@ export const OEM_VERTICALS: OemVertical[] = [
   {
     slug: "furniture",
     icon: "🪑",
-    title: "Furniture OEM Manufacturing",
-    metaTitle: "Furniture OEM Manufacturer Thailand — Wood, Metal & Custom Factories",
+    // 2026-10-30 키워드 플래너: "furniture manufacturer thailand" 100–1K.
+    title: "Furniture Manufacturers in Thailand",
+    metaTitle: "Furniture Manufacturers in Thailand — Wood, Metal & Custom OEM Factories",
     metaDescription:
       "Thai furniture OEM factories — wood, metal, and rattan furniture manufacturers for private-label and export orders. DBD registration and direct factory contact.",
     intro:

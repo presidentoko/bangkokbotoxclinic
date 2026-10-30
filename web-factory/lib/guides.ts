@@ -32,10 +32,11 @@ export function extractHowToSteps(g: Guide): { name: string; text: string }[] | 
 export const GUIDES: Guide[] = [
   {
     slug: "sourcing-thai-suppliers-direct",
-    title: "How to Source from Thai Manufacturers Directly (Without an Agent)",
-    metaTitle: "Sourcing Thai Suppliers Directly — Skip the 15-30% Agent Markup",
+    // 2026-10-30: "sourcing agent thailand" 입찰가 ฿148–163 — 에이전트 광고가 몰리는 검색어. 이 가이드가 관련 쿼리 13위.
+    title: "Sourcing Agent in Thailand vs Going Direct: How to Buy from Thai Manufacturers",
+    metaTitle: "Sourcing Agent in Thailand or Go Direct? Skip the 15-30% Agent Markup",
     metaDescription:
-      "Step-by-step guide to contacting Thai manufacturers directly. When sourcing agents add value, when they don't, and how to build supplier shortlists from public data.",
+      "Do you need a sourcing agent in Thailand? When agents add value, when they don't, and a step-by-step guide to contacting Thai manufacturers directly from public data.",
     updated: "2026-05-09",
     intro:
       "Sourcing agents in Thailand typically mark up supplier quotes by 15-30%. For some buyers — first-timers, complex multi-supplier projects, or non-English-speaking sourcing teams — that's worth it. For everyone else, direct contact saves serious margin and gives you control of the supplier relationship. This guide shows the practical workflow.",
