@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
-import { isLang, SITE, hreflangAlternates, cityLabel, ogLocale } from "@/lib/site";
+import { isLang, SITE, hreflangAlternates, cityLabel, localeFor, ogLocale } from "@/lib/site";
 import { getAllPlaces, listCities, loadCity } from "@/lib/data";
 import Link from "next/link";
 import { isRelevantCategory } from "@/lib/categories";
+import { NOT_INDEXED_TYPES } from "@/lib/index-types";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PriceFilterableGrid } from "@/components/PriceFilterableGrid";
 import { LoadMorePlaces } from "@/components/LoadMorePlaces";
@@ -26,6 +27,14 @@ export function generateStaticParams() {
 }
 export const dynamicParams = false;
 
+// 제목·설명에 쓰는 "비교한 업소 수·분석한 리뷰 수". 집계표(AreaProfileCard)와 같은 모집단이다.
+function cityCompared(city: string): { places: number; reviews: number } {
+  const pool = loadCity(city).places.filter(
+    (p) => isRelevantCategory(p.primaryType) && !NOT_INDEXED_TYPES.has(p.primaryType ?? "") && (p.reviewCount ?? 0) >= 30,
+  );
+  return { places: pool.length, reviews: pool.reduce((sum, p) => sum + (p.insights?.analysed ?? 0), 0) };
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -35,9 +44,26 @@ export async function generateMetadata({
   if (!isLang(lang)) return {};
   const t = tFor(lang);
   const label = cityLabel(city, lang);
+  // 2026-10-30: "massage bangkok" 류 검색어에 맞춰 "Best" + 비교한 업소 수를 제목 앞에 둔다.
+  // 숫자는 우리가 실제로 비교한 집합(리뷰 30건 이상, 주제 안 업종)이라 사실이다.
+  const { places: compared, reviews: analysed } = cityCompared(city);
+  const n = compared.toLocaleString(localeFor(lang));
+  const r = analysed.toLocaleString(localeFor(lang));
+  const title =
+    compared < 20
+      ? `${t.city.listTitle.replace("{city}", label)} — ${SITE.name}`
+      : lang === "ko" ? `${label} 마사지·스파 베스트: ${n}곳 비교`
+      : lang === "th" ? `ร้านนวดและสปา${label} ที่ดีที่สุด: เปรียบเทียบ ${n} ร้าน`
+      : `Best Massage & Spa in ${label}: ${n} Places Compared`;
+  const note =
+    compared < 20 ? ""
+      : lang === "ko" ? ` 리뷰 ${r}건을 직접 분석해 청결·가성비·팁 강요까지 비교했습니다.`
+      : lang === "th" ? ` วิเคราะห์รีวิว ${r} รายการ เปรียบเทียบความสะอาด ความคุ้มค่า และการเร่งให้ทิป`
+      : ` Ranked from ${r} reviews we analysed: cleanliness, value and tip pressure.`;
   return {
-    title: `${t.city.listTitle.replace("{city}", label)} — ${SITE.name}`,
-    description: t.city.intro.replace("{city}", label),
+    title,
+    // 숫자 문장을 앞에 — 검색 결과에서 155자 안쪽만 보이므로 우리 집계가 먼저 보이게 한다.
+    description: (note.trim() + " " + t.city.intro.replace("{city}", label)).trim(),
     alternates: {
       canonical: `/${lang}/city/${city}`,
       languages: hreflangAlternates((l) => `/${l}/city/${city}`),
