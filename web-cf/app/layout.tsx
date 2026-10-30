@@ -164,6 +164,7 @@ export default function RootLayout({
                 <a href="/privacy" className="hover:text-black">Privacy</a>
                 <a href="/disclaimer" className="hover:text-black">Disclaimer</a>
                 <a href="/methodology" className="hover:text-black">Methodology</a>
+                {cfg.focus === "dental" && <a href="/prices" className="hover:text-black">Dental price guides</a>}
                 <a href="/verify" className="hover:text-black">Is this clinic licensed?</a>
                 <a href="/corrections" className="hover:text-black">Corrections</a>
               </div>
