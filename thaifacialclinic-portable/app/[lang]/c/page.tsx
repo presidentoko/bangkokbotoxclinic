@@ -4,20 +4,21 @@ import { loadClinics } from "@/lib/data";
 import { SITE, SUPPORTED_LANGS } from "@/lib/i18n";
 import type { Lang } from "@/lib/types";
 import Header from "@/components/Header";
+import { hairPriceHint } from "@/lib/hairPrices";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
 
-const PROC_MAP: Record<string, { name: string; match: RegExp; priceHint: string }> = {
-  "fue": { name: "FUE Hair Transplant", match: /FUE/i, priceHint: "from ฿65,000" },
-  "dhi": { name: "DHI Hair Transplant", match: /DHI/i, priceHint: "from ฿85,000" },
-  "fut": { name: "FUT Hair Transplant", match: /FUT/i, priceHint: "from ฿55,000" },
-  "prp": { name: "PRP Hair Treatment", match: /PRP/i, priceHint: "฿5,000–15,000" },
-  "smp": { name: "SMP / Scalp Micropigmentation", match: /SMP|Scalp Micropigmentation/i, priceHint: "฿15,000–50,000" },
-  "stem-cell": { name: "Stem Cell Therapy", match: /Stem Cell/i, priceHint: "from ฿40,000" },
-  "eyebrow": { name: "Eyebrow Transplant", match: /Eyebrow/i, priceHint: "฿35,000–80,000" },
-  "beard": { name: "Beard Transplant", match: /Beard/i, priceHint: "฿50,000–120,000" },
-  "scalp-care": { name: "Scalp Care / Scaling", match: /Scalp|head spa/i, priceHint: "฿3,000–12,000" },
+const PROC_MAP: Record<string, { name: string; match: RegExp }> = {
+  "fue": { name: "FUE Hair Transplant", match: /FUE/i },
+  "dhi": { name: "DHI Hair Transplant", match: /DHI/i },
+  "fut": { name: "FUT Hair Transplant", match: /FUT/i },
+  "prp": { name: "PRP Hair Treatment", match: /PRP/i },
+  "smp": { name: "SMP / Scalp Micropigmentation", match: /SMP|Scalp Micropigmentation/i },
+  "stem-cell": { name: "Stem Cell Therapy", match: /Stem Cell/i },
+  "eyebrow": { name: "Eyebrow Transplant", match: /Eyebrow/i },
+  "beard": { name: "Beard Transplant", match: /Beard/i },
+  "scalp-care": { name: "Scalp Care / Scaling", match: /Scalp|head spa/i },
 };
 
 export function generateStaticParams() {
@@ -70,7 +71,7 @@ export default async function ProcedureHubPage({ params }: { params: Promise<{ l
           {entries.map((e) => (
             <Link key={e.slug} href={`/${lang}/c/${e.slug}/`} className="card card-hover p-5">
               <div className="font-display text-lg font-bold tracking-tighter-display">{e.name}</div>
-              <div className="mt-1 text-xs muted">{e.count} clinics · {e.priceHint}</div>
+              <div className="mt-1 text-xs muted">{e.count} clinics{hairPriceHint(e.slug, lang) ? ` · ${hairPriceHint(e.slug, lang)}` : ""}</div>
             </Link>
           ))}
         </div>

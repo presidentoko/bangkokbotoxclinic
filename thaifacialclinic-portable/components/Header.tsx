@@ -31,6 +31,8 @@ export default function Header({ lang }: { lang: Lang }) {
           <Link href={`/${lang}/city/chiang-mai/`} className="muted hover:text-[rgb(var(--fg))] transition">Chiang Mai</Link>
           <Link href={`/${lang}/c/fue/`} className="muted hover:text-[rgb(var(--fg))] transition">FUE</Link>
           <Link href={`/${lang}/c/dhi/`} className="muted hover:text-[rgb(var(--fg))] transition">DHI</Link>
+          {/* 비용 페이지는 영어·태국어만 있다 */}
+          <Link href={`/${lang === "th" ? "th" : "en"}/hair-transplant-cost/`} className="muted hover:text-[rgb(var(--fg))] transition">{lang === "th" ? "ราคา" : "Cost"}</Link>
           <Link href={`/${lang}/guide/bangkok-hair-clinic-guide/`} className="muted hover:text-[rgb(var(--fg))] transition">Guides</Link>
           <Link href={`/${lang}/about/`} className="muted hover:text-[rgb(var(--fg))] transition">About</Link>
           <Link href={`/${lang}/contact/`} className="muted hover:text-[rgb(var(--fg))] transition">Contact</Link>

@@ -6,6 +6,7 @@ import { loadClinics } from "@/lib/data";
 import { SITE, SUPPORTED_LANGS } from "@/lib/i18n";
 import type { Lang } from "@/lib/types";
 import Header from "@/components/Header";
+import { hairPriceHint } from "@/lib/hairPrices";
 import ClinicCard from "@/components/ClinicCard";
 import { findGuide, PROC_TO_GUIDES } from "@/lib/guides";
 import { PROCEDURE_FAQS } from "@/lib/faq";
@@ -31,21 +32,6 @@ const PROC_TH: Record<string, string> = {
   "eyebrow": "ปลูกคิ้ว",
   "beard": "ปลูกหนวดเครา",
   "scalp-care": "ดูแลหนังศีรษะ",
-};
-
-// priceHint 가 영어라 그대로 쓰면 "109 คลินิก from ฿65,000 (2,000 grafts)" 처럼
-// 반만 태국어가 된다. 숫자는 그대로 두고 연결어만 태국어로.
-// เริ่มต้น=부터, กราฟต์=graft(음차), ต่อครั้ง=회당
-const PRICE_TH: Record<string, string> = {
-  "fue": "เริ่มต้น ฿65,000 (2,000 กราฟต์)",
-  "dhi": "เริ่มต้น ฿85,000 (2,000 กราฟต์)",
-  "fut": "เริ่มต้น ฿55,000 (2,000 กราฟต์)",
-  "prp": "฿5,000–15,000 ต่อครั้ง",
-  "smp": "฿15,000–50,000 ต่อครั้ง",
-  "stem-cell": "เริ่มต้น ฿40,000 ต่อครั้ง",
-  "eyebrow": "฿35,000–80,000",
-  "beard": "฿50,000–120,000",
-  "scalp-care": "฿3,000–12,000 ต่อครั้ง",
 };
 
 export function generateStaticParams() {
@@ -99,7 +85,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
       // og:site_name 태그가 아예 없었다.
       siteName: SITE.name,
       title: isTh ? `${thName} กรุงเทพฯ — ${count} คลินิก` : `${proc.name} in Bangkok — ${count} Verified Clinics`,
-      description: `${count} clinics · ${proc.priceHint} · Trust Score ranked from real patient reviews.`,
+      description: `${count} clinics${hairPriceHint(procedure, lang) ? ` · ${hairPriceHint(procedure, lang)}` : ""} · Trust Score ranked from real patient reviews.`,
       url,
     },
   };

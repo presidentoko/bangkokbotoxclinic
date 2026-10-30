@@ -43,6 +43,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 사이트맵에 넣으면 인덱스 희석만 됨. 페이지 자체는 hreflang으로 계속 발견 가능.
   items.push({ url: u("/en/c"), lastModified: updated, changeFrequency: "weekly", priority: 0.85 });
   items.push({ url: u("/en/guide"), lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
+  // 2026-10-30: 클리닉 공개 가격 페이지 (영어·태국어만 있다).
+  items.push({ url: u("/en/hair-transplant-cost"), lastModified: updated, changeFrequency: "monthly", priority: 0.85 });
+  items.push({ url: u("/th/hair-transplant-cost"), lastModified: updated, changeFrequency: "monthly", priority: 0.85 });
   const citySlugs = [...new Set(clinics.map((c) => c.city).filter(Boolean))]
     .map((c) => c.toLowerCase().replace(/\s+/g, "-"));
   for (const slug of citySlugs) {
