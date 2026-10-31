@@ -3,6 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig, getSiteUrl } from "@/lib/site";
+import { PRICE_GUIDE_FOCUS } from "@/lib/aestheticPriceGuide";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ToastProvider } from "@/components/Toast";
 import SisterSites from "@/components/SisterSites";
@@ -164,6 +165,7 @@ export default function RootLayout({
                 <a href="/privacy" className="hover:text-black">Privacy</a>
                 <a href="/disclaimer" className="hover:text-black">Disclaimer</a>
                 <a href="/methodology" className="hover:text-black">Methodology</a>
+                {PRICE_GUIDE_FOCUS.has(cfg.focus) && <a href="/prices" className="hover:text-black">Price guides</a>}
                 <a href="/verify" className="hover:text-black">Is this clinic licensed?</a>
                 <a href="/corrections" className="hover:text-black">Corrections</a>
               </div>

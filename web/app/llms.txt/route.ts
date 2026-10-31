@@ -1,6 +1,7 @@
 // llms.txt — AEO 권장. LLM crawler 가 사이트 컨텍스트를 빠르게 파악하도록.
 // 형식: https://llmstxt.org/
 
+import { GUIDES as PRICE_GUIDES, PRICE_GUIDE_FOCUS, guideData, groupUnit, baht } from "@/lib/aestheticPriceGuide";
 import { loadMasterDb } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { getSiteConfig, applySiteFilter, getSiteUrl } from "@/lib/site";
@@ -105,6 +106,17 @@ export async function GET() {
       "- Custom take-home whitening trays: ฿2,000–4,500",
       "- All prices in Thai Baht. Exchange rate ~35 THB/USD as of mid-2026.",
     );
+  }
+
+  // 보톡스 계열 사이트: 가격 가이드 (2026-10-31) — HDmall 패키지 가격, 출처·날짜와 함께.
+  if (PRICE_GUIDE_FOCUS.has(cfg.focus)) {
+    lines.push("", "## Listed prices (HDmall packages, Greater Bangkok)", "");
+    for (const g of PRICE_GUIDES) {
+      const { proc, headline } = guideData(g);
+      const typ = headline?.median != null ? `typical ${baht(headline.median)}${groupUnit(headline)}` : "";
+      lines.push(`- [${g.title}](${SITE}/prices/${g.slug}) — ${proc.n_packages} listings from ${proc.n_clinics} clinics, captured ${proc.captured_from} to ${proc.captured_to}${typ ? `; ${typ}` : ""}`);
+    }
+    lines.push("- These are list prices clinics published, not quotes. Per-unit Botox prices are package price divided by the units the package states.");
   }
 
   lines.push("", "## Browse by service", "");

@@ -4,6 +4,7 @@ import { BEST_FOR } from "@/lib/bestFor";
 import { guidesForFocus } from "@/lib/guides";
 import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
 import { groupBrands } from "@/lib/brands";
+import { GUIDES as PRICE_GUIDES, PRICE_GUIDE_FOCUS } from "@/lib/aestheticPriceGuide";
 
 const SITE = getSiteUrl();
 const SERVICES = ["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"];
@@ -77,6 +78,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 가이드가 크로스도메인 중복 콘텐츠로 색인됨 (2026-07-17 감사).
   for (const g of guidesForFocus(cfg.focus)) {
     items.push({ url: `${SITE}/guide/${g.slug}`, lastModified: new Date(g.updated), changeFrequency: "monthly", priority: 0.85 });
+  }
+  // 보톡스·필러·HIFU 가격 가이드 (2026-10-31) — 보톡스 계열 사이트에서만.
+  if (PRICE_GUIDE_FOCUS.has(cfg.focus)) {
+    items.push({ url: `${SITE}/prices`, lastModified: updated, changeFrequency: "monthly", priority: 0.8 });
+    for (const g of PRICE_GUIDES) {
+      items.push({ url: `${SITE}/prices/${g.slug}`, lastModified: updated, changeFrequency: "monthly", priority: 0.85 });
+    }
   }
   // ── noindex 페이지는 사이트맵에서 뺀다 (2026-08-14 감사) ──────────────────
   // 아래 세 게이트는 각 page.tsx 의 noindex 조건을 **그대로** 복제한 것이다.
