@@ -17,6 +17,7 @@ import { STATIC_LOCALES, localeAlternates, t, toBaseLocale, concernLabel, type L
 import { productLd, breadcrumbLd, faqLd } from "@/lib/schema";
 import { thaiAlias } from "@/lib/thai-names";
 import { hasLiveDiscount, priceAsOfLabel } from "@/lib/priceFreshness";
+import { hasIngredientEvidence } from "@/lib/scoreCoverage";
 import { fdaRecord, originLabel, type FdaRecord } from "@/lib/fda";
 import { productVerdict, productFaqs, cleanName } from "@/lib/product-verdict";
 import { JsonLd } from "@/components/JsonLd";
@@ -929,6 +930,10 @@ export default async function ProductPage({
     : Math.round(p.total_score?.[concern] ?? 0);
   const summary = p.llm_summary?.[baseLoc] || fallbackSummary(p, baseLoc, totalScore);
   const ingredientScore = Math.round(p.ingredient_score?.[concern] ?? 0);
+  // Is that score an analysis, or scoring.py's floor standing in for one?
+  // Products with an INCI list we read and found no scored active in keep the
+  // bar — 10/100 is a real finding there. See lib/scoreCoverage.ts.
+  const ingredientMeasured = hasIngredientEvidence(p);
   // A price can be published honestly by dating it; "-40%" cannot, because it
   // is a claim about what the shop is doing right now. 947 of 1,003 published
   // rows carry a June 2026 fetched_at (measured 2026-10-16), so the badge is
@@ -1112,8 +1117,12 @@ export default async function ProductPage({
           <div className="rounded-2xl border border-[#efe1db] bg-white px-5 py-4 space-y-4 shadow-sm shadow-rose-100">
             {/* Makeup is not scored on ingredients — that bar reads a field the
                 makeup scorer leaves at zero, so showing it claimed a 0/100
-                ingredient rating for products that were never rated on it. */}
-            {!isMakeup && (
+                ingredient rating for products that were never rated on it.
+                A product with no ingredient list at all is the same mistake in
+                the other direction: scoring.py's `_BASE` floor publishes
+                10/100, which the bar renders as a measurement. 564 of 1,836
+                rows are in that state. See lib/scoreCoverage.ts. */}
+            {!isMakeup && ingredientMeasured && (
               <ScoreBar
                 label={locale === "th" ? "ส่วนผสม · 45%" : "Ingredients · 45%"}
                 value={ingredientScore}
@@ -1140,9 +1149,13 @@ export default async function ProductPage({
                 ? locale === "th"
                   ? "คะแนนเครื่องสำอางแต่งหน้า = รีวิว×70% + คุ้มค่า×30% (+5 ถ้ามีค่า SPF) ไม่ใช้คะแนนส่วนผสมแบบสกินแคร์"
                   : "Makeup score = Reviews×70% + Value×30%, +5 when the product carries an SPF. It does not use the ingredient score applied to skincare."
-                : locale === "th"
-                  ? "คะแนนรวม = ส่วนผสม×45% + รีวิว×45% + คุ้มค่า×10%"
-                  : "Total score = Ingredients×45% + Reviews×45% + Value×10%"}
+                : !ingredientMeasured
+                  ? locale === "th"
+                    ? "เรายังไม่มีรายการส่วนผสมของสินค้าชิ้นนี้ คะแนนส่วนผสมจึงอยู่ที่ค่าตั้งต้น 10/100 ไม่ใช่ผลการวิเคราะห์ — และคะแนนรวมยังรวมค่านั้นตามสูตรเดิม (ส่วนผสม×45% + รีวิว×45% + คุ้มค่า×10%)"
+                    : "We do not hold an ingredient list for this product, so its ingredient score is the 10/100 default rather than an analysis — and the total still includes that default at the usual weights (Ingredients×45% + Reviews×45% + Value×10%)."
+                  : locale === "th"
+                    ? "คะแนนรวม = ส่วนผสม×45% + รีวิว×45% + คุ้มค่า×10%"
+                    : "Total score = Ingredients×45% + Reviews×45% + Value×10%"}
             </p>
           </div>
         </section>

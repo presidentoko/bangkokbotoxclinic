@@ -122,7 +122,15 @@ export function Footer({ locale }: { locale: Locale }) {
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-xs text-[#8a7a76]">
-          <p>{isTh ? "บางลิงก์เป็นลิงก์พันธมิตร" : "Some links are affiliate links"}</p>
+          {/* The disclosure that matters is the second clause, and it used to
+              live only on /privacy. "Some links are affiliate links" tells a
+              reader we get paid; it does not tell them whether being paid
+              moved the ranking they are looking at. */}
+          <p>
+            {isTh
+              ? "บางลิงก์เป็นลิงก์พันธมิตร — ค่าคอมมิชชันไม่มีผลต่ออันดับ"
+              : "Some links are affiliate links — commission never affects ranking"}
+          </p>
           <p>{t(locale, "updated")}: {date}</p>
         </div>
       </div>
