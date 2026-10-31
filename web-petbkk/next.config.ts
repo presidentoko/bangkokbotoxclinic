@@ -43,6 +43,12 @@ const config: NextConfig = {
    * the Cloudflare cache after deploying removes the lag entirely, and is
    * worth wiring up: Caching → Configuration → Purge Everything.
    *
+   * 2026-10-31: raised to a week (matching thaiautohub, which shares the
+   * team's 1M ISR-read quota). The quota went over again at 1.1M with no
+   * spike — about 8,000 requests a day reach the origin all month, each
+   * billing one read per 8 KB of a 60–120 KB page. Every deploy is now
+   * followed by a Purge Everything, so a longer TTL costs no staleness.
+   *
    * Not touched here: the `Vary: rsc, next-router-state-tree, ...` that Next
    * sets on every response. It fragments the Cloudflare cache into a separate
    * entry per header combination, which is the likeliest cause of the erratic
@@ -51,7 +57,7 @@ const config: NextConfig = {
    * other. That belongs in a Cloudflare Cache Rule, not in app code.
    */
   async headers() {
-    const cacheable = 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800'
+    const cacheable = 'public, max-age=0, s-maxage=604800, stale-while-revalidate=2592000'
     return [
       {
         // Everything except the API surface and Next's own fingerprinted
