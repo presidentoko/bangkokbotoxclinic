@@ -72,6 +72,8 @@ export async function verifyAdminSession(token: string | undefined): Promise<boo
     const r = await upstash(["GET", KEY(token)]);
     return r === "1";
   }
+  // ADMIN_PASSCODE 가 없으면 HMAC 키가 빈 문자열이라 누구나 토큰을 위조할 수 있다 (2026-10-31).
+  if (!process.env.ADMIN_PASSCODE) return false;
   return hmacVerify(token);
 }
 
