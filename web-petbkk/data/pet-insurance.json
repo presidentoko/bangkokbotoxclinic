@@ -1,0 +1,77 @@
+{
+ "checked": "2026-10-31",
+ "note": "Every figure is from the insurer's own product page or brochure on the insurer's domain. Insurers whose pet product could not be confirmed on their own site are left out (Thaivivat: broker site only; Viriyah, Allianz: site refused; Bangkok Insurance, MSIG, AXA: pets only as a free add-on to car/home cover; Krungthai Panich, Tokio Marine, LMG, Roojai: no pet product). Sunday/dSurance resells Dhipaya.",
+ "products": [
+  {
+   "insurer": "เมืองไทยประกันภัย",
+   "insurer_en": "Muang Thai Insurance",
+   "product": "Pet Chill",
+   "url": "https://www.muangthaiinsurance.com/th/product/miscellaneous-insurance/pet-chill-insurance",
+   "species": "สุนัขและแมว",
+   "entry_age": "3 เดือน – 7 ปี (ต่ออายุได้ถึง 10 ปี)",
+   "waiting": null,
+   "exclusions": null,
+   "notes": "แผน 2–6 ต้องมีใบรับรองสุขภาพจากสัตวแพทย์ · ต่ออายุช่วงอายุ 8–10 ปี เบี้ยสูงขึ้น (แผน 1: 929 บาท ถึงแผน 6: 13,900 บาท)",
+   "plans": [
+    { "plan": "แผน 1", "premium": 629, "accident": "1,000/ครั้ง · 5,000/ปี", "illness": "ไม่คุ้มครอง", "tpl": "15,000" },
+    { "plan": "แผน 2", "premium": 2450, "accident": "2,000/ครั้ง · 2,000/ปี", "illness": "1,000/ครั้ง · 5,000/ปี", "tpl": "20,000" },
+    { "plan": "แผน 3", "premium": 2950, "accident": "3,000/ครั้ง · 3,000/ปี", "illness": "1,000/ครั้ง · 5,000/ปี", "tpl": "20,000" },
+    { "plan": "แผน 4", "premium": 5900, "accident": "5,000/ครั้ง · 15,000/ปี", "illness": "1,000/ครั้ง · 5,000/ปี", "tpl": "30,000" },
+    { "plan": "แผน 5", "premium": 7900, "accident": "10,000/ครั้ง · 30,000/ปี", "illness": "2,000/ครั้ง · 10,000/ปี", "tpl": "30,000" },
+    { "plan": "แผน 6", "premium": 9900, "accident": "15,000/ครั้ง · 45,000/ปี", "illness": "3,000/ครั้ง · 15,000/ปี", "tpl": "30,000" }
+   ]
+  },
+  {
+   "insurer": "เมืองไทยประกันภัย",
+   "insurer_en": "Muang Thai Insurance",
+   "product": "Cats & Dogs Plus",
+   "url": "https://www.muangthaiinsurance.com/th/product/miscellaneous-insurance/Cats-Dogs-Plus",
+   "species": "สุนัขและแมว",
+   "entry_age": "3 เดือน – 7 ปี",
+   "waiting": null,
+   "exclusions": null,
+   "notes": "เบี้ยถูกกว่าถ้าฝังไมโครชิป (ราคาในวงเล็บ = ไม่มีไมโครชิป) · แผน 1 คุ้มครองพยาธิ/โรคผิวหนัง 5,000/ปี",
+   "plans": [
+    { "plan": "แผน 1", "premium": 3000, "premium_alt": 3200, "accident": "5,000/ครั้ง และ/ปี", "illness": "1,000/ครั้ง · 5,000/ปี", "tpl": "10,000" },
+    { "plan": "แผน 2", "premium": 5200, "premium_alt": 5600, "accident": "10,000/ครั้ง และ/ปี", "illness": "1,000/ครั้ง · 5,000/ปี", "tpl": "10,000" },
+    { "plan": "แผน 3", "premium": 8100, "premium_alt": 8900, "accident": "20,000/ครั้ง และ/ปี", "illness": "2,000/ครั้ง · 10,000/ปี", "tpl": "15,000" },
+    { "plan": "แผน 4", "premium": 12000, "premium_alt": 13200, "accident": "30,000/ครั้ง และ/ปี", "illness": "3,000/ครั้ง · 15,000/ปี", "tpl": "20,000" }
+   ]
+  },
+  {
+   "insurer": "ทิพยประกันภัย",
+   "insurer_en": "Dhipaya Insurance",
+   "product": "TIP Pet Lover",
+   "url": "https://www.dhipaya.co.th/th/product-detail-11-20.html",
+   "species": null,
+   "entry_age": "แรกเข้า 3 เดือน – 9 ปี (อายุ 8–9 ปีต้องตรวจสุขภาพ ยกเว้นแผน 1)",
+   "waiting": "ไม่คุ้มครองการเจ็บป่วยใน 60 วันแรกของกรมธรรม์ปีแรก",
+   "exclusions": "โรคที่เป็นมาแต่กำเนิด โรคทางพันธุกรรม โรคที่เป็นก่อนทำประกัน · พยาธิ เห็บ หมัด ไร โรคระบาด และโรคผิวหนังทุกชนิด",
+   "notes": "ระบุวงเงินต่อครั้งและจำนวนครั้งต่อปี ไม่ระบุวงเงินรวมต่อปี",
+   "plans": [
+    { "plan": "XS", "premium": 645, "accident": "1,000/ครั้ง (1 ครั้ง/ปี)", "illness": "ไม่คุ้มครอง", "tpl": "10,000 (ทรัพย์สิน 1,000)" },
+    { "plan": "S", "premium": 1950, "accident": "2,000/ครั้ง (1 ครั้ง/ปี)", "illness": "500/ครั้ง (5 ครั้ง/ปี)", "tpl": "10,000 (ทรัพย์สิน 1,500)" },
+    { "plan": "M", "premium": 2950, "accident": "3,000/ครั้ง (1 ครั้ง/ปี)", "illness": "1,000/ครั้ง (5 ครั้ง/ปี)", "tpl": "10,000 (ทรัพย์สิน 3,000)" },
+    { "plan": "L", "premium": 5400, "accident": "5,000/ครั้ง (2 ครั้ง/ปี)", "illness": "1,000/ครั้ง (10 ครั้ง/ปี)", "tpl": "10,000 (ทรัพย์สิน 3,000)" },
+    { "plan": "XL", "premium": 8400, "accident": "10,000/ครั้ง (2 ครั้ง/ปี)", "illness": "1,500/ครั้ง (10 ครั้ง/ปี)", "tpl": "10,000 (ทรัพย์สิน 5,000)" },
+    { "plan": "XXL", "premium": 12000, "accident": "15,000/ครั้ง (2 ครั้ง/ปี)", "illness": "2,000/ครั้ง (10 ครั้ง/ปี)", "tpl": "15,000 (ทรัพย์สิน 5,000)" }
+   ]
+  },
+  {
+   "insurer": "ฟอลคอนประกันภัย",
+   "insurer_en": "Falcon Insurance",
+   "product": "Falcon Paw Sure",
+   "url": "https://falconinsurance.co.th/miscellaneous/paw-sure",
+   "species": "สุนัขและแมว",
+   "entry_age": "3 เดือน – 7 ปี (ต่ออายุได้ถึง 10 ปี)",
+   "waiting": "ระยะรอคอย 60 วัน",
+   "exclusions": "โรคที่เป็นก่อนทำประกัน · การขนส่ง · การถูกวางยาพิษ",
+   "notes": "อุบัติเหตุและเจ็บป่วยใช้วงเงินเดียวกัน จ่ายตามจริงไม่เกิน 50% ของค่ารักษา · ต้องมีบัตรประจำตัวสัตว์และประวัติวัคซีน",
+   "plans": [
+    { "plan": "แผน 1", "premium": 2400, "accident": "รวมกับเจ็บป่วย: 5,000/ครั้ง · 20,000/ปี", "illness": "รวมกับอุบัติเหตุ", "tpl": "10,000" },
+    { "plan": "แผน 2", "premium": 4500, "accident": "รวมกับเจ็บป่วย: 10,000/ครั้ง · 100,000/ปี", "illness": "รวมกับอุบัติเหตุ", "tpl": "10,000" },
+    { "plan": "แผน 3", "premium": 8000, "accident": "รวมกับเจ็บป่วย: 20,000/ครั้ง · 200,000/ปี", "illness": "รวมกับอุบัติเหตุ", "tpl": "10,000" }
+   ]
+  }
+ ]
+}

@@ -1,72 +1,100 @@
 import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
+import data from '@/data/pet-insurance.json'
+
+/**
+ * /insurance — every pet insurance plan we could confirm on the insurer's own
+ * website, side by side.
+ *
+ * Until 2026-10-31 this page said "1,500–5,000 บาท/ปี", "ผ่าตัดฉุกเฉิน
+ * 30,000–100,000 บาท", that AIA, Muang Thai Life and Tokio Marine sell pet
+ * cover, and that premium plans cover chronic disease and neutering. None of it
+ * had a source, and the insurers named are not the ones that sell it: the
+ * products that exist start at 629 baht, are sold by Muang Thai Insurance,
+ * Dhipaya and Falcon, and none lists surgery, chronic disease or neutering as a
+ * benefit. Figures now come only from data/pet-insurance.json, which records
+ * the page each one was read from.
+ */
+
+interface Plan {
+  plan: string
+  premium: number
+  premium_alt?: number
+  accident: string
+  illness: string
+  tpl: string
+}
+interface Product {
+  insurer: string
+  insurer_en: string
+  product: string
+  url: string
+  species: string | null
+  entry_age: string | null
+  waiting: string | null
+  exclusions: string | null
+  notes: string | null
+  plans: Plan[]
+}
+
+const file = data as { checked: string; products: Product[] }
+const PRODUCTS = file.products
+const ALL_PLANS = PRODUCTS.flatMap(p => p.plans)
+const MIN_PREMIUM = Math.min(...ALL_PLANS.map(p => p.premium))
+const MAX_PREMIUM = Math.max(...ALL_PLANS.map(p => p.premium))
+const INSURERS = [...new Set(PRODUCTS.map(p => p.insurer))]
+
+function thaiDate(iso: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso)
+  if (!m) return iso
+  const months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.']
+  return `${Number(m[3])} ${months[Number(m[2]) - 1]} ${Number(m[1]) + 543}`
+}
+
+const baht = (n: number) => n.toLocaleString('th-TH')
 
 export const metadata: Metadata = {
-  title: 'ประกันสัตว์เลี้ยงในไทย — เปรียบเทียบและสิ่งที่ต้องรู้',
-  description: 'คู่มือประกันสัตว์เลี้ยงในประเทศไทย ประกันครอบคลุมอะไรบ้าง ราคาโดยประมาณ ข้อดีข้อเสีย และวิธีเลือกประกันที่เหมาะสมกับน้อง',
+  title: `ประกันสัตว์เลี้ยง เปรียบเทียบ ${ALL_PLANS.length} แผน — เบี้ย ${baht(MIN_PREMIUM)}–${baht(MAX_PREMIUM)} บาท/ปี`,
+  description:
+    `เทียบประกันสุนัขและแมวจาก ${INSURERS.join(' ')} ทุกแผนที่ยืนยันได้จากเว็บไซต์บริษัทประกัน ` +
+    'เบี้ยต่อปี วงเงินอุบัติเหตุ เจ็บป่วย ความรับผิดต่อบุคคลภายนอก อายุที่รับ และระยะรอคอย',
   alternates: { canonical: 'https://www.thailandpethub.com/insurance' },
-  keywords: ['ประกันสัตว์เลี้ยง', 'ประกันสุนัข', 'ประกันแมว', 'ประกันสุขภาพสัตว์เลี้ยง', 'ค่ารักษาสัตว์เลี้ยง'],
   openGraph: {
-    title: 'ประกันสัตว์เลี้ยงในไทย — เปรียบเทียบและสิ่งที่ต้องรู้',
-    description: 'คู่มือประกันสัตว์เลี้ยงในประเทศไทย ประกันครอบคลุมอะไรบ้าง ราคาโดยประมาณ',
+    title: `ประกันสัตว์เลี้ยง เปรียบเทียบ ${ALL_PLANS.length} แผน`,
+    description: `เบี้ย ${baht(MIN_PREMIUM)}–${baht(MAX_PREMIUM)} บาท/ปี จากเว็บไซต์บริษัทประกันโดยตรง`,
     url: 'https://www.thailandpethub.com/insurance',
   },
 }
 
-function InsuranceSchemaLd() {
-  const faq = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'ประกันสัตว์เลี้ยงในไทยมีไหม?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'มีประกันสัตว์เลี้ยงในไทยจากหลายบริษัท เช่น AIA, Muang Thai Life, Tokio Marine, และผู้ให้บริการเฉพาะสัตว์เลี้ยง ครอบคลุมทั้งค่ารักษาพยาบาล อุบัติเหตุ และบางแผนครอบคลุมโรคเรื้อรัง',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'ประกันสัตว์เลี้ยงราคาเท่าไหร่?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'ประกันสัตว์เลี้ยงพื้นฐานในไทยราคาประมาณ 1,500-5,000 บาทต่อปี แผนครอบคลุมมากขึ้นอาจถึง 10,000+ บาทต่อปี ขึ้นอยู่กับอายุ สายพันธุ์ และวงเงินที่คุ้มครอง',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'ควรทำประกันสัตว์เลี้ยงไหม?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'ขึ้นอยู่กับปัจจัยส่วนตัว ค่ารักษาสัตว์เลี้ยงในไทยอาจสูงถึงหลักแสน โดยเฉพาะการผ่าตัดหรือโรคร้ายแรง หากไม่มีเงินสำรองฉุกเฉินอย่างน้อย 50,000 บาท ประกันช่วยให้ตัดสินใจรักษาได้โดยไม่ต้องกังวลเรื่องเงิน',
-        },
-      },
-    ],
-  }
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }} />
-}
-
-const COVERAGE_TYPES = [
-  { type: 'อุบัติเหตุ', detail: 'กระดูกหัก บาดแผล กินสิ่งแปลกปลอม — มักอยู่ในแผนพื้นฐาน', icon: '🩹' },
-  { type: 'ป่วยไข้เฉียบพลัน', detail: 'โรคติดเชื้อ อาหารเป็นพิษ ท้องอืด — บางแผนครอบคลุม', icon: '🤒' },
-  { type: 'โรคเรื้อรัง', detail: 'เบาหวาน โรคไต มะเร็ง — แผนพรีเมียมเท่านั้น', icon: '💊' },
-  { type: 'การผ่าตัด', detail: 'ค่าผ่าตัดและยาสลบ — มักครอบคลุมในแผนกลางขึ้นไป', icon: '🔪' },
-  { type: 'ทำหมัน', detail: 'บางแผนคืนเงินค่าทำหมัน', icon: '⚕️' },
-  { type: 'ค่ายา/วัคซีน', detail: 'มักไม่ครอบคลุมในแผนพื้นฐาน', icon: '💉' },
-]
-
-const FACTORS = [
-  { label: 'อายุน้อย', good: true, detail: 'ยิ่งทำตอนอายุน้อย เบี้ยยิ่งถูก และไม่มีโรคที่ถูกยกเว้น' },
-  { label: 'สายพันธุ์เสี่ยง', good: false, detail: 'พันธุ์ที่มีโรคพันธุกรรม (Bulldog, Pug) เบี้ยแพงกว่า' },
-  { label: 'โรคก่อนทำประกัน', good: false, detail: 'โรคที่เป็นอยู่ก่อนมักไม่ได้รับความคุ้มครอง' },
-  { label: 'วงเงินต่อปี', good: true, detail: 'เลือกวงเงินที่ครอบคลุมค่าผ่าตัดฉุกเฉินได้ (50,000+ บาท)' },
+const FAQ = [
+  {
+    q: 'ประกันสัตว์เลี้ยงในไทยมีบริษัทไหนบ้าง?',
+    a: `ที่เรายืนยันได้จากเว็บไซต์บริษัทเอง ณ ${thaiDate(file.checked)} มี ${PRODUCTS.length} ผลิตภัณฑ์จาก ${INSURERS.join(' ')} บางบริษัทให้ความคุ้มครองสัตว์เลี้ยงเป็นสิทธิพิเศษของประกันรถหรือประกันบ้านเท่านั้น ไม่ได้ขายแยก`,
+  },
+  {
+    q: 'ประกันสัตว์เลี้ยงราคาเท่าไหร่?',
+    a: `เบี้ยต่อปีตั้งแต่ ${baht(MIN_PREMIUM)} ถึง ${baht(MAX_PREMIUM)} บาท แผนถูกที่สุดส่วนใหญ่คุ้มครองแค่อุบัติเหตุและความรับผิดต่อบุคคลภายนอก ไม่คุ้มครองการเจ็บป่วย`,
+  },
+  {
+    q: 'ประกันสัตว์เลี้ยงคุ้มครองการผ่าตัดไหม?',
+    a: 'ไม่มีผลิตภัณฑ์ใดในตารางนี้ระบุค่าผ่าตัดเป็นความคุ้มครองแยก ค่ารักษาจะจ่ายภายใต้วงเงินอุบัติเหตุหรือเจ็บป่วยต่อครั้งเท่านั้น ซึ่งอยู่ระหว่าง 500 ถึง 30,000 บาทต่อครั้งแล้วแต่แผน',
+  },
+  {
+    q: 'ทำประกันสัตว์เลี้ยงได้ถึงอายุเท่าไหร่?',
+    a: 'ส่วนใหญ่รับสัตว์แรกเข้าอายุ 3 เดือนถึง 7 ปี และต่ออายุได้ถึง 10 ปี ทิพยรับแรกเข้าถึง 9 ปี โดยอายุ 8–9 ปีต้องตรวจสุขภาพ',
+  },
 ]
 
 export default function InsurancePage() {
+  const faqLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  }
+
   return (
     <main className="max-w-3xl mx-auto">
-      <InsuranceSchemaLd />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
 
       <nav className="text-xs text-gray-400 mb-4">
         <a href="/" className="hover:text-orange-600">หน้าหลัก</a>
@@ -74,90 +102,80 @@ export default function InsurancePage() {
         <span className="text-gray-600">ประกันสัตว์เลี้ยง</span>
       </nav>
 
-      <h1 className="text-3xl font-black text-gray-900 mb-3">🛡️ ประกันสัตว์เลี้ยงในไทย</h1>
-      <p className="text-gray-600 text-sm leading-relaxed mb-2 max-w-2xl">
-        ค่ารักษาสัตว์เลี้ยงในไทยอาจสูงกว่าที่คิด การผ่าตัดฉุกเฉินอาจถึง 30,000-100,000 บาท
-        ประกันสัตว์เลี้ยงช่วยให้ตัดสินใจรักษาได้โดยไม่ต้องกังวลเรื่องเงิน
+      <h1 className="text-3xl font-black text-gray-900 mb-3">🛡️ ประกันสัตว์เลี้ยง: เทียบทุกแผนที่ขายจริง</h1>
+      <p className="text-gray-600 text-sm leading-relaxed mb-2">
+        {ALL_PLANS.length} แผนจาก {PRODUCTS.length} ผลิตภัณฑ์ ({INSURERS.join(' · ')}) เบี้ยตั้งแต่{' '}
+        <strong>{baht(MIN_PREMIUM)} ถึง {baht(MAX_PREMIUM)} บาทต่อปี</strong>
       </p>
-      <p className="text-gray-500 text-sm leading-relaxed mb-8 max-w-2xl">
-        ตลาดประกันสัตว์เลี้ยงในไทยยังเล็กแต่กำลังเติบโต ควรเปรียบเทียบและอ่านเงื่อนไขละเอียดก่อนตัดสินใจ
+      <p className="text-gray-500 text-xs leading-relaxed mb-6">
+        ทุกตัวเลขอ่านจากเว็บไซต์หรือโบรชัวร์ของบริษัทประกันเอง ตรวจสอบเมื่อ {thaiDate(file.checked)} · เงื่อนไขจริงอยู่ในกรมธรรม์ ควรอ่านก่อนซื้อ
       </p>
 
-      <div className="grid grid-cols-2 gap-3 mb-6">
-        <div className="bg-white rounded-2xl border p-4">
-          <p className="text-xs text-gray-400 mb-1">เบี้ยประกันพื้นฐาน</p>
-          <p className="font-black text-orange-500 text-xl">1,500-5,000 ฿</p>
-          <p className="text-[11px] text-gray-400 mt-1">ต่อปี</p>
-        </div>
-        <div className="bg-white rounded-2xl border p-4">
-          <p className="text-xs text-gray-400 mb-1">ค่าผ่าตัดฉุกเฉิน</p>
-          <p className="font-black text-red-500 text-xl">30,000-100,000 ฿</p>
-          <p className="text-[11px] text-gray-400 mt-1">โดยประมาณ</p>
-        </div>
+      <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 mb-6 text-sm text-amber-900 leading-relaxed">
+        <strong>ดูวงเงินต่อครั้ง ไม่ใช่แค่เบี้ย</strong> — แผนถูกส่วนใหญ่จ่ายค่าเจ็บป่วยครั้งละ 500–1,000 บาท
+        และแผนเริ่มต้นของเมืองไทย Pet Chill กับทิพย XS ไม่คุ้มครองการเจ็บป่วยเลย คุ้มครองแค่อุบัติเหตุและความเสียหายต่อคนอื่น
       </div>
 
-      <section className="bg-white rounded-2xl border shadow-sm p-6 mb-6">
-        <h2 className="font-black text-gray-900 text-lg mb-4">📋 สิ่งที่ประกันมักครอบคลุม</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {COVERAGE_TYPES.map(c => (
-            <div key={c.type} className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
-              <span className="text-xl flex-shrink-0">{c.icon}</span>
-              <div>
-                <p className="font-bold text-sm text-gray-800">{c.type}</p>
-                <p className="text-xs text-gray-500 leading-relaxed mt-0.5">{c.detail}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-white rounded-2xl border shadow-sm p-6 mb-6">
-        <h2 className="font-black text-gray-900 text-lg mb-4">⚖️ ปัจจัยที่กำหนดเบี้ยและความคุ้มค่า</h2>
-        <div className="space-y-3">
-          {FACTORS.map(f => (
-            <div key={f.label} className="flex items-start gap-3">
-              <span className={`text-sm font-bold flex-shrink-0 ${f.good ? 'text-green-500' : 'text-red-400'}`}>{f.good ? '↓' : '↑'}</span>
-              <div>
-                <span className="font-semibold text-sm text-gray-800">{f.label}: </span>
-                <span className="text-sm text-gray-500">{f.detail}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <div className="bg-blue-50 border border-blue-100 rounded-2xl p-5 mb-6">
-        <h2 className="font-bold text-blue-800 mb-3 text-sm">🤔 ประกันหรือออมเอง?</h2>
-        <div className="grid grid-cols-2 gap-4 text-xs">
-          <div>
-            <p className="font-semibold text-blue-700 mb-2">🛡️ ทำประกัน เหมาะถ้า...</p>
-            <ul className="space-y-1 text-blue-600">
-              <li>• น้องสายพันธุ์เสี่ยงโรค</li>
-              <li>• ไม่มีเงินสำรองฉุกเฉิน 50,000 ฿</li>
-              <li>• ทำตอนน้องยังเด็ก</li>
-              <li>• รับไม่ได้ถ้าต้องเลือกระหว่างเงินกับน้อง</li>
-            </ul>
+      {PRODUCTS.map(p => (
+        <section key={p.product} className="bg-white rounded-2xl border p-5 mb-5">
+          <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+            <h2 className="font-black text-gray-900 text-lg">{p.insurer} · {p.product}</h2>
+            <a href={p.url} target="_blank" rel="noopener nofollow" className="text-xs text-blue-600 hover:underline">หน้าผลิตภัณฑ์ ↗</a>
           </div>
-          <div>
-            <p className="font-semibold text-gray-700 mb-2">💰 ออมเอง เหมาะถ้า...</p>
-            <ul className="space-y-1 text-gray-600">
-              <li>• มีเงินสำรองมากพอ</li>
-              <li>• น้องสุขภาพแข็งแรงและพันธุ์ดี</li>
-              <li>• ไม่อยากติดเงื่อนไขประกัน</li>
-              <li>• เข้าใจความเสี่ยงและยอมรับได้</li>
-            </ul>
+          <p className="text-xs text-gray-500 mb-3">
+            {[p.species, p.entry_age && `อายุแรกเข้า ${p.entry_age}`].filter(Boolean).join(' · ')}
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm min-w-[520px]">
+              <thead>
+                <tr className="text-left text-xs text-gray-500">
+                  <th className="pb-2 pr-3 font-medium">แผน</th>
+                  <th className="pb-2 pr-3 font-medium">เบี้ย/ปี</th>
+                  <th className="pb-2 pr-3 font-medium">อุบัติเหตุ</th>
+                  <th className="pb-2 pr-3 font-medium">เจ็บป่วย</th>
+                  <th className="pb-2 font-medium">บุคคลภายนอก</th>
+                </tr>
+              </thead>
+              <tbody>
+                {p.plans.map(pl => (
+                  <tr key={pl.plan} className="border-t border-gray-100 align-top">
+                    <td className="py-2 pr-3 font-semibold whitespace-nowrap">{pl.plan}</td>
+                    <td className="py-2 pr-3 tabular-nums whitespace-nowrap font-bold">
+                      {baht(pl.premium)}
+                      {pl.premium_alt && <span className="block text-xs font-normal text-gray-400">({baht(pl.premium_alt)})</span>}
+                    </td>
+                    <td className="py-2 pr-3 text-xs text-gray-700">{pl.accident}</td>
+                    <td className={`py-2 pr-3 text-xs ${pl.illness === 'ไม่คุ้มครอง' ? 'text-red-600' : 'text-gray-700'}`}>{pl.illness}</td>
+                    <td className="py-2 text-xs text-gray-700">{pl.tpl}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        </div>
-      </div>
+          {(p.notes || p.waiting || p.exclusions) && (
+            <ul className="text-xs text-gray-500 mt-3 space-y-1">
+              {p.notes && <li>• {p.notes}</li>}
+              {p.waiting && <li>• ระยะรอคอย: {p.waiting}</li>}
+              {p.exclusions && <li>• ไม่คุ้มครอง: {p.exclusions}</li>}
+            </ul>
+          )}
+        </section>
+      ))}
+
+      <section className="bg-white rounded-2xl border p-5 mb-6">
+        <h2 className="font-black text-gray-900 text-lg mb-2">ค่ารักษาจริงเทียบกับวงเงิน</h2>
+        <p className="text-sm text-gray-600 leading-relaxed">
+          ราคาที่โรงพยาบาลสัตว์ประกาศเอง เช่น ทำหมัน วัคซีน และแพ็กเกจตรวจสุขภาพ ดูได้ที่{' '}
+          <a href="/hospital/prices" className="text-blue-600 hover:underline">หน้าเทียบราคาโรงพยาบาลสัตว์</a>{' '}
+          ใช้เทียบกับวงเงินต่อครั้งของแต่ละแผนได้ ทั้งนี้ทำหมันและวัคซีนเป็นค่าใช้จ่ายตามปกติ ไม่ใช่อุบัติเหตุหรือเจ็บป่วย
+          จึงไม่อยู่ในความคุ้มครองของแผนใดในตารางนี้
+        </p>
+      </section>
 
       <section className="bg-white rounded-2xl border p-6 mb-6">
         <h2 className="text-base font-bold text-gray-900 mb-4">คำถามที่พบบ่อย</h2>
         <div className="space-y-4 divide-y divide-gray-100">
-          {[
-            { q: 'ประกันสัตว์เลี้ยงในไทยมีไหม?', a: 'มีหลายบริษัท เช่น AIA, Muang Thai Life, Tokio Marine และผู้ให้บริการเฉพาะสัตว์เลี้ยง ตลาดกำลังเติบโตและตัวเลือกเพิ่มขึ้นทุกปี' },
-            { q: 'ประกันสัตว์เลี้ยงราคาเท่าไหร่?', a: 'แผนพื้นฐาน 1,500-5,000 บาท/ปี แผนครอบคลุมกว่าอาจถึง 10,000+ บาท ขึ้นอยู่กับอายุ สายพันธุ์ และวงเงินคุ้มครอง' },
-            { q: 'ควรทำประกันตอนอายุเท่าไหร่?', a: 'ยิ่งเร็วยิ่งดี ทำขณะยังเด็กและสุขภาพดี เพื่อเบี้ยถูกกว่าและไม่มีเงื่อนไขยกเว้นโรค' },
-          ].map((item, i) => (
+          {FAQ.map((item, i) => (
             <div key={i} className={i > 0 ? 'pt-4' : ''}>
               <h3 className="font-semibold text-gray-800 mb-1 text-sm">{item.q}</h3>
               <p className="text-sm text-gray-600 leading-relaxed">{item.a}</p>
@@ -166,10 +184,19 @@ export default function InsurancePage() {
         </div>
       </section>
 
+      <section className="bg-gray-50 border rounded-2xl p-5 mb-6 text-xs text-gray-500 leading-relaxed">
+        <h2 className="text-sm font-bold text-gray-800 mb-2">บริษัทที่ไม่อยู่ในตาราง</h2>
+        <p>
+          ไทยวิวัฒน์ขายผ่านเว็บไซต์ของโบรกเกอร์ ไม่มีราคาปัจจุบันบนเว็บไซต์บริษัท · กรุงเทพประกันภัย MSIG และ AXA
+          ให้ความคุ้มครองสัตว์เลี้ยงเป็นส่วนเสริมของประกันรถหรือบ้าน ไม่ได้ขายแยก · วิริยะและอลิอันซ์ เราเปิดเว็บไซต์ตรวจสอบไม่ได้
+          · ซันเดย์ขายแผนของทิพยประกันภัย · เราไม่ได้รับค่าตอบแทนจากบริษัทประกันใด
+        </p>
+      </section>
+
       <div className="flex flex-wrap gap-3 mb-6">
+        <a href="/hospital/prices" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🏷️ ราคาโรงพยาบาลสัตว์</a>
         <a href="/cost" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">💰 คำนวณค่าใช้จ่าย</a>
         <a href="/hospital" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🏥 หาโรงพยาบาลสัตว์</a>
-        <a href="/tips" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">📚 เคล็ดลับดูแลน้อง</a>
       </div>
 
       <RelatedGuides current="insurance" count={4} />
