@@ -8,6 +8,11 @@
 // 상태였다 — 트래픽이 더 큰 쪽이 오히려 비어 있었던 셈이다.
 // 구조는 /ko/c/[service] 와 동일하게 맞추고 라벨·가격·FAQ만 태국어 실번역.
 import { notFound } from "next/navigation";
+import { aestheticPriceFacts, midText, loHiText, baht } from "@/lib/aestheticPriceGuide";
+// 보톡스·필러·HIFU 가격은 HDmall 패키지 가격에서 (2026-10-31, 출처 없는 "฿80–250/유닛" 등 교체).
+const AP = aestheticPriceFacts();
+const MED = (t: { median: number } | null) => (t ? baht(t.median) : "—");
+const MID = (t: Parameters<typeof midText>[0]) => midText(t) ?? "—";
 import { loadMasterDb, filterByCategory } from "@/lib/data";
 import { reviewPriceHint } from "@/lib/reviewPrices";
 import { DentalFacts } from "@/components/DentalFacts";
@@ -62,7 +67,7 @@ const TH_FAQ: Partial<Record<string, { q: string; a: string }[]>> = {
     },
     {
       q: "โบท็อกซ์ในกรุงเทพราคาเท่าไหร่?",
-      a: "฿80–250 ต่อยูนิต ขึ้นกับแบรนด์ แต่ละบริเวณใช้จำนวนยูนิตไม่เท่ากัน จึงควรถามทั้งราคาต่อยูนิตและจำนวนยูนิตที่จะใช้",
+      a: `แพ็กเกจที่คลินิกในกรุงเทพประกาศบน HDmall คิดเป็นต่อยูนิตโดยทั่วไป ${MED(AP.botoxPerUnit)} (ครึ่งกลาง ${MID(AP.botoxPerUnit)}) แต่ละบริเวณใช้จำนวนยูนิตไม่เท่ากัน จึงควรถามทั้งราคาต่อยูนิต จำนวนยูนิต และแบรนด์`,
     },
     {
       q: "โบท็อกซ์อยู่ได้นานแค่ไหน?",
@@ -90,7 +95,7 @@ const TH_FAQ: Partial<Record<string, { q: string; a: string }[]>> = {
     },
     {
       q: "ฟิลเลอร์ในกรุงเทพราคาเท่าไหร่?",
-      a: "฿8,000–25,000 ต่อ 1 ml ขึ้นกับแบรนด์และบริเวณ (ริมฝีปาก ร่องแก้ม จมูก) ปริมาณที่ใช้ต่างกันตามบริเวณ",
+      a: `ฟิลเลอร์ 1 cc ที่ประกาศบน HDmall โดยทั่วไป ${MED(AP.filler1cc)} (ครึ่งกลาง ${MID(AP.filler1cc)}) ส่วนใหญ่ไม่ระบุแบรนด์ ควรถามแบรนด์และรุ่นก่อนฉีด ปริมาณที่ใช้ต่างกันตามบริเวณ`,
     },
   ],
   hifu: [
@@ -100,7 +105,7 @@ const TH_FAQ: Partial<Record<string, { q: string; a: string }[]>> = {
     },
     {
       q: "HIFU ในกรุงเทพราคาเท่าไหร่?",
-      a: "฿8,000–80,000+ ต่อครั้ง ต่างกันมากตามเครื่อง — Ultherapy ของแท้ราคาสูงกว่าเครื่อง HIFU ทั่วไปหลายเท่า ควรถามชื่อเครื่องและจำนวนช็อต",
+      a: `ต่อครั้งโดยทั่วไป: Ultraformer ${MED(AP.hifuUltraformer)} · HIFU เครื่องอื่น ${MED(AP.hifuOther)} · Ulthera ${MED(AP.ulthera)} ต่างกันมากตามเครื่อง ควรถามชื่อเครื่องและจำนวนช็อต`,
     },
   ],
   facial: [
@@ -112,7 +117,7 @@ const TH_FAQ: Partial<Record<string, { q: string; a: string }[]>> = {
   laser: [
     {
       q: "เลเซอร์ในกรุงเทพราคาเท่าไหร่?",
-      a: "พิโคเลเซอร์เริ่มต้น ฿3,000 · CO2 เลเซอร์เริ่มต้น ฿8,000 ชนิดเลเซอร์ที่เหมาะสมต่างกันตามปัญหา (ฝ้า กระ รูขุมขน หลุมสิว)",
+      a: "ราคาต่างกันมากระหว่างคลินิกและส่วนใหญ่ต้องทำหลายครั้ง ควรเทียบราคาทั้งคอร์ส ชนิดเลเซอร์ที่เหมาะสมต่างกันตามปัญหา (ฝ้า กระ รูขุมขน หลุมสิว)",
     },
   ],
   hair_transplant: [

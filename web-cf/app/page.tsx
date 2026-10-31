@@ -294,19 +294,19 @@ export default async function HomePage(
             {lang === "ko" ? (
               <>
                 <span className="font-bold text-[var(--fg)]">{focused.length.toLocaleString()}</span>개 {focusLabel} 클리닉을{" "}
-                <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span>개 리뷰(Google Maps, HDmall, Wongnai{cfg.focus === "hair" ? ", Bookimed, Pantip, Reddit" : ""} 등)로 순위화 —{" "}
+                <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span>개 구글 리뷰로 순위화 —{" "}
                 <span className="font-bold text-[var(--fg)]">{withScraped.toLocaleString()}</span>곳은 신뢰도 심층 분석 완료.
               </>
             ) : lang === "th" ? (
               <>
                 จัดอันดับคลินิก{focusLabel} <span className="font-bold text-[var(--fg)]">{focused.length.toLocaleString()}</span> แห่ง จาก{" "}
-                <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> รีวิวรวมจาก Google Maps, HDmall, Wongnai{cfg.focus === "hair" ? ", Bookimed, Pantip และ Reddit" : ""} —{" "}
+                <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> รีวิวบน Google Maps —{" "}
                 วิเคราะห์เชิงลึกแล้ว <span className="font-bold text-[var(--fg)]">{withScraped.toLocaleString()}</span> แห่ง
               </>
             ) : (
               <>
                 <span className="font-bold text-[var(--fg)]">{focused.length.toLocaleString()}</span> {focusLabel} clinics ranked across{" "}
-                <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> reviews aggregated from Google Maps, HDmall, Wongnai{cfg.focus === "hair" ? ", Bookimed, Pantip and Reddit" : " and other Thai platforms"} —{" "}
+                <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> Google Maps reviews —{" "}
                 <span className="font-bold text-[var(--fg)]">{withScraped.toLocaleString()}</span> deep-analyzed for credibility.
               </>
             )}
@@ -393,20 +393,12 @@ export default async function HomePage(
         <section className="mb-12 grid md:grid-cols-3 gap-4">
           <Manifesto
             icon="🛡️"
-            title={lang === "ko" ? "다중 출처 검증" : lang === "th" ? "ตรวจสอบจากหลายแหล่ง" : "Multi-source verified"}
-            body={lang === "ko" ? (
-              cfg.focus === "hair"
-                ? "Google Maps + HDmall + Bookimed + Pantip + Reddit + Naver — 7개 이상 플랫폼을 교차 검증해서 가짜 리뷰 한 파도로 순위가 올라가지 못하게 합니다."
-                : "Google Maps + HDmall + Wongnai + 파트너 플랫폼 — 여러 출처를 교차 검증해서 가짜 리뷰 한 파도로 순위가 올라가지 못하게 합니다."
-            ) : lang === "th" ? (
-              cfg.focus === "hair"
-                ? "Google Maps + HDmall + Bookimed + Pantip + Reddit + Naver — เราตรวจสอบข้ามแพลตฟอร์ม 7+ แห่ง เพื่อไม่ให้รีวิวปลอมชุดเดียวดันอันดับคลินิกได้"
-                : "Google Maps + HDmall + Wongnai + แพลตฟอร์มพาร์ตเนอร์ — เราตรวจสอบข้ามหลายแหล่ง เพื่อไม่ให้รีวิวปลอมชุดเดียวดันอันดับคลินิกได้"
-            ) : (
-              cfg.focus === "hair"
-                ? "Google Maps + HDmall + Bookimed + Pantip + Reddit + Naver — we cross-reference 7+ platforms so a single fake-review wave can't lift any clinic's rank."
-                : "Google Maps + HDmall + Wongnai + partner platforms — we cross-reference multiple sources so a single fake-review wave can't lift any clinic's rank."
-            )}
+            title={lang === "ko" ? "구글 후기 기반" : lang === "th" ? "อิงรีวิว Google" : "Built on Google reviews"}
+            body={lang === "ko"
+              ? "모든 클리닉은 공개된 구글 지도 후기로 평가합니다. HDmall 가격과 Pantip 글은 그 클리닉에 있을 때만 붙이고, 출처를 함께 보여줍니다."
+              : lang === "th"
+              ? "ทุกคลินิกประเมินจากรีวิวสาธารณะบน Google Maps ราคา HDmall และกระทู้ Pantip แสดงเฉพาะเมื่อคลินิกนั้นมีข้อมูล พร้อมระบุแหล่งที่มา"
+              : "Every clinic is rated from its public Google Maps reviews. HDmall prices and Pantip threads are added only where a clinic has them, with the source shown."}
             accent={accent}
           />
           <Manifesto

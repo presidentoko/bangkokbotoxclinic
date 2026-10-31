@@ -5,6 +5,11 @@ import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
 import { findGuide, guidesForFocus } from "@/lib/guides";
 import type { Metadata } from "next";
+import { aestheticPriceFacts, midText, loHiText, baht } from "@/lib/aestheticPriceGuide";
+
+// 보톡스·필러·HIFU 가격은 HDmall 패키지 가격에서 (2026-10-31, 출처 없는 하드코딩 교체).
+const AP = aestheticPriceFacts();
+const MED = (t: { median: number } | null) => (t ? baht(t.median) : "—");
 
 // citySlug 은 master_db.json 의 clinic.city_slug 실제 값과 정확히 일치해야
 // 함(하이픈, 언더스코어 아님) — 안 맞으면 filter 가 0건 매치라 빈 페이지가
@@ -72,8 +77,8 @@ const PROCEDURES: Record<string, { label: string; category: string; desc: string
     category: "botox",
     desc: "botulinum toxin injections for wrinkles, jaw slimming, and brow lifting",
     faqs: [
-      { q: "How much does Botox cost in Bangkok?", a: "Botox in Bangkok costs ฿150–฿400 per unit depending on the brand (Allergan, Dysport, Xeomin, Botulax). A standard forehead treatment uses 20–30 units. Clinics often price by area: ฿3,000–฿8,000 per treatment area." },
-      { q: "Which Botox brand is best in Thailand?", a: "Allergan (Botox) and Dysport are FDA-approved and widely available at reputable Bangkok clinics. Korean brands (Botulax, Hutox, Nabota) are cheaper and common. Ask your clinic which brand they use before booking." },
+      { q: "How much does Botox cost in Bangkok?", a: `Bangkok packages that state a unit count work out at a typical ${MED(AP.botoxPerUnit)} per unit (middle half ${midText(AP.botoxPerUnit) ?? "—"}). A standard forehead treatment uses about 15–25 units. Per-area packages are typically ${MED(AP.botoxPerArea)}. Listings with sources: /prices/botox-cost-bangkok.` },
+      { q: "Which Botox brand is best in Thailand?", a: `Allergan (Botox) and Dysport have the longest track records. Korean brands (Botulax, Hutox, Nabota, Neuronox) are common and, where a package names the brand, the cheapest per unit (${loHiText(AP.botoxKorean) ?? "—"}). Ask your clinic which brand is in the vial before booking.` },
     ],
   },
   "filler": {
@@ -81,7 +86,7 @@ const PROCEDURES: Record<string, { label: string; category: string; desc: string
     category: "filler",
     desc: "hyaluronic acid fillers for lips, cheeks, jawline, and under-eye",
     faqs: [
-      { q: "How much do fillers cost in Bangkok?", a: "HA fillers in Bangkok cost ฿8,000–฿25,000 per syringe (1ml) depending on the brand. Juvederm and Restylane are premium options. Korean alternatives (Neuramis, Princess) are cheaper but also safe." },
+      { q: "How much do fillers cost in Bangkok?", a: `One cc of HA filler is listed at a typical ${MED(AP.filler1cc)} in Bangkok (middle half ${midText(AP.filler1cc) ?? "—"}). Most listings do not name the brand, so ask which one you are getting. Listings: /prices/filler-cost-bangkok.` },
     ],
   },
   "hifu": {
@@ -89,7 +94,7 @@ const PROCEDURES: Record<string, { label: string; category: string; desc: string
     category: "hifu",
     desc: "Ultherapy, Thermage, and Ultraformer skin tightening",
     faqs: [
-      { q: "How much does HIFU cost in Bangkok?", a: "HIFU treatments in Bangkok range from ฿8,000–฿40,000 per session depending on the machine (Ultherapy, Ultraformer III, Thermage FLX) and treatment area. Ultherapy full face is typically ฿25,000–฿60,000." },
+      { q: "How much does HIFU cost in Bangkok?", a: `In single-session listings: Ultraformer typically ${MED(AP.hifuUltraformer)}, other HIFU machines ${MED(AP.hifuOther)}, Ulthera ${MED(AP.ulthera)} and Thermage FLX ${MED(AP.thermage)}. The machine and shot count set the price. Listings: /prices/hifu-cost-bangkok.` },
     ],
   },
   "laser": {
@@ -97,7 +102,7 @@ const PROCEDURES: Record<string, { label: string; category: string; desc: string
     category: "laser",
     desc: "Pico laser, CO2 fractional, IPL, and laser hair removal",
     faqs: [
-      { q: "How much does Pico laser cost in Bangkok?", a: "Pico laser in Bangkok costs ฿3,000–฿12,000 per session. CO2 fractional is ฿8,000–฿25,000. Most skin concerns require 3–6 sessions. Package deals reduce per-session cost significantly." },
+      { q: "How many laser sessions will I need in Bangkok?", a: "Most skin concerns need 3–6 sessions of Pico or CO2 fractional laser, so compare the price of the whole course, not one session. Ask which machine the clinic uses." },
     ],
   },
   "hair-transplant": {

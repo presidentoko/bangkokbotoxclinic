@@ -15,6 +15,7 @@ import { HeroSearch } from "@/components/HeroSearch";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { SponsoredHero } from "@/components/SponsoredHero";
 import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
+import { aestheticPriceFacts, GUIDES as PRICE_GUIDES, guideData, baht } from "@/lib/aestheticPriceGuide";
 import { getSiteConfig, applySiteFilter } from "@/lib/site";
 import { formatTrustScore } from "@/lib/utils";
 import { guidesForFocus } from "@/lib/guides";
@@ -32,6 +33,9 @@ import {
   DownloadableGuide, MemberPerksStrip, ScrollReveal,
 } from "@/components/LazyWidgets";
 import type { Metadata } from "next";
+
+const AP = aestheticPriceFacts();
+const PRICE_LISTINGS = PRICE_GUIDES.reduce((a, g) => a + guideData(g).proc.n_packages, 0);
 
 export const revalidate = 86400; // ISR 24h — sponsored 변경은 admin API revalidatePath()로 즉시 반영. Hobby ISR Writes 한도 절약.
 
@@ -273,19 +277,19 @@ export default async function HomePage(
             {lang === "ko" ? (
               <>
                 <span className="font-bold text-[var(--fg)]">{focused.length.toLocaleString()}</span>개 {focusLabel} 클리닉을{" "}
-                <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span>개 리뷰(Google Maps, HDmall, Wongnai{cfg.focus === "hair" ? ", Bookimed, Pantip, Reddit" : ""} 등)로 순위화 —{" "}
+                <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span>개 구글 리뷰로 순위화 —{" "}
                 <span className="font-bold text-[var(--fg)]">{withScraped.toLocaleString()}</span>곳은 신뢰도 심층 분석 완료.
               </>
             ) : lang === "th" ? (
               <>
                 จัดอันดับคลินิก{focusLabel} <span className="font-bold text-[var(--fg)]">{focused.length.toLocaleString()}</span> แห่ง จาก{" "}
-                <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> รีวิวรวมจาก Google Maps, HDmall, Wongnai{cfg.focus === "hair" ? ", Bookimed, Pantip และ Reddit" : ""} —{" "}
+                <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> รีวิวบน Google Maps —{" "}
                 วิเคราะห์เชิงลึกแล้ว <span className="font-bold text-[var(--fg)]">{withScraped.toLocaleString()}</span> แห่ง
               </>
             ) : (
               <>
                 <span className="font-bold text-[var(--fg)]">{focused.length.toLocaleString()}</span> {focusLabel} clinics ranked across{" "}
-                <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> reviews aggregated from Google Maps, HDmall, Wongnai{cfg.focus === "hair" ? ", Bookimed, Pantip and Reddit" : " and other Thai platforms"} —{" "}
+                <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> Google Maps reviews —{" "}
                 <span className="font-bold text-[var(--fg)]">{withScraped.toLocaleString()}</span> deep-analyzed for credibility.
               </>
             )}
@@ -372,20 +376,12 @@ export default async function HomePage(
         <section className="mb-12 grid md:grid-cols-3 gap-4">
           <Manifesto
             icon="🛡️"
-            title={lang === "ko" ? "다중 출처 검증" : lang === "th" ? "ตรวจสอบจากหลายแหล่ง" : "Multi-source verified"}
-            body={lang === "ko" ? (
-              cfg.focus === "hair"
-                ? "Google Maps + HDmall + Bookimed + Pantip + Reddit + Naver — 7개 이상 플랫폼을 교차 검증해서 가짜 리뷰 한 파도로 순위가 올라가지 못하게 합니다."
-                : "Google Maps + HDmall + Wongnai + 파트너 플랫폼 — 여러 출처를 교차 검증해서 가짜 리뷰 한 파도로 순위가 올라가지 못하게 합니다."
-            ) : lang === "th" ? (
-              cfg.focus === "hair"
-                ? "Google Maps + HDmall + Bookimed + Pantip + Reddit + Naver — เราตรวจสอบข้ามแพลตฟอร์ม 7+ แห่ง เพื่อไม่ให้รีวิวปลอมชุดเดียวดันอันดับคลินิกได้"
-                : "Google Maps + HDmall + Wongnai + แพลตฟอร์มพาร์ตเนอร์ — เราตรวจสอบข้ามหลายแหล่ง เพื่อไม่ให้รีวิวปลอมชุดเดียวดันอันดับคลินิกได้"
-            ) : (
-              cfg.focus === "hair"
-                ? "Google Maps + HDmall + Bookimed + Pantip + Reddit + Naver — we cross-reference 7+ platforms so a single fake-review wave can't lift any clinic's rank."
-                : "Google Maps + HDmall + Wongnai + partner platforms — we cross-reference multiple sources so a single fake-review wave can't lift any clinic's rank."
-            )}
+            title={lang === "ko" ? "구글 후기 기반" : lang === "th" ? "อิงรีวิว Google" : "Built on Google reviews"}
+            body={lang === "ko"
+              ? "모든 클리닉은 공개된 구글 지도 후기로 평가합니다. HDmall 가격과 Pantip 글은 그 클리닉에 있을 때만 붙이고, 출처를 함께 보여줍니다."
+              : lang === "th"
+              ? "ทุกคลินิกประเมินจากรีวิวสาธารณะบน Google Maps ราคา HDmall และกระทู้ Pantip แสดงเฉพาะเมื่อคลินิกนั้นมีข้อมูล พร้อมระบุแหล่งที่มา"
+              : "Every clinic is rated from its public Google Maps reviews. HDmall prices and Pantip threads are added only where a clinic has them, with the source shown."}
             accent={accent}
           />
           <Manifesto
@@ -537,22 +533,25 @@ export default async function HomePage(
           </section>
         )}
 
-        {/* Botox: Why Bangkok stat strip */}
+        {/* Botox: 숫자 띠 (2026-10-31) — 예전 "2,000+ / 싱가포르·한국 대비 50–70% 저렴 / 정품 확인" 은 근거가 없었다.
+            이제 셋 다 데이터에서: 이 사이트 클리닉 수, HDmall 유닛당 보통가, 비교한 공개 가격 수. */}
         {cfg.focus === "botox" && (
           <section className="mb-10 bg-purple-50 rounded-xl p-5">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
               <div>
-                <p className="text-3xl font-bold text-purple-700">2,000+</p>
-                <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "방콕 미용 클리닉" : lang === "th" ? "คลินิกความงามในกรุงเทพ" : "aesthetic clinics in Bangkok"}</p>
+                <p className="text-3xl font-bold text-purple-700">{focused.length.toLocaleString()}</p>
+                <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "순위에 오른 보톡스 클리닉" : lang === "th" ? "คลินิกโบท็อกซ์ที่จัดอันดับ" : "botox clinics ranked"}</p>
               </div>
-              <div>
-                <p className="text-3xl font-bold text-purple-700">50–70%</p>
-                <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "싱가포르·한국 대비 저렴" : lang === "th" ? "ถูกกว่าสิงคโปร์และเกาหลี" : "cheaper than Singapore & Korea"}</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-purple-700">{lang === "ko" ? "정품" : lang === "th" ? "ของแท้" : "Genuine"}</p>
-                <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "Allergan·Dysport 정품 확인" : lang === "th" ? "ยืนยัน Allergan และ Dysport" : "Allergan & Dysport verified"}</p>
-              </div>
+              {AP.botoxPerUnit && (
+                <a href="/prices/botox-cost-bangkok" className="block hover:opacity-80">
+                  <p className="text-3xl font-bold text-purple-700">{baht(AP.botoxPerUnit.median)}</p>
+                  <p className="text-sm text-[var(--muted)] mt-1 underline">{lang === "ko" ? "유닛당 보통 가격 (공개 패키지)" : lang === "th" ? "ราคาต่อยูนิตโดยทั่วไป (แพ็กเกจที่ประกาศ)" : "typical listed price per unit"}</p>
+                </a>
+              )}
+              <a href="/prices" className="block hover:opacity-80">
+                <p className="text-3xl font-bold text-purple-700">{PRICE_LISTINGS.toLocaleString()}</p>
+                <p className="text-sm text-[var(--muted)] mt-1 underline">{lang === "ko" ? "출처와 함께 비교한 공개 가격" : lang === "th" ? "ราคาที่ประกาศซึ่งเราเปรียบเทียบ พร้อมแหล่งที่มา" : "published prices compared, with sources"}</p>
+              </a>
             </div>
           </section>
         )}

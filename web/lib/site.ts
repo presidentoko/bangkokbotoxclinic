@@ -48,11 +48,13 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     domain: "bangkokbotoxclinic.com",
     // 구글 SERP 표시 한계(제목 ~60자, 설명 ~155자) 초과로 잘리던 것 트림
     // (실측 72자/234자, 2026-07-31 감사).
-    title: "Best Botox Clinics in Bangkok — From ฿80/unit, Verified",
+    // 2026-10-31: "From ฿80/unit", "120+", "authenticity verified" 제거 — 출처가 없었다(유닛당 보통가는 ฿87,
+    // 정품 확인은 우리가 하지 않는다). 가격은 /prices 가이드가 출처와 함께 낸다.
+    title: "Best Botox Clinics in Bangkok — Prices Compared",
     description:
-      "Compare 120+ Bangkok botox clinics ranked by Trust Score. Allergan, Dysport, Botulax authenticity verified. From ฿80/unit in Sukhumvit, Siam & Ari.",
-    hero: "Bangkok Botox Specialists — Verified",
-    heroSub: "120+ botox clinics ranked by Trust Score. Allergan, Dysport, Botulax, Xeomin authenticity tracked. Sukhumvit · Siam · Ari specialists from ฿80/unit.",
+      "Bangkok botox clinics ranked by Trust Score from Google reviews, plus the Botox, filler and HIFU prices clinics list, with sources. Sukhumvit, Siam, Ari and more.",
+    hero: "Bangkok Botox Specialists",
+    heroSub: "Botox clinics ranked by Trust Score from real Google reviews, with the per-unit prices clinics list. Sukhumvit · Siam · Ari.",
     themeAccent: "#7c3aed",
     mentionThreshold: 3,
     // 치앙마이/코사무이/후아힌 추가 (2026-07-10) — DB의 21%가 이 4개 도시

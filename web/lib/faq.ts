@@ -1,3 +1,9 @@
+import { aestheticPriceFacts, midText, baht } from "@/lib/aestheticPriceGuide";
+// 보톡스·필러·HIFU 가격은 HDmall 패키지 가격(가격 가이드)에서 (2026-10-31). 예전 "฿80–250/unit, 미국 대비 60–80% 저렴, HIFU ฿8,000–80,000+" 는 출처가 없었다.
+const AP = aestheticPriceFacts();
+const M = (t: Parameters<typeof midText>[0], suf = "") => midText(t, suf) ?? "—";
+const MED = (t: { median: number } | null) => (t ? baht(t.median) : "—");
+
 // 카테고리별 FAQ — AEO + Google FAQPage 리치결과 + 페이지 콘텐츠 unique 강화.
 // 향후 LLM 으로 더 풍부하게 생성 가능. 현재는 hand-written 베이스.
 
@@ -7,11 +13,11 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
   botox: [
     {
       q: "How much does Botox cost in Bangkok?",
-      a: "Botox in Bangkok typically ranges from ฿80–250 per unit depending on the brand (Allergan/Botox-original, Dysport, Botulax) and the clinic. Forehead treatments use 10–20 units, while a full upper face uses 30–60 units. Compare individual clinic pricing on each clinic's detail page.",
+      a: `Bangkok clinics that list Botox packages with a unit count on HDmall charge a typical ${MED(AP.botoxPerUnit)} per unit, with the middle half between ${M(AP.botoxPerUnit, " per unit")}. Packages sold per area (dose set by the doctor) are typically ${M(AP.botoxPerArea)} for one area. Brand changes the price; every listing with its source is on /prices/botox-cost-bangkok.`,
     },
     {
-      q: "Is botox cheaper in Bangkok than in the US or UK?",
-      a: "Yes — significantly. Bangkok botox costs ฿80–250/unit (roughly $2–7 USD), compared to $10–20/unit in the US and £8–15/unit in the UK. A full upper-face treatment (30–50 units) costs ฿4,000–12,000 in Bangkok vs $400–1,000 in the US. Savings of 60–80% are typical at reputable clinics with international standards.",
+      q: "Is botox cheaper in Bangkok than abroad?",
+      a: `We only compare Bangkok clinics with each other, so we do not quote a saving against other countries. In Bangkok, listed packages work out at a typical ${MED(AP.botoxPerUnit)} per unit. To compare, ask your clinic at home for the price per unit of the same brand.`,
     },
     {
       q: "What botox brands are available in Bangkok?",
@@ -23,7 +29,7 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
     },
     {
       q: "How do I avoid bad botox in Bangkok?",
-      a: "Five rules: (1) Use Trust Score 70+ clinics — with 100+ Google reviews. (2) Ask to see the original sealed vial before injection. (3) Insist on a licensed doctor (not nurse or technician) performing the injection. (4) Avoid deals below ฿80/unit — underpriced botox is often diluted or counterfeit. (5) Read the Google review excerpts on our clinic pages — patients mention 'genuine brand', 'real Allergan', etc. when they were satisfied.",
+      a: "Four rules: (1) Pick clinics with many recent Google reviews and a high Trust Score. (2) Ask to see the original sealed vial and its brand before injection. (3) Insist on a licensed doctor (not a nurse or technician) performing the injection. (4) Ask how many units you are getting and the price per unit, so you can compare quotes like for like.",
     },
     {
       q: "Which Bangkok district is best for botox?",
@@ -41,7 +47,7 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
   filler: [
     {
       q: "What does dermal filler cost in Bangkok?",
-      a: "HA fillers (Juvederm, Restylane, Belotero) range from ฿8,000–25,000 per syringe (1ml) depending on brand and clinic. Lip enhancement typically uses 1ml; cheek volumising 2–4ml; jawline 3–6ml. Many clinics package multi-syringe deals.",
+      a: `One-cc (one syringe) filler packages that Bangkok clinics list on HDmall cost a typical ${MED(AP.filler1cc)}, with the middle half between ${M(AP.filler1cc)}. Most listings do not name the brand, so ask which brand and product line you are getting. Lips often use about 1 cc; cheeks and jawline usually more. Listings: /prices/filler-cost-bangkok.`,
     },
     {
       q: "Are fillers in Bangkok genuine?",
@@ -55,11 +61,11 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
   hifu: [
     {
       q: "How much is HIFU in Bangkok?",
-      a: "Single HIFU session prices in Bangkok range from ฿8,000 (basic Korean machine) to ฿80,000+ (Ultherapy with Merz authentication). Triple-session packages typically discount 20–30%. Verify the machine brand and shot count before booking.",
+      a: `In single-session packages listed on HDmall, an Ultraformer session is typically ${MED(AP.hifuUltraformer)}, other HIFU machines ${MED(AP.hifuOther)} and Ulthera ${MED(AP.ulthera)}. The machine and the number of shots or lines set the price, so check both before booking. Listings: /prices/hifu-cost-bangkok.`,
     },
     {
       q: "Is Ultherapy or Thermage better?",
-      a: "Ultherapy uses ultrasound (HIFU) and is best for skin tightening with deeper SMAS-layer effect. Thermage uses radiofrequency, more comfortable, better for surface-level tightening. Many Bangkok clinics offer both. Single Ultherapy session lasts ~12 months; Thermage ~24 months.",
+      a: `Ultherapy uses focused ultrasound (HIFU) and reaches the deeper SMAS layer; Thermage uses radiofrequency to heat the skin. They suit different concerns, so ask the doctor which fits yours. In HDmall listings a single session is typically ${MED(AP.ulthera)} for Ulthera and ${MED(AP.thermage)} for Thermage FLX.`,
     },
     {
       q: "Does HIFU hurt?",
@@ -69,7 +75,7 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
   facial: [
     {
       q: "What's included in a Bangkok facial?",
-      a: "Standard facials include cleansing, exfoliation, extraction, mask, and moisturiser — usually ฿1,500–4,000 for 60–90 minutes. Premium facials add LED therapy, microcurrents, oxygen infusion, or HydraFacial machines, ranging ฿4,000–12,000.",
+      a: "Standard facials include cleansing, exfoliation, extraction, a mask and moisturiser, usually for 60–90 minutes. Premium facials add LED therapy, microcurrent, oxygen infusion or HydraFacial machines. Prices vary widely between clinics, so ask for the price list.",
     },
     {
       q: "How often should I get a facial in Bangkok?",
@@ -79,11 +85,11 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
   laser: [
     {
       q: "What laser treatments are popular in Bangkok?",
-      a: "Pico laser (pigmentation, tattoo removal), CO2 fractional (acne scars, resurfacing), IPL (sun damage, redness), and laser hair removal are most common. Pico session: ฿3,000–8,000. CO2: ฿8,000–25,000.",
+      a: "Pico laser (pigmentation, tattoo removal), CO2 fractional (acne scars, resurfacing), IPL (sun damage, redness) and laser hair removal are the most common. Most skin concerns need several sessions, so compare the price of the whole course.",
     },
     {
       q: "Is laser hair removal in Bangkok worth it?",
-      a: "Yes — Bangkok prices are roughly 30–50% lower than Singapore or Hong Kong. A full-leg package (8 sessions) typically costs ฿15,000–30,000. Use diode laser for darker skin tones; alexandrite for lighter tones.",
+      a: "It usually takes several sessions, so compare the price of the full course rather than one session. Diode lasers are generally preferred for darker skin tones and alexandrite for lighter tones; ask the clinic which machine it uses.",
     },
   ],
   dental: [
@@ -175,11 +181,11 @@ export const HOME_FAQS: Faq[] = [
   },
   {
     q: "How is the Trust Score calculated?",
-    a: "Trust Score (0-100) combines: clinic rating (~45% weight), review volume on logarithmic scale (~35%), Local Guide reviewer ratio (~15%), and rating consistency over time (~5%). Weights sum to 100%. It's an automated opinion metric — not a Google ranking and not a verified finding about any clinic. Anchored on Google Maps with cross-validation from HDmall, Wongnai and other platforms. We update it every 30 minutes. See /methodology for full details.",
+    a: "Trust Score (0-100) combines: clinic rating (~45% weight), review volume on logarithmic scale (~35%), Local Guide reviewer ratio (~15%), and rating consistency over time (~5%). Weights sum to 100%. It's an automated opinion metric — not a Google ranking and not a verified finding about any clinic. We update it every 30 minutes. See /methodology for full details.",
   },
   {
     q: "Are these clinic listings sponsored?",
-    a: "No. All clinics are listed based on public listings across Google Maps, HDmall, Wongnai and partner platforms. We are not affiliated with any clinic and no clinic pays for organic placement. Sponsored slots are clearly labelled when present.",
+    a: "No. Clinics are listed from public Google Maps listings. We are not affiliated with any clinic and no clinic pays for organic placement. Sponsored slots are clearly labelled when present.",
   },
   {
     q: "How fresh is this data?",
@@ -187,7 +193,7 @@ export const HOME_FAQS: Faq[] = [
   },
   {
     q: "Can I trust the reviews shown here?",
-    a: "All reviews are sourced directly from public platforms — Google Maps, HDmall, Wongnai, Bookimed, and others. We don't filter, edit, or selectively show reviews — sample reviews are picked by length and rating only, with full attribution. Cross-platform agreement (a clinic well-rated on both Google AND HDmall AND Wongnai) is a much stronger signal than any single platform.",
+    a: "Reviews come from public Google Maps listings. We do not edit them, and sample reviews are picked by length and rating only, with attribution.",
   },
   {
     q: "Is medical treatment in Bangkok safe for tourists?",
@@ -195,6 +201,6 @@ export const HOME_FAQS: Faq[] = [
   },
   {
     q: "How much money can I save on dental or aesthetic work in Bangkok?",
-    a: "Typical savings vs US/UK/Australia: dental implants 50–70% (฿35,000–80,000 vs $3,000–6,000 in US); veneers 60–75% (฿12,000–30,000 per tooth vs $1,500–3,000); botox 60–80% (from ฿80/unit vs $10–20/unit); hair transplant FUE 50–70% (฿65,000–150,000 for 2,000 grafts vs $8,000–25,000). Most procedures at internationally-accredited Bangkok clinics use the same equipment and brands as Western clinics.",
+    a: `We have no like-for-like price data for other countries, so we do not quote a saving. What we publish are Bangkok listed prices with their sources at /prices: Botox a typical ${MED(AP.botoxPerUnit)} per unit, one cc of filler ${MED(AP.filler1cc)}. Compare against a quote at home for the same brand and amount.`,
   },
 ];

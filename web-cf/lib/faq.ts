@@ -183,11 +183,11 @@ export const HOME_FAQS: Faq[] = [
   },
   {
     q: "How is the Trust Score calculated?",
-    a: "Trust Score (0-100) combines: clinic rating (~45% weight), review volume on logarithmic scale (~35%), Local Guide reviewer ratio (~15%), and rating consistency over time (~5%). Weights sum to 100%. It's an automated opinion metric — not a Google ranking and not a verified finding about any clinic. Anchored on Google Maps with cross-validation from HDmall, Wongnai and other platforms. We update it every 30 minutes. See /methodology for full details.",
+    a: "Trust Score (0-100) combines: clinic rating (~45% weight), review volume on logarithmic scale (~35%), Local Guide reviewer ratio (~15%), and rating consistency over time (~5%). Weights sum to 100%. It's an automated opinion metric — not a Google ranking and not a verified finding about any clinic. We update it every 30 minutes. See /methodology for full details.",
   },
   {
     q: "Are these clinic listings sponsored?",
-    a: "No. All clinics are listed based on public listings across Google Maps, HDmall, Wongnai and partner platforms. We are not affiliated with any clinic and no clinic pays for organic placement. Sponsored slots are clearly labelled when present.",
+    a: "No. Clinics are listed from public Google Maps listings. We are not affiliated with any clinic and no clinic pays for organic placement. Sponsored slots are clearly labelled when present.",
   },
   {
     q: "How fresh is this data?",
@@ -195,7 +195,7 @@ export const HOME_FAQS: Faq[] = [
   },
   {
     q: "Can I trust the reviews shown here?",
-    a: "All reviews are sourced directly from public platforms — Google Maps, HDmall, Wongnai, Bookimed, and others. We don't filter, edit, or selectively show reviews — sample reviews are picked by length and rating only, with full attribution. Cross-platform agreement (a clinic well-rated on both Google AND HDmall AND Wongnai) is a much stronger signal than any single platform.",
+    a: "Reviews come from public Google Maps listings. We do not edit them, and sample reviews are picked by length and rating only, with attribution.",
   },
   {
     q: "Is medical treatment in Bangkok safe for tourists?",

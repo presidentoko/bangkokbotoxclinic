@@ -2,6 +2,11 @@
 // 재사용으로 전환. 섹션 20개 전체가 이제 KO에도 나옴 (헤딩 번역, 일부 본문은 EN 유지).
 // FAQ는 focus별(botox/dental) 실번역 유지.
 import { getSiteConfig, type SiteFocus } from "@/lib/site";
+import { aestheticPriceFacts, midText, loHiText, baht } from "@/lib/aestheticPriceGuide";
+// 보톡스·필러·HIFU 가격은 HDmall 패키지 가격에서 (2026-10-31, 출처 없는 "฿80–250/유닛" 등 교체).
+const AP = aestheticPriceFacts();
+const MED = (t: { median: number } | null) => (t ? baht(t.median) : "—");
+const MID = (t: Parameters<typeof midText>[0]) => midText(t) ?? "—";
 import type { Metadata } from "next";
 import HomePage from "../page";
 
@@ -51,7 +56,7 @@ const KO_AUTH_FAQ: Partial<Record<SiteFocus, { q: string; a: string }>> = {
 const KO_PRICE_FAQ: Partial<Record<SiteFocus, { q: string; a: string }>> = {
   botox: {
     q: "방콕 시술 가격은 얼마인가요?",
-    a: "보톡스: 유닛당 ฿80-250 (브랜드별 차이). 필러: 1ml당 ฿8,000-25,000. HIFU 1회: ฿8,000-80,000+. 클리닉별 정확한 가격은 LINE 또는 전화 문의.",
+    a: `HDmall 에 클리닉이 올린 패키지 기준 — 보톡스: 유닛당 보통 ${MED(AP.botoxPerUnit)} (중간 50% ${MID(AP.botoxPerUnit)}). 필러 1cc: 보통 ${MED(AP.filler1cc)}. HIFU 1회: Ultraformer 보통 ${MED(AP.hifuUltraformer)}, Ulthera ${MED(AP.ulthera)}. 출처와 전체 목록은 /prices 에 있습니다.`,
   },
   dental: {
     q: "방콕 치과 가격은 얼마인가요?",

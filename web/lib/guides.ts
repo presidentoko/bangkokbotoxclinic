@@ -1,5 +1,16 @@
 // Bangkok aesthetic clinic guide articles — long-form AEO/SEO content.
 
+import { aestheticPriceFacts, midText, loHiText, baht } from "@/lib/aestheticPriceGuide";
+
+// 2026-10-31: 보톡스·필러·HIFU 가이드의 가격은 HDmall 패키지 가격(lib/aestheticPriceGuide.ts)에서 계산한다.
+// 예전 "฿150–400/unit, 미국 대비 50–70%, Ultherapy ฿25,000–80,000, 서울·싱가포르의 40–60%" 같은 숫자는
+// 출처가 없었고, 일부는 우리 데이터와 정반대였다(보톡스 유닛당 보통가 ฿87).
+const AP = aestheticPriceFacts();
+type T = Parameters<typeof midText>[0];
+const MED = (t: T) => (t ? baht(t.median) : "—");
+const MID = (t: T, suf = "") => midText(t, suf) ?? "—";
+const LH = (r: Parameters<typeof loHiText>[0], suf = "") => loHiText(r, suf) ?? "—";
+
 export type Faq = { q: string; a: string };
 
 export type Guide = {
@@ -27,16 +38,16 @@ export const GUIDES: Guide[] = [
       "Bangkok botox pricing in 2026, how to verify genuine Allergan/Dysport/Botulax, and choosing English-speaking clinics. Verified review-backed picks.",
     updated: "2026-05-07",
     intro:
-      "Bangkok is the cheapest major-city destination for genuine botox — but knowing how to spot fake or diluted product is the difference between a great deal and a wasted trip. This guide walks through the brands, the pricing, and how our Trust Score helps filter the noise.",
+      "Bangkok has hundreds of clinics offering botox, and the price per unit varies several-fold between them. Knowing how to compare prices and how to check the product is what matters. This guide covers the brands, what clinics list, and how our Trust Score helps filter the noise.",
     sections: [
       {
         heading: "Genuine brands available in Bangkok",
         body:
-          "Allergan (USA) — the original. Most expensive (฿4,500-7,000/area), most predictable. " +
-          "Dysport (UK) — close second. Slightly faster onset. ฿3,500-5,500/area. " +
-          "Botulax (Korea) — Korean botulinum toxin, very popular for tour clients. ฿2,500-4,000/area. " +
-          "Xeomin (Germany) — \"naked\" botox without complexing proteins. ฿4,000-6,000/area. " +
-          "Avoid: unbranded \"vials\" and prices significantly below the above ranges.",
+          `Allergan (USA) — the original and most established brand. In the few HDmall packages that name it, ${LH(AP.botoxAllergan, " per unit")}. ` +
+          "Dysport (UK/France) — slightly faster onset. No Bangkok HDmall package names it, so we have no price to show. " +
+          `Korean toxins (Neuronox, Nabota, Hutox, Botulax) — the cheapest in the listings that name a brand: ${LH(AP.botoxKorean, " per unit")}. ` +
+          `Xeomin (Germany) — "naked" botox without complexing proteins. ${LH(AP.botoxXeomin, " per unit")} where listed. ` +
+          `Most packages do not name the brand at all; those work out at a typical ${MED(AP.botoxPerUnit)} per unit. Always ask which brand is in the vial.`,
       },
       {
         heading: "How clinics fake genuine product",
@@ -65,8 +76,8 @@ export const GUIDES: Guide[] = [
     ],
     faqs: [
       {
-        q: "How much does botox cost in Bangkok vs Korea/USA?",
-        a: "Bangkok premium clinic: ฿4,500-7,000/area = $130-200 USD. Same Allergan in Korea: $250-400. USA: $350-600. Bangkok is typically 50-70% of US pricing for the same genuine product.",
+        q: "How much does botox cost in Bangkok?",
+        a: `Packages that state a unit count work out at a typical ${MED(AP.botoxPerUnit)} per unit (middle half ${MID(AP.botoxPerUnit)}). Packages sold per area are typically ${MED(AP.botoxPerArea)}. We do not compare with Korea or the US because we have no like-for-like prices there. Every listing is on /prices/botox-cost-bangkok.`,
       },
       {
         q: "Can I trust 'Korean doctor' marketing?",
@@ -88,30 +99,30 @@ export const GUIDES: Guide[] = [
       "Bangkok HA filler pricing — Juvederm, Restylane, Belotero. How to verify genuine product, what to expect by area (lip, cheek, jawline, under-eye).",
     updated: "2026-05-07",
     intro:
-      "Bangkok HA filler pricing is roughly half of Korean and Singapore prices for genuine Allergan/Galderma product. The complexity is matching the right product to the right area — and avoiding clinics that overfill.",
+      "Bangkok clinics list one cc of HA filler at very different prices, and most listings do not name the brand. The real work is matching the right product to the right area, and avoiding clinics that overfill.",
     sections: [
       {
         heading: "Brands and where to use them",
         body:
-          "Juvederm (Allergan, USA) — Volift / Voluma / Volbella series. Most premium. ฿14,000-22,000/syringe. " +
-          "Restylane (Galderma) — Lyft / Defyne / Refyne series. Comparable quality, often slightly cheaper. ฿12,000-18,000. " +
-          "Belotero (Merz) — softer, good for fine lines and tear trough. ฿11,000-15,000. " +
-          "Korean brands (Neuramis, Yvoire) — ฿8,000-12,000. Quality has caught up; better-value picks. " +
-          "Korean tour clients often opt for Korean brands; expat / Western clients trend Juvederm.",
+          "Juvederm (Allergan, USA) — Volift / Voluma / Volbella series. " +
+          "Restylane (Galderma) — Lyft / Defyne / Refyne series. " +
+          "Belotero (Merz) — softer, good for fine lines and tear trough. " +
+          "Korean brands (Neuramis, Yvoire) — widely used in Asia. " +
+          `In Bangkok HDmall listings, one cc of filler costs a typical ${MED(AP.filler1cc)} (middle half ${MID(AP.filler1cc)}), but almost none name the brand, so ask which brand and product line you are paying for.`,
       },
       {
         heading: "Areas + cost reality",
         body:
-          "Lip enhancement: 1 syringe = 1ml = full lips. ฿14,000-20,000 typical. " +
-          "Cheek augmentation: 2-3ml. ฿28,000-50,000. " +
-          "Jawline / chin: 2-4ml. ฿28,000-65,000. " +
-          "Tear trough (under-eye): 1ml carefully. ฿15,000-22,000. Highest-skill area — pick experienced clinic. " +
-          "Nose (non-surgical rhinoplasty): 1-2ml. ฿18,000-35,000.",
+          "Lip enhancement: usually about 1 ml. " +
+          "Cheek augmentation: 2-3 ml. " +
+          "Jawline / chin: 2-4 ml. " +
+          "Tear trough (under-eye): about 1 ml, placed carefully. Highest-skill area — pick an experienced injector. " +
+          `Nose (non-surgical rhinoplasty): 1-2 ml. The total is roughly the number of cc times the per-cc price; one cc is listed at ${MID(AP.filler1cc)} in the middle half of Bangkok listings.`,
       },
       {
         heading: "Red flags",
         body:
-          "Prices below ฿8,000/ml for branded HA = product likely not what's claimed. " +
+          "A price that names no brand: ask for the brand and product line, and to see the sealed syringe. " +
           "Doctor not present during procedure = cannot do it in Thailand legally. " +
           "Overpromising natural look on extreme volume requests. " +
           "Trust Score on this site flags clinics with frequent reviewer mentions of overfilled or asymmetric results.",
@@ -124,7 +135,7 @@ export const GUIDES: Guide[] = [
       },
       {
         q: "Can I dissolve filler if I don't like it?",
-        a: "Yes — hyaluronidase enzyme dissolves HA filler in 24-48 hours. Most reputable clinics offer this service ฿3,000-6,000. Always confirm the clinic stocks hyaluronidase before booking.",
+        a: "Yes — hyaluronidase enzyme dissolves HA filler within about 24-48 hours. Ask the price in advance and confirm the clinic stocks hyaluronidase before booking.",
       },
     ],
     related: ["bangkok-botox-guide", "korean-medical-tourism"],
@@ -145,15 +156,15 @@ export const GUIDES: Guide[] = [
         body:
           "3-5 day trip: airport transfer, 4-star hotel near Sukhumvit, clinic transport, Korean-speaking interpreter, post-procedure follow-up. " +
           "Procedures: typically 1-3 from botox / filler / HIFU / laser / facial menu. " +
-          "Total package: ₩2,500,000-5,000,000 ($1,800-3,700) depending on procedure scope.",
+          "Ask for the package price broken down by procedure, hotel and transfers so you can compare it with booking each part yourself.",
       },
       {
         heading: "Independent vs package",
         body:
           "First trip: package wins. Language, logistics, interpreter all handled. " +
-          "Second trip onwards: book direct. Same procedures often 30-40% cheaper. " +
-          "Hotel: book separately on Booking.com (often 50% cheaper than package rate). " +
-          "Transfer: Grab from BKK ฿400-700, vs ฿2,000+ package transfer.",
+          "Second trip onwards: consider booking direct; compare the clinic's own price with the package price. " +
+          "Hotel: compare the package rate with booking the hotel yourself. " +
+          "Transfer: a ride-hailing app from the airport is usually cheaper than a package transfer.",
       },
       {
         heading: "Korean-speaking clinics",
@@ -169,7 +180,7 @@ export const GUIDES: Guide[] = [
       },
       {
         q: "패키지 가격이 직접 예약보다 비싼가요?",
-        a: "네, 보통 30-40% 비쌉니다. 첫 방문이면 편의성 값을 한다고 보고, 재방문이면 직접 예약이 훨씬 경제적입니다. 우리 사이트의 Trust Score로 클리닉 직접 선택해서 호텔 따로 예약하면 비슷한 시술을 더 저렴하게 받을 수 있어요.",
+        a: "패키지에는 통역·이동·호텔이 포함돼 있어서 시술만 비교하면 보통 더 비쌉니다. 시술·호텔·이동 항목별 가격을 받아 직접 예약한 경우와 비교해 보세요. 클리닉별 공개 가격은 /prices 에 있습니다.",
       },
     ],
     related: ["bangkok-botox-guide", "bangkok-filler-guide"],
@@ -202,7 +213,7 @@ export const GUIDES: Guide[] = [
       {
         heading: "What the score does not measure",
         body:
-          "Price. We don't yet pull pricing data, so a low-Trust-Score clinic may still be the right call if you're price-shopping a routine procedure. " +
+          "Price. The score ignores price. We publish clinics' listed Botox, filler and HIFU prices separately at /prices, so a low-Trust-Score clinic may still be the right call if you're price-shopping a routine procedure. " +
           "Specialty fit. The score is general-purpose. A clinic might be world-class for fillers but mediocre for HIFU — our category labels help here, but always read recent reviews on the specific procedure. " +
           "Recency. We have a separate \"rating trend\" signal (improving / stable / declining) — check it before booking, since a 5-year-old clinic with a 2024 management change may be on a different trajectory than its all-time average suggests.",
       },
@@ -498,17 +509,17 @@ export const GUIDES: Guide[] = [
     title: "Masseter Botox in Bangkok — Jaw Slimming Cost & What to Expect (2026)",
     metaTitle: "Masseter Botox Bangkok 2026 — Jaw Slimming Price & Results",
     metaDescription:
-      "Masseter botox (jaw slimming) in Bangkok costs ฿3,500–8,000. How many units needed, how long it lasts, and which clinics specialise in Korean-style V-line results.",
+      `Masseter botox (jaw slimming) in Bangkok: what clinics list per unit and per area, how many units you need, how long it lasts, and how to pick an injector.`,
     updated: "2026-06-03",
     intro:
-      "Masseter botox — injecting botulinum toxin into the jaw muscle — is the fastest-growing aesthetic treatment among Korean and international visitors in Bangkok. It slims the lower face, softens a square jaw, and requires zero downtime. Bangkok clinics perform thousands of these per month at 40–60% of Singapore or Seoul prices.",
+      "Masseter botox — injecting botulinum toxin into the jaw muscle — slims the lower face and softens a square jaw with no downtime. It is one of the most common reasons visitors book botox in Bangkok.",
     sections: [
       {
         heading: "What masseter botox costs in Bangkok",
         body:
-          "Price depends on dosage (units) and brand. Typical: ฿3,500–5,000 for 25 units/side (Botulax, Dysport); ฿5,500–8,000 for genuine Allergan at the same dose. Most clinics charge per unit (฿80–250/unit) rather than per area. " +
-          "Maintenance sessions: the muscle gradually returns; most patients retreat every 4–6 months. Many Bangkok clinics offer a 3-session package at 15–20% discount. " +
-          "Budget alert: prices under ฿2,500 typically indicate heavily diluted product or unverified brand — ask to see the vial.",
+          `Price depends on dosage (units) and brand. Bangkok packages that state a unit count work out at a typical ${MED(AP.botoxPerUnit)} per unit (middle half ${MID(AP.botoxPerUnit)}), so 25–35 units per side means roughly 50–70 units in total. Packages sold per area, including jaw, are typically ${MED(AP.botoxPerArea)}, with the dose left to the doctor. ` +
+          "Maintenance: the muscle gradually returns; most patients retreat every 4–6 months. " +
+          "Ask how many units the price includes and which brand, and ask to see the vial.",
       },
       {
         heading: "Units needed and dosage guide",
@@ -529,7 +540,7 @@ export const GUIDES: Guide[] = [
     faqs: [
       {
         q: "How much is masseter botox in Bangkok?",
-        a: "฿3,500–8,000 for a standard treatment (25–35 units/side). Allergan/Botox-original at the premium end; Botulax/Dysport at the value end. Both produce comparable jaw-slimming results at correct dosage.",
+        a: `A standard treatment uses about 25–35 units per side. At a typical ${MED(AP.botoxPerUnit)} per unit in Bangkok listings, multiply by the total units you are quoted. Per-area jaw packages are typically ${MED(AP.botoxPerArea)}. Korean brands are listed cheapest per unit (${LH(AP.botoxKorean)}).`,
       },
       {
         q: "How many sessions before I see jaw slimming results?",
@@ -552,18 +563,18 @@ export const GUIDES: Guide[] = [
     title: "HIFU & Ultherapy in Bangkok — Cost, Machines & What Actually Works (2026)",
     metaTitle: "HIFU Bangkok Cost 2026 — Ultherapy vs Thermage vs Korean Machines",
     metaDescription:
-      "HIFU in Bangkok: Ultherapy ฿25,000–80,000, Korean machines ฿8,000–18,000. How to tell the difference, which works, and what reviewers actually say.",
+      `HIFU in Bangkok: what clinics list per session for Ulthera, Ultraformer, other HIFU machines and Thermage, how to tell them apart, and what to ask before booking.`,
     updated: "2026-06-03",
     intro:
-      "Bangkok is flooded with HIFU options — from authentic Ultherapy (Merz, Switzerland) to affordable Korean machines. The price range is ฿8,000–80,000+ for what is marketed as 'the same treatment'. It's not. This guide explains the real differences, what to ask before booking, and what Bangkok reviewers report as actual results.",
+      `Bangkok has many HIFU options, from Ulthera (Merz) to Korean machines. In HDmall single-session listings an Ulthera session is typically ${MED(AP.ulthera)}, an Ultraformer session ${MED(AP.hifuUltraformer)} and other HIFU machines ${MED(AP.hifuOther)}. They are not the same treatment. This guide explains the differences and what to ask before booking.`,
     sections: [
       {
         heading: "The machine hierarchy — what you're actually paying for",
         body:
-          "Ultherapy (Merz, Switzerland): ฿25,000–80,000/session depending on face zones and shot count. Gold standard. Published clinical evidence. Every session is authenticated via software — Merz can verify shots were used. Lasts 12–18 months. " +
-          "Thermage (Solta): radiofrequency, not ultrasound. ฿20,000–60,000. Better for surface skin quality vs deep SMAS lifting. Longer-lasting than HIFU for some patients (18–24 months). " +
-          "Ultraformer III (Korea): ฿10,000–25,000. Strong alternative to Ultherapy at lower cost; widely used in Korean aesthetics. Good clinical data. " +
-          "Generic Korean machines (Doublo, Sygmalift, etc.): ฿8,000–18,000. Variable quality. Some clinics reuse cartridges (reducing shots and safety). Ask specifically: how many shots are you including, and are cartridges new?",
+          `Ultherapy (Merz): typical ${MED(AP.ulthera)} per session in Bangkok listings (middle half ${MID(AP.ulthera)}), depending on zones and lines. The most published clinical evidence and real-time imaging. ` +
+          `Thermage (Solta): radiofrequency, not ultrasound. Typical ${MED(AP.thermage)} per session where listed. Aimed more at surface skin quality than deep SMAS lifting. ` +
+          `Ultraformer (Korea): typical ${MED(AP.hifuUltraformer)} per session (middle half ${MID(AP.hifuUltraformer)}). Widely used in Korean aesthetics. ` +
+          `Other HIFU machines: typical ${MED(AP.hifuOther)}. Quality varies. Ask specifically: how many shots are included, and are the cartridges new?`,
       },
       {
         heading: "What HIFU actually does (and what it can't)",
@@ -575,7 +586,7 @@ export const GUIDES: Guide[] = [
       {
         heading: "Red flags when booking HIFU in Bangkok",
         body:
-          "Price under ฿10,000 for 'Ultherapy': not genuine. Real Ultherapy cartridges cost more than this at wholesale. " +
+          `An "Ultherapy" price far below what other clinics list (typical ${MED(AP.ulthera)}): ask to see the machine and confirm it is Ulthera. ` +
           "No shot count disclosed: a legitimate clinic tells you exactly how many shots (lines × points, e.g. 300 lines for full face) before you book. Vague 'full face' packages without shot count indicate recycled cartridges. " +
           "Reviewers mentioning 'no pain, no results': often indicates very low energy settings — some clinics dial down intensity to prevent complaints, at the cost of efficacy. " +
           "Trust Score 70+ clinics on this site with reviewer mentions of specific machines are the safe baseline.",
@@ -584,7 +595,7 @@ export const GUIDES: Guide[] = [
     faqs: [
       {
         q: "How much does HIFU cost in Bangkok?",
-        a: "Genuine Ultherapy: ฿25,000–80,000 depending on face zones and shot count. Ultraformer III (Korean): ฿10,000–25,000. Generic Korean machines: ฿8,000–18,000. Thermage: ฿20,000–60,000. Never pay Ultherapy prices for an unnamed machine.",
+        a: `In Bangkok single-session listings: Ulthera typically ${MED(AP.ulthera)}, Ultraformer ${MED(AP.hifuUltraformer)}, other HIFU machines ${MED(AP.hifuOther)}, Thermage ${MED(AP.thermage)}. Never pay Ulthera prices for an unnamed machine. Every listing is on /prices/hifu-cost-bangkok.`,
       },
       {
         q: "Is Ultherapy better than Korean HIFU machines?",
@@ -603,19 +614,19 @@ export const GUIDES: Guide[] = [
     title: "Forehead Botox in Bangkok — Areas, Units, Price & Results (2026)",
     metaTitle: "Forehead Botox Bangkok 2026 — Units, Cost & Area Guide",
     metaDescription:
-      "Forehead botox in Bangkok costs ฿2,000–5,000 per area. Forehead lines, frown lines, crow's feet, brow lift — units needed and prices for each area explained.",
+      `Forehead botox in Bangkok: units needed for forehead lines, frown lines, crow's feet and brow lift, and what clinics list per unit and per area.`,
     updated: "2026-06-03",
     intro:
       "Upper-face botox — covering forehead lines, frown lines (glabella), crow's feet, and brow position — is the most common aesthetic treatment in Bangkok. Getting the right dose in the right areas makes the difference between 'natural and refreshed' and 'frozen'. This guide explains units, pricing by area, and what Bangkok's best results actually look like.",
     sections: [
       {
-        heading: "Bangkok botox pricing by area (2026)",
+        heading: "Units by area, and what that costs in Bangkok",
         body:
-          "Forehead lines (horizontal): 10–20 units. ฿1,500–4,500 (Botulax/Dysport); ฿3,000–7,000 (Allergan). Smooths horizontal lines without immobilising the brow. " +
-          "Frown lines / glabella (11s): 15–25 units. ฿2,000–5,000. The most common complaint area — vertical lines between the brows. Highest satisfaction scores in reviews. " +
-          "Crow's feet (eyes): 8–15 units/side. ฿1,500–4,000. Often bundled with forehead/glabella for a full upper-face package. " +
-          "Brow lift (chemical): 2–6 units, strategic placement. ฿800–2,000 add-on. Lifts the lateral brow 1–3mm by relaxing the depressor muscles. " +
-          "Full upper-face package (forehead + glabella + crow's feet): ฿6,000–15,000 depending on brand. The most common Bangkok package for medical tourists.",
+          "Forehead lines (horizontal): 10–20 units. Smooths horizontal lines without immobilising the brow. " +
+          "Frown lines / glabella (11s): 15–25 units. The most common complaint area — vertical lines between the brows. " +
+          "Crow's feet (eyes): 8–15 units/side. Often combined with forehead/glabella for a full upper face. " +
+          "Brow lift (chemical): 2–6 units, strategic placement. Lifts the lateral brow 1–3mm by relaxing the depressor muscles. " +
+          `Price: Bangkok packages that state a unit count work out at a typical ${MED(AP.botoxPerUnit)} per unit (middle half ${MID(AP.botoxPerUnit)}); per-area packages are typically ${MED(AP.botoxPerArea)}. Multiply the units you are quoted by the per-unit price to compare clinics.`,
       },
       {
         heading: "First-timer guide: what to expect",
@@ -637,7 +648,7 @@ export const GUIDES: Guide[] = [
     faqs: [
       {
         q: "How much does forehead botox cost in Bangkok?",
-        a: "Per area: ฿1,500–5,000 for forehead lines, ฿2,000–5,500 for frown lines (glabella), ฿1,500–4,000 for crow's feet. Full upper-face package (all three): ฿6,000–15,000 depending on brand. Allergan is most expensive; Botulax/Dysport are value alternatives.",
+        a: `Per-area packages in Bangkok listings are typically ${MED(AP.botoxPerArea)}; per-unit packages work out at a typical ${MED(AP.botoxPerUnit)} per unit. A full upper face uses about 35–65 units. Brand changes the price, so ask which one you are getting.`,
       },
       {
         q: "How many units for forehead botox?",
@@ -864,14 +875,14 @@ export const GUIDES: Guide[] = [
     title: "Botox Price in Bangkok 2026 — Clinics & Costs",
     metaTitle: "Botox Price Bangkok 2026 — Per Unit, Per Area, Best Clinics",
     metaDescription:
-      "Botox prices in Bangkok: ฿150–฿400/unit, ฿3,000–฿12,000 per area. Allergan vs Korean brands. Top clinics by Trust Score. Updated June 2026.",
+      `Botox prices in Bangkok from clinic listings: typical ${MED(AP.botoxPerUnit)} per unit, ${MED(AP.botoxPerArea)} per area. Allergan vs Korean brands, and top clinics by Trust Score.`,
     updated: "2026-06-01",
     intro:
-      "Bangkok is Southeast Asia's top destination for aesthetic medicine, with hundreds of clinics offering Botox at prices significantly below Western markets.",
+      "Bangkok has hundreds of clinics offering Botox, and clinics price it either per unit or per area. Here is what they list, from package prices published on HDmall.",
     sections: [
       {
         heading: "Botox Pricing in Bangkok — Per Unit vs Per Area",
-        body: "Most Bangkok clinics price Botox in one of two ways: per unit (฿150–฿400/unit) or per area (฿3,000–฿8,000/area). A standard forehead treatment uses 15–25 units; crow's feet 10–15 units per side. Budget clinics use Korean brands (Botulax, Nabota) at ฿150–฿200/unit. Premium clinics use Allergan Botox or Dysport at ฿300–฿450/unit.",
+        body: `Bangkok clinics price Botox per unit or per area. Packages that state a unit count work out at a typical ${MED(AP.botoxPerUnit)} per unit (middle half ${MID(AP.botoxPerUnit)}); per-area packages are typically ${MED(AP.botoxPerArea)}. A standard forehead treatment uses 15–25 units; crow's feet 10–15 units per side. Where a package names the brand, Korean toxins are listed at ${LH(AP.botoxKorean, " per unit")} and Allergan at ${LH(AP.botoxAllergan, " per unit")}.`,
       },
       {
         heading: "Which Brand: Allergan vs Korean Botox",
@@ -885,14 +896,14 @@ export const GUIDES: Guide[] = [
     faqs: [
       {
         q: "How much does Botox cost in Bangkok?",
-        a: "Botox in Bangkok costs ฿150–฿400 per unit depending on brand (Allergan, Dysport, Korean brands). Per-area pricing: ฿3,000–฿8,000 per area. Full forehead + frown lines + crow's feet typically costs ฿8,000–฿20,000 total. Premium clinics charge more but use internationally recognized brands.",
+        a: `A typical ${MED(AP.botoxPerUnit)} per unit (middle half ${MID(AP.botoxPerUnit)}) for packages that state a unit count, and a typical ${MED(AP.botoxPerArea)} per area. Brand changes the price. Every listing, with its source, is on /prices/botox-cost-bangkok.`,
       },
       {
         q: "Is Botox safe in Thailand?",
         a: "Botox is widely and safely administered in Thailand by licensed doctors. Ensure the clinic shows you the sealed product vial before injection to confirm the brand. Complications are rare but more likely from unlicensed practitioners — choose clinics with verified doctor credentials and high review volumes.",
       },
     ],
-    related: ["dental-implant-cost-thailand"],
+    related: ["bangkok-botox-guide", "botox-forehead-bangkok"],
   },
 ];
 

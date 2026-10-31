@@ -5,9 +5,9 @@ import type { Clinic } from "@/lib/types";
 
 type Lang = "en" | "ko" | "th";
 const COPY: Record<Lang, { eyebrow: string; heading: string; sub: string }> = {
-  en: { eyebrow: "Patient voices", heading: "Real voices from real patients", sub: "Aggregated from Google · HDmall · Wongnai · Pantip. We do not edit or remove negative reviews." },
-  ko: { eyebrow: "환자의 목소리", heading: "실제 환자들의 진짜 목소리", sub: "Google · HDmall · Wongnai · Pantip에서 수집. 부정 리뷰를 편집하거나 삭제하지 않습니다." },
-  th: { eyebrow: "เสียงจากผู้ป่วย", heading: "เสียงจริงจากผู้ป่วยจริง", sub: "รวบรวมจาก Google · HDmall · Wongnai · Pantip เราไม่แก้ไขหรือลบรีวิวเชิงลบ" },
+  en: { eyebrow: "Patient voices", heading: "Real voices from real patients", sub: "Excerpts from public Google Maps reviews. We do not edit or remove negative reviews." },
+  ko: { eyebrow: "환자의 목소리", heading: "실제 환자들의 진짜 목소리", sub: "공개된 구글 지도 후기에서 발췌. 부정 리뷰를 편집하거나 삭제하지 않습니다." },
+  th: { eyebrow: "เสียงจากผู้ป่วย", heading: "เสียงจริงจากผู้ป่วยจริง", sub: "คัดจากรีวิวสาธารณะบน Google Maps เราไม่แก้ไขหรือลบรีวิวเชิงลบ" },
 };
 
 export default function TestimonialMarquee({ clinics, lang = "en" }: { clinics: Clinic[]; lang?: Lang }) {

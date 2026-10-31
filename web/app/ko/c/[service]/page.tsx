@@ -14,6 +14,11 @@ import { BookingForm } from "@/components/BookingForm";
 import { StatsBar } from "@/components/StatsBar";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
+import { aestheticPriceFacts, midText, loHiText, baht } from "@/lib/aestheticPriceGuide";
+// 보톡스·필러·HIFU 가격은 HDmall 패키지 가격에서 (2026-10-31, 출처 없는 "฿80–250/유닛" 등 교체).
+const AP = aestheticPriceFacts();
+const MED = (t: { median: number } | null) => (t ? baht(t.median) : "—");
+const MID = (t: Parameters<typeof midText>[0]) => midText(t) ?? "—";
 import type { Metadata } from "next";
 
 const VALID = new Set(["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"]);
@@ -38,7 +43,7 @@ const KO_FAQ: Partial<Record<string, { q: string; a: string }[]>> = {
     },
     {
       q: "방콕 보톡스 가격은 얼마인가요?",
-      a: "유닛당 ฿80~250 (브랜드별 차이). 이마·미간·눈가 등 부위별로 필요 유닛 수가 달라 상담 시 정확한 견적을 받는 게 좋습니다.",
+      a: `HDmall 에 올라온 방콕 클리닉 패키지를 유닛당으로 환산하면 보통 ${MED(AP.botoxPerUnit)} (중간 50% ${MID(AP.botoxPerUnit)})입니다. 브랜드를 밝힌 패키지 중엔 한국산이 가장 쌉니다(${loHiText(AP.botoxKorean) ?? "—"}). 부위별 필요 유닛 수가 다르니 유닛 수와 브랜드를 꼭 확인하세요.`,
     },
   ],
   dental: [
@@ -58,7 +63,7 @@ const KO_FAQ: Partial<Record<string, { q: string; a: string }[]>> = {
     },
     {
       q: "방콕 필러 가격은 얼마인가요?",
-      a: "1ml당 ฿8,000~25,000. 부위(입술, 팔자주름, 코 등)와 브랜드에 따라 차이가 큽니다.",
+      a: `1cc(1ml) 패키지가 보통 ${MED(AP.filler1cc)} (중간 50% ${MID(AP.filler1cc)})입니다. 대부분 브랜드를 밝히지 않으니 브랜드와 제품 라인을 꼭 물어보세요.`,
     },
   ],
   hifu: [
@@ -68,7 +73,7 @@ const KO_FAQ: Partial<Record<string, { q: string; a: string }[]>> = {
     },
     {
       q: "방콕 HIFU 가격은 얼마인가요?",
-      a: "1회 ฿8,000~80,000+ — 장비(Ultherapy, Thermage, Ultraformer)와 시술 범위에 따라 편차가 큽니다.",
+      a: `1회 기준 Ultraformer 보통 ${MED(AP.hifuUltraformer)}, 기타 HIFU 장비 ${MED(AP.hifuOther)}, Ulthera ${MED(AP.ulthera)}, Thermage FLX ${MED(AP.thermage)}. 장비와 샷 수에 따라 크게 달라집니다.`,
     },
   ],
   facial: [
@@ -80,7 +85,7 @@ const KO_FAQ: Partial<Record<string, { q: string; a: string }[]>> = {
   laser: [
     {
       q: "방콕 레이저 시술 가격은 얼마인가요?",
-      a: "피코레이저 ฿3,000부터, CO2레이저 ฿8,000부터. 색소·모공·흉터 등 목적에 따라 적합한 레이저 종류가 다릅니다.",
+      a: "클리닉마다 편차가 커서 우리가 근거 있는 가격을 내지 못합니다. 대부분 여러 회 시술이 필요하니 1회 가격보다 전체 코스 가격을 비교하세요. 색소·모공·흉터 등 목적에 따라 적합한 레이저 종류가 다릅니다.",
     },
   ],
   hair_transplant: [

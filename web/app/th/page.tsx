@@ -11,6 +11,11 @@
 //     가격/시술 정보가 담긴 영어 FAQ 14개의 태국어 대응이 없었다.
 // /ko 는 2026-07-10에 같은 버그를 이미 고쳤다 — 그 패턴을 그대로 가져온다.
 import { getSiteConfig, type SiteFocus } from "@/lib/site";
+import { aestheticPriceFacts, midText, loHiText, baht } from "@/lib/aestheticPriceGuide";
+// 보톡스·필러·HIFU 가격은 HDmall 패키지 가격에서 (2026-10-31, 출처 없는 "฿80–250/유닛" 등 교체).
+const AP = aestheticPriceFacts();
+const MED = (t: { median: number } | null) => (t ? baht(t.median) : "—");
+const MID = (t: Parameters<typeof midText>[0]) => midText(t) ?? "—";
 import type { Metadata } from "next";
 import HomePage from "../page";
 
@@ -114,7 +119,7 @@ const TH_CONTENT_FAQS: Partial<Record<SiteFocus, { q: string; a: string }[]>> = 
   botox: [
     {
       q: "โบท็อกซ์ในกรุงเทพราคาเท่าไหร่ต่อยูนิต?",
-      a: "ราคาต่อยูนิตขึ้นกับแบรนด์: ฿80–250 ต่อยูนิต โดยทั่วไปแบรนด์เกาหลี (Botulax, Nabota) ถูกกว่าแบรนด์ตะวันตก (Allergan Botox, Dysport) หลายคลินิกคิดเป็นแพ็กเกจต่อบริเวณแทนต่อยูนิต ควรถามให้ชัดว่าราคาที่แจ้งเป็นต่อยูนิตหรือต่อบริเวณ",
+      a: `แพ็กเกจที่ระบุจำนวนยูนิตบน HDmall คิดเป็นต่อยูนิตโดยทั่วไป ${MED(AP.botoxPerUnit)} (ครึ่งกลาง ${MID(AP.botoxPerUnit)}) ในแพ็กเกจที่ระบุแบรนด์ แบรนด์เกาหลีถูกที่สุด (${loHiText(AP.botoxKorean) ?? "—"}) หลายคลินิกคิดเป็นแพ็กเกจต่อบริเวณ (โดยทั่วไป ${MED(AP.botoxPerArea)}) ควรถามให้ชัดว่าราคาที่แจ้งเป็นต่อยูนิตหรือต่อบริเวณ`,
     },
     {
       q: "ต้องใช้กี่ยูนิตต่อบริเวณ?",
@@ -122,7 +127,7 @@ const TH_CONTENT_FAQS: Partial<Record<SiteFocus, { q: string; a: string }[]>> = 
     },
     {
       q: "ฟิลเลอร์และ HIFU ราคาเท่าไหร่?",
-      a: "ฟิลเลอร์ ฿8,000–25,000 ต่อ 1 ml ขึ้นกับแบรนด์ (Juvederm, Restylane, Belotero) · HIFU ฿8,000–80,000 ต่อครั้ง ขึ้นกับจำนวนช็อตและเครื่องที่ใช้ (Ulthera ราคาสูงกว่าเครื่องทั่วไปมาก) ควรถามชื่อเครื่องและจำนวนช็อตก่อนตัดสินใจ",
+      a: `ฟิลเลอร์ 1 cc โดยทั่วไป ${MED(AP.filler1cc)} · HIFU ต่อครั้ง: Ultraformer ${MED(AP.hifuUltraformer)}, เครื่องอื่น ${MED(AP.hifuOther)}, Ulthera ${MED(AP.ulthera)} (จากแพ็กเกจที่ประกาศบน HDmall) ควรถามชื่อเครื่องและจำนวนช็อตก่อนตัดสินใจ`,
     },
     {
       q: "เช็คโบท็อกซ์ของแท้อย่างไร?",
