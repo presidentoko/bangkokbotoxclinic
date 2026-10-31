@@ -269,7 +269,17 @@ def reject_bad_dbd_matches(suppliers: list[dict]) -> set[str]:
     dropped: set[str] = set()
     for s in suppliers:
         d = s.get("dbd")
-        if d and not dbd_name_ok(s.get("name", ""), d.get("legal_name", "")):
+        # 태국어 법인명 또는 영문 법인명 중 하나와 맞으면 인정한다. 영문을 보지
+        # 않으면 구글맵이 영문 상호를 가진 공급사는 DBD 가 그 회사를 정확히
+        # 갖고 있어도 전부 탈락한다 — `Thai Onono Public Company Limited` ↔
+        # `ไทย โอโนโน่ จำกัด (มหาชน)` (reg 0107537002133) 가 그 예다. 느슨해지는
+        # 것이 아니다: 비교는 여전히 법인 표기를 지운 뒤의 이름 일치이고,
+        # Kerry Logistics → HD Logistics 는 양쪽 다 거부된다.
+        if d and not any(
+            dbd_name_ok(s.get("name", ""), nm)
+            for nm in (d.get("legal_name", ""), d.get("legal_name_en", ""))
+            if nm
+        ):
             s["dbd"] = None
             s["verified"] = False
             dropped.add(s["id"])

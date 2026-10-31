@@ -31,7 +31,7 @@ from lib_dbd import DbdClient, normalize_keyword, name_variants
 # 함수여야 한다.** 여기서 따로 구현하면, 이 매처가 후보로 올린 것이 다음
 # rebuild 에서 조용히 떨어져 나가는 상태로 갈린다. (그쪽은 `if __name__` 가드가
 # 있어 import 해도 아무것도 실행되지 않는다.)
-from rebuild_master_db import dbd_name_ok
+from rebuild_master_db import _norm_company, dbd_name_ok
 
 WEB = HERE.parent
 DATA = WEB / "data"
@@ -42,6 +42,8 @@ LOGS.mkdir(exist_ok=True)
 
 OUT_ALL  = DBD_OUT / "rematch_results.json"
 OUT_HIGH = DBD_OUT / "rematch_candidates.json"
+# 포함일치만으로 통과한 건 — 자동 머지 대상이 아니라 사람이 보는 목록.
+OUT_REVIEW = DBD_OUT / "rematch_review.json"
 LOG_FILE = LOGS / "dbd_rematch.log"
 
 # 강화된 매칭 점수 ≥ THIS 만 candidate 로
@@ -52,19 +54,37 @@ HIGH_THRESHOLD = 90
 # 이름을 비교하기 전에 이 토큰들을 **지우고**, 이쪽은 토큰이 **있는지** 본다.
 # 그래서 ร้าน(개인 상점)은 저쪽 패턴에는 들어 있지만 여기서는 제외한다 —
 # 등기가 있을 근거가 아니라 없을 근거다.
-def name_matches(supplier_name: str, hit: dict) -> bool:
-    """상호가 이 등기 기록의 이름과 같은가 — 태국어 법인명 또는 영문 법인명.
+def name_strength(supplier_name: str, hit: dict) -> str | None:
+    """이 등기 기록이 상호와 얼마나 맞는가 — "exact", "loose", 또는 None.
 
-    같은 문자 체계끼리만 비교한다. 영문 상호를 태국어 법인명과 문자열 비교하면
-    원리적으로 통과할 수 없는데, 그게 진짜 매치를 떨어뜨렸다:
-    `Thai Onono Public Company Limited` ↔ `ไทย โอโนโน่ จำกัด (มหาชน)` (등록번호
-    0107537002133, 자본금 4천만 바트) 는 같은 회사인데 탈락한다. DBD 응답의
-    jpNameE 와 비교하면 같은 체계끼리 붙는다.
+    태국어 법인명과 영문 법인명 둘 다 본다. 같은 문자 체계끼리만 비교해야 해서
+    jpNameE 가 필요하다: `Thai Onono Public Company Limited` ↔
+    `ไทย โอโนโน่ จำกัด (มหาชน)` (등록번호 0107537002133) 는 같은 회사인데
+    라틴↔태국 문자열 비교로는 원리적으로 통과할 수 없다.
+
+    exact 와 loose 를 가르는 이유 — dbd_name_ok 는 한쪽 이름이 다른 쪽에
+    포함되고 남는 토막이 숫자나 몇몇 접미사일 때도 통과시킨다. 그 구멍은
+    `วีที แหนมเนือง ↔ วีที แหนมเนือง 2023 จำกัด`(같은 회사의 연도 표기) 를 위한
+    것인데, 접두사가 같은 **다른** 회사도 같이 통과한다. 2026-10-31 실측으로
+    후보 946 건 중 23 건이 이 경로였고 그 안에 분명한 오매치가 있었다:
+
+        Nikon (Thailand) Co., Ltd.  ↔ นิกร789 จำกัด        ฿1M
+        YS TECH (THAILAND) CO.,LTD  ↔ ซิสเทค (ประเทศไทย)   ฿140M
+        ALUCON Public Company Ltd   ↔ อลูคอน 1990          ฿5M
+
+    ALUCON 은 같은 검색 결과 안에 정답(`อลูคอน จำกัด (มหาชน)`, ฿432M,
+    0107537001854)이 있었는데도 순서상 1990 쪽이 먼저 걸렸다. 그래서 호출부는
+    exact 를 loose 보다 **우선**해야 하고, loose 는 자동 후보가 아니라 사람이
+    볼 목록으로 빠진다.
     """
+    best = None
     for legal in (hit.get("jpName"), hit.get("jpNameE")):
-        if legal and dbd_name_ok(supplier_name, legal):
-            return True
-    return False
+        if not legal or not dbd_name_ok(supplier_name, legal):
+            continue
+        if _norm_company(supplier_name) == _norm_company(legal):
+            return "exact"
+        best = "loose"
+    return best
 
 
 _JURISTIC = re.compile(
@@ -201,10 +221,12 @@ def main() -> None:
     cli = DbdClient(polite_delay=0.7)
     results: list[dict] = []
     candidates: list[dict] = []
+    review: list[dict] = []
     cnt_attempted = 0
     cnt_matched_high = 0
     cnt_matched_low = 0
     cnt_no_hits = 0
+    cnt_review = 0
     cnt_errors = 0
 
     t0 = time.time()
@@ -217,9 +239,12 @@ def main() -> None:
         best = None
         best_score = 0
         best_reasons: list[str] = []
-        exact = None          # 이름 규칙을 통과한 hit (있으면 이게 답이다)
+        exact = None          # 이름이 완전히 일치한 hit — 있으면 이게 답이다
         exact_score = 0
         exact_reasons: list[str] = []
+        loose = None          # 포함+잔여로만 통과한 hit — 사람이 볼 목록으로
+        loose_score = 0
+        loose_reasons: list[str] = []
         tried: list[str] = []
 
         for kw in variants[:3]:  # 최대 3 variants
@@ -239,22 +264,32 @@ def main() -> None:
                 # 규칙을 통과한 hit 를 덮어쓰면 안 된다 — 2026-10-03 실행에서
                 # ดีพีพี ซัพพลาย บางปู ↔ ดีพีพี ซัพพลาย บางปู จำกัด (글자 그대로
                 # 같고 จำกัด 만 붙은 것) 이 55점이라 68점 오답에 밀려 사라졌다.
-                if exact is None and name_matches(name, h):
+                strength = name_strength(name, h)
+                if strength == "exact" and exact is None:
                     exact, exact_score, exact_reasons = h, sc, reasons
+                elif strength == "loose" and loose is None:
+                    loose, loose_score, loose_reasons = h, sc, reasons
             if exact is not None:
-                break  # 이름이 일치했다 — 더 볼 이유가 없다
+                break  # 이름이 완전히 일치했다 — 더 볼 이유가 없다
+            # loose 뿐이면 계속 본다. 같은 결과 집합 안에 완전일치가 더 뒤에
+            # 있을 수 있다 — ALUCON 이 정확히 그랬다.
 
-        # 기록하는 hit 는 이름이 일치한 것이 있으면 그것, 없으면 퍼지 최고점.
-        hit = exact if exact is not None else best
+        # 기록하는 hit 는 완전일치 > 포함일치 > 퍼지 최고점 순.
+        if exact is not None:
+            hit, hit_score, hit_reasons, strength = exact, exact_score, exact_reasons, "exact"
+        elif loose is not None:
+            hit, hit_score, hit_reasons, strength = loose, loose_score, loose_reasons, "loose"
+        else:
+            hit, hit_score, hit_reasons, strength = best, best_score, best_reasons, None
         rec = {
             "supplier_id": sup_id,
             "supplier_name": name,
             "supplier_city": sup.get("city_label"),
             "supplier_district": sup.get("district"),
             "variants_tried": tried,
-            "score": exact_score if exact is not None else best_score,
-            "reasons": exact_reasons if exact is not None else best_reasons,
-            "name_match": exact is not None,
+            "score": hit_score,
+            "reasons": hit_reasons,
+            "name_match": strength,
         }
         if hit:
             rec.update({
@@ -271,12 +306,16 @@ def main() -> None:
 
         results.append(rec)
 
-        # 후보 기준은 이름 일치다. 퍼지 점수가 아니다 — 2026-10-26 교정의 결론이
-        # 그것이었고(506/847 이 다른 회사였다), 그 결론이 이 매처에는 전파되지
-        # 않아 10-03 실행은 유효한 매치 10 건을 전부 버렸다.
+        # 후보 기준은 이름 **완전일치** 다. 퍼지 점수가 아니다 — 2026-10-26
+        # 교정의 결론이 그것이었고(506/847 이 다른 회사였다), 그 결론이 이
+        # 매처에는 전파되지 않아 10-03 실행은 유효한 매치 10 건을 전부 버렸다.
+        # 포함일치는 자동 승격하지 않는다 (name_strength 주석의 Nikon/ALUCON).
         if exact is not None:
             cnt_matched_high += 1
             candidates.append(rec)
+        elif loose is not None:
+            cnt_review += 1
+            review.append(rec)
         elif best_score >= 60:
             cnt_matched_low += 1
         else:
@@ -288,23 +327,27 @@ def main() -> None:
             rate = i / elapsed
             eta_sec = (len(unverified) - i) / rate
             log.info(
-                f"  [{i:4d}/{len(unverified)}] high={cnt_matched_high} low={cnt_matched_low} no={cnt_no_hits} err={cnt_errors}  "
+                f"  [{i:4d}/{len(unverified)}] exact={cnt_matched_high} review={cnt_review} low={cnt_matched_low} no={cnt_no_hits} err={cnt_errors}  "
                 f"rate={rate:.1f}/s eta={eta_sec/60:.0f}min"
             )
             OUT_ALL.write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
             OUT_HIGH.write_text(json.dumps(candidates, ensure_ascii=False, indent=2), encoding="utf-8")
+            OUT_REVIEW.write_text(json.dumps(review, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # 최종 저장
     OUT_ALL.write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
     OUT_HIGH.write_text(json.dumps(candidates, ensure_ascii=False, indent=2), encoding="utf-8")
+    OUT_REVIEW.write_text(json.dumps(review, ensure_ascii=False, indent=2), encoding="utf-8")
 
     log.info("=" * 60)
     log.info(f"DONE — {cnt_attempted} attempted")
-    log.info(f"  high confidence (≥{HIGH_THRESHOLD}): {cnt_matched_high}")
+    log.info(f"  name exact (머지 후보):   {cnt_matched_high}")
+    log.info(f"  name loose (검수 필요):   {cnt_review}")
     log.info(f"  low conf (60-{HIGH_THRESHOLD-1}):     {cnt_matched_low}")
     log.info(f"  no hits:                {cnt_no_hits}")
     log.info(f"  errors:                 {cnt_errors}")
     log.info(f"  → {OUT_HIGH}")
+    log.info(f"  → {OUT_REVIEW}")
 
 
 if __name__ == "__main__":
