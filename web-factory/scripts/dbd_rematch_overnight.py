@@ -27,6 +27,12 @@ HERE = Path(__file__).parent
 sys.path.insert(0, str(HERE))
 from lib_dbd import DbdClient, normalize_keyword, name_variants
 
+# 이름 일치 규칙은 rebuild_master_db.py 가 매 rebuild 마다 집행하는 것과 **같은
+# 함수여야 한다.** 여기서 따로 구현하면, 이 매처가 후보로 올린 것이 다음
+# rebuild 에서 조용히 떨어져 나가는 상태로 갈린다. (그쪽은 `if __name__` 가드가
+# 있어 import 해도 아무것도 실행되지 않는다.)
+from rebuild_master_db import dbd_name_ok
+
 WEB = HERE.parent
 DATA = WEB / "data"
 DBD_OUT = DATA / "dbd"
@@ -40,6 +46,33 @@ LOG_FILE = LOGS / "dbd_rematch.log"
 
 # 강화된 매칭 점수 ≥ THIS 만 candidate 로
 HIGH_THRESHOLD = 90
+
+# 상호에 법인 표기가 있는가 — DBD 에 등기가 존재할 수 있는 이름인지의 사전 판정.
+# rebuild_master_db.py 의 _LEGAL 과 같은 어휘를 쓰지만 역할이 반대다: 저쪽은
+# 이름을 비교하기 전에 이 토큰들을 **지우고**, 이쪽은 토큰이 **있는지** 본다.
+# 그래서 ร้าน(개인 상점)은 저쪽 패턴에는 들어 있지만 여기서는 제외한다 —
+# 등기가 있을 근거가 아니라 없을 근거다.
+def name_matches(supplier_name: str, hit: dict) -> bool:
+    """상호가 이 등기 기록의 이름과 같은가 — 태국어 법인명 또는 영문 법인명.
+
+    같은 문자 체계끼리만 비교한다. 영문 상호를 태국어 법인명과 문자열 비교하면
+    원리적으로 통과할 수 없는데, 그게 진짜 매치를 떨어뜨렸다:
+    `Thai Onono Public Company Limited` ↔ `ไทย โอโนโน่ จำกัด (มหาชน)` (등록번호
+    0107537002133, 자본금 4천만 바트) 는 같은 회사인데 탈락한다. DBD 응답의
+    jpNameE 와 비교하면 같은 체계끼리 붙는다.
+    """
+    for legal in (hit.get("jpName"), hit.get("jpNameE")):
+        if legal and dbd_name_ok(supplier_name, legal):
+            return True
+    return False
+
+
+_JURISTIC = re.compile(
+    r"บริษัท|บจก\.?|บจ\.|ห้างหุ้นส่วนจำกัด|ห้างหุ้นส่วนสามัญ|ห้างหุ้นส่วน|หจก\.?|หจ\.|"
+    r"จำกัด|\(?มหาชน\)?|"
+    r"co\.?,?\s*ltd|company\s+limited|public\s+company|\bpcl\b|corporation|corp\.",
+    re.I,
+)
 
 
 def normalize_phone(p: str) -> str:
@@ -134,7 +167,26 @@ def main() -> None:
     #                 유일한 신뢰 근거다 (2026-10-03: 해당 1,664곳 중 758곳은
     #                 이미 검증돼 있고, 나머지에서 상호에 법인 표기가 있는
     #                 144곳이 재시도 가치가 있다).
-    #   --limit N     앞에서 N 곳만.
+    #   --untried     DBD 파이프라인에 한 번도 들어가 본 적 없는 곳만
+    #                 (`verified` 키 자체가 없는 레코드). 2026-10-31 실측으로
+    #                 시도된 곳은 2,742 곳뿐이고 11,456 곳은 미시도다. 이미
+    #                 실패한 잔여물을 다시 돌리는 건 값이 없다 — 2026-10-03 에
+    #                 906 곳(잔여물)을 돌려서 ≥90 이 0 건, 89%가 아예 검색
+    #                 결과조차 없었다(no hits 810).
+    #   --juristic    상호에 법인 표기가 있는 곳만. DBD 는 법인 등기부라서
+    #                 `ร้าน…`(개인 상점)은 애초에 기록이 없다. 시도된 집단에서
+    #                 법인 표기가 있는 쪽 성공률은 13.9%(247/1,781), 없는 쪽은
+    #                 6.0%(58/961) — 요청당 수확이 2.3 배다.
+    #                 이 성공률은 2026-10-26 교정(이름 일치만 인정, 퍼지 점수
+    #                 무시) **이후** 수치라 부풀려져 있지 않다.
+    if "--untried" in sys.argv:
+        before = len(unverified)
+        unverified = [s for s in unverified if "verified" not in s]
+        log.info(f"--untried: {before} -> {len(unverified)}")
+    if "--juristic" in sys.argv:
+        before = len(unverified)
+        unverified = [s for s in unverified if _JURISTIC.search(s.get("name", ""))]
+        log.info(f"--juristic: {before} -> {len(unverified)}")
     if "--no-contact" in sys.argv:
         before = len(unverified)
         unverified = [s for s in unverified if not s.get("phone") and not s.get("website")]
@@ -165,6 +217,9 @@ def main() -> None:
         best = None
         best_score = 0
         best_reasons: list[str] = []
+        exact = None          # 이름 규칙을 통과한 hit (있으면 이게 답이다)
+        exact_score = 0
+        exact_reasons: list[str] = []
         tried: list[str] = []
 
         for kw in variants[:3]:  # 최대 3 variants
@@ -180,30 +235,46 @@ def main() -> None:
                     best_score = sc
                     best = h
                     best_reasons = reasons
-            if best_score >= HIGH_THRESHOLD:
-                break  # 충분히 좋음
+                # 퍼지 점수와 **별도로** 이름 규칙을 본다. 점수가 높은 hit 가
+                # 규칙을 통과한 hit 를 덮어쓰면 안 된다 — 2026-10-03 실행에서
+                # ดีพีพี ซัพพลาย บางปู ↔ ดีพีพี ซัพพลาย บางปู จำกัด (글자 그대로
+                # 같고 จำกัด 만 붙은 것) 이 55점이라 68점 오답에 밀려 사라졌다.
+                if exact is None and name_matches(name, h):
+                    exact, exact_score, exact_reasons = h, sc, reasons
+            if exact is not None:
+                break  # 이름이 일치했다 — 더 볼 이유가 없다
 
+        # 기록하는 hit 는 이름이 일치한 것이 있으면 그것, 없으면 퍼지 최고점.
+        hit = exact if exact is not None else best
         rec = {
             "supplier_id": sup_id,
             "supplier_name": name,
             "supplier_city": sup.get("city_label"),
             "supplier_district": sup.get("district"),
             "variants_tried": tried,
-            "score": best_score,
-            "reasons": best_reasons,
+            "score": exact_score if exact is not None else best_score,
+            "reasons": exact_reasons if exact is not None else best_reasons,
+            "name_match": exact is not None,
         }
-        if best:
+        if hit:
             rec.update({
-                "dbd_jpNo": best.get("jpNo"),
-                "dbd_jpType": best.get("jpTypeCode"),
-                "dbd_name": best.get("jpName"),
-                "dbd_capAmt": best.get("capAmt"),
-                "dbd_address": best.get("address"),
+                "dbd_jpNo": hit.get("jpNo"),
+                "dbd_jpType": hit.get("jpTypeCode"),
+                "dbd_name": hit.get("jpName"),
+                # 등기부 영문명. 구글맵은 영문 상호를, DBD 는 태국어 법인명만
+                # 갖는 경우가 흔해서 (이 풀의 48%) 이 필드 없이는 교차 문자
+                # 체계 매치를 원리적으로 확인할 수 없다.
+                "dbd_name_e": hit.get("jpNameE"),
+                "dbd_capAmt": hit.get("capAmt"),
+                "dbd_address": hit.get("address"),
             })
 
         results.append(rec)
 
-        if best_score >= HIGH_THRESHOLD:
+        # 후보 기준은 이름 일치다. 퍼지 점수가 아니다 — 2026-10-26 교정의 결론이
+        # 그것이었고(506/847 이 다른 회사였다), 그 결론이 이 매처에는 전파되지
+        # 않아 10-03 실행은 유효한 매치 10 건을 전부 버렸다.
+        if exact is not None:
             cnt_matched_high += 1
             candidates.append(rec)
         elif best_score >= 60:
