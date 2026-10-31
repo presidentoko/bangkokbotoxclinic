@@ -4,9 +4,11 @@ import PetProfileSetup from '@/components/PetProfileSetup'
 import PersonalizedFoodRecs from '@/components/PersonalizedFoodRecs'
 import PopularFoods from '@/components/PopularFoods'
 import RecentFoods from '@/components/RecentFoods'
+import { loadFoodsLight } from '@/lib/petfood'
+import { loadHospitals } from '@/lib/hospitals'
 
 const FOOD_CHIPS = [
-  { label: 'Royal Canin', href: '/food?q=royal+canin' },
+  { label: 'Royal Canin', href: '/food/brand/royal-canin' },
   { label: '🐶 Puppy/Kitten', href: '/food/puppy' },
   { label: '🐈 แมว', href: '/food?animal=cat' },
   { label: '⭐ เกรด A', href: '/food/best' },
@@ -20,9 +22,15 @@ const HOSPITAL_CHIPS = [
   { label: '📍 ใกล้ฉัน', href: '/hospital?filter=near' },
 ]
 
+// Counted from the data at build time. Both used to be typed in by hand and
+// had drifted (986 foods / 496 Bangkok clinics while the site held 1,686 and 854
+// in four cities).
+const FOOD_COUNT = loadFoodsLight().length
+const HOSPITAL_COUNT = loadHospitals().length
+
 const STATS = [
-  { num: '986', label: 'อาหารที่ตรวจสอบแล้ว', icon: '🍖' },
-  { num: '496', label: 'โรงพยาบาลสัตว์', icon: '🏥' },
+  { num: FOOD_COUNT.toLocaleString(), label: 'อาหารที่ตรวจสอบแล้ว', icon: '🍖' },
+  { num: HOSPITAL_COUNT.toLocaleString(), label: 'โรงพยาบาลสัตว์', icon: '🏥' },
   { num: '฿0', label: 'ค่าบริการ ฟรีตลอด', icon: '💝' },
 ]
 
@@ -42,7 +50,9 @@ const TOOLS = [
   { href: '/dental',        icon: '🦷', title: 'ดูแลฟัน',            desc: 'แปรง/สเกลฟัน' },
   { href: '/deworming',     icon: '🪱', title: 'ถ่ายพยาธิ',          desc: 'ตารางและวิธีการ' },
   { href: '/checklist',     icon: '✅', title: 'เช็คลิสต์รายสัปดาห์',desc: 'ติดตามการดูแลน้อง' },
-  { href: '/neutering', icon: '🔪', title: 'ทำหมัน',   desc: 'ราคา อายุที่เหมาะ และการดูแลหลังผ่าตัด' },
+  { href: '/neutering', icon: '✂️', title: 'ทำหมัน',   desc: 'ราคา อายุที่เหมาะ และการดูแลหลังผ่าตัด' },
+  { href: '/hospital/prices',  icon: '🏷️', title: 'ราคาโรงพยาบาล',     desc: 'ทำหมัน วัคซีน ตรวจสุขภาพ' },
+  { href: '/hospital/24h',     icon: '⏰', title: 'เปิด 24 ชม.',         desc: 'โรงพยาบาลสัตว์ 24 ชั่วโมง' },
   { href: '/flea',             icon: '🦟', title: 'กำจัดหมัด/เห็บ',  desc: 'ยา วิธีกำจัด ป้องกัน' },
   { href: '/grooming',         icon: '🪮', title: 'ดูแลขน/Grooming', desc: 'อาบน้ำ แปรงขน ตัดเล็บ' },
   { href: '/food/puppy',       icon: '🐶', title: 'อาหาร Puppy',      desc: 'ลูกสุนัข/ลูกแมว' },
@@ -53,7 +63,6 @@ const TOOLS = [
   { href: '/potty-training',   icon: '🚽', title: 'ฝึกฉี่ถูกที่',        desc: 'สุนัขและแมว' },
   { href: '/weight',           icon: '⚖️', title: 'ประเมินน้ำหนัก',      desc: 'BCS 1-9 เช็คอ้วนผอม' },
   { href: '/cat-behavior',     icon: '🐱', title: 'พฤติกรรมแมว',          desc: 'ทำไมแมวถึง...' },
-  { href: '/neutering',        icon: '✂️', title: 'ทำหมัน',               desc: 'ประโยชน์ ราคา ดูแลหลัง' },
   { href: '/heartworm',        icon: '🦟', title: 'พยาธิหัวใจ',            desc: 'ป้องกัน ยาที่ใช้ อาการ' },
   { href: '/allergy',          icon: '🤧', title: 'แพ้อาหาร',              desc: 'อาการ + elimination diet' },
   { href: '/travel',           icon: '✈️', title: 'เดินทางกับน้อง',         desc: 'สายการบิน เอกสาร' },
@@ -87,17 +96,14 @@ export default function HomePage() {
         <div className="absolute bottom-8 left-4 text-white/10 text-6xl select-none pointer-events-none rotate-12">🐾</div>
 
         <div className="max-w-2xl mx-auto text-center relative z-10">
-          {/* Floating badge */}
-          <div className="inline-flex items-center gap-1.5 bg-white/20 text-white/90 text-xs font-semibold px-3 py-1.5 rounded-full mb-5 backdrop-blur-sm border border-white/30">
-            🇹🇭 แหล่งข้อมูลสัตว์เลี้ยงอันดับ 1 ของไทย
-          </div>
-
-          <p className="text-white/80 text-sm font-bold tracking-wide mb-2">🐾 PetBKK</p>
+          {/* "แหล่งข้อมูลสัตว์เลี้ยงอันดับ 1 ของไทย" stood here — a claim
+              nothing on the site supports. */}
+          <p className="text-white/80 text-sm font-bold tracking-wide mb-2">🐾 ThailandPetHub</p>
           <h1 className="text-3xl sm:text-5xl font-black text-white mb-3 tracking-tight">
             ตรวจสอบอาหารสัตว์เลี้ยง · หาโรงพยาบาลสัตว์ใกล้คุณ
           </h1>
           <p className="text-white/85 text-base sm:text-lg font-medium mb-8 leading-relaxed">
-            เช็คส่วนผสมและเกรด A–F ของอาหาร 986 รายการ ค้นโรงพยาบาลสัตว์ 496 แห่งในกรุงเทพ<br/>
+            เช็คส่วนผสมและเกรด A–F ของอาหาร {FOOD_COUNT.toLocaleString()} รายการ ค้นโรงพยาบาลสัตว์ {HOSPITAL_COUNT.toLocaleString()} แห่ง ในกรุงเทพ เชียงใหม่ พัทยา และภูเก็ต<br/>
             <span className="text-white/70 text-sm sm:text-base">ดูแลน้องได้ครบ ฟรี 100%</span>
           </p>
 

@@ -120,7 +120,7 @@ export default function PetProfileCard({ profile }: Props) {
     const canvas = canvasRef.current
     if (!canvas) return
     shareOrDownloadCanvas(canvas, 'pet-card.png', {
-      title: `บัตรน้อง — ${profile.name || 'PetBKK'}`,
+      title: `บัตรน้อง — ${profile.name || 'ThailandPetHub'}`,
       text: shareText,
     })
   }

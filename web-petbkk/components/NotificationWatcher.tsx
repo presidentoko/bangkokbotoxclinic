@@ -28,9 +28,9 @@ export default function NotificationWatcher() {
       if (lastNotified === todayStr) return
 
       const body = due.map(r => `• ${r.name}`).join('\n')
-      const title = '💉 PetBKK — วัคซีนน้องใกล้ถึงกำหนด'
+      const title = '💉 ThailandPetHub — วัคซีนน้องใกล้ถึงกำหนด'
       const opts: NotificationOptions = {
-        body: `${body}\n\nไปดูตารางวัคซีนที่ PetBKK`,
+        body: `${body}\n\nไปดูตารางวัคซีนที่ ThailandPetHub`,
         icon: '/icon.svg',
         tag: 'vaccine-reminder',
       }

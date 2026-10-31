@@ -6,6 +6,7 @@ import { getIndexableDistricts } from '@/lib/districts'
 import { CITY_META } from '@/lib/cityHub'
 import { cities24h } from '@/lib/city24h'
 import { BREEDS } from '@/lib/breeds'
+import { allBrandStats } from '@/lib/brandStats'
 
 const BASE = 'https://www.thailandpethub.com'
 
@@ -168,9 +169,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: 'monthly',
   }))
 
+  // Brand pages: the whole range measured, only for brands past the data gate
+  // in lib/brandStats.ts. These, not the product pages, are how the catalogue
+  // asks to be indexed.
+  const brandPages: MetadataRoute.Sitemap = allBrandStats().map(b => ({
+    url: `${BASE}/food/brand/${b.slug}`,
+    lastModified: BUILD_DATE,
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }))
+
   return [
     ...staticPages.map(p => ({ lastModified: BUILD_DATE, ...p })),
     ...foodPages,
+    ...brandPages,
     ...districtPages,
     ...cityHubPages,
     ...city24hPages,

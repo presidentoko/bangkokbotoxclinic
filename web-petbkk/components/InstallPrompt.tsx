@@ -53,7 +53,7 @@ export default function InstallPrompt() {
     >
       <div className="text-3xl flex-shrink-0">🐾</div>
       <div className="flex-1 min-w-0">
-        <p className="font-bold text-sm text-gray-900">เพิ่ม PetBKK ไปที่หน้าจอหลัก</p>
+        <p className="font-bold text-sm text-gray-900">เพิ่ม ThailandPetHub ไปที่หน้าจอหลัก</p>
         <p className="text-xs text-gray-400 mt-0.5">เข้าถึงได้เร็วขึ้น ใช้งานได้แบบออฟไลน์</p>
       </div>
       <div className="flex gap-2 flex-shrink-0">

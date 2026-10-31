@@ -35,7 +35,7 @@ export default function VaccineReminderButton({ items }: Props) {
 
     // Show confirmation notification
     try {
-      new Notification('PetBKK — บันทึกการแจ้งเตือนแล้ว 🐾', {
+      new Notification('ThailandPetHub — บันทึกการแจ้งเตือนแล้ว 🐾', {
         body: `บันทึก ${reminders.length} รายการวัคซีนแล้ว เราจะแจ้งเตือนเมื่อใกล้ถึงกำหนด`,
         icon: '/icon.svg',
         tag: 'vaccine-saved',

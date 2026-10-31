@@ -32,7 +32,7 @@ export default function OgImage() {
         fontSize: 80, fontWeight: 900, color: 'white',
         letterSpacing: -2, display: 'flex',
       }}>
-        PetBKK
+        ThailandPetHub
       </div>
       <div style={{
         fontSize: 32, color: 'rgba(255,255,255,0.85)',

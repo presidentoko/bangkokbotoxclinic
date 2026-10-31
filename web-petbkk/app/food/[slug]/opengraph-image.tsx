@@ -29,7 +29,7 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         fontFamily: 'sans-serif',
       }}>
-        <div style={{ color: 'white', fontSize: 48, fontWeight: 900, display: 'flex' }}>🐾 PetBKK</div>
+        <div style={{ color: 'white', fontSize: 48, fontWeight: 900, display: 'flex' }}>🐾 ThailandPetHub</div>
       </div>,
       { width: 1200, height: 630 }
     )

@@ -33,12 +33,12 @@ export const metadata: Metadata = {
     locale: 'th_TH',
     url: 'https://www.thailandpethub.com',
     siteName: 'ThailandPetHub',
-    title: 'PetBKK — ตรวจสอบอาหารและโรงพยาบาลสัตว์เลี้ยง',
+    title: 'ThailandPetHub — ตรวจสอบอาหารและโรงพยาบาลสัตว์เลี้ยง',
     description: 'ตรวจสอบส่วนประกอบอาหารสัตว์เลี้ยง เกรด A-F ค้นหาโรงพยาบาลสัตว์ใกล้คุณ ฟรี 100%',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'PetBKK — ดูแลสัตว์เลี้ยงครบจบที่นี่',
+    title: 'ThailandPetHub — ดูแลสัตว์เลี้ยงครบจบที่นี่',
     description: 'ตรวจสอบอาหาร หาโรงพยาบาล เครื่องมือครบสำหรับเจ้าของสัตว์เลี้ยง ฟรี 100%',
   },
   robots: {
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'PetBKK',
+    title: 'ThailandPetHub',
   },
   formatDetection: {
     telephone: false,
@@ -139,7 +139,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="max-w-5xl mx-auto">
             {/* Brand + primary nav */}
             <div className="flex items-center gap-4 mb-2">
-              <a href="/" className="font-black text-xl text-orange-500 flex-shrink-0 tracking-tight">🐾 PetBKK</a>
+              <a href="/" className="font-black text-xl text-orange-500 flex-shrink-0 tracking-tight">🐾 ThailandPetHub</a>
               <nav className="hidden sm:flex gap-3 text-sm overflow-x-auto scrollbar-none flex-1 min-w-0">
                 <a href="/food"     className="whitespace-nowrap hover:text-orange-600 py-2">อาหาร</a>
                 <a href="/hospital" className="whitespace-nowrap hover:text-orange-600 py-2">โรงพยาบาล</a>

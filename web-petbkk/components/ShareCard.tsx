@@ -63,7 +63,7 @@ export default function ShareCard({ food }: Props) {
     ctx.fillStyle = '#ea580c'
     ctx.font = 'bold 22px sans-serif'
     ctx.textAlign = 'left'
-    ctx.fillText('🐾 PetBKK', 36, 52)
+    ctx.fillText('🐾 ThailandPetHub', 36, 52)
 
     ctx.fillStyle = '#6b7280'
     ctx.font = '16px sans-serif'

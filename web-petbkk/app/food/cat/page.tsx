@@ -3,9 +3,10 @@ import { filterFoods, toLightFood } from '@/lib/petfood'
 import FoodCard from '@/components/FoodCard'
 import CompactFoodList from '@/components/CompactFoodList'
 import RelatedGuides from '@/components/RelatedGuides'
+import { allBrandStats } from '@/lib/brandStats'
 
 export const metadata: Metadata = {
-  title: 'อาหารแมวที่ดีที่สุด — เปรียบเทียบเกรดคุณภาพ',
+  title: 'อาหารแมว ยี่ห้อไหนดี — เทียบโปรตีนและเกรดส่วนผสมแต่ละแบรนด์',
   description: 'เปรียบเทียบอาหารแมวยี่ห้อดัง Royal Canin, Hill\'s, Whiskas พร้อมเกรด A-F จากการวิเคราะห์ส่วนประกอบจริง หาอาหารแมวที่ดีที่สุดสำหรับน้อง ฟรี 100%',
   alternates: { canonical: 'https://www.thailandpethub.com/food/cat' },
   keywords: ['อาหารแมว', 'อาหารแมวที่ดีที่สุด', 'Royal Canin แมว', 'Hills แมว', 'Whiskas', 'เกรดอาหารแมว', 'AAFCO แมว'],
@@ -61,6 +62,9 @@ export default function CatFoodPage() {
   const kittenFoods = allCat.filter(f => f.life_stage === 'puppy')
   const adultFoods = allCat.filter(f => f.life_stage === 'adult')
   const seniorFoods = allCat.filter(f => f.life_stage === 'senior')
+  const catBrands = allBrandStats()
+    .filter(b => b.dryCat)
+    .sort((a, b) => b.dryCat!.proteinMedian - a.dryCat!.proteinMedian)
 
   return (
     <main className="max-w-4xl mx-auto">
@@ -76,13 +80,48 @@ export default function CatFoodPage() {
 
       <h1 className="text-3xl font-black text-gray-900 mb-3">🐈 อาหารแมวที่ดีที่สุด</h1>
       <p className="text-gray-600 text-sm leading-relaxed mb-2 max-w-2xl">
-        เปรียบเทียบ <strong>{allCat.length} ยี่ห้อ</strong> พร้อมเกรดคุณภาพ A–F จากการวิเคราะห์ส่วนประกอบจริง
+        เปรียบเทียบ <strong>{allCat.length} สูตร</strong> พร้อมเกรดคุณภาพ A–F จากการวิเคราะห์ส่วนประกอบจริง
         ดูว่าอาหารแมวของคุณมีโปรตีนเพียงพอหรือไม่ มีส่วนประกอบที่ควรระวังบ้างไหม ฟรี 100%
       </p>
       <p className="text-gray-500 text-sm leading-relaxed mb-8 max-w-2xl">
         แมวเป็นสัตว์กินเนื้อโดยธรรมชาติ (obligate carnivore) ต้องการโปรตีนจากเนื้อสัตว์สูงและทอรีนที่ได้จากเนื้อสัตว์เท่านั้น
         อาหารแมวที่ดีควรระบุโปรตีนเนื้อสัตว์เป็นอันดับแรก และผ่านมาตรฐาน AAFCO
       </p>
+
+      {/* Brand by brand, measured: the answer to "อาหารแมว ยี่ห้อไหนดี"
+          that a list of products cannot give. Dry food only, dry-matter
+          basis, and only brands with enough labels (lib/brandStats.ts). */}
+      {catBrands.length > 0 && (
+        <section className="mb-8 bg-white border rounded-2xl p-5">
+          <h2 className="text-xl font-bold text-gray-800 mb-1">อาหารแมวเม็ด ยี่ห้อไหนโปรตีนสูง</h2>
+          <p className="text-xs text-gray-500 mb-3">
+            โปรตีนแบบ dry matter (ตัดความชื้นออก) ค่ามัธยฐานของทุกสูตรเม็ดสำหรับแมวในแต่ละแบรนด์ จากฉลากจริง
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-left text-xs text-gray-500">
+                  <th className="pb-2 pr-3 font-medium">แบรนด์</th>
+                  <th className="pb-2 pr-3 font-medium">สูตรเม็ด</th>
+                  <th className="pb-2 pr-3 font-medium">โปรตีน (มัธยฐาน)</th>
+                  <th className="pb-2 font-medium">ช่วง</th>
+                </tr>
+              </thead>
+              <tbody>
+                {catBrands.map(b => (
+                  <tr key={b.slug} className="border-t border-gray-100">
+                    <td className="py-2 pr-3"><a href={`/food/brand/${b.slug}`} className="font-semibold text-gray-800 hover:text-orange-600">{b.brand}</a></td>
+                    <td className="py-2 pr-3 tabular-nums">{b.dryCat!.n}</td>
+                    <td className="py-2 pr-3 tabular-nums font-semibold">{Math.round(b.dryCat!.proteinMedian)}%</td>
+                    <td className="py-2 tabular-nums text-gray-500">{Math.round(b.dryCat!.proteinMin)}–{Math.round(b.dryCat!.proteinMax)}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-xs text-gray-400 mt-3">โปรตีนสูงไม่ได้แปลว่าดีกว่าเสมอ แมวโรคไตอาจต้องการโปรตีนต่ำกว่า ปรึกษาสัตวแพทย์</p>
+        </section>
+      )}
 
       {kittenFoods.length > 0 && (
         <section className="mb-8">
