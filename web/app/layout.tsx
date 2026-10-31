@@ -7,6 +7,7 @@ import { PRICE_GUIDE_FOCUS } from "@/lib/aestheticPriceGuide";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ToastProvider } from "@/components/Toast";
 import SisterSites from "@/components/SisterSites";
+import MyQuoteBanner from "@/components/auction/MyQuoteBanner";
 import { CurrencyProvider } from "@/components/CurrencyConverter";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -133,6 +134,7 @@ export default function RootLayout({
         <ToastProvider>
           <CurrencyProvider>
           <SiteHeader focus={cfg.focus} accent={cfg.themeAccent} />
+          {cfg.focus === "botox" && <MyQuoteBanner />}
           <main>{children}</main>
         <SisterSites focus={cfg.focus} />
         <footer className="border-t border-[var(--border)] mt-16 bg-white">
@@ -166,6 +168,7 @@ export default function RootLayout({
                 <a href="/disclaimer" className="hover:text-black">Disclaimer</a>
                 <a href="/methodology" className="hover:text-black">Methodology</a>
                 {PRICE_GUIDE_FOCUS.has(cfg.focus) && <a href="/prices" className="hover:text-black">Price guides</a>}
+                {cfg.focus === "botox" && <a href="/quote" className="hover:text-black">Get clinic quotes</a>}
                 <a href="/verify" className="hover:text-black">Is this clinic licensed?</a>
                 <a href="/corrections" className="hover:text-black">Corrections</a>
               </div>

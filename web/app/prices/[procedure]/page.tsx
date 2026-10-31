@@ -154,6 +154,13 @@ export default async function PriceGuidePage({ params }: { params: Promise<{ pro
         </section>
       )}
 
+      {getSiteConfig().focus === "botox" && (
+        <a href="/quote" className="block rounded-xl border border-[var(--border)] bg-white p-4 mb-8 hover:border-black">
+          <span className="font-semibold">Want an actual price for you?</span>{" "}
+          <span className="text-[var(--muted)]">Tell us what you want done and Bangkok clinics send you their quotes to compare. Free →</span>
+        </a>
+      )}
+
       <section className="mb-8" aria-label="Prices by group">
         <h2 className="text-xl font-bold mb-3">Price by {cfg.groupBy}</h2>
         <div className="overflow-x-auto">

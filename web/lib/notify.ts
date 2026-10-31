@@ -115,7 +115,11 @@ export async function notifyPaymentClaim(claim: PaymentClaim): Promise<void> {
   }
 }
 
-export async function sendTelegram(text: string): Promise<boolean> {
+export type TelegramButton = { text: string; url: string };
+
+// buttons: 메시지 아래 URL 버튼 (한 줄에 하나). 텔레그램은 버튼 URL 하나만 잘못돼도
+// 메시지 전체를 거부하므로, 실패하면 버튼 없이 URL 을 본문에 붙여 한 번 더 보낸다.
+export async function sendTelegram(text: string, buttons?: TelegramButton[]): Promise<boolean> {
   if (!TELEGRAM_TOKEN || !TELEGRAM_CHAT_ID) {
     console.log("[notify.telegram] no token/chat — skipping.");
     return false;
@@ -124,11 +128,18 @@ export async function sendTelegram(text: string): Promise<boolean> {
     const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text }),
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: text.slice(0, 4000),
+        ...(buttons?.length ? { reply_markup: { inline_keyboard: buttons.map((b) => [b]) } } : {}),
+      }),
       signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) {
       console.error("[notify.telegram] err", res.status, await res.text());
+      if (buttons?.length) {
+        return sendTelegram(`${text}\n\n${buttons.map((b) => `${b.text}: ${b.url}`).join("\n")}`);
+      }
       return false;
     }
     return true;
