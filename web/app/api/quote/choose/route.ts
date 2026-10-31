@@ -2,7 +2,8 @@
 // 클리닉 연락처는 손님에게 보여주지 않는다 (연결은 형이 한다).
 
 import { getRequestBySecret, listBids, saveRequest } from "@/lib/auctionStore";
-import { baht, customerMessageLink, igDmLink, igHandle, mapsLink, procedureLabel } from "@/lib/auctionText";
+import { baht, customerMessageLink, igDmLink, mapsLink, procedureLabel } from "@/lib/auctionText";
+import { clinicInstagram } from "@/lib/clinicInstagram";
 import { getClinicById, loadMasterDb } from "@/lib/data";
 import { sendTelegram, type TelegramButton } from "@/lib/notify";
 import { getSiteUrl } from "@/lib/site";
@@ -30,7 +31,7 @@ export async function POST(req: Request) {
 
   const db = await loadMasterDb();
   const c = getClinicById(db.clinics, bid.clinic_id);
-  const ig = igHandle(c?.website_instagram);
+  const ig = clinicInstagram(c);
   const site = getSiteUrl();
 
   const toClinic = [

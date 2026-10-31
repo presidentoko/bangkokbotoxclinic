@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import AdminLogin from "@/components/AdminLogin";
 import { isAdminAuthedFromCookies } from "@/lib/adminAuth";
 import { getRequest, isOpen, listBids, listInvites } from "@/lib/auctionStore";
-import { baht, clinicDmText, customerMessageLink, igDmLink, igHandle, mapsLink, procedureLabel } from "@/lib/auctionText";
+import { baht, clinicDmText, customerMessageLink, igDmLink, mapsLink, procedureLabel } from "@/lib/auctionText";
+import { clinicInstagram } from "@/lib/clinicInstagram";
 import { getClinicById, loadMasterDb } from "@/lib/data";
 import { applySiteFilter, getSiteConfig, getSiteUrl } from "@/lib/site";
 import { CopyButton } from "../../outreach/[clinicId]/CopyButton";
@@ -38,7 +39,7 @@ export default async function AuctionDetailPage({ params }: { params: Promise<{ 
       trust: c.trust_score,
       rating: c.rating,
       reviews: c.total_reviews,
-      ig: !!igHandle(c.website_instagram),
+      ig: !!clinicInstagram(c),
     }));
 
   return (
@@ -84,7 +85,7 @@ export default async function AuctionDetailPage({ params }: { params: Promise<{ 
         <ul className="space-y-3">
           {invites.map((inv) => {
             const c = getClinicById(db.clinics, inv.clinic_id);
-            const ig = igHandle(c?.website_instagram);
+            const ig = clinicInstagram(c);
             const bidUrl = `${SITE}/bid/${inv.token}`;
             const bid = bidBy.get(inv.token);
             return (
@@ -97,7 +98,10 @@ export default async function AuctionDetailPage({ params }: { params: Promise<{ 
                   <CopyButton text={clinicDmText(r, bidUrl)} label="DM 문구 복사" />
                   {ig
                     ? <a href={igDmLink(ig)} target="_blank" rel="noopener noreferrer" className={btn}>인스타 DM @{ig} ↗</a>
-                    : <a href={mapsLink(c?.place_id, inv.clinic_name)} target="_blank" rel="noopener noreferrer" className={btn}>인스타 없음 · 지도 ↗</a>}
+                    : <>
+                        <a href={`https://www.instagram.com/explore/search/keyword/?q=${encodeURIComponent(inv.clinic_name)}`} target="_blank" rel="noopener noreferrer" className={btn}>인스타에서 찾기 ↗</a>
+                        <a href={mapsLink(c?.place_id, inv.clinic_name)} target="_blank" rel="noopener noreferrer" className={btn}>지도 ↗</a>
+                      </>}
                   {c?.phone && <span className="text-xs text-gray-400 self-center">{c.phone}</span>}
                 </div>
               </li>

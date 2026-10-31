@@ -9,7 +9,7 @@ export type PickerClinic = { id: string; name: string; district: string; trust: 
 export function ClinicPicker({ reqId, clinics, invited }: { reqId: string; clinics: PickerClinic[]; invited: string[] }) {
   const router = useRouter();
   const [q, setQ] = useState("");
-  const [igOnly, setIgOnly] = useState(true);
+  const [igOnly, setIgOnly] = useState(() => clinics.some((c) => c.ig));
   const [sel, setSel] = useState<Set<string>>(new Set());
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState("");
